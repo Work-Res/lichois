@@ -1,0 +1,1 @@
+from .work_resident_identifier import WorkResidentPermitIdentifier

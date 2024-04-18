@@ -1,0 +1,1 @@
+from .work_resident_permit_data import WorkResidentPermitData

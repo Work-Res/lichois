@@ -1,0 +1,3 @@
+{{ object.application.application_document.document_number }}
+{{ object.application.application_status.name }}
+{{ object.application.application_document.applicant.user_identifier }}

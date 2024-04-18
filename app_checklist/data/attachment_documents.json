@@ -1,0 +1,63 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+            "code": "ATTACHMENT_DOCUMENTS",
+            "name": "ATTACHMENT DOCUMENTS",
+            "description": "A list of document to attach",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01",
+            "classifier_items": [
+              {
+                "code":  "PASSPORT_COPY",
+                "name":  "PASSPORT COPY",
+                "process": "residentpermit",
+                "description": "Scanned passport page 1 copy.",
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01"
+              }, {
+                "code":  "PASSPORT_PHOTO",
+                "name":  "PASSPORT PHOTO",
+                "process": "residentpermit",
+                "description": "Passport photo",
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01"
+              }, {
+                "code":  "COVER_LETTER",
+                "name":  "COVER LETTER",
+                "process": "residentpermit",
+                "description": "Cover letter",
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01"
+              },
+              {
+                "code":  "CONFIRMATION_LETTER",
+                "name":  "CONFIRMATION LETTER",
+                "process": "residentpermit",
+                "description": "Confirmation Letter",
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01"
+              },{
+                "code":  "CERTIFIED_COPY_OF_OMANG",
+                "name":  "CERTIFIED COPY OF OMANG",
+                "process": "residentpermit",
+                "description": "Certified copy of omang",
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01"
+              },{
+                "code":  "MARRIAGE CERTIFICATE",
+                "name":  "MARRIAGE_CERTIFICATE",
+                "process": "residentpermit",
+                "description": "Certified copy of Marriage Certificate",
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01"
+              }
+            ]
+    }
+  }
+}

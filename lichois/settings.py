@@ -37,9 +37,24 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
-    'rest_framework',
-    
+    "base_module.apps.AppConfig",
+    "app.apps.AppConfig",
+    "app_search.apps.AppSearchConfig",
+    "app_pdf_utilities.apps.AppPdfUtilitiesConfig",
+    "app_checklist.apps.AppChecklistConfig",
+    "app_attachments.apps.AppAttachmentsConfig",
+    "app_address.apps.AppAddressConfig",
+    "app_personal_details.apps.AppPersonalDetailsConfig",
+    "app_comments.apps.AppCommentsConfig",
+    "identifier.apps.AppConfig",
+    "haystack",
+    "rest_framework",
+    "rest_framework_swagger",
+    "viewflow",
+    "viewflow.workflow",
+    "django_filters",
+    "django_api_client",
+
 ]
 
 MIDDLEWARE = [
@@ -114,11 +129,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-}
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -129,3 +139,41 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/app',
+        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores',
+        'TIMEOUT': 60 * 5
+    },
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+DJANGO_API_CLIENT = {
+  'API': [
+    # {
+    #     'NAME': 'production',
+    #     'BASE_URL': 'https://example.com',
+    #     'ENDPOINTS': [
+    #         '/v1/order/orders',
+    #         '/v1/user/users',
+    #         ...
+    #     ],
+    #     'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
+    # },
+    {
+        'NAME': 'localhost',
+        'BASE_URL': 'http://localhost:8001',
+        'ENDPOINTS': [
+            '/v1/order/orders',
+            '/v1/user/users',
+            ...
+        ],
+        'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
+    }
+  ]
+}

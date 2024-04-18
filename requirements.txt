@@ -1,2 +1,11 @@
 Django
 django-simple-history
+djangorestframework
+django-filter
+markdown
+pytest
+django-viewflow
+pytest-factoryboy
+pytest-django
+django_filters
+django-api-client
