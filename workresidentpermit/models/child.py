@@ -4,7 +4,7 @@ from base_module.model_mixins import BaseUuidModel
 
 from ..choices import GENDER, YES_NO
 
-from ..models import WorkResidencePermit
+from .work_resident_permit import WorkResidencePermit
 
 
 class Child(BaseUuidModel):

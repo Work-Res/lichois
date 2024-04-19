@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import AddressCreateListView
 
 router = DefaultRouter()
-router.register(r'addresses', AddressCreateListView, basename='snippet')
+router.register(r'addresses', AddressCreateListView)
 
 urlpatterns = [
     path('', include(router.urls)),

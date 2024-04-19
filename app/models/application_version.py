@@ -15,7 +15,7 @@ class ApplicationVersion(BaseUuidModel):
     """
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
     version_number = models.IntegerField()
-    comment = models.TextField()
+    app_comment = models.TextField()
 
     def __str__(self):
         return f"{self.application} - Version {self.version_number}"

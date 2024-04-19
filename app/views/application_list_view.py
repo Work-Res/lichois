@@ -17,6 +17,7 @@ class ApplicationModelFilter(django_filters.FilterSet):
 
     class Meta:
         model = Application
+        exclude = ('last_application_version_id',)
 
 
 class ApplicationListView(viewsets.ModelViewSet):
@@ -25,15 +26,3 @@ class ApplicationListView(viewsets.ModelViewSet):
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
 
-    # filterset_fields = ['application_document__document_number', 'in_stock']
-
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     created_date = self.request.query_params.get('created_date', None)
-    #     pagination_class = pagination.PageNumberPagination
-    #     page_size = 10
-    #
-    #     if created_date:
-    #         created_date = datetime.strptime(created_date, "%Y-%m-%d")
-    #         queryset = Application.objects.filter(created__date=created_date)
-    #     return queryset

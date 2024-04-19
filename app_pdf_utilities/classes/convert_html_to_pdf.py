@@ -1,7 +1,12 @@
+import os
+import uuid
+
 import logging
 
 from xhtml2pdf import pisa
 from django.template import Template, Context
+
+from django.conf import settings
 
 
 class ConvertHtmlToPdf(object):
@@ -34,7 +39,10 @@ class ConvertHtmlToPdf(object):
         Create PDF from plain HTML without Django variables within the template.
         NB: You this method for single PDF document. ( No support for pagination )
         """
-        file_location = file_location or self.output_filename
+        new_uuid = str(uuid.uuid4())
+        file_name = f"{new_uuid}.pdf"
+        default = os.path.join(settings.MEDIA_ROOT, "generated_pdf", file_name)
+        file_location = file_location or self.output_filename or default
         html_template = html_template or self.source_html
         self.to_pdf(file_location, html_template)
 
@@ -43,9 +51,11 @@ class ConvertHtmlToPdf(object):
         Create PDF from  HTML with Django variables within the template.
         NB: You this method for single PDF document. ( No support for pagination )
         """
+        new_uuid = str(uuid.uuid4())
+        file_name = f"{new_uuid}.pdf"
+        default = os.path.join(settings.MEDIA_ROOT, "generated_pdf", file_name)
+        file_location = file_location or self.output_filename or default
         context = Context(context)
         template = Template(html_content)
         rendered_html = template.render(context)
         return self.to_pdf(file_location, rendered_html)
-
-

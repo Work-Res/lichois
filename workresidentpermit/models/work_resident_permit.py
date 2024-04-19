@@ -3,7 +3,6 @@ from django.db import models
 from base_module.model_mixins import BaseUuidModel
 
 from base_module.choices import PREFERRED_METHOD_COMM, YES_NO, REASONS_PERMIT
-from ..models import Spouse
 from app.models import ApplicationVersion
 
 
@@ -24,7 +23,6 @@ class WorkResidencePermit(BaseUuidModel):
 	sentenced_before = models.TextField()
 	entry_place = models.CharField(max_length=190)
 	arrival_date = models.DateField()
-	spouse = models.ManyToManyField(Spouse, related_name='wives')
 	application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE)
 
 	class Meta:

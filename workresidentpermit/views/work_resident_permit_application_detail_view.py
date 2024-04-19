@@ -1,7 +1,5 @@
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
 
 from ..classes import WorkResidentPermitData
 from ..api import WorkResidentPermitDataSerializer
@@ -20,5 +18,4 @@ class WorkResidentPermitApplicationDetailView(APIView):
             if work_resident_permit_data:
                 serializer = WorkResidentPermitDataSerializer(work_resident_permit_data.work_resident_permit_application)
                 return Response(serializer.data)
-
         return Response({})

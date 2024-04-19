@@ -9,7 +9,7 @@ class ApplicationDocumentListView(generics.ListAPIView):
     serializer_class = ApplicationAttachmentSerializer
 
     def get_queryset(self):
-        queryset = []
+        queryset = ApplicationAttachment.objects.all()
         document_number = self.request.query_params.get('application_number')
 
         # Filter the queryset based on parameters

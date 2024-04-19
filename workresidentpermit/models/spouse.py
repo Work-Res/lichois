@@ -2,7 +2,7 @@ from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
 
-from ..models import WorkResidencePermit
+from .work_resident_permit import WorkResidencePermit
 
 
 class Spouse(BaseUuidModel):

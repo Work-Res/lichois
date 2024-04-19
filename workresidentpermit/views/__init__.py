@@ -1,0 +1,2 @@
+from .work_resident_permit_application_detail_view import WorkResidentPermitApplicationDetailView
+from .permit_create_list_view import PermitCreateListView

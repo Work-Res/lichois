@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_personal_details.models import Permit, Person, Passport
+from app_personal_details.models import Person, Passport
 
 
 class PersonSerializer(serializers.ModelSerializer):
