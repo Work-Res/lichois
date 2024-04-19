@@ -33,15 +33,15 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/v1/', include('app.urls')),
-    path('api/v1/', include('app_address.urls')),
-    path('api/v1/', include('app_checklist.urls')),
-    path('api/v1/', include('app_comments.urls')),
-    path('api/v1/', include('app_contact.urls')),
-    path('api/v1/', include('app_decision.urls')),
-    # path('api/v1/', include('app_search.urls')),
-    path('api/v1/', include('app_personal_details.urls')),
-    path('api/v1/', include('workresidentpermit.urls')),
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('lichois/api/v1/', include('app.urls')),
+    path('lichois/api/v1/', include('app_address.urls')),
+    path('lichois/api/v1/', include('app_checklist.urls')),
+    path('lichois/api/v1/', include('app_comments.urls')),
+    path('lichois/api/v1/', include('app_contact.urls')),
+    path('lichois/api/v1/', include('app_decision.urls')),
+    # path('lichois/api/v1/', include('app_search.urls')),
+    path('lichois/api/v1/', include('app_personal_details.urls')),
+    path('lichois/api/v1/', include('workresidentpermit.urls')),
+    path('lichois/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
 ]
