@@ -14,7 +14,13 @@ from app.api.serializers import NewApplicationSerializer
 class ApplicationCreateView(APIView):
 
     """
-    Receives a request to create a new application. ( VISA or WORK PERMIT  e.t.c)
+    Receives a request to create a new application. ( VISA or WORK PERMIT  e.t.c).
+        {
+           "process_name": "work",
+           "applicant_identifier": "",
+           "dob": ""
+           "work_place": ""
+        }
     """
     def post(self, request, format=None):
         try:
