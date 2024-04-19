@@ -1,2 +1,5 @@
 from .work_resident_permit_application_detail_view import WorkResidentPermitApplicationDetailView
 from .permit_create_list_view import PermitCreateListView
+from .spouse_create_list_view import SpouseCreateListView
+from .child_create_list_view import ChildCreateListView
+from .work_resident_permit_create_list_view import WorkResidencePermitCreateListView

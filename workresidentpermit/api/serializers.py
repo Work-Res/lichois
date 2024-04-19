@@ -74,7 +74,6 @@ class WorkResidencePermitSerializer(serializers.ModelSerializer):
     sentenced_before = serializers.CharField()
     entry_place = serializers.CharField()
     arrival_date = serializers.DateField(required=True)
-    spouse = SpouseSerializer()
 
     class Meta:
         model = WorkResidencePermit
@@ -105,3 +104,4 @@ class WorkResidentPermitDataSerializer(serializers.Serializer):
     child = ChildSerializer()
     spouse = SpouseSerializer()
     form_details = WorkResidencePermitSerializer()
+
