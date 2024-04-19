@@ -10,7 +10,7 @@ from rest_framework import status
 pytestmark = pytest.mark.django_db
 
 
-class TestApplicationApi(APITestCase):
+class TestApplicationApi:
 
     """
         Test suite for applications.
