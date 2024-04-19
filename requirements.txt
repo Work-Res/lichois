@@ -7,7 +7,7 @@ pytest
 django-viewflow
 pytest-factoryboy
 pytest-django
-django_filters
+django-filters
 django-api-client
 xhtml2pdf
 pysolr
