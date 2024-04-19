@@ -22,16 +22,16 @@ class ApplicationStatusSerializer(serializers.ModelSerializer):
         )
 
 
-class UserSerializer(serializers.ModelSerializer):
+class ApplicationUserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = User
-        fields = ('id', 'username', 'email')
+        model = ApplicationUser
+        fields = ('user_identifier', 'work_location_code')
 
 
 class ApplicationDocumentSerializer(serializers.ModelSerializer):
 
-    applicant = UserSerializer()
+    applicant = ApplicationUser()
 
     class Meta:
         model = ApplicationDocument

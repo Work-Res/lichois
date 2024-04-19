@@ -11,3 +11,5 @@ django_filters
 django-api-client
 xhtml2pdf
 pysolr
+rest-swagger
+django-rest-swagger

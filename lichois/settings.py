@@ -53,11 +53,11 @@ INSTALLED_APPS = [
     "haystack",
     "rest_framework",
     "rest_framework_swagger",
+    "drf_yasg",  # Yet Another Swagger generator
     "viewflow",
     "viewflow.workflow",
     "django_filters",
     "django_api_client",
-
 ]
 
 MIDDLEWARE = [
@@ -156,27 +156,27 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
-DJANGO_API_CLIENT = {
-  'API': [
-    # {
-    #     'NAME': 'production',
-    #     'BASE_URL': 'https://example.com',
-    #     'ENDPOINTS': [
-    #         '/v1/order/orders',
-    #         '/v1/user/users',
-    #         ...
-    #     ],
-    #     'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
-    # },
-    {
-        'NAME': 'localhost',
-        'BASE_URL': 'http://localhost:8001',
-        'ENDPOINTS': [
-            '/v1/order/orders',
-            '/v1/user/users',
-            ...
-        ],
-        'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
-    }
-  ]
-}
+# DJANGO_API_CLIENT = {
+#   'API': [
+#     # {
+#     #     'NAME': 'production',
+#     #     'BASE_URL': 'https://example.com',
+#     #     'ENDPOINTS': [
+#     #         '/v1/order/orders',
+#     #         '/v1/user/users',
+#     #         ...
+#     #     ],
+#     #     'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
+#     # },
+#     {
+#         'NAME': 'localhost',
+#         'BASE_URL': 'http://localhost:8001',
+#         'ENDPOINTS': [
+#             '/v1/order/orders',
+#             '/v1/user/users',
+#             ...
+#         ],
+#         'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
+#     }
+#   ]
+# }
