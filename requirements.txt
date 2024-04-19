@@ -13,3 +13,4 @@ xhtml2pdf
 pysolr
 rest-swagger
 django-rest-swagger
+gunicorn
