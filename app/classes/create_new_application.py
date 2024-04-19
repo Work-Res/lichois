@@ -7,7 +7,6 @@ from app.identifiers import WorkResidentPermitIdentifier
 from app.utils import ApplicationProcesses
 
 from app.models import ApplicationDocument, ApplicationUser, ApplicationStatus, Application, ApplicationVersion
-from django.db import transaction
 
 
 class CreateNewApplication(object):
@@ -27,12 +26,29 @@ class CreateNewApplication(object):
         """
          Create new application records.
         """
+        application_identifier = self.application.applicant_identifier
+        status = ['new', 'draft', 'verification', 'vetting', 'committee_evaluation']
+        exits = Application.objects.filter(
+            application_status__code__in=status,
+            application_document__applicant__user_identifier=application_identifier)
+        if exits.exists():
+            api_message = APIError(
+                code=400,
+                message="Bad request",
+                details=f"An application with (NEW) status exists for applicant: {application_identifier}, complete the "
+                f"existing before open new application"
+            )
+            self.response.status = False
+            self.response.messages.append(api_message.to_dict())
+            return None  # Avoid continuing
+
         application_status = self.get_application_status()
-        application_document = self.create_application_document()
+        self.create_application_document()
 
         application = Application()
-        application.application_document = application_document
+        application.application_document = self.application_document
         application.application_status = application_status
+        application.application_type = self.application.proces_name
         application.last_application_version_id = 1
         application.save()
 
@@ -66,7 +82,8 @@ class CreateNewApplication(object):
                 details=f"The system failed to create application, failed to obtain application status with "
                         f"status: {self.application.status} and for process name: {self.application.proces_name}."
             )
-            self.response.messages.append(api_message)
+            self.response.status = False
+            self.response.messages.append(api_message.to_dict())
             
     def generate_document(self):
         """
@@ -82,25 +99,29 @@ class CreateNewApplication(object):
             api_message = APIError(
                 code=400,
                 message="Bad request",
-                details=f"The system failed to create application, failed to obtain application user with "
-                        f"user identifier: {self.application.applicant_identifier}."
+                details=f"Application processes misconfigured. "
+                        f"{self.application.proces_name} does not match {ApplicationProcesses.WORK_RESIDENT_PERMIT.value}"
             )
-            self.response.messages.append(api_message)
+            self.response.status = False
+            self.response.messages.append(api_message.to_dict())
 
     def get_or_create_application_user(self):
         """
         Based on given user_identifier create new application user or get existing user
         """
         try:
-            with transaction.atomic():
-                user, created = ApplicationUser.objects.get_or_create(
-                    user_identifier=self.application.applicant_identifier
-                )
-                if created:
-                    self.logger.info("Created a new application user - %s", self.application.applicant_identifier)
-                else:
-                    self.logger.info("Retrieved existing application user - %s", self.application.applicant_identifier)
-                return user
+            user, created = ApplicationUser.objects.get_or_create(
+                user_identifier=self.application.applicant_identifier,
+                defaults={
+                    "work_location_code": self.application.work_place,  "dob": self.application.dob,
+                    "user_identifier": self.application.applicant_identifier, "full_name": self.application.full_name
+                }
+            )
+            if created:
+                self.logger.info("Created a new application user - %s", self.application.applicant_identifier)
+            else:
+                self.logger.info("Retrieved existing application user - %s", self.application.applicant_identifier)
+            return user
         except Exception as e:
             self.logger.exception("Failed to get or create application user - %s. ERROR: %s",
                                   self.application.applicant_identifier, e)
@@ -108,9 +129,10 @@ class CreateNewApplication(object):
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create application, failed to obtain application user with "
-                        f"user identifier: {self.application.applicant_identifier}."
+                        f"user identifier: {self.application.applicant_identifier}. Error, {e}"
             )
-            self.response.messages.append(api_message)
+            self.response.status = False
+            self.response.messages.append(api_message.to_dict())
 
     def create_application_document(self):
         """
@@ -119,9 +141,27 @@ class CreateNewApplication(object):
         Args:
             process_name (str): the name of the process e.g resident permit.
         """
-        self.application_document.document_number = self.generate_document()
-        self.application_document.applicant = self.get_or_create_application_user()
-        self.application_document.document_date = date.today()
-        self.application_document.signed_date = date.today()
-        self.application_document.save()
-        return self.application_document
+        document_number = self.generate_document()
+        applicant = self.get_or_create_application_user()
+
+        if document_number is None or applicant is None:
+            api_message = APIError(
+                code=400,
+                message="Bad request",
+                details=f"The system failed to create application document, documber number: {document_number}, applicant: {applicant}. "
+            )
+            self.response.status = False
+            self.response.messages.append(api_message.to_dict())
+        else:
+            self.application_document.document_number = document_number
+            self.application_document.applicant = applicant
+            self.application_document.document_date = date.today()
+            self.application_document.signed_date = date.today()
+            self.application_document.save()
+            api_message = APIError(
+                code=200,
+                message="Success",
+                details=f"The application has been created with document number:  {document_number}."
+            )
+            self.response.status = True
+            self.response.messages.append(api_message.to_dict())

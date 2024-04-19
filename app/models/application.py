@@ -18,6 +18,7 @@ class Application(BaseUuidModel):
     last_application_version_id = models.IntegerField()
     application_document = models.ForeignKey(ApplicationDocument, on_delete=models.CASCADE)
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
+    application_type = models.CharField(max_length=200)
 
     def __str__(self):
         return f"Application {self.application_document.document_number}"

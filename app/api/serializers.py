@@ -26,12 +26,13 @@ class ApplicationUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ApplicationUser
-        fields = ('user_identifier', 'work_location_code')
+        fields = (
+            'full_name', 'user_identifier', 'work_location_code', 'dob')
 
 
 class ApplicationDocumentSerializer(serializers.ModelSerializer):
 
-    applicant = ApplicationUser()
+    applicant = ApplicationUserSerializer()
 
     class Meta:
         model = ApplicationDocument
@@ -39,6 +40,7 @@ class ApplicationDocumentSerializer(serializers.ModelSerializer):
             'document_number',
             'document_date',
             'signed_date',
+            'applicant',
             'submission_customer',
         )
 
@@ -52,6 +54,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
         model = Application
         fields = (
             'last_application_version_id',
+            'application_type',
             'application_status',
             'application_document',
         )
@@ -72,32 +75,9 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
 
 class NewApplicationSerializer(serializers.Serializer):
 
-    proces_name = serializers.CharField(max_length=200, required=True)
+    process_name = serializers.CharField(max_length=200, required=True)
+    full_name = serializers.CharField(max_length=200, required=True)
     applicant_identifier = serializers.CharField(allow_blank=False, max_length=200, required=True)
     work_place = serializers.CharField(allow_blank=False, max_length=200, required=True)
     status = serializers.CharField(max_length=30)
     dob = serializers.CharField(max_length=30)
-
-    def validate_applicant_identifier(self, value):
-        """
-        Check if the applicant exists before open new application.
-        """
-        exits = ApplicationUser.objects.exists(user_identifier=value)
-        if exits:
-            raise serializers.ValidationError(f"Applicant with {value} identifier does not exists.")
-        return value
-
-    def validate(self, data):
-        """
-        Check if there is open application for this application.
-        """
-        application_identifier = data.get("applicant_identifier")
-        status = data.get("applicant_identifier")
-        exits = Application.objects.exists(
-            application_status__status=status,
-            application_document__applicant__user_identifier=application_identifier)
-        if exits:
-            raise serializers.ValidationError(
-                f"An application with (NEW) status exists for applicant: {application_identifier}, complete the "
-                f"existing before open new application")
-        return data

@@ -31,7 +31,8 @@ class ApplicationCreateView(APIView):
                     applicant_identifier=serializer.data.get('applicant_identifier'),
                     status=serializer.data.get('status'),
                     dob=serializer.data.get('dob'),
-                    work_place=serializer.data.get('work_place')
+                    work_place=serializer.data.get('work_place'),
+                    full_name=serializer.data.get('full_name')
                 )
                 create_new = CreateNewApplication(new_application=new_app)
                 create_new.create()
