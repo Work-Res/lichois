@@ -6,13 +6,13 @@ from rest_framework.pagination import PageNumberPagination
 from app.models import Application
 from app.api.serializers import ApplicationSerializer
 
+
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
     max_page_size = 1000
 
 
 class ApplicationModelFilter(django_filters.FilterSet):
-
     application_document_number = django_filters.CharFilter(
         field_name='application__application_document__document_number', lookup_expr='icontains')
     application_status = django_filters.CharFilter(
@@ -26,10 +26,7 @@ class ApplicationModelFilter(django_filters.FilterSet):
 
 
 class ApplicationListView(viewsets.ModelViewSet, ):
-
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
     pagination_class = StandardResultsSetPagination
-
-

@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     "drf_yasg",  # Yet Another Swagger generator
     "viewflow",
     "viewflow.workflow",
-    #"django_filters",
+    "django_filters",
     "django_api_client",
     "corsheaders",
 ]
