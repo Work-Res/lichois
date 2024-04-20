@@ -1,9 +1,14 @@
 import django_filters
 
 from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
 
 from app.models import Application
 from app.api.serializers import ApplicationSerializer
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    max_page_size = 1000
 
 
 class ApplicationModelFilter(django_filters.FilterSet):
@@ -20,9 +25,11 @@ class ApplicationModelFilter(django_filters.FilterSet):
         exclude = ('last_application_version_id',)
 
 
-class ApplicationListView(viewsets.ModelViewSet):
+class ApplicationListView(viewsets.ModelViewSet, ):
 
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
+    pagination_class = StandardResultsSetPagination
+
 
