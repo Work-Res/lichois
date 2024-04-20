@@ -7,7 +7,7 @@ class PersonSerializer(serializers.ModelSerializer):
 
     first_name = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
     last_name = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
-    application_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
+    document_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
 
     class Meta:
         model = Person
@@ -22,7 +22,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'gender',
             'occupation',
             'qualification',
-            'application_number'
+            'document_number'
         )
         extra_kwargs = {
             'dob': {'format': 'iso-8601'},

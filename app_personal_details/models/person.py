@@ -36,8 +36,6 @@ class Person(BaseUuidModel):
 
     gender = models.CharField(max_length=6, choices=GENDER)
 
-    place_birth = models.CharField(max_length=190)
-
     gender = models.CharField(
         max_length=6,
         choices=GENDER)
@@ -46,7 +44,7 @@ class Person(BaseUuidModel):
 
     qualification = models.CharField(max_length=190)
 
-    application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE)
+    application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE, unique=True)
 
     class Meta:
         verbose_name = 'Personal Details'
