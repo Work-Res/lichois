@@ -1,14 +1,10 @@
 from django.db import models
 
-from app.models.application_version import ApplicationVersion
+from app.models import ApplicationBaseModel
 from .application_document_type import AttachmentDocumentType
 
-from base_module.model_mixins import BaseUuidModel
 
-
-class ApplicationAttachment(BaseUuidModel):
-
-    application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE)
+class ApplicationAttachment(ApplicationBaseModel):
 
     filename = models.CharField(max_length=200)
 

@@ -20,10 +20,10 @@ class WorkResidentPermitData(object):
         self.work_resident_permit_application.passport = self.passport()
         self.work_resident_permit_application.address = self.address()
         self.work_resident_permit_application.permit = self.permit()
-        self.work_resident_permit_application.child = self.child()
-        self.work_resident_permit_application.spouse = self.spouse()
+        # self.work_resident_permit_application.child = self.child()
+        # self.work_resident_permit_application.spouse = self.spouse()
         self.work_resident_permit_application.form_details = self.form_details()
-        self.work_resident_permit_application.attachments = self.attachments()
+        # self.work_resident_permit_application.attachments = self.attachments()
         return self.work_resident_permit_application
 
     def personal_details(self):
@@ -75,10 +75,13 @@ class WorkResidentPermitData(object):
         return spouse
 
     def form_details(self):
-        form_details = WorkResidencePermit.objects.get(
-            application_version__application__application_document__document_number=
-            self.document_number)
-        return form_details
+        try:
+            form_details = WorkResidencePermit.objects.get(
+                application_version__application__application_document__document_number=
+                self.document_number)
+            return form_details
+        except WorkResidencePermit.DoesNotExist:
+            pass
 
     def attachments(self):
         attachments = ApplicationAttachment.objects.filter(

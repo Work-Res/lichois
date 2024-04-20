@@ -14,10 +14,11 @@ class PassportCreateListView(generics.ListCreateAPIView):
     queryset = Passport.objects.all()
     serializer_class = PassportSerializer
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, document_number, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             passport_creater = CreateNewPassport(data=serializer.data)
+            passport_creater.document_number = document_number
             passport_creater.create()
             if passport_creater.response.status:
                 return Response(passport_creater.response.result(), status=status.HTTP_201_CREATED)

@@ -1,12 +1,11 @@
 from django.db import models
 
-from base_module.model_mixins import BaseUuidModel
+from app.models import ApplicationBaseModel
 
 from base_module.choices import PREFERRED_METHOD_COMM, YES_NO, REASONS_PERMIT
-from app.models import ApplicationVersion
 
 
-class WorkResidencePermit(BaseUuidModel):
+class WorkResidencePermit(ApplicationBaseModel):
 
 	file_number = models.CharField(max_length=190)
 	preferred_method_comm = models.CharField(max_length=190, choices=PREFERRED_METHOD_COMM)
@@ -23,7 +22,6 @@ class WorkResidencePermit(BaseUuidModel):
 	sentenced_before = models.TextField()
 	entry_place = models.CharField(max_length=190)
 	arrival_date = models.DateField()
-	application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = 'Work Residence Permits'

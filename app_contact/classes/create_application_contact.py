@@ -14,20 +14,20 @@ class CreateNewApplicationContact(object):
 
     def __init__(self, data={}):
         self.data = data
+        self.document_number = None
         self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
 
     def application_version(self):
         try:
-            document_number = self.data.get("document_number")
             application_version = ApplicationVersion.objects.get(
-                application__application_document__document_number=self.data.get("document_number"))
+                application__application_document__document_number=self.document_number)
             return application_version
         except ApplicationVersion.DoesNotExist:
             api_message = APIError(
                 code=400,
                 message="Bad request",
-                details=f"An application document does not exists with: {document_number}"
+                details=f"An application document does not exists with: {self.document_number}"
             )
             self.response.status = False
             self.response.messages.append(api_message.to_dict())
@@ -40,8 +40,7 @@ class CreateNewApplicationContact(object):
             application_version = self.application_version()
             if application_version:
                 self.data['application_version'] = application_version
-                document_number = self.data['document_number']
-                del self.data['document_number']
+
                 ApplicationContact.objects.create(**self.data)
                 self.response.status = True
                 api_message = APIError(

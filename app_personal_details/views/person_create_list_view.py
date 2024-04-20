@@ -1,5 +1,3 @@
-import logging
-
 from rest_framework import generics, status
 
 from rest_framework.response import Response
@@ -14,10 +12,11 @@ class PersonCreateListView(generics.ListCreateAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, document_number, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             person_creater = CreateNewPersonalDetails(data=serializer.data)
+            person_creater.document_number = document_number
             person_creater.create()
             if person_creater.response.status:
                 return Response(person_creater.response.result(), status=status.HTTP_201_CREATED)

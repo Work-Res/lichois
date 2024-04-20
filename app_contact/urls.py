@@ -26,4 +26,7 @@ router.register(r'contacts', ApplicationContactViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('contacts/<int:document_number>/update_contact/<str:pk>/',
+         ApplicationContactViewSet.as_view({'put': 'update_contact'}), name='update-contact'), # Fixme Not working, (ERROR not found)
+
 ]

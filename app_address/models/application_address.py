@@ -1,13 +1,10 @@
 from django.db import models
 
-from base_module.model_mixins import BaseUuidModel
-
-
-from app.models.application_version import ApplicationVersion
+from app.models import ApplicationBaseModel
 from .country import Country
 
 
-class ApplicationAddress(BaseUuidModel):
+class ApplicationAddress(ApplicationBaseModel):
 
     apartment_number = models.CharField(max_length=100)
     plot_number = models.CharField(max_length=100)
@@ -18,7 +15,6 @@ class ApplicationAddress(BaseUuidModel):
     status = models.CharField(max_length=100)
     private_bag = models.CharField(max_length=100)
     po_box = models.CharField(max_length=100)
-    application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.apartment_number}, {self.plot_number}, {self.street_address}, {self.city}, {self.country}"

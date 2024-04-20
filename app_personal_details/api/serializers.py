@@ -7,7 +7,6 @@ class PersonSerializer(serializers.ModelSerializer):
 
     first_name = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
     last_name = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
-    document_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
 
     class Meta:
         model = Person
@@ -21,8 +20,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'place_birth',
             'gender',
             'occupation',
-            'qualification',
-            'document_number'
+            'qualification'
         )
         extra_kwargs = {
             'dob': {'format': 'iso-8601'},
@@ -33,7 +31,6 @@ class PassportSerializer(serializers.ModelSerializer):
 
     passport_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
     nationality = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
-    document_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
 
     class Meta:
         model = Passport
@@ -42,8 +39,7 @@ class PassportSerializer(serializers.ModelSerializer):
             'date_issued',
             'place_issued',
             'expiry_date',
-            'nationality',
-            'document_number'
+            'nationality'
         )
         extra_kwargs = {
             'date_issued': {'format': 'iso-8601'},
