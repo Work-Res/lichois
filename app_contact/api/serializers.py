@@ -12,5 +12,6 @@ class ApplicationContactSerializer(serializers.ModelSerializer):
         fields = (
             'contact_type',
             'contact_value',
-            'description'
+            'description',
+            'document_number'
         )

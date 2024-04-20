@@ -43,7 +43,7 @@ class PassportSerializer(serializers.ModelSerializer):
             'place_issued',
             'expiry_date',
             'nationality',
-            'application_number'
+            'document_number'
         )
         extra_kwargs = {
             'date_issued': {'format': 'iso-8601'},
