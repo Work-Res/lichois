@@ -20,7 +20,8 @@ class PersonSerializer(serializers.ModelSerializer):
             'place_birth',
             'gender',
             'occupation',
-            'qualification'
+            'qualification',
+            'document_number'
         )
         extra_kwargs = {
             'dob': {'format': 'iso-8601'},
@@ -39,7 +40,8 @@ class PassportSerializer(serializers.ModelSerializer):
             'date_issued',
             'place_issued',
             'expiry_date',
-            'nationality'
+            'nationality',
+            'document_number',
         )
         extra_kwargs = {
             'date_issued': {'format': 'iso-8601'},

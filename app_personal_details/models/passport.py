@@ -1,11 +1,9 @@
 from django.db import models
 
-from base_module.model_mixins import BaseUuidModel
-
-from app.models import ApplicationVersion
+from app.models import ApplicationBaseModel
 
 
-class Passport(BaseUuidModel):
+class Passport(ApplicationBaseModel):
 
 	passport_number = models.CharField(
 		verbose_name='Passport number',
@@ -29,8 +27,6 @@ class Passport(BaseUuidModel):
 		max_length=190)
 
 	photo = models.URLField()
-
-	application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = 'Passport'

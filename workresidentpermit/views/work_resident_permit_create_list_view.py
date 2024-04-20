@@ -8,3 +8,4 @@ from ..api.serializers import WorkResidencePermitSerializer
 class WorkResidencePermitCreateListView(viewsets.ModelViewSet):
     queryset = WorkResidencePermit.objects.all()
     serializer_class = WorkResidencePermitSerializer
+    lookup_field = 'document_number'

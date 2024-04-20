@@ -15,5 +15,7 @@ router.register(r'workpermitdetails', WorkResidencePermitCreateListView)
 urlpatterns = [
     path('workresidentpermit/summary/<str:document_number>', WorkResidentPermitApplicationDetailView.as_view(),
          name='workresidentpermit-detail'),
+    path('spouse/<str:document_number>/<str:pk>', SpouseCreateListView.as_view({'get': 'list'}),
+         name='spouse-detail'),
     path('', include(router.urls)),
 ]

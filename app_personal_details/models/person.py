@@ -2,11 +2,10 @@ from django.db import models
 
 from workresidentpermit.choices import MARITAL_STATUS, GENDER
 
-from base_module.model_mixins import BaseUuidModel
-from app.models import ApplicationVersion
+from app.models import ApplicationBaseModel
 
 
-class Person(BaseUuidModel):
+class Person(ApplicationBaseModel):
 
     first_name = models.CharField(max_length=190)
 
@@ -43,8 +42,6 @@ class Person(BaseUuidModel):
     occupation = models.CharField(max_length=190)
 
     qualification = models.CharField(max_length=190)
-
-    application_version = models.ForeignKey(ApplicationVersion, on_delete=models.CASCADE, unique=True)
 
     class Meta:
         verbose_name = 'Personal Details'
