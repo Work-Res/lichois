@@ -33,7 +33,7 @@ class PassportSerializer(serializers.ModelSerializer):
 
     passport_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
     nationality = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
-    application_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
+    document_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
 
     class Meta:
         model = Passport

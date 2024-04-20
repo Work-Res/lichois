@@ -1,1 +1,2 @@
 from .create_personal_details import CreateNewPersonalDetails
+from .create_passport import CreateNewPassport
