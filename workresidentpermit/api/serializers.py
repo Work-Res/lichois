@@ -21,7 +21,6 @@ class PermitSerializer(serializers.ModelSerializer):
             'date_issued',
             'date_expiry',
             'place_issue',
-            'document_number',
         )
         extra_kwargs = {
             'date_issued': {'format': 'iso-8601'},
