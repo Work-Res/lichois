@@ -15,3 +15,7 @@ class ApplicationUser(BaseUuidModel):
 
     def __str__(self):
         return self.user_identifier
+
+    class Meta:
+        verbose_name_plural = "Application User"
+        ordering = ['-created']

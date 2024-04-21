@@ -1,8 +1,10 @@
-from django.urls import path
-from .views import ApplicationAttachmentCreateView, ApplicationDocumentListView, ApplicationAttachmentDeleteView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ApplicationDocumentListView
+
+router = DefaultRouter()
+router.register(r'attachments', ApplicationDocumentListView)
 
 urlpatterns = [
-    path('create/', ApplicationAttachmentCreateView.as_view(), name='attachment-create'),
-    path('list/', ApplicationDocumentListView.as_view(), name='attachment-list'),
-    path('delete/<str:id>/', ApplicationAttachmentDeleteView.as_view(), name='attachment-delete'),
+    path('', include(router.urls)),
 ]

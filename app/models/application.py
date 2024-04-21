@@ -22,3 +22,7 @@ class Application(BaseUuidModel):
 
     def __str__(self):
         return f"Application {self.application_document.document_number}"
+
+    class Meta:
+        verbose_name_plural = "Applications"
+        ordering = ['-created']

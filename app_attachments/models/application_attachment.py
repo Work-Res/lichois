@@ -17,3 +17,7 @@ class ApplicationAttachment(ApplicationBaseModel):
     received_date = models.DateTimeField()
 
     document_type = models.ForeignKey(AttachmentDocumentType, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Application Attachments"
+        ordering = ['-created']

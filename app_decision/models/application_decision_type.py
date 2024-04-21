@@ -9,3 +9,8 @@ class ApplicationDecisionType(models.Model):
     process_types = models.CharField(max_length=250)
     valid_from = models.DateField(default=timezone.now)
     valid_to = models.DateField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Application Type"
+        ordering = ['-created']
+

@@ -12,3 +12,7 @@ class AttachmentDocumentType(BaseUuidModel):
     valid_from = models.DateField()
 
     valid_to = models.DateField()
+
+    class Meta:
+        verbose_name_plural = "Application Document Types"
+        ordering = ['-created']
