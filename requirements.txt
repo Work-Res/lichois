@@ -13,6 +13,3 @@ pysolr
 rest-swagger
 django-rest-swagger
 gunicorn
-
-git+https://github.com/Work-Res/base-module.git@develop#egg=base_module
-git+https://github.com/Work-Res/identifier.git@develop#egg=identifier

@@ -1,7 +1,5 @@
 from django.db import models
-
 from app.models import ApplicationBaseModel
-
 from base_module.choices import PREFERRED_METHOD_COMM, YES_NO, REASONS_PERMIT
 
 

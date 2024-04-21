@@ -1,14 +1,11 @@
 import pytest
 
 from datetime import date
-
 from app.classes import CreateNewApplication
 from app.api import NewApplication
 from app.utils import ApplicationProcesses, statuses
-
-
 from app.models import ApplicationStatus
-from workresidentpermit.models import WorkResidencePermit, Spouse, Child, Permit
+from ..models import WorkResidencePermit, Spouse, Child, Permit
 
 from ..classes import WorkResidentPermitData
 

@@ -1,15 +1,17 @@
 import arrow
+import uuid
+import pytest
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.test import tag
-from django.test import TestCase
 from model_mommy import mommy
 from rest_framework.test import APIClient
 from rest_framework import status
-from ..models import Comment
+from ..models import EmergencyResPermitApplication
 
 
-@tag('cmnts')
-class CommentViewSetTestCase(TestCase):
+@pytest.mark.wnr
+class EmergencyResPermitApplicationViewSetTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
 
@@ -18,35 +20,39 @@ class CommentViewSetTestCase(TestCase):
             email='user1@example.com',
             password='password1')
 
-        self.comment = mommy.make_recipe(
-            'comments.comment', )
+        self.emergency_res_application = mommy.make_recipe(
+            'workresidentpermit.emergencyrespermitapplication', )
 
+    @tag('wnr1')
     def test_list(self):
-        response = self.client.get('/comments/')
+        url = reverse('permits')
+        response = self.client.get('url')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create(self):
-        comment_data = {'user': self.user1.id,
-                        'comment_text': 'this is a comment',
-                        'comment_type': 'general'}
+        url = reverse('permits-detail')
+        uuid_value = uuid.uuid4()
+        permit_data = {'id': uuid_value,}
 
-        response = self.client.post('/comments/', comment_data)
+        response = self.client.post(url, permit_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertTrue(Comment.objects.filter(user=self.user1).exists())
+        self.assertTrue(EmergencyResPermitApplication.objects.filter(id=uuid_value).exists())
 
     def test_retrieve(self):
+        url = reverse('permits-detail')
         response = self.client.get(f'/comments/{self.comment.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['comment_text'], self.comment.comment_text)
 
     def test_update(self):
+        url = reverse('permits')
         comment_data = {'comment_text': 'This is an updated comment'}
         response = self.client.patch(f'/comments/{self.comment.id}/', comment_data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Comment.objects.get(id=self.comment.id).comment_text, 'This is an updated comment')
+        self.assertEqual(EmergencyResPermitApplication.objects.get(id=self.comment.id).comment_text, 'This is an updated comment')
 
     def test_delete(self):
         comment_obj = mommy.make_recipe('comments.comment')
         response = self.client.delete(f'/comments/{comment_obj.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Comment.objects.filter(id=comment_obj.id).exists())
+        self.assertFalse(EmergencyResPermitApplication.objects.filter(id=comment_obj.id).exists())
