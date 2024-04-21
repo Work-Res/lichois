@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "base_module.apps.AppConfig",
     "app.apps.AppConfig",
+    "board.apps.AppConfig",
     "app_search.apps.AppSearchConfig",
     "app_pdf_utilities.apps.AppPdfUtilitiesConfig",
     "app_checklist.apps.AppChecklistConfig",

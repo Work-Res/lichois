@@ -2,6 +2,8 @@ from ..api import WorkResidentPermitApplication
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
+from app_decision.models import ApplicationDecision
+
 from ..models import Permit, Child, Spouse, WorkResidencePermit
 
 
