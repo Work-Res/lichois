@@ -39,6 +39,7 @@ urlpatterns = [
     path('lichois/api/v1/', include('app_comments.urls')),
     path('lichois/api/v1/', include('app_contact.urls')),
     path('lichois/api/v1/', include('app_decision.urls')),
+    path('lichois/api/v1/', include('app_attachments.urls')),
     # path('lichois/api/v1/', include('app_search.urls')),
     path('lichois/api/v1/', include('app_personal_details.urls')),
     path('lichois/api/v1/', include('workresidentpermit.urls')),

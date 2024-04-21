@@ -2,13 +2,14 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 
 from app_attachments.models import ApplicationAttachment
 from app_attachments.api.serializers import ApplicationAttachmentSerializer
 from app_attachments.classes import CreateNewApplicationAttachment
 
 
-class ApplicationDocumentListView(generics.ListAPIView):
+class ApplicationDocumentListView(viewsets.ModelViewSet):
     queryset = ApplicationAttachment.objects.all()
     serializer_class = ApplicationAttachmentSerializer
     lookup_field = 'document_number'

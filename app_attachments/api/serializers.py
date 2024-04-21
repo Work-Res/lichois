@@ -11,7 +11,6 @@ class AttachmentDocumentTypeSerializer(serializers.ModelSerializer):
             'id',
             'code',
             'name',
-            'processes',
             'valid_from',
             'valid_to',
         )
@@ -30,4 +29,5 @@ class ApplicationAttachmentSerializer(serializers.ModelSerializer):
             'document_url',
             'received_date',
             'document_type',
+            'document_number'
         )
