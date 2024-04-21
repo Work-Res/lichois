@@ -6,7 +6,6 @@ class PermitSerializer(serializers.ModelSerializer):
 
     place_issue = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
     permit_type = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
-    application_number = serializers.CharField(min_length=3, allow_blank=False, trim_whitespace=True, required=True)
 
     class Meta:
         model = Permit
@@ -16,7 +15,6 @@ class PermitSerializer(serializers.ModelSerializer):
             'date_issued',
             'date_expiry',
             'place_issue',
-            'application_number',
         )
         extra_kwargs = {
             'date_issued': {'format': 'iso-8601'},
