@@ -1,8 +1,8 @@
 from django.contrib import admin
-from lichois.visa.admin_site import visa_admin
+from ..admin_site import visa_admin
 from ..forms import VisaApplicationForm
-from lichois.visa.models import VisaApplication, VisaReferenceInline, DisposalMoneyInline
-from lichois.visa.models import ContactMethodInline
+from ..models import VisaApplication, VisaReferenceInline, DisposalMoneyInline
+from ..models import ContactMethodInline
 
 
 @admin.register(VisaReferenceInline, site=visa_admin)

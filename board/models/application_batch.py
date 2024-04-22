@@ -1,6 +1,6 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
-from .application import Application
+from app.models import Application
 
 
 class ApplicationBatch(BaseUuidModel):

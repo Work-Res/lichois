@@ -1,10 +1,10 @@
 from django.db import models
-from base_module.model_mixins import ContactInfoModelMixin
+# from base_module.model_mixins import ContactInfoModelMixin
 from base_module.model_mixins import BaseUuidModel
 from .visa_application import VisaApplication
 
 
-class ContactMethod(BaseUuidModel, ContactInfoModelMixin):
+class ContactMethod(BaseUuidModel):
 
     visa_application = models.ForeignKey(
         VisaApplication,

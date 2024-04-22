@@ -1,5 +1,6 @@
 import arrow
 from django.contrib.auth.models import User
+from django.test import tag
 from django.urls import reverse
 from model_mommy import mommy
 from rest_framework import status
@@ -9,6 +10,7 @@ from rest_framework.test import APITestCase
 from ..models import BoardDecision
 
 
+@tag('bm')
 class BoardMeetingAPITests(APITestCase):
 
     def setUp(self):
@@ -17,23 +19,30 @@ class BoardMeetingAPITests(APITestCase):
             username='test_user',
             password='password123')
 
-        self.board_decision1 = mommy.make_recipe(
-            'board.boardmeeting',)
+        self.board = mommy.make_recipe(
+            'board.board',)
 
-        self.board_decision2 = mommy.make_recipe(
-            'board.boarddecision', )
+        self.board_member1 = mommy.make_recipe(
+            'board.boardmember',
+            board=self.board)
+
+        self.board_member2 = mommy.make_recipe(
+            'board.boardmember',
+            board=self.board)
 
         self.board_meeting = mommy.make_recipe(
-            'board.boardmeeting', )
+            'board.boardmeeting',
+            board_id=self.board.id
+        )
 
         self.assessed_application = mommy.make_recipe(
-            'board.application', )
+            'app.application', )
 
     def test_get_board_decisions(self):
         url = reverse('application-recommendations-list')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 2)
+        assert response.status_code == status.HTTP_200_OK
+        assert len(response.data) == 2
 
     # def test_create_application_recommendations(self):
     #     url = reverse('application-recommendation-create')

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.visa.models import ContactMethod
+from ..models import ContactMethod
 
 
 class ContactMethodSerializer(serializers.ModelSerializer):

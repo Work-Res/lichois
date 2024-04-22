@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from lichois.visa.models import ContactMethod
+from ..models import ContactMethod
 from ..serializers import ContactMethodSerializer
 
 

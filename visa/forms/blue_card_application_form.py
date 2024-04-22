@@ -1,5 +1,5 @@
 from django import forms
-from lichois.visa.models import BlueCardApplication
+from ..models import BlueCardApplication
 
 
 class BlueCardApplicationForm(forms.ModelForm):

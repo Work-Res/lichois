@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.visa.models import VisaApplication
+from ..models import VisaApplication
 
 
 class VisaApplicationSerializer(serializers.ModelSerializer):

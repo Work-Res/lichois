@@ -1,5 +1,4 @@
 from .application_recommendation_admin import ApplicationApplicationRecommendationAdmin
-from .application_admin import ApplicationAdmin
 from .board_admin import BoardAdmin
 from .board_meeting_admin import BoardMeetingAdmin
 from .board_member_admin import BoardMemberAdmin

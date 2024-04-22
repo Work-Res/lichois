@@ -1,12 +1,11 @@
 from django.db import models
-from base_module.model_mixins import PersonModelMixin, PassportModelMixin
-from base_module.model_mixins import DeclarationModelMixin, CommissionerOathModelMixin
+# from base_module.model_mixins import PersonModelMixin, PassportModelMixin
+# from base_module.model_mixins import DeclarationModelMixin, CommissionerOathModelMixin
 from base_module.model_mixins import BaseUuidModel
-from lichois.visa.choices import PERIOD_MEASURE
+from ..choices import PERIOD_MEASURE
 
 
-class ExemptionCertificateApplication(BaseUuidModel, PersonModelMixin, PassportModelMixin,
-                                      DeclarationModelMixin, CommissionerOathModelMixin):
+class ExemptionCertificateApplication(BaseUuidModel):
 
     business_name = models.CharField(
         verbose_name='Name of Business/Undertaking/Organisation',

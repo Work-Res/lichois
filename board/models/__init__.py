@@ -1,4 +1,3 @@
-from .application import Application
 from .board import Board
 from .board_decision import BoardDecision
 from .board_member import BoardMember

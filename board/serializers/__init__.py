@@ -1,4 +1,3 @@
-from .application_serializer import ApplicationSerializer
 from .application_batch_serializer import ApplicationBatchSerializer
 from .board_serializer import BoardSerializer
 from .board_meeting_serializer import BoardMeetingSerializer

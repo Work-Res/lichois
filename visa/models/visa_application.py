@@ -1,10 +1,10 @@
 from django.db import models
-from lichois.visa.choices import ENTRY_FREQ, VISA_TYPES
-from base_module.model_mixins import PersonModelMixin
+from ..choices import ENTRY_FREQ, VISA_TYPES
+# from base_module.model_mixins import PersonModelMixin
 from base_module.model_mixins import BaseUuidModel
 
 
-class VisaApplication(BaseUuidModel, PersonModelMixin):
+class VisaApplication(BaseUuidModel):
 
     nationality = models.CharField(max_length=150)
 

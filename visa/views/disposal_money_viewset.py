@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from lichois.visa.models import DisposalMoney
+from ..models import DisposalMoney
 from ..serializers import DisposalMoneySerializer
 
 
