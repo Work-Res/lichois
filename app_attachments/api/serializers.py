@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from app_attachments.models import AttachmentDocumentType, ApplicationAttachment
-
+from ..models import ApplicationAttachmentVerification
 
 class AttachmentDocumentTypeSerializer(serializers.ModelSerializer):
 
@@ -31,3 +31,9 @@ class ApplicationAttachmentSerializer(serializers.ModelSerializer):
             'document_type',
             'document_number'
         )
+        
+
+class ApplicationAttachmentVerificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApplicationAttachmentVerification
+        fields = ['document', 'verification_status', 'comment', 'verifier', 'verified_at']

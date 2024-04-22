@@ -1,1 +1,2 @@
 from .application_document_list_view import ApplicationDocumentListView
+from .application_attachment_verification_view import ApplicationAttachmentVerificationView

@@ -1,2 +1,3 @@
 from .application_document_type import AttachmentDocumentType
 from .application_attachment import ApplicationAttachment
+from .application_attachment_verification import ApplicationAttachmentVerification
