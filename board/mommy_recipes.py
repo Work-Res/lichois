@@ -1,15 +1,14 @@
 import uuid
+
+import dateutil.utils
 from faker import Faker
 from model_mommy.recipe import Recipe, seq
 
-from .models import BoardDecision, BoardMeeting, Application, Board, Agenda
+from .models import BoardDecision, BoardMeeting, Board, Agenda
 from .models import BoardMember, InterestDeclaration, MeetingAttendee, AgendaItem
 
 fake = Faker()
 
-application = Recipe(
-    Application,
-)
 
 agenda = Recipe(
     Agenda
@@ -34,7 +33,8 @@ boardmeeting = Recipe(
 
 boardmember = Recipe(
     BoardMember,
-    id=uuid.uuid4()
+    id=uuid.uuid4(),
+    board_join_date=dateutil.utils.today()
 )
 
 interestdeclaration = Recipe(

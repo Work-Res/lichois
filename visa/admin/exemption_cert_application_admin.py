@@ -1,7 +1,7 @@
 from django.contrib import admin
-from lichois.visa.admin_site import visa_admin
-from lichois.visa.models import ExemptionCertificateApplication
-from lichois.visa.models import ExemptionCertificateDependantsInline
+from ..admin_site import visa_admin
+from ..models import ExemptionCertificateApplication
+from ..models import ExemptionCertificateDependantsInline
 from ..forms import ExemptionCertificateApplicationForm
 
 

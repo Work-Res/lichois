@@ -2,7 +2,7 @@ from django.db import models
 from base_module.model_mixins import BaseUuidModel
 from ..choices import VOTE_STATUS
 from .meeting_attendee import MeetingAttendee
-from .application import Application
+from app.models import Application
 
 
 class BoardMeetingVote(BaseUuidModel):

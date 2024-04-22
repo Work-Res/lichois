@@ -1,5 +1,4 @@
 from .application_recommendation_form import ApplicationRecommendationForm
-from .application_form import ApplicationForm
 from .board_form import BoardForm
 from .board_meeting_form import BoardMeetingForm
 from .board_member_form import BoardMemberForm

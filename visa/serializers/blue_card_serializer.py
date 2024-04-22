@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.visa.models import BlueCard
+from ..models import BlueCard
 
 
 class BlueCardSerializer(serializers.ModelSerializer):

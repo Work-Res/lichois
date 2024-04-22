@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from lichois.visa.models import BlueCardApplication
+from ..models import BlueCardApplication
 from ..serializers import BlueCardApplicationSerializer
 
 

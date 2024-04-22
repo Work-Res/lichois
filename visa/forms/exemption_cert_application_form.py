@@ -1,5 +1,5 @@
 from django import forms
-from lichois.visa.models import ExemptionCertificateApplication
+from ..models import ExemptionCertificateApplication
 
 
 class ExemptionCertificateApplicationForm(forms.ModelForm):

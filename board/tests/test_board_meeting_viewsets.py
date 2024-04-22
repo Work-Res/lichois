@@ -39,14 +39,14 @@ class BoardMeetingViewSetTestCase(TestCase):
             board_id=self.board.id
         )
 
-    @tag('bmv1')
+    @tag('bmv11')
     def test_list(self):
         url = reverse('board:board-meetings-list')
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @tag('bmv1')
+    @tag('bmv2')
     def test_create(self):
         board_meeting_data = {'description': 'test meeting',
                               'meeting_date': arrow.utcnow().datetime,
@@ -61,7 +61,7 @@ class BoardMeetingViewSetTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(BoardMeeting.objects.filter(description='test meeting').exists())
 
-    @tag('bmv1')
+    @tag('bmv3')
     def test_retrieve(self):
         url = reverse('board:board-meetings-detail',
                       kwargs={'pk': self.board_meeting2.id})
@@ -72,7 +72,7 @@ class BoardMeetingViewSetTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['description'], 'meeting2')
 
-    @tag('bmv1')
+    @tag('bmv4')
     def test_update(self):
         board_meeting_data = {'name': 'Updated meeting1'}
         url = reverse('board:board-meetings-detail',
@@ -80,9 +80,10 @@ class BoardMeetingViewSetTestCase(TestCase):
 
         response = self.client.patch(url, board_meeting_data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # breakpoint()
         self.assertEqual(BoardMeeting.objects.get(id=self.board_meeting1.id).description, 'meeting1')
 
-    @tag('bmv1')
+    @tag('bmv5')
     def test_delete(self):
         board_meeting3 = mommy.make_recipe(
             'board.boardmeeting',

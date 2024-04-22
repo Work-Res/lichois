@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from lichois.visa.models import ExemptionCertificateDependant
+from ..models import ExemptionCertificateDependant
 from ..serializers import ExemptionCertificateDependantSerializer
 
 

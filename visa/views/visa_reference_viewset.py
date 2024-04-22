@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from lichois.visa.models import VisaReference
+from ..models import VisaReference
 from ..serializers import VisaReferenceSerializer
 
 

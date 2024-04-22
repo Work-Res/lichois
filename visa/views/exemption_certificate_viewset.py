@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from lichois.visa.models import ExemptionCertificate
-from ..serializers import ExemptionCertificateSerializer
+from ..models import ExemptionCertificate
+from ..serializers import VisaExemptionCertSerializer
 
 
 class ExemptionCertificateViewSet(viewsets.ModelViewSet):
     queryset = ExemptionCertificate.objects.all()
-    serializer_class = ExemptionCertificateSerializer
+    serializer_class = VisaExemptionCertSerializer

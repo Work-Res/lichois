@@ -1,6 +1,6 @@
 from django import forms
-from lichois.visa.models import VisaApplication, VisaReferenceInline, DisposalMoneyInline
-from lichois.visa.models import ContactMethodInline
+from ..models import VisaApplication, VisaReferenceInline, DisposalMoneyInline
+from ..models import ContactMethodInline
 
 
 class VisaApplicationForm(forms.ModelForm):

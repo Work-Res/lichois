@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from lichois.visa.models import VisaApplication
+from ..models import VisaApplication
 from ..serializers import VisaApplicationSerializer
 
 

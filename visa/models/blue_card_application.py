@@ -1,14 +1,12 @@
 from django.db import models
-from base_module.model_mixins import PersonModelMixin, PassportModelMixin
-from base_module.model_mixins import ContactInfoModelMixin, AddressModelMixin
-from base_module.model_mixins import DeclarationModelMixin, NationalityModelMixin
-from base_module.model_mixins import CommissionerOathModelMixin, BaseUuidModel
+# from base_module.model_mixins import PersonModelMixin, PassportModelMixin
+# from base_module.model_mixins import ContactInfoModelMixin, AddressModelMixin
+# from base_module.model_mixins import DeclarationModelMixin, NationalityModelMixin
+# from base_module.model_mixins import CommissionerOathModelMixin
+from base_module.model_mixins import BaseUuidModel
 
 
-class BlueCardApplication(BaseUuidModel, PersonModelMixin, PassportModelMixin,
-                          ContactInfoModelMixin, AddressModelMixin,
-                          NationalityModelMixin, DeclarationModelMixin,
-                          CommissionerOathModelMixin):
+class BlueCardApplication(BaseUuidModel):
 
     prev_bw_id = models.CharField(
         verbose_name='Previous Botswana Identity/Passport',
