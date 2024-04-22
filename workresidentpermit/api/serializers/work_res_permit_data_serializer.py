@@ -12,6 +12,6 @@ class WorkResidentPermitDataSerializer(serializers.Serializer):
     address = ApplicationAddressSerializer()
     passport = PassportSerializer()
     permit = PermitSerializer()
-    child = ChildSerializer()
-    spouse = SpouseSerializer()
+    child = ChildSerializer(many=True)
+    spouse = SpouseSerializer(many=True)
     form_details = WorkResidencePermitSerializer()

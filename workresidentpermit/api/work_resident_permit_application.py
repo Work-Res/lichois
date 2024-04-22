@@ -12,7 +12,7 @@ class WorkResidentPermitApplication:
         self._spouse = None
         self._form_details = None
         self._application = None
-        self._attachments = []
+        self._attachments = None
 
     @property
     def personal_details(self):

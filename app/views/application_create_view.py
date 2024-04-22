@@ -19,7 +19,8 @@ class ApplicationCreateView(APIView):
            "process_name": "work",
            "applicant_identifier": "",
            "dob": ""
-           "work_place": ""
+           "work_place": "",
+           "full_name": ""
         }
     """
     def post(self, request, format=None):

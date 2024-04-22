@@ -5,6 +5,7 @@ from datetime import date
 from app.api.common.web import APIResponse, APIError
 from app.identifiers import WorkResidentPermitIdentifier
 from app.utils import ApplicationProcesses
+from app.api.serializers import ApplicationVersionSerializer
 
 from app.models import ApplicationDocument, ApplicationUser, ApplicationStatus, Application, ApplicationVersion
 
@@ -43,20 +44,22 @@ class CreateNewApplication(object):
             return None  # Avoid continuing
 
         application_status = self.get_application_status()
-        self.create_application_document()
+        if self.create_application_document():
+            application = Application()
+            application.application_document = self.application_document
+            application.application_status = application_status
+            application.application_type = self.application.proces_name
+            application.last_application_version_id = 1
+            application.save()
 
-        application = Application()
-        application.application_document = self.application_document
-        application.application_status = application_status
-        application.application_type = self.application.proces_name
-        application.last_application_version_id = 1
-        application.save()
+            application_version = ApplicationVersion()
+            application_version.application = application
+            application_version.version_number = 1
+            application_version.save()
+            serializer = ApplicationVersionSerializer(application_version)
+            self.response.data = serializer.data
+            return application_version
 
-        application_version = ApplicationVersion()
-        application_version.application = application
-        application_version.version_number = 1
-        application_version.save()
-        return application_version
 
     def get_application_status(self):
         """
@@ -165,3 +168,4 @@ class CreateNewApplication(object):
             )
             self.response.status = True
             self.response.messages.append(api_message.to_dict())
+            return self.application_document

@@ -68,8 +68,7 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         model = ApplicationVersion
         fields = (
             'application',
-            'version_number',
-            'comment',
+            'version_number'
         )
 
 

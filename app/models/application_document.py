@@ -19,6 +19,7 @@ class ApplicationDocument(BaseUuidModel):
     applicant = models.ForeignKey(ApplicationUser, on_delete=models.CASCADE, null=False, blank=False)
     document_number = models.CharField(max_length=100, null=False, blank=False)
     document_date = models.DateField(null=False, blank=False)
+    process_name = models.CharField(max_length=200, null=False, blank=False)
     signed_date = models.DateField()
     submission_customer = models.CharField(max_length=250)
 

@@ -22,6 +22,18 @@ class CountrySerializer(serializers.ModelSerializer):
 
 class ApplicationAddressSerializer(serializers.ModelSerializer):
 
+    id = serializers.CharField(max_length=100, required=False)
+
+    def validate(self, data):
+        cso_code = data.get('country')
+        try:
+            country = Country.objects.get(cso_code=cso_code)
+            serializer = CountrySerializer(country)
+            data["country"] = serializer.data
+        except Country.DoesNotExist:
+            raise
+        return data
+
     class Meta:
         model = ApplicationAddress
         fields = (
