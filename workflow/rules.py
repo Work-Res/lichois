@@ -12,3 +12,4 @@ def can_create_or_update_task(source, conditions):
 
 workflow = rules.RuleSet()
 workflow.add_rule("FIRST_VERIFICATION", can_create_or_update_task)
+workflow.add_rule("SECOND_VERIFICATION", can_create_or_update_task)

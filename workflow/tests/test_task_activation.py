@@ -59,7 +59,7 @@ class TestTaskActivation(TestCase):
         return app
 
     @patch('app.models.Application.objects.get')
-    def test_create_task(self, application_mock):
+    def test_create_task_when_all_conditions_valid(self, application_mock):
         application_mock.return_value = self.create_data()
         app = application("NEW")
         event = WorkflowEvent(application=application("NEW"))
@@ -71,3 +71,28 @@ class TestTaskActivation(TestCase):
         tasks = Task.objects.all()
         self.assertGreater(len(tasks), 0)
 
+    @patch('app.models.Application.objects.get')
+    def test_create_task_when_not_all_conditions(self, application_mock):
+        application_mock.return_value = self.create_data()
+        app = application("NEW")
+        event = WorkflowEvent(application=application("NEW"))
+        event.create_workflow_process()
+        source = SourceModel(
+            previous_status="VERIFICATION", current_status="VERIFICATION", next_activity_name="SECOND_VERIFICATION")
+
+        create_or_update_task_signal.send(app, source=source, application=app)
+        tasks = Task.objects.all()
+        self.assertEqual(len(tasks), 0)
+
+    @patch('app.models.Application.objects.get')
+    def test_create_task_create_second_task(self, application_mock):
+        application_mock.return_value = self.create_data()
+        app = application("NEW")
+        event = WorkflowEvent(application=application("NEW"))
+        event.create_workflow_process()
+        source = SourceModel(
+            previous_status="VERIFICATION", current_status="VERIFICATION", next_activity_name="SECOND_VERIFICATION")
+
+        create_or_update_task_signal.send(app, source=source, application=app)
+        tasks = Task.objects.all()
+        self.assertEqual(len(tasks), 0)
