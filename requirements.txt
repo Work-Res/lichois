@@ -18,3 +18,7 @@ haystack
 drf-yasg
 setuptools
 django-cors-headers
+rules
+psycopg2
+psycopg_binary
+psycopg

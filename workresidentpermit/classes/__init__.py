@@ -1,1 +1,2 @@
 from .work_resident_permit_data import WorkResidentPermitData
+from .work_resident_permit_task_activation_rules import WorkResidentPermitTaskActivationRules

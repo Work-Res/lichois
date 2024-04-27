@@ -50,8 +50,10 @@ INSTALLED_APPS = [
     "app_comments.apps.AppCommentsConfig",
     "app_decision.apps.AppDecisionConfig",
     "workresidentpermit.apps.WorkresidentpermitConfig",
+    "workflow.apps.WorkflowConfig",
     "identifier.apps.AppConfig",
     "haystack",
+    "rules.apps.AutodiscoverRulesConfig",
     "rest_framework",
     "rest_framework_swagger",
     "drf_yasg",  # Yet Another Swagger generator
@@ -103,6 +105,17 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'lichois',
+#         'USER': 'postgres',
+#         'PASSWORD': 'cc3721b',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -191,3 +204,8 @@ CORS_ALLOWED_ORIGINS = [
 #     }
 #   ]
 # }
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)

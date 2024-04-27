@@ -1,3 +1,5 @@
+import copy
+
 from app_checklist.utils import ReadJSON
 from app_checklist.models import Classifier, ClassifierItem
 
@@ -5,7 +7,6 @@ from app_checklist.models import Classifier, ClassifierItem
 class CreateChecklist:
     """
     Loads json file for document types, and create records in the database.
-    TODO: Extend to support multiple classifiers
     """
 
     def __init__(self):
@@ -15,14 +16,15 @@ class CreateChecklist:
     def create(self, file_location=None):
         reader = ReadJSON(file_location=file_location)
         data = reader.json_data()
-        obj, created = self.create_classifier(data['classifiers']['attachment_documents'])
-        self.classifier = obj if obj is not None else created
-        data_items = reader.json_data()
-        self.create_classifier_items(data_items['classifiers']['attachment_documents']['classifier_items'])
+        for classifier_key, classifier_value in data["classifiers"].items():
+            _data = copy.copy(classifier_value)
+            obj, created = self.create_classifier(_data)
+            created_classifier = obj if obj else created
+            self.create_classifier_items(classifier_value['classifier_items'], created_classifier)
 
-    def create_classifier_items(self, data):
+    def create_classifier_items(self, data, classifier):
         for item in data:
-            item.update({'classifier': self.classifier})
+            item.update({'classifier': classifier})
             classifier_item = ClassifierItem.objects.update_or_create(
                 code=item['code'],
                 defaults=item

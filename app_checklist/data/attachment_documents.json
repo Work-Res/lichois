@@ -58,6 +58,87 @@
                 "valid_to": "2030-01-01"
               }
             ]
+    },
+    "workresidentpermit_workflow": {
+            "code": "WORK_RESIDENT_PERMIT",
+            "name": "Work Resident Permit Process",
+            "description": "Work Resident Permit Process Flow",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01",
+            "classifier_items": [
+              {
+                "code":  "FIRST_VERIFICATION",
+                "name":  "First Verification",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "First level of verification completed by officers.",
+                "mandatory": false,
+                "sequence": 1,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                  "previous_status": "NEW",
+                  "current_status":  "VERIFICATION",
+                  "next_activity_name": "SECOND_VERIFICATION"
+                }
+              }, {
+                "code":  "SECOND_VERIFICATION",
+                "name":  "Second Verification",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "Second level of verification completed by officers.",
+                "mandatory": false,
+                "sequence": 2,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                  "previous_status": "VERIFICATION",
+                  "current_status":  "SECOND_VERIFICATION",
+                  "next_activity_name": "COMMITEE_DECISION"
+                }
+              }, {
+                "code":  "COMMITEE_DECISION",
+                "name":  "Commitee Decision",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "Commitee Meeting",
+                "mandatory": false,
+                "sequence": 3,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                  "previous_status": "SECOND_VERIFICATION",
+                  "current_status":  "COMMITEE_DECISION",
+                  "next_activity_name": "VETTING"
+                }
+              },
+              {
+                "code":  "VETTING",
+                "name":  "Vetting",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "External vetting with government security.",
+                "mandatory": false,
+                "sequence": 4,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                  "previous_status": "COMMITEE_DECISION",
+                  "current_status":  "WORK_RESIDENT_PERMIT",
+                  "next_activity_name": "FINAL_DECISION"
+                }
+              },{
+                "code":  "FINAL_DECISION",
+                "name":  "Final decision",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "Final decision for work resident permit",
+                "sequence": 5,
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                  "previous_status": "COMMITEE_DECISION",
+                  "current_status":  "FINAL_DECISION",
+                  "next_activity_name": "END"
+                }
+              }
+            ]
     }
   }
 }

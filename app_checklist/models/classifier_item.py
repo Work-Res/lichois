@@ -12,6 +12,8 @@ class ClassifierItem(BaseUuidModel):
     description = models.TextField()
     mandatory = models.BooleanField(default=False)
     classifier = models.ForeignKey(Classifier, on_delete=models.CASCADE)
+    sequence = models.IntegerField(blank=True, null=True)
+    create_rules = models.TextField()
     valid_from = models.DateField()
     valid_to = models.DateField()
 

@@ -17,6 +17,7 @@ class Application(BaseUuidModel):
      """
     last_application_version_id = models.IntegerField()
     application_document = models.ForeignKey(ApplicationDocument, on_delete=models.CASCADE)
+    process_name = models.CharField(max_length=200, null=False, blank=False)
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
 
