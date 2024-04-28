@@ -1,4 +1,3 @@
-import json
 import logging
 
 from datetime import date
@@ -12,7 +11,7 @@ class WorkflowEvent(object):
     def __init__(self, application):
         self.application = application
         self.bussiness_process = None
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger('workflow')
 
     def create_workflow_process(self):
         """

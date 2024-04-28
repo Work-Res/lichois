@@ -1,9 +1,10 @@
 import logging
 
-from typing import TypeVar, Generic
+from typing import TypeVar
 
 from ..rules import workflow
 from ..models import Activity, Task
+from ..choices import TaskStatus, TaskPriority
 
 S = TypeVar('S')
 A = TypeVar('A')
@@ -19,7 +20,7 @@ class TaskActivation:
         self.source = source
         self.application = application
         self.model = model
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger('workflow')
 
     def create_task(self):
         """
@@ -43,9 +44,9 @@ class TaskActivation:
             self.logger.info(f"Task already created for {self.application.application_document.document_number}.")
         except Task.DoesNotExist:
             Task.objects.create(
-                priority="Low",
+                priority=TaskPriority.LOW.value,
                 activity=activity,
-                status="NEW",
+                status=TaskStatus.NEW.value,
                 details=activity.description,
             )
             self.logger.info(f"New task has been created for "
