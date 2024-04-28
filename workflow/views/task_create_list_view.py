@@ -5,7 +5,7 @@ from ..views import TaskFilter
 from workflow.api.serializers import TaskSerializer
 
 
-class TaskViewSet(viewsets.ModelViewSet):
+class TaskCreateListViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     filter_class = TaskFilter

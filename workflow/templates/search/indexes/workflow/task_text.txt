@@ -1,0 +1,4 @@
+{{ object.status}}
+{{ object.activity.process.name}}
+{{ object.activity.process.document_number}}
+{{ object.office_location.name}}
