@@ -139,6 +139,49 @@
                 }
               }
             ]
+    },
+    "office_locations": {
+            "code": "OFFICE_LOCATION",
+            "name": "Office Locations",
+            "description": "A list of offices.",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01",
+            "classifier_items": [
+              {
+                "code":  "01",
+                "name":  "Gaborone",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "Gaborone Office",
+                "mandatory": false,
+                "sequence": 1,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                }
+              }, {
+                "code":  "02",
+                "name":  "Lobatse",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "Lobatse Office",
+                "mandatory": false,
+                "sequence": 2,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                }
+              }, {
+                "code":  "03",
+                "name":  "Francistown",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "Francistown Office",
+                "mandatory": false,
+                "sequence": 3,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                }
+              }
+            ]
     }
   }
 }

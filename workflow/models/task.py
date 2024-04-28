@@ -4,6 +4,7 @@ from django.db import models
 from base_module.model_mixins import BaseUuidModel
 
 from .activity import Activity
+from app_checklist.models import ClassifierItem
 
 
 class Task(BaseUuidModel):
@@ -28,6 +29,7 @@ class Task(BaseUuidModel):
     participants = models.ManyToManyField(User, related_name='tasks_participated', blank=True, null=True)
     task_notes = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=TASK_CHOICES)
+    office_location = models.ForeignKey(ClassifierItem, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"Task {self.id} - {self.details}"

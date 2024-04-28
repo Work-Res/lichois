@@ -16,13 +16,9 @@ class TaskRuleEvaluator(object):
                     if isinstance(getattr(source, prop), dict):
                         self.predicate(getattr(source, prop), value)
                     else:
-                        print("getattr(source, prop) : ", getattr(source, prop))
-                        print("prop : ", prop)
                         all_rules.append(True) if getattr(source, prop) == value else all_rules.append(False)
-            print(all_rules)
             return all(all_rules)
         except ValueError as e:
-            print("ERROR  ", e)
             self.logger.debug("Failed to create rules from json string, got ", e)
 
     def __init__(self, source, rules):

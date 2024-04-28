@@ -169,7 +169,7 @@ HAYSTACK_CONNECTIONS = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend', 'rest_framework.filters.OrderingFilter'],
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
