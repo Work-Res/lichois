@@ -234,3 +234,7 @@ LOGGING = {
         } for logger_name in ['django', 'django.request','django.db.backends', 'django.template', 'app', 'workflow']
     }
 }
+
+HAYSTACK_DOCUMENT_FIELD = "text"
+HAYSTACK_ID_FIELD = "id"
+HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"

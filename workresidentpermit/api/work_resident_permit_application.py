@@ -6,6 +6,7 @@ class WorkResidentPermitApplication:
     def __init__(self):
         self._personal_details = None
         self._address = None
+        self._contacs = None
         self._passport = None
         self._permit = None
         self._child = None
@@ -85,3 +86,11 @@ class WorkResidentPermitApplication:
     @attachments.setter
     def attachments(self, value):
         self._attachments = value
+
+    @property
+    def contacts(self):
+        return self._contacs
+
+    @contacts.setter
+    def contacts(self, value):
+        self._contacs = value
