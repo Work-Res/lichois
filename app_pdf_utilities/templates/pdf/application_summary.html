@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'application_pdf.css' %}">
+    <title>{{report_details.report_name}}</title>
+</head>
+
+<body>
+<main class="paper">
+<header>
+    <div class="left">
+        <img src="{% static 'logo.png' %}" alt="coat of botswana">
+        <div>
+            <p>{{report_details.department}}</p>
+        </div>
+
+    </div>
+    <div class="right">
+        <p><b>{{application_type}}</b></p>
+        <p>{{application_status}}<b></b></p>
+    </div>
+</header>
+    <section>
+        <h1 class="headings">Overview</h1>
+        <div class="overview-information">
+            <img src="img.png" alt="passport preview" class="passport-overview">
+            <div class="data-values">
+                <div>
+                    <p class="title">full name: </p>
+                    <p class="item">{{personal_details.full_name}}</p>
+                </div>
+                <div>
+                    <p class="title">document id: </p>
+                    <p class="item">{{work_resident_permit.document_number}}</p>
+                </div>
+                <div>
+                <p class="title">country of residence: </p>
+                <p class="item"><img src="https://flagicons.lipis.dev/flags/4x3/{{country_code}}.svg" alt="" class="value-preview"></p>
+            </div>
+                <div>
+                <p class="title">national identity:</p>
+                <p class="item"> <img src="https://1000logos.net/wp-content/uploads/2020/08/Adobe-Acrobat-Logo-500x313.png" class="value-preview" alt="preview">id.pdf</p>
+            </div>
+                <div>
+                <p class="title">mobile: </p>
+                {% if contact.contact_type == 'CELL' %}
+                    <p class="item">({{contact.country_code}}) {{contact.contact_value}}</p>
+                {% endif %}
+            </div>
+                <div>
+                <p class="title">email: </p>
+                <p class="item">{{address.email_address}}</p>
+            </div>
+            </div>
+        </div>
+        
+        <div class="desc">
+            <p>Permit reasons</p>
+            <span>{{permit_reason}}</span>
+        </div>
+        
+    </section>
+    
+    <section>
+        <h1>personal details</h1>
+        <div class="information contact">
+            <div class="data-values">
+                <div>
+                    <p class="title">first name:  </p>
+                    <p class="item">{{personal_details.first_name}}</p>
+                </div>
+                <div>
+                    <p class="title">last name:  </p>
+                    <p class="item">{{personal_details.last_name}}</p>
+                </div>
+                <div>
+                    <p class="title">middle name:  </p>
+                    <p class="item">{{personal_details.middle_name}}</p>
+                </div> <div>
+                <p class="title">gender:  </p>
+                <p class="item">{{personal_details.gender}}</p>
+            </div>
+                <div>
+                <p class="title">marital status:  </p>
+                <p class="item">{{personal_details.marital_status}}</p>
+            </div>
+            </div>
+            <div class="data-values">
+                <div>
+                    <p class="title">date of birth:   </p>
+                    <p class="item">{{personal_details.marital_status}}</p>
+                </div>
+                <div>
+                    <p class="title">place of birth: </p>
+                    <p class="item">{{personal_details.place_birth}}</p>
+                </div>
+                <div>
+                    <p class="title">country of birth: </p>
+                    <p class="item">{{personal_details.country_birth}}</p>
+                </div>
+                
+<!--                <div>-->
+<!--                    <p class="title">qualification: </p>-->
+<!--                    <p class="item">degree</p>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <p class="title">occupation: </p>-->
+<!--                    <p class="item">bank teller</p>-->
+<!--                </div>-->
+            
+            </div>
+        </div>
+
+    </section>
+
+    <section>
+        <h1>contact details</h1>
+        <div class="information contact">
+            <div class="data-values">
+                {% if contacts %}
+                      {% for contact in contacts %}
+                            <div>
+                                <p class="title">{{contact.contact_type}}: </p>
+                                <p class="item">({{contact.country_code}}) {{contact.contact_value}}</p>
+                            </div>
+                      {% endfor %}
+                {% endif %}
+                <div>
+                    <p class="title">country: </p>
+                    <p class="item">{{address.country.name}}</p>
+                </div>
+                <div>
+                    <p class="title">town/village: </p>
+                    <p class="item">{{address.city}}</p>
+                </div>
+            </div>
+            
+            <div class="data-values">
+                <div>
+                    <p class="title">street: </p>
+                    <p class="item">{{address.street_address}}</p>
+                </div>
+                <div>
+                    <p class="title">box office number: </p>
+                    {% if address.private_bag %}
+                        <p class="item">{{address.private_bag}}</p>
+                    {% else %}
+                        <p class="item">{{address.po_box}}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+<div id="footer_frame">
+        Page <pdf:pagenumber>
+        of <pdf:pagecount>
+    
+        <p>Application ID: {{document_number}}</p>
+        <p>This document is automatically generated.</p>
+</div>
+
+</main>
+
+<main class="paper">
+    <div id="header_content">
+        <div class="left">
+            <img src="./Botswana_Coat_of_Arms.png" alt="coat of botswana">
+            <div>
+                <p>{{department}}</p>
+            </div>
+
+        </div>
+        <div class="right">
+            <p><b>{{application_type}}</b></p>
+            <p>{{application_status}}<b></b></p>
+            <!--        <p>Approved<b></b></p>-->
+            <!--        WR8210707198900001/-->
+        </div>
+    </div>
+    
+   {% if family_details %}
+        <section class="last-section">
+            <h1>family details</h1>
+            <div class="information family">
+                <table>
+                    <tr>
+                        <th>name</th>
+                        <th>age</th>
+                        <th>gender</th>
+                        <th>is Applying</th>
+                    </tr>
+                    {% for family in family_details %}
+                        <tr>
+                            <td>{{family.full_name}}</td>
+                            <td>{{family.age}}</td>
+                            <td>{{family.gender}}</td>
+                            <td>{{family.is_applying}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </section>
+    {% endif %}
+</main>
+</body>
+</html>

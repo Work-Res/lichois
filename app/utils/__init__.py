@@ -1,2 +1,2 @@
-from .application_processes import ApplicationProcesses
+from .system_enums import ApplicationProcesses, ApplicationStatuses
 from .data import statuses

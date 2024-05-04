@@ -2,6 +2,7 @@ from ..api import WorkResidentPermitApplication
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
+from app_contact.models import ApplicationContact
 from ..models import Permit, Child, Spouse, WorkResidencePermit
 
 
@@ -17,11 +18,12 @@ class WorkResidentPermitData(object):
     def prepare(self):
         self.work_resident_permit_application.personal_details = self.personal_details()
         self.work_resident_permit_application.passport = self.passport()
+        self.work_resident_permit_application.contacts = self.contacts()
         self.work_resident_permit_application.address = self.address()
         self.work_resident_permit_application.permit = self.permit()
         self.work_resident_permit_application.child = self.child()
         self.work_resident_permit_application.spouse = self.spouse()
-        self.work_resident_permit_application.form_details = self.form_details()
+        self.work_resident_permit_application.work_resident_permit = self.work_resident_permit()
         self.work_resident_permit_application.attachments = self.attachments()
         return self.work_resident_permit_application
 
@@ -65,7 +67,12 @@ class WorkResidentPermitData(object):
             work_resident_permit__document_number=self.document_number)
         return spouse
 
-    def form_details(self):
+    def contacts(self):
+        contacts = ApplicationContact.objects.filter(
+            document_number=self.document_number)
+        return contacts
+
+    def work_resident_permit(self):
         try:
             form_details = WorkResidencePermit.objects.get(
                 application_version__document_number=self.document_number)

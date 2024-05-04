@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ...models import Permit, Child, Spouse, WorkResidencePermit
+from ...models import Permit
 
 
 class PermitSerializer(serializers.ModelSerializer):

@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from .views import (
     WorkResidentPermitApplicationDetailView, PermitCreateListView, SpouseCreateListView, ChildCreateListView,
-    WorkResidencePermitCreateListView
+    WorkResidencePermitCreateListView, PlaceOfResidenceViewSet, SpousePlaceOfResidenceViewSet
 )
 from .views import EmergencyResPermitApplicationViewSet, EmergencyResidencePermitViewSet
 from .views import ExemptionCertificateViewSet, ResidencePermitCancellationViewSet
@@ -10,6 +10,8 @@ from .views import ExemptionCertificateViewSet, ResidencePermitCancellationViewS
 
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
+router.register(r'spouseplaceofresidence', SpousePlaceOfResidenceViewSet, basename='spouseplaceofresidence')
+router.register(r'placeofresidence', PlaceOfResidenceViewSet, basename='placeofresidence')
 router.register(r'permits', PermitCreateListView, basename='permits')
 router.register(r'spouse', SpouseCreateListView, basename='spouse')
 router.register(r'child', ChildCreateListView, basename='child')

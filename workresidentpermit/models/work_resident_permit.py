@@ -5,7 +5,7 @@ from base_module.choices import PREFERRED_METHOD_COMM, YES_NO, REASONS_PERMIT
 
 class WorkResidencePermit(ApplicationBaseModel):
 
-	file_number = models.CharField(max_length=190)
+	file_number = models.CharField(max_length=190, blank=True)
 	preferred_method_comm = models.CharField(max_length=190, choices=PREFERRED_METHOD_COMM)
 	preferred_method_comm_value = models.CharField(max_length=190)
 	language = models.CharField(max_length=190)

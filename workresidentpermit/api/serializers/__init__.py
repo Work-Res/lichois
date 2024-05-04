@@ -8,3 +8,4 @@ from .residence_permit_cancellation_serializer import ResidencePermitCancellatio
 from .spouse_serializer import SpouseSerializer
 from .work_residence_permit_serializer import WorkResidencePermitSerializer
 from .work_res_permit_data_serializer import WorkResidentPermitDataSerializer
+from .place_of_residence_serializer import PlaceOfResidenceSerializer, SpousePlaceOfResidenceSerializer

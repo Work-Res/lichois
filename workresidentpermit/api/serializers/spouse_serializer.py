@@ -11,6 +11,7 @@ class SpouseSerializer(serializers.ModelSerializer):
             "spouse_last_name",
             "spouse_first_name",
             "spouse_middle_name",
+            "spouse_maiden_name",
             "spouse_country",
             "spouse_place_birth",
             "spouse_dob",

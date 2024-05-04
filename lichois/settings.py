@@ -152,7 +152,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static',]
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'uploads'
+PDF_FOLDER = 'generated_pdf'
+PDF_TEMPLATE_WORKRESIDENTPERMIT = "pdf/application_summary.html"
+DEPARTMENT = "ministry of Citizen and industry"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -231,10 +245,12 @@ LOGGING = {
             'level': 'WARNING',
             'propagate': True,
             'handlers': ["console"]
-        } for logger_name in ['django', 'django.request','django.db.backends', 'django.template', 'app', 'workflow']
+        } for logger_name in ['django', 'django.request','django.db.backends', 'django.template', 'app', 'workflow',
+                              'app_pdf_utilities', 'workresidentpermit', 'app_assessment']
     }
 }
 
 HAYSTACK_DOCUMENT_FIELD = "text"
 HAYSTACK_ID_FIELD = "id"
 HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
+

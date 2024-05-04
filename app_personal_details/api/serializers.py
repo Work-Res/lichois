@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_personal_details.models import Person, Passport
+from app_personal_details.models import Person, Passport, Education
 
 
 class PersonSerializer(serializers.ModelSerializer):
@@ -47,3 +47,9 @@ class PassportSerializer(serializers.ModelSerializer):
             'date_issued': {'format': 'iso-8601'},
             'expiry_date': {'format': 'iso-8601'}
         }
+
+
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = ['id', 'level', 'field_of_study', 'institution', 'start_date', 'end_date']

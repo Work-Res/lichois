@@ -6,14 +6,15 @@ class WorkResidentPermitApplication:
     def __init__(self):
         self._personal_details = None
         self._address = None
-        self._contacs = None
+        self._contacts = None
         self._passport = None
         self._permit = None
         self._child = None
         self._spouse = None
-        self._form_details = None
+        self._work_resident_permit = None
         self._application = None
         self._attachments = None
+        self._report_details = None
 
     @property
     def personal_details(self):
@@ -64,12 +65,12 @@ class WorkResidentPermitApplication:
         self._spouse = value
 
     @property
-    def form_details(self):
-        return self._form_details
+    def work_resident_permit(self):
+        return self._work_resident_permit
 
-    @form_details.setter
-    def form_details(self, value):
-        self._form_details = value
+    @work_resident_permit.setter
+    def work_resident_permit(self, value):
+        self._work_resident_permit = value
 
     @property
     def application(self):
@@ -89,8 +90,16 @@ class WorkResidentPermitApplication:
 
     @property
     def contacts(self):
-        return self._contacs
+        return self._contacts
 
     @contacts.setter
     def contacts(self, value):
-        self._contacs = value
+        self._contacts = value
+
+    @property
+    def report_details(self):
+        return self._report_details
+
+    @report_details.setter
+    def report_details(self, value):
+        self._report_details = value

@@ -1,2 +1,3 @@
 from .passport_create_list_view import PassportCreateListView
 from .person_create_list_view import PersonCreateListView
+from .education_create_list_viewset import EducationViewSet

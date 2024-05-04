@@ -1,0 +1,236 @@
+:root{
+    --footer-size: 8pt;
+    --body-size: 10pt;
+    --heading-size: 12pt;
+    --leading-normal: 1.25;
+    --leading-loose: 2;
+    --font-family: Arial, Helvetica;
+    --bg: #000000;
+    --text-color: #575757;
+    --divider: #cbcbcb;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font-family), sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg);
+    padding: 0;
+    position: relative;
+}
+
+.paper{
+    width: 595pt;
+    height: 842pt;
+    border: 1px solid var(--bg);
+    background-color: white;
+    padding: 20pt;
+    position: relative;
+}
+
+.water-mark{
+    width: 90%;
+    opacity: 5%;
+    position: absolute;
+    filter: grayscale(100%);
+}
+
+@page {
+    size: letter portrait;
+    @frame header_frame {           /* Static frame */
+        -pdf-frame-content: header_content;
+
+        /*left: 50pt; width: 512pt; top: 50pt; height: 120pt; */
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--divider);
+
+        width: 512pt;
+        top: 50pt;
+        height: 120pt;
+    }
+
+    @frame content_frame {
+        left: 50pt;
+        width: 512pt;
+        top: 200pt;
+        height: 500pt;
+    }
+
+    @frame footer_frame {           /* Static frame */
+        -pdf-frame-content: footer_content;
+        /*left: 50pt; width: 512pt; top: 772pt; height: 20pt;*/
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid var(--divider);
+        padding: 12px 20px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--divider);
+}
+
+footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--divider);
+    padding: 12px 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+footer p{
+    font-size: var(--footer-size);
+}
+header .left img{
+    width: 90px;
+}
+
+header .left {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+header .left p{
+    text-transform: capitalize;
+}
+header p{
+    line-height: var(--leading-loose)
+}
+
+p{
+    font-size: var(--body-size);
+    font-weight: normal;
+    line-height: var(--leading-normal);
+}
+
+h1{
+    font-weight: 600;
+    line-height: var(--leading-loose);
+    font-size: var(--heading-size);
+    text-transform: capitalize;
+}
+
+section{
+    order: 2;
+    padding: 16pt 0;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    border-bottom: 1px solid var(--divider);
+}
+
+
+.overview-information{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.information{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.information > .data-values{
+    width: 30%;
+}
+.general-details > .data-values,
+.contact > .data-values{
+    width: 45%;
+}
+.passport-overview{
+    width: 300px;
+    height: max-content;
+}
+.data-values > div{
+    display: flex;
+    gap: 4pt;
+    align-items: center;
+}
+
+.data-values > div .item{
+    width: 60%;
+    font-weight: normal;
+    text-transform: capitalize;
+}
+
+.data-values > div .title{
+    width: 40%;
+    font-weight: bold;
+    text-transform: capitalize;
+    align-items: center;
+}
+.overview-information .data-values > div p{
+    width: 50%;
+}
+.data-values > div .email{
+    text-transform: lowercase;
+}
+
+.value-preview{
+    width: 16px;
+    height: max-content;
+}
+
+.data-card{
+    display: flex;
+    justify-content: space-between;
+}
+.desc p{
+    display: flex;
+    gap: 4pt;
+    font-weight: bold;
+    text-transform: capitalize;
+    align-items: center;
+}
+.desc span{
+    font-size: var(--body-size);
+}
+.family{
+    border-bottom: none;
+}
+.family table{
+    width: 100%;
+    text-transform: capitalize;
+}
+.family table > tr{
+    width: 25%;
+}
+.family table > tr{
+    display: flex;
+    align-items: start;
+
+}
+
+tr:nth-child(even) {
+    border: 1px solid var(--divider);
+}
+th{
+    line-height: var(--leading-loose);
+    text-align: left;
+    font-weight: bold;
+}
