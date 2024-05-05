@@ -85,7 +85,7 @@ class TestAssessmentEvaluator(TestCase):
         self.assertEqual(expected_dict, evaluator.points_list)
 
     def rules(self):
-        return  {
+        return {
               "qualification":  {
                 "degree": 25,
                 "diploma": 20,

@@ -5,7 +5,7 @@ from .views import (
     WorkResidencePermitCreateListView, PlaceOfResidenceViewSet, SpousePlaceOfResidenceViewSet, DeclarationViewSet
 )
 from .views import EmergencyResPermitApplicationViewSet, EmergencyResidencePermitViewSet
-from .views import ExemptionCertificateViewSet, ResidencePermitCancellationViewSet
+from .views import ExemptionCertificateViewSet, ResidencePermitCancellationViewSet, SecurityClearanceViewSet
 
 
 from rest_framework.routers import DefaultRouter
@@ -21,6 +21,7 @@ router.register(r'emergency-res-permit-applications', EmergencyResPermitApplicat
 router.register(r'emergency-residence-permits', EmergencyResidencePermitViewSet, basename='emergency-permit')
 router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-cert')
 router.register(r'residence-permit-cancellation', ResidencePermitCancellationViewSet, basename='res-permit-cancellation')
+router.register(r'security-clearances', SecurityClearanceViewSet, basename='security-clearance')
 
 
 urlpatterns = [

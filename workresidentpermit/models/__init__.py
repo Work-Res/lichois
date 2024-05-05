@@ -9,3 +9,4 @@ from .permit import Permit
 from .work_resident_permit import WorkResidencePermit
 from .place_of_residence import PlaceOfResidence, SpousePlaceOfResidence
 from .declaration import Declaration
+from .security_clearance import SecurityClearance
