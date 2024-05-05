@@ -52,4 +52,9 @@ class PassportSerializer(serializers.ModelSerializer):
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
-        fields = ['id', 'level', 'field_of_study', 'institution', 'start_date', 'end_date']
+        fields = ('id',
+                  'level',
+                  'field_of_study',
+                  'institution',
+                  'start_date',
+                  'end_date',)

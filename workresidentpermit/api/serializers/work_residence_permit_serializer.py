@@ -39,5 +39,5 @@ class WorkResidencePermitSerializer(serializers.ModelSerializer):
             "ever_prohibited",
             "sentenced_before",
             "entry_place",
-            "arrival_date"
+            "arrival_date",
         )
