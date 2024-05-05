@@ -21,7 +21,7 @@ class AssessmentEvaluator(object):
     def predicate(self, source, conditions):
         self.logger = logging.getLogger("app_assessment")
         try:
-            rules = ast.literal_eval(conditions)
+            rules = ast.literal_eval(str(conditions))
             for prop, value in rules.items():
                 if hasattr(source, prop):
                     if isinstance(getattr(source, prop), dict):
