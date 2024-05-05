@@ -9,3 +9,4 @@ from .spouse_create_list_view import SpouseCreateListView
 from .child_create_list_view import ChildCreateListView
 from .work_resident_permit_create_list_view import WorkResidencePermitCreateListView
 from .place_of_residence_viewset import PlaceOfResidenceViewSet, SpousePlaceOfResidenceViewSet
+from .declaration_create_list_view import  DeclarationViewSet

@@ -1,0 +1,1 @@
+from .assessment_view_create_list import AssessmentResultViewSet

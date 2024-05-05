@@ -27,7 +27,8 @@ DATE_ESTIMATED = (
 
 GENDER = (
 	('male', 'Male'),
-	('female', 'Female')
+	('female', 'Female'),
+	('other', 'OTHER')
 )
 
 IDENTITY_TYPE = (

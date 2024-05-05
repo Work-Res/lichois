@@ -2,8 +2,10 @@ from django.db import models
 
 from ..choices import EDUCATION_LEVELS
 
+from app.models import ApplicationBaseModel
 
-class Education(models.Model):
+
+class Education(ApplicationBaseModel):
 
     level = models.CharField(max_length=50, choices=EDUCATION_LEVELS)
     field_of_study = models.CharField(max_length=100)

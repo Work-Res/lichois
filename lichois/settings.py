@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "app_personal_details.apps.AppPersonalDetailsConfig",
     "app_comments.apps.AppCommentsConfig",
     "app_decision.apps.AppDecisionConfig",
+    "app_assessment.apps.AppAssessmentConfig",
     "workresidentpermit.apps.WorkresidentpermitConfig",
     "workflow.apps.WorkflowConfig",
     "identifier.apps.AppConfig",
