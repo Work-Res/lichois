@@ -15,6 +15,7 @@ django-rest-swagger
 gunicorn
 git+https://github.com/Work-Res/identifier.git
 haystack
+django-haystack
 drf-yasg
 setuptools
 django-cors-headers
