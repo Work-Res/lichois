@@ -1,4 +1,5 @@
 import arrow
+import uuid
 from django.test import tag
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -8,10 +9,10 @@ from datetime import date
 from rest_framework.authtoken.models import Token
 from rest_framework.test import force_authenticate
 from rest_framework.test import APITestCase
-from ..models import InterestDeclaration, MeetingAttendee
+from ..models import BoardMeeting, InterestDeclaration, MeetingAttendee
 
 
-@tag('att')
+@tag('int')
 class InterestDeclarationAPITests(APITestCase):
 
     def setUp(self):
@@ -22,40 +23,60 @@ class InterestDeclarationAPITests(APITestCase):
 
         self.board = mommy.make_recipe(
             'board.board',
+            id=uuid.uuid4()
+
         )
 
         self.board_member = mommy.make_recipe(
             'board.boardmember',
+            id=uuid.uuid4(),
+            board=self.board,
+            user_id=1
+        )
+
+        self.board_member2 = mommy.make_recipe(
+            'board.boardmember',
+            id=uuid.uuid4(),
+            board=self.board,
+            user_id=2
+        )
+
+        self.board_member3 = mommy.make_recipe(
+            'board.boardmember',
+            id=uuid.uuid4(),
             board=self.board
         )
 
         self.board_meeting = mommy.make_recipe(
             'board.boardmeeting',
+            id=uuid.uuid4(),
             board_id=self.board.id
         )
 
         self.agenda_item = mommy.make_recipe(
-            'board.agendaitem'
+            'board.agendaitem',
+            id=uuid.uuid4()
         )
 
         self.interest_declaration = mommy.make_recipe(
             'board.interestdeclaration',
+            id=uuid.uuid4(),
             interest_description='this is definitely a paragraph',
             meeting_attendee=MeetingAttendee.objects.filter(meeting=self.board_meeting)[0],
             agenda_item=self.agenda_item
         )
 
-    @tag('bmv1')
+    @tag('int1')
     def test_list(self):
         url = reverse('board:interest-declarations-list')
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @tag('bmv12')
+    @tag('int2')
     def test_create(self):
 
-        board_meeting_data = {'meeting_attendee': MeetingAttendee.objects.filter(meeting=self.board_meeting)[0].id,
+        board_meeting_data = {'meeting_attendee': MeetingAttendee.objects.filter(meeting=self.board_meeting)[1].id,
                               'agenda_item': self.agenda_item.id,
                               'board_id': self.board.id,
                               'client_relationship': 'investment',
@@ -82,27 +103,28 @@ class InterestDeclarationAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['interest_description'], 'this is definitely a paragraph')
 
-    @tag('bmv1')
+    @tag('int4')
     def test_update(self):
-        board_meeting_data = {'name': 'Updated meeting1'}
+        interest_declaration_data = {'interest_description': 'Updated meeting1'}
         url = reverse('board:interest-declarations-detail',
-                      kwargs={'pk': self.board_meeting1.id})
+                      kwargs={'pk': self.interest_declaration.id})
 
-        response = self.client.patch(url, board_meeting_data)
+        response = self.client.patch(url, interest_declaration_data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(BoardMeeting.objects.get(id=self.board_meeting1.id).description, 'meeting1')
+        self.assertEqual(InterestDeclaration.objects.get(id=self.interest_declaration.id).interest_description,
+                         'Updated meeting1')
 
-    @tag('bmv1')
+    @tag('int5')
     def test_delete(self):
-        board_meeting3 = mommy.make_recipe(
-            'board.boardmeeting',
-            description='meeting3',
-            board_id=self.board.id
+        interest_declaration = mommy.make_recipe(
+            'board.interestdeclaration',
+            interest_description='this is text',
+            meeting_attendee=MeetingAttendee.objects.filter(meeting=self.board_meeting)[1]
         )
 
         url = reverse('board:interest-declarations-detail',
-                      kwargs={'pk': board_meeting3.id})
+                      kwargs={'pk': interest_declaration.id})
 
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(BoardMeeting.objects.filter(id=board_meeting3.id).exists())
+        self.assertFalse(InterestDeclaration.objects.filter(id=interest_declaration.id).exists())

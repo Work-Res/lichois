@@ -33,11 +33,11 @@ class BoardMeetingViewSetTestCase(TestCase):
             description='meeting1',
             board_id=self.board.id)
 
-        self.board_meeting2 = mommy.make_recipe(
-            'board.boardmeeting',
-            description='meeting2',
-            board_id=self.board.id
-        )
+        # self.board_meeting2 = mommy.make_recipe(
+        #     'board.boardmeeting',
+        #     description='meeting2',
+        #     board_id=self.board.id
+        # )
 
     @tag('bmv11')
     def test_list(self):
@@ -63,12 +63,16 @@ class BoardMeetingViewSetTestCase(TestCase):
 
     @tag('bmv3')
     def test_retrieve(self):
+        board_meeting2 = mommy.make_recipe(
+                'board.boardmeeting',
+                description='meeting2',
+                board_id=self.board.id
+            )
+
         url = reverse('board:board-meetings-detail',
-                      kwargs={'pk': self.board_meeting2.id})
+                      kwargs={'pk': board_meeting2.id})
 
         response = self.client.get(url)
-
-        # response = self.client.get(f'/board-meetings/{self.board_meeting2.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['description'], 'meeting2')
 
@@ -80,7 +84,6 @@ class BoardMeetingViewSetTestCase(TestCase):
 
         response = self.client.patch(url, board_meeting_data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # breakpoint()
         self.assertEqual(BoardMeeting.objects.get(id=self.board_meeting1.id).description, 'meeting1')
 
     @tag('bmv5')
