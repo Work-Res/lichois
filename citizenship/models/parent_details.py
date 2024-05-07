@@ -10,11 +10,17 @@ class ParentDetails(PersonalDetailsModelMixin, BaseUuidModel):
         max_length=15, choices=PARENT_TYPE
     )
 
-    death_citizenship = models.CharField(max_length=190)
+    death_citizenship = models.CharField(max_length=190, blank=True, null=True)
 
     #postal_address
 
     #residential_address
+
+    dob = models.DateField(blank=True, null=True)
+
+    birth_place = models.CharField(max_length=190, blank=True, null=True)
+
+    nationality = models.CharField(max_length=190, blank=True, null=True)
 
     class Meta:
         app_label = 'citizenship'
