@@ -20,10 +20,11 @@ class TaskSearchAPIView(APIView):
     """
 
     def get(self, request, format=None):
-        query = request.GET.get('q', '')
-        search_results = SearchQuerySet().models(Task).filter(content=query)
-        paginator = CustomPagination()
-        paginated_search_results = paginator.paginate_queryset(search_results, request)
-        serializer = TaskSerializer(paginated_search_results, many=True)
+        # query = request.GET.get('q', '')
+        # search_results = SearchQuerySet().models(Task).filter(content=query)
+        # paginator = CustomPagination()
+        # paginated_search_results = paginator.paginate_queryset(search_results, request)
+        # serializer = TaskSerializer(paginated_search_results, many=True)
 
-        return Response(serializer.data)
+        # return Response(serializer.data)
+        return null

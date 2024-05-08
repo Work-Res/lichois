@@ -1,6 +1,7 @@
 import logging
 
 from datetime import date
+from sys import stdout
 
 from app.api.common.web import APIResponse, APIError
 from app.identifiers import WorkResidentPermitIdentifier

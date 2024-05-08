@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     "django_filters",
     "django_api_client",
     "corsheaders",
+    "django_extensions",
+    "lichois"
 ]
 
 MIDDLEWARE = [

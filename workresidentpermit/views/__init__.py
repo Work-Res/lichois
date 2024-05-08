@@ -7,9 +7,9 @@ from .work_resident_permit_application_detail_view import WorkResidentPermitAppl
 from .permit_create_list_view import PermitCreateListView
 from .spouse_create_list_view import SpouseCreateListView
 from .child_create_list_view import ChildCreateListView
-from .work_resident_permit_create_list_view import WorkResidencePermitCreateListView
-from .place_of_residence_viewset import PlaceOfResidenceViewSet, SpousePlaceOfResidenceViewSet
-from .declaration_create_list_view import  DeclarationViewSet
+from .resident_permit_viewset import ResidencePermitViewSet
 from .security_clearance_viewset import SecurityClearanceViewSet
 from .work_resident_permit_application_view import WorkResidentPermitApplicaitonAPIView
-
+from .work_permit_viewset import WorkPermitViewSet
+from .declaration_create_list_view import DeclarationViewSet
+from .place_of_residence_viewset import PlaceOfResidenceViewSet

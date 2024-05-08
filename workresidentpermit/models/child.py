@@ -1,7 +1,7 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
 from ..choices import GENDER, YES_NO
-from .work_resident_permit import WorkResidencePermit
+from .resident_permit import ResidencePermit
 
 
 class Child(BaseUuidModel):
@@ -22,7 +22,7 @@ class Child(BaseUuidModel):
 		max_length=3,
 		choices=YES_NO)
 
-	work_resident_permit = models.ForeignKey(WorkResidencePermit, on_delete=models.CASCADE)
+	work_resident_permit = models.ForeignKey(ResidencePermit, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = 'Child'

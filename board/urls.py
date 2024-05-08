@@ -1,6 +1,6 @@
 from django.urls.conf import path
 from django.views.generic.base import RedirectView
-from .admin_site import decision_admin
+from .admin_site import board_admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .viewsets import (AgendaViewSet, AgendaItemViewSet, BoardMeetingViewSet, ApplicationBatchViewSet,
@@ -18,9 +18,8 @@ router.register(r'board-decisions', BoardDecisionViewSet, basename='board-decisi
 router.register(r'interest-declarations', InterestDeclarationViewSet, basename='interest-declarations')
 
 urlpatterns = [
-    path('admin/', decision_admin.urls),
+    path('admin/', board_admin.urls),
     path('', RedirectView.as_view(url='admin/'), name='home_url'),
     path('', include(router.urls)),
-    
 ]
 

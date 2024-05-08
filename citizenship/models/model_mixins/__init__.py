@@ -1,0 +1,1 @@
+from .personal_details_model_mixin import PersonalDetailsModelMixin
