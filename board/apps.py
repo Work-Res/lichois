@@ -7,4 +7,5 @@ class AppConfig(DjangoAppConfig):
 	verbose_name = 'Board'
 
 	def ready(self):
-		from .models import board_meeting_on_post_save
+		pass
+		# from .models import board_meeting_on_post_save
