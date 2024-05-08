@@ -20,6 +20,7 @@ class Application(BaseUuidModel):
     process_name = models.CharField(max_length=200, null=False, blank=False)
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
+    submission_date = models.DateField()
 
     def __str__(self):
         return f"Application {self.application_document.document_number}"

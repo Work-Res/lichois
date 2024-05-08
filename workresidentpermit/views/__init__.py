@@ -11,4 +11,5 @@ from .work_resident_permit_create_list_view import WorkResidencePermitCreateList
 from .place_of_residence_viewset import PlaceOfResidenceViewSet, SpousePlaceOfResidenceViewSet
 from .declaration_create_list_view import  DeclarationViewSet
 from .security_clearance_viewset import SecurityClearanceViewSet
+from .work_resident_permit_application_view import WorkResidentPermitApplicaitonAPIView
 

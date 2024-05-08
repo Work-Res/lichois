@@ -5,7 +5,8 @@ from .views import (
     WorkResidencePermitCreateListView, PlaceOfResidenceViewSet, SpousePlaceOfResidenceViewSet, DeclarationViewSet
 )
 from .views import EmergencyResPermitApplicationViewSet, EmergencyResidencePermitViewSet
-from .views import ExemptionCertificateViewSet, ResidencePermitCancellationViewSet, SecurityClearanceViewSet
+from .views import (ExemptionCertificateViewSet, ResidencePermitCancellationViewSet, SecurityClearanceViewSet,
+                    WorkResidentPermitApplicaitonAPIView)
 
 
 from rest_framework.routers import DefaultRouter
@@ -28,6 +29,8 @@ urlpatterns = [
     path('workresidentpermit/summary/<str:document_number>', WorkResidentPermitApplicationDetailView.as_view(),
          name='workresidentpermit-detail'),
     path('spouse/<str:document_number>/<str:pk>', SpouseCreateListView.as_view({'get': 'list'}),
+         name='spouse-detail'),
+    path('workresidentpermit/<str:document_number>/submit', WorkResidentPermitApplicaitonAPIView.as_view(),
          name='spouse-detail'),
     path('', include(router.urls)),
 ]

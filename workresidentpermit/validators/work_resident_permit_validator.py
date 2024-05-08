@@ -4,6 +4,7 @@ from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment
 from app_personal_details.models import Person, Passport, Permit
 from app_contact.models import ApplicationContact
+from app.models import Application
 from app.api.common.web import APIResponse, APIError
 
 
@@ -15,16 +16,34 @@ class WorkResidentPermitValidator:
 
     def __init__(self, process=None, work_resident_permit=None, document_number=None):
         self.logger = logging.getLogger(__name__)
-        self.process = process
-        self.work_resident_permit = work_resident_permit
-        self.document_number = document_number
-        self.response = APIResponse()
+        try:
+            self.application = Application.objects.get(
+                application_document__document_number=document_number)
+            self.process = process
+            self.work_resident_permit = work_resident_permit
+            self.document_number = document_number
+            self.response = APIResponse()
+        except Application.DoesNotExist:
+            self.response.messages.append(
+                APIError(
+                    code=400,
+                    message="Incorrect document number",
+                    details=f"An application with {document_number} is not found. "
+                )
+            )
 
     def validate(self):
         self.validate_mandatory_attachments()
         self.find_missing_mandatory_fields()
         self.validate_contacts()
         self.validate_preferred_channels()
+
+    def is_valid(self):
+        """
+        Returns True or False after running the validate method.
+        """
+        self.validate()
+        return True if len(self.response.messages) == 0 else False
 
     def find_missing_mandatory_fields(self):
         """
