@@ -6,7 +6,7 @@ from app.models import ApplicationBaseModel
 from .application_decision_type import ApplicationDecisionType
 
 
-def app_doc_default():
+def app_app_doc_defaultdoc_default():
     return {}
 
 
