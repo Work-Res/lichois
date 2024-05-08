@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from workresidentpermit.models import SecurityClearance
+from ...models import SecurityClearance
 
-from .work_residence_permit_serializer import WorkResidencePermitSerializer
+from .residence_permit_serializer import ResidencePermitSerializer
 
 
 class SecurityClearanceSerializer(serializers.ModelSerializer):
 
-    work_resident_permit = WorkResidencePermitSerializer()
+    # work_resident_permit = WorkResidencePermitSerializer()
 
     class Meta:
         model = SecurityClearance

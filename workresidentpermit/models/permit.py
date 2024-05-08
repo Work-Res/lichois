@@ -2,7 +2,7 @@ from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
 
-from .work_resident_permit import WorkResidencePermit
+from .resident_permit import ResidencePermit
 
 
 class Permit(BaseUuidModel):
@@ -12,7 +12,7 @@ class Permit(BaseUuidModel):
 	date_issued = models.DateField()
 	date_expiry = models.DateField()
 	place_issue = models.CharField(max_length=190)
-	work_resident_permit = models.ForeignKey(WorkResidencePermit, on_delete=models.CASCADE)
+	work_resident_permit = models.ForeignKey(ResidencePermit, on_delete=models.CASCADE)
 
 	class Meta:
 		verbose_name = 'Permit'

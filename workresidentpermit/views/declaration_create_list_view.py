@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from workresidentpermit.models import Declaration
+from ..models import Declaration
 
 from ..api.serializers import DeclarationSerializer
 

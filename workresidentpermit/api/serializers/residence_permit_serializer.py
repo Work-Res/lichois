@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from ...models import WorkResidencePermit
-from base_module.choices import YES_NO, REASONS_PERMIT
+from ...models import ResidencePermit
+from base_module.choices import PREFERRED_METHOD_COMM, YES_NO, REASONS_PERMIT
 
 
-class WorkResidencePermitSerializer(serializers.ModelSerializer):
+class ResidencePermitSerializer(serializers.ModelSerializer):
 
     file_number = serializers.CharField(required=False)
+    preferred_method_comm = serializers.ChoiceField(choices=PREFERRED_METHOD_COMM)
+    preferred_method_comm_value = serializers.CharField(required=True)
     language = serializers.CharField()
     permit_reason = serializers.CharField()
-    previous_nationality = serializers.CharField(required=False)
-    current_nationality = serializers.CharField()
     state_period_required = serializers.DateField(required=True)
     propose_work_employment = serializers.ChoiceField(choices=YES_NO)
     reason_applying_permit = serializers.ChoiceField(choices=REASONS_PERMIT)
@@ -20,16 +20,15 @@ class WorkResidencePermitSerializer(serializers.ModelSerializer):
     sentenced_before = serializers.CharField()
     entry_place = serializers.CharField()
     arrival_date = serializers.DateField(required=True)
-    arrival_date = serializers.DateField(required=True)
 
     class Meta:
-        model = WorkResidencePermit
+        model = ResidencePermit
         fields = (
             "file_number",
+            "preferred_method_comm",
+            "preferred_method_comm_value",
             "language",
             "permit_reason",
-            "previous_nationality",
-            "current_nationality",
             "state_period_required",
             "propose_work_employment",
             "reason_applying_permit",
@@ -39,5 +38,5 @@ class WorkResidencePermitSerializer(serializers.ModelSerializer):
             "ever_prohibited",
             "sentenced_before",
             "entry_place",
-            "arrival_date",
+            "arrival_date"
         )

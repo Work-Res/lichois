@@ -6,7 +6,12 @@ from .residence_permit_appeal import ResidencePermitAppeal
 from .residence_permit_cancellation import ResidencePermitCancellation
 from .spouse import Spouse
 from .permit import Permit
-from .work_resident_permit import WorkResidencePermit
-from .place_of_residence import PlaceOfResidence, SpousePlaceOfResidence
+from .resident_permit import ResidencePermit
+from .wok_permit import WorkPermit
 from .declaration import Declaration
+from .place_of_residence import PlaceOfResidence, SpousePlaceOfResidence
 from .security_clearance import SecurityClearance
+from .employer_record import EmploymentRecord
+
+
+

@@ -3,7 +3,7 @@ from app.models import ApplicationBaseModel
 from base_module.choices import PREFERRED_METHOD_COMM, YES_NO, REASONS_PERMIT
 
 
-class WorkResidencePermit(ApplicationBaseModel):
+class ResidencePermit(ApplicationBaseModel):
 
 	file_number = models.CharField(max_length=190, blank=True)
 	language = models.CharField(max_length=190)
@@ -22,4 +22,4 @@ class WorkResidencePermit(ApplicationBaseModel):
 	arrival_date = models.DateField()
 
 	class Meta:
-		verbose_name = 'Work Residence Permits'
+		verbose_name = 'Residence Permits'

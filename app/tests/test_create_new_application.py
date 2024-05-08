@@ -2,6 +2,8 @@ import pytest
 
 from datetime import date
 
+from django.test import tag
+
 from app.classes import CreateNewApplication
 from app.api import NewApplication
 from app.models import ApplicationStatus, Application, ApplicationVersion
@@ -12,6 +14,7 @@ pytestmark = pytest.mark.django_db
 from ..utils import ApplicationProcesses
 
 
+@tag('cna')
 class TestCreateNewApplication:
 
     @pytest.fixture(autouse=True)

@@ -21,6 +21,5 @@ urlpatterns = [
     path('admin/', decision_admin.urls),
     path('', RedirectView.as_view(url='admin/'), name='home_url'),
     path('', include(router.urls)),
-    
 ]
 

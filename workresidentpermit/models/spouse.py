@@ -2,7 +2,7 @@ from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
 
-from .work_resident_permit import WorkResidencePermit
+from .resident_permit import ResidencePermit
 
 
 class Spouse(BaseUuidModel):
@@ -13,7 +13,7 @@ class Spouse(BaseUuidModel):
     spouse_country = models.CharField(max_length=190)
     spouse_place_birth = models.CharField(max_length=190)
     spouse_dob = models.DateField()
-    work_resident_permit = models.ForeignKey(WorkResidencePermit, on_delete=models.CASCADE)
+    work_resident_permit = models.ForeignKey(ResidencePermit, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Spouse'

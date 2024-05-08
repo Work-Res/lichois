@@ -3,7 +3,7 @@ import uuid
 import pytest
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.test import tag
+from django.test import TestCase, tag
 from model_mommy import mommy
 from rest_framework.test import APIClient
 from rest_framework import status
