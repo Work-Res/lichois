@@ -24,6 +24,8 @@ from drf_yasg.views import get_schema_view
 from django.contrib import admin
 from django.urls import path, include
 
+from board.admin_site import board_admin
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Africort Technologies",
@@ -35,6 +37,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('board/', board_admin.urls),
     path('lichois/api/v1/', include('app.urls')),
     path('lichois/api/v1/', include('app_address.urls')),
     path('lichois/api/v1/', include('app_checklist.urls')),
