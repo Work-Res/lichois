@@ -1,1 +1,2 @@
 from .work_resident_permit_validator import WorkResidentPermitValidator
+from .work_resident_permit_verification_validator import WorkResidentPermitVerificationValidator

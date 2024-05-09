@@ -16,13 +16,13 @@ class WorkResidentPermitValidator:
 
     def __init__(self, process=None, work_resident_permit=None, document_number=None):
         self.logger = logging.getLogger(__name__)
+        self.document_number = document_number
+        self.response = APIResponse()
         try:
             self.application = Application.objects.get(
                 application_document__document_number=document_number)
             self.process = process
             self.work_resident_permit = work_resident_permit
-            self.document_number = document_number
-            self.response = APIResponse()
         except Application.DoesNotExist:
             self.response.messages.append(
                 APIError(

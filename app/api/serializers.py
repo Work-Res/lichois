@@ -80,3 +80,10 @@ class NewApplicationSerializer(serializers.Serializer):
     work_place = serializers.CharField(allow_blank=False, max_length=200, required=True)
     status = serializers.CharField(max_length=30)
     dob = serializers.CharField(max_length=30)
+
+
+class ApplicationVerificationRequestSerializer(serializers.Serializer):
+
+    decision = serializers.CharField(max_length=200, required=True)
+    comment = serializers.CharField(max_length=500, required=True)
+    outcome_reason = serializers.CharField(max_length=300, required=False)

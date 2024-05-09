@@ -3,13 +3,13 @@ import logging
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-from workresidentpermit.models import WorkResidencePermit
+from workresidentpermit.models import WorkPermit
 from app.utils import ApplicationStatuses
 
 from .classes import WorkPermitApplicationPDFGenerator
 
 
-@receiver(post_save, sender=WorkResidencePermit)
+@receiver(post_save, sender=WorkPermit)
 def generate_pdf_summary(sender, instance, created, **kwargs):
     logger = logging.getLogger(__name__)
     try:

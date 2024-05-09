@@ -18,7 +18,7 @@
               }, {
                 "code":  "PASSPORT_PHOTO",
                 "name":  "PASSPORT PHOTO",
-                "process": "residentpermit",
+                "process": "residentpermit,visa",
                 "description": "Passport photo",
                 "mandatory": false,
                 "valid_from": "2024-01-01",

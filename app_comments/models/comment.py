@@ -6,7 +6,7 @@ from app.models import ApplicationBaseModel
 
 class Comment(ApplicationBaseModel):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comment_text = models.TextField()
     comment_type = models.CharField(max_length=50)
 

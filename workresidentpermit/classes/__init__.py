@@ -3,3 +3,4 @@ from .work_resident_permit_task_activation_rules import WorkResidentPermitTaskAc
 from .report_details import ReportDetails
 from .work_permit_application_pdf_generator import WorkPermitApplicationPDFGenerator
 from .work_resident_permit_application import WorkResidentPermitApplication
+from .crm_communication_api import CRMCommunicationApi

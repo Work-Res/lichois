@@ -6,7 +6,8 @@ from rest_framework.routers import DefaultRouter
 from .views import (ChildCreateListView, EmergencyResPermitApplicationViewSet, EmergencyResidencePermitViewSet,
                     ExemptionCertificateViewSet, PermitCreateListView, ResidencePermitCancellationViewSet,
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
-                    WorkResidentPermitApplicationDetailView, WorkResidentPermitApplicaitonAPIView)
+                    WorkResidentPermitApplicationDetailView, WorkResidentPermitApplicationAPIView,
+                    WorkResidentPermitApplicationVerificationAPIView)
 
 router = DefaultRouter()
 router.register(r'permits', PermitCreateListView, basename='permits')
@@ -25,7 +26,9 @@ urlpatterns = [
          name='work_resident_permit_detail'),
     path('spouse/<str:document_number>/<str:pk>', SpouseCreateListView.as_view({'get': 'list'}),
          name='spouse-detail'),
-    path('workresidentpermit/<str:document_number>/submit', WorkResidentPermitApplicaitonAPIView.as_view(),
-         name='spouse-detail'),
+    path('workresidentpermit/<str:document_number>/submit', WorkResidentPermitApplicationAPIView.as_view(),
+         name='submit-workresident-permit'),
+    path('workresidentpermit/<str:document_number>/submit/verification',
+         WorkResidentPermitApplicationVerificationAPIView.as_view(), name='submit-verification'),
     path('', include(router.urls)),
 ]
