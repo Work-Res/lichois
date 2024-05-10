@@ -4,8 +4,6 @@ from base_module.choices import PREFERRED_METHOD_COMM, YES_NO, REASONS_PERMIT
 
 
 class ResidencePermit(ApplicationBaseModel):
-
-	file_number = models.CharField(max_length=190, blank=True)
 	language = models.CharField(max_length=190)
 	permit_reason = models.TextField()
 	previous_nationality = models.CharField(max_length=190)

@@ -12,7 +12,6 @@ class WorkPermit(ApplicationBaseModel, EmployerModelMixin, TraineeModelMixin, In
 	job_offer = models.TextField()
 	qualification = models.CharField(max_length=255)
 	years_of_study = models.IntegerField()
-	# employment_records = models.ManyToManyField(EmploymentRecord)
 	
 	class Meta:
 		verbose_name = 'Work Permits'
