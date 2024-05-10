@@ -1,9 +1,9 @@
 from ..api import WorkResidentPermitApplication
-from app_personal_details.models import Person, Passport
+from app_personal_details.models import Person, Passport, Permit
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
 from app_contact.models import ApplicationContact
-from ..models import Permit, Child, Spouse, ResidencePermit
+from ..models import Child, Spouse, ResidencePermit, WorkPermit
 
 
 class WorkResidentPermitData(object):
@@ -23,7 +23,7 @@ class WorkResidentPermitData(object):
         self.work_resident_permit_application.permit = self.permit()
         self.work_resident_permit_application.child = self.child()
         self.work_resident_permit_application.spouse = self.spouse()
-        self.work_resident_permit_application.work_resident_permit = self.resident_permit()
+        self.work_resident_permit_application.work_resident_permit = self.work_resident_permit()
         self.work_resident_permit_application.attachments = self.attachments()
         return self.work_resident_permit_application
 
@@ -75,12 +75,26 @@ class WorkResidentPermitData(object):
     def resident_permit(self):
         try:
             form_details = ResidencePermit.objects.get(
-                application_version__document_number=self.document_number)
+                document_number=self.document_number)
             return form_details
         except ResidencePermit.DoesNotExist:
+            pass
+    
+    def work_permit(self):
+        try:
+            form_details = WorkPermit.objects.get(
+                document_number=self.document_number)
+            return form_details
+        except WorkPermit.DoesNotExist:
             pass
 
     def attachments(self):
         attachments = ApplicationAttachment.objects.filter(
             application_version__application__application_document__document_number=self.document_number)
         return attachments
+    
+    def work_resident_permit(self):
+        return [
+            self.work_permit(),
+            self.resident_permit(),
+        ]

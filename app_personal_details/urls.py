@@ -1,10 +1,12 @@
-from .views import PersonCreateListView, PassportCreateListView, EducationViewSet
+from .views import PersonCreateListView, PassportCreateListView, EducationViewSet, PermitCreateListView
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'education', EducationViewSet)
+router.register(r'permits', PermitCreateListView, basename='permits')
+
 
 urlpatterns = [
     path('personal_details/passport/<str:document_number>', PassportCreateListView.as_view(), name='create-passport'),
