@@ -5,7 +5,6 @@ from .exemption_certificate import ExemptionCertificate
 from .residence_permit_appeal import ResidencePermitAppeal
 from .residence_permit_cancellation import ResidencePermitCancellation
 from .spouse import Spouse
-from .permit import Permit
 from .resident_permit import ResidencePermit
 from .work_permit import WorkPermit
 from .declaration import Declaration
