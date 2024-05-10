@@ -31,7 +31,7 @@ class Command(BaseCommand):
 			valid_to='2026-12-31',
 		)
 		
-		for _ in range(5):
+		for _ in range(50):
 			with atomic():
 				new_app = NewApplication(
 					process_name='WORK_RESIDENT_PERMIT',
