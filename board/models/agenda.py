@@ -7,7 +7,6 @@ from .application_batch import ApplicationBatch
 
 
 class Agenda(BaseUuidModel):
-	title = models.CharField(max_length=200)
 	meeting = models.ForeignKey(BoardMeeting, on_delete=models.CASCADE)
 	description = models.TextField()
 	duration = models.DurationField()

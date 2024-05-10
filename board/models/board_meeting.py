@@ -4,6 +4,7 @@ from ..choices import BOARD_MEETING_TYPES, BOARD_MEETING_STATUS
 
 
 class BoardMeeting(BaseUuidModel):
+    title = models.CharField(max_length=200)
     meeting_date = models.DateTimeField()
     description = models.CharField(max_length=150)
     status = models.CharField(max_length=50, choices=BOARD_MEETING_STATUS)

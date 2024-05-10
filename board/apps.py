@@ -9,3 +9,4 @@ class AppConfig(DjangoAppConfig):
 	def ready(self):
 		pass
 		# from .models import board_meeting_on_post_save
+75507845
