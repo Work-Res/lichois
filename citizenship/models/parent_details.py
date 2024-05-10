@@ -16,10 +16,6 @@ class ParentDetails(PersonalDetailsModelMixin, BaseUuidModel):
 
     #residential_address
 
-    dob = models.DateField(blank=True, null=True)
-
-    birth_place = models.CharField(max_length=190, blank=True, null=True)
-
     nationality = models.CharField(max_length=190, blank=True, null=True)
 
     class Meta:
