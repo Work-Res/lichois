@@ -1,21 +1,15 @@
-from datetime import datetime
-
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplication
 from app.classes import CreateNewApplication
 from app.models import ApplicationStatus
-from app_address.choices import ADDRESS_TYPE
-from app_contact.models.choices import CONTACT_TYPES
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.choices import REASONS_PERMIT, YES_NO
 from workresidentpermit.models import ResidencePermit, WorkPermit
-from base_module.choices import PERMIT_STATUS
 
 
 class Command(BaseCommand):
@@ -42,10 +36,8 @@ class Command(BaseCommand):
 					full_name=faker.name(),
 				)
 				self.stdout.write(self.style.SUCCESS('Populating data...'))
-				self.stdout.write(self.style.SUCCESS(f'New Application: {new_app.applicant_identifier}'))
 				app = CreateNewApplication(new_application=new_app)
 				version = app.create()
-				self.stdout.write(self.style.SUCCESS(f'Application Version: {version.__dict__}'))
 				Person.objects.get_or_create(
 					application_version=version,
 					first_name=faker.unique.first_name(),
@@ -67,7 +59,8 @@ class Command(BaseCommand):
 					po_box=faker.address(),
 					apartment_number=faker.building_number(),
 					plot_number=faker.building_number(),
-					address_type=faker.random_element(elements=ADDRESS_TYPE),
+					address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
+					                                            'other')),
 					country__id=country[0].id,
 					status=faker.random_element(elements=('active', 'inactive')),
 					city=faker.city(),
@@ -78,7 +71,7 @@ class Command(BaseCommand):
 				ApplicationContact.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,
-					contact_type=faker.random_element(elements=CONTACT_TYPES),
+					contact_type=faker.random_element(elements=('cell', 'email', 'fax', 'landline')),
 					contact_value=faker.phone_number(),
 					preferred_method_comm=faker.boolean(chance_of_getting_true=50),
 					status=faker.random_element(elements=('active', 'inactive')),
@@ -104,11 +97,12 @@ class Command(BaseCommand):
 					previous_nationality=faker.country(),
 					current_nationality=faker.country(),
 					state_period_required=faker.date_this_century(),
-					propose_work_employment=faker.random_element(elements=YES_NO),
-					reason_applying_permit=faker.random_element(elements=REASONS_PERMIT),
+					propose_work_employment=faker.random_element(elements=('yes', 'no')),
+					reason_applying_permit=faker.random_element(elements=('dependent', 'volunteer', 'student',
+					                                                      'immigrant', 'missionary')),
 					documentary_proof=faker.text(),
 					travelled_on_pass=faker.text(),
-					is_spouse_applying_residence=faker.random_element(elements=YES_NO),
+					is_spouse_applying_residence=faker.random_element(elements=('yes', 'no')),
 					ever_prohibited=faker.text(),
 					sentenced_before=faker.text(),
 					entry_place=faker.city(),
@@ -118,9 +112,9 @@ class Command(BaseCommand):
 				WorkPermit.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,
-					permit_status=faker.random_element(elements=PERMIT_STATUS),
+					permit_status=faker.random_element(elements=('new', 'renewal')),
 					job_offer=faker.text(),
-					qualification=faker.text(),
+					qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
 					years_of_study=faker.random_int(min=1, max=10),
 					business_name=faker.company(),
 					type_of_service=faker.text(),
@@ -137,14 +131,14 @@ class Command(BaseCommand):
 					labour_enquires=faker.text(),
 					no_bots_citizens=faker.random_int(min=1, max=10),
 					name=faker.name(),
-					educational_qualification=faker.text(),
+					educational_qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
 					job_experience=faker.text(),
-					take_over_trainees=faker.text(),
-					long_term_trainees=faker.text(),
+					take_over_trainees=faker.first_name(),
+					long_term_trainees=faker.first_name(),
 					date_localization=faker.date_this_century(),
 					employer=faker.company(),
 					occupation=faker.job(),
 					duration=faker.random_int(min=1, max=10),
-					names_of_trainees=faker.text(),
+					names_of_trainees=faker.first_name(),
 				)
 				self.stdout.write(self.style.SUCCESS('Successfully populated data'))

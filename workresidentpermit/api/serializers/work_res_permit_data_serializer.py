@@ -6,6 +6,7 @@ from app_contact.api.serializers import ApplicationContactSerializer
 from .child_serializer import ChildSerializer
 from .spouse_serializer import SpouseSerializer
 from .residence_permit_serializer import ResidencePermitSerializer
+from .work_permit_serializer import WorkPermitSerializer
 
 
 class WorkResidentPermitDataSerializer(serializers.Serializer):
@@ -18,3 +19,4 @@ class WorkResidentPermitDataSerializer(serializers.Serializer):
     spouse = SpouseSerializer(many=True)
     attachments = ApplicationAttachmentSerializer(many=True)
     resident_permit = ResidencePermitSerializer()
+    work_permit = WorkPermitSerializer()

@@ -194,7 +194,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Your React app's URL
     'http://localhost:8000',
-    'http://localhost:5173'
+    'http://localhost:5173',
 ]
 
 # DJANGO_API_CLIENT = {

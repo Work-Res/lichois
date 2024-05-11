@@ -11,10 +11,11 @@ class WorkResidentPermitApplication:
         self._permit = None
         self._child = None
         self._spouse = None
-        self._work_resident_permit = None
+        self._resident_permit = None
         self._application = None
         self._attachments = None
         self._report_details = None
+        self._work_permit = None
 
     @property
     def personal_details(self):
@@ -65,12 +66,20 @@ class WorkResidentPermitApplication:
         self._spouse = value
 
     @property
-    def work_resident_permit(self):
-        return self._work_resident_permit
+    def resident_permit(self):
+        return self._resident_permit
 
-    @work_resident_permit.setter
-    def work_resident_permit(self, value):
-        self._work_resident_permit = value
+    @resident_permit.setter
+    def resident_permit(self, value):
+        self._resident_permit = value
+    
+    @property
+    def work_permit(self):
+        return self._work_permit
+    
+    @work_permit.setter
+    def work_permit(self, value):
+        self._work_permit = value
 
     @property
     def application(self):

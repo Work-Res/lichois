@@ -1,8 +1,8 @@
 
 CONTACT_TYPES = (
-    ('CELL', 'Cell'),
-    ('EMAIL', 'Email'),
-    ('FAX', 'Fax'),
-    ('LANDLINE', 'Landline'),
-    ('OFFICE_LANDLINE', 'Office Landline'),
+    ('cell', 'Cell'),
+    ('email', 'Email'),
+    ('fax', 'Fax'),
+    ('landline', 'Landline'),
+    ('office_landline', 'Office Landline'),
 )

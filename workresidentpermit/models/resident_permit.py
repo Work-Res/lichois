@@ -18,6 +18,8 @@ class ResidencePermit(ApplicationBaseModel):
 	sentenced_before = models.TextField()
 	entry_place = models.CharField(max_length=190)
 	arrival_date = models.DateField()
+	preferred_method_comm = models.CharField(max_length=190, choices=PREFERRED_METHOD_COMM, null=True, blank=True)
+	preferred_method_comm_value = models.CharField(max_length=190, null=True, blank=True)
 
 	class Meta:
 		verbose_name = 'Residence Permits'
