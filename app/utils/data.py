@@ -1,7 +1,7 @@
 from datetime import date
 
 statuses = [{
-    'code': 'new',
+    'code': 'New',
     'name': 'NEW',
     'processes': 'WORK_RESIDENT_PERMIT,residentpermit,visa',
     'valid_from': date(2023, 1, 1),
@@ -9,21 +9,21 @@ statuses = [{
 },
     {
         'code': 'draft',
-        'name': 'DRAFT',
+        'name': 'Draft',
         'processes': 'WORK_RESIDENT_PERMIT,residentpermit,visa',
         'valid_from': date(2023, 1, 1),
         'valid_to': None
     },
     {
-        'code': 'verification',
-        'name': 'VERIFICATION',
+        'code': 'VERIFICATION',
+        'name': 'Verification',
         'processes': 'WORK_RESIDENT_PERMIT,residentpermit,visa',
         'valid_from': date(2023, 1, 1),
         'valid_to': None
     },
     {
         'code': 'vetting',
-        'name': 'VETTING',
+        'name': 'Vetting',
         'processes': 'WORK_RESIDENT_PERMIT,residentpermit,visa',
         'valid_from': date(2023, 1, 1),
         'valid_to': None

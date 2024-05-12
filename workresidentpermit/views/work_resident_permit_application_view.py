@@ -6,7 +6,7 @@ from ..validators import WorkPermitValidator
 from ..classes import WorkResidentPermitApplication
 
 
-class WorkResidentPermitApplicationAPIView(APIView):
+class WorkPermitApplicationAPIView(APIView):
 
     def post(self, request, document_number):
         validator = WorkPermitValidator(document_number=document_number)

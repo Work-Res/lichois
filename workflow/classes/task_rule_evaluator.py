@@ -1,11 +1,15 @@
 import logging
 import ast
 
+from django.conf import settings
+
 
 class TaskRuleEvaluator(object):
     """ Takes source object , and dict like valuesets to compares, return True or False
     """
     def predicate(self, source, conditions):
+        if settings.DEBUG:
+            print("TaskRuleEvaluator.predicate")
         self.logger = logging.getLogger(__name__)
         all_rules = []
         try:
@@ -16,6 +20,8 @@ class TaskRuleEvaluator(object):
                         self.predicate(getattr(source, prop), value)
                     else:
                         all_rules.append(True) if getattr(source, prop) == value else all_rules.append(False)
+            if settings.DEBUG:
+                print("TaskRuleEvaluator.result: ", all(all_rules))
             return all(all_rules)
         except ValueError as e:
             self.logger.debug("Failed to create rules from json string, got ", e)

@@ -5,7 +5,7 @@ from sys import stdout
 
 from app.api.common.web import APIResponse, APIMessage
 from app.identifiers import WorkResidentPermitIdentifier
-from app.utils import ApplicationProcesses
+from app.utils import ApplicationProcesses, ApplicationStatuses
 from app.api.serializers import ApplicationVersionSerializer
 
 from app.models import ApplicationDocument, ApplicationUser, ApplicationStatus, Application, ApplicationVersion
@@ -45,6 +45,8 @@ class CreateNewApplication(object):
             return None  # Avoid continuing
 
         application_status = self.get_application_status()
+        print("application_status: ", application_status)
+
         if self.create_application_document():
             application = Application()
             application.application_document = self.application_document
@@ -61,16 +63,15 @@ class CreateNewApplication(object):
             self.response.data = serializer.data
             return application_version
 
-
     def get_application_status(self):
         """
         Get existing application status for a particular process.
         """
         try:
             application_status = ApplicationStatus.objects.get(
-                code=self.application.status,
+                code__iexact=ApplicationStatuses.NEW.value
                 # processes__icontains=self.application.proces_name,
-                valid_from__lt=date.today()
+                # valid_from__lt=date.today() Fixme: Correct filtering
             )
             return application_status
         except ApplicationStatus.DoesNotExist:

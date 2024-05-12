@@ -58,7 +58,7 @@ class WorkResidentPermitApplication:
             )
             application_status = ApplicationStatus.objects.get(code=ApplicationStatuses.VETTING.value)
             self.application.application_status = application_status
-            self.save()
+            self.application.save()
             source_data.current_status = application_status.code
             source_data.next_activity_name = WorkflowEnum.FINAL_DECISION.value
             self.logger.info("Application has been submitted successfully.")
@@ -79,12 +79,12 @@ class WorkResidentPermitApplication:
         self.logger.info("Work resident submission process started.")
         with transaction.atomic():
             source_data = WorkflowTransition(
-                previous_status=self.application.application_status.code,
+                previous_status=self.application.application_status.code
             )
             application_status = ApplicationStatus.objects.get(code=ApplicationStatuses.VERIFICATION.value)
             self.application.application_status = application_status
             self.application.submission_date = date.today()
-            self.save()
+            self.application.save()
             source_data.current_status = application_status.code
             source_data.next_activity_name = ApplicationStatuses.VETTING.value
 
@@ -99,7 +99,6 @@ class WorkResidentPermitApplication:
             self.logger.info("Work resident submission process ended.")
 
             create_or_update_task_signal.send(self.application, source=source_data, application=self.application)
-
             return self.response
 
     def cancel(self):
