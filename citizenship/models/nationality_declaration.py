@@ -7,7 +7,7 @@ class NationalityDeclaration(BaseUuidModel):
     #personal_information
     #postal_address
     #residential_address
-    visit_country_name =  models.CharField(max_length=190)
+    visit_country_name = models.CharField(max_length=190)
     visit_country_reason = models.TextField(max_lenght=350)
     visit_country_year = models.DateField()
     #Residential_place

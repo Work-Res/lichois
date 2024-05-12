@@ -7,31 +7,17 @@ from ..choices import PERIOD_MEASURE
 
 class ExemptionCertificateApplication(BaseUuidModel):
 
-    business_name = models.CharField(
-        verbose_name='Name of Business/Undertaking/Organisation',
-        max_length=150
-    )
+    #personal_information
+    #passport_details
 
+    business_name = models.CharField(max_length=150)
     # address?
-
-    employment_capacity = models.CharField(
-        verbose_name='Capacity in which employed',
-        max_length=150
-    )
-
-    qualification_experience = models.TextField(
-        verbose_name='Qualification and/or experience',
-        max_length=500
-    )
-
-    engagement_period = models.PositiveIntegerField(
-        verbose_name='State proposed period of engagement'
-    )
-
-    engagement_period_measure = models.CharField(
-        choices=PERIOD_MEASURE,
-        max_length=10
-    )
+    employment_capacity = models.CharField(max_length=250)
+    proposed_period = models.PositiveIntegerField()
+    status = models.CharField(max_length=250)
+    applicant_signature = models.TextField(max_length=250)
+    application_date = models.DateField()
+    commissioner_signature = models.CharField(max_length=250)
 
     class Meta:
         app_label = 'visa'
