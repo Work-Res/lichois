@@ -2,13 +2,15 @@ import logging
 
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment
-from app_personal_details.models import Person, Passport, Permit
+from app_personal_details.models import Person, Passport
 from app_contact.models import ApplicationContact
+from app_address.models import ApplicationAddress
 from app.models import Application
 from app.api.common.web import APIResponse, APIMessage
+from workresidentpermit.models import WorkPermit
 
 
-class WorkResidentPermitValidator:
+class WorkPermitValidator:
 
     """
     Responsible for validating all mandatory for work resident and permit.
@@ -65,19 +67,30 @@ class WorkResidentPermitValidator:
             self.response.messages.append(
                 APIMessage(
                     code=400,
-                    message="Required Data",
+                    message="Passport are a mandatory.",
                     details=f"A passport details are missing, kindly submit the form. "
                 )
             )
 
         try:
-            Permit.objects.get(document_number=self.document_number)
-        except Permit.DoesNotExist:
+            ApplicationAddress.objects.get(document_number=self.document_number)
+        except ApplicationAddress.DoesNotExist:
             self.response.messages.append(
                 APIMessage(
                     code=400,
-                    message="Required Data",
+                    message="Address are a mandatory.",
                     details=f"A permit details are missing, kindly submit the form. "
+                )
+            )
+
+        try:
+            WorkPermit.objects.get(document_number=self.document_number)
+        except WorkPermit.DoesNotExist:
+            self.response.messages.append(
+                APIMessage(
+                    code=400,
+                    message="Work Permit Form is mandatory. ",
+                    details=f"A work permit form is required to captured before submission."
                 )
             )
 
@@ -86,7 +99,7 @@ class WorkResidentPermitValidator:
             self.response.messages.append(
                 APIMessage(
                     code=400,
-                    message="Required Field",
+                    message="Address contacts are a mandatory.",
                     details="Application contacts are missing. Please submit the required information."
                 )
             )
@@ -95,6 +108,7 @@ class WorkResidentPermitValidator:
         """
         Check if all required attachments for a business process are captured.
         """
+        print("self.process ", self.process)
         attachments = ClassifierItem.objects.filter(
             classifier__code="ATTACHMENT_DOCUMENTS",
             process__icontains=self.process if self.process else "",
@@ -109,7 +123,7 @@ class WorkResidentPermitValidator:
             self.response.messages.append(
                 APIMessage(
                     code=400,
-                    message="Required Field",
+                    message="Attachments are required.",
                     details=f"A mandatory attachment is required: {attachment.name}"
                 )
             )
