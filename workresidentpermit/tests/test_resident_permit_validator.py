@@ -5,7 +5,7 @@ from datetime import date
 
 from unittest.mock import patch
 
-from ..validators import WorkPermitValidator
+from ..validators import ResidentPermitValidator
 
 from app.models import Application, ApplicationDocument, ApplicationStatus, ApplicationUser
 from app_personal_details.models import Person, Passport
@@ -15,7 +15,7 @@ from app_checklist.classes import CreateChecklist
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
 from app.utils import ApplicationStatuses
-from workresidentpermit.models import WorkPermit
+from workresidentpermit.models import ResidencePermit
 
 from faker import Faker
 
@@ -28,7 +28,7 @@ def application(status):
         return None
 
 
-class TestWorkResidentPermitValidator(TestCase):
+class TestResidentPermitValidator(TestCase):
 
     def create_data(self):
         file_name = "attachment_documents.json"
@@ -65,7 +65,7 @@ class TestWorkResidentPermitValidator(TestCase):
     def test_validate_when_is_false(self):
         """Test WorkPermitValidator.validate when all required that not provided.
         """
-        validator = WorkPermitValidator(
+        validator = ResidentPermitValidator(
            process=None,
            work_resident_permit=None,
            document_number=None)
@@ -80,7 +80,7 @@ class TestWorkResidentPermitValidator(TestCase):
         application_mock.return_value = self.create_data()
         app = application(ApplicationStatuses.NEW.value)
 
-        validator = WorkPermitValidator(
+        validator = ResidentPermitValidator(
            process=app.process_name,
            work_resident_permit=None,
            document_number=app.application_document.document_number)
@@ -99,7 +99,7 @@ class TestWorkResidentPermitValidator(TestCase):
         application_mock.return_value = self.create_data()
         app = application(ApplicationStatuses.NEW.value)
 
-        validator = WorkPermitValidator(
+        validator = ResidentPermitValidator(
            process=app.process_name,
            work_resident_permit=None,
            document_number=app.application_document.document_number)
@@ -131,7 +131,7 @@ class TestWorkResidentPermitValidator(TestCase):
         application_mock.return_value = self.create_data()
         app = application(ApplicationStatuses.NEW.value)
 
-        validator = WorkPermitValidator(
+        validator = ResidentPermitValidator(
            process=app.process_name,
            work_resident_permit=None,
            document_number=app.application_document.document_number)
@@ -209,38 +209,24 @@ class TestWorkResidentPermitValidator(TestCase):
                 document_url="",
                 received_date=date.today()
             )
-
-        WorkPermit.objects.create(
+        ResidencePermit.objects.get_or_create(
             application_version=None,
             document_number=app.application_document.document_number,
-            permit_status=faker.random_element(elements=('new', 'renewal')),
-            job_offer=faker.text(),
-            qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
-            years_of_study=faker.random_int(min=1, max=10),
-            business_name=faker.company(),
-            type_of_service=faker.text(),
-            job_title=faker.job(),
-            job_description=faker.text(),
-            renumeration=faker.random_int(min=10000, max=100000),
-            period_permit_sought=faker.random_int(min=1, max=10),
-            has_vacancy_advertised=faker.boolean(chance_of_getting_true=50),
-            have_funished=faker.boolean(chance_of_getting_true=50),
-            reasons_funished=faker.text(),
-            time_fully_trained=faker.random_int(min=1, max=10),
-            reasons_renewal_takeover=faker.text(),
-            reasons_recruitment=faker.text(),
-            labour_enquires=faker.text(),
-            no_bots_citizens=faker.random_int(min=1, max=10),
-            name=faker.name(),
-            educational_qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
-            job_experience=faker.text(),
-            take_over_trainees=faker.first_name(),
-            long_term_trainees=faker.first_name(),
-            date_localization=faker.date_this_century(),
-            employer=faker.company(),
-            occupation=faker.job(),
-            duration=faker.random_int(min=1, max=10),
-            names_of_trainees=faker.first_name(),
+            language=faker.language_code(),
+            permit_reason=faker.text(),
+            previous_nationality=faker.country(),
+            current_nationality=faker.country(),
+            state_period_required=faker.date_this_century(),
+            propose_work_employment=faker.random_element(elements=('yes', 'no')),
+            reason_applying_permit=faker.random_element(elements=('dependent', 'volunteer', 'student',
+                                                                  'immigrant', 'missionary')),
+            documentary_proof=faker.text(),
+            travelled_on_pass=faker.text(),
+            is_spouse_applying_residence=faker.random_element(elements=('yes', 'no')),
+            ever_prohibited=faker.text(),
+            sentenced_before=faker.text(),
+            entry_place=faker.city(),
+            arrival_date=faker.date_this_century(),
         )
 
         self.assertTrue(validator.is_valid())

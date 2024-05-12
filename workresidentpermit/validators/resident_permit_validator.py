@@ -1,9 +1,9 @@
 from app.api.common.web import APIMessage
-from workresidentpermit.models import WorkPermit
+from workresidentpermit.models import ResidencePermit
 from .work_resident_permit_validator import WorkResidentPermitValidator
 
 
-class WorkPermitValidator(WorkResidentPermitValidator):
+class ResidentPermitValidator(WorkResidentPermitValidator):
 
     """
     Responsible for validating all mandatory for work permit.
@@ -16,12 +16,12 @@ class WorkPermitValidator(WorkResidentPermitValidator):
         super().find_missing_mandatory_fields()
 
         try:
-            WorkPermit.objects.get(document_number=self.document_number)
-        except WorkPermit.DoesNotExist:
+            ResidencePermit.objects.get(document_number=self.document_number)
+        except ResidencePermit.DoesNotExist:
             self.response.messages.append(
                 APIMessage(
                     code=400,
-                    message="Work Permit Form is mandatory. ",
+                    message="Resident Permit Form is mandatory. ",
                     details=f"A work permit form is required to captured before submission."
                 )
             )
