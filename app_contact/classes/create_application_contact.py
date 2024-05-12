@@ -1,6 +1,6 @@
 import logging
 
-from app.api.common.web import APIResponse, APIError
+from app.api.common.web import APIResponse, APIMessage
 
 from app_contact.models import ApplicationContact
 from app.models import ApplicationVersion
@@ -24,7 +24,7 @@ class CreateNewApplicationContact(object):
                 application__application_document__document_number=self.document_number)
             return application_version
         except ApplicationVersion.DoesNotExist:
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"An application document does not exists with: {self.document_number}"
@@ -43,7 +43,7 @@ class CreateNewApplicationContact(object):
 
                 ApplicationContact.objects.create(**self.data)
                 self.response.status = True
-                api_message = APIError(
+                api_message = APIMessage(
                     code=200,
                     message="Success",
                     details="The system created application contact details successfully."
@@ -52,7 +52,7 @@ class CreateNewApplicationContact(object):
                 self.response.messages.append(api_message.to_dict())
         except Exception as e:
             self.logger.debug(f"The system failed to create application contact details, something went wrong. {e}")
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create appllication contact details, something went wrong.{e}"

@@ -1,6 +1,6 @@
 import logging
 
-from app.api.common.web import APIResponse, APIError
+from app.api.common.web import APIResponse, APIMessage
 
 from app_personal_details.models import Passport
 from app.models import ApplicationVersion
@@ -24,7 +24,7 @@ class CreateNewPassport(object):
                 application__application_document__document_number=self.document_number)
             return application_version
         except ApplicationVersion.DoesNotExist:
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"An application document does not exists with: {self.document_number}"
@@ -42,7 +42,7 @@ class CreateNewPassport(object):
                 self.data['application_version'] = application_version
                 Passport.objects.create(**self.data)
                 self.response.status = True
-                api_message = APIError(
+                api_message = APIMessage(
                     code=200,
                     message="Success",
                     details="The system created passport details successfully."
@@ -52,7 +52,7 @@ class CreateNewPassport(object):
         except IntegrityError as e:
             self.logger.debug(
                 f"The system cannot create multiple passport details for document number {self.document_number}. {e}")
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system cannot create multiple passport details for document number. {self.document_number}.{e}"
@@ -61,7 +61,7 @@ class CreateNewPassport(object):
             self.response.messages.append(api_message.to_dict())
         except Exception as e:
             self.logger.debug(f"The system failed to create passport details, something went wrong. {e}")
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create passport details, something went wrong.{e}"

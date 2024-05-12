@@ -1,6 +1,6 @@
 import logging
 
-from app.api.common.web import APIResponse, APIError
+from app.api.common.web import APIResponse, APIMessage
 
 from app_address.models import ApplicationAddress, Country
 from app.models import ApplicationVersion
@@ -25,7 +25,7 @@ class CreateApplicationAddress(object):
             country = Country.objects.get(cso_code=code)
             return country
         except Country.DoesNotExist:
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"A country does not exists with: {code}"
@@ -39,7 +39,7 @@ class CreateApplicationAddress(object):
                 application__application_document__document_number=self.document_number)
             return application_version
         except ApplicationVersion.DoesNotExist:
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"An application document does not exists with: {self.document_number}"
@@ -60,7 +60,7 @@ class CreateApplicationAddress(object):
                     del self.data["document_number"]
                 ApplicationAddress.objects.create(**self.data)
                 self.response.status = True
-                api_message = APIError(
+                api_message = APIMessage(
                     code=200,
                     message="Success",
                     details="The system created application address successfully."
@@ -70,7 +70,7 @@ class CreateApplicationAddress(object):
         except IntegrityError as e:
             self.logger.debug(
                 f"The system cannot create multiple application address for document number {self.document_number}. {e}")
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system cannot create multiple application address for document number. {self.document_number}.{e}"
@@ -79,7 +79,7 @@ class CreateApplicationAddress(object):
             self.response.messages.append(api_message.to_dict())
         except Exception as e:
             self.logger.debug(f"The system failed to create application address, something went wrong. {e}")
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create application address, something went wrong.{e}"

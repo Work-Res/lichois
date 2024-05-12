@@ -17,6 +17,6 @@ class TestCreateClassifier(TestCase):
         create = CreateChecklist()
         create.create(file_location=output_file)
         classifiers = Classifier.objects.all()
-        self.assertGreater(len(classifiers), 0)
+        self.assertEqual(len(classifiers), 4)
         classifier_items = ClassifierItem.objects.all()
-        self.assertGreater(len(classifier_items), 0)
+        self.assertEqual(len(classifier_items), 13)

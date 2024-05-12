@@ -17,8 +17,9 @@ def update_task(source, conditions):
 
 
 workflow = rules.RuleSet()
-workflow.add_rule("FIRST_VERIFICATION", can_create_or_update_task)
-workflow.add_rule("SECOND_VERIFICATION", can_create_or_update_task)
+workflow.add_rule("VERIFICATION", can_create_or_update_task)
+workflow.add_rule("VETTING", can_create_or_update_task)
+workflow.add_rule("FINAL_DECISION", can_create_or_update_task)
 
 workflow_close = rules.RuleSet()
 workflow_close.add_rule("FIRST_VERIFICATION", update_task)
