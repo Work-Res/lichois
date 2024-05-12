@@ -2,10 +2,11 @@ import logging
 
 from app_attachments.models import ApplicationAttachmentVerification
 from app.models import Application
-from app.api.common.web import APIResponse, APIError
+from app.api.common.web import APIResponse, APIMessage
 from app.utils import VerificationStatusEnum, ApplicationStatuses
 
 # TODO: Unit testing required
+
 
 class WorkResidentPermitVerificationValidator:
 
@@ -20,7 +21,7 @@ class WorkResidentPermitVerificationValidator:
             )
         except Application.DoesNotExist:
             self.response.messages.append(
-                APIError(
+                APIMessage(
                     code=400,
                     message="Incorrect Application Status",
                     details=f"An application cannot be verified when status is not verification. "
@@ -44,7 +45,7 @@ class WorkResidentPermitVerificationValidator:
         )
         for not_verified in application_attachments_not_verified:
             self.response.messages.append(
-                APIError(
+                APIMessage(
                     code=400,
                     message="Documents not verified",
                     details=f"Attachment is not verified: {not_verified.document.document_type.name}"

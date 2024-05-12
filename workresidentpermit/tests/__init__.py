@@ -1,0 +1,2 @@
+from .test_work_resident_permit_application import TestWorkResidentPermitApplication
+from .test_work_resident_permit_validator import TestWorkResidentPermitValidator

@@ -65,6 +65,7 @@ class PermitSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Permit
 		fields = (
+			'document_number',
 			'permit_type',
 			'permit_no',
 			'date_issued',

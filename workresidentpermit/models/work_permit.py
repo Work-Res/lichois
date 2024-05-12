@@ -7,11 +7,10 @@ from ..model_mixins import (EmployerModelMixin, TraineeModelMixin, InvestorModel
 
 class WorkPermit(ApplicationBaseModel, EmployerModelMixin, TraineeModelMixin, InvestorModelMixin,
                  EmploymentRecordModelMixin):
-	permit_status = models.CharField(max_length=50, choices=PERMIT_STATUS, default='new')
-	job_offer = models.TextField()
-	qualification = models.CharField(max_length=255)
-	years_of_study = models.IntegerField()
-	
-	class Meta:
-		verbose_name = 'Work Permits'
+    permit_status = models.CharField(max_length=50, choices=PERMIT_STATUS, default='new')
+    job_offer = models.TextField()
+    qualification = models.CharField(max_length=255)
+    years_of_study = models.IntegerField()
 
+    class Meta:
+        verbose_name = 'Work Permits'

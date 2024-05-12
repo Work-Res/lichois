@@ -1,6 +1,6 @@
 
 
-class APIError:
+class APIMessage:
     """
     Represent an Error Message ocurring during the API call.
     Attributes:

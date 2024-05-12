@@ -15,3 +15,9 @@ class ApplicationStatuses(Enum):
     REJECTED = "REJECTED"
     ACCEPTED = "ACCEPTED"
     CANCELLED = "CANCELLED"
+
+
+class WorkflowEnum(Enum):
+    VERIFICATION = "VERIFICATION"
+    VETTING = "VETTING"
+    FINAL_DECISION = "FINAL_DECISION"

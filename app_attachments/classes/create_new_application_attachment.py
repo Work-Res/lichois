@@ -1,6 +1,6 @@
 import logging
 
-from app.api.common.web import APIResponse, APIError
+from app.api.common.web import APIResponse, APIMessage
 
 from app_attachments.models import ApplicationAttachment
 from app.models import ApplicationVersion
@@ -22,7 +22,7 @@ class CreateNewApplicationAttachment(object):
                 application__application_document__document_number=self.document_number)
             return application_version
         except ApplicationVersion.DoesNotExist:
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"An application document does not exists with: {self.document_number}"
@@ -41,7 +41,7 @@ class CreateNewApplicationAttachment(object):
 
                 ApplicationAttachment.objects.create(**self.data)
                 self.response.status = True
-                api_message = APIError(
+                api_message = APIMessage(
                     code=200,
                     message="Success",
                     details="The system created application attachment details successfully."
@@ -50,7 +50,7 @@ class CreateNewApplicationAttachment(object):
                 self.response.messages.append(api_message.to_dict())
         except Exception as e:
             self.logger.debug(f"The system failed to create application attachment details, something went wrong. {e}")
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create application attachment details, something went wrong.{e}"

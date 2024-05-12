@@ -3,7 +3,7 @@ import logging
 from datetime import date
 from sys import stdout
 
-from app.api.common.web import APIResponse, APIError
+from app.api.common.web import APIResponse, APIMessage
 from app.identifiers import WorkResidentPermitIdentifier
 from app.utils import ApplicationProcesses
 from app.api.serializers import ApplicationVersionSerializer
@@ -34,7 +34,7 @@ class CreateNewApplication(object):
             application_status__code__in=status,
             application_document__applicant__user_identifier=application_identifier)
         if exits.exists():
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"An application with (NEW) status exists for applicant: {application_identifier}, complete the "
@@ -80,7 +80,7 @@ class CreateNewApplication(object):
                 f"User identifier: {self.application.applicant_identifier}"
             )
             self.logger.error(error_message)
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create application, failed to obtain application status with "
@@ -100,7 +100,7 @@ class CreateNewApplication(object):
         else:
             self.logger.debug(" application process: %s does not match to any configured application "
                               "processes. ", self.application.proces_name)
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"Application processes misconfigured. "
@@ -129,7 +129,7 @@ class CreateNewApplication(object):
         except Exception as e:
             self.logger.exception("Failed to get or create application user - %s. ERROR: %s",
                                   self.application.applicant_identifier, e)
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create application, failed to obtain application user with "
@@ -149,7 +149,7 @@ class CreateNewApplication(object):
         applicant = self.get_or_create_application_user()
 
         if document_number is None or applicant is None:
-            api_message = APIError(
+            api_message = APIMessage(
                 code=400,
                 message="Bad request",
                 details=f"The system failed to create application document, documber number: {document_number}, applicant: {applicant}. "
@@ -162,7 +162,7 @@ class CreateNewApplication(object):
             self.application_document.document_date = date.today()
             self.application_document.signed_date = date.today()
             self.application_document.save()
-            api_message = APIError(
+            api_message = APIMessage(
                 code=200,
                 message="Success",
                 details=f"The application has been created with document number:  {document_number}."
