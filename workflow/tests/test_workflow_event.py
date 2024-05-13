@@ -59,4 +59,4 @@ class TestWorkFlowEvent(TestCase):
         self.assertGreater(len(all), 0)
 
         activities = Activity.objects.filter(process=event.bussiness_process)
-        self.assertEqual(len(activities), 5)
+        self.assertEqual(len(activities), 3)

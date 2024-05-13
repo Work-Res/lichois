@@ -7,6 +7,8 @@ from faker import Faker
 
 from app.models import Application, ApplicationStatus
 from app.classes import CreateNewApplication
+from app_checklist.classes import CreateChecklist
+
 from app.api import NewApplication
 from app.utils import ApplicationProcesses
 
@@ -17,8 +19,11 @@ from app_contact.models import ApplicationContact
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
 from app.utils import ApplicationStatuses
+
 from workresidentpermit.models import WorkPermit
 from workresidentpermit.classes import WorkResidentPermitApplication
+
+from workflow.models import Task
 
 from app.utils import statuses
 
@@ -34,6 +39,11 @@ def application(status):
 class TestWorkResidentPermitApplication(TestCase):
 
     def setUp(self):
+
+        file_name = "attachment_documents.json"
+        output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
+        create = CreateChecklist()
+        create.create(file_location=output_file)
 
         for status in statuses:
             ApplicationStatus.objects.create(
@@ -177,7 +187,9 @@ class TestWorkResidentPermitApplication(TestCase):
         self.assertTrue(status)
 
     def test_workpermit_submission_when_verification_task_should_exists(self):
-
+        """
+        Check if all tasks created, the verification task should be created.
+        """
         work_resident_permit_application = WorkResidentPermitApplication(
             document_number=self.document_number,
         )
@@ -186,4 +198,6 @@ class TestWorkResidentPermitApplication(TestCase):
         message = "Application has been submitted successfully."
         status = message in [message.details for message in response.messages]
         self.assertTrue(status)
-        #
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 1)

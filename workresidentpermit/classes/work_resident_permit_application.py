@@ -79,7 +79,7 @@ class WorkResidentPermitApplication:
         self.logger.info("Work resident submission process started.")
         with transaction.atomic():
             source_data = WorkflowTransition(
-                previous_status=self.application.application_status.code
+                previous_status=self.application.application_status.name
             )
             application_status = ApplicationStatus.objects.get(code=ApplicationStatuses.VERIFICATION.value)
             self.application.application_status = application_status
@@ -87,7 +87,6 @@ class WorkResidentPermitApplication:
             self.application.save()
             source_data.current_status = application_status.code
             source_data.next_activity_name = ApplicationStatuses.VETTING.value
-
             self.logger.info("Application has been submitted successfully.")
             self.response.messages.append(
                 APIMessage(
@@ -98,7 +97,8 @@ class WorkResidentPermitApplication:
             self.response.data = self.application
             self.logger.info("Work resident submission process ended.")
 
-            create_or_update_task_signal.send(self.application, source=source_data, application=self.application)
+            create_or_update_task_signal.send(sender=self.application, source=source_data, application=self.application)
+            self.logger.debug("Task event signal completed")
             return self.response
 
     def cancel(self):

@@ -36,6 +36,7 @@ class TaskActivation:
                     f"{activity.name} - {self.application.application_document.document_number}.")
                 self.task(activity)
             else:
+                self.logger.debug("Failed to create task for ", activity.name)
                 print("Failed to create task for ", activity.name)
 
     def task(self, activity):

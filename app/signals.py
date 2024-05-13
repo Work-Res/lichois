@@ -12,8 +12,8 @@ def create_workflow(sender, instance, created, **kwargs):
     logger = logging.getLogger(__name__)
     try:
         if created:
-            WorkflowEvent(application=sender).create_workflow_process()
-            logger.info("Created workflow for application: ", sender.application_document.document_number)
+            WorkflowEvent(application=instance).create_workflow_process()
+            logger.info("Created workflow for application: ", instance.application_document.document_number)
             return instance
     except SystemError as e:
         logger.debug("An error occurred while creating workflow, Got ", e)

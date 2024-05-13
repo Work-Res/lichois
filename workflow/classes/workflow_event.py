@@ -17,6 +17,7 @@ class WorkflowEvent(object):
         """
         Searches for business process in the classifier records then create workflow models based on that.
         """
+        print("self.application.process_name: ", self.application.process_name)
         classifer = None
         try:
             classifer = Classifier.objects.get(

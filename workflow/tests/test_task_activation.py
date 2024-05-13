@@ -65,10 +65,11 @@ class TestTaskActivation(TestCase):
         event = WorkflowEvent(application=application("NEW"))
         event.create_workflow_process()
         source = SourceModel(
-            previous_status="NEW", current_status="VERIFICATION", next_activity_name="SECOND_VERIFICATION")
+            previous_status="NEW", current_status="VERIFICATION", next_activity_name="VETTING")
 
         create_or_update_task_signal.send(app, source=source, application=app)
         tasks = Task.objects.all()
+        self.assertEqual(tasks.count(), 1)
         self.assertGreater(len(tasks), 0)
 
     @patch('app.models.Application.objects.get')
