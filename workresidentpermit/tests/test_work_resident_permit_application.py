@@ -3,6 +3,9 @@ import os
 from datetime import date
 from django.test import TestCase
 
+from django.contrib.auth.models import User
+
+
 from faker import Faker
 
 from app.models import Application, ApplicationStatus
@@ -22,6 +25,8 @@ from app.utils import ApplicationStatuses
 
 from workresidentpermit.models import WorkPermit
 from workresidentpermit.classes import WorkResidentPermitApplication
+
+from app.api import ApplicationVerificationRequest
 
 from workflow.models import Task
 
@@ -201,3 +206,42 @@ class TestWorkResidentPermitApplication(TestCase):
 
         tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
         self.assertEqual(tasks_count, 1)
+
+    def test_workpermit_submission_when_vetting_task_should_exists(self):
+        """
+        Check if all tasks created, the verification task should be created.
+        """
+        app_verification = ApplicationVerificationRequest()
+        app_verification.comment = "Testing"
+        app_verification.decision = "rejected"
+        app_verification.outcome_reason = "UNKNOW"
+
+        user = User.objects.create_user(
+            username='test',
+            email='test@example.com',
+            password='test@test'
+        )
+        user.first_name = 'test'
+        user.last_name = 'test'
+        user.save()
+
+        work_resident_permit_application = WorkResidentPermitApplication(
+            document_number=self.document_number,
+            verification_request=app_verification,
+            user=user
+        )
+
+        response = work_resident_permit_application.submit()
+        message = "Application has been submitted successfully."
+        status = message in [message.details for message in response.messages]
+        self.assertTrue(status)
+
+        work_resident_permit_application.submit_verification()
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 2)
+
+        statuses = [task.status for task in Task.objects.filter(
+            activity__process__document_number=self.document_number)]
+        self.assertTrue('NEW' in statuses)
+        self.assertTrue('CLOSED' in statuses)

@@ -18,6 +18,7 @@ class TaskActivation:
 
     def __init__(self, source: S, application: A, model: M):
         self.source = source
+        print(self.source.__dict__)
         self.application = application
         self.model = model
         self.logger = logging.getLogger('workflow')

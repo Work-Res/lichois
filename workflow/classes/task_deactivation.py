@@ -41,3 +41,21 @@ class TaskDeActivation:
                     print("Failed to close task for ", activity.name)
             except Task.DoesNotExist:
                 pass
+
+    def update_task_by_activity(self, name=None):
+        """
+        Close a task manually.
+        """
+        activity = Activity.objects.get(
+            name__iexact=name,
+            process__name=self.application.process_name,
+            process__document_number=self.application.application_document.document_number
+        )
+        try:
+            task = Task.objects.get(activity=activity)
+            task.status = TaskStatus.CLOSED.value
+            task.save()
+            self.logger.info(f"The task {task.id} has been closed. ")
+        except Task.DoesNotExist:
+            self.logger.info(
+                f"Failed to close the task. {name} - {self.application.application_document.document_number}")
