@@ -6,27 +6,11 @@ from .exemption_cert_application import ExemptionCertificateApplication
 
 class ExemptionCertificateDependant(BaseUuidModel):
 
-    exempt_cert_application = models.ForeignKey(
-        ExemptionCertificateApplication,
-        on_delete=models.CASCADE
-    )
-
-    dependant_fname = models.CharField(
-        verbose_name='Firstname',
-        max_length=150
-    )
-
-    dependant_lname = models.CharField(
-        verbose_name='Lastname',
-        max_length=150
-    )
-
+    exempt_cert_application = models.ForeignKey(ExemptionCertificateApplication, on_delete=models.CASCADE)
+    dependant_fname = models.CharField(max_length=150)
+    dependant_lname = models.CharField(max_length=150)
     dependant_age = models.PositiveIntegerField()
-
-    dependant_gender = models.CharField(
-        choices=GENDER,
-        max_length=6
-    )
+    dependant_gender = models.CharField(choices=GENDER, max_length=6)
 
     class Meta:
         app_label = 'visa'

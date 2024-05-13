@@ -4,10 +4,17 @@ from django.db import models
 
 class Naturalisation(BaseUuidModel):
 
-    #Personal Information
-    #Address
-    #Spouse
-    #ContactInfo
+    # Personal Information
+    personal_info_id = models.CharField(max_length=25)
+
+    # ContactInfo
+    contact_info_id = models.CharField(max_length=25)
+
+    # Address
+    address_id = models.CharField(max_length=25)
+
+    # Spouse
+    spouse_info_id = models.CharField(max_length=25)
 
     birth_citizenship = models.CharField(max_length=190)
     present_citizenship = models.CharField(max_length=190)

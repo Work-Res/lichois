@@ -3,6 +3,7 @@ from rest_framework import serializers
 from app_attachments.models import AttachmentDocumentType, ApplicationAttachment
 from ..models import ApplicationAttachmentVerification
 
+
 class AttachmentDocumentTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
