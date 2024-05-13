@@ -31,6 +31,5 @@ class CertNaturalisationByForeignSpouse(BaseUuidModel):
     #parental_details_mother
 
 
-
     class Meta:
         app_label = 'citizenship'

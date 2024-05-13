@@ -7,11 +7,12 @@ from ..choices import PERIOD_MEASURE
 
 class ExemptionCertificateApplication(BaseUuidModel):
 
-    #personal_information
-    #passport_details
+    personal_info_id = models.CharField(max_length=25)
+    passport_details_id = models.CharField(max_length=25)
+    contact_info_id = models.CharField(max_length=25)
+    address_id = models.CharField(max_length=25)
 
     business_name = models.CharField(max_length=150)
-    # address?
     employment_capacity = models.CharField(max_length=250)
     proposed_period = models.PositiveIntegerField()
     status = models.CharField(max_length=250)

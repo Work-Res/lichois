@@ -16,8 +16,8 @@ class SpouseInfo(PersonalDetailsModelMixin, BaseUuidModel):
     spouse_citizenship_acquired = models.CharField(max_length=190, blank=True, null=True)
     marriage_subsisting = models.CharField(choices=YES_NO, max_length=5, blank=True, null=True)
 
-    #postal_address
-    #residential_address
+    postal_address_id = models.CharField(max_length=25)
+    residential_address_id = models.CharField(max_length=25)
 
     class Meta:
         app_label = 'citizenship'

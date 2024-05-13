@@ -5,20 +5,15 @@ from .model_mixins import PersonalDetailsModelMixin
 
 class CitizenSponsorCertificate(PersonalDetailsModelMixin, BaseUuidModel):
 
-    #firstname
-
-    #lastname
-    # postal_address
-
-    # residential_address
+    personal_info_id = models.CharField(max_length=25)
+    postal_address_id = models.CharField(max_length=25)
+    # residential_address_id
 
     applicant_known_years = models.PositiveIntegerField()
-
     declaration_date = models.DateField()
-
     declaration_sign = models.CharField(max_length=15)
-
-    #witness_details
+    witness1_details_id = models.CharField(max_length=25)
+    witness2_details_id = models.CharField(max_length=25)
 
     class Meta:
         app_label = 'citizenship'

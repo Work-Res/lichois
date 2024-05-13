@@ -9,19 +9,9 @@ class DisposalMoney(BaseUuidModel):
         VisaApplication,
         on_delete=models.CASCADE
     )
-
-    disposal_money_currency = models.CharField(
-        max_length=5
-    )
-
-    disposal_money_currency_other = models.CharField(
-        max_length=5
-    )
-
-    disposal_money_currency_amount = models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
+    disposal_money_currency = models.CharField(max_length=5)
+    disposal_money_currency_other = models.CharField(max_length=5)
+    disposal_money_currency_amount = models.DecimalField(max_digits=10,decimal_places=2)
 
     class Meta:
         app_label = 'visa'

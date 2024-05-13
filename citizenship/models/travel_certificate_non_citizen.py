@@ -5,7 +5,11 @@ from base_module.model_mixins import BaseUuidModel
 class TravelCertNonCitizen(BaseUuidModel):
 
     #personal_details
+    personal_info_id = models.CharField(max_length=25)
+
     #original_home_address
+    address_id = models.CharField(max_length=25)
+
     nationality = models.CharField(max_length=250)
     kraal_head_names = models.CharField(max_length=250, blank=True, null=True)
     chief_names = models.CharField(max_length=250, blank=True, null=True)

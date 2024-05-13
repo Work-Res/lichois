@@ -1,18 +1,30 @@
+from django.db import models
 from base_module.model_mixins import BaseUuidModel
+from base_module.model_mixins import CommissionerOathModelMixin
+from base_module.model_mixins import DeclarationModelMixin
 
 
-class CitizenshipBySettlement(BaseUuidModel):
+class CitizenshipBySettlement(CommissionerOathModelMixin,
+                              DeclarationModelMixin, BaseUuidModel):
+    # personal_information
+    personal_info_id = models.CharField(max_length=25)
 
-    #personal_information
-    #physical_address
-    #postal_address
-    #contact_information
+    # contact_information
+    contact_info_id = models.CharField(max_length=25)
+    # physical_address
+    # postal_address
+    address_id = models.CharField(max_length=25)
+
     #personal_declaration actual application?
+
     #KgosiCert
+    kgosi_cert_id = models.CharField(max_length=25)
     #KgosanaCert
+    kgosana_cert_id = models.CharField(max_length=25)
     #CommissionerOath
     #DCCertificate
-    #ApplicantDeclaration
+    dc_certificate_id = models.CharField(max_length=25)
+
 
 
     class Meta:
