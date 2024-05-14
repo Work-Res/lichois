@@ -20,3 +20,12 @@ drf-yasg
 setuptools
 django-cors-headers
 rules
+
+django-auth-ldap
+django-cors-headers
+django-roles-access
+django-otp-twilio~=1.0.5
+model_mommy
+djangorestframework-simplejwt
+django-dotenv
+PyJWT~=2.8.0
