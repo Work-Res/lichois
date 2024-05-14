@@ -52,3 +52,9 @@ INTEREST_LEVEL = (
 	('other', 'Other'),
 )
 
+MEETING_INVITATION_STATUS = (
+	('approved', 'Approved'),
+	('rejected', 'Rejected'),
+	('pending', 'Pending'),
+)
+

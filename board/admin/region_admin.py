@@ -4,7 +4,8 @@ from ..models import Region
 from ..forms import RegionForm
 
 
-@admin.register(Region, site=board_admin)
 class RegionAdmin(admin.ModelAdmin):
+	form = RegionForm
 
-    form = RegionForm
+
+board_admin.register(Region, RegionAdmin)

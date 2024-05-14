@@ -7,4 +7,6 @@ from .meeting_attendee_form import MeetingAttendeeForm
 from .region_form import RegionForm
 from .agenda_form import AgendaForm
 from .agenda_item_form import AgendaItemForm
+from .meeting_invitation_form import MeetingInvitationForm
+
 
