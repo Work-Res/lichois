@@ -94,6 +94,6 @@ class TestTaskActivation(TestCase):
         source = SourceModel(
             previous_status="VERIFICATION", current_status="VERIFICATION", next_activity_name="SECOND_VERIFICATION")
 
-        create_or_update_task_signal.send(app, source=source, application=app)
+        create_or_update_task_signal.send_robust(app, source=source, application=app)
         tasks = Task.objects.all()
         self.assertEqual(len(tasks), 0)

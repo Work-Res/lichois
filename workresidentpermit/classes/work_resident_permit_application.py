@@ -104,10 +104,9 @@ class WorkResidentPermitApplication:
             self.response.data = self.application
             self.logger.info("Work resident submission process ended.")
 
-            create_or_update_task_signal.send(sender=self.application, source=source_data, application=self.application)
+            create_or_update_task_signal.send_robust(sender=self.application, source=source_data, application=self.application)
             self.logger.debug("Task event signal completed")
             return self.response
 
     def cancel(self):
         pass
-

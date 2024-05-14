@@ -7,6 +7,8 @@ class SecurityClearance(BaseUuidModel):
 
 	document_id = models.CharField(max_length=190)
 
+	document_number = models.CharField(max_length=100, null=True, blank=True)
+
 	date_requested = models.DateTimeField(auto_now_add=True)
 
 	date_approved = models.DateTimeField()

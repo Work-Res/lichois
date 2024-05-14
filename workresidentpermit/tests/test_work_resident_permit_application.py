@@ -209,7 +209,7 @@ class TestWorkResidentPermitApplication(TestCase):
 
     def test_workpermit_submission_when_vetting_task_should_exists(self):
         """
-        Check if all tasks created, the verification task should be created.
+        Check if all tasks created, the vetting task should be created.
         """
         app_verification = ApplicationVerificationRequest()
         app_verification.comment = "Testing"
