@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import ldap
+from django_auth_ldap.config import LDAPSearch, GroupOfNamesType, PosixGroupType
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,6 +59,7 @@ INSTALLED_APPS = [
     "rules.apps.AutodiscoverRulesConfig",
     "rest_framework",
     "rest_framework_swagger",
+    'rest_framework.authtoken',
     "drf_yasg",  # Yet Another Swagger generator
     "viewflow",
     "viewflow.workflow",
@@ -64,7 +67,15 @@ INSTALLED_APPS = [
     "django_api_client",
     "corsheaders",
     "django_extensions",
-    "lichois"
+    "lichois",
+    'django_roles_access',
+	'django_otp',
+	'django_otp.plugins.otp_static',
+	'django_otp.plugins.otp_totp',
+	'django_otp.plugins.otp_email',
+	'otp_twilio',
+	'rest_framework_simplejwt',
+    'authentication.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
@@ -190,6 +201,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Your React app's URL
@@ -222,7 +234,18 @@ CORS_ALLOWED_ORIGINS = [
 #   ]
 # }
 
+REST_FRAMEWORK = {
+	'DEFAULT_PERMISSION_CLASSES': (
+		'rest_framework.permissions.IsAuthenticated',
+	),
+	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'rest_framework.authentication.SessionAuthentication',
+		'rest_framework_simplejwt.authentication.JWTAuthentication',
+	),
+}
+
 AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
     'rules.permissions.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -256,4 +279,37 @@ LOGGING = {
 HAYSTACK_DOCUMENT_FIELD = "text"
 HAYSTACK_ID_FIELD = "id"
 # HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
+AUTH_USER_MODEL = 'authentication.User'
+AUTH_LDAP_ALWAYS_UPDATE_USER = True
+AUTH_LDAP_FIND_GROUP_PERMS = True
+AUTH_LDAP_CACHE_TIMEOUT = 3600
 
+AUTH_LDAP_SERVER_URI = 'ldap://localhost:389'
+AUTH_LDAP_BIND_DN = 'cn=admin,dc=xl,dc=com'
+AUTH_LDAP_BIND_PASSWORD = 'password'
+AUTH_LDAP_USER_SEARCH = LDAPSearch('dc=xl,dc=com', ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch('dc=xl,dc=com', ldap.SCOPE_SUBTREE, '(objectClass=posixGroup)')
+AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
+AUTH_LDAP_MIRROR_GROUPS = True
+# AUTH_LDAP_START_TLS = True
+
+# Populate the Django user from the LDAP directory.
+AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=xl,dc=com"
+AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=xl,dc=com"
+
+AUTH_LDAP_USER_ATTR_MAP = {
+	"first_name": "givenName",
+	"last_name": "sn",
+	"email": "mail",
+	"username": "uid",
+	"password": "userPassword",
+}
+AUTH_LDAP_PROFILE_ATTR_MAP = {
+	"home_directory": "homeDirectory"
+}
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+	"is_active": "cn=active,ou=groups,dc=xl,dc=com",
+	"is_staff": "cn=staff,ou=groups,dc=xl,dc=com",
+	"is_superuser": "cn=superuser,ou=groups,dc=xl,dc=com",
+	"front_office": "cn=Front Office,ou=groups,dc=xl,dc=com"
+}

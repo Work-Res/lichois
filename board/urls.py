@@ -1,11 +1,10 @@
-from django.urls.conf import path
 from django.views.generic.base import RedirectView
 from .admin_site import board_admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .viewsets import (AgendaViewSet, AgendaItemViewSet, BoardMeetingViewSet, ApplicationBatchViewSet,
                        MeetingAttendeeViewSet, BoardMeetingVoteViewSet, BoardDecisionViewSet,
-                       InterestDeclarationViewSet)
+                       InterestDeclarationViewSet, MeetingInvitationViewSet)
 app_name = 'board'
 router = DefaultRouter()
 router.register(r'agendas', AgendaViewSet, basename='agendas')
@@ -16,6 +15,8 @@ router.register(r'meeting-attendees', MeetingAttendeeViewSet, basename='meeting-
 router.register(r'board-decision-votes', BoardMeetingVoteViewSet, basename='board-decision-votes')
 router.register(r'board-decisions', BoardDecisionViewSet, basename='board-decisions')
 router.register(r'interest-declarations', InterestDeclarationViewSet, basename='interest-declarations')
+router.register(r'meeting_invitations', MeetingInvitationViewSet, basename='meeting-invitations')
+
 
 urlpatterns = [
     path('admin/', board_admin.urls),

@@ -6,3 +6,5 @@ from .board_meeting_vote import BoardMeetingVoteViewSet
 from .board_meeting_vewset import BoardMeetingViewSet
 from .interest_declaration_viewset import InterestDeclarationViewSet
 from .meeting_attendee_viewset import MeetingAttendeeViewSet
+from .meeting_invitation_viewset import MeetingInvitationViewSet
+

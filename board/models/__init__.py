@@ -11,4 +11,5 @@ from .application_batch import ApplicationBatch
 from .board_decision import BoardDecision
 from .board_meeting_vote import BoardMeetingVote
 from .meeting_attendee import MeetingAttendee
-# from .signals import board_meeting_on_post_save
+from .meeting_invitation import MeetingInvitation
+from .signals import board_meeting_on_post_save

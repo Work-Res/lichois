@@ -163,3 +163,4 @@ cython_debug/
 .idea/
 **/migrations/*.pyc
 **/migrations/*.py
+.DS_Store
