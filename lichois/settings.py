@@ -233,35 +233,10 @@ REST_FRAMEWORK = {
 	),
 	'DEFAULT_AUTHENTICATION_CLASSES': (
 		'rest_framework.authentication.SessionAuthentication',
-		'rest_framework_simplejwt.authentication.JWTAuthentication',
 		'rest_framework.authentication.BasicAuthentication',
 	),
 }
 
-# DJANGO_API_CLIENT = {
-#   'API': [
-#     # {
-#     #     'NAME': 'production',
-#     #     'BASE_URL': 'https://example.com',
-#     #     'ENDPOINTS': [
-#     #         '/v1/order/orders',
-#     #         '/v1/user/users',
-#     #         ...
-#     #     ],
-#     #     'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
-#     # },
-#     {
-#         'NAME': 'localhost',
-#         'BASE_URL': 'http://localhost:8001',
-#         'ENDPOINTS': [
-#             '/v1/order/orders',
-#             '/v1/user/users',
-#             ...
-#         ],
-#         'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
-#     }
-#   ]
-# }
 
 AUTHENTICATION_BACKENDS = (
 	'django_auth_ldap.backend.LDAPBackend',
@@ -299,4 +274,6 @@ HAYSTACK_DOCUMENT_FIELD = "text"
 HAYSTACK_ID_FIELD = "id"
 # HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 AUTH_USER_MODEL = 'authentication.User'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
