@@ -60,7 +60,6 @@ INSTALLED_APPS = [
 	"rest_framework",
 	"rest_framework_swagger",
 	'rest_framework.authtoken',
-	"drf_yasg",  # Yet Another Swagger generator
 	"viewflow",
 	"viewflow.workflow",
 	"django_filters",
@@ -69,9 +68,9 @@ INSTALLED_APPS = [
 	"django_extensions",
 	"lichois",
 	'django_roles_access',
-	'rest_framework_simplejwt',
 	'authentication.apps.AppConfig',
 	'django_otp',
+	'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -230,11 +229,12 @@ REST_FRAMEWORK = {
 		'rest_framework.filters.OrderingFilter'
 	],
 	'DEFAULT_PERMISSION_CLASSES': (
-		'rest_framework.permissions.IsAuthenticated',
+		'rest_framework.permissions.AllowAny',
 	),
 	'DEFAULT_AUTHENTICATION_CLASSES': (
 		'rest_framework.authentication.SessionAuthentication',
 		'rest_framework_simplejwt.authentication.JWTAuthentication',
+		'rest_framework.authentication.BasicAuthentication',
 	),
 }
 

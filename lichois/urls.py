@@ -25,12 +25,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from board.admin_site import board_admin
-from authentication.views import LoginVew, RegisterView, LogoutView, UserView
 
 schema_view = get_schema_view(
 	openapi.Info(
 		title="Africort Technologies",
-		default_version='v1', ),
+		default_version='v1',
+	),
 	public=True,
 	permission_classes=(permissions.AllowAny,),
 )
@@ -54,10 +54,8 @@ urlpatterns = [
 	path('lichois/api/v1/', include('app_assessment.urls')),
 	path('lichois/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 	path('lichois/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-	path('login/', LoginVew.as_view(), name='login'),
-	path('register/', RegisterView.as_view(), name='register'),
-	path('logout/', LogoutView.as_view(), name='logout'),
-	path('user/', UserView.as_view(), name='user'),
+	path('lichois/api/v1/', include('authentication.urls')),
+	
 ]
 
 if settings.DEBUG:
