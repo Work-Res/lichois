@@ -17,7 +17,6 @@ from django_auth_ldap.config import LDAPSearch, GroupOfNamesType, PosixGroupType
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = "django-insecure-dmfjvzo)p997$m)2fn&(zw$l8o%=#w=)q(_bs23v@f=qh$6u8r
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -69,12 +67,12 @@ INSTALLED_APPS = [
     "django_extensions",
     "lichois",
     'django_roles_access',
-	'django_otp',
-	'django_otp.plugins.otp_static',
-	'django_otp.plugins.otp_totp',
-	'django_otp.plugins.otp_email',
-	'otp_twilio',
-	'rest_framework_simplejwt',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_email',
+    'otp_twilio',
+    'rest_framework_simplejwt',
     'authentication.apps.AppConfig',
 ]
 
@@ -108,7 +106,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "lichois.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -150,7 +147,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -162,13 +158,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATICFILES_DIRS = [BASE_DIR / 'static', ]
 
 STORAGES = {
     "staticfiles": {
@@ -197,7 +192,8 @@ HAYSTACK_CONNECTIONS = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend', 'rest_framework.filters.OrderingFilter'],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
+                                'rest_framework.filters.OrderingFilter'],
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -235,13 +231,13 @@ CORS_ALLOWED_ORIGINS = [
 # }
 
 REST_FRAMEWORK = {
-	'DEFAULT_PERMISSION_CLASSES': (
-		'rest_framework.permissions.IsAuthenticated',
-	),
-	'DEFAULT_AUTHENTICATION_CLASSES': (
-		'rest_framework.authentication.SessionAuthentication',
-		'rest_framework_simplejwt.authentication.JWTAuthentication',
-	),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -271,7 +267,7 @@ LOGGING = {
             'level': 'WARNING',
             'propagate': True,
             'handlers': ["console"]
-        } for logger_name in ['django', 'django.request','django.db.backends', 'django.template', 'app', 'workflow',
+        } for logger_name in ['django', 'django.request', 'django.db.backends', 'django.template', 'app', 'workflow',
                               'app_pdf_utilities', 'workresidentpermit', 'app_assessment']
     }
 }
@@ -298,18 +294,18 @@ AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=xl,dc=com"
 AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=xl,dc=com"
 
 AUTH_LDAP_USER_ATTR_MAP = {
-	"first_name": "givenName",
-	"last_name": "sn",
-	"email": "mail",
-	"username": "uid",
-	"password": "userPassword",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail",
+    "username": "uid",
+    "password": "userPassword",
 }
 AUTH_LDAP_PROFILE_ATTR_MAP = {
-	"home_directory": "homeDirectory"
+    "home_directory": "homeDirectory"
 }
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-	"is_active": "cn=active,ou=groups,dc=xl,dc=com",
-	"is_staff": "cn=staff,ou=groups,dc=xl,dc=com",
-	"is_superuser": "cn=superuser,ou=groups,dc=xl,dc=com",
-	"front_office": "cn=Front Office,ou=groups,dc=xl,dc=com"
+    "is_active": "cn=active,ou=groups,dc=xl,dc=com",
+    "is_staff": "cn=staff,ou=groups,dc=xl,dc=com",
+    "is_superuser": "cn=superuser,ou=groups,dc=xl,dc=com",
+    "front_office": "cn=Front Office,ou=groups,dc=xl,dc=com"
 }

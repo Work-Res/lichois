@@ -9,6 +9,19 @@ class ApplicationVersionIndex(indexes.ModelSearchIndex, indexes.Indexable):
     """
     TODO: Not the best solution, requires refactoring
     """
+
+    document_number = indexes.CharField(model_attr='application__application_document__document_number')
+
+    application_type = indexes.CharField(model_attr='application__application_type')
+
+    submission_date = indexes.DateField(model_attr='application__submission_date')
+
+    application_status = indexes.CharField(model_attr='application__application_status__code')
+
+    full_name = indexes.CharField(model_attr='application__application_document__applicant__full_name')
+
+    user_identifier = indexes.CharField(model_attr='application__application_document__applicant__user_identifier')
+
     verification_status = indexes.CharField()
 
     security_clearance_status = indexes.CharField()
@@ -16,8 +29,6 @@ class ApplicationVersionIndex(indexes.ModelSearchIndex, indexes.Indexable):
     board_decision = indexes.CharField()
 
     status = indexes.CharField()
-
-    document_number = indexes.CharField(model_attr='application__application_document__document_number')
 
     def prepare_verification_status(self, obj):
         try:

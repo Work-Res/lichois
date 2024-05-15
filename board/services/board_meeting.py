@@ -26,4 +26,3 @@ class BoardMeetingService:
             id__in=application_ids)
 
         return application_objs
-
