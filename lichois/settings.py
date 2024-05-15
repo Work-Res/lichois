@@ -67,11 +67,6 @@ INSTALLED_APPS = [
 	"django_extensions",
 	"lichois",
 	'django_roles_access',
-	'django_otp',
-	'django_otp.plugins.otp_static',
-	'django_otp.plugins.otp_totp',
-	'django_otp.plugins.otp_email',
-	'otp_twilio',
 	'rest_framework_simplejwt',
 	'authentication.apps.AppConfig',
 ]
@@ -85,6 +80,7 @@ MIDDLEWARE = [
 	"django.contrib.auth.middleware.AuthenticationMiddleware",
 	"django.contrib.messages.middleware.MessageMiddleware",
 	"django.middleware.clickjacking.XFrameOptionsMiddleware",
+	'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "lichois.urls"
@@ -242,7 +238,7 @@ CORS_ALLOWED_ORIGINS = [
 AUTHENTICATION_BACKENDS = (
 	'django_auth_ldap.backend.LDAPBackend',
 	'django.contrib.auth.backends.ModelBackend',
-	'rules.permissions.ObjectPermissionBackend',
+	# 'rules.permissions.ObjectPermissionBackend',
 )
 
 LOGGING = {
