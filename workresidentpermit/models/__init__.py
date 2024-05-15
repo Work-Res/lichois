@@ -1,6 +1,5 @@
 from .child import Child
 from .emergency_residence_permit import EmergencyResidencePermit
-from .emergency_res_permit_application import EmergencyResPermitApplication
 from .exemption_certificate import ExemptionCertificate
 from .residence_permit_appeal import ResidencePermitAppeal
 from .residence_permit_cancellation import ResidencePermitCancellation
@@ -11,3 +10,4 @@ from .declaration import Declaration
 from .place_of_residence import PlaceOfResidence, SpousePlaceOfResidence
 from .security_clearance import SecurityClearance
 from .employer_record import EmploymentRecord
+from .duplicate_work_permit import DuplicateWorkPermit
