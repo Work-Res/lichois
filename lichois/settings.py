@@ -238,7 +238,7 @@ CORS_ALLOWED_ORIGINS = [
 AUTHENTICATION_BACKENDS = (
 	'django_auth_ldap.backend.LDAPBackend',
 	'django.contrib.auth.backends.ModelBackend',
-	# 'rules.permissions.ObjectPermissionBackend',
+	'rules.permissions.ObjectPermissionBackend',
 )
 
 LOGGING = {
