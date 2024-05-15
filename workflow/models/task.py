@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from authentication.models import User
 from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
