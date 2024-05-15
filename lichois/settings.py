@@ -27,6 +27,8 @@ SECRET_KEY = "django-insecure-dmfjvzo)p997$m)2fn&(zw$l8o%=#w=)q(_bs23v@f=qh$6u8r
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -155,6 +157,40 @@ USE_I18N = True
 
 USE_TZ = True
 
+AUTH_LDAP_ALWAYS_UPDATE_USER = True
+AUTH_LDAP_FIND_GROUP_PERMS = True
+AUTH_LDAP_CACHE_TIMEOUT = 3600
+
+AUTH_LDAP_SERVER_URI = 'ldap://138.68.175.109:389'
+AUTH_LDAP_BIND_DN = 'cn=admin,dc=africort,dc=com'
+AUTH_LDAP_BIND_PASSWORD = 'africort@321'
+AUTH_LDAP_USER_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(objectClass=posixGroup)')
+AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
+AUTH_LDAP_MIRROR_GROUPS = True
+# AUTH_LDAP_START_TLS = True
+
+# Populate the Django user from the LDAP directory.
+AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=africort,dc=com"
+AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=africort,dc=com"
+
+AUTH_LDAP_USER_ATTR_MAP = {
+	"first_name": "givenName",
+	"last_name": "sn",
+	"email": "mail",
+	"username": "uid",
+	"password": "userPassword",
+}
+AUTH_LDAP_PROFILE_ATTR_MAP = {
+	"home_directory": "homeDirectory"
+}
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+	"is_active": "cn=active,ou=groups,dc=africort,dc=com",
+	"is_staff": "cn=staff,ou=groups,dc=africort,dc=com",
+	"is_superuser": "cn=superuser,ou=groups,dc=africort,dc=com",
+	"verification_1": "cn=Verification,ou=groups,dc=africort,dc=com"
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -201,15 +237,6 @@ REST_FRAMEWORK = {
 		'rest_framework_simplejwt.authentication.JWTAuthentication',
 	),
 }
-
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-
-CORS_ALLOWED_ORIGINS = [
-	'http://localhost:3000',  # Your React app's URL
-	'http://localhost:8000',
-	'http://localhost:5173',
-]
 
 # DJANGO_API_CLIENT = {
 #   'API': [
@@ -272,36 +299,4 @@ HAYSTACK_DOCUMENT_FIELD = "text"
 HAYSTACK_ID_FIELD = "id"
 # HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 AUTH_USER_MODEL = 'authentication.User'
-AUTH_LDAP_ALWAYS_UPDATE_USER = True
-AUTH_LDAP_FIND_GROUP_PERMS = True
-AUTH_LDAP_CACHE_TIMEOUT = 3600
 
-AUTH_LDAP_SERVER_URI = 'ldap://localhost:389'
-AUTH_LDAP_BIND_DN = 'cn=admin,dc=xl,dc=com'
-AUTH_LDAP_BIND_PASSWORD = 'password'
-AUTH_LDAP_USER_SEARCH = LDAPSearch('dc=xl,dc=com', ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch('dc=xl,dc=com', ldap.SCOPE_SUBTREE, '(objectClass=posixGroup)')
-AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
-AUTH_LDAP_MIRROR_GROUPS = True
-# AUTH_LDAP_START_TLS = True
-
-# Populate the Django user from the LDAP directory.
-AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=xl,dc=com"
-AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=xl,dc=com"
-
-AUTH_LDAP_USER_ATTR_MAP = {
-	"first_name": "givenName",
-	"last_name": "sn",
-	"email": "mail",
-	"username": "uid",
-	"password": "userPassword",
-}
-AUTH_LDAP_PROFILE_ATTR_MAP = {
-	"home_directory": "homeDirectory"
-}
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-	"is_active": "cn=active,ou=groups,dc=xl,dc=com",
-	"is_staff": "cn=staff,ou=groups,dc=xl,dc=com",
-	"is_superuser": "cn=superuser,ou=groups,dc=xl,dc=com",
-	"front_office": "cn=Front Office,ou=groups,dc=xl,dc=com"
-}
