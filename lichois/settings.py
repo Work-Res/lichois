@@ -17,7 +17,6 @@ from django_auth_ldap.config import LDAPSearch, GroupOfNamesType, PosixGroupType
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -29,95 +28,93 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "base_module.apps.AppConfig",
-    "app.apps.AppConfig",
-    "board.apps.AppConfig",
-    "app_search.apps.AppSearchConfig",
-    "app_pdf_utilities.apps.AppPdfUtilitiesConfig",
-    "app_checklist.apps.AppChecklistConfig",
-    "app_attachments.apps.AppAttachmentsConfig",
-    "app_address.apps.AppAddressConfig",
-    "app_contact.apps.AppContactConfig",
-    "app_personal_details.apps.AppPersonalDetailsConfig",
-    "app_comments.apps.AppCommentsConfig",
-    "app_decision.apps.AppDecisionConfig",
-    "app_assessment.apps.AppAssessmentConfig",
-    "workresidentpermit.apps.WorkresidentpermitConfig",
-    "workflow.apps.WorkflowConfig",
-    "identifier.apps.AppConfig",
-    "haystack",
-    "rules.apps.AutodiscoverRulesConfig",
-    "rest_framework",
-    "rest_framework_swagger",
-    'rest_framework.authtoken',
-    "drf_yasg",  # Yet Another Swagger generator
-    "viewflow",
-    "viewflow.workflow",
-    "django_filters",
-    "django_api_client",
-    "corsheaders",
-    "django_extensions",
-    "lichois",
-    'django_roles_access',
+	"django.contrib.admin",
+	"django.contrib.auth",
+	"django.contrib.contenttypes",
+	"django.contrib.sessions",
+	"django.contrib.messages",
+	"django.contrib.staticfiles",
+	"base_module.apps.AppConfig",
+	"app.apps.AppConfig",
+	"board.apps.AppConfig",
+	"app_search.apps.AppSearchConfig",
+	"app_pdf_utilities.apps.AppPdfUtilitiesConfig",
+	"app_checklist.apps.AppChecklistConfig",
+	"app_attachments.apps.AppAttachmentsConfig",
+	"app_address.apps.AppAddressConfig",
+	"app_contact.apps.AppContactConfig",
+	"app_personal_details.apps.AppPersonalDetailsConfig",
+	"app_comments.apps.AppCommentsConfig",
+	"app_decision.apps.AppDecisionConfig",
+	"app_assessment.apps.AppAssessmentConfig",
+	"workresidentpermit.apps.WorkresidentpermitConfig",
+	"workflow.apps.WorkflowConfig",
+	"identifier.apps.AppConfig",
+	"haystack",
+	"rules.apps.AutodiscoverRulesConfig",
+	"rest_framework",
+	"rest_framework_swagger",
+	'rest_framework.authtoken',
+	"drf_yasg",  # Yet Another Swagger generator
+	"viewflow",
+	"viewflow.workflow",
+	"django_filters",
+	"django_api_client",
+	"corsheaders",
+	"django_extensions",
+	"lichois",
+	'django_roles_access',
 	'django_otp',
 	'django_otp.plugins.otp_static',
 	'django_otp.plugins.otp_totp',
 	'django_otp.plugins.otp_email',
 	'otp_twilio',
 	'rest_framework_simplejwt',
-    'authentication.apps.AppConfig',
+	'authentication.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+	"django.middleware.security.SecurityMiddleware",
+	"django.contrib.sessions.middleware.SessionMiddleware",
+	"corsheaders.middleware.CorsMiddleware",
+	"django.middleware.common.CommonMiddleware",
+	"django.middleware.csrf.CsrfViewMiddleware",
+	"django.contrib.auth.middleware.AuthenticationMiddleware",
+	"django.contrib.messages.middleware.MessageMiddleware",
+	"django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "lichois.urls"
 
 TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
+	{
+		"BACKEND": "django.template.backends.django.DjangoTemplates",
+		"DIRS": [],
+		"APP_DIRS": True,
+		"OPTIONS": {
+			"context_processors": [
+				"django.template.context_processors.debug",
+				"django.template.context_processors.request",
+				"django.contrib.auth.context_processors.auth",
+				"django.contrib.messages.context_processors.messages",
+			],
+		},
+	},
 ]
 
 WSGI_APPLICATION = "lichois.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+	"default": {
+		"ENGINE": "django.db.backends.sqlite3",
+		"NAME": BASE_DIR / "db.sqlite3",
+	}
 }
 
 # DATABASES = {
@@ -136,20 +133,19 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+	{
+		"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+	},
+	{
+		"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+	},
+	{
+		"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+	},
+	{
+		"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+	},
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -162,18 +158,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATICFILES_DIRS = [BASE_DIR / 'static', ]
 
 STORAGES = {
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
+	"staticfiles": {
+		"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+	},
 }
 
 MEDIA_URL = '/media/'
@@ -188,22 +183,22 @@ DEPARTMENT = "ministry of Citizen and industry"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/app',
-        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores',
-        'TIMEOUT': 60 * 5
-    },
+	'default': {
+		'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+		'URL': 'http://127.0.0.1:8983/solr/app',
+		'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores',
+		'TIMEOUT': 60 * 5
+	},
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.OrderingFilter'
-    ],
-    'DEFAULT_PERMISSION_CLASSES': (
-            'rest_framework.permissions.IsAuthenticated',
-    ),
+	'DEFAULT_FILTER_BACKENDS': [
+		'django_filters.rest_framework.DjangoFilterBackend',
+		'rest_framework.filters.OrderingFilter'
+	],
+	'DEFAULT_PERMISSION_CLASSES': (
+		'rest_framework.permissions.IsAuthenticated',
+	),
 	'DEFAULT_AUTHENTICATION_CLASSES': (
 		'rest_framework.authentication.SessionAuthentication',
 		'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -214,9 +209,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # Your React app's URL
-    'http://localhost:8000',
-    'http://localhost:5173',
+	'http://localhost:3000',  # Your React app's URL
+	'http://localhost:8000',
+	'http://localhost:5173',
 ]
 
 # DJANGO_API_CLIENT = {
@@ -245,35 +240,35 @@ CORS_ALLOWED_ORIGINS = [
 # }
 
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
-    'rules.permissions.ObjectPermissionBackend',
-    'django.contrib.auth.backends.ModelBackend',
+	'django_auth_ldap.backend.LDAPBackend',
+	'django.contrib.auth.backends.ModelBackend',
+	'rules.permissions.ObjectPermissionBackend',
 )
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': '%(asctime)s %(levelname)s %(name)s %(message)s'
-        }
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard',
-            'filters': []
-        }
-    },
-    'loggers': {
-        logger_name: {
-            'level': 'WARNING',
-            'propagate': True,
-            'handlers': ["console"]
-        } for logger_name in ['django', 'django.request','django.db.backends', 'django.template', 'app', 'workflow',
-                              'app_pdf_utilities', 'workresidentpermit', 'app_assessment']
-    }
+	'version': 1,
+	'disable_existing_loggers': False,
+	'formatters': {
+		'standard': {
+			'format': '%(asctime)s %(levelname)s %(name)s %(message)s'
+		}
+	},
+	'handlers': {
+		'console': {
+			'level': 'INFO',
+			'class': 'logging.StreamHandler',
+			'formatter': 'standard',
+			'filters': []
+		}
+	},
+	'loggers': {
+		logger_name: {
+			'level': 'WARNING',
+			'propagate': True,
+			'handlers': ["console"]
+		} for logger_name in ['django', 'django.request', 'django.db.backends', 'django.template', 'app', 'workflow',
+		                      'app_pdf_utilities', 'workresidentpermit', 'app_assessment']
+	}
 }
 
 HAYSTACK_DOCUMENT_FIELD = "text"
