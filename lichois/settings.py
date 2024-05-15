@@ -69,6 +69,7 @@ INSTALLED_APPS = [
 	'django_roles_access',
 	'rest_framework_simplejwt',
 	'authentication.apps.AppConfig',
+	'django_otp',
 ]
 
 MIDDLEWARE = [
