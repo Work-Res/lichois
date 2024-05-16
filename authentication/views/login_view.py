@@ -1,16 +1,16 @@
 from django.contrib.auth import SESSION_KEY, login
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import BasicAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 
-from ..serializers import TokenObtainPairSerializer, UserLoginSerializer
+from ..serializers import UserLoginSerializer
 from ..validations import validate_username, validate_password
 
 
 class LoginVew(APIView):
 	permission_classes = (permissions.AllowAny,)
-	authentication_classes = (TokenAuthentication,)
+	authentication_classes = (BasicAuthentication,)
 	
 	def post(self, request):
 		data = request.data

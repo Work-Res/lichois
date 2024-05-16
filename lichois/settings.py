@@ -27,82 +27,80 @@ SECRET_KEY = "django-insecure-dmfjvzo)p997$m)2fn&(zw$l8o%=#w=)q(_bs23v@f=qh$6u8r
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "base_module.apps.AppConfig",
-    "app.apps.AppConfig",
-    "board.apps.AppConfig",
-    "app_search.apps.AppSearchConfig",
-    "app_pdf_utilities.apps.AppPdfUtilitiesConfig",
-    "app_checklist.apps.AppChecklistConfig",
-    "app_attachments.apps.AppAttachmentsConfig",
-    "app_address.apps.AppAddressConfig",
-    "app_contact.apps.AppContactConfig",
-    "app_personal_details.apps.AppPersonalDetailsConfig",
-    "app_comments.apps.AppCommentsConfig",
-    "app_decision.apps.AppDecisionConfig",
-    "app_assessment.apps.AppAssessmentConfig",
-    "workresidentpermit.apps.WorkresidentpermitConfig",
-    "workflow.apps.WorkflowConfig",
-    "identifier.apps.AppConfig",
-    "haystack",
-    "rules.apps.AutodiscoverRulesConfig",
-    "rest_framework",
-    "rest_framework_swagger",
-    'rest_framework.authtoken',
-    "drf_yasg",  # Yet Another Swagger generator
-    "viewflow",
-    "viewflow.workflow",
-    "django_filters",
-    "django_api_client",
-    "corsheaders",
-    "django_extensions",
-    "lichois",
-    'django_roles_access',
-    'django_otp',
-    'django_otp.plugins.otp_static',
-    'django_otp.plugins.otp_totp',
-    'django_otp.plugins.otp_email',
-    'otp_twilio',
-    'rest_framework_simplejwt',
-    'authentication.apps.AppConfig',
+	"django.contrib.admin",
+	"django.contrib.auth",
+	"django.contrib.contenttypes",
+	"django.contrib.sessions",
+	"django.contrib.messages",
+	"django.contrib.staticfiles",
+	"base_module.apps.AppConfig",
+	"app.apps.AppConfig",
+	"board.apps.AppConfig",
+	"app_search.apps.AppSearchConfig",
+	"app_pdf_utilities.apps.AppPdfUtilitiesConfig",
+	"app_checklist.apps.AppChecklistConfig",
+	"app_attachments.apps.AppAttachmentsConfig",
+	"app_address.apps.AppAddressConfig",
+	"app_contact.apps.AppContactConfig",
+	"app_personal_details.apps.AppPersonalDetailsConfig",
+	"app_comments.apps.AppCommentsConfig",
+	"app_decision.apps.AppDecisionConfig",
+	"app_assessment.apps.AppAssessmentConfig",
+	"workresidentpermit.apps.WorkresidentpermitConfig",
+	"workflow.apps.WorkflowConfig",
+	"identifier.apps.AppConfig",
+	"haystack",
+	"rules.apps.AutodiscoverRulesConfig",
+	"rest_framework",
+	"rest_framework_swagger",
+	'rest_framework.authtoken',
+	"viewflow",
+	"viewflow.workflow",
+	"django_filters",
+	"django_api_client",
+	"corsheaders",
+	"django_extensions",
+	"lichois",
+	'django_roles_access',
+	'authentication.apps.AppConfig',
+	'django_otp',
+	'drf_yasg',
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+	"django.middleware.security.SecurityMiddleware",
+	"django.contrib.sessions.middleware.SessionMiddleware",
+	"corsheaders.middleware.CorsMiddleware",
+	"django.middleware.common.CommonMiddleware",
+	"django.middleware.csrf.CsrfViewMiddleware",
+	"django.contrib.auth.middleware.AuthenticationMiddleware",
+	"django.contrib.messages.middleware.MessageMiddleware",
+	"django.middleware.clickjacking.XFrameOptionsMiddleware",
+	'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "lichois.urls"
 
 TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
+	{
+		"BACKEND": "django.template.backends.django.DjangoTemplates",
+		"DIRS": [],
+		"APP_DIRS": True,
+		"OPTIONS": {
+			"context_processors": [
+				"django.template.context_processors.debug",
+				"django.template.context_processors.request",
+				"django.contrib.auth.context_processors.auth",
+				"django.contrib.messages.context_processors.messages",
+			],
+		},
+	},
 ]
 
 WSGI_APPLICATION = "lichois.wsgi.application"
@@ -111,10 +109,10 @@ WSGI_APPLICATION = "lichois.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+	"default": {
+		"ENGINE": "django.db.backends.sqlite3",
+		"NAME": BASE_DIR / "db.sqlite3",
+	}
 }
 
 # DATABASES = {
@@ -133,18 +131,18 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+	{
+		"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+	},
+	{
+		"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+	},
+	{
+		"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+	},
+	{
+		"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+	},
 ]
 
 # Internationalization
@@ -158,6 +156,40 @@ USE_I18N = True
 
 USE_TZ = True
 
+AUTH_LDAP_ALWAYS_UPDATE_USER = True
+AUTH_LDAP_FIND_GROUP_PERMS = True
+AUTH_LDAP_CACHE_TIMEOUT = 3600
+
+AUTH_LDAP_SERVER_URI = 'ldap://138.68.175.109:389'
+AUTH_LDAP_BIND_DN = 'cn=admin,dc=africort,dc=com'
+AUTH_LDAP_BIND_PASSWORD = 'africort@321'
+AUTH_LDAP_USER_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(objectClass=posixGroup)')
+AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
+AUTH_LDAP_MIRROR_GROUPS = True
+# AUTH_LDAP_START_TLS = True
+
+# Populate the Django user from the LDAP directory.
+AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=africort,dc=com"
+AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=africort,dc=com"
+
+AUTH_LDAP_USER_ATTR_MAP = {
+	"first_name": "givenName",
+	"last_name": "sn",
+	"email": "mail",
+	"username": "uid",
+	"password": "userPassword",
+}
+AUTH_LDAP_PROFILE_ATTR_MAP = {
+	"home_directory": "homeDirectory"
+}
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+	"is_active": "cn=active,ou=groups,dc=africort,dc=com",
+	"is_staff": "cn=staff,ou=groups,dc=africort,dc=com",
+	"is_superuser": "cn=superuser,ou=groups,dc=africort,dc=com",
+	"verification_1": "cn=Verification,ou=groups,dc=africort,dc=com"
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -166,9 +198,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static', ]
 
 STORAGES = {
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
+	"staticfiles": {
+		"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+	},
 }
 
 MEDIA_URL = '/media/'
@@ -183,129 +215,64 @@ DEPARTMENT = "ministry of Citizen and industry"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/app',
-        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores',
-        'TIMEOUT': 60 * 5
-    },
+	'default': {
+		'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+		'URL': 'http://127.0.0.1:8983/solr/app',
+		'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores',
+		'TIMEOUT': 60 * 5
+	},
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
-                                'rest_framework.filters.OrderingFilter'],
+	'DEFAULT_FILTER_BACKENDS': [
+		'django_filters.rest_framework.DjangoFilterBackend',
+		'rest_framework.filters.OrderingFilter'
+	],
+	'DEFAULT_PERMISSION_CLASSES': (
+		'rest_framework.permissions.IsAuthenticated',
+	),
+	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'rest_framework.authentication.SessionAuthentication',
+		'rest_framework.authentication.BasicAuthentication',
+	),
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # Your React app's URL
-    'http://localhost:8000',
-    'http://localhost:5173',
-]
-
-# DJANGO_API_CLIENT = {
-#   'API': [
-#     # {
-#     #     'NAME': 'production',
-#     #     'BASE_URL': 'https://example.com',
-#     #     'ENDPOINTS': [
-#     #         '/v1/order/orders',
-#     #         '/v1/user/users',
-#     #         ...
-#     #     ],
-#     #     'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
-#     # },
-#     {
-#         'NAME': 'localhost',
-#         'BASE_URL': 'http://localhost:8001',
-#         'ENDPOINTS': [
-#             '/v1/order/orders',
-#             '/v1/user/users',
-#             ...
-#         ],
-#         'AUTHENTICATION_ACCESS_TOKEN': 'TOKEN'
-#     }
-#   ]
-# }
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
 
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
-    'rules.permissions.ObjectPermissionBackend',
-    'django.contrib.auth.backends.ModelBackend',
+	'django_auth_ldap.backend.LDAPBackend',
+	'django.contrib.auth.backends.ModelBackend',
+	'rules.permissions.ObjectPermissionBackend',
 )
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': '%(asctime)s %(levelname)s %(name)s %(message)s'
-        }
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard',
-            'filters': []
-        }
-    },
-    'loggers': {
-        logger_name: {
-            'level': 'WARNING',
-            'propagate': True,
-            'handlers': ["console"]
-        } for logger_name in ['django', 'django.request', 'django.db.backends', 'django.template', 'app', 'workflow',
-                              'app_pdf_utilities', 'workresidentpermit', 'app_assessment']
-    }
+	'version': 1,
+	'disable_existing_loggers': False,
+	'formatters': {
+		'standard': {
+			'format': '%(asctime)s %(levelname)s %(name)s %(message)s'
+		}
+	},
+	'handlers': {
+		'console': {
+			'level': 'INFO',
+			'class': 'logging.StreamHandler',
+			'formatter': 'standard',
+			'filters': []
+		}
+	},
+	'loggers': {
+		logger_name: {
+			'level': 'WARNING',
+			'propagate': True,
+			'handlers': ["console"]
+		} for logger_name in ['django', 'django.request', 'django.db.backends', 'django.template', 'app', 'workflow',
+		                      'app_pdf_utilities', 'workresidentpermit', 'app_assessment']
+	}
 }
 
 HAYSTACK_DOCUMENT_FIELD = "text"
 HAYSTACK_ID_FIELD = "id"
 # HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 AUTH_USER_MODEL = 'authentication.User'
-AUTH_LDAP_ALWAYS_UPDATE_USER = True
-AUTH_LDAP_FIND_GROUP_PERMS = True
-AUTH_LDAP_CACHE_TIMEOUT = 3600
-
-AUTH_LDAP_SERVER_URI = 'ldap://localhost:389'
-AUTH_LDAP_BIND_DN = 'cn=admin,dc=xl,dc=com'
-AUTH_LDAP_BIND_PASSWORD = 'password'
-AUTH_LDAP_USER_SEARCH = LDAPSearch('dc=xl,dc=com', ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch('dc=xl,dc=com', ldap.SCOPE_SUBTREE, '(objectClass=posixGroup)')
-AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
-AUTH_LDAP_MIRROR_GROUPS = True
-# AUTH_LDAP_START_TLS = True
-
-# Populate the Django user from the LDAP directory.
-AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=xl,dc=com"
-AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=xl,dc=com"
-
-AUTH_LDAP_USER_ATTR_MAP = {
-    "first_name": "givenName",
-    "last_name": "sn",
-    "email": "mail",
-    "username": "uid",
-    "password": "userPassword",
-}
-AUTH_LDAP_PROFILE_ATTR_MAP = {
-    "home_directory": "homeDirectory"
-}
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=active,ou=groups,dc=xl,dc=com",
-    "is_staff": "cn=staff,ou=groups,dc=xl,dc=com",
-    "is_superuser": "cn=superuser,ou=groups,dc=xl,dc=com",
-    "front_office": "cn=Front Office,ou=groups,dc=xl,dc=com"
-}
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True

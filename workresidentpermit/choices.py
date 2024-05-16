@@ -82,3 +82,11 @@ YES_NO = (
 	('yes', 'Yes'),
 	('no', 'No')
 )
+
+CERTIFICATE_STATUS = (
+	('issued', 'Issued'),
+	('not_issued', 'Not Issued'),
+	('lost', 'Lost'),
+	('stolen', 'Stolen'),
+	('damaged', 'Damaged')
+)
