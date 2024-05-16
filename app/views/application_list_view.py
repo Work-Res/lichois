@@ -30,4 +30,3 @@ class ApplicationListView(viewsets.ModelViewSet, ):
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
     pagination_class = StandardResultsSetPagination
-    permission_classes = (permissions.IsAuthenticated,)
