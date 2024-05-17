@@ -14,4 +14,5 @@ class BoardMeetingSerializer(serializers.ModelSerializer):
             'minutes',
             'meeting_type',
             'location',
+            'board',
         )
