@@ -7,7 +7,7 @@ from authentication.models import User
 
 class BoardMember(BaseUuidModel):
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='board_members', null=True)
     role = models.CharField(max_length=100, choices=BOARD_ROLES)
     board_join_date = models.DateField(auto_now_add=True)
     
