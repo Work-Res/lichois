@@ -20,7 +20,9 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 				details="User is not a member of any board"
 			)
 			return Response(data=api_message.to_dict(), status=status.HTTP_400_BAD_REQUEST)
-		request.data['board'] = board.id
-		super().create(request, *args, **kwargs)
+		data = request.data.copy()  # Make a mutable copy
+		data['board'] = board.id  # Modify the copy
+		request._data = data  # Assign the modified copy back to request.data
+		return super().create(request, *args, **kwargs)
 	
 	
