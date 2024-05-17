@@ -1,5 +1,5 @@
-from rest_framework import serializers, status
-from rest_framework.response import Response
+from rest_framework import serializers
+from rest_framework.exceptions import PermissionDenied
 
 from app.api.common.web import APIMessage
 from ..models import BoardMeeting, BoardMember
@@ -32,7 +32,7 @@ class BoardMeetingSerializer(serializers.ModelSerializer):
 				message="Bad request",
 				details="User is not a member of any board"
 			)
-			return Response(data=api_message.to_dict(), status=status.HTTP_400_BAD_REQUEST)
+			raise PermissionDenied(api_message.to_dict())
 		mutable_data = data.copy()
 		mutable_data['board'] = board.id
 		return super().to_internal_value(mutable_data)
