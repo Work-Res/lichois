@@ -6,4 +6,12 @@ class BoardMeetingForm(forms.ModelForm):
 
     class Meta:
         model = BoardMeeting
-        fields = '__all__'
+        fields = (
+            'title',
+            'meeting_date',
+            'description',
+            'status',
+            'minutes',
+            'meeting_type',
+            'location',
+        )
