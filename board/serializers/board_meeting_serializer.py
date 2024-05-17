@@ -5,4 +5,13 @@ from ..models import BoardMeeting
 class BoardMeetingSerializer(serializers.ModelSerializer):
     class Meta:
         model = BoardMeeting
-        fields = '__all__'
+        fields = (
+            'id',
+            'title',
+            'meeting_date',
+            'description',
+            'status',
+            'minutes',
+            'meeting_type',
+            'location',
+        )
