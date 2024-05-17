@@ -20,7 +20,7 @@ class BoardMeetingSerializer(serializers.ModelSerializer):
 			'board',
 		)
 	
-	def create(self, validated_data):
+	def to_internal_value(self, data):
 		request = self.context.get('request')
 		auth_user = request.user
 		board = BoardMember.objects.filter(user=auth_user).first().board
@@ -31,5 +31,9 @@ class BoardMeetingSerializer(serializers.ModelSerializer):
 				details="User is not a member of any board"
 			)
 			return Response(data=api_message.to_dict(), status=status.HTTP_400_BAD_REQUEST)
-		validated_data['board'] = board
+		mutable_data = data.copy()
+		mutable_data['board'] = board.id
+		return super().to_internal_value(mutable_data)
+	
+	def create(self, validated_data):
 		return super().create(validated_data)
