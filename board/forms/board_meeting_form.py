@@ -9,6 +9,8 @@ class BoardMeetingForm(forms.ModelForm):
         fields = (
             'title',
             'meeting_date',
+            'meeting_start_time',
+            'meeting_end_time',
             'description',
             'status',
             'minutes',

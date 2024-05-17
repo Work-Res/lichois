@@ -18,6 +18,8 @@ class BoardMeetingSerializer(serializers.ModelSerializer):
 			'meeting_type',
 			'location',
 			'board',
+			'meeting_start_time',
+			'meeting_end_time',
 		)
 	
 	def to_internal_value(self, data):
