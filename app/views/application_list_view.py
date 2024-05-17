@@ -25,7 +25,7 @@ class ApplicationModelFilter(django_filters.FilterSet):
         exclude = ('last_application_version_id',)
 
 
-class ApplicationListView(viewsets.ModelViewSet, ):
+class ApplicationListView(viewsets.ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
