@@ -9,5 +9,6 @@ class EmergencyResidencePermit(ApplicationBaseModel, Person, Passport):
 	services_provided = models.CharField(max_length=255)
 	chief_authorization = models.CharField(max_length=255)
 	capacity = models.CharField(max_length=255)
+	
 	class Meta:
 		app_label = 'work_residence_permit'

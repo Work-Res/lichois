@@ -6,3 +6,4 @@ from ..serializers import AgendaItemSerializer
 class AgendaItemViewSet(viewsets.ModelViewSet):
 	queryset = AgendaItem.objects.all()
 	serializer_class = AgendaItemSerializer
+

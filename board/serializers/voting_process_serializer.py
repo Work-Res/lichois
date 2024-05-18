@@ -2,24 +2,17 @@ from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from app.api.common.web import APIMessage
-from ..models import BoardMeeting, BoardMember
+from ..models import BoardMember, VotingProcess
 
 
-class BoardMeetingSerializer(serializers.ModelSerializer):
+class VotingProcessSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = BoardMeeting
+		model = VotingProcess
 		fields = (
-			'id',
-			'title',
-			'meeting_date',
-			'description',
-			'status',
-			'minutes',
-			'meeting_type',
-			'location',
 			'board',
-			'meeting_start_time',
-			'meeting_end_time',
+			'has_started',
+			'has_ended',
+			'document_number',
 		)
 	
 	def to_internal_value(self, data):

@@ -1,6 +1,5 @@
 from rest_framework import status, viewsets
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.response import Response
 
 from app.api.common.web import APIMessage
 from ..models import BoardMeeting, BoardMember
