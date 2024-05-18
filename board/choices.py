@@ -39,6 +39,11 @@ VOTE_STATUS = (
 	('rejected', 'Rejected'),
 )
 
+VOTING_PROCESS_STATUS = (
+	('started', 'Started'),
+	('ended', 'Ended'),
+)
+
 BOARD_RESOLUTION = (
     ('refrain', 'Refrain'),
     ('vote', 'Vote'),

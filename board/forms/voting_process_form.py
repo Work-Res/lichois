@@ -7,7 +7,6 @@ class VotingProcessForm(forms.ModelForm):
 		model = VotingProcess
 		fields = (
 			'board',
-			'has_started',
-			'has_ended',
+			'status',
 			'document_number',
 		)
