@@ -1,8 +1,41 @@
 from rest_framework import serializers
-from ..models import BoardMeetingVote
+from rest_framework.exceptions import PermissionDenied
+
+from app.api.common.web import APIMessage
+from ..models import BoardMeetingVote, BoardMember, MeetingAttendee
 
 
 class BoardMeetingVoteSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = BoardMeetingVote
 		fields = '__all__'
+	
+	def to_internal_value(self, data):
+		request = self.context.get('request')
+		auth_user = request.user
+		try:
+			board_member = BoardMember.objects.get(user=auth_user)
+		except BoardMember.DoesNotExist:
+			api_message = APIMessage(
+				code=400,
+				message="Bad request",
+				details="User is not a member of any board"
+			)
+			raise PermissionDenied(api_message.to_dict())
+		
+		try:
+			meeting_attendee = MeetingAttendee.objects.get(board_member=board_member)
+		except MeetingAttendee.DoesNotExist:
+			api_message = APIMessage(
+				code=400,
+				message="Bad request",
+				details="User is not an attendee of any meeting"
+			)
+			raise PermissionDenied(api_message.to_dict())
+		else:
+			mutable_data = data.copy()
+			mutable_data['meeting_attendee'] = meeting_attendee.id
+			return super().to_internal_value(mutable_data)
+
+	def create(self, validated_data):
+		return super().create(validated_data)
