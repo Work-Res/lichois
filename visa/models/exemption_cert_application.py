@@ -1,11 +1,11 @@
 from django.db import models
 # from base_module.model_mixins import PersonModelMixin, PassportModelMixin
-# from base_module.model_mixins import DeclarationModelMixin, CommissionerOathModelMixin
+from base_module.model_mixins import DeclarationModelMixin, CommissionerOathModelMixin
 from base_module.model_mixins import BaseUuidModel
 from ..choices import PERIOD_MEASURE
 
 
-class ExemptionCertificateApplication(BaseUuidModel):
+class ExemptionCertificateApplication(CommissionerOathModelMixin, BaseUuidModel):
 
     personal_info_id = models.CharField(max_length=25)
     passport_details_id = models.CharField(max_length=25)

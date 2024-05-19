@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from ..models import AdoptedChildRegistration
-from ..serializers import AdoptedChildRegistrationSerializer
+from lichois.citizenship.api.serializers import AdoptedChildRegistrationSerializer
 
 
 class AdoptedChildRegistrationViewSet(viewsets.ModelViewSet):
