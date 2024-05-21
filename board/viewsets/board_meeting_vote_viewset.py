@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from app.api.common.web import APIMessage
 from ..models import BoardMeetingVote
 from ..serializers import BoardMeetingVoteSerializer
 from ..classes import BoardMeetingVoteManager
@@ -24,6 +25,10 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 	def create_tie_breaker(self, request):
 		meeting_vote_manager = BoardMeetingVoteManager(
 			user=request.user)
-		tiebreaker = meeting_vote_manager.create_tie_breaker(request.POST['tie_breaker'])
-		return Response(data=tiebreaker)
+		tie_breaker = request.POST.get('tie_breaker')
+		document_number = request.POST.get('document_number')
+		tiebreaker = meeting_vote_manager.create_tie_breaker(document_number, tie_breaker)
+		if tiebreaker:
+			return Response(APIMessage(message='Tiebreaker successfully created').to_dict())
+		raise Exception(APIMessage(message='Tiebreaker failed to create').to_dict())
 		

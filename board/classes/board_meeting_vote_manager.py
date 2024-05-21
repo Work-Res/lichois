@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
 
 from board.models import BoardMeetingVote, BoardMember, MeetingAttendee
@@ -35,16 +36,20 @@ class BoardMeetingVoteManager:
 			'not_voted_members': list(not_voted_members),
 		}
 	
-	def create_tie_breaker(self, tie_breaker):
-		meeting_attendee = MeetingAttendee.objects.first(board_member__user=self.user)
-		if self.user.is_chairperson:
-			try:
-				vote = BoardMeetingVote.objects.get(meeting_attendee=meeting_attendee)
-			except BoardMeetingVote.DoesNotExist:
-				raise PermissionDenied('User is not a board member')
-			else:
-				vote.tie_breaker = tie_breaker
-				vote.save()
-				return tie_breaker
-		raise PermissionDenied('User is not chairperson')
+	def create_tie_breaker(self, document_number, tie_breaker):
+		try:
+			meeting_attendee = MeetingAttendee.objects.get(board_member__user=self.user)
+		except MeetingAttendee.DoesNotExist:
+			pass
+		else:
+			if self.user.is_chairperson:
+				try:
+					vote = BoardMeetingVote.objects.get(Q(meeting_attendee=meeting_attendee) & Q(document_number=document_number))
+				except BoardMeetingVote.DoesNotExist:
+					raise PermissionDenied('User is not a board member')
+				else:
+					vote.tie_breaker = tie_breaker
+					vote.save()
+					return tie_breaker
+			raise PermissionDenied('User is not chairperson')
 
