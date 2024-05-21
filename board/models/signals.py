@@ -21,21 +21,22 @@ def board_meeting_on_post_save(sender, instance, raw, created, **kwargs):
             return None
         else:
             board_members = attending_board.boardmember_set.all()
-        
-        for board_member in board_members:
-            MeetingAttendee.objects.update_or_create(
-                meeting=instance,
-                board_member=board_member)
-            # Create a meeting invitation for each board member
-            MeetingInvitation.objects.create(
-                meeting_title=instance.title,
-                invited_user=board_member,
-            )
+            for board_member in board_members:
+                # Create a meeting invitation for each board member
+                MeetingInvitation.objects.create(
+                    board_meeting=instance,
+                    invited_user=board_member,
+                )
             
         
 @receiver(post_save, weak=False, sender=MeetingInvitation,
           dispatch_uid='board_meeting_invitation_on_post_save')
 def board_meeting_invitation_on_post_save(sender, instance, raw, created, **kwargs):
-    pass
+    attendance_status = 'present' if instance.status == 'approved' else 'absent'
+    MeetingAttendee.objects.update_or_create(
+        meeting=instance.board_meeting,
+        board_member=instance.user_invited,
+        attendance_status=attendance_status
+    )
 
 

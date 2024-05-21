@@ -6,7 +6,7 @@ from ..models import MeetingInvitation
 
 
 class MeetingInvitationAdmin(admin.ModelAdmin):
-	list_display = ('id', 'meeting_title', 'invited_user', 'timestamp', 'status')
+	list_display = ('id', 'board_meeting', 'invited_user', 'timestamp', 'status')
 	search_fields = ('meeting_title', 'invited_user__username', 'status')
 	list_filter = ('status',)
 	form = MeetingInvitationForm
