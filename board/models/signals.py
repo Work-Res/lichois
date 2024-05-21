@@ -33,6 +33,9 @@ def board_meeting_on_post_save(sender, instance, raw, created, **kwargs):
             )
             
         
-            
+@receiver(post_save, weak=False, sender=MeetingInvitation,
+          dispatch_uid='board_meeting_invitation_on_post_save')
+def board_meeting_invitation_on_post_save(sender, instance, raw, created, **kwargs):
+    pass
 
 
