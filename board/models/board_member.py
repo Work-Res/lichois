@@ -10,7 +10,7 @@ class BoardMember(BaseUuidModel):
     board_join_date = models.DateField(auto_now_add=True)
     
     def __str__(self):
-        return f'BoardMember {self.user_id} at Board {self.board}'
+        return f'{self.user}'
 
     class Meta:
         app_label = 'board'

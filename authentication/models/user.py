@@ -13,3 +13,4 @@ class User(AbstractUser):
 	
 	def is_secretary(self):
 		return self.groups.filter(name='secretary').exists()
+	
