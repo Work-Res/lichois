@@ -1,6 +1,9 @@
+PRESENT = 'present'
+ABSENT = 'absent'
+
 ATTENDANCE_STATUS = (
-    ('absent', 'Absent'),
-    ('present', 'Present'),
+    (ABSENT, 'Absent'),
+    (PRESENT, 'Present'),
 )
 
 DECISION_OUTCOME = (
@@ -62,4 +65,6 @@ MEETING_INVITATION_STATUS = (
 	('rejected', 'Rejected'),
 	('pending', 'Pending'),
 )
+
+
 

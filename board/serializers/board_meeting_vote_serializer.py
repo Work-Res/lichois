@@ -1,8 +1,10 @@
+from django.db.models import Q
 from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from app.api.common.web import APIMessage
 from ..models import BoardMeetingVote, BoardMember, MeetingAttendee
+from ..choices import PRESENT
 
 
 class BoardMeetingVoteSerializer(serializers.ModelSerializer):
@@ -24,12 +26,13 @@ class BoardMeetingVoteSerializer(serializers.ModelSerializer):
 			raise PermissionDenied(api_message.to_dict())
 		
 		try:
-			meeting_attendee = MeetingAttendee.objects.get(board_member=board_member)
+			meeting_attendee = MeetingAttendee.objects.get(Q(board_member=board_member) & Q(
+				attendance_status=PRESENT))
 		except MeetingAttendee.DoesNotExist:
 			api_message = APIMessage(
 				code=400,
 				message="Bad request",
-				details="User is not an attendee of any meeting"
+				details="User is not an attendee of the meeting or absent"
 			)
 			raise PermissionDenied(api_message.to_dict())
 		else:

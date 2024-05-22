@@ -2,7 +2,6 @@ from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
 
 from board.models import BoardMeetingVote, BoardMember, MeetingAttendee
-from board.serializers import BoardMemberSerializer
 
 
 class BoardMeetingVoteManager:
