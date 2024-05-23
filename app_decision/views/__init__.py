@@ -1,1 +1,2 @@
 from .application_decision_view import ApplicationDecisionViewSet
+from .application_decision_type_view import ApplicationDecisionTypeViewSet

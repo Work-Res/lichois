@@ -27,36 +27,35 @@ from django.urls import path, include
 from board.admin_site import board_admin
 
 schema_view = get_schema_view(
-	openapi.Info(
-		title="Africort Technologies",
-		default_version='v1',
-	),
-	public=True,
-	permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Africort Technologies",
+        default_version='v1',
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
-	path("admin/", admin.site.urls),
-	path('board/', board_admin.urls),
-	path('lichois/api/v1/', include('app.urls')),
-	path('lichois/api/v1/', include('app_address.urls')),
-	path('lichois/api/v1/', include('app_checklist.urls')),
-	path('lichois/api/v1/', include('app_comments.urls')),
-	path('lichois/api/v1/', include('app_contact.urls')),
-	path('lichois/api/v1/', include('app_decision.urls')),
-	path('lichois/api/v1/', include('app_attachments.urls')),
-	# path('lichois/api/v1/', include('app_search.urls')),
-	path('lichois/api/v1/', include('app_personal_details.urls')),
-	path('lichois/api/v1/', include('workresidentpermit.urls')),
-	path('lichois/api/v1/', include('board.urls')),
-	path('lichois/api/v1/', include('visa.urls')),
-	path('lichois/api/v1/', include('workflow.urls')),
-	path('lichois/api/v1/', include('app_assessment.urls')),
-	path('lichois/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-	path('lichois/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-	path('lichois/api/v1/', include('authentication.urls')),
-	
+    path("admin/", admin.site.urls),
+    path('board/', board_admin.urls),
+    path('lichois/api/v1/', include('app.urls')),
+    path('lichois/api/v1/', include('app_address.urls')),
+    path('lichois/api/v1/', include('app_checklist.urls')),
+    path('lichois/api/v1/', include('app_comments.urls')),
+    path('lichois/api/v1/', include('app_contact.urls')),
+    path('lichois/api/v1/', include('app_decision.urls')),
+    path('lichois/api/v1/', include('app_attachments.urls')),
+    # path('lichois/api/v1/', include('app_search.urls')),
+    path('lichois/api/v1/', include('app_personal_details.urls')),
+    path('lichois/api/v1/', include('workresidentpermit.urls')),
+    path('lichois/api/v1/', include('board.urls')),
+    path('lichois/api/v1/', include('visa.urls')),
+    path('lichois/api/v1/', include('workflow.urls')),
+    path('lichois/api/v1/', include('app_assessment.urls')),
+    path('lichois/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('lichois/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('lichois/api/v1/', include('authentication.urls')),
 ]
 
 if settings.DEBUG:
-	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

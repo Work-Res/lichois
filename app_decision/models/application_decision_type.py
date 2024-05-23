@@ -13,6 +13,5 @@ class ApplicationDecisionType(BaseUuidModel):
     valid_to = models.DateField(null=True, blank=True)
 
     class Meta:
-        verbose_name_plural = "Application Type"
+        verbose_name_plural = "Application Decision Type"
         ordering = ['-created']
-
