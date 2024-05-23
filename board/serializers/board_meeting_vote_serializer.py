@@ -15,6 +15,7 @@ class BoardMeetingVoteSerializer(serializers.ModelSerializer):
 	def to_internal_value(self, data):
 		request = self.context.get('request')
 		auth_user = request.user
+		mutable_data = data.copy()
 		try:
 			board_member = BoardMember.objects.get(user=auth_user)
 		except BoardMember.DoesNotExist:
@@ -32,13 +33,12 @@ class BoardMeetingVoteSerializer(serializers.ModelSerializer):
 			api_message = APIMessage(
 				code=400,
 				message="Bad request",
-				details="User is not an attendee of the meeting or absent"
+				details="Board member is not an attendee of the meeting or absent"
 			)
 			raise PermissionDenied(api_message.to_dict())
 		else:
-			mutable_data = data.copy()
 			mutable_data['meeting_attendee'] = meeting_attendee.id
-			return super().to_internal_value(mutable_data)
+		return super().to_internal_value(mutable_data)
 
 	def create(self, validated_data):
 		return super().create(validated_data)
