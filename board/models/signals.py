@@ -32,11 +32,12 @@ def board_meeting_on_post_save(sender, instance, raw, created, **kwargs):
 @receiver(post_save, weak=False, sender=MeetingInvitation,
           dispatch_uid='board_meeting_invitation_on_post_save')
 def board_meeting_invitation_on_post_save(sender, instance, raw, created, **kwargs):
-    attendance_status = 'present' if instance.status == 'approved' else 'absent'
-    MeetingAttendee.objects.update_or_create(
-        meeting=instance.board_meeting,
-        board_member=instance.user_invited,
-        attendance_status=attendance_status
-    )
+    if not created:
+        attendance_status = 'present' if instance.status == 'approved' else 'absent'
+        MeetingAttendee.objects.update_or_create(
+            meeting=instance.board_meeting,
+            board_member=instance.invited_user,
+            attendance_status=attendance_status
+        )
 
 
