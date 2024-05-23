@@ -16,4 +16,4 @@ class MeetingInvitation(BaseUuidModel):
 	status = models.CharField(max_length=20, choices=MEETING_INVITATION_STATUS, default='pending')  # Possible values:
 	
 	def __str__(self):
-		return f"Invitation to {self.meeting_title}"
+		return f"Invitation to {self.invited_user} for {self.board_meeting}"
