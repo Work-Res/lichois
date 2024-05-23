@@ -6,3 +6,4 @@ from ..api.serializers import ApplicationAttachmentVerificationSerializer
 class ApplicationAttachmentVerificationView(viewsets.ModelViewSet):
     queryset = ApplicationAttachmentVerification.objects.all()
     serializer_class = ApplicationAttachmentVerificationSerializer
+    lookup_field = 'attachment'
