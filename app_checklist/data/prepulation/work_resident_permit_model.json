@@ -1,0 +1,7 @@
+{
+  "process_name": "WORK_RESIDENT_PERMIT",
+  "models": [
+    {"model": "app.application", "filters": {"document_number":  ""}},
+    {"model": "app.applicationdocument", "filters": {"document_number":  ""}}
+  ]
+}

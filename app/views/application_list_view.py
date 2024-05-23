@@ -1,6 +1,6 @@
 import django_filters
 
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 from rest_framework.pagination import PageNumberPagination
 
 from app.models import Application
@@ -30,3 +30,4 @@ class ApplicationListView(viewsets.ModelViewSet, ):
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
     pagination_class = StandardResultsSetPagination
+    permission_classes = (permissions.IsAuthenticated,)
