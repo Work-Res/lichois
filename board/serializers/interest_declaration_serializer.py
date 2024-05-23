@@ -8,6 +8,7 @@ from ..models import BoardMember, InterestDeclaration, MeetingAttendee
 
 
 class InterestDeclarationSerializer(serializers.ModelSerializer):
+    document_number = serializers.CharField(max_length=150, required=True)
     
     class Meta:
         model = InterestDeclaration
@@ -45,7 +46,17 @@ class InterestDeclarationSerializer(serializers.ModelSerializer):
             )
             raise PermissionDenied(api_message.to_dict())
         else:
-            mutable_data['meeting_attendee'] = meeting_attendee.id
+            try:
+                InterestDeclaration.objects.get(Q(meeting_attendee=meeting_attendee) & Q(document_number=data.get('document_number')))
+            except InterestDeclaration.DoesNotExist:
+                mutable_data['meeting_attendee'] = meeting_attendee.id
+            else:
+                api_message = APIMessage(
+                    code=400,
+                    message="Bad request",
+                    details="Interest declaration already exists for the document number"
+                )
+                raise PermissionDenied(api_message.to_dict())
         return super().to_internal_value(mutable_data)
     
     def create(self, validated_data):

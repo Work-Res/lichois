@@ -8,7 +8,7 @@ from ..choices import BOARD_RESOLUTION, INTEREST_LEVEL
 
 class InterestDeclaration(BaseUuidModel):
 
-    meeting_attendee = models.OneToOneField(
+    meeting_attendee = models.ForeignKey(
         MeetingAttendee,
         on_delete=models.SET_NULL,
         null=True

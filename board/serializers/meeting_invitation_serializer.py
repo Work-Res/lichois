@@ -7,7 +7,6 @@ from ..models import BoardMember, MeetingInvitation
 
 
 class MeetingInvitationSerializer(serializers.ModelSerializer):
-	invited_user = BoardMemberSerializer(required=False)
 	
 	class Meta:
 		model = MeetingInvitation
