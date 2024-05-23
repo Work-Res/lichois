@@ -32,7 +32,7 @@ class InterestDeclaration(BaseUuidModel):
     date_signed = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.meeting_attendee}'
+        return f'{self.meeting_attendee} - {self.decision}'
 
     class Meta:
         app_label = 'board'

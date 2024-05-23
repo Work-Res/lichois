@@ -15,7 +15,8 @@ class MeetingInvitationSerializer(serializers.ModelSerializer):
 			'id',
 			'timestamp',
 			'status',
-			'board_meeting'
+			'board_meeting',
+			'invited_user',
 		]
 		
 	def to_internal_value(self, data):
