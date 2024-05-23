@@ -35,9 +35,20 @@ class ApplicationAttachmentSerializer(serializers.ModelSerializer):
 
 
 class ApplicationAttachmentVerificationSerializer(serializers.ModelSerializer):
+    attachment = ApplicationAttachmentSerializer(required=False)
+    verifier = serializers.PrimaryKeyRelatedField(read_only=True)
+    # comment = CommentSerializer(required=False)
+    
     class Meta:
         model = ApplicationAttachmentVerification
-        fields = ['id', 'attachment', 'verification_status', 'comment', 'verifier', 'verified_at']
+        fields = [
+            'id',
+            'attachment',
+            'verification_status',
+            'comment',
+            'verifier',
+            'verified_at'
+        ]
     
     def to_internal_value(self, data):
         request = self.context.get('request')
@@ -48,8 +59,8 @@ class ApplicationAttachmentVerificationSerializer(serializers.ModelSerializer):
         if comment_text:
             comment = Comment.objects.create(user=auth_user, comment_text=comment_text, comment_type='verification')
             mutable_data['comment'] = comment.id
+        print(data)
         return super().to_internal_value(mutable_data)
     
     def create(self, validated_data):
         return super().create(validated_data)
-
