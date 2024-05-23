@@ -14,6 +14,7 @@ class ApplicationStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationStatus
         fields = (
+            'id',
             'code',
             'name',
             'processes',
@@ -27,7 +28,7 @@ class ApplicationUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationUser
         fields = (
-            'full_name', 'user_identifier', 'work_location_code', 'dob')
+            'id', 'full_name', 'user_identifier', 'work_location_code', 'dob')
 
 
 class ApplicationDocumentSerializer(serializers.ModelSerializer):
@@ -37,6 +38,7 @@ class ApplicationDocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationDocument
         fields = (
+            'id',
             'document_number',
             'document_date',
             'signed_date',
@@ -53,6 +55,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = (
+            'id',
             'last_application_version_id',
             'application_type',
             'application_status',
