@@ -10,5 +10,7 @@ from .board_decision_serializer import BoardDecisionSerializer
 from .board_meeting_vote_serializer import BoardMeetingVoteSerializer
 from .region_serializer import RegionSerializer
 from .meeting_invitation_serializer import MeetingInvitationSerializer
+from .voting_process_serializer import VotingProcessSerializer
+
 
 

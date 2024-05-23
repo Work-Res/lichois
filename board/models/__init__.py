@@ -13,3 +13,4 @@ from .board_meeting_vote import BoardMeetingVote
 from .meeting_attendee import MeetingAttendee
 from .meeting_invitation import MeetingInvitation
 from .signals import board_meeting_on_post_save
+from .voting_process import VotingProcess

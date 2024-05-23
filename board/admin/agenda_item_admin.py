@@ -1,10 +1,11 @@
 from django.contrib import admin
-from ..models import Agenda, AgendaItem
-from ..forms import AgendaForm, AgendaItemForm
+from ..models import AgendaItem
+from ..forms import AgendaItemForm
+from ..admin_site import board_admin
 
 
 class AgendaItemAdmin(admin.ModelAdmin):
-    form = AgendaItemForm
+	form = AgendaItemForm
 
 
-admin.site.register(AgendaItem, AgendaItemAdmin)
+board_admin.register(AgendaItem, AgendaItemAdmin)

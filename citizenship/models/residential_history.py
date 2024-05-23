@@ -1,8 +1,9 @@
 from django.db import models
+from app.models import ApplicationBaseModel
 from base_module.model_mixins import BaseUuidModel
 
 
-class ResidentialHistory(BaseUuidModel):
+class ResidentialHistory(ApplicationBaseModel):
 
     country = models.CharField(max_length=190)
 

@@ -1,13 +1,15 @@
-from base_module.model_mixins import BaseUuidModel
 from django.db import models
+from app.models import ApplicationBaseModel
 from base_module.model_mixins import CommissionerOathModelMixin
 
 
-class DeclarationNaturalisationByForeignSpouse(CommissionerOathModelMixin, BaseUuidModel):
+class DeclarationNaturalisationByForeignSpouse(CommissionerOathModelMixin, ApplicationBaseModel):
 
     # Personal Information
     # Address
     #ContactInfo
+
+    #TODO: link residential history
     #ResidentialHistory
     personal_info_id = models.CharField(max_length=25)
     contact_info_id = models.CharField(max_length=25)

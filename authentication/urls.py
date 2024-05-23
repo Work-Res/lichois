@@ -16,16 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-from .views import (LogoutView, LoginVew, UserView, OtpEmailVerificationView, PasswordResetView,
+from .views import (LogoutView, UserView, OtpEmailVerificationView, PasswordResetView,
                     ChangePasswordView)
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('login/', LoginVew.as_view(), name='login'),
 	path('logout/', LogoutView.as_view(), name='logout'),
 	path('user/', UserView.as_view(), name='user'),
 	path('otp-email-verification/', OtpEmailVerificationView.as_view(), name='otp_email_verification'),
 	path('password-reset/', PasswordResetView.as_view(), name='password_reset'),
 	path('change-password/', ChangePasswordView.as_view(), name='change_password'),
+	path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+	path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+	path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]

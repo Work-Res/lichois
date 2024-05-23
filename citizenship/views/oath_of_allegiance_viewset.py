@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from ..models import OathOfAllegiance
-from ..serializers import OathOfAllegianceSerializer
+from lichois.citizenship.api.serializers import OathOfAllegianceSerializer
 
 
 class OathOfAllegianceViewSet(viewsets.ModelViewSet):

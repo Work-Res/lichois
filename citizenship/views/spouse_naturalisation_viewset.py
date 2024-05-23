@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from ..models import SpouseNaturalization
-from ..serializers import SpouseNaturalizationSerializer
+from lichois.citizenship.api.serializers import SpouseNaturalizationSerializer
 
 
 class SpouseNaturalizationViewSet(viewsets.ModelViewSet):

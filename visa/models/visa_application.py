@@ -8,15 +8,15 @@ class VisaApplication(BaseUuidModel):
 
     personal_info_id = models.CharField(max_length=25)
     contact_info_id = models.CharField(max_length=25)
-    nationality = models.CharField(max_length=150)
-    visa_type = models.CharField(choices=VISA_TYPES, max_length=50)
-    no_of_entries = models.CharField(choices=ENTRY_FREQ, max_length=10)
-
-    #TODO: link address in views
+    # TODO: link address in views
     bots_address_id = models.CharField(max_length=25)
 
     # TODO: link dom address in views
     dom_country_address_id = models.CharField(max_length=25)
+
+    nationality = models.CharField(max_length=150)
+    visa_type = models.CharField(choices=VISA_TYPES, max_length=50)
+    no_of_entries = models.CharField(choices=ENTRY_FREQ, max_length=10)
 
     durations_stay = models.IntegerField()
 

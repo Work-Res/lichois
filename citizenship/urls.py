@@ -2,13 +2,18 @@ from django.urls import path, include
 from django.urls.conf import path
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
-from .views import AdoptedChildRegistrationViewSet
+from .views import AdoptedChildRegistrationViewSet, DeclarationNaturalisationForeignSpouseViewSet
+from .views import CertNaturalisationByForeignSpouseViewSet
 from .admin_site import citizenship_admin
 
 app_name = 'citizenship'
 
 router = DefaultRouter()
 router.register(r'adopted-child-registrations/', AdoptedChildRegistrationViewSet, basename='adopted-child-registrations')
+router.register(r'declaration-intent-naturalisation-fs/',
+                DeclarationNaturalisationForeignSpouseViewSet, basename='declaration-intent-naturalisation-fs')
+router.register(r'cert-naturalisation-fs/',
+                CertNaturalisationByForeignSpouseViewSet, basename='cert-naturalisation-fs')
 router.register(r'foreign-spouse-naturalisation-certs/', AdoptedChildRegistrationViewSet, basename='foreign-spouse-naturalisation-certs')
 router.register(r'settlement-citizenships/', AdoptedChildRegistrationViewSet, basename='settlement-citizenships')
 router.register(r'citizenship-renunciation-declarations/', AdoptedChildRegistrationViewSet, basename='citizenship-renunciation-declarations')

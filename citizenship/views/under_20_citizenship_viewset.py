@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from ..models import Under20Citizenship
-from ..serializers import Under20CitizenshipSerializer
+from lichois.citizenship.api.serializers import Under20CitizenshipSerializer
 
 
 class Under20CitizenshipViewSet(viewsets.ModelViewSet):

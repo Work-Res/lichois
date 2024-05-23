@@ -1,6 +1,9 @@
+PRESENT = 'present'
+ABSENT = 'absent'
+
 ATTENDANCE_STATUS = (
-    ('absent', 'Absent'),
-    ('present', 'Present'),
+    (ABSENT, 'Absent'),
+    (PRESENT, 'Present'),
 )
 
 DECISION_OUTCOME = (
@@ -39,6 +42,11 @@ VOTE_STATUS = (
 	('rejected', 'Rejected'),
 )
 
+VOTING_PROCESS_STATUS = (
+	('started', 'Started'),
+	('ended', 'Ended'),
+)
+
 BOARD_RESOLUTION = (
     ('refrain', 'Refrain'),
     ('vote', 'Vote'),
@@ -57,4 +65,6 @@ MEETING_INVITATION_STATUS = (
 	('rejected', 'Rejected'),
 	('pending', 'Pending'),
 )
+
+
 

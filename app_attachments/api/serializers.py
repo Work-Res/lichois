@@ -37,4 +37,4 @@ class ApplicationAttachmentSerializer(serializers.ModelSerializer):
 class ApplicationAttachmentVerificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationAttachmentVerification
-        fields = ['document', 'verification_status', 'comment', 'verifier', 'verified_at']
+        fields = ['id', 'attachment', 'verification_status', 'comment', 'verifier', 'verified_at']
