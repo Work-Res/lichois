@@ -75,7 +75,7 @@ class WorkResidentPermitApplication:
                 APIMessage(
                     code=200,
                     message="Application verification submission",
-                    details=f"Application has been submitted successfully.")
+                    details=f"Application has been submitted successfully.").to_dict()
             )
             self.response.data = self.application
 
