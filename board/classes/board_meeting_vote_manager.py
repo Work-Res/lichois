@@ -10,6 +10,7 @@ class BoardMeetingVoteManager:
 		self.document_number = document_number
 	
 	def get_votes(self):
+		print(f'document_number: {self.document_number}')
 		board_member = BoardMember.objects.filter(user=self.user).first()
 		# Check if user is a member of any board
 		if not board_member:
@@ -22,13 +23,16 @@ class BoardMeetingVoteManager:
 		voted_approved_members = BoardMeetingVote.objects.filter(Q(status='approved') & Q(
 			document_number=self.document_number)).values_list(
 			'meeting_attendee__board_member__user__username', flat=True)
+		print(f'Voted approved members: {voted_approved_members}')
 		# Get
 		voted_rejected_members = BoardMeetingVote.objects.filter(Q(status='rejected') & Q(
 			document_number=self.document_number)).values_list(
 			'meeting_attendee__board_member__user__username', flat=True)
+		print(f'Voted rejected members: {voted_rejected_members}')
 		# Get the list of members who have voted
 		voted = BoardMeetingVote.objects.filter(
 			document_number=self.document_number).values_list('meeting_attendee__board_member__id', flat=True)
+		print(f'Voted: {voted}')
 		# Get the board members who have not voted
 		not_voted_members = board_members.exclude(id__in=voted).values_list('user__username', flat=True)
 		# Return the voted approved members, voted rejected members, and not voted members

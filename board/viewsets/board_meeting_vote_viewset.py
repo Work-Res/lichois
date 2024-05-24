@@ -14,15 +14,17 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 	queryset = BoardMeetingVote.objects.all()
 	serializer_class = BoardMeetingVoteSerializer
 	
-	@action(detail=False, methods=['get'], url_path='participants')
-	def voted_members(self, request):
-		meeting_vote_manager = self.get_meeting_vote_manager(request)
+	@action(detail=False, methods=['get'], url_path='participants/(?P<document_number>[A-Za-z0-9-]+)',
+	        url_name='participants')
+	def voted_members(self, request, document_number):
+		meeting_vote_manager = self.get_meeting_vote_manager(request, document_number)
 		votes = meeting_vote_manager.get_votes()  # Get the votes
 		return Response(data=votes)
 	
-	@action(detail=False, methods=['POST'], url_path='tie-breaker', url_name='tie-breaker')
-	def create_tie_breaker(self, request):
-		meeting_vote_manager = self.get_meeting_vote_manager(request)
+	@action(detail=False, methods=['POST'], url_path='tie-breaker/(?P<document_number>[A-Za-z0-9-]+)',
+	        url_name='tie-breaker')
+	def create_tie_breaker(self, request, document_number):
+		meeting_vote_manager = self.get_meeting_vote_manager(request, document_number)
 		tie_breaker = request.POST.get('tie_breaker')
 		tiebreaker = meeting_vote_manager.create_tie_breaker(tie_breaker)
 		if tiebreaker:
@@ -30,8 +32,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 		raise Exception(APIMessage(message='Tie breaker failed to create').to_dict())
 	
 	@classmethod
-	def get_meeting_vote_manager(cls, request):
-		document_number = request.POST.get('document_number')
+	def get_meeting_vote_manager(cls, request, document_number):
 		meeting_vote_manager = BoardMeetingVoteManager(
 			user=request.user,
 			document_number=document_number,
