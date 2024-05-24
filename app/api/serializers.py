@@ -11,6 +11,8 @@ from app.models import (Application, ApplicationStatus, ApplicationDocument, App
                         )
 from board.models import BoardDecision
 from workresidentpermit.models import SecurityClearance
+from app_decision.api.serializers import ApplicationDecisionTypeSerializer
+from app_comments.api.serializers import CommentSerializer
 
 
 class ApplicationStatusSerializer(serializers.ModelSerializer):
@@ -125,6 +127,19 @@ class RenewalApplicationSerializer(serializers.Serializer):
     applicant_identifier = serializers.CharField(allow_blank=False, max_length=200, required=True)
     document_number = serializers.CharField(max_length=200, required=True)
     work_place = serializers.CharField(allow_blank=False, max_length=200, required=True)
+
+
+class ApplicationVerificationSerializer(serializers.ModelSerializer):
+    decision = ApplicationDecisionTypeSerializer()
+    comment = CommentSerializer()
+    class Meta:
+        model = ApplicationVerification
+        fields = (
+            'document_number',
+            'decision',
+            'outcome_reason',
+            'comment'
+        )
 
 
 class ApplicationVerificationRequestSerializer(serializers.Serializer):
