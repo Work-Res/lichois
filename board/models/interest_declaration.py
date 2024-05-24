@@ -25,7 +25,9 @@ class InterestDeclaration(BaseUuidModel):
 
     client_relationship = models.CharField(
         max_length=200,
-        choices=INTEREST_LEVEL
+        choices=INTEREST_LEVEL,
+        blank=True,
+        null=True,
     )
     
     interest_description = models.TextField()
