@@ -1,7 +1,7 @@
 from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
 
-from board.models import BoardMeetingVote, BoardMember, MeetingAttendee
+from board.models import BoardMeetingVote, BoardMember, InterestDeclaration, MeetingAttendee
 
 
 class BoardMeetingVoteManager:
@@ -40,11 +40,13 @@ class BoardMeetingVoteManager:
 	
 	def create_tie_breaker(self, tie_breaker):
 		try:
-			meeting_attendee = MeetingAttendee.objects.get(board_member__user=self.user)
+			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
+				document_number=self.document_number) & Q(decision='vote'))
 		except MeetingAttendee.DoesNotExist:
 			pass
 		else:
 			if self.user.is_chairperson:
+				meeting_attendee = declaration.meeting_attendee
 				try:
 					vote = BoardMeetingVote.objects.get(Q(meeting_attendee=meeting_attendee) & Q(
 						document_number=self.document_number))
@@ -58,11 +60,12 @@ class BoardMeetingVoteManager:
 	
 	def vote_exists(self):
 		try:
-			meeting_attendee = MeetingAttendee.objects.get(Q(board_member__user=self.user) & Q(
-				meeting__document_number=self.document_number))
-		except MeetingAttendee.DoesNotExist:
+			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
+				document_number=self.document_number) & Q(decision='vote'))
+		except InterestDeclaration.DoesNotExist:
 			pass
 		else:
+			meeting_attendee = declaration.meeting_attendee
 			try:
 				BoardMeetingVote.objects.get(Q(meeting_attendee=meeting_attendee) & Q(
 					document_number=self.document_number))
@@ -75,10 +78,12 @@ class BoardMeetingVoteManager:
 	def get_my_vote(self):
 		try:
 			# Get the meeting attendee of the user
-			meeting_attendee = MeetingAttendee.objects.get(board_member__user=self.user)
+			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
+				document_number=self.document_number) & Q(decision='vote'))
 		except MeetingAttendee.DoesNotExist:
 			pass
 		else:
+			meeting_attendee = declaration.meeting_attendee
 			try:
 				vote = BoardMeetingVote.objects.get(Q(meeting_attendee=meeting_attendee) & Q(
 					document_number=self.document_number))
