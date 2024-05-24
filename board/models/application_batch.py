@@ -4,10 +4,8 @@ from app.models import Application
 
 
 class ApplicationBatch(BaseUuidModel):
-	batch_id = models.CharField(max_length=250)
 	applications = models.ManyToManyField(Application)
-	batch_type = models.CharField(max_length=100)
-	batch_duration = models.DurationField()
+	batch_type = models.CharField(max_length=100, blank=True, null=True)
 	
 	def __str__(self):
-		return f'ApplicationBatch {self.batch_type} for Applications {self.application_ids}'
+		return f'ApplicationBatch {self.batch_type} for Applications'
