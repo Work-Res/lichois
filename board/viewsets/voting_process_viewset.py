@@ -9,6 +9,7 @@ from ..serializers import VotingProcessSerializer
 class VotingProcessViewSet(viewsets.ModelViewSet):
 	queryset = VotingProcess.objects.all()
 	serializer_class = VotingProcessSerializer
+	lookup_field = 'document_number'
 	
 	def create(self, request, *args, **kwargs):
 		if request.user.is_chairperson():

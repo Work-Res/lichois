@@ -83,7 +83,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 assessed_application__application_document__document_number=
                 obj.application_document.document_number)
             return board_decision.decision_outcome
-        except SecurityClearance.DoesNotExist:
+        except BoardDecision.DoesNotExist:
             return 'Pending'
 
     class Meta:
