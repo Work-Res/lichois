@@ -26,5 +26,5 @@ class MeetingInvitationViewSet(viewsets.ModelViewSet):
 			)
 			raise PermissionDenied(api_message.to_dict())
 		else:
-			self.queryset = MeetingInvitation.filter(invited_user=board_member)
+			self.queryset = MeetingInvitation.objects.filter(invited_user=board_member)
 		return self.queryset
