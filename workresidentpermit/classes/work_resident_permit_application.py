@@ -61,6 +61,7 @@ class WorkResidentPermitApplication:
             application_decision_type = ApplicationDecisionType.objects.get(
                 code__iexact=self.verification_request.decision)
             ApplicationVerification.objects.create(
+                document_number=self.document_number,
                 comment=comment,
                 decision=application_decision_type,
                 outcome_reason=self.verification_request.outcome_reason
