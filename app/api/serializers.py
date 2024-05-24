@@ -65,7 +65,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
         try:
             verification = ApplicationVerification.objects.get(
                 document_number=obj.application_document.document_number)
-            return verification.decision
+            return ApplicationDecisionTypeSerializer(verification.decision).data
         except ApplicationVerification.DoesNotExist:
             return 'Pending'
 
