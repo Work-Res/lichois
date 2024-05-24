@@ -79,7 +79,7 @@ class WorkResidentPermitApplication:
                     message="Application verification submission",
                     details=f"Application has been submitted successfully.").to_dict()
             )
-            self.response.data = self.application
+            self.response.data = ApplicationSerializer(self.application).data
 
             create_or_update_task_signal.send(self.application, source=source_data, application=self.application)
 
