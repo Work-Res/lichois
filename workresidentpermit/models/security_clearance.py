@@ -22,4 +22,4 @@ class SecurityClearance(BaseUuidModel):
 	summary = models.TextField()
 
 	class Meta:
-		app_label = 'work_residence_permit'
+		verbose_name = 'Security Clearance'
