@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from app.api.common.web import APIMessage
-from ..models import BoardMeetingVote, BoardMember, MeetingAttendee
+from ..models import BoardMeetingVote, BoardMember, InterestDeclaration, MeetingAttendee
 from ..choices import PRESENT
 
 
@@ -27,9 +27,9 @@ class BoardMeetingVoteSerializer(serializers.ModelSerializer):
 			raise PermissionDenied(api_message.to_dict())
 		
 		try:
-			meeting_attendee = MeetingAttendee.objects.get(Q(board_member=board_member) & Q(
-				attendance_status=PRESENT) & Q(meeting__document_number=mutable_data.get('document_number')))
-		except MeetingAttendee.DoesNotExist:
+			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member=board_member) & Q(
+				document_number=mutable_data.get('document_number')) & Q(decision='vote'))
+		except InterestDeclaration.DoesNotExist:
 			api_message = APIMessage(
 				code=400,
 				message="Bad request",
@@ -37,6 +37,7 @@ class BoardMeetingVoteSerializer(serializers.ModelSerializer):
 			)
 			raise PermissionDenied(api_message.to_dict())
 		else:
+			meeting_attendee = declaration.meeting_attendee
 			mutable_data['meeting_attendee'] = meeting_attendee.id
 		return super().to_internal_value(mutable_data)
 
