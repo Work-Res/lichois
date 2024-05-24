@@ -30,7 +30,7 @@ class InterestDeclaration(BaseUuidModel):
         null=True,
     )
     
-    interest_description = models.TextField()
+    interest_description = models.TextField(blank=True, null=True)
     
     decision = models.CharField(
         max_length=50,
