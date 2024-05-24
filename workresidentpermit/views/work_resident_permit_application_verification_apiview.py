@@ -15,7 +15,8 @@ class WorkPermitApplicationVerificationAPIView(APIView):
         if serializer.is_valid():
             validator = WorkResidentPermitVerificationValidator(document_number=document_number)
             if validator.is_valid():
-                application = WorkResidentPermitApplication(document_number=document_number)
+                application = WorkResidentPermitApplication(
+                    document_number=document_number, verification_request=serializer.data)
                 data = application.submit_verification().result()
                 return Response(data, status=status.HTTP_200_OK)
             else:
