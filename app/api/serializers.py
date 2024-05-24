@@ -132,6 +132,7 @@ class RenewalApplicationSerializer(serializers.Serializer):
 class ApplicationVerificationSerializer(serializers.ModelSerializer):
     decision = ApplicationDecisionTypeSerializer()
     comment = CommentSerializer()
+    outcome_reason = serializers.CharField(max_length=200, required=False, allow_blank=True)
     class Meta:
         model = ApplicationVerification
         fields = (
@@ -145,5 +146,5 @@ class ApplicationVerificationSerializer(serializers.ModelSerializer):
 class ApplicationVerificationRequestSerializer(serializers.Serializer):
 
     decision = serializers.CharField(max_length=200, required=True)
-    comment = serializers.CharField(max_length=500, required=False)
-    outcome_reason = serializers.CharField(max_length=300, required=False)
+    comment = serializers.CharField(max_length=500, required=False, allow_blank=True)
+    outcome_reason = serializers.CharField(max_length=300, required=False, allow_blank=True)
