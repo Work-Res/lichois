@@ -7,6 +7,7 @@ from app_comments.models import Comment
 
 from app.utils import ApplicationStatuses, WorkflowEnum
 from app.api.common.web import APIResponse, APIMessage
+from app.api.serializers import ApplicationSerializer
 
 from app_decision.models import ApplicationDecisionType
 
@@ -108,9 +109,9 @@ class WorkResidentPermitApplication:
                 APIMessage(
                     code=200,
                     message="Application submission",
-                    details=f"Application has been submitted successfully.")
+                    details=f"Application has been submitted successfully.").to_dict()
             )
-            self.response.data = self.application
+            self.response.data = ApplicationSerializer(self.application).data
             self.logger.info("Work resident submission process ended.")
 
             create_or_update_task_signal.send_robust(sender=self.application, source=source_data, application=self.application)
