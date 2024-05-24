@@ -34,6 +34,7 @@ def board_meeting_on_post_save(sender, instance, raw, created, **kwargs):
 def board_meeting_invitation_on_post_save(sender, instance, raw, created, **kwargs):
     if not created:
         attendance_status = 'present' if instance.status == 'approved' else 'absent'
+    
         MeetingAttendee.objects.update_or_create(
             meeting=instance.board_meeting,
             board_member=instance.invited_user,
