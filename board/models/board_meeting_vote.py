@@ -12,4 +12,4 @@ class BoardMeetingVote(BaseUuidModel):
 	tie_breaker = models.CharField(max_length=150, choices=VOTE_STATUS, null=True, blank=True)
 	
 	def __str__(self):
-		return f'Vote {self.status} by Attendee {self.attendee} for Application {self.application}'
+		return f'Vote {self.status} by Attendee {self.meeting_attendee} for Application {self.document_number}'
