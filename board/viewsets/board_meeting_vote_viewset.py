@@ -13,6 +13,7 @@ from ..classes import BoardMeetingVoteManager
 class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 	queryset = BoardMeetingVote.objects.all()
 	serializer_class = BoardMeetingVoteSerializer
+	lookup_field = 'document_number'
 	
 	@action(detail=False, methods=['get'], url_path='participants/(?P<document_number>[A-Za-z0-9-]+)',
 	        url_name='participants')
@@ -30,6 +31,8 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 		if tiebreaker:
 			return Response(APIMessage(message='Tie breaker successfully created').to_dict())
 		raise Exception(APIMessage(message='Tie breaker failed to create').to_dict())
+	
+	
 	
 	@classmethod
 	def get_meeting_vote_manager(cls, request, document_number):
