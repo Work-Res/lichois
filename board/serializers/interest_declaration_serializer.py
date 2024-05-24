@@ -21,6 +21,7 @@ class InterestDeclarationSerializer(serializers.ModelSerializer):
             'decision',
             'attendee_signature',
             'date_signed',
+            'meeting'
         )
         
     def to_internal_value(self, data):
@@ -37,7 +38,7 @@ class InterestDeclarationSerializer(serializers.ModelSerializer):
             raise PermissionDenied(api_message.to_dict())
         try:
             meeting_attendee = MeetingAttendee.objects.get(Q(board_member=board_member) & Q(
-                attendance_status=PRESENT))
+                attendance_status=PRESENT) & Q(meeting=mutable_data.get('meeting')))
         except MeetingAttendee.DoesNotExist:
             api_message = APIMessage(
                 code=400,
