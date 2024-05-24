@@ -25,7 +25,7 @@ class WorkResidentPermitVerificationValidator:
                     code=400,
                     message="Incorrect Application Status",
                     details=f"An application cannot be verified when status is not verification. "
-                )
+                ).to_dict()
             )
 
     def validate(self):
@@ -49,5 +49,5 @@ class WorkResidentPermitVerificationValidator:
                     code=400,
                     message="Documents not verified",
                     details=f"Attachment is not verified: {not_verified.document.document_type.name}"
-                )
+                ).to_dict()
             )
