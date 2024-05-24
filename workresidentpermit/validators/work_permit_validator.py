@@ -23,5 +23,5 @@ class WorkPermitValidator(WorkResidentPermitValidator):
                     code=400,
                     message="Work Permit Form is mandatory. ",
                     details=f"A work permit form is required to captured before submission."
-                )
+                ).to_dict()
             )

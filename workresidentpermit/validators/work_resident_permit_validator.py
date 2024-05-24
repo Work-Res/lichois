@@ -30,7 +30,7 @@ class WorkResidentPermitValidator:
                     code=400,
                     message="Incorrect document number",
                     details=f"An application with {document_number} is not found. "
-                )
+                ).to_dict()
             )
 
     def validate(self):
@@ -57,7 +57,7 @@ class WorkResidentPermitValidator:
                     code=400,
                     message="Required Data",
                     details=f"A personal details are missing, kindly submit the form. "
-                )
+                ).to_dict()
             )
 
         try:
@@ -68,7 +68,7 @@ class WorkResidentPermitValidator:
                     code=400,
                     message="Passport are a mandatory.",
                     details=f"A passport details are missing, kindly submit the form. "
-                )
+                ).to_dict()
             )
 
         try:
@@ -79,7 +79,7 @@ class WorkResidentPermitValidator:
                     code=400,
                     message="Address are a mandatory.",
                     details=f"A permit details are missing, kindly submit the form. "
-                )
+                ).to_dict()
             )
 
         contacts_count = ApplicationContact.objects.filter(document_number=self.document_number).count()
@@ -89,7 +89,7 @@ class WorkResidentPermitValidator:
                     code=400,
                     message="Address contacts are a mandatory.",
                     details="Application contacts are missing. Please submit the required information."
-                )
+                ).to_dict()
             )
 
     def validate_mandatory_attachments(self):
@@ -113,7 +113,7 @@ class WorkResidentPermitValidator:
                     code=400,
                     message="Attachments are required.",
                     details=f"A mandatory attachment is required: {attachment.name}"
-                )
+                ).to_dict()
             )
 
     def validate_payment(self):
@@ -131,7 +131,7 @@ class WorkResidentPermitValidator:
                     code=400,
                     message="Required Field",
                     details=f"Kindly indicate preferred channel of communication, e.g EMAIL or PHONE."
-                )
+                ).to_dict()
             )
 
     def validate_declaration_of_truth(self):
