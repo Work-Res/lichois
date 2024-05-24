@@ -58,7 +58,8 @@ class BoardMeetingVoteManager:
 	
 	def vote_exists(self):
 		try:
-			meeting_attendee = MeetingAttendee.objects.get(board_member__user=self.user)
+			meeting_attendee = MeetingAttendee.objects.get(Q(board_member__user=self.user) & Q(
+				meeting__document_number=self.document_number))
 		except MeetingAttendee.DoesNotExist:
 			pass
 		else:
