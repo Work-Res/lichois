@@ -28,7 +28,7 @@ class BoardMeetingVoteSerializer(serializers.ModelSerializer):
 		
 		try:
 			meeting_attendee = MeetingAttendee.objects.get(Q(board_member=board_member) & Q(
-				attendance_status=PRESENT))
+				attendance_status=PRESENT) & Q(meeting__document_number=mutable_data.get('document_number')))
 		except MeetingAttendee.DoesNotExist:
 			api_message = APIMessage(
 				code=400,
