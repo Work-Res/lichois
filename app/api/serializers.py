@@ -6,7 +6,13 @@ from rest_framework import serializers
 # https://docs.viewflow.io/workflow/quick_start.html
 
 
-from app.models import (Application, ApplicationStatus, ApplicationDocument, ApplicationVersion, ApplicationUser)
+from app.models import (Application, ApplicationStatus, ApplicationDocument, ApplicationVersion, ApplicationUser,
+                        ApplicationVerification
+                        )
+from board.models import BoardDecision
+from workresidentpermit.models import SecurityClearance
+from app_decision.api.serializers import ApplicationDecisionTypeSerializer
+from app_comments.api.serializers import CommentSerializer
 
 
 class ApplicationStatusSerializer(serializers.ModelSerializer):
@@ -51,6 +57,34 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
     application_status = ApplicationStatusSerializer()
     application_document = ApplicationDocumentSerializer()
+    board_decision_status = serializers.SerializerMethodField('prepare_board_decision')
+    verification_status = serializers.SerializerMethodField('prepare_verification_status')
+    security_clearance_status = serializers.SerializerMethodField('prepare_security_clearance_status')
+
+    def prepare_verification_status(self, obj):
+        try:
+            verification = ApplicationVerification.objects.get(
+                document_number=obj.application_document.document_number)
+            return verification.decision
+        except ApplicationVerification.DoesNotExist:
+            return 'Pending'
+
+    def prepare_security_clearance_status(self, obj):
+        try:
+            security_clearance = SecurityClearance.objects.get(
+                document_number=obj.application_document.document_number)
+            return security_clearance.status
+        except SecurityClearance.DoesNotExist:
+            return 'Pending'
+
+    def prepare_board_decision(self, obj):
+        try:
+            board_decision = BoardDecision.objects.get(
+                assessed_application__application_document__document_number=
+                obj.application_document.document_number)
+            return board_decision.decision_outcome
+        except SecurityClearance.DoesNotExist:
+            return 'Pending'
 
     class Meta:
         model = Application
@@ -60,6 +94,9 @@ class ApplicationSerializer(serializers.ModelSerializer):
             'application_type',
             'application_status',
             'application_document',
+            'verification_status',
+            'security_clearance_status',
+            'board_decision_status'
         )
 
 
@@ -92,8 +129,21 @@ class RenewalApplicationSerializer(serializers.Serializer):
     work_place = serializers.CharField(allow_blank=False, max_length=200, required=True)
 
 
+class ApplicationVerificationSerializer(serializers.ModelSerializer):
+    decision = ApplicationDecisionTypeSerializer()
+    comment = CommentSerializer()
+    class Meta:
+        model = ApplicationVerification
+        fields = (
+            'document_number',
+            'decision',
+            'outcome_reason',
+            'comment'
+        )
+
+
 class ApplicationVerificationRequestSerializer(serializers.Serializer):
 
     decision = serializers.CharField(max_length=200, required=True)
-    comment = serializers.CharField(max_length=500, required=True)
+    comment = serializers.CharField(max_length=500, required=False)
     outcome_reason = serializers.CharField(max_length=300, required=False)

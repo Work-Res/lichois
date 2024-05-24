@@ -2,13 +2,15 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 
-from app.views import ApplicationListView, ApplicationCreateView, ApplicationStatusViewSet
+from app.views import (
+    ApplicationListView, ApplicationCreateView, ApplicationStatusViewSet, ApplicationVerificationCreateListView)
 
 
 router = DefaultRouter()
 
 router.register(r'applications', ApplicationListView)
 router.register(r'application_statuses', ApplicationStatusViewSet)
+router.register(r'application_verifications', ApplicationVerificationCreateListView)
 
 urlpatterns = [
     path('applications', ApplicationCreateView.as_view(), name='application-new'),

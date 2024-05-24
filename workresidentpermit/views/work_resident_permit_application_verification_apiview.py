@@ -4,7 +4,7 @@ from rest_framework import status
 
 from app.api.serializers import ApplicationVerificationRequestSerializer
 
-from ..validators import WorkPermitValidator
+from ..validators import WorkResidentPermitVerificationValidator
 from ..classes import WorkResidentPermitApplication
 
 
@@ -13,7 +13,7 @@ class WorkPermitApplicationVerificationAPIView(APIView):
     def post(self, request, document_number):
         serializer = ApplicationVerificationRequestSerializer(data=request.data)
         if serializer.is_valid():
-            validator = WorkPermitValidator(document_number=document_number)
+            validator = WorkResidentPermitVerificationValidator(document_number=document_number)
             if validator.is_valid():
                 application = WorkResidentPermitApplication(document_number=document_number)
                 data = application.submit_verification().result()

@@ -7,6 +7,9 @@ from app_comments.models import Comment
 
 from app.utils import ApplicationStatuses, WorkflowEnum
 from app.api.common.web import APIResponse, APIMessage
+
+from app_decision.models import ApplicationDecisionType
+
 from workflow.signals import create_or_update_task_signal
 from workflow.classes import WorkflowTransition, TaskDeActivation
 
@@ -47,14 +50,19 @@ class WorkResidentPermitApplication:
             source_data = WorkflowTransition(
                 previous_status=self.application.application_status.name.upper(),
             )
-            comment = Comment.objects.create(
-                user=self.user,
-                comment_text=self.verification_request.comment,
-                comment_type="OVERALL_APPLICATION_COMMENT"
-            )
+            # Fixme add condition to check if comment is provided
+            comment = None
+            if self.verification_request.comment:
+                comment = Comment.objects.create(
+                    user=self.user,
+                    comment_text=self.verification_request.comment,
+                    comment_type="OVERALL_APPLICATION_COMMENT"
+                )
+            application_decision_type = ApplicationDecisionType.objects.get(
+                code__iexact=self.verification_request.decision)
             ApplicationVerification.objects.create(
                 comment=comment,
-                decision=self.verification_request.decision,
+                decision=application_decision_type,
                 outcome_reason=self.verification_request.outcome_reason
             )
             application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatuses.VETTING.value)
