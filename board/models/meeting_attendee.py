@@ -29,5 +29,5 @@ class MeetingAttendee(BaseUuidModel):
 
     class Meta:
         app_label = 'board'
-        unique_together = ('meeting', 'board_member')
+        unique_together = ('meeting', 'board_member',)
 
