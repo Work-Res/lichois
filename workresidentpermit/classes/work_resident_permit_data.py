@@ -26,6 +26,7 @@ class WorkResidentPermitData(object):
 		self.work_resident_permit_application.resident_permit = self.resident_permit()
 		self.work_resident_permit_application.work_permit = self.work_permit()
 		self.work_resident_permit_application.attachments = self.attachments()
+		self.work_resident_permit_application.application = self.application()
 		return self.work_resident_permit_application
 	
 	def personal_details(self):
@@ -96,3 +97,11 @@ class WorkResidentPermitData(object):
 		attachments = ApplicationAttachment.objects.filter(
 			application_version__application__application_document__document_number=self.document_number)
 		return attachments
+
+	def application(self):
+		application = None
+		if self.resident_permit():
+			application = self.resident_permit().application_version.application
+		elif self.work_permit():
+			application = self.work_permit().application_version.application
+		return application

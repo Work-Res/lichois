@@ -21,3 +21,4 @@ class WorkResidentPermitDataSerializer(serializers.Serializer):
     attachments = ApplicationAttachmentSerializer(many=True)
     resident_permit = ResidencePermitSerializer()
     work_permit = WorkPermitSerializer()
+    application = ApplicationSerializer()

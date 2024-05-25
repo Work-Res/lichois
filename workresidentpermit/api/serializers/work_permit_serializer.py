@@ -6,7 +6,6 @@ from workresidentpermit.models import WorkPermit
 
 class WorkPermitSerializer(serializers.ModelSerializer):
 
-	application_version = ApplicationVersionSerializer()
 	class Meta:
 		model = WorkPermit
 		fields = '__all__'
