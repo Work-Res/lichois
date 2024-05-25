@@ -1,8 +1,8 @@
 
 
-class RenewalApplication(object):
+class NewApplicationDTO(object):
 
-    """Represent RenewalApplication model submitted by the front-end.
+    """Represent NewApplicationDTO model submitted by the front-end.
 
         Attributes:
             process_name (str): The name of the process e.g resident_permit, visa.
@@ -10,13 +10,14 @@ class RenewalApplication(object):
             {
                "process_name": "work",
                "applicant_identifier": "",
-               "status": ""
+               "dob": ""
                "work_place": ""
-               "document_number": ""
             }
     """
-    def __init__(self, process_name, applicant_identifier, document_number, work_place=None):
+    def __init__(self, process_name, applicant_identifier, status, dob=None, work_place=None, full_name=None):
         self.proces_name = process_name
+        self.full_name = full_name
         self.applicant_identifier = applicant_identifier
-        self.document_number = document_number
+        self.status = status
+        self.dob = dob
         self.work_place = work_place

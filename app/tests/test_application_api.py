@@ -5,7 +5,7 @@ from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-# from app.api import NewApplication
+# from app.api import NewApplicationDTO
 
 pytestmark = pytest.mark.django_db
 
@@ -19,7 +19,7 @@ class TestApplicationApi:
 
     # def setUp(self):
     #     self.client = APIClient()
-    #     self.new_application = NewApplication(
+    #     self.new_application = NewApplicationDTO(
     #         process_name='residentpermit', applicant_identifier='3171111', status='new')
 
     def test_application_status_endpoints(self, application_status_factory):

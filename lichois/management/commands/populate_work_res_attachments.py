@@ -2,8 +2,8 @@ import random
 
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
-from app.api import NewApplication
-from app.classes import CreateNewApplication
+from app.api import NewApplicationDTO
+from app.classes import CreateNewApplicationService
 from app.models import Application, ApplicationDocument, ApplicationStatus
 from app_attachments.models import ApplicationAttachment, ApplicationAttachmentVerification, AttachmentDocumentType
 from app_personal_details.models import Passport, Person

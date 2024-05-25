@@ -1,8 +1,8 @@
 import pytest
 
 from datetime import date
-from app.classes import CreateNewApplication
-from app.api import NewApplication
+from app.classes import CreateNewApplicationService
+from app.api import NewApplicationDTO
 from app.utils import ApplicationProcesses, statuses
 from app.models import ApplicationStatus
 from ..models import WorkResidencePermit, Spouse, Child, Permit
@@ -15,11 +15,11 @@ class TestWorkResidentPermitData:
 
     @pytest.fixture(autouse=True)
     def setup(self):
-        self.new_app = NewApplication(
+        self.new_app = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value, applicant_identifier='317918515',
             status='new', dob="06101990", work_place="01")
 
-        self.create_new = CreateNewApplication(new_application=self.new_app)
+        self.create_new = CreateNewApplicationService(new_application=self.new_app)
         ApplicationStatus.objects.all().delete()
         for status in statuses:
             ApplicationStatus.objects.create(
@@ -27,7 +27,7 @@ class TestWorkResidentPermitData:
             )
 
     def test_search_by_document_number(self):
-        create_new = CreateNewApplication(new_application=self.new_app)
+        create_new = CreateNewApplicationService(new_application=self.new_app)
         application_version = create_new.create()
         work_permit = WorkResidencePermit.objects.create(
             file_number="NA",

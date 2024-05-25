@@ -3,7 +3,9 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from app.views import (
-    ApplicationListView, ApplicationCreateView, ApplicationStatusViewSet, ApplicationVerificationCreateListView)
+    ApplicationListView, ApplicationCreateView, ApplicationStatusViewSet, ApplicationVerificationCreateListView,
+    ApplicationRenewalView
+)
 
 
 router = DefaultRouter()
@@ -14,6 +16,7 @@ router.register(r'application_verifications', ApplicationVerificationCreateListV
 
 urlpatterns = [
     path('applications', ApplicationCreateView.as_view(), name='application-new'),
+    path('applications/renewal', ApplicationRenewalView.as_view(), name='application-renawal'),
     path('', include(router.urls)),
 ]
 

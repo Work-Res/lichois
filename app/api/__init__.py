@@ -1,3 +1,3 @@
-from .new_application import NewApplication
+from .new_application_dto import NewApplicationDTO
 from .application_verification_request import ApplicationVerificationRequest
-
+from .renewal_application_dto import RenewalApplicationDTO

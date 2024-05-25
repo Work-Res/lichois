@@ -4,6 +4,7 @@ from datetime import date
 from sys import stdout
 
 from app.api.common.web import APIResponse, APIMessage
+from app.api import NewApplicationDTO
 from app.identifiers import WorkResidentPermitIdentifier
 from app.utils import ApplicationProcesses, ApplicationStatuses
 from app.api.serializers import ApplicationVersionSerializer
@@ -11,14 +12,14 @@ from app.api.serializers import ApplicationVersionSerializer
 from app.models import ApplicationDocument, ApplicationUser, ApplicationStatus, Application, ApplicationVersion
 
 
-class CreateNewApplication(object):
+class CreateNewApplicationService(object):
     """Responsible for creating new application records based on given process name.
 
         Attributes:
             new_application (ApplicationUser): user applying for visa or resident permit e.t.c
     """
 
-    def __init__(self, new_application):
+    def __init__(self, new_application: NewApplicationDTO):
         self.logger = logging.getLogger(__name__)
         self.application = new_application
         self.application_document = ApplicationDocument()

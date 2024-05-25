@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
-from app.api import NewApplication
-from app.classes import CreateNewApplication
+from app.api import NewApplicationDTO
+from app.classes import CreateNewApplicationService
 from app.models import ApplicationStatus
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
@@ -27,7 +27,7 @@ class Command(BaseCommand):
 
         for _ in range(50):
             with atomic():
-                new_app = NewApplication(
+                new_app = NewApplicationDTO(
                     process_name='WORK_RESIDENT_PERMIT',
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
                     status='new',
@@ -36,7 +36,7 @@ class Command(BaseCommand):
                     full_name=faker.name(),
                 )
                 self.stdout.write(self.style.SUCCESS('Populating data...'))
-                app = CreateNewApplication(new_application=new_app)
+                app = CreateNewApplicationService(new_application=new_app)
                 version = app.create()
                 Person.objects.get_or_create(
                     application_version=version,

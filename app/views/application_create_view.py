@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from app.api import NewApplication
-from app.classes import CreateNewApplication
+from app.api import NewApplicationDTO
+from app.classes import CreateNewApplicationService
 from app.api.serializers import NewApplicationSerializer
 
 
@@ -27,7 +27,7 @@ class ApplicationCreateView(APIView):
         try:
             serializer = NewApplicationSerializer(data=request.data)
             if serializer.is_valid():
-                new_app = NewApplication(
+                new_app = NewApplicationDTO(
                     process_name=serializer.data.get('process_name'),
                     applicant_identifier=serializer.data.get('applicant_identifier'),
                     status=serializer.data.get('status'),
@@ -35,7 +35,7 @@ class ApplicationCreateView(APIView):
                     work_place=serializer.data.get('work_place'),
                     full_name=serializer.data.get('full_name')
                 )
-                create_new = CreateNewApplication(new_application=new_app)
+                create_new = CreateNewApplicationService(new_application=new_app)
                 create_new.create()
                 return JsonResponse(create_new.response.result())
             else:

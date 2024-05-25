@@ -1,8 +1,8 @@
 import pytest
 import random
 
-from app.classes import CreateNewApplication
-from app.api import NewApplication
+from app.classes import CreateNewApplicationService
+from app.api import NewApplicationDTO
 from app.models import ApplicationStatus, ApplicationVersion
 from app.utils.data import statuses
 
@@ -15,9 +15,9 @@ class TestApplicationVersionIndex:
 
     @pytest.fixture(autouse=True)
     def setup(self):
-        self.new_app = NewApplication(process_name='residentpermit',
-                                      applicant_identifier='31791851{}'.format(random.randint(2, 10)), status='new')
-        self.create_new = CreateNewApplication(new_application=self.new_app)
+        self.new_app = NewApplicationDTO(process_name='residentpermit',
+                                         applicant_identifier='31791851{}'.format(random.randint(2, 10)), status='new')
+        self.create_new = CreateNewApplicationService(new_application=self.new_app)
 
         for status in statuses:
             ApplicationStatus.objects.create(
@@ -25,7 +25,7 @@ class TestApplicationVersionIndex:
             )
 
     def test_indexing(self):
-        create_new = CreateNewApplication(new_application=self.new_app)
+        create_new = CreateNewApplicationService(new_application=self.new_app)
         create_new.create()
         # Verify that objects are indexed
         sqs = SearchQuerySet().models(ApplicationVersion)

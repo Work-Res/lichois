@@ -110,3 +110,10 @@ class ApplicationVerificationRequestSerializer(serializers.Serializer):
     decision = serializers.CharField(max_length=200, required=True)
     comment = serializers.CharField(max_length=500, required=False, allow_blank=True)
     outcome_reason = serializers.CharField(max_length=300, required=False, allow_blank=True)
+
+
+class ApplicationRenewalDTOSerializer(serializers.Serializer):
+    proces_name = serializers.CharField(max_length=200, required=False)
+    applicant_identifier = serializers.CharField(max_length=200, required=True)
+    document_number = serializers.CharField(max_length=200, required=True)
+

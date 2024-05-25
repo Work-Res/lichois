@@ -5,3 +5,4 @@ from .application_status import ApplicationStatus
 from .application_user import ApplicationUser
 from .application_base_model import ApplicationBaseModel
 from .application_verification import ApplicationVerification
+from .application_renewal import ApplicationRenewal

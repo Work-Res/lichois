@@ -4,8 +4,8 @@ from datetime import date
 
 from django.test import tag
 
-from app.classes import CreateNewApplication
-from app.api import NewApplication
+from app.classes import CreateNewApplicationService
+from app.api import NewApplicationDTO
 from app.models import ApplicationStatus, Application, ApplicationVersion
 from .data import statuses
 
@@ -19,11 +19,11 @@ class TestCreateNewApplication:
 
     @pytest.fixture(autouse=True)
     def setup(self):
-        self.new_app = NewApplication(
+        self.new_app = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value, applicant_identifier='317918515',
             status='new', dob="06101990", work_place="01")
 
-        self.create_new = CreateNewApplication(new_application=self.new_app)
+        self.create_new = CreateNewApplicationService(new_application=self.new_app)
         ApplicationStatus.objects.all().delete()
         for status in statuses:
             ApplicationStatus.objects.create(
@@ -50,25 +50,25 @@ class TestCreateNewApplication:
         assert len(self.create_new.response.messages) == 1
 
     def test_create_application_document(self):
-        create_new = CreateNewApplication(new_application=self.new_app)
+        create_new = CreateNewApplicationService(new_application=self.new_app)
         app_document = create_new.create_application_document()
         assert app_document.document_date == date.today()
         assert app_document.signed_date == date.today()
 
     def test_get_application_status(self):
-        create_new = CreateNewApplication(new_application=self.new_app)
+        create_new = CreateNewApplicationService(new_application=self.new_app)
         status = create_new.get_application_status()
         assert status.code == self.new_app.status
         # assert status.processes == 'WORK_RESIDENT_PERMIT,residentpermit,visa'
         assert status is not None
 
     def test_generate_document(self):
-        create_new = CreateNewApplication(new_application=self.new_app)
+        create_new = CreateNewApplicationService(new_application=self.new_app)
         document_number = create_new.generate_document()
         assert document_number == "WR010610199000001-1"
 
     def test_create(self):
-        create_new = CreateNewApplication(new_application=self.new_app)
+        create_new = CreateNewApplicationService(new_application=self.new_app)
         create_new.create()
         document_number = "WR010610199000001-1"
         app = Application.objects.first()

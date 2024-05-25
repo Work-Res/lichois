@@ -9,10 +9,10 @@ from django.contrib.auth.models import User
 from faker import Faker
 
 from app.models import Application, ApplicationStatus
-from app.classes import CreateNewApplication
+from app.classes import CreateNewApplicationService
 from app_checklist.classes import CreateChecklist
 
-from app.api import NewApplication
+from app.api import NewApplicationDTO
 from app.utils import ApplicationProcesses
 
 from app_personal_details.models import Person, Passport
@@ -55,7 +55,7 @@ class TestWorkResidentPermitApplication(TestCase):
                 **status
             )
 
-        self.new_app = NewApplication(
+        self.new_app = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             applicant_identifier='317918515',
             status=ApplicationStatuses.NEW.value,
@@ -63,7 +63,7 @@ class TestWorkResidentPermitApplication(TestCase):
             work_place="01",
             full_name="Test test")
 
-        self.create_new = CreateNewApplication(new_application=self.new_app)
+        self.create_new = CreateNewApplicationService(new_application=self.new_app)
 
         application_version = self.create_new.create()
 
