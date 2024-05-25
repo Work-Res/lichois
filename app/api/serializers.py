@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 
-
 from rest_framework import serializers
 # from rest_framework.fields import CharField
 # https://docs.viewflow.io/workflow/quick_start.html
@@ -16,7 +15,6 @@ from app_comments.api.serializers import CommentSerializer
 
 
 class ApplicationStatusSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ApplicationStatus
         fields = (
@@ -30,7 +28,6 @@ class ApplicationStatusSerializer(serializers.ModelSerializer):
 
 
 class ApplicationUserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ApplicationUser
         fields = (
@@ -38,7 +35,6 @@ class ApplicationUserSerializer(serializers.ModelSerializer):
 
 
 class ApplicationDocumentSerializer(serializers.ModelSerializer):
-
     applicant = ApplicationUserSerializer()
 
     class Meta:
@@ -54,7 +50,6 @@ class ApplicationDocumentSerializer(serializers.ModelSerializer):
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
-
     application_status = ApplicationStatusSerializer()
     application_document = ApplicationDocumentSerializer()
     board_decision_status = serializers.SerializerMethodField('prepare_board_decision')
@@ -101,7 +96,6 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class ApplicationVersionSerializer(serializers.ModelSerializer):
-
     application = ApplicationSerializer()
 
     class Meta:
@@ -113,7 +107,6 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
 
 
 class NewApplicationSerializer(serializers.Serializer):
-
     process_name = serializers.CharField(max_length=200, required=True)
     full_name = serializers.CharField(max_length=200, required=True)
     applicant_identifier = serializers.CharField(allow_blank=False, max_length=200, required=True)
@@ -133,6 +126,7 @@ class ApplicationVerificationSerializer(serializers.ModelSerializer):
     decision = ApplicationDecisionTypeSerializer()
     comment = CommentSerializer()
     outcome_reason = serializers.CharField(max_length=200, required=False, allow_blank=True)
+
     class Meta:
         model = ApplicationVerification
         fields = (
@@ -144,7 +138,6 @@ class ApplicationVerificationSerializer(serializers.ModelSerializer):
 
 
 class ApplicationVerificationRequestSerializer(serializers.Serializer):
-
     decision = serializers.CharField(max_length=200, required=True)
     comment = serializers.CharField(max_length=500, required=False, allow_blank=True)
     outcome_reason = serializers.CharField(max_length=300, required=False, allow_blank=True)
