@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.api.serializers import ApplicationSerializer
+from app.api.serializers import ApplicationSerializer, ApplicationVerificationSerializer
 from app_personal_details.api.serializers import PersonSerializer, PassportSerializer, PermitSerializer
 from app_address.api.serializers import ApplicationAddressSerializer
 from app_attachments.api.serializers import ApplicationAttachmentSerializer
@@ -8,6 +8,8 @@ from .child_serializer import ChildSerializer
 from .spouse_serializer import SpouseSerializer
 from .residence_permit_serializer import ResidencePermitSerializer
 from .work_permit_serializer import WorkPermitSerializer
+from .security_clearance_serializer import SecurityClearanceSerializer
+from board.serializers import BoardDecisionSerializer
 
 
 class WorkResidentPermitDataSerializer(serializers.Serializer):
@@ -22,3 +24,6 @@ class WorkResidentPermitDataSerializer(serializers.Serializer):
     resident_permit = ResidencePermitSerializer()
     work_permit = WorkPermitSerializer()
     application = ApplicationSerializer()
+    application_verification = ApplicationVerificationSerializer()
+    security_clearance = SecurityClearanceSerializer()
+    board_decision = BoardDecisionSerializer()
