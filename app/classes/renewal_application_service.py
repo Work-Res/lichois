@@ -18,6 +18,10 @@ from app.api import RenewalApplicationDTO, NewApplicationDTO
 from app.models import (
     ApplicationDocument, Application, ApplicationRenewal)
 
+"""
+TODO: NO TESTS, and more tests are required.
+"""
+
 
 class RenewalApplicationService(object):
 
