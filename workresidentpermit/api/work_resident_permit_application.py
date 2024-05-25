@@ -41,7 +41,7 @@ class WorkResidentPermitApplication:
         return self._application_verification
 
     @application_verification.setter
-    def board_decision(self, value):
+    def application_verification(self, value):
         self._application_verification = value
 
     @property
