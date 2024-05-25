@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from app.api.serializers import ApplicationVersionSerializer
 from workresidentpermit.models import WorkPermit
 
 

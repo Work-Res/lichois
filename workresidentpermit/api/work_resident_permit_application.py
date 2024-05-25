@@ -16,6 +16,33 @@ class WorkResidentPermitApplication:
         self._attachments = None
         self._report_details = None
         self._work_permit = None
+        self._security_clearance = None
+        self._board_decision = None
+        self._application_verification = None
+
+    @property
+    def security_clearance(self):
+        return self._security_clearance
+
+    @security_clearance.setter
+    def security_clearance(self, value):
+        self._security_clearance = value
+
+    @property
+    def board_decision(self):
+        return self._board_decision
+
+    @board_decision.setter
+    def board_decision(self, value):
+        self._board_decision = value
+
+    @property
+    def application_verification(self):
+        return self._application_verification
+
+    @application_verification.setter
+    def board_decision(self, value):
+        self._application_verification = value
 
     @property
     def personal_details(self):
