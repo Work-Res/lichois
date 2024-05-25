@@ -2,11 +2,12 @@ from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from app.api.common.web import APIMessage
-from . import BoardMemberSerializer
+from . import BoardMeetingSerializer, BoardMemberSerializer
 from ..models import BoardMember, MeetingInvitation
 
 
 class MeetingInvitationSerializer(serializers.ModelSerializer):
+	board_meeting = BoardMeetingSerializer()
 	
 	class Meta:
 		model = MeetingInvitation
@@ -17,7 +18,7 @@ class MeetingInvitationSerializer(serializers.ModelSerializer):
 			'board_meeting',
 			'invited_user',
 		]
-		
+	
 	def to_internal_value(self, data):
 		request = self.context.get('request')
 		auth_user = request.user
