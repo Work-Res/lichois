@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from app.api.serializers import ApplicationSerializer
 from app_personal_details.api.serializers import PersonSerializer, PassportSerializer, PermitSerializer
 from app_address.api.serializers import ApplicationAddressSerializer
 from app_attachments.api.serializers import ApplicationAttachmentSerializer
@@ -20,3 +21,4 @@ class WorkResidentPermitDataSerializer(serializers.Serializer):
     attachments = ApplicationAttachmentSerializer(many=True)
     resident_permit = ResidencePermitSerializer()
     work_permit = WorkPermitSerializer()
+    application = ApplicationSerializer()
