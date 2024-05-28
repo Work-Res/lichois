@@ -3,6 +3,8 @@ from ..classes.dto import ApplicationBatchRequestDTO
 from django.db import transaction
 from app.api.common.web import APIMessage, APIResponse
 
+from ..serializers.application_batch_serializer import ApplicationBatchSerializer
+
 from ..models import ApplicationBatch
 from app.models import Application
 
@@ -26,4 +28,5 @@ class ApplicationBatchService:
             message="Application batch created successfully.",
             details=f"An application batch created successfully."
         )
+        self.response.data = ApplicationBatchSerializer(batch).data
         self.response.messages.append(api_message.to_dict())
