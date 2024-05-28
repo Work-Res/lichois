@@ -3,6 +3,8 @@ from app.models import Application
 from app.api.common.web import APIMessage, APIResponse
 from ..models import ApplicationBatch
 
+from app.utils import ApplicationStatuses
+
 
 class ApplicationBatchValidator:
 
@@ -18,32 +20,44 @@ class ApplicationBatchValidator:
         )
         self.response.messages.append(api_message.to_dict())
 
+    def is_invalid_application(self, application):
+        return self.check_application_status(application) or self.check_application_in_batch(application)
+
     def validate_batches(self):
         applications = Application.objects.filter(id__in=self.application_batch_request.applications)
-        for application in applications:
-            self.check_application_status(application)
-            self.check_application_in_batch(application)
+        eligible_applications = [
+            application for application in applications
+            if not self.is_invalid_application(application)
+        ]
 
-        if applications.count() == 0:
-            self.add_error_message(
-                "The system cannot create an empty application batch.",
-                application.application_document.document_number
-            )
+        if not eligible_applications:
+            # Assuming you want to add an error message for all invalid applications
+            for application in applications:
+                self.add_error_message(
+                    "The system cannot create an empty application batch.",
+                    application.application_document.document_number
+                )
 
     def is_valid(self):
         self.validate_batches()
         return not self.response.messages
 
     def check_application_status(self, application: Application):
-        if ApplicationBatch.objects.filter(applications__id=application.id).exists():
+        error = False
+        if application.application_status.code.lower() != ApplicationStatuses.VETTING.value.lower():
             self.add_error_message(
                 "Only applications at the vetting stage can be added to a batch",
                 application.application_document.document_number
             )
+            error = True
+        return error
 
     def check_application_in_batch(self, application: Application):
+        error = False
         if ApplicationBatch.objects.filter(applications__id=application.id).exists():
             self.add_error_message(
                 "Application already added in another batch",
                 application.application_document.document_number
             )
+            error = True
+        return error
