@@ -22,6 +22,8 @@ class ApplicationBatchService:
         )
         for application in Application.objects.filter(id__in=self.application_batch_request.applications):
             batch.applications.add(application)
+            application.batched = True
+            application.save()
         batch.save()
         api_message = APIMessage(
             code=200,
