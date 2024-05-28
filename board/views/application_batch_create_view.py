@@ -31,7 +31,7 @@ class ApplicationBatchCreateView(APIView):
                     service.create_batch()
                     return JsonResponse(service.response.result())
                 else:
-                    return JsonResponse(validator.get_message(), status=status.HTTP_400_BAD_REQUEST)
+                    return JsonResponse(validator.response.messages, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except json.JSONDecodeError:
