@@ -2,6 +2,8 @@ import logging
 
 import json
 
+from drf_yasg.utils import swagger_auto_schema
+
 from django.http import JsonResponse
 
 from rest_framework import status
@@ -32,6 +34,7 @@ class ApplicationBatchCreateView(APIView):
         }
     """
 
+    @swagger_auto_schema(methods=['post'], request_body=ApplicationBatchRequestDTOSerializer)
     def post(self, request, format=None):
         try:
             serializer = ApplicationBatchRequestDTOSerializer(data=request.data)

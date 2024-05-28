@@ -40,6 +40,11 @@ class ApplicationBatchValidator:
 
     def is_valid(self):
         self.validate_batches()
+        success = not self.response.messages
+        if success:
+            self.response.status = "success"
+        else:
+            self.response.status = "failed"
         return not self.response.messages
 
     def check_application_status(self, application: Application):
