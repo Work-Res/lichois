@@ -28,5 +28,6 @@ class ApplicationBatchService:
             message="Application batch created successfully.",
             details=f"An application batch created successfully."
         )
+        self.response.status = "success"
         self.response.data = ApplicationBatchSerializer(batch).data
         self.response.messages.append(api_message.to_dict())

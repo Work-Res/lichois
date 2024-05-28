@@ -20,6 +20,7 @@ class Application(BaseUuidModel):
     process_name = models.CharField(max_length=200, null=False, blank=False)
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
+    batched = models.BooleanField(null=True, blank=True)
     submission_date = models.DateField(auto_now=True)
 
     def __str__(self):
