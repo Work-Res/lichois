@@ -14,5 +14,5 @@ class ApplicationBatchService:
             batch_type=self.application_batch_request.batch_type
         )
         for application in Application.objects.filter(id__in=self.application_batch_request.applications):
-            batch.add(application)
+            batch.applications.add(application)
         batch.save()
