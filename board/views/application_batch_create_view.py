@@ -1,0 +1,43 @@
+import logging
+
+import json
+
+from django.http import JsonResponse
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from ..classes.dto import ApplicationBatchRequestDTO
+from ..classes import ApplicationBatchService
+from ..serializers import ApplicationBatchRequestDTOSerializer
+
+from ..validators import ApplicationBatchValidator
+
+
+logger = logging.getLogger(__name__)
+
+
+class ApplicationBatchCreateView(APIView):
+
+    def post(self, request, format=None):
+        try:
+            serializer = ApplicationBatchRequestDTOSerializer(data=request.data)
+            if serializer.is_valid():
+                application_batch_dto = ApplicationBatchRequestDTO(**serializer.data)
+                validator = ApplicationBatchValidator(application_batch_request=application_batch_dto)
+                if validator.is_valid():
+                    service = ApplicationBatchService(application_batch_request=application_batch_dto)
+                    service.create_batch()
+                    return JsonResponse(service.response.result())
+                else:
+                    return JsonResponse(validator.get_message(), status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except json.JSONDecodeError:
+            logger.error("Invalid JSON in request body")
+            return JsonResponse({'error': 'Invalid JSON in request body'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            return JsonResponse({'detail': f'Something went wrong. Got {str(e)}'},
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -2,6 +2,7 @@ from django.views.generic.base import RedirectView
 from .admin_site import board_admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from .views import ApplicationBatchCreateView
 from .viewsets import (AgendaViewSet, AgendaItemViewSet, BoardMeetingViewSet, ApplicationBatchViewSet,
                        MeetingAttendeeViewSet, BoardMeetingVoteViewSet, BoardDecisionViewSet, VotingProcessViewSet,
                        InterestDeclarationViewSet, MeetingInvitationViewSet)
@@ -21,7 +22,7 @@ router.register(r'voting-process', VotingProcessViewSet, basename='voting-proces
 
 urlpatterns = [
     path('admin/', board_admin.urls),
+    path('application-batches/create', ApplicationBatchCreateView.as_view(), name='application-batch-create'),
     path('', RedirectView.as_view(url='admin/'), name='home_url'),
     path('', include(router.urls)),
 ]
-
