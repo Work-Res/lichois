@@ -14,7 +14,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class ApplicationModelFilter(django_filters.FilterSet):
     application_document_number = django_filters.CharFilter(
-        field_name='application__application_document__document_number', lookup_expr='icontains')
+        field_name='application_document__document_number', lookup_expr='icontains')
     application_status = django_filters.CharFilter(
         field_name='application__application_status', lookup_expr='icontains')
     min_created_date = django_filters.DateFilter(field_name='created', lookup_expr='gte')
