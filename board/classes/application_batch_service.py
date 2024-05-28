@@ -1,5 +1,6 @@
 from ..classes.dto import ApplicationBatchRequestDTO
 
+from django.db import transaction
 from app.api.common.web import APIMessage, APIResponse
 
 from ..models import ApplicationBatch
@@ -12,6 +13,7 @@ class ApplicationBatchService:
         self.application_batch_request = application_batch_request
         self.response = APIResponse()
 
+    @transaction.atomic()
     def create_batch(self):
         batch = ApplicationBatch.objects.create(
             batch_type=self.application_batch_request.batch_type
