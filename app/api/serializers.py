@@ -60,7 +60,8 @@ class ApplicationSerializer(serializers.ModelSerializer):
             'last_application_version_id',
             'application_type',
             'application_status',
-            'application_document'
+            'application_document',
+            'batched'
         )
 
 
