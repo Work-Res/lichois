@@ -6,7 +6,11 @@ from ..models import ApplicationBatch
 
 class ApplicationBatchSerializer(serializers.ModelSerializer):
     applications = ApplicationSerializer(many=True)
-    
+
+    def validate(self, attrs):
+        print(">>>>>>>", attrs)
+        return attrs
+
     class Meta:
         model = ApplicationBatch
         fields = '__all__'
