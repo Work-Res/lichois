@@ -24,6 +24,12 @@ class ApplicationBatchValidator:
             self.check_application_status(application)
             self.check_application_in_batch(application)
 
+        if applications.count() == 0:
+            self.add_error_message(
+                "The system cannot create an empty application batch.",
+                application.application_document.document_number
+            )
+
     def is_valid(self):
         self.validate_batches()
         return not self.response.messages
