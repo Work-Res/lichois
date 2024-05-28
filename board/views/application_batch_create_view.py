@@ -2,9 +2,6 @@ import logging
 
 import json
 
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg.utils import swagger_serializer_method
-
 from django.http import JsonResponse
 
 from rest_framework import status
@@ -34,8 +31,6 @@ class ApplicationBatchCreateView(APIView):
             "batch_duration": ""
         }
     """
-
-    @swagger_serializer_method(serializer_or_field=ApplicationBatchRequestDTOSerializer)
     def post(self, request, format=None):
         try:
             serializer = ApplicationBatchRequestDTOSerializer(data=request.data)
