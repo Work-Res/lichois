@@ -13,6 +13,10 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class ApplicationModelFilter(django_filters.FilterSet):
+
+    full_name = django_filters.CharFilter(
+        field_name='application_document__applicant__full_name', lookup_expr='icontains')
+
     application_document_number = django_filters.CharFilter(
         field_name='application_document__document_number', lookup_expr='icontains')
     application_status = django_filters.CharFilter(
