@@ -1,6 +1,6 @@
 import logging
 
-from datetime import date
+from datetime import datetime
 
 from app_decision.models import ApplicationDecisionType
 from ..api.dto import SecurityClearanceRequestDTO
@@ -19,7 +19,7 @@ class SecurityClearanceService:
         self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
 
-    def get_application_decisionType(self):
+    def get_application_decision_type(self):
         try:
             application_decision_type =ApplicationDecisionType.objects.get(
                 code__iexact=self.security_clearance_request.status
@@ -32,11 +32,11 @@ class SecurityClearanceService:
     @transaction.atomic()
     def create_clearance(self):
         security_clearance = SecurityClearance.objects.create(
-            status=self.get_application_decisionType(),
+            status=self.get_application_decision_type(),
             summary=self.security_clearance_request.summary,
             document_number=self.security_clearance_request.document_number,
             approved_by=self.user,
-            date_approved=date.today()
+            date_approved=datetime.now()
         )
         api_message = APIMessage(
             code=200,
