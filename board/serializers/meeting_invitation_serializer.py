@@ -33,5 +33,5 @@ class MeetingInvitationSerializer(serializers.ModelSerializer):
 			)
 			raise PermissionDenied(api_message.to_dict())
 		mutable_data['invited_user'] = board_member.id
-		mutable_data['board_meeting'] = board_meeting
+		mutable_data['board_meeting'] = board_meeting.__dict__
 		return super().to_internal_value(mutable_data)
