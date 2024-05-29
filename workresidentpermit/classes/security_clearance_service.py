@@ -19,7 +19,6 @@ class SecurityClearanceService:
         self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
 
-
     def get_application_decisionType(self):
         try:
             application_decision_type =ApplicationDecisionType.objects.get(
@@ -33,7 +32,7 @@ class SecurityClearanceService:
     @transaction.atomic()
     def create_clearance(self):
         security_clearance = SecurityClearance.objects.create(
-            status=self.security_clearance_request.status,
+            status=self.get_application_decisionType(),
             summary=self.security_clearance_request.summary,
             document_number=self.security_clearance_request.document_number,
             approved_by=self.user,
