@@ -1,6 +1,11 @@
-from django.urls import path
-from .views import ClassifierItemListView
+from rest_framework.routers import DefaultRouter
+
+from django.urls import path, include
+from .views import ClassifierItemListCreateView
+
+router = DefaultRouter()
+router.register(r'classifiers', ClassifierItemListCreateView, basename='classifiers')
 
 urlpatterns = [
-    path('checklist/', ClassifierItemListView.as_view(), name='checklist-list'),
+    path('', include(router.urls)),
 ]
