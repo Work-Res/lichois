@@ -1,5 +1,8 @@
 import logging
 
+from datetime import date
+
+from app_decision.models import ApplicationDecisionType
 from ..api.dto import SecurityClearanceRequestDTO
 from ..api.serializers import SecurityClearanceSerializer
 from ..models import SecurityClearance
@@ -16,13 +19,25 @@ class SecurityClearanceService:
         self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
 
+
+    def get_application_decisionType(self):
+        try:
+            application_decision_type =ApplicationDecisionType.objects.get(
+                code__iexact=self.security_clearance_request.status
+            )
+        except ApplicationDecisionType.DoesNotExist:
+            pass
+        else:
+            return application_decision_type
+
     @transaction.atomic()
     def create_clearance(self):
         security_clearance = SecurityClearance.objects.create(
             status=self.security_clearance_request.status,
             summary=self.security_clearance_request.summary,
             document_number=self.security_clearance_request.document_number,
-            approved_by=self.user
+            approved_by=self.user,
+            date_approved=date.today()
         )
         api_message = APIMessage(
             code=200,

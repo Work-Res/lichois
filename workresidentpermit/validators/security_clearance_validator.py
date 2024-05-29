@@ -5,6 +5,8 @@ from typing import Optional
 from app.models import Application
 from app.api.common.web import APIResponse, APIMessage
 from app.utils import ApplicationStatuses
+from app_decision.models import ApplicationDecisionType
+from ..models import SecurityClearance
 
 
 class SecurityClearanceValidator:
@@ -49,10 +51,51 @@ class SecurityClearanceValidator:
                 ).to_dict()
             )
 
+    def check_security_clearance_exists(self):
+
+        try:
+            SecurityClearance.objects.get(
+                document_number=self.document_number
+            )
+            self.response.messages.append(
+                APIMessage(
+                    code=400,
+                    message="Security Clearance already exists.",
+                    details="Security clearance has been completed already."
+                ).to_dict()
+            )
+        except SecurityClearance.DoesNotExist:
+            pass
+        except Exception as e:
+            self.logger.exception(f"An unexpected error occurred while validating security clearance: {e}")
+            self.response.messages.append(
+                APIMessage(
+                    code=500,
+                    message="Internal Server Error",
+                    details=f"An unexpected error occurred. Please try again later. Got {e}"
+                ).to_dict()
+            )
+
+    def check_application_decision_type(self):
+        try:
+            ApplicationDecisionType.objects.get(
+                code__iexact=self.security_clearance_request.status
+            )
+        except ApplicationDecisionType.DoesNotExist:
+            self.response.messages.append(
+                APIMessage(
+                    code=400,
+                    message="Invalid status",
+                    details=f"Kindly provide a valid status, pending, accepted or rejected."
+                ).to_dict()
+            )
+
     def is_valid(self) -> bool:
         """
         Check if the validator has no error messages, implying the application is valid for clearance.
         Returns:
             bool: True if there are no error messages, False otherwise.
         """
+        self.check_security_clearance_exists()
+        self.check_application_decision_type()
         return not self.response.messages

@@ -2,6 +2,8 @@ from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
 
+from app_decision.models import ApplicationDecisionType
+
 
 class SecurityClearance(BaseUuidModel):
 
@@ -13,11 +15,7 @@ class SecurityClearance(BaseUuidModel):
 
 	date_approved = models.DateTimeField(null=True, blank=True)
 
-	status = models.CharField(max_length=20, choices=[
-		('pending', 'Pending'),
-		('approved', 'Approved'),
-		('rejected', 'Rejected'),
-	])
+	status = models.ForeignKey(ApplicationDecisionType, on_delete=models.SET_NULL, null=True)
 
 	approved_by = models.CharField(max_length=100, null=True, blank=True)
 
