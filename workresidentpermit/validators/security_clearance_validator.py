@@ -11,7 +11,7 @@ from ..models import SecurityClearance
 
 class SecurityClearanceValidator:
 
-    def __init__(self, document_number: Optional[str] = None):
+    def __init__(self, document_number: Optional[str] = None, status=None):
         """
         Initialize the SecurityClearanceValidator with an optional document number.
         """
@@ -19,6 +19,7 @@ class SecurityClearanceValidator:
         self.document_number = document_number
         self.response = APIResponse()
         self.application = None
+        self.status = status
 
         if document_number:
             self._fetch_application()
@@ -79,7 +80,7 @@ class SecurityClearanceValidator:
     def check_application_decision_type(self):
         try:
             ApplicationDecisionType.objects.get(
-                code__iexact=self.security_clearance_request.status
+                code__iexact=self.status
             )
         except ApplicationDecisionType.DoesNotExist:
             self.response.messages.append(
