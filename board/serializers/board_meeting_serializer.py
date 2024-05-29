@@ -33,9 +33,12 @@ class BoardMeetingSerializer(serializers.ModelSerializer):
 				details="User is not a member of any board"
 			)
 			raise PermissionDenied(api_message.to_dict())
-		mutable_data = data.copy()
-		mutable_data['board'] = board_member.board.id
-		return super().to_internal_value(mutable_data)
+		# if data is dict, it is immutable, so we need to make a mutable copy
+		if isinstance(data, dict):
+			mutable_data = data.copy()
+			mutable_data['board'] = board_member.board.id
+			return super().to_internal_value(mutable_data)
+		return super().to_internal_value(data)
 	
 	def create(self, validated_data):
 		return super().create(validated_data)
