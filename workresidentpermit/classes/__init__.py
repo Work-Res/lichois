@@ -5,3 +5,4 @@ from .work_permit_application_pdf_generator import WorkPermitApplicationPDFGener
 from .work_resident_permit_application import WorkResidentPermitApplication
 from .crm_communication_api import CRMCommunicationApi
 from .security_clearance_service import SecurityClearanceService
+from .work_resident_permit_application_decision_service import WorkResidentPermitApplicationDecisionService

@@ -120,3 +120,4 @@ class WorkResidentPermitApplication:
 
     def cancel(self):
         pass
+    

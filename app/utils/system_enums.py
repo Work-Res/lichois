@@ -21,3 +21,12 @@ class WorkflowEnum(Enum):
     VERIFICATION = "VERIFICATION"
     VETTING = "VETTING"
     FINAL_DECISION = "FINAL_DECISION"
+    END = "END"
+
+
+class ApplicationDecisionEnum(Enum):
+    PENDING = "Pending"
+    ACCEPTED = "Accepted"
+    REJECTED = "Rejected"
+    APPROVED = "approved"
+    DEFERRED = "deferred"
