@@ -10,3 +10,4 @@ from .place_of_residence_serializer import PlaceOfResidenceSerializer, SpousePla
 from .declaration_serializer import DeclarationSerializer
 from .security_clearance_serializer import SecurityClearanceSerializer
 from .work_permit_serializer import WorkPermitSerializer
+from .security_clearance_request_serializer import SecurityClearanceRequestDTOSerializer

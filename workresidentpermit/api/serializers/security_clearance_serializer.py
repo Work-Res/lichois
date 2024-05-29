@@ -11,7 +11,6 @@ class SecurityClearanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = SecurityClearance
         fields = (
-            'id',
             'work_resident_permit',
             'date_requested',
             'date_approved',
