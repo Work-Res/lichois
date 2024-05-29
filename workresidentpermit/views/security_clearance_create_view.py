@@ -19,6 +19,15 @@ logger = logging.getLogger(__name__)
 
 class SecurityClearanceCreateAPIView(APIView):
 
+    """
+        Responsible for creating an security clearance record
+        POST
+            {
+                document_number = document_number
+                status = ['pending', 'approved', 'rejected']
+            }
+    """
+
     def post(self, request, document_number):
         try:
             serializer = SecurityClearanceSerializer(data=request.data)
