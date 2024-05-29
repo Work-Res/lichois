@@ -24,7 +24,8 @@ class SecurityClearanceCreateAPIView(APIView):
         POST
             {
                 document_number = document_number
-                status = ['pending', 'approved', 'rejected']
+                status = pending # list of valid options ['pending', 'Rejected', 'Accepted'],
+                summary="text"
             }
     """
 
