@@ -8,7 +8,7 @@ from rest_framework import status
 
 from django.http import JsonResponse
 
-from ..api.serializers import SecurityClearanceSerializer
+from ..api.serializers import SecurityClearanceRequestDTOSerializer
 from ..api.dto import SecurityClearanceRequestDTO
 
 from ..validators import SecurityClearanceValidator
@@ -30,7 +30,7 @@ class SecurityClearanceCreateAPIView(APIView):
 
     def post(self, request, document_number):
         try:
-            serializer = SecurityClearanceSerializer(data=request.data)
+            serializer = SecurityClearanceRequestDTOSerializer(data=request.data)
             if serializer.is_valid():
                 validator = SecurityClearanceValidator(document_number=document_number)
                 if validator.is_valid():
