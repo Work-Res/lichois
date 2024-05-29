@@ -28,7 +28,7 @@ class SecurityClearanceValidator:
         try:
             self.application = Application.objects.get(
                 application_document__document_number=self.document_number,
-                application_status__code=ApplicationStatuses.VETTING.value
+                application_status__code__iexact=ApplicationStatuses.VETTING.value
             )
         except Application.DoesNotExist:
             self.logger.error(f"Application with document number {self.document_number} does not exist or is not in vetting status.")
