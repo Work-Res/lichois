@@ -34,8 +34,8 @@ class SecurityClearanceCreateAPIView(APIView):
             if serializer.is_valid():
                 validator = SecurityClearanceValidator(document_number=document_number)
                 if validator.is_valid():
-                    verification_request = SecurityClearanceRequestDTO(**serializer.data)
-                    service = SecurityClearanceService(security_clearance_request=verification_request)
+                    security_clearance_request = SecurityClearanceRequestDTO(**serializer.data)
+                    service = SecurityClearanceService(security_clearance_request=security_clearance_request)
                     service.create_clearance()
                     return JsonResponse(service.response.result())
                 else:
