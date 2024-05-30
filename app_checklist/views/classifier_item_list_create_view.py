@@ -15,7 +15,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 class ClassifierItemFilter(django_filters.FilterSet):
 
     classifier_code = django_filters.CharFilter(field_name='classifier__code', lookup_expr='iexact')
-    process = django_filters.CharFilter(field_name='classifier__code', lookup_expr='icontains')
+    process = django_filters.CharFilter(field_name='process', lookup_expr='icontains')
     valid_from = django_filters.DateFilter(field_name='valid_from', lookup_expr='gte')
     valid_to = django_filters.DateFilter(field_name='valid_to', lookup_expr='lte')
 

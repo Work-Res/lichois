@@ -108,6 +108,20 @@
                   "current_status":  "FINAL_DECISION",
                   "next_activity_name": "END"
                 }
+              },{
+                "code":  "PERMIT_CANCELLATION",
+                "name":  "Cancel Application",
+                "process": "WORK_RESIDENT_PERMIT",
+                "description": "Cancel the submitted application.",
+                "sequence": 4,
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "create_rules": {
+                  "previous_status": "FINAL_DECISION",
+                  "current_status":  "PERMIT_CANCELLATION",
+                  "next_activity_name": "END"
+                }
               }
             ]
     },

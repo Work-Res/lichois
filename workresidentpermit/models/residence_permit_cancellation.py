@@ -5,7 +5,12 @@ from app_attachments.models import ApplicationAttachment
 
 
 class ResidencePermitCancellation(ApplicationBaseModel):
+
 	attachments = models.ManyToManyField(ApplicationAttachment, blank=True)
+
+	submitter_type = models.CharField(max_length=200, choices=['applicant', 'employer', 'officer'])
+
+	submitted_by = models.CharField(max_length=150)
 	
 	class Meta:
 		app_label = 'work_residence_permit'
