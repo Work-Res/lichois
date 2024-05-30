@@ -15,7 +15,7 @@ class ApplicationContact(ApplicationBaseModel):
     sub_type = models.CharField(max_length=255, blank=True, null=True)
     contact_value = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
-    preferred_method_comm = models.BooleanField()
+    preferred_method_comm = models.BooleanField(default=True)
 
     def __str__(self):
         return f" {self.contact_type} - {self.contact_value}"
