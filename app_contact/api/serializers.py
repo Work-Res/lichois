@@ -24,4 +24,5 @@ class ApplicationContactSerializer(serializers.ModelSerializer):
             'description',
             'document_number',
             'country_code',
+            "preferred_method_comm"
         )
