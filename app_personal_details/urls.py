@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'education', EducationViewSet)
 router.register(r'permits', PermitCreateListView, basename='permits')
-router.register(r'personal_detail/persons', PersonCreateListView, basename="personal_details")
+router.register(r'personal_details/person', PersonCreateListView, basename="personal_details")
 
 
 urlpatterns = [
