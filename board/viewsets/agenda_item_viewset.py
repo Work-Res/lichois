@@ -9,10 +9,10 @@ class AgendaItemViewSet(viewsets.ModelViewSet):
 	queryset = AgendaItem.objects.all()
 	serializer_class = AgendaItemSerializer
 	
-	def retrieve(self, request, agenda,  *args, **kwargs):
-		queryset = AgendaItem.objects.filter(agenda__id=agenda)
-		serializer = AgendaItemSerializer(queryset, many=True)
-		return Response(serializer.data)
+	# def retrieve(self, request, agenda,  *args, **kwargs):
+	# 	queryset = AgendaItem.objects.filter(agenda__id=agenda)
+	# 	serializer = AgendaItemSerializer(queryset, many=True)
+	# 	return Response(serializer.data)
 	
 	def get_queryset(self):
 		"""
