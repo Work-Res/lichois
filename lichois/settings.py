@@ -316,3 +316,12 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+MS_APP_ID = '545afb37-aadb-45ba-9547-0da1be4ec597'
+MS_TENANT_ID = 'd11d44f9-972d-4ae1-9c77-092a048d2a2e'
+MS_CLIENT_SECRET = 'qyY8Q~69zc.DdI4rIzmNqG3shulaobgjakRe0aWT'
+GRAPH_API_ENDPOINT = 'https://graph.microsoft.com/v1.0'
+
+AAD_TENANT_ID = "d11d44f9-972d-4ae1-9c77-092a048d2a2e"
+AAD_CLIENT_ID = "545afb37-aadb-45ba-9547-0da1be4ec597"
+AAD_CLIENT_SECRET = "qyY8Q~69zc.DdI4rIzmNqG3shulaobgjakRe0aWT"
