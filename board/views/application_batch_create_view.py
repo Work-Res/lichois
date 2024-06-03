@@ -24,7 +24,7 @@ class ApplicationBatchCreateView(APIView):
     Responsible for creating an application batch.
     POST
         {
-            "batch_type": "work_resident_permit",
+            "batch_type": "work_permit",
             "applications": [
                 "83cfbe58-2a53-4f35-a28a-c53081980588"
             ],

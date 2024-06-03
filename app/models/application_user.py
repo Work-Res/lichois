@@ -13,6 +13,8 @@ class ApplicationUser(BaseUuidModel):
 
     dob = models.CharField(max_length=40)
 
+    country_cso = models.CharField(max_length=150)
+
     def __str__(self):
         return self.user_identifier
 

@@ -61,7 +61,7 @@ class TestPrepupolationService(TestCase):
     def test_get_configuration(self):
         """ Test if the prepopulation class can read prepopulatio configuration for the specified process name.
         """
-        file_name = "work_resident_permit.json"
+        file_name = "work_permit.json"
         configuration_location = os.path.join(os.getcwd(), "app_checklist", "data", "prepopulation", file_name)
         pre = PrePopulationService(configuration_location=configuration_location)
         pre.configuration()
@@ -71,7 +71,7 @@ class TestPrepupolationService(TestCase):
     def test_get_configuration_when_valid(self):
         """ Test if the prepopulation class can read prepopulation correctly.
         """
-        file_name = "work_resident_permit.json"
+        file_name = "work_permit.json"
         configuration_location = os.path.join(os.getcwd(), "app_checklist", "data", "prepopulation", file_name)
         pre = PrePopulationService(configuration_location=configuration_location)
         pre.configuration()
@@ -82,7 +82,7 @@ class TestPrepupolationService(TestCase):
     def test_get_configuration_when_all_models_configured_are_valid(self):
         """ Test if the prepopulation class when configured models should be valid.
         """
-        file_name = "work_resident_permit.json"
+        file_name = "work_permit.json"
         configuration_location = os.path.join(os.getcwd(), "app_checklist", "data", "prepopulation", file_name)
         pre = PrePopulationService(configuration_location=configuration_location, filter_data={"document_number": "WR000001"})
 

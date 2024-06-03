@@ -7,7 +7,8 @@ from app_contact.models import ApplicationContact
 from app_address.models import ApplicationAddress
 from app.models import Application
 from app.api.common.web import APIResponse, APIMessage
-from workresidentpermit.models import WorkPermit
+
+from ..models import WorkPermit
 
 
 class WorkResidentPermitValidator:
@@ -15,7 +16,7 @@ class WorkResidentPermitValidator:
     Responsible for validating all mandatory for work resident and permit.
     """
 
-    def __init__(self, process=None, work_resident_permit=None, document_number=None):
+    def __init__(self, process=None, work_permit: WorkPermit = None, document_number=None):
         self.logger = logging.getLogger(__name__)
         self.document_number = document_number if document_number else ""
         self.process = process
@@ -23,7 +24,7 @@ class WorkResidentPermitValidator:
         try:
             self.application = Application.objects.get(
                 application_document__document_number=document_number)
-            self.work_resident_permit = work_resident_permit
+            self.work_permit = work_permit
         except Application.DoesNotExist:
             self.response.messages.append(
                 APIMessage(

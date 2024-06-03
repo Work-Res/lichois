@@ -35,13 +35,12 @@ class Person(ApplicationBaseModel):
 
     gender = models.CharField(max_length=6, choices=GENDER)
 
-    gender = models.CharField(
-        max_length=6,
-        choices=GENDER)
-
     occupation = models.CharField(max_length=190)
 
     qualification = models.CharField(max_length=190)
+
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
     class Meta:
         verbose_name = 'Personal Details'

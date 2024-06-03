@@ -20,7 +20,7 @@ class Declaration(BaseUuidModel):
 	
 	signature = models.CharField(max_length=190)
 	
-	# work_resident_permit = models.ForeignKey(ResidencePermit, on_delete=models.CASCADE)
+	# work_permit = models.ForeignKey(ResidencePermit, on_delete=models.CASCADE)
 	
 	class Meta:
 		verbose_name = 'Declaration'

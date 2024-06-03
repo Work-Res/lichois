@@ -140,7 +140,7 @@ class RenewalApplicationService(object):
         to populate the new application version with the necessary data given process.
         """
 
-        file_name = "work_resident_permit.json"
+        file_name = "work_permit.json"
         configuration_location = Path(os.getcwd()) / "app_checklist" / "data" / "prepopulation" / file_name
 
         if not configuration_location.exists():

@@ -6,3 +6,6 @@ from .work_resident_permit_application import WorkResidentPermitApplication
 from .crm_communication_api import CRMCommunicationApi
 from .security_clearance_service import SecurityClearanceService
 from .work_resident_permit_application_decision_service import WorkResidentPermitApplicationDecisionService
+from .data_helper import DataHelper
+from .data_processor_work_permit import DataProcessorWorkPermit
+from .generate_production_permit_pdf import GenerateProductionPermitPDF

@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+:root{
+    --footer-size: 8pt;
+    --body-size: 10pt;
+    --heading-size: 12pt;
+    --leading-normal: 1.25;
+    --leading-loose: 2;
+    --font-family: "Exo 2", sans-serif;
+    --bg: #000000;
+    --text-color: #3b3b3b;
+    --divider: #cbcbcb;
+    --accent: #9b0938;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--bg);
+    padding: 0;
+    position: relative;
+}
+
+.permit{
+    width: 521pt;
+    /*height: 296.5pt;*/
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    border: 1px solid var(--bg);
+    background-color: #e8f1f8;
+    padding: 20pt 40pt;
+    position: relative;
+    text-transform: uppercase;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Coat_of_arms_of_Botswana.svg/588px-Coat_of_arms_of_Botswana.svg.png');
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    background-position: center;
+}
+
+.top-section{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.top-section > .rop {
+    font-size: 20px;
+    text-align: center;
+    color: var(--accent);
+    font-family: "Lato", sans-serif;
+}
+
+.top-section > .top-left{
+    display: flex;
+    gap: 2px;
+}
+.top-section > .top-left .document-type{
+    color: var(--accent);
+    font-size: 20px;
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+}
+.mid-section{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mid-section > .pass-photo{
+    display: grid;
+    place-items: center;
+    width: 200px;
+    max-height: 150px;
+    object-fit: cover;
+    overflow: hidden;
+}
+.mid-section > .pass-photo img{
+    max-width: 100%;
+    height: 100%;
+}
+.document-details{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    width: calc(100% - 70px)
+}
+.document-details > .names{
+    width: 50%;
+}
+.document-details > .names,
+.document-details > .top,
+.document-details > .bottom > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.document-details > .mid{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.document-details > .mid > .barcode-col {
+    width: 120px;
+}
+.document-details > .mid > .barcode-col  img{
+    width: 100%;
+}
+.document-details > .mid > .sticker{
+    width: 70px;
+    aspect-ratio: 1/1;
+    background: #ff00c1;
+}
+.document-details > .mid > .bottom >{
+    width: 100px;
+}
+
+.qr {
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+}
+.qr img{
+    width: 100%;
+    height: 50px;
+}
+.details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.details > p{
+    font-size: 12px;
+    font-weight: 700;
+}
+.details > span{
+    font-size: 10px;
+    font-weight: 300;
+}
+
+.bottom-section{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10pt;
+    overflow-wrap: break-word;
+}
+.bottom-section > p{
+    text-align: center;
+    font-size: 22px;
+    width: 88%;
+}
+.bottom-section > .file-info{
+    display: flex;
+    justify-content: space-evenly;
+}
+.bottom-section > .file-info img{
+    width: 120px;
+}
+.bottom-section .flipped{
+    position: absolute;
+    top: 2rem;
+    right:-4rem;
+    transform: rotate(-90deg);
+}

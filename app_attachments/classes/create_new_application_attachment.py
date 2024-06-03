@@ -1,8 +1,9 @@
 import logging
 
 from app.api.common.web import APIResponse, APIMessage
+from django.db import IntegrityError, DatabaseError, transaction
 
-from app_attachments.models import ApplicationAttachment
+from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
 from app.models import ApplicationVersion
 
 
@@ -30,6 +31,22 @@ class CreateNewApplicationAttachment(object):
             self.response.status = False
             self.response.messages.append(api_message.to_dict())
 
+    @transaction.atomic()
+    def create_attachment_type(self, attachment_type: dict):
+
+        try:
+            return AttachmentDocumentType.objects.create(**attachment_type)
+        except IntegrityError as e:
+            logging.error(f"Integrity error while creating attachment type: {e}")
+            raise
+        except DatabaseError as e:
+            logging.error(f"Database error while creating attachment type: {e}")
+            raise
+        except Exception as e:
+            logging.error(f"Unexpected error while creating attachment type: {e}")
+            raise
+
+    @transaction.atomic()
     def create(self):
         """
          Create new application attachment record
@@ -38,9 +55,10 @@ class CreateNewApplicationAttachment(object):
             application_version = self.application_version()
             if application_version:
                 self.data['application_version'] = application_version
-
+                attachment_type = self.data.get('document_type')
+                self.data['document_type'] = self.create_attachment_type(attachment_type)
                 ApplicationAttachment.objects.create(**self.data)
-                self.response.status = True
+                self.response.status = "success"
                 api_message = APIMessage(
                     code=200,
                     message="Success",
@@ -49,11 +67,11 @@ class CreateNewApplicationAttachment(object):
                 self.response.status = True
                 self.response.messages.append(api_message.to_dict())
         except Exception as e:
-            self.logger.debug(f"The system failed to create application attachment details, something went wrong. {e}")
+            self.logger.debug(f"Something went wrong. The system failed to create application attachment details, {e}")
             api_message = APIMessage(
                 code=400,
                 message="Bad request",
-                details=f"The system failed to create application attachment details, something went wrong.{e}"
+                details=f"Something went wrong. The system failed to create application attachment details.{e}"
             )
             self.response.status = False
             self.response.messages.append(api_message.to_dict())

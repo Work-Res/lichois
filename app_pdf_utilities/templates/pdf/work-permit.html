@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'work-permit.css' %}">
+    <title>application templates</title>
+</head>
+<body>
+
+<div class="permit">
+    <div class="top-section">
+        <h1 class="rop">REPUBLIC OF <br/>BOTSWANA</h1>
+        <div class="top-left">
+            <p class="document-type">{{data.permit_type}}</p>
+            <div class="id">{{data.permit_number}}</div>
+        </div>
+    </div>
+    <div class="mid-section">
+        <div class="pass-photo">
+            <img src="{% static 'images/{{data.passport_photo}}' %}" alt="passport photo"/>
+        </div>
+        <div class="document-details">
+            <div class="top">
+                <div class="details">
+                    <span>place of issue</span>
+                    <p>{{data.place_of_issue}}</p>
+                </div>
+                <div class="details">
+                    <span>valid from</span>
+                    <p>{{data.valid_from}}</p>
+                </div>
+                <div class="details">
+                    <span>valid until</span>
+                    <p>{{data.valid_to}}</p>
+                </div>
+            </div>
+            <div class="mid">
+                <div class="details">
+                    <span>type</span>
+                    <p>residence</p>
+                </div>
+                <div class="barcode-col">
+                    <div class="details">
+                        <span>document no</span>
+                        <p>{{data.permit_number}}</p>
+                    </div>
+                    <img src="{% static 'images/{{data.generated_barcode}}'" alt="barcode">
+                </div>
+                <div class="sticker">
+                    <img src="./" alt="">
+                    stikcer
+                </div>
+            </div>
+            <div class="names">
+                <div class="details">
+                    <span>surname</span>
+                    <p>{{data.surname}}</p>
+                </div>
+                <div class="details">
+                    <span>given names</span>
+                    <p>{{data.full_name}}</p>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <div>
+                    <div class="details">
+                        <span>passport no</span>
+                        <p>{{data.passport_number}}</p>
+                    </div>
+                    <div class="details">
+                        <span>sex</span>
+                        <p>{{data.gender}}</p>
+                    </div>
+                    <div class="details">
+                        <span>DATE OF BIRTH</span>
+                        <p>{{data.date_of_birth}}</p>
+                    </div>
+                    <div class="details">
+                        <span>NATIONALITY</span>
+                        <p>{{data.country_cso}}</p>
+                    </div>
+                </div>
+                <div class="qr">
+                    <img src='./barcode.png' alt="barcode">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-section">
+        <p id="passcode"></p>
+        <div class="file-info">
+            <span>file: 15/100002570  DOC: {{data.permit_number}}</span>
+            <img src='./barcode.png' alt="barcode">
+        </div>
+        <div class="flipped">
+            {{data.security_code}}
+        </div>
+    </div>
+</div>
+<script>
+    var pass = `vrbwadella<martha<<jack<henry<<<<<<<<<<<<<<<5983479753946573645aus041103m1234`
+    document.getElementById("passcode").innerText = pass
+</script>
+</body>
+</html>
