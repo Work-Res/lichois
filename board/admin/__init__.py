@@ -10,3 +10,4 @@ from .voting_process_admin import VotingProcessAdmin
 from .agenda_admin import AgendaAdmin
 from .agenda_item_admin import AgendaItemAdmin
 from .meeting_vote_admin import MeetingVoteAdmin
+from .application_batch_admin import ApplicationBatchAdmin

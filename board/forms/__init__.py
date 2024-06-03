@@ -10,3 +10,4 @@ from .agenda_item_form import AgendaItemForm
 from .meeting_invitation_form import MeetingInvitationForm
 from .voting_process_form import VotingProcessForm
 from .meeting_vote_form import MeetingVoteForm
+from .application_batch_form import ApplicationBatchForm

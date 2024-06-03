@@ -11,4 +11,4 @@ class Agenda(BaseUuidModel):
 	duration = models.DurationField()
 	status = models.CharField(max_length=50, choices=AGENDA_STATUS, default='pending')
 	notes = models.TextField(blank=True, null=True)
-	application_batch = models.ForeignKey(ApplicationBatch, on_delete=models.CASCADE, blank=True, null=True)
+	application_batch = models.ForeignKey(ApplicationBatch, on_delete=models.SET_NULL, blank=True, null=True)
