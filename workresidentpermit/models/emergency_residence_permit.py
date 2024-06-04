@@ -1,9 +1,8 @@
 from django.db import models
 from app.models import ApplicationBaseModel
-from base_module.models import Person, Passport
 
 
-class EmergencyResidencePermit(ApplicationBaseModel, Person, Passport):
+class EmergencyResidencePermit(ApplicationBaseModel):
 	nature_emergency = models.CharField(max_length=255)
 	job_requirements = models.CharField(max_length=255)
 	services_provided = models.CharField(max_length=255)
