@@ -10,4 +10,4 @@ class Comment(ApplicationBaseModel):
     comment_type = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.user.username} - {self.comment_type}"
+        return f"{self.user} - {self.comment_type}"
