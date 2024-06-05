@@ -4,7 +4,7 @@ from base_module.models import Person, Address
 from app.models import ApplicationBaseModel
 
 
-class ExemptionCertificate(ApplicationBaseModel, Person, Address):
+class ExemptionCertificate(ApplicationBaseModel):
 	business_name = models.CharField(max_length=150)
 	employment_capacity = models.CharField(max_length=250)
 	proposed_period = models.PositiveIntegerField()

@@ -234,9 +234,9 @@ REST_FRAMEWORK = {
 		'rest_framework.permissions.IsAuthenticated',
 	),
 	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'rest_framework_simplejwt.authentication.JWTAuthentication',
 		'rest_framework.authentication.SessionAuthentication',
 		'rest_framework.authentication.BasicAuthentication',
-		'rest_framework_simplejwt.authentication.JWTAuthentication',
 	),
 }
 
@@ -277,7 +277,7 @@ HAYSTACK_DOCUMENT_FIELD = "text"
 HAYSTACK_ID_FIELD = "id"
 # HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 AUTH_USER_MODEL = 'authentication.User'
-
+CSRF_TRUSTED_ORIGINS = ['http://138.68.175.109:5173']
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
