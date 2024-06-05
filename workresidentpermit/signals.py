@@ -3,10 +3,14 @@ import logging
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from app.utils import ApplicationDecisionEnum
+
 from workresidentpermit.models import WorkPermit, SecurityClearance
+from app_decision.models import ApplicationDecision
 from workresidentpermit.classes import WorkResidentPermitApplicationDecisionService
 
 from app.utils import ApplicationStatuses
+from .tasks import async_production
 
 from .classes import WorkPermitApplicationPDFGenerator
 
@@ -42,4 +46,17 @@ def create_application_decision(sender, instance, created, **kwargs):
         logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
     except Exception as ex:
         logger.error(f"An error occurred while trying to create application decision after saving board decision. "
+                     f"Got {ex} ")
+
+
+@receiver(post_save, sender=ApplicationDecision)
+def create_production_pdf(sender, instance, created, **kwargs):
+    try:
+        if created:
+            if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.ACCEPTED.value.lower():
+                async_production(document_number=instance.document_number)
+    except SystemError as e:
+        logger.error("SystemError: An error occurred while creating production pdf ", e)
+    except Exception as ex:
+        logger.error(f"An error occurred while trying to creating a production pdf "
                      f"Got {ex} ")

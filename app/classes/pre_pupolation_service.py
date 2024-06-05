@@ -14,13 +14,13 @@ from .pre_pupolation_model_definition import PrepopulationConfiguration, BaseCon
 """
 TODO: NO TESTS, and more tests are required.
 """
+from app.models import ApplicationVersion
 
 
 class PrePopulationService(object):
 
-    def __init__(self, old_application_version=None, new_application_version=None, process_name=None,
-                 configuration_location=None,
-                 filter_data=None):
+    def __init__(self, old_application_version: ApplicationVersion, new_application_version: ApplicationVersion,
+                 process_name=None, configuration_location=None, filter_data=None):
         self.logger = logging.getLogger(__name__)
         self.process_name = process_name
         self.configuration_location = configuration_location

@@ -72,6 +72,7 @@ INSTALLED_APPS = [
 	'authentication.apps.AppConfig',
 	'django_otp',
 	'drf_yasg',
+	'django_q',
 ]
 
 MIDDLEWARE = [
@@ -325,3 +326,19 @@ GRAPH_API_ENDPOINT = 'https://graph.microsoft.com/v1.0'
 AAD_TENANT_ID = "d11d44f9-972d-4ae1-9c77-092a048d2a2e"
 AAD_CLIENT_ID = "545afb37-aadb-45ba-9547-0da1be4ec597"
 AAD_CLIENT_SECRET = "qyY8Q~69zc.DdI4rIzmNqG3shulaobgjakRe0aWT"
+
+Q_CLUSTER = {
+    'name': 'lichois',
+    'workers': 8,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'redis': {
+        'host': '127.0.0.1',
+        'port': 6379,
+        'db': 0, }
+}
