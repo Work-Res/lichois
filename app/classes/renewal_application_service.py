@@ -15,8 +15,8 @@ from ..exceptions import ApplicationRenewalException
 
 from app.api import RenewalApplicationDTO, NewApplicationDTO
 
-from app.models import (
-    ApplicationDocument, Application, ApplicationRenewal)
+from app.models import (ApplicationDocument, Application, ApplicationRenewal, ApplicationVersion)
+from app_comments.models import Comment
 
 """
 TODO: NO TESTS, and more tests are required.
@@ -66,7 +66,10 @@ class RenewalApplicationService(object):
             return previous_application
 
     @transaction.atomic()
-    def create_application_renewal(self, new_application_version=None, comment=None, submitted_by=None):
+    def create_application_renewal(self,
+                                   new_application_version: ApplicationVersion = None,
+                                   comment: Comment = None,
+                                   submitted_by=None):
 
         if not new_application_version:
             self.logger.error("New application version is required to create a renewal.")
@@ -130,7 +133,7 @@ class RenewalApplicationService(object):
             application_service = CreateNewApplicationService(new_application=new_application_dto)
             self.new_application_version = application_service.create()
             self.create_application_renewal(new_application_version=self.new_application_version)
-            self.run_prepopulation()
+            # self.run_prepopulation() disable prepopulation
 
     def run_prepopulation(self):
         """
