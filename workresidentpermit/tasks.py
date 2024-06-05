@@ -11,6 +11,6 @@ def async_production(document_number: str):
     """
     Perform async on creating work permit pdf tasks.
     """
-    generator = GenerateProductionPermitPDF(document_number=document_number)
-    task_id = async_task(generator.pdf_generator)
+    pdf_util = GenerateProductionPermitPDF(document_number=document_number)
+    task_id = async_task(pdf_util.pdf_generator)
     logger.info(f"The production generator is in progress for {document_number} with task id: {task_id}")
