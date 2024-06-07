@@ -97,7 +97,7 @@ class Command(BaseCommand):
 					photo=faker.image_url(),
 				)
 				
-				if new_app.proces_name == 'EMERGENCY_PERMIT':
+				if new_app.application_type == 'EMERGENCY_PERMIT':
 					EmergencyResidencePermit.objects.get_or_create(
 						application_version=version,
 						nature_emergency=faker.random_element(elements=('fire', 'flood', 'earthquake', 'tsunami')),
