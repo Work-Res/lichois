@@ -49,11 +49,12 @@ class CreateNewApplicationService(object):
         print("application_status: ", application_status)
 
         if self.create_application_document():
+            print("create_application_document: ", self.create_application_document())
             application = Application()
             application.application_document = self.application_document
             application.application_status = application_status
             application.process_name = self.application.proces_name
-            application.application_type = self.application.proces_name
+            application.application_type = self.application.application_type
             application.last_application_version_id = 1
             application.save()
 
@@ -71,7 +72,8 @@ class CreateNewApplicationService(object):
         """
         try:
             application_status = ApplicationStatus.objects.get(
-                code__iexact=ApplicationStatuses.NEW.value
+                code__iexact=ApplicationStatuses.NEW.value,
+                processes__iexact=self.application.proces_name,
                 # processes__icontains=self.application.proces_name,
                 # valid_from__lt=date.today() Fixme: Correct filtering
             )

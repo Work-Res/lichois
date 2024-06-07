@@ -9,7 +9,7 @@ from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyResidencePermit, ExemptionCertificate, ResidencePermit, WorkPermit
+from workresidentpermit.models import EmergencyResidencePermit, ExemptionCertificate
 
 
 class Command(BaseCommand):
@@ -17,11 +17,25 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		
+		# ApplicationStatus.objects.get_or_create(
+		# 	code='new',
+		# 	name='New',
+		# 	processes='EXEMPTION_PERMIT',
+		# 	valid_from='2024-01-01',
+		# 	valid_to='2026-12-31',
+		# )
+		# ApplicationStatus.objects.get_or_create(
+		# 	code='new',
+		# 	name='New',
+		# 	processes='EMERGENCY_PERMIT',
+		# 	valid_from='2024-01-01',
+		# 	valid_to='2026-12-31',
+		# )
 		for _ in range(50):
 			with atomic():
 				new_app = NewApplicationDTO(
-					process_name=faker.random_element(elements=('exemption', 'emergency')),
+					application_type=faker.random_element(elements=('EMERGENCY_PERMIT', 'EXEMPTION_PERMIT')),
+					process_name='WORK_RESIDENT_PERMIT',
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='new',
 					dob='1990-06-10',
@@ -30,6 +44,7 @@ class Command(BaseCommand):
 				)
 				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
 				app = CreateNewApplicationService(new_application=new_app)
+				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
 				version = app.create()
 				Person.objects.get_or_create(
 					application_version=version,
@@ -82,7 +97,7 @@ class Command(BaseCommand):
 					photo=faker.image_url(),
 				)
 				
-				if new_app.proces_name == 'emergency':
+				if new_app.proces_name == 'EMERGENCY_PERMIT':
 					EmergencyResidencePermit.objects.get_or_create(
 						application_version=version,
 						nature_emergency=faker.random_element(elements=('fire', 'flood', 'earthquake', 'tsunami')),

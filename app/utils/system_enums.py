@@ -4,6 +4,8 @@ from enum import Enum
 class ApplicationProcesses(Enum):
     VISA = "VISA"
     WORK_RESIDENT_PERMIT = "WORK_RESIDENT_PERMIT"
+    EMERGENCY_PERMIT = "EMERGENCY_PERMIT"
+    EXEMPTION_PERMIT = "EXEMPTION_PERMIT"
 
 
 class ApplicationStatuses(Enum):

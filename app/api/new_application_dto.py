@@ -14,10 +14,12 @@ class NewApplicationDTO(object):
                "work_place": ""
             }
     """
-    def __init__(self, process_name, applicant_identifier, status, dob=None, work_place=None, full_name=None):
+    def __init__(self, process_name, applicant_identifier, status, dob=None, work_place=None, full_name=None,
+                 application_type=None):
         self.proces_name = process_name
         self.full_name = full_name
         self.applicant_identifier = applicant_identifier
         self.status = status
         self.dob = dob
         self.work_place = work_place
+        self.application_type = application_type or process_name
