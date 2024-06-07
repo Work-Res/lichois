@@ -3,7 +3,8 @@ import os
 from datetime import date
 from django.test import TestCase
 
-from django.contrib.auth.models import User
+from app_decision.models import ApplicationDecisionType
+from authentication.models import User
 
 
 from faker import Faker
@@ -13,7 +14,7 @@ from app.classes import CreateNewApplicationService
 from app_checklist.classes import CreateChecklist
 
 from app.api import NewApplicationDTO
-from app.utils import ApplicationProcesses
+from app.utils import ApplicationProcesses, ApplicationDecisionEnum
 
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress, Country
@@ -42,6 +43,19 @@ def application(status):
 
 
 class TestWorkResidentPermitApplication(TestCase):
+
+    def application_decision_type(self):
+        for value in [ApplicationDecisionEnum.ACCEPTED.value,
+                      ApplicationDecisionEnum.APPROVED.value,
+                      ApplicationDecisionEnum.PENDING.value,
+                      ApplicationDecisionEnum.REJECTED.value]:
+            ApplicationDecisionType.objects.create(
+                code=value,
+                name=value,
+                process_types=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+                valid_from=date(2024, 1, 1),
+                valid_to=date(2025, 1, 1)
+            )
 
     def setUp(self):
 
@@ -180,6 +194,8 @@ class TestWorkResidentPermitApplication(TestCase):
             names_of_trainees=faker.first_name(),
         )
 
+        self.application_decision_type()
+
     def test_workpermit_submission_when_all_valid(self):
 
         work_resident_permit_application = WorkResidentPermitApplication(
@@ -188,7 +204,7 @@ class TestWorkResidentPermitApplication(TestCase):
 
         response = work_resident_permit_application.submit()
         message = "Application has been submitted successfully."
-        status = message in [message.details for message in response.messages]
+        status = message in [message.get("details") for message in response.messages]
         self.assertTrue(status)
 
     def test_workpermit_submission_when_verification_task_should_exists(self):
@@ -201,7 +217,7 @@ class TestWorkResidentPermitApplication(TestCase):
 
         response = work_resident_permit_application.submit()
         message = "Application has been submitted successfully."
-        status = message in [message.details for message in response.messages]
+        status = message in [message.get("details") for message in response.messages]
         self.assertTrue(status)
 
         tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
@@ -219,7 +235,8 @@ class TestWorkResidentPermitApplication(TestCase):
         user = User.objects.create_user(
             username='test',
             email='test@example.com',
-            password='test@test'
+            password='test@test',
+            phone_number="0026775700544"
         )
         user.first_name = 'test'
         user.last_name = 'test'
@@ -233,7 +250,7 @@ class TestWorkResidentPermitApplication(TestCase):
 
         response = work_resident_permit_application.submit()
         message = "Application has been submitted successfully."
-        status = message in [message.details for message in response.messages]
+        status = message in [message.get("details") for message in response.messages]
         self.assertTrue(status)
 
         work_resident_permit_application.submit_verification()

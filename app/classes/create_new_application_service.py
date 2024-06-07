@@ -43,6 +43,7 @@ class CreateNewApplicationService(object):
             )
             self.response.status = False
             self.response.messages.append(api_message.to_dict())
+            print("Record already exists.")
             return None  # Avoid continuing
 
         application_status = self.get_application_status()
