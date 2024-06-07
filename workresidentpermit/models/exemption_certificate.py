@@ -1,6 +1,4 @@
 from django.db import models
-from base_module.models import Person, Address
-
 from app.models import ApplicationBaseModel
 
 
@@ -14,4 +12,4 @@ class ExemptionCertificate(ApplicationBaseModel):
 	commissioner_signature = models.CharField(max_length=250)
 	
 	class Meta:
-		app_label = 'work_residence_permit'
+		verbose_name = 'Exemption Certificate'
