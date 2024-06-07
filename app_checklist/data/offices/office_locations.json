@@ -1,0 +1,35 @@
+{
+  "Location": {
+    "office_locations": {
+      "code": "OFFICE_LOCATION",
+      "name": "Office Locations",
+      "description": "A list of offices.",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "offices": [
+        {
+          "code": "01",
+          "name": "Gaborone",
+          "description": "Gaborone Office",
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "02",
+          "name": "Lobatse",
+          "description": "Lobatse Office",
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "03",
+          "name": "Francistown",
+          "description": "Francistown Office",
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}
+

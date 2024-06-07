@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from faker import Faker
 
-from app_checklist.classes import CreateChecklist
+from app_checklist.classes import CreateChecklistService
 from app_personal_details.models import Person
 from app.utils import statuses, ApplicationProcesses, ApplicationStatuses
 
@@ -20,7 +20,7 @@ class TestPrepupolationService(TestCase):
 
         file_name = "attachment_documents.json"
         output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklist()
+        create = CreateChecklistService()
         create.create(file_location=output_file)
 
         faker = Faker()

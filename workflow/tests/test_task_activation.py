@@ -7,7 +7,7 @@ from ..signals import create_or_update_task_signal
 from ..classes import WorkflowEvent
 
 from app.models import Application, ApplicationDocument, ApplicationUser, ApplicationStatus
-from app_checklist.classes import CreateChecklist
+from app_checklist.classes import CreateChecklistService
 
 from workflow.models import Task
 
@@ -33,7 +33,7 @@ class TestTaskActivation(TestCase):
     def create_data(self):
         file_name = "attachment_documents.json"
         output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklist()
+        create = CreateChecklistService()
         create.create(file_location=output_file)
 
         applicant = ApplicationUser(

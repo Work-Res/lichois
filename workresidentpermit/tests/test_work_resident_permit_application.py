@@ -11,7 +11,7 @@ from faker import Faker
 
 from app.models import Application, ApplicationStatus
 from app.classes import CreateNewApplicationService
-from app_checklist.classes import CreateChecklist
+from app_checklist.classes import CreateChecklistService
 
 from app.api import NewApplicationDTO
 from app.utils import ApplicationProcesses, ApplicationDecisionEnum
@@ -61,7 +61,7 @@ class TestWorkResidentPermitApplication(TestCase):
 
         file_name = "attachment_documents.json"
         output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklist()
+        create = CreateChecklistService()
         create.create(file_location=output_file)
 
         for status in statuses:
@@ -262,7 +262,6 @@ class TestWorkResidentPermitApplication(TestCase):
             activity__process__document_number=self.document_number)]
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)
-
 
     def test_workpermit_submission_when_production_task_should_exists(self):
         """

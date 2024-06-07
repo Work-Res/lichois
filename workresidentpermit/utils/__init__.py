@@ -1,0 +1,1 @@
+from .work_resident_permit_application_type_enum import WorkResidentPermitApplicationTypeEnum

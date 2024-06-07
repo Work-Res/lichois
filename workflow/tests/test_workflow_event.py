@@ -6,7 +6,7 @@ from unittest.mock import patch
 from app.models import Application, ApplicationDocument, ApplicationUser, ApplicationStatus
 
 from workflow.models import BusinessProcess, Activity
-from app_checklist.classes import CreateChecklist
+from app_checklist.classes import CreateChecklistService
 
 from ..classes import WorkflowEvent
 
@@ -26,7 +26,7 @@ class TestWorkFlowEvent(TestCase):
     def create_data(self):
         file_name = "attachment_documents.json"
         output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklist()
+        create = CreateChecklistService()
         create.create(file_location=output_file)
 
         applicant = ApplicationUser(

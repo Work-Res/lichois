@@ -11,7 +11,7 @@ from app.models import Application, ApplicationDocument, ApplicationStatus, Appl
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
-from app_checklist.classes import CreateChecklist
+from app_checklist.classes import CreateChecklistService
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
 from app.utils import ApplicationStatuses
@@ -33,7 +33,7 @@ class TestWorkPermitValidator(TestCase):
     def create_data(self):
         file_name = "attachment_documents.json"
         output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklist()
+        create = CreateChecklistService()
         create.create(file_location=output_file)
 
         applicant = ApplicationUser(

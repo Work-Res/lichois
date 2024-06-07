@@ -10,7 +10,6 @@
               {
                 "code":  "PASSPORT_COPY",
                 "name":  "PASSPORT COPY",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": "Scanned passport page 1 copy.",
                 "mandatory": true,
                 "valid_from": "2024-01-01",
@@ -18,7 +17,6 @@
               }, {
                 "code":  "PASSPORT_PHOTO",
                 "name":  "PASSPORT PHOTO",
-                "process": "WORK_RESIDENT_PERMIT,visa",
                 "description": "Passport photo",
                 "mandatory": true,
                 "valid_from": "2024-01-01",
@@ -26,7 +24,6 @@
               }, {
                 "code":  "COVER_LETTER",
                 "name":  "COVER LETTER",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": "Cover letter",
                 "mandatory": true,
                 "valid_from": "2024-01-01",
@@ -35,7 +32,6 @@
               {
                 "code":  "CONFIRMATION_LETTER",
                 "name":  "CONFIRMATION LETTER",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": "Confirmation Letter",
                 "mandatory": false,
                 "valid_from": "2024-01-01",
@@ -51,7 +47,6 @@
               },{
                 "code":  "MARRIAGE CERTIFICATE",
                 "name":  "MARRIAGE_CERTIFICATE",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": "Certified copy of Marriage Certificate",
                 "mandatory": false,
                 "valid_from": "2024-01-01",
@@ -69,7 +64,6 @@
               {
                 "code":  "VERIFICATION",
                 "name":  "Verification",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": " Verification completed by officers.",
                 "mandatory": false,
                 "sequence": 1,
@@ -83,7 +77,6 @@
               }, {
                 "code":  "VETTING",
                 "name":  "Security clearance",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": "Second level of verification completed by officers.",
                 "mandatory": false,
                 "sequence": 2,
@@ -97,7 +90,6 @@
               },{
                 "code":  "FINAL_DECISION",
                 "name":  "Final decision",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": "Final decision for work resident permit",
                 "sequence": 3,
                 "mandatory": false,
@@ -111,7 +103,6 @@
               },{
                 "code":  "PERMIT_CANCELLATION",
                 "name":  "Cancel Application",
-                "process": "WORK_RESIDENT_PERMIT",
                 "description": "Cancel the submitted application.",
                 "sequence": 4,
                 "mandatory": false,

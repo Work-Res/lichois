@@ -7,7 +7,7 @@ from ..signals import run_assessment_calculation
 
 
 from app.models import Application, ApplicationDocument, ApplicationUser, ApplicationStatus
-from app_checklist.classes import CreateChecklist
+from app_checklist.classes import CreateChecklistService
 from ..classes.assessment_evaluator import AssessmentEvaluator
 from ..models import AssessmentResult
 
@@ -32,7 +32,7 @@ class TestAssessmentEvaluator(TestCase):
     def create_data(self):
         file_name = "attachment_documents.json"
         output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklist()
+        create = CreateChecklistService()
         create.create(file_location=output_file)
 
         applicant = ApplicationUser(
