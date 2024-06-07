@@ -10,4 +10,4 @@ class EmergencyResidencePermit(ApplicationBaseModel):
 	capacity = models.CharField(max_length=255)
 	
 	class Meta:
-		app_label = 'work_residence_permit'
+		verbose_name = 'Emergency Residence Permit'
