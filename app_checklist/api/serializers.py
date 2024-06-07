@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-from app_checklist.models import Classifier, ClassifierItem
+from app_checklist.models import Classifier, ClassifierItem, ChecklistClassifierItem, ChecklistClassifier
 
 
 class ClassifierSerializer(serializers.ModelSerializer):
@@ -30,6 +30,40 @@ class ClassifierItemSerializer(serializers.ModelSerializer):
             'description',
             'mandatory',
             'classifier',
+            'valid_from',
+            'valid_to'
+        )
+
+
+class ChecklistClassifierSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ChecklistClassifier
+        fields = (
+            'code',
+            'name',
+            'process_name',
+            'description',
+            'mandatory',
+            'classifier',
+            'valid_from',
+            'valid_to'
+        )
+
+
+class ChecklistClassifierItemSerializer(serializers.ModelSerializer):
+
+    checklist_classifier = ChecklistClassifierSerializer()
+
+    class Meta:
+        model = ChecklistClassifierItem
+        fields = (
+            'code',
+            'name',
+            'application_type',
+            'description',
+            'mandatory',
+            'checklist_classifier',
             'valid_from',
             'valid_to'
         )

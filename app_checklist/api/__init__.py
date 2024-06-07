@@ -1,1 +1,1 @@
-from .serializers import ClassifierSerializer
+from .serializers import ClassifierSerializer, ChecklistClassifierSerializer, ChecklistClassifierItem
