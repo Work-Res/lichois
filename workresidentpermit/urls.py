@@ -13,11 +13,11 @@ from .views import (ChildCreateListView, EmergencyResidencePermitViewSet,
 router = DefaultRouter()
 router.register(r'spouse', SpouseCreateListView, basename='spouse')
 router.register(r'child', ChildCreateListView, basename='child')
-router.register(r'resident-permit', ResidencePermitViewSet, basename='work-permit-dets')
-router.register(r'emergency-residence-permits', EmergencyResidencePermitViewSet, basename='emergency-permit')
-router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-cert')
-router.register(r'residence-permit-cancellation', PermitCancellationViewSet, basename='res-permit-cancellation')
+router.register(r'resident-permit', ResidencePermitViewSet, basename='resident-permit')
 router.register(r'work-permit', WorkPermitViewSet)
+router.register(r'emergency-permit', EmergencyResidencePermitViewSet, basename='emergency-permit')
+router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-certificate')
+router.register(r'permit-cancellation', PermitCancellationViewSet, basename='permit-cancellation')
 
 
 urlpatterns = [
