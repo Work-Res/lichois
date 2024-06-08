@@ -27,7 +27,14 @@ class Command(BaseCommand):
 			for _ in range(randint(3, 6) + 1):
 				document_type = AttachmentDocumentType.objects.create(
 					code=faker.random_int(min=1000, max=9999),
-					name=faker.random_element(elements=('passport', 'national_id', 'birth_certificate')),
+					name=faker.random_element(elements=(
+						'passport',
+						'national_id',
+						'birth_certificate',
+						'copy_work_permit',
+						'offer_letter',
+						'covering_letter'
+					)),
 					valid_from=faker.date_this_decade(),
 					valid_to=faker.date_this_decade(),
 				)

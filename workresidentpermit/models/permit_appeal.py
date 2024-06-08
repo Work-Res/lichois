@@ -1,9 +1,12 @@
 from django.db import models
-from base_module.model_mixins import BaseUuidModel
+
+from app.models import ApplicationBaseModel
+from ..choices import APPEAL_TYPE
 
 
-class PermitAppeal(BaseUuidModel):
+class PermitAppeal(ApplicationBaseModel):
 	reason_for_appeal = models.TextField()
+	appeal_type = models.CharField(max_length=250, choices=APPEAL_TYPE, default='appeal')
 	appeal_date = models.DateField(auto_now_add=True)
 	
 	class Meta:
