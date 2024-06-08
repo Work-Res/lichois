@@ -4,7 +4,7 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from .views import (ChildCreateListView, EmergencyResidencePermitViewSet,
-                    ExemptionCertificateViewSet, ResidencePermitCancellationViewSet,
+                    ExemptionCertificateViewSet, PermitCancellationViewSet,
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
                     WorkPermitApplicationVerificationAPIView,
@@ -16,7 +16,7 @@ router.register(r'child', ChildCreateListView, basename='child')
 router.register(r'resident-permit', ResidencePermitViewSet, basename='work-permit-dets')
 router.register(r'emergency-residence-permits', EmergencyResidencePermitViewSet, basename='emergency-permit')
 router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-cert')
-router.register(r'residence-permit-cancellation', ResidencePermitCancellationViewSet, basename='res-permit-cancellation')
+router.register(r'residence-permit-cancellation', PermitCancellationViewSet, basename='res-permit-cancellation')
 router.register(r'work-permit', WorkPermitViewSet)
 
 

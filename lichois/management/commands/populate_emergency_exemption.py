@@ -9,7 +9,7 @@ from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyResidencePermit, ExemptionCertificate
+from workresidentpermit.models import EmergencyPermit, ExemptionCertificate
 
 
 class Command(BaseCommand):
@@ -17,13 +17,13 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		# ApplicationStatus.objects.get_or_create(
-		# 	code='new',
-		# 	name='New',
-		# 	processes='EXEMPTION_PERMIT',
-		# 	valid_from='2024-01-01',
-		# 	valid_to='2026-12-31',
-		# )
+		ApplicationStatus.objects.get_or_create(
+			code='new',
+			name='New',
+			processes='WORK_RESIDENT_PERMIT',
+			valid_from='2024-01-01',
+			valid_to='2026-12-31',
+		)
 		# ApplicationStatus.objects.get_or_create(
 		# 	code='new',
 		# 	name='New',
@@ -98,7 +98,8 @@ class Command(BaseCommand):
 				)
 				
 				if new_app.application_type == 'EMERGENCY_PERMIT':
-					EmergencyResidencePermit.objects.get_or_create(
+					EmergencyPermit.objects.get_or_create(
+						document_number=app.application_document.document_number,
 						application_version=version,
 						nature_emergency=faker.random_element(elements=('fire', 'flood', 'earthquake', 'tsunami')),
 						job_requirements=faker.job(),
@@ -108,6 +109,7 @@ class Command(BaseCommand):
 					)
 				else:
 					ExemptionCertificate.objects.get_or_create(
+						document_number=app.application_document.document_number,
 						application_version=version,
 						business_name=faker.company(),
 						employment_capacity=faker.job(),

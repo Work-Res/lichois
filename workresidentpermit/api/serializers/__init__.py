@@ -1,8 +1,8 @@
 from .child_serializer import ChildSerializer
-from .emergency_residence_permit_serializer import EmergencyResidencePermitSerializer
+from .emergency_permit_serializer import EmergencyPermitSerializer
 from .exemption_certificate_serializer import ExemptionCertificateSerializer
-from .residence_permit_appeal_serializer import ResidencePermitAppealSerializer
-from .residence_permit_cancellation_serializer import ResidencePermitCancellationSerializer
+from .permit_appeal_serializer import PermitAppealSerializer
+from .permit_cancellation_serializer import PermitCancellationSerializer
 from .spouse_serializer import SpouseSerializer
 from .residence_permit_serializer import ResidencePermitSerializer
 from .work_res_permit_data_serializer import WorkResidentPermitDataSerializer
@@ -11,3 +11,4 @@ from .declaration_serializer import DeclarationSerializer
 from .security_clearance_serializer import SecurityClearanceSerializer
 from .work_permit_serializer import WorkPermitSerializer
 from .security_clearance_request_serializer import SecurityClearanceRequestDTOSerializer
+from .permit_replacement_serializer import PermitReplacementSerializer

@@ -1,9 +1,9 @@
 from faker import Faker
 from model_mommy.recipe import Recipe, seq
 
-from .models import Child, EmergencyResPermitApplication, EmergencyResidencePermit
-from .models import ExemptionCertificate, Permit, ResidencePermitAppeal
-from .models import ResidencePermitCancellation, Spouse, WorkResidencePermit
+from .models import Child, EmergencyResPermitApplication, EmergencyPermit, PermitCancellation
+from .models import ExemptionCertificate, Permit, PermitAppeal
+from .models import Spouse, WorkResidencePermit
 
 fake = Faker()
 
@@ -16,7 +16,7 @@ emergencyrespermitapplication = Recipe(
 )
 
 emergencyresidencepermit = Recipe(
-    EmergencyResidencePermit,
+    EmergencyPermit,
 )
 
 exemptioncertificate = Recipe(
@@ -28,11 +28,11 @@ permit = Recipe(
 )
 
 residencepermitappeal = Recipe(
-    ResidencePermitAppeal,
+    PermitAppeal,
 )
 
 residencepermitcancellation = Recipe(
-    ResidencePermitCancellation,
+    PermitCancellation,
 )
 
 spouse = Recipe(
