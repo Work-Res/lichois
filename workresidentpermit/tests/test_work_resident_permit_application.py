@@ -4,7 +4,7 @@ import os
 from datetime import date
 from django.test import TestCase
 
-from app_decision.models import ApplicationDecisionType
+from app_decision.models import ApplicationDecisionType, ApplicationDecision
 from authentication.models import User
 
 from faker import Faker
@@ -337,6 +337,9 @@ class TestWorkResidentPermitApplication(TestCase):
         self.assertEqual(all_tasks.count(), 3)
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)
+
+        application_decision = ApplicationDecision.objects.all()
+        self.assertGreater(application_decision.count(), 0)
 
     def create_board_decision(self):
         # Create Board decision
