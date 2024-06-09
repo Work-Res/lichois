@@ -98,7 +98,7 @@
                 "create_rules": {
                   "previous_status": "VETTING",
                   "current_status":  "FINAL_DECISION",
-                  "next_activity_name": "END"
+                  "next_activity_name": "PERMIT_CANCELLATION"
                 }
               },{
                 "code":  "PERMIT_CANCELLATION",

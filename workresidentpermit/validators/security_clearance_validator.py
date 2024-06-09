@@ -83,6 +83,7 @@ class SecurityClearanceValidator:
                 code__iexact=self.status
             )
         except ApplicationDecisionType.DoesNotExist:
+            print("Security decision not found.")
             self.response.messages.append(
                 APIMessage(
                     code=400,

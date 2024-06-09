@@ -1,12 +1,13 @@
 import logging
 
-from app_checklist.models import ClassifierItem
+from app_checklist.models import ClassifierItem, ChecklistClassifierItem
 from app_attachments.models import ApplicationAttachment
 from app_personal_details.models import Person, Passport
 from app_contact.models import ApplicationContact
 from app_address.models import ApplicationAddress
 from app.models import Application
 from app.api.common.web import APIResponse, APIMessage
+from model_mommy import mommy
 
 from ..models import WorkPermit
 
@@ -16,10 +17,11 @@ class WorkResidentPermitValidator:
     Responsible for validating all mandatory for work resident and permit.
     """
 
-    def __init__(self, process=None, work_permit: WorkPermit = None, document_number=None):
+    def __init__(self, process=None, work_permit: WorkPermit = None, document_number=None, application_type=None):
         self.logger = logging.getLogger(__name__)
         self.document_number = document_number if document_number else ""
         self.process = process
+        self.application_type = application_type
         self.response = APIResponse()
         try:
             self.application = Application.objects.get(
@@ -98,10 +100,11 @@ class WorkResidentPermitValidator:
         Check if all required attachments for a business process are captured.
         """
         print("self.process ", self.process)
-        attachments = ClassifierItem.objects.filter(
-            classifier__code="ATTACHMENT_DOCUMENTS",
-            process__icontains=self.process if self.process else "",
-            mandatory=True
+        attachments = ChecklistClassifierItem.objects.filter(
+            checklist_classifier__code="ATTACHMENT_DOCUMENTS",
+            checklist_classifier__process_name__icontains=self.process if self.process else "",
+            mandatory=True,
+            application_type=self.application_type
         )
         attached_codes = set(
             ApplicationAttachment.objects.filter(document_number=self.document_number).values_list(

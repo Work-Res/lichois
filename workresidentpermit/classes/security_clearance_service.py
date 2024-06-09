@@ -25,7 +25,13 @@ class SecurityClearanceService:
                 code__iexact=self.security_clearance_request.status
             )
         except ApplicationDecisionType.DoesNotExist:
-            pass
+            api_message = APIMessage(
+                code=400,
+                message=f"Application decision provided is invalid: {self.security_clearance_request.status}.",
+                details=f"System failed to obtained decision type provided, check if application decision defaults "
+                        f"records are created."
+            )
+            self.response.messages.append(api_message.to_dict())
         else:
             return application_decision_type
 

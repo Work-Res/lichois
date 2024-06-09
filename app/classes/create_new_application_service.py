@@ -74,7 +74,7 @@ class CreateNewApplicationService(object):
         try:
             application_status = ApplicationStatus.objects.get(
                 code__iexact=ApplicationStatuses.NEW.value,
-                processes__iexact=self.application.proces_name,
+                processes__icontains=self.application.proces_name,
                 # processes__icontains=self.application.proces_name,
                 # valid_from__lt=date.today() Fixme: Correct filtering
             )

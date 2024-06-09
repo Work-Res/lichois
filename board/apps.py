@@ -8,3 +8,4 @@ class AppConfig(DjangoAppConfig):
 	
 	def ready(self):
 		from .models import board_meeting_on_post_save
+		from .signals import create_application_decision

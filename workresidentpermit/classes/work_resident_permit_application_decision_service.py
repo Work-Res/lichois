@@ -63,14 +63,14 @@ class WorkResidentPermitApplicationDecisionService:
                                           == ApplicationDecisionEnum.ACCEPTED.value.lower()
         board_decision = self.board_decision()
         if board_decision:
-            self.application = board_decision.assessed_application
+            self.application = self._board_decision.assessed_application
             is_board_decision_taken = \
-                self.board_decision.decision_outcome.lower() == ApplicationDecisionEnum.APPROVED.value.lower()
+                self._board_decision.decision_outcome.lower() == ApplicationDecisionEnum.APPROVED.value.lower()
 
         if is_security_clearance_accepted and is_board_decision_taken:
             decision_type = ApplicationDecisionEnum.ACCEPTED.value
             decision_status = "ACCEPTED"
-        elif self.board_decision and security_clearance:
+        elif self._board_decision and security_clearance:
             decision_type = ApplicationDecisionEnum.REJECTED.value
             decision_status = "REJECTED"
         else:
@@ -101,17 +101,18 @@ class WorkResidentPermitApplicationDecisionService:
             proposed_decision_type=proposed_decision,
             comment=self.comment
         )
-        self.run_workflow(application=self.board_decision.assessed_application)
+        self.run_workflow(application=self._board_decision.assessed_application)
 
     def run_workflow(self, application: Application):
         self.logger.info(f"START the workflow for {application.application_document.document_number}")
-        previous_activity = application.application_status.name
+        previous_activity = application.application_status.code.upper()
         source_data = WorkflowTransition(
             previous_status=previous_activity
         )
         application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatuses.ACCEPTED.value)
         application.application_status = application_status
         application.save()
-        source_data.next_activity_name = WorkflowEnum.FINAL_DECISION.value
+        source_data.current_status = WorkflowEnum.FINAL_DECISION.value
+        source_data.next_activity_name = WorkflowEnum.PERMIT_CANCELLATION.value
         create_or_update_task_signal.send_robust(sender=application, source=source_data, application=application)
         self.logger.info(f"END the workflow for {application.application_document.document_number}")

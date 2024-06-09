@@ -1,3 +1,4 @@
+import arrow
 import os
 
 from datetime import date
@@ -5,7 +6,6 @@ from django.test import TestCase
 
 from app_decision.models import ApplicationDecisionType
 from authentication.models import User
-
 
 from faker import Faker
 
@@ -23,15 +23,19 @@ from app_contact.models import ApplicationContact
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
 from app.utils import ApplicationStatuses
+from board.models import BoardDecision, BoardMeeting
+from workresidentpermit.api.dto import SecurityClearanceRequestDTO
 
 from workresidentpermit.models import WorkPermit
-from workresidentpermit.classes import WorkResidentPermitApplication
+from workresidentpermit.classes import WorkResidentPermitApplication, SecurityClearanceService
 
 from app.api import ApplicationVerificationRequest
 
 from workflow.models import Task
+from model_mommy import mommy
 
-from app.utils import statuses
+from app.utils import statuses, ApplicationDecisionEnum
+from workresidentpermit.validators import SecurityClearanceValidator
 
 
 def application(status):
@@ -59,10 +63,26 @@ class TestWorkResidentPermitApplication(TestCase):
 
     def setUp(self):
 
+        self.board = mommy.make_recipe(
+            'board.board', )
+
+        file_name = "attachment_documents.json"
+        output_file = os.path.join(os.getcwd(), "app_checklist", "data", "checklist", file_name)
+
+        checklist_service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
+                                                   foreign_name="checklist_classifier",
+                                                   parent_app_label_model_name="app_checklist.checklistclassifier",
+                                                   foreign_app_label_model_name="app_checklist.checklistclassifieritem")
+        checklist_service.create(file_location=output_file)
+
         file_name = "attachment_documents.json"
         output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklistService()
-        create.create(file_location=output_file)
+
+        service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
+                                         foreign_name="classifier",
+                                         parent_app_label_model_name="app_checklist.classifier",
+                                         foreign_app_label_model_name="app_checklist.classifieritem")
+        service.create(file_location=output_file)
 
         for status in statuses:
             ApplicationStatus.objects.create(
@@ -85,6 +105,7 @@ class TestWorkResidentPermitApplication(TestCase):
         #     print("Message: ", message)
 
         app = application_version.application
+        self.application = application_version.application
         self.document_number = app.application_document.document_number
         faker = Faker()
 
@@ -155,7 +176,7 @@ class TestWorkResidentPermitApplication(TestCase):
                 document_number=app.application_document.document_number,
                 document_type=attachment_type,
                 filename=f"{classifier.name}.pdf",
-                storage_object_key ="cxxcc",
+                storage_object_key="cxxcc",
                 description="NNNN",
                 document_url="",
                 received_date=date.today()
@@ -298,7 +319,42 @@ class TestWorkResidentPermitApplication(TestCase):
         tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
         self.assertEqual(tasks_count, 2)
 
-        statuses = [task.status for task in Task.objects.filter(
-            activity__process__document_number=self.document_number)]
+        security_validator = SecurityClearanceValidator(document_number=self.document_number,
+                                                        status=ApplicationDecisionEnum.ACCEPTED.value)
+        self.assertTrue(security_validator.is_valid())
+
+        security_clearance_request_dto = SecurityClearanceRequestDTO()
+        security_clearance_request_dto.document_number = self.document_number
+        security_clearance_request_dto.status = ApplicationDecisionEnum.ACCEPTED.value
+        security_clearance_request_dto.summary = "production"
+        security_service = SecurityClearanceService(security_clearance_request=security_clearance_request_dto)
+        security_service.create_clearance()
+
+        self.create_board_decision()
+        all_tasks = Task.objects.filter(
+            activity__process__document_number=self.document_number)
+        statuses = [task.status for task in all_tasks]
+        self.assertEqual(all_tasks.count(), 3)
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)
+
+    def create_board_decision(self):
+        # Create Board decision
+        board_meeting_data = {'description': 'test meeting',
+                              'meeting_date': arrow.utcnow().datetime,
+                              'meeting_start_time': arrow.utcnow().datetime,
+                              'meeting_end_time': arrow.utcnow().datetime,
+                              'board_id': self.board.id,
+                              'status': 'scheduled',
+                              'meeting_type': 'physical',
+                              'location': 'CBD'}
+
+        board_meeting = BoardMeeting.objects.create(
+            **board_meeting_data
+        )
+        application = Application.objects.get(id=self.application.id)
+        board_decision = BoardDecision.objects.create(
+            board_meeting=board_meeting,
+            assessed_application=application,
+            vetting_outcome="approved",
+        )

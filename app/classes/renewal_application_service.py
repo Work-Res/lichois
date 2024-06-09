@@ -119,6 +119,7 @@ class RenewalApplicationService(object):
         new_application_dto.proces_name = self.renewal_application.proces_name
         new_application_dto.dob = self.previous_application.application.application_document.applicant.dob
         new_application_dto.full_name = self.previous_application.application.application_document.applicant.full_name
+        new_application_dto.application_type = self.previous_application.application.application_type
         return new_application_dto
 
     @transaction.atomic()
