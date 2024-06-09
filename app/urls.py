@@ -16,7 +16,7 @@ router.register(r'application_verifications', ApplicationVerificationCreateListV
 
 urlpatterns = [
     path('applications', ApplicationCreateView.as_view(), name='application-new'),
-    path('applications/renewal', ApplicationRenewalView.as_view(), name='application-renawal'),
+    path('applications/renewal', ApplicationRenewalView.as_view(), name='application-renewal'),
     path('', include(router.urls)),
 ]
 

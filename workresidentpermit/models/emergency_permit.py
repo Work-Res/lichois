@@ -2,7 +2,7 @@ from django.db import models
 from app.models import ApplicationBaseModel
 
 
-class EmergencyResidencePermit(ApplicationBaseModel):
+class EmergencyPermit(ApplicationBaseModel):
 	nature_emergency = models.CharField(max_length=255)
 	job_requirements = models.CharField(max_length=255)
 	services_provided = models.CharField(max_length=255)
@@ -10,4 +10,4 @@ class EmergencyResidencePermit(ApplicationBaseModel):
 	capacity = models.CharField(max_length=255)
 	
 	class Meta:
-		verbose_name = 'Emergency Residence Permit'
+		verbose_name = 'Emergency Permit'

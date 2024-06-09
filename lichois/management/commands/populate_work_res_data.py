@@ -25,10 +25,11 @@ class Command(BaseCommand):
             valid_to='2026-12-31',
         )
 
-        for _ in range(50):
+        for _ in range(250):
             with atomic():
                 new_app = NewApplicationDTO(
                     process_name='WORK_RESIDENT_PERMIT',
+                    application_type=faker.random_element(elements=('WORK_RESIDENT_PERMIT', 'RENEWAL_PERMIT')),
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
                     status='new',
                     dob='1990-06-10',

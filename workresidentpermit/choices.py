@@ -90,3 +90,21 @@ CERTIFICATE_STATUS = (
 	('stolen', 'Stolen'),
 	('damaged', 'Damaged')
 )
+
+APPEAL_TYPE = (
+	('appeal', 'Appeal'),
+	('review', 'Review'),
+	('renewal', 'Renewal'),
+	('reconsideration', 'Reconsideration')
+)
+
+APPEAL_STATUS = (
+	('pending', 'Pending'),
+	('rejected', 'Rejected'),
+	('accepted', 'Accepted')
+)
+
+SUBMITTER_TYPE = (
+	('applicant', 'Applicant'),
+	('officer', 'Officer')
+)
