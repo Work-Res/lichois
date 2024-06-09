@@ -1,9 +1,11 @@
 from django.db import models
 
-from base_module.model_mixins import BaseUuidModel
+
+from app.models import ApplicationBaseModel
 
 
-class Declaration(BaseUuidModel):
+class Declaration(ApplicationBaseModel):
+
 	declaration_fname = models.CharField(
 		verbose_name='Declaration firstname',
 		max_length=150
@@ -19,8 +21,6 @@ class Declaration(BaseUuidModel):
 	)
 	
 	signature = models.CharField(max_length=190)
-	
-	# work_permit = models.ForeignKey(ResidencePermit, on_delete=models.CASCADE)
-	
+
 	class Meta:
 		verbose_name = 'Declaration'

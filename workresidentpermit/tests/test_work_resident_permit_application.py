@@ -9,7 +9,7 @@ from authentication.models import User
 
 from faker import Faker
 
-from app.models import Application, ApplicationStatus
+from app.models import Application, ApplicationStatus, ApplicationRenewal
 from app.classes import CreateNewApplicationService
 from app_checklist.classes import CreateChecklistService
 
@@ -29,7 +29,8 @@ from workresidentpermit.api.dto import SecurityClearanceRequestDTO
 from workresidentpermit.models import WorkPermit
 from workresidentpermit.classes import WorkResidentPermitApplication, SecurityClearanceService
 
-from app.api import ApplicationVerificationRequest
+from app.api import ApplicationVerificationRequest, RenewalApplicationDTO
+from app.classes import RenewalApplicationService
 
 from workflow.models import Task
 from model_mommy import mommy
@@ -250,7 +251,7 @@ class TestWorkResidentPermitApplication(TestCase):
         """
         app_verification = ApplicationVerificationRequest()
         app_verification.comment = "Testing"
-        app_verification.decision = "rejected"
+        app_verification.decision = "ACCEPTED"
         app_verification.outcome_reason = "UNKNOW"
 
         user = User.objects.create_user(
@@ -290,7 +291,7 @@ class TestWorkResidentPermitApplication(TestCase):
         """
         app_verification = ApplicationVerificationRequest()
         app_verification.comment = "Testing"
-        app_verification.decision = "rejected"
+        app_verification.decision = "ACCEPTED"
         app_verification.outcome_reason = "UNKNOW"
 
         user = User.objects.create_user(
@@ -355,9 +356,118 @@ class TestWorkResidentPermitApplication(TestCase):
         board_meeting = BoardMeeting.objects.create(
             **board_meeting_data
         )
-        application = Application.objects.get(id=self.application.id)
-        board_decision = BoardDecision.objects.create(
+        BoardDecision.objects.create(
             board_meeting=board_meeting,
-            assessed_application=application,
+            assessed_application=Application.objects.get(id=self.application.id),
             vetting_outcome="approved",
         )
+
+    def test_workpermit_renewal_process_run(self):
+        """
+        Check if all tasks created, the vetting task should be created.
+        """
+        app_verification = ApplicationVerificationRequest()
+        app_verification.comment = "Testing"
+        app_verification.decision = "ACCEPTED"
+        app_verification.outcome_reason = "UNKNOW"
+
+        user = User.objects.create_user(
+            username='test',
+            email='test@example.com',
+            password='test@test',
+            phone_number="0026775700544"
+        )
+        user.first_name = 'test'
+        user.last_name = 'test'
+        user.save()
+
+        work_resident_permit_application = WorkResidentPermitApplication(
+            document_number=self.document_number,
+            verification_request=app_verification,
+            user=user
+        )
+
+        response = work_resident_permit_application.submit()
+        message = "Application has been submitted successfully."
+        status = message in [message.get("details") for message in response.messages]
+        self.assertTrue(status)
+
+        work_resident_permit_application.submit_verification()
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 2)
+
+        security_validator = SecurityClearanceValidator(document_number=self.document_number,
+                                                        status=ApplicationDecisionEnum.ACCEPTED.value)
+        self.assertTrue(security_validator.is_valid())
+
+        security_clearance_request_dto = SecurityClearanceRequestDTO()
+        security_clearance_request_dto.document_number = self.document_number
+        security_clearance_request_dto.status = ApplicationDecisionEnum.ACCEPTED.value
+        security_clearance_request_dto.summary = "production"
+        security_service = SecurityClearanceService(security_clearance_request=security_clearance_request_dto)
+        security_service.create_clearance()
+
+        self.create_board_decision()
+        all_tasks = Task.objects.filter(
+            activity__process__document_number=self.document_number)
+        statuses = [task.status for task in all_tasks]
+        self.assertEqual(all_tasks.count(), 3)
+        self.assertTrue('NEW' in statuses)
+        self.assertTrue('CLOSED' in statuses)
+
+        application_decision = ApplicationDecision.objects.all()
+        self.assertGreater(application_decision.count(), 0)
+
+        renewal_application_dto = RenewalApplicationDTO(
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+            applicant_identifier=self.application.application_document.applicant.user_identifier,
+            document_number=self.document_number)
+        renewal_application_dto.work_place = "01"
+
+        renewal_service = RenewalApplicationService(renewal_application=renewal_application_dto)
+        renewal_service.process_renewal()
+
+        application_renewal = ApplicationRenewal.objects.filter(
+            previous_application__application_document__document_number=self.document_number)
+
+        self.assertGreater(application_renewal.count(), 0)
+
+    def test_workpermit_submission_when_vetting_task_should_not_exists(self):
+        """
+        Check if all tasks created, the vetting task should be created.
+        """
+        app_verification = ApplicationVerificationRequest()
+        app_verification.comment = "Testing"
+        app_verification.decision = "REJECTED"
+        app_verification.outcome_reason = "UNKNOW"
+
+        user = User.objects.create_user(
+            username='test',
+            email='test@example.com',
+            password='test@test',
+            phone_number="0026775700544"
+        )
+        user.first_name = 'test'
+        user.last_name = 'test'
+        user.save()
+
+        work_resident_permit_application = WorkResidentPermitApplication(
+            document_number=self.document_number,
+            verification_request=app_verification,
+            user=user
+        )
+
+        response = work_resident_permit_application.submit()
+        message = "Application has been submitted successfully."
+        status = message in [message.get("details") for message in response.messages]
+        self.assertTrue(status)
+
+        work_resident_permit_application.submit_verification()
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 1)
+
+        statuses = [task.status for task in Task.objects.filter(
+            activity__process__document_number=self.document_number)]
+        self.assertTrue('CLOSED' in statuses)

@@ -6,3 +6,4 @@ from .application_user import ApplicationUser
 from .application_base_model import ApplicationBaseModel
 from .application_verification import ApplicationVerification
 from .application_renewal import ApplicationRenewal
+from .application_renewal_history import ApplicationRenewalHistory

@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 
 from app.models import (Application, ApplicationStatus, ApplicationDocument, ApplicationVersion, ApplicationUser,
-                        ApplicationVerification
+                        ApplicationVerification, ApplicationRenewalHistory
                         )
 from board.models import BoardDecision
 from workresidentpermit.models import SecurityClearance
@@ -118,3 +118,14 @@ class ApplicationRenewalDTOSerializer(serializers.Serializer):
     applicant_identifier = serializers.CharField(max_length=200, required=True)
     document_number = serializers.CharField(max_length=200, required=True)
 
+
+class ApplicationRenewalHistorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ApplicationRenewalHistory
+        fields = (
+            "application_type",
+            "comment",
+            "process_name",
+            "historical_record"
+        )

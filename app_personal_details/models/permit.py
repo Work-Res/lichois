@@ -13,3 +13,4 @@ class Permit(ApplicationBaseModel):
 
 	class Meta:
 		verbose_name = 'Permit'
+

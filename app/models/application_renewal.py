@@ -18,3 +18,11 @@ class ApplicationRenewal(BaseUuidModel):
 
     class Meta:
         app_label = 'app'
+
+
+    # previous_application
+
+    # 1. app1  | user_identifier && application_type
+    # 2. app2  ApplicationRenewal(app1, app2) --> app1: document_number ( previous ) | user_identifier
+    # 3. app3  ApplicationRenewal(app2, app3) -->  app2: document_number     |  user_identifier
+    #  Create api for revisions

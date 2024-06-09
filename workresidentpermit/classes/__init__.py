@@ -9,3 +9,4 @@ from .work_resident_permit_application_decision_service import WorkResidentPermi
 from .data_helper import DataHelper
 from .data_processor_work_permit import DataProcessorWorkPermit
 from .generate_production_permit_pdf import GenerateProductionPermitPDF
+from .work_resident_permit_renewal_history_service import WorkResidentPermitRenewalHistoryService

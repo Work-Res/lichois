@@ -85,7 +85,8 @@
                 "create_rules": {
                   "previous_status": "VERIFICATION",
                   "current_status":  "VETTING",
-                  "next_activity_name": "FINAL_DECISION"
+                  "next_activity_name": "FINAL_DECISION",
+                  "previous_business_decision": "ACCEPTED"
                 }
               },{
                 "code":  "FINAL_DECISION",
@@ -111,7 +112,8 @@
                 "create_rules": {
                   "previous_status": "FINAL_DECISION",
                   "current_status":  "PERMIT_CANCELLATION",
-                  "next_activity_name": "END"
+                  "next_activity_name": "END",
+                  "previous_business_decision": "ACCEPTED"
                 }
               }
             ]

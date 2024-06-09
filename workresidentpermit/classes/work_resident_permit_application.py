@@ -72,6 +72,9 @@ class WorkResidentPermitApplication:
             self.application.save()
             source_data.current_status = application_status.code.upper()
             source_data.next_activity_name = WorkflowEnum.FINAL_DECISION.value
+            print("application_decision_type.code application_decision_type.code: ", application_decision_type.code)
+            source_data.previous_business_decision = application_decision_type.code.upper()
+
             self.logger.info("Application has been submitted successfully.")
             self.response.messages.append(
                 APIMessage(

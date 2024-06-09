@@ -7,7 +7,7 @@ from django.db import models, transaction
 from pathlib import Path
 
 from app.api.common.web import APIResponse, APIMessage
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatuses, ApplicationProcesses
 from .pre_pupolation_service import PrePopulationService
 from .create_new_application_service import CreateNewApplicationService
 
@@ -113,13 +113,15 @@ class RenewalApplicationService(object):
         """
         Prepare the DTO for the new application based on the previous application data.
         """
-        new_application_dto = NewApplicationDTO()
-        new_application_dto.status = ApplicationStatuses.NEW.value
-        new_application_dto.applicant_identifier = self.renewal_application.applicant_identifier
-        new_application_dto.proces_name = self.renewal_application.proces_name
-        new_application_dto.dob = self.previous_application.application.application_document.applicant.dob
-        new_application_dto.full_name = self.previous_application.application.application_document.applicant.full_name
-        new_application_dto.application_type = self.previous_application.application.application_type
+        new_application_dto = NewApplicationDTO(
+            process_name=self.renewal_application.proces_name,
+            applicant_identifier=self.renewal_application.applicant_identifier,
+            status=ApplicationStatuses.NEW.value
+        )
+        new_application_dto.dob = self.previous_application.application_document.applicant.dob
+        new_application_dto.full_name = self.previous_application.application_document.applicant.full_name
+        new_application_dto.application_type = self.previous_application.application_type
+        new_application_dto.work_place = self.renewal_application.work_place
         return new_application_dto
 
     @transaction.atomic()
