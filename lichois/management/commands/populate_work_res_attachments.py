@@ -1,19 +1,12 @@
 import random
 
 from django.core.management.base import BaseCommand
-from django.db.transaction import atomic
-from app.api import NewApplicationDTO
-from app.classes import CreateNewApplicationService
-from app.models import Application, ApplicationDocument, ApplicationStatus
+from app.models import  ApplicationDocument
 from app_attachments.models import ApplicationAttachment, ApplicationAttachmentVerification, AttachmentDocumentType
-from app_personal_details.models import Passport, Person
-from app_address.models import ApplicationAddress, Country
-from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
 from authentication.models import User
-from workresidentpermit.models import ResidencePermit, WorkPermit
 
 
 class Command(BaseCommand):

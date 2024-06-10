@@ -9,7 +9,7 @@ from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal, PermitCancellation
+from workresidentpermit.models import EmergencyPermit, ExemptionCertificate
 
 
 class Command(BaseCommand):
@@ -17,6 +17,13 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
+		ApplicationStatus.objects.get_or_create(
+			code='new',
+			name='New',
+			processes='WORK_RESIDENT_PERMIT',
+			valid_from='2024-01-01',
+			valid_to='2026-12-31',
+		)
 		# ApplicationStatus.objects.get_or_create(
 		# 	code='new',
 		# 	name='New',
@@ -24,25 +31,26 @@ class Command(BaseCommand):
 		# 	valid_from='2024-01-01',
 		# 	valid_to='2026-12-31',
 		# )
-		for _ in range(150):
-			fname = faker.unique.first_name(),
-			lname = faker.unique.last_name()
+		for _ in range(50):
 			with atomic():
+				fname = faker.unique.first_name(),
+				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
-					application_type='CANCELLATION_PERMIT',
+					application_type='EMERGENCY_PERMIT',
 					process_name='WORK_RESIDENT_PERMIT',
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',
 					work_place=randint(1000, 9999),
-					full_name=f'{fname} {lname}',
+					full_name=f'{fname} {lname}'
 				)
-				self.stdout.write(self.style.SUCCESS('Populating appeal data...'))
+				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
 				app = CreateNewApplicationService(new_application=new_app)
 				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
 				version = app.create()
 				Person.objects.get_or_create(
 					application_version=version,
+					document_number=app.application_document.document_number,
 					first_name=fname,
 					last_name=lname,
 					dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
@@ -92,10 +100,27 @@ class Command(BaseCommand):
 					photo=faker.image_url(),
 				)
 				
-				PermitCancellation.objects.get_or_create(
-					application_version=version,
-					document_number=app.application_document.document_number,
-					cancellation_reasons=faker.sentence(),
-				)
+				if new_app.application_type == 'EMERGENCY_PERMIT':
+					EmergencyPermit.objects.get_or_create(
+						document_number=app.application_document.document_number,
+						application_version=version,
+						nature_emergency=faker.random_element(elements=('fire', 'flood', 'earthquake', 'tsunami')),
+						job_requirements=faker.job(),
+						services_provided=faker.text(),
+						chief_authorization=faker.name(),
+						capacity=faker.random_element(elements=('full-time', 'part-time', 'contract', 'volunteer'))
+					)
+				else:
+					ExemptionCertificate.objects.get_or_create(
+						document_number=app.application_document.document_number,
+						application_version=version,
+						business_name=faker.company(),
+						employment_capacity=faker.job(),
+						proposed_period=randint(1, 12),
+						status=faker.random_element(elements=('approved', 'rejected', 'pending')),
+						applicant_signature=faker.text(),
+						application_date=faker.date_this_century(),
+						commissioner_signature=faker.name(),
+					)
 				
 				self.stdout.write(self.style.SUCCESS('Successfully populated data'))

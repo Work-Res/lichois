@@ -26,23 +26,26 @@ class Command(BaseCommand):
         )
 
         for _ in range(250):
+            fname = faker.unique.first_name(),
+            lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
                     process_name='WORK_RESIDENT_PERMIT',
-                    application_type=faker.random_element(elements=('WORK_RESIDENT_PERMIT', 'RENEWAL_PERMIT')),
+                    application_type=faker.random_element(elements=('WORK_RESIDENT_PERMIT', 'RENEWAL_PERMIT',
+                                                                    'REPLACEMENT_PERMIT')),
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
-                    status='new',
+                    status='verification',
                     dob='1990-06-10',
                     work_place=randint(1000, 9999),
-                    full_name=faker.name(),
+                    full_name=f'{fname} {lname}',
                 )
                 self.stdout.write(self.style.SUCCESS('Populating data...'))
                 app = CreateNewApplicationService(new_application=new_app)
                 version = app.create()
                 Person.objects.get_or_create(
                     application_version=version,
-                    first_name=faker.unique.first_name(),
-                    last_name=faker.unique.last_name(),
+                    first_name=fname,
+                    last_name=lname,
                     dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
                     middle_name=faker.first_name(),
                     marital_status=faker.random_element(elements=('single', 'married', 'divorced')),

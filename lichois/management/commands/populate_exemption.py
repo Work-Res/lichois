@@ -33,14 +33,16 @@ class Command(BaseCommand):
 		# )
 		for _ in range(50):
 			with atomic():
+				fname = faker.unique.first_name(),
+				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
-					application_type=faker.random_element(elements=('EMERGENCY_PERMIT', 'EXEMPTION_PERMIT')),
+					application_type='EXEMPTION_PERMIT',
 					process_name='WORK_RESIDENT_PERMIT',
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
-					status='new',
+					status='verification',
 					dob='1990-06-10',
 					work_place=randint(1000, 9999),
-					full_name=faker.name(),
+					full_name=f'{fname} {lname}'
 				)
 				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
 				app = CreateNewApplicationService(new_application=new_app)
@@ -48,8 +50,9 @@ class Command(BaseCommand):
 				version = app.create()
 				Person.objects.get_or_create(
 					application_version=version,
-					first_name=faker.unique.first_name(),
-					last_name=faker.unique.last_name(),
+					document_number=app.application_document.document_number,
+					first_name=fname,
+					last_name=lname,
 					dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
 					middle_name=faker.first_name(),
 					marital_status=faker.random_element(elements=('single', 'married', 'divorced')),
@@ -97,27 +100,16 @@ class Command(BaseCommand):
 					photo=faker.image_url(),
 				)
 				
-				if new_app.application_type == 'EMERGENCY_PERMIT':
-					EmergencyPermit.objects.get_or_create(
-						document_number=app.application_document.document_number,
-						application_version=version,
-						nature_emergency=faker.random_element(elements=('fire', 'flood', 'earthquake', 'tsunami')),
-						job_requirements=faker.job(),
-						services_provided=faker.text(),
-						chief_authorization=faker.name(),
-						capacity=faker.random_element(elements=('full-time', 'part-time', 'contract', 'volunteer'))
-					)
-				else:
-					ExemptionCertificate.objects.get_or_create(
-						document_number=app.application_document.document_number,
-						application_version=version,
-						business_name=faker.company(),
-						employment_capacity=faker.job(),
-						proposed_period=randint(1, 12),
-						status=faker.random_element(elements=('approved', 'rejected', 'pending')),
-						applicant_signature=faker.text(),
-						application_date=faker.date_this_century(),
-						commissioner_signature=faker.name(),
-					)
+				ExemptionCertificate.objects.get_or_create(
+					document_number=app.application_document.document_number,
+					application_version=version,
+					business_name=faker.company(),
+					employment_capacity=faker.job(),
+					proposed_period=randint(1, 12),
+					status=faker.random_element(elements=('approved', 'rejected', 'pending')),
+					applicant_signature=faker.text(),
+					application_date=faker.date_this_century(),
+					commissioner_signature=faker.name(),
+				)
 				
 				self.stdout.write(self.style.SUCCESS('Successfully populated data'))
