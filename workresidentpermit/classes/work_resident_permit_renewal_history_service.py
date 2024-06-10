@@ -1,16 +1,12 @@
+import json
+
 from datetime import datetime
 
 from app.models import ApplicationUser, ApplicationRenewalHistory
 
 from app_personal_details.models import Permit
 
-
-class HistoryRecord:
-
-    def __init__(self, created, data, modified=None):
-        self.created = created
-        self.modified = modified
-        self.data = data
+from .historical_record import PermitData, historical_record_to_dict, permit_data_to_dict, HistoricalRecord
 
 
 class WorkResidentPermitRenewalHistoryService:
@@ -34,22 +30,47 @@ class WorkResidentPermitRenewalHistoryService:
         else:
             return permit
 
-    def prepare_historical_records(self):
+    def prepare_historical_records_to_json(self):
         """
-        TODO: To handle for multiple recordss
+        TODO: To handle for multiple records
         :return:
         """
         permit = self.get_previous_permit()
-        history_obj_json = permit.__dict__ if permit else {} # ??empty historical record???
-        records = HistoryRecord(
-            created=datetime.now(),
-            data=history_obj_json
+        # current permit..
+        permit_obj = permit.to_dataclass()
+        # get the existings
+
+        application_renewal_history = ApplicationRenewalHistory.objects.get(
+            application_type=self.application_type,
+            application_user=self.application_user,
+            process_name=self.process_name
         )
-        return records.__dict__
+        existing_historical_data = self.json_to_historical_record(
+            json_str=application_renewal_history.historical_record)
+        existing_historical_data.data.append(permit_obj)
+
+        return existing_historical_data
+
+    def dict_to_permit_data(self, permit_dict: dict) -> PermitData:
+        return PermitData(
+            permit_type=permit_dict['permit_type'],
+            permit_no=permit_dict['permit_no'],
+            date_issued=datetime.fromisoformat(permit_dict['date_issued']).date(),
+            date_expiry=datetime.fromisoformat(permit_dict['date_expiry']).date(),
+            place_issue=permit_dict['place_issue']
+        )
+
+    def json_to_historical_record(self, json_str: str) -> HistoricalRecord:
+        record_dict = json.loads(json_str)
+        permits = [self.dict_to_permit_data(permit) for permit in record_dict['data']]
+        return HistoricalRecord(
+            created=record_dict['created'],
+            data=permits
+        )
 
     def create_application_renewal_history(self):
 
-        historical = ApplicationRenewalHistory.objects.get_or_create(
+        historical = ApplicationRenewalHistory.objects.update_or_create(
             application_type=self.application_type,
             application_user=self.application_user,
             process_name=self.process_name,
@@ -57,7 +78,7 @@ class WorkResidentPermitRenewalHistoryService:
                 "application_type": self.application_type,
                 "application_user": self.application_user,
                 "process_name": self.process_name,
-                "historical_record": self.prepare_historical_records()
+                "historical_record": historical_record_to_dict(self.prepare_historical_records())
             }
         )
         return historical
