@@ -43,6 +43,7 @@ class Command(BaseCommand):
 				version = app.create()
 				Person.objects.get_or_create(
 					application_version=version,
+					document_number=app.application_document.document_number,
 					first_name=fname,
 					last_name=lname,
 					dob=faker.date_of_birth(minimum_age=18, maximum_age=65),

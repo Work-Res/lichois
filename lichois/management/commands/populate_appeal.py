@@ -45,6 +45,7 @@ class Command(BaseCommand):
 					application_version=version,
 					first_name=fname,
 					last_name=lname,
+					document_number=app.application_document.document_number,
 					dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
 					middle_name=faker.first_name(),
 					marital_status=faker.random_element(elements=('single', 'married', 'divorced')),
