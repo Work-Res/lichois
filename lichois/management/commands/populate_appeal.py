@@ -25,7 +25,7 @@ class Command(BaseCommand):
 		# 	valid_to='2026-12-31',
 		# )
 		for _ in range(150):
-			fname = faker.unique.first_name(),
+			fname = faker.unique.first_name()
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(

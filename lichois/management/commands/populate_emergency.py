@@ -33,7 +33,7 @@ class Command(BaseCommand):
 		# )
 		for _ in range(50):
 			with atomic():
-				fname = faker.unique.first_name(),
+				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
 					application_type='EMERGENCY_PERMIT',

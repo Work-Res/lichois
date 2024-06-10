@@ -46,7 +46,7 @@ class CreateNewApplicationService(object):
             print("Record already exists.")
             return None  # Avoid continuing
 
-        application_status = self.get_application_status()
+        application_status = self.application.status or self.get_application_status()
         print("application_status: ", application_status)
 
         if self.create_application_document():
