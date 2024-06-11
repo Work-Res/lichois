@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 from board.choices import ENDED
+from board.classes.voting_decision_manager import VotingDecisionManager
 from board.models import BoardDecision, VotingProcess
 
 from workresidentpermit.classes import WorkResidentPermitApplicationDecisionService
@@ -32,7 +33,11 @@ def create_board_decision(sender, instance, created, **kwargs):
 	# if updated then update the board decision
 	try:
 		if instance.status == ENDED:
-			pass
+			service = VotingDecisionManager(
+				document_number=instance.document_number,
+				board_meeting=instance.board_meeting
+			)
+			service.create_board_decision()
 	except SystemError as e:
 		logger.error("SystemError: An error occurred while creating new board decision, Got ", e)
 	except Exception as ex:
