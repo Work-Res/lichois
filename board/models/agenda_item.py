@@ -11,4 +11,4 @@ class AgendaItem(BaseUuidModel):
 	agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
 	
 	def __str__(self):
-		return f'AgendaItem {self.item_name} for Agenda {self.agenda_id}'
+		return f'AgendaItem {self.item_name} for Agenda {self.item_description}'
