@@ -17,8 +17,7 @@ class BoardMeeting(BaseUuidModel):
 	location = models.CharField(max_length=200)
 	
 	def __str__(self):
-		return (f'{self.meeting_type},  {self.meeting_date},'
-		        f'{self.board_id}')
+		return f'{self.title},  {self.meeting_date}'
 	
 	class Meta:
 		app_label = 'board'

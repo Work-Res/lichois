@@ -1,5 +1,9 @@
 PRESENT = 'present'
 ABSENT = 'absent'
+ENDED = 'ended'
+STARTED = 'started'
+APPROVED = 'approved'
+REJECTED = 'rejected'
 
 ATTENDANCE_STATUS = (
     (ABSENT, 'Absent'),
@@ -38,13 +42,13 @@ AGENDA_STATUS = (
 
 
 VOTE_STATUS = (
-	('approved', 'Approved'),
-	('rejected', 'Rejected'),
+	(APPROVED, 'Approved'),
+	(REJECTED, 'Rejected'),
 )
 
 VOTING_PROCESS_STATUS = (
-	('started', 'Started'),
-	('ended', 'Ended'),
+	(STARTED, 'Started'),
+	(ENDED, 'Ended'),
 )
 
 BOARD_RESOLUTION = (
