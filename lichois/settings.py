@@ -158,39 +158,39 @@ USE_I18N = True
 
 USE_TZ = True
 
-AUTH_LDAP_ALWAYS_UPDATE_USER = True
-AUTH_LDAP_FIND_GROUP_PERMS = True
-AUTH_LDAP_CACHE_TIMEOUT = 3600
-
-AUTH_LDAP_SERVER_URI = 'ldap://138.68.175.109:389'
-AUTH_LDAP_BIND_DN = 'cn=admin,dc=africort,dc=com'
-AUTH_LDAP_BIND_PASSWORD = 'africort@321'
-AUTH_LDAP_USER_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(objectClass=posixGroup)')
-AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
-AUTH_LDAP_MIRROR_GROUPS = True
-# AUTH_LDAP_START_TLS = True
-
-# Populate the Django user from the LDAP directory.
-AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=africort,dc=com"
-AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=africort,dc=com"
-
-AUTH_LDAP_USER_ATTR_MAP = {
-	"first_name": "givenName",
-	"last_name": "sn",
-	"email": "mail",
-	"username": "uid",
-	"password": "userPassword",
-}
-AUTH_LDAP_PROFILE_ATTR_MAP = {
-	"home_directory": "homeDirectory"
-}
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-	"is_active": "cn=active,ou=groups,dc=africort,dc=com",
-	"is_staff": "cn=staff,ou=groups,dc=africort,dc=com",
-	"is_superuser": "cn=superuser,ou=groups,dc=africort,dc=com",
-	"verification_1": "cn=Verification,ou=groups,dc=africort,dc=com"
-}
+# AUTH_LDAP_ALWAYS_UPDATE_USER = True
+# AUTH_LDAP_FIND_GROUP_PERMS = True
+# AUTH_LDAP_CACHE_TIMEOUT = 3600
+#
+# AUTH_LDAP_SERVER_URI = 'ldap://138.68.175.109:389'
+# AUTH_LDAP_BIND_DN = 'cn=admin,dc=africort,dc=com'
+# AUTH_LDAP_BIND_PASSWORD = 'africort@321'
+# AUTH_LDAP_USER_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
+# AUTH_LDAP_GROUP_SEARCH = LDAPSearch('dc=africort,dc=com', ldap.SCOPE_SUBTREE, '(objectClass=posixGroup)')
+# AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
+# AUTH_LDAP_MIRROR_GROUPS = True
+# # AUTH_LDAP_START_TLS = True
+#
+# # Populate the Django user from the LDAP directory.
+# AUTH_LDAP_REQUIRE_GROUP = "cn=active,ou=groups,dc=africort,dc=com"
+# AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=groups,dc=africort,dc=com"
+#
+# AUTH_LDAP_USER_ATTR_MAP = {
+# 	"first_name": "givenName",
+# 	"last_name": "sn",
+# 	"email": "mail",
+# 	"username": "uid",
+# 	"password": "userPassword",
+# }
+# AUTH_LDAP_PROFILE_ATTR_MAP = {
+# 	"home_directory": "homeDirectory"
+# }
+# AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+# 	"is_active": "cn=active,ou=groups,dc=africort,dc=com",
+# 	"is_staff": "cn=staff,ou=groups,dc=africort,dc=com",
+# 	"is_superuser": "cn=superuser,ou=groups,dc=africort,dc=com",
+# 	"verification_1": "cn=Verification,ou=groups,dc=africort,dc=com"
+# }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -231,7 +231,7 @@ REST_FRAMEWORK = {
 		'rest_framework.filters.OrderingFilter'
 	],
 	'DEFAULT_PERMISSION_CLASSES': (
-		# 'rest_framework.permissions.IsAuthenticated',
+		'rest_framework.permissions.IsAuthenticated',
 	),
 	'DEFAULT_AUTHENTICATION_CLASSES': (
 		'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -244,7 +244,7 @@ REST_FRAMEWORK = {
 AUTHENTICATION_BACKENDS = (
 	# 'django_auth_ldap.backend.LDAPBackend',
 	'django.contrib.auth.backends.ModelBackend',
-	'rules.permissions.ObjectPermissionBackend',
+	# 'rules.permissions.ObjectPermissionBackend',
 )
 
 LOGGING = {
