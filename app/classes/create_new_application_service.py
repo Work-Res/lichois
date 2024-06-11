@@ -6,6 +6,7 @@ from sys import stdout
 from app.api.common.web import APIResponse, APIMessage
 from app.api import NewApplicationDTO
 from app.identifiers import WorkResidentPermitIdentifier
+from app.identifiers.work_resident_identifier import ResidentPermitIdentifier, WorkPermitIdentifier
 from app.utils import ApplicationProcesses, ApplicationStatuses
 from app.api.serializers import ApplicationVersionSerializer
 
@@ -103,6 +104,14 @@ class CreateNewApplicationService(object):
 			work_identifier = WorkResidentPermitIdentifier(
 				address_code=self.application.work_place, dob=self.application.dob)
 			return work_identifier.identifier
+		elif self.application.proces_name == ApplicationProcesses.WORK_PERMIT.value:
+			work_identifier = WorkPermitIdentifier(
+				address_code=self.application.work_place, dob=self.application.dob)
+			return work_identifier.identifier
+		elif self.application.proces_name == ApplicationProcesses.RESIDENT_PERMIT.value:
+			resident_identifier = ResidentPermitIdentifier(
+				address_code=self.application.work_place, dob=self.application.dob)
+			return resident_identifier.identifier
 		else:
 			self.logger.debug(" application process: %s does not match to any configured application "
 			                  "processes. ", self.application.proces_name)

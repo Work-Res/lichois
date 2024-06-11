@@ -22,6 +22,7 @@ class VotingDecisionManager(object):
 			self.logger.error(f"No votes have been cast for {self.document_number}")
 		elif total_approved == total_rejected:
 			self.logger.info(f"Chairperson has to break the tie, no board decision")
+			raise Exception("Chairperson has to break the tie, no board decision")
 		elif total_approved > total_rejected:
 			return APPROVED
 		elif total_approved < total_rejected:
@@ -48,19 +49,19 @@ class VotingDecisionManager(object):
 			return self._security_clearance
 	
 	def create_board_decision(self):
-		voting_decision_outcome = self._create_voting_decision()
-		security_clearance = self.security_clearance()
-		if voting_decision_outcome:
-			try:
-				self._board_decision = BoardDecision.objects.get(
-					assessed_application__application_document__document_number=self.document_number
-				)
-			except BoardDecision.DoesNotExist:
+		try:
+			self._board_decision = BoardDecision.objects.get(
+				assessed_application__application_document__document_number=self.document_number
+			)
+		except BoardDecision.DoesNotExist:
+			voting_decision_outcome = self._create_voting_decision()
+			security_clearance = self.security_clearance()
+			if voting_decision_outcome:
 				self._board_decision = BoardDecision.objects.create(
 					assessed_application__application_document__document_number=self.document_number,
 					decision_outcome=voting_decision_outcome,
 					board_meeting=self.board_meeting,
 					vetting_outcome=security_clearance.status.code.lower()
 				)
-			finally:
-				return self._board_decision
+		finally:
+			return self._board_decision

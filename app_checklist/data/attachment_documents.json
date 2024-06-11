@@ -77,7 +77,7 @@
               }, {
                 "code":  "VETTING",
                 "name":  "Security clearance",
-                "description": "Second level of verification completed by officers.",
+                "description": "Second level of verification completed by security officers.",
                 "mandatory": false,
                 "sequence": 2,
                 "valid_from": "2024-01-01",
@@ -118,6 +118,7 @@
               }
             ]
     },
+
     "office_locations": {
             "code": "OFFICE_LOCATION",
             "name": "Office Locations",
