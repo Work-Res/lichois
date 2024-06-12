@@ -4,8 +4,8 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 
 from app.api.common.web import APIMessage
-from ..choices import APPROVED
-from ..models import BoardMeeting, BoardMember, MeetingInvitation
+from ..choices import APPROVED, PRESENT
+from ..models import BoardMeeting, BoardMember, MeetingAttendee, MeetingInvitation
 from ..serializers import BoardMeetingSerializer
 
 
@@ -42,11 +42,11 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 			)
 			raise PermissionDenied(api_message.to_dict())
 		meetings = []
-		meeting_invitations = MeetingInvitation.objects.filter(
-			invited_user=board_member,
-			status=APPROVED)
-		for invitation in meeting_invitations:
-			meetings.append(invitation.board_meeting)
+		meeting_attendees = MeetingAttendee.objects.filter(
+			board_member=board_member,
+			attendance_status=PRESENT)
+		for meeting_attendee in meeting_attendees:
+			meetings.append(meeting_attendee.meeting)
 		
 		# oder by start date
 		meetings.sort(key=lambda x: x.meeting_date)
