@@ -10,7 +10,7 @@ from ..serializers import BoardMeetingSerializer
 
 
 class BoardMeetingViewSet(viewsets.ModelViewSet):
-	queryset = BoardMeeting.objects.all()
+	queryset = BoardMeeting.objects.all().order_by('start_date')
 	serializer_class = BoardMeetingSerializer
 	
 	def get_queryset(self):
@@ -47,6 +47,9 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 			status=APPROVED)
 		for invitation in meeting_invitations:
 			meetings.append(invitation.board_meeting)
+		
+		# oder by start date
+		meetings.sort(key=lambda x: x.start_date)
 		return Response(data=BoardMeetingSerializer(meetings, many=True).data)
 	
 	
