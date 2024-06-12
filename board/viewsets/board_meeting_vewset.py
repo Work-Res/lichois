@@ -4,6 +4,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 
 from app.api.common.web import APIMessage
+from ..choices import APPROVED
 from ..models import BoardMeeting, BoardMember, MeetingInvitation
 from ..serializers import BoardMeetingSerializer
 
@@ -29,7 +30,7 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 		queryset = BoardMeeting.objects.filter(board=board_member.board)
 		return queryset
 	
-	@action(detail=False, methods=['get'], url_path='accepted/',
+	@action(detail=False, methods=['get'], url_path='accepted',
 	        url_name='accepted')
 	def get_accepted_meeting(self):
 		board_member = BoardMember.objects.filter(user=self.request.user).first()
@@ -43,7 +44,7 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 		meetings = []
 		meeting_invitations = MeetingInvitation.objects.filter(
 			invited_user=board_member,
-			status='accepted')
+			status=APPROVED)
 		for invitation in meeting_invitations:
 			meetings.append(invitation.board_meeting)
 		return Response(data=BoardMeetingSerializer(meetings, many=True).data)

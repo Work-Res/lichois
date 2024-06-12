@@ -4,6 +4,7 @@ ENDED = 'ended'
 STARTED = 'started'
 APPROVED = 'approved'
 REJECTED = 'rejected'
+PENDING = 'pending'
 
 ATTENDANCE_STATUS = (
     (ABSENT, 'Absent'),
@@ -65,9 +66,9 @@ INTEREST_LEVEL = (
 )
 
 MEETING_INVITATION_STATUS = (
-	('approved', 'Approved'),
-	('rejected', 'Rejected'),
-	('pending', 'Pending'),
+	(APPROVED, 'Approved'),
+	(REJECTED, 'Rejected'),
+	(PENDING, 'Pending'),
 )
 
 
