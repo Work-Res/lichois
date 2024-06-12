@@ -32,7 +32,7 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 	
 	@action(detail=False, methods=['get'], url_path='accepted',
 	        url_name='accepted')
-	def get_accepted_meeting(self):
+	def get_accepted_meeting(self, request):
 		board_member = BoardMember.objects.filter(user=self.request.user).first()
 		if not board_member:
 			api_message = APIMessage(
