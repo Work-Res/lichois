@@ -12,6 +12,7 @@ class VotingProcessSerializer(serializers.ModelSerializer):
 			'board',
 			'status',
 			'document_number',
+			'board_meeting',
 		)
 	
 	def to_internal_value(self, data):

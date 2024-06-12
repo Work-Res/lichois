@@ -17,21 +17,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        ApplicationStatus.objects.get_or_create(
-            code='new',
-            name='New',
-            processes='WORK_RESIDENT_PERMIT',
-            valid_from='2024-01-01',
-            valid_to='2026-12-31',
-        )
 
         for _ in range(250):
             fname = faker.unique.first_name()
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    process_name='WORK_RESIDENT_PERMIT',
-                    application_type=faker.random_element(elements=('WORK_RESIDENT_PERMIT', 'RENEWAL_PERMIT',
+                    process_name='WORK_PERMIT',
+                    application_type=faker.random_element(elements=('WORK_PERMIT', 'RENEWAL_PERMIT',
                                                                     'REPLACEMENT_PERMIT')),
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
                     status='verification',
@@ -93,27 +86,7 @@ class Command(BaseCommand):
                     nationality=faker.country(),
                     photo=faker.image_url(),
                 )
-
-                ResidencePermit.objects.get_or_create(
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    language=faker.language_code(),
-                    permit_reason=faker.text(),
-                    previous_nationality=faker.country(),
-                    current_nationality=faker.country(),
-                    state_period_required=faker.date_this_century(),
-                    propose_work_employment=faker.random_element(elements=('yes', 'no')),
-                    reason_applying_permit=faker.random_element(elements=('dependent', 'volunteer', 'student',
-                                                                          'immigrant', 'missionary')),
-                    documentary_proof=faker.text(),
-                    travelled_on_pass=faker.text(),
-                    is_spouse_applying_residence=faker.random_element(elements=('yes', 'no')),
-                    ever_prohibited=faker.text(),
-                    sentenced_before=faker.text(),
-                    entry_place=faker.city(),
-                    arrival_date=faker.date_this_century(),
-                )
-
+    
                 WorkPermit.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,

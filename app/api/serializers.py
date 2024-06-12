@@ -94,7 +94,6 @@ class RenewalApplicationSerializer(serializers.Serializer):
 
 class ApplicationVerificationSerializer(serializers.ModelSerializer):
     decision = ApplicationDecisionTypeSerializer()
-    comment = CommentSerializer()
     outcome_reason = serializers.CharField(max_length=200, required=False, allow_blank=True)
 
     class Meta:

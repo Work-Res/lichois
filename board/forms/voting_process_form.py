@@ -9,4 +9,5 @@ class VotingProcessForm(forms.ModelForm):
 			'board',
 			'status',
 			'document_number',
+			'board_meeting',
 		)

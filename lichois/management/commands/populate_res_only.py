@@ -9,47 +9,37 @@ from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyPermit, ExemptionCertificate
+from workresidentpermit.models import ResidencePermit, WorkPermit
 
 
 class Command(BaseCommand):
-	help = 'Populate data for Populate data for Emergency & Exemption model'
+	help = 'Populate data for Work & Res Application model'
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		ApplicationStatus.objects.get_or_create(
-			code='new',
-			name='New',
-			processes='WORK_RESIDENT_PERMIT',
-			valid_from='2024-01-01',
-			valid_to='2026-12-31',
-		)
-		# ApplicationStatus.objects.get_or_create(
-		# 	code='new',
-		# 	name='New',
-		# 	processes='EMERGENCY_PERMIT',
-		# 	valid_from='2024-01-01',
-		# 	valid_to='2026-12-31',
-		# )
-		for _ in range(50):
+		
+		for _ in range(250):
+			fname = faker.unique.first_name()
+			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
-					application_type=faker.random_element(elements=('EMERGENCY_PERMIT', 'EXEMPTION_PERMIT')),
-					process_name='WORK_RESIDENT_PERMIT',
+					process_name='RESIDENT_PERMIT',
+					application_type=faker.random_element(elements=('RESIDENT_PERMIT', 'RENEWAL_PERMIT',
+					                                                'REPLACEMENT_PERMIT')),
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
-					status='new',
+					status='verification',
 					dob='1990-06-10',
 					work_place=randint(1000, 9999),
-					full_name=faker.name(),
+					full_name=f'{fname} {lname}',
 				)
-				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
+				self.stdout.write(self.style.SUCCESS('Populating data...'))
 				app = CreateNewApplicationService(new_application=new_app)
-				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
 				version = app.create()
 				Person.objects.get_or_create(
 					application_version=version,
-					first_name=faker.unique.first_name(),
-					last_name=faker.unique.last_name(),
+					document_number=app.application_document.document_number,
+					first_name=fname,
+					last_name=lname,
 					dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
 					middle_name=faker.first_name(),
 					marital_status=faker.random_element(elements=('single', 'married', 'divorced')),
@@ -60,7 +50,7 @@ class Command(BaseCommand):
 					qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd'))
 				)
 				country = Country.objects.create(name=faker.country()),
-				
+				# temp = Country.objects.filter(name=faker)
 				ApplicationAddress.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,
@@ -97,27 +87,36 @@ class Command(BaseCommand):
 					photo=faker.image_url(),
 				)
 				
-				if new_app.application_type == 'EMERGENCY_PERMIT':
-					EmergencyPermit.objects.get_or_create(
-						document_number=app.application_document.document_number,
-						application_version=version,
-						nature_emergency=faker.random_element(elements=('fire', 'flood', 'earthquake', 'tsunami')),
-						job_requirements=faker.job(),
-						services_provided=faker.text(),
-						chief_authorization=faker.name(),
-						capacity=faker.random_element(elements=('full-time', 'part-time', 'contract', 'volunteer'))
-					)
-				else:
-					ExemptionCertificate.objects.get_or_create(
-						document_number=app.application_document.document_number,
-						application_version=version,
-						business_name=faker.company(),
-						employment_capacity=faker.job(),
-						proposed_period=randint(1, 12),
-						status=faker.random_element(elements=('approved', 'rejected', 'pending')),
-						applicant_signature=faker.text(),
-						application_date=faker.date_this_century(),
-						commissioner_signature=faker.name(),
-					)
-				
+				WorkPermit.objects.get_or_create(
+					application_version=version,
+					document_number=app.application_document.document_number,
+					permit_status=faker.random_element(elements=('new', 'renewal')),
+					job_offer=faker.text(),
+					qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
+					years_of_study=faker.random_int(min=1, max=10),
+					business_name=faker.company(),
+					type_of_service=faker.text(),
+					job_title=faker.job(),
+					job_description=faker.text(),
+					renumeration=faker.random_int(min=10000, max=100000),
+					period_permit_sought=faker.random_int(min=1, max=10),
+					has_vacancy_advertised=faker.boolean(chance_of_getting_true=50),
+					have_funished=faker.boolean(chance_of_getting_true=50),
+					reasons_funished=faker.text(),
+					time_fully_trained=faker.random_int(min=1, max=10),
+					reasons_renewal_takeover=faker.text(),
+					reasons_recruitment=faker.text(),
+					labour_enquires=faker.text(),
+					no_bots_citizens=faker.random_int(min=1, max=10),
+					name=faker.name(),
+					educational_qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
+					job_experience=faker.text(),
+					take_over_trainees=faker.first_name(),
+					long_term_trainees=faker.first_name(),
+					date_localization=faker.date_this_century(),
+					employer=faker.company(),
+					occupation=faker.job(),
+					duration=faker.random_int(min=1, max=10),
+					names_of_trainees=faker.first_name(),
+				)
 				self.stdout.write(self.style.SUCCESS('Successfully populated data'))
