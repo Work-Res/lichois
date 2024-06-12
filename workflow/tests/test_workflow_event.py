@@ -24,10 +24,14 @@ def application(status):
 class TestWorkFlowEvent(TestCase):
 
     def create_data(self):
-        file_name = "attachment_documents.json"
-        output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklistService()
-        create.create(file_location=output_file)
+        file_name = "work_resident_permit.json"
+        output_file = os.path.join(os.getcwd(), "app_checklist", "data", "workflow", file_name)
+        service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
+                                         foreign_name="classifier",
+                                         parent_app_label_model_name="app_checklist.classifier",
+                                         foreign_app_label_model_name="app_checklist.classifieritem")
+
+        service.create(file_location=output_file)
 
         applicant = ApplicationUser(
             full_name="Test test",

@@ -36,7 +36,7 @@ class ClassifierItemSerializer(serializers.ModelSerializer):
             'mandatory',
             'classifier',
             'sequence',
-            'create_rules',
+            'create_task_rules',
             'valid_from',
             'valid_to'
         )

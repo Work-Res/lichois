@@ -3,3 +3,4 @@ from .workflow_event import WorkflowEvent
 from .task_activation import TaskActivation
 from .task_deactivation import TaskDeActivation
 from .workflow_transaction import WorkflowTransition
+from .workflow_application import WorkflowApplication

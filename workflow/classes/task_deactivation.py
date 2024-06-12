@@ -33,7 +33,7 @@ class TaskDeActivation:
         for activity in activities:
             try:
                 task = Task.objects.get(activity=activity)
-                if workflow_close.test_rule(activity.name.upper(), self.source, activity.create_rules):
+                if workflow_close.test_rule(activity.name.upper(), self.source, activity.create_task_rules):
                     task.status = TaskStatus.CLOSED.value
                     task.save()
                     self.logger.info(f"The task {task.id} has been closed. ")

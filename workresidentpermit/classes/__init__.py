@@ -10,3 +10,5 @@ from .data_helper import DataHelper
 from .data_processor_work_permit import DataProcessorWorkPermit
 from .generate_production_permit_pdf import GenerateProductionPermitPDF
 from .work_resident_permit_renewal_history_service import WorkResidentPermitRenewalHistoryService
+from .production_generated_pdf_document_service import ProductionGeneratedPDFDocumentService
+

@@ -13,7 +13,9 @@ class TaskRuleEvaluator(object):
         self.logger = logging.getLogger(__name__)
         all_rules = []
         try:
+            print("conditions: ", conditions)
             rules = ast.literal_eval(conditions)
+            print("rules.items(): ", rules.items())
             for prop, value in rules.items():
                 if hasattr(source, prop):
                     if isinstance(getattr(source, prop), dict):
@@ -24,6 +26,7 @@ class TaskRuleEvaluator(object):
                 print("TaskRuleEvaluator.result: ", all(all_rules))
             return all(all_rules)
         except ValueError as e:
+            print(f"{e}")
             self.logger.debug("Failed to create rules from json string, got ", e)
 
     def __init__(self, source, rules):

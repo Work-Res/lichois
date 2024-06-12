@@ -33,7 +33,7 @@ class GenerateProductionPermitPDF:
 
             # Generate PDF
             self.logger.info(f"Starting PDF generation for document number {self.document_number}.")
-            self.pdf_generator.convert_html_to_pdf(
+            pdf_data = self.pdf_generator.convert_html_to_pdf(
                 context={"data": prepared_data},
                 file_location=self.file_location,
                 template_path="work-permit.html",
@@ -43,3 +43,6 @@ class GenerateProductionPermitPDF:
         except Exception as e:
             self.logger.error(f"An error occurred while generating the PDF: {e}")
             raise
+
+    def create_or_update_permit(self, pdf):
+        pass

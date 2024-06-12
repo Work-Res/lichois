@@ -1,0 +1,56 @@
+{
+  "classifiers": {
+    "workresidentpermit_workflow": {
+      "code": "WORK_RESIDENT_PERMIT",
+      "name": "Work Resident Permit Process",
+      "description": "Work Resident Permit Process Flow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "create_task_rules": {
+            "current_status": "NEW",
+            "system_verification": "validated",
+            "next_activity_name": "VETTING"
+          }
+        },
+        {
+          "code": "VETTING",
+          "name": "Security Clearance",
+          "description": "Security Vetting Task.",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "create_task_rules": {
+            "current_status": "VERIFICATION",
+            "next_activity_name": "FINAL_DECISION",
+            "verification_decision": "ACCEPTED"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Production Decision",
+          "description": "Permit Production Task",
+          "sequence": 3,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "create_task_rules": {
+            "board_decision": "ACCEPTED",
+            "security_clearance": "ACCEPTED",
+            "current_status": "VETTING",
+            "next_activity_name": "PERMIT_CANCELLATION"
+          }
+        }
+      ]
+    }
+  }
+}

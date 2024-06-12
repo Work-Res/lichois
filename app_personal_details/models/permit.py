@@ -21,6 +21,7 @@ class Permit(ApplicationBaseModel):
     date_issued = models.DateField()
     date_expiry = models.DateField()
     place_issue = models.CharField(max_length=190)
+    generated_pdf = models.FileField(upload_to="generated/", null=True, blank=True)
 
     def to_dataclass(self) -> PermitData:
         return PermitData(

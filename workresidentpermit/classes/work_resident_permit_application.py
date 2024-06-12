@@ -1,7 +1,5 @@
 import logging
 
-from datetime import date
-
 from app.models import Application, ApplicationStatus, ApplicationVerification
 from app_comments.models import Comment
 
@@ -13,6 +11,8 @@ from app_decision.models import ApplicationDecisionType
 
 from workflow.signals import create_or_update_task_signal
 from workflow.classes import WorkflowTransition, TaskDeActivation
+
+from workresidentpermit.workflow import VerificationTransactionData, VettingTransactionData
 
 from .crm_communication_api import CRMCommunicationApi
 
@@ -48,9 +48,7 @@ class WorkResidentPermitApplication:
         crm.send_aknowledgement()
         # WorkPermitApplicationPDFGenerator TODO: Review business needs
         with transaction.atomic():
-            source_data = WorkflowTransition(
-                previous_status=self.application.application_status.name.upper(),
-            )
+            workflow = VettingTransactionData()
             # Fixme add condition to check if comment is provided
             comment = None
             if self.verification_request.comment:
@@ -61,19 +59,14 @@ class WorkResidentPermitApplication:
                 )
             application_decision_type = ApplicationDecisionType.objects.get(
                 code__iexact=self.verification_request.decision)
+            workflow.verification_decision = application_decision_type.code.upper()
+
             ApplicationVerification.objects.create(
                 document_number=self.document_number,
                 comment=comment,
                 decision=application_decision_type,
                 outcome_reason=self.verification_request.outcome_reason
             )
-            application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatuses.VETTING.value)
-            self.application.application_status = application_status
-            self.application.save()
-            source_data.current_status = application_status.code.upper()
-            source_data.next_activity_name = WorkflowEnum.FINAL_DECISION.value
-            print("application_decision_type.code application_decision_type.code: ", application_decision_type.code)
-            source_data.previous_business_decision = application_decision_type.code.upper()
 
             self.logger.info("Application has been submitted successfully.")
             self.response.messages.append(
@@ -83,8 +76,8 @@ class WorkResidentPermitApplication:
                     details=f"Application has been submitted successfully.").to_dict()
             )
             self.response.data = ApplicationSerializer(self.application).data
-
-            create_or_update_task_signal.send(self.application, source=source_data, application=self.application)
+            # input decision
+            create_or_update_task_signal.send(self.application, source=workflow, application=self.application)
 
             self.logger.info(f"Verification process ended. {self.document_number}")
             task_deactivation = TaskDeActivation(
@@ -97,17 +90,14 @@ class WorkResidentPermitApplication:
 
     def submit(self):
         self.logger.info("Work resident submission process started.")
+        workflow = VerificationTransactionData()
+        workflow.system_verification = "validated"
         with transaction.atomic():
-            source_data = WorkflowTransition(
-                previous_status=self.application.application_status.name
-            )
-            application_status = ApplicationStatus.objects.get(code=ApplicationStatuses.VERIFICATION.value)
-            self.application.application_status = application_status
-            self.application.submission_date = date.today()
-            self.application.save()
-            source_data.current_status = application_status.code
-            source_data.next_activity_name = ApplicationStatuses.VETTING.value
             self.logger.info("Application has been submitted successfully.")
+            application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatuses.DRAFT.value)
+            self.application.application_status = application_status
+            self.application.save()
+
             self.response.messages.append(
                 APIMessage(
                     code=200,
@@ -117,10 +107,10 @@ class WorkResidentPermitApplication:
             self.response.data = ApplicationSerializer(self.application).data
             self.logger.info("Work resident submission process ended.")
 
-            create_or_update_task_signal.send_robust(sender=self.application, source=source_data, application=self.application)
+            create_or_update_task_signal.send_robust(sender=self.application, source=workflow,
+                                                     application=self.application)
             self.logger.debug("Task event signal completed")
             return self.response
 
     def cancel(self):
         pass
-    

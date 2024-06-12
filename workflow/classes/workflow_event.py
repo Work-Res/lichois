@@ -41,8 +41,7 @@ class WorkflowEvent(object):
                     process=self.bussiness_process,
                     sequence=item.sequence,
                     description=item.description,
-                    create_rules=item.create_rules,
-                    complete_rules={},
+                    create_task_rules=item.create_task_rules,
                     valid_from=date.today()
                 )
                 self.logger.debug(

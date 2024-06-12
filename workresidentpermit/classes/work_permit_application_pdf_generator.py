@@ -1,5 +1,7 @@
 import logging
 
+from datetime import date
+
 from app_pdf_utilities.classes import ConvertHtmlToPdf
 from .work_resident_permit_data import WorkResidentPermitData
 from .report_details import ReportDetails
@@ -12,6 +14,7 @@ class WorkPermitApplicationPDFGenerator:
 
     def __init__(self, work_resident_permit):
         self.work_resident_permit = work_resident_permit
+        self.pdf_date_string = date.today().strftime("%Y%m%d")
         self.logger = logging.getLogger("workresidentpermit")
 
     def prepare_application(self):
@@ -27,7 +30,7 @@ class WorkPermitApplicationPDFGenerator:
     def generate(self):
         self.logger.info("Preparing to generate summary PDF data.")
 
-        file_name = f"work_resident_permit_summary_{self.work_resident_permit.document_number}{self.EXT}"
+        file_name = f"{self.pdf_date_string}_{self.work_resident_permit.document_number}{self.EXT}"
 
         work_permit_data = WorkResidentPermitData(document_number=self.work_resident_permit.document_number)
         application_summary_data = work_permit_data.prepare()

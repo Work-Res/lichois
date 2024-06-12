@@ -13,7 +13,7 @@ class ClassifierItem(BaseUuidModel):
     mandatory = models.BooleanField(default=False)
     classifier = models.ForeignKey(Classifier, on_delete=models.CASCADE)
     sequence = models.IntegerField(blank=True, null=True)
-    create_rules = models.TextField()
+    create_task_rules = models.TextField()
     valid_from = models.DateField()
     valid_to = models.DateField()
 

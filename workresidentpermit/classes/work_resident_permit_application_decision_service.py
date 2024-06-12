@@ -14,6 +14,8 @@ from ..exceptions import WorkResidentPermitApplicationDecisionException
 from ..models import SecurityClearance
 from app.utils import ApplicationDecisionEnum, ApplicationStatuses, WorkflowEnum
 
+from workresidentpermit.workflow import ProductionTransactionData
+
 from app_decision.models import ApplicationDecision, ApplicationDecisionType
 
 
@@ -56,6 +58,7 @@ class WorkResidentPermitApplicationDecisionService:
     def create(self):
         is_security_clearance_accepted = False
         is_board_decision_taken = False
+        workflow = ProductionTransactionData()
 
         security_clearance = self.security_clearance()
         if security_clearance:
@@ -70,6 +73,8 @@ class WorkResidentPermitApplicationDecisionService:
         if is_security_clearance_accepted and is_board_decision_taken:
             decision_type = ApplicationDecisionEnum.ACCEPTED.value
             decision_status = "ACCEPTED"
+            workflow.board_decision = decision_status
+            workflow.security_clearance = decision_status
         elif self._board_decision and security_clearance:
             decision_type = ApplicationDecisionEnum.REJECTED.value
             decision_status = "REJECTED"
@@ -95,12 +100,13 @@ class WorkResidentPermitApplicationDecisionService:
             raise WorkResidentPermitApplicationDecisionException(error_message)
 
     @transaction.atomic()
-    def create_application_decision(self, proposed_decision):
+    def create_application_decision(self, proposed_decision: ApplicationDecisionType):
         ApplicationDecision.objects.create(
             final_decision_type=None,
             proposed_decision_type=proposed_decision,
             comment=self.comment
         )
+
         self.run_workflow(application=self._board_decision.assessed_application)
 
     def run_workflow(self, application: Application):

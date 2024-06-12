@@ -5,6 +5,7 @@ from typing import TypeVar
 from ..rules import workflow
 from ..models import Activity, Task
 from ..choices import TaskStatus, TaskPriority
+from .workflow_application import WorkflowApplication
 
 S = TypeVar('S')
 A = TypeVar('A')
@@ -18,7 +19,6 @@ class TaskActivation:
 
     def __init__(self, source: S, application: A, model: M):
         self.source = source
-        print(self.source.__dict__)
         self.application = application
         self.model = model
         self.logger = logging.getLogger('workflow')
@@ -31,7 +31,11 @@ class TaskActivation:
             process__name=self.application.process_name,
             process__document_number=self.application.application_document.document_number)
         for activity in activities:
-            if workflow.test_rule(activity.name.upper(), self.source, activity.create_rules):
+            self.source.current_status = self.application.application_status.code
+            self.source.next_activity_name = activity.next_activity_name
+
+            if workflow.test_rule(activity.name.upper(), self.source, activity.create_task_rules):
+                WorkflowApplication(application=self.application, application_status_code=activity.name.upper())
                 self.logger.info(
                     f"Attempting to create a new task for "
                     f"{activity.name} - {self.application.application_document.document_number}.")
@@ -53,3 +57,4 @@ class TaskActivation:
             )
             self.logger.info(f"New task has been created for "
                              f"{activity.name} - {self.application.application_document.document_number}.")
+
