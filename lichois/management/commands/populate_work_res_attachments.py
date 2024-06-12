@@ -17,7 +17,7 @@ class Command(BaseCommand):
 		apps = ApplicationDocument.objects.all()
 		verifier = User.objects.filter(username='tverification1').first()
 		for app in apps:
-			for _ in range(randint(3, 6) + 1):
+			for _ in range(randint(3, 4) + 1):
 				document_type = AttachmentDocumentType.objects.create(
 					code=faker.random_int(min=1000, max=9999),
 					name=faker.random_element(elements=(
