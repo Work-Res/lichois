@@ -12,12 +12,18 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
 	queryset = InterestDeclaration.objects.all()
 	serializer_class = InterestDeclarationSerializer
 	
-	@action(detail=False, methods=['get'], url_path='current-attendee/(?P<document_number>[A-Za-z0-9-]+)',)
-	def check_interest_declaration(self, request, document_number):
+	@action(
+		detail=False,
+		methods=['get'],
+		url_path='current-attendee/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)',)
+	def check_interest_declaration(self, request, document_number, meeting):
 		board_member = BoardMember.objects.filter(user=request.user).first()
 		if not board_member:
 			return Response(APIMessage(message='User is not a member of any board', code=400).to_dict())
-		meeting_attendee = MeetingAttendee.objects.filter(board_member=board_member, attendance_status=PRESENT).first()
+		meeting_attendee = MeetingAttendee.objects.filter(
+			board_member=board_member,
+			attendance_status=PRESENT,
+			meeting=meeting).first()
 		if not meeting_attendee:
 			return Response(APIMessage(message='User is not an attendee of board meeting', code=400).to_dict())
 		print(meeting_attendee, document_number)
