@@ -1,139 +1,94 @@
 import logging
-
 from datetime import date
-from sys import stdout
 
 from app.api.common.web import APIResponse, APIMessage
 from app.api import NewApplicationDTO
-from app.identifiers import WorkResidentPermitIdentifier
-from app.identifiers.work_resident_identifier import ResidentPermitIdentifier, WorkPermitIdentifier
-from app.utils import ApplicationProcesses, ApplicationStatuses
+from app.utils import ApplicationStatuses
 from app.api.serializers import ApplicationVersionSerializer
-
 from app.models import ApplicationDocument, ApplicationUser, ApplicationStatus, Application, ApplicationVersion
+from workresidentpermit.classes.document_generator import DocumentGenerator, DocumentGeneratorFactory
+from workresidentpermit.classes.work_res_application_repository import ApplicationRepository
 
 
-class CreateNewApplicationService(object):
-	"""Responsible for creating new application records based on given process name.
-
-        Attributes:
-            new_application (ApplicationUser): user applying for visa or resident permit e.t.c
-    """
+class ApplicationService:
+	"""
+	Service for creating new application records.
+	"""
 	
 	def __init__(self, new_application: NewApplicationDTO):
 		self.logger = logging.getLogger(__name__)
 		self.application = new_application
-		self.application_document = ApplicationDocument()
 		self.response = APIResponse()
+		self.application_document = ApplicationDocument()
 	
-	def create(self):
+	def create_application(self):
 		"""
-         Create new application records.
-        """
-		application_identifier = self.application.applicant_identifier
+		Create new application records.
+		"""
+		if self._is_existing_application():
+			return None
+		
+		application_status = self._get_application_status()
+		if not application_status:
+			return None
+		
+		if not self._create_application_document():
+			return None
+		
+		application = self._create_application_record(application_status)
+		application_version = self._create_application_version(application)
+		
+		serializer = ApplicationVersionSerializer(application_version)
+		self.response.data = serializer.data
+		
+		return application_version
+	
+	def _is_existing_application(self):
+		"""
+		Check if an application with a new status already exists for the applicant.
+		"""
 		status = ['new', 'draft', 'verification', 'vetting', 'committee_evaluation']
-		exits = Application.objects.filter(
-			application_status__code__in=status,
-			application_document__applicant__user_identifier=application_identifier)
-		if exits.exists():
-			api_message = APIMessage(
-				code=400,
-				message="Bad request",
-				details=f"An application with (NEW) status exists for applicant: {application_identifier}, complete the "
-				        f"existing before open new application"
+		existing_application = ApplicationRepository.get_existing_application(
+			self.application.applicant_identifier, status
+		)
+		
+		if existing_application.exists():
+			self._log_and_set_response(
+				400,
+				"Bad request",
+				f"An application with (NEW) status exists for applicant: {self.application.applicant_identifier}. Complete the existing application before opening a new one."
 			)
-			self.response.status = False
-			self.response.messages.append(api_message.to_dict())
-			print("Record already exists.")
-			return None  # Avoid continuing
-		
-		application_status = self.get_application_status()
-		print("application_status: ", application_status)
-		
-		if self.create_application_document():
-			print("create_application_document: ", self.create_application_document())
-			application = Application()
-			application.application_document = self.application_document
-			application.application_status = application_status
-			application.process_name = self.application.proces_name
-			application.application_type = self.application.application_type
-			application.last_application_version_id = 1
-			application.save()
-			
-			application_version = ApplicationVersion()
-			application_version.application = application
-			application_version.version_number = 1
-			application_version.save()
-			serializer = ApplicationVersionSerializer(application_version)
-			self.response.data = serializer.data
-			return application_version
+			return True
+		return False
 	
-	def get_application_status(self):
+	def _get_application_status(self):
 		"""
-        Get existing application status for a particular process.
-        """
+		Get the application status for the current process.
+		"""
 		try:
-			application_status = ApplicationStatus.objects.get(
-				code__iexact=self.application.status or ApplicationStatuses.NEW.value,
-				processes__icontains=self.application.proces_name,
-				# processes__icontains=self.application.proces_name,
-				# valid_from__lt=date.today() Fixme: Correct filtering
+			return ApplicationRepository.get_application_status(
+				self.application.status, self.application.proces_name
 			)
-			return application_status
 		except ApplicationStatus.DoesNotExist:
-			error_message = (
-				f"Application status ({self.application.status}) does not exist "
-				f"for process name {self.application.proces_name}. "
-				f"User identifier: {self.application.applicant_identifier}"
+			self._log_and_set_response(
+				400,
+				"Bad request",
+				f"Application status ({self.application.status}) does not exist for process name {self.application.proces_name}. User identifier: {self.application.applicant_identifier}"
 			)
-			self.logger.error(error_message)
-			api_message = APIMessage(
-				code=400,
-				message="Bad request",
-				details=f"The system failed to create application, failed to obtain application status with "
-				        f"status: {self.application.status} and for process name: {self.application.proces_name}."
-			)
-			self.response.status = False
-			self.response.messages.append(api_message.to_dict())
+			return None
 	
-	def generate_document(self):
+	def _get_or_create_application_user(self):
 		"""
-        Generate document based on given process.
-        """
-		if self.application.proces_name == ApplicationProcesses.WORK_RESIDENT_PERMIT.value:
-			work_identifier = WorkResidentPermitIdentifier(
-				address_code=self.application.work_place, dob=self.application.dob)
-			return work_identifier.identifier
-		elif self.application.proces_name == ApplicationProcesses.WORK_PERMIT.value:
-			work_identifier = WorkPermitIdentifier(
-				address_code=self.application.work_place, dob=self.application.dob)
-			return work_identifier.identifier
-		elif self.application.proces_name == ApplicationProcesses.RESIDENT_PERMIT.value:
-			resident_identifier = ResidentPermitIdentifier(
-				address_code=self.application.work_place, dob=self.application.dob)
-			return resident_identifier.identifier
-		else:
-			self.logger.debug(" application process: %s does not match to any configured application "
-			                  "processes. ", self.application.proces_name)
-			api_message = APIMessage(
-				code=400,
-				message="Bad request",
-				details=f"Application processes misconfigured. "
-				        f"{self.application.proces_name} does not match {ApplicationProcesses.WORK_RESIDENT_PERMIT.value}"
-			)
-			self.response.status = False
-			self.response.messages.append(api_message.to_dict())
-	
-	def get_or_create_application_user(self):
+		Create or get an existing application user based on the given user identifier.
 		"""
-        Based on given user_identifier create new application user or get existing user
-        """
 		try:
-			user, created = ApplicationUser.objects.get_or_create(
-				user_identifier=self.application.applicant_identifier,
-				defaults={
-					"work_location_code": self.application.work_place, "dob": self.application.dob,
-					"user_identifier": self.application.applicant_identifier, "full_name": self.application.full_name
+			user, created = ApplicationRepository.get_or_create_application_user(
+				self.application.applicant_identifier,
+				{
+					"work_location_code": self.application.work_place,
+					"dob": self.application.dob,
+					"user_identifier": self.application.applicant_identifier,
+					"full_name": self.application.full_name
 				}
 			)
 			if created:
@@ -142,46 +97,71 @@ class CreateNewApplicationService(object):
 				self.logger.info("Retrieved existing application user - %s", self.application.applicant_identifier)
 			return user
 		except Exception as e:
-			self.logger.exception("Failed to get or create application user - %s. ERROR: %s",
-			                      self.application.applicant_identifier, e)
-			api_message = APIMessage(
-				code=400,
-				message="Bad request",
-				details=f"The system failed to create application, failed to obtain application user with "
-				        f"user identifier: {self.application.applicant_identifier}. Error, {e}"
+			self._log_and_set_response(
+				400,
+				"Bad request",
+				f"The system failed to create application user with user identifier: {self.application.applicant_identifier}. Error: {e}"
 			)
-			self.response.status = False
-			self.response.messages.append(api_message.to_dict())
+			return None
 	
-	def create_application_document(self):
+	def _create_application_document(self):
 		"""
-         1. generate the document number for the particular process.
-         2. create ApplicantUser or obtain the existing user.
-        Args:
-            process_name (str): the name of the process e.g resident permit.
-        """
-		document_number = self.generate_document()
-		applicant = self.get_or_create_application_user()
+		Generate the document number for the particular process and create an ApplicationUser.
+		"""
+		doc_generator = DocumentGeneratorFactory.create_document_generator(self.application)
+		document_number = doc_generator.generate_document()
 		
-		if document_number is None or applicant is None:
-			api_message = APIMessage(
-				code=400,
-				message="Bad request",
-				details=f"The system failed to create application document, documber number: {document_number}, applicant: {applicant}. "
+		applicant = self._get_or_create_application_user()
+		
+		if not document_number or not applicant:
+			self._log_and_set_response(
+				400,
+				"Bad request",
+				f"The system failed to create application document, document number: {document_number}, applicant: {applicant}."
 			)
-			self.response.status = False
-			self.response.messages.append(api_message.to_dict())
-		else:
-			self.application_document.document_number = document_number
-			self.application_document.applicant = applicant
-			self.application_document.document_date = date.today()
-			self.application_document.signed_date = date.today()
-			self.application_document.save()
-			api_message = APIMessage(
-				code=200,
-				message="Success",
-				details=f"The application has been created with document number:  {document_number}."
-			)
-			self.response.status = True
-			self.response.messages.append(api_message.to_dict())
-			return self.application_document
+			return False
+		
+		self.application_document.document_number = document_number
+		self.application_document.applicant = applicant
+		self.application_document.document_date = date.today()
+		self.application_document.signed_date = date.today()
+		ApplicationRepository.save_application_document(self.application_document)
+		
+		self._log_and_set_response(
+			200,
+			"Success",
+			f"The application has been created with document number: {document_number}."
+		)
+		return True
+	
+	def _create_application_record(self, application_status):
+		"""
+		Create a new application record.
+		"""
+		application = Application()
+		application.application_document = self.application_document
+		application.application_status = application_status
+		application.process_name = self.application.proces_name
+		application.application_type = self.application.application_type
+		application.last_application_version_id = 1
+		ApplicationRepository.save_application(application)
+		return application
+	
+	def _create_application_version(self, application):
+		"""
+		Create the initial application version.
+		"""
+		application_version = ApplicationVersion()
+		application_version.application = application
+		application_version.version_number = 1
+		ApplicationRepository.save_application_version(application_version)
+		return application_version
+	
+	def _log_and_set_response(self, code, message, details):
+		"""
+		Log the error and set the API response.
+		"""
+		self.logger.info(details)
+		api_message = APIMessage(code=code, message=message, details=details)
+		self.response.status = code == 200
+		self.response.messages.append(api_message.to_dict())
