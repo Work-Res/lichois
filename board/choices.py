@@ -5,6 +5,10 @@ STARTED = 'started'
 APPROVED = 'approved'
 REJECTED = 'rejected'
 PENDING = 'pending'
+CANCELLED = 'cancelled'
+SCHEDULED = 'scheduled'
+ON_GOING = 'on_going'
+COMPLETED = 'completed'
 
 ATTENDANCE_STATUS = (
     (ABSENT, 'Absent'),
@@ -24,10 +28,10 @@ BOARD_ROLES = (
 )
 
 BOARD_MEETING_STATUS = (
-	('scheduled', 'Scheduled'),
-	('cancelled', 'Cancelled'),
-	('on_going', 'Ongoing'),
-	('completed', 'Completed'),
+	(SCHEDULED, 'Scheduled'),
+	(CANCELLED, 'Cancelled'),
+	(ON_GOING, 'Ongoing'),
+	(COMPLETED, 'Completed'),
 )
 
 BOARD_MEETING_TYPES = (

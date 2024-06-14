@@ -60,3 +60,6 @@ def create_production_pdf(sender, instance, created, **kwargs):
     except Exception as ex:
         logger.error(f"An error occurred while trying to creating a production pdf "
                      f"Got {ex} ")
+        
+
+

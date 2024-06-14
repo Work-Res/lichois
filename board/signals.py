@@ -1,11 +1,11 @@
 import logging
 
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 
-from board.choices import ENDED
+from board.choices import CANCELLED, ENDED
 from board.classes.voting_decision_manager import VotingDecisionManager
-from board.models import BoardDecision, VotingProcess
+from board.models import Agenda, ApplicationBatch, BoardDecision, BoardMeeting, VotingProcess
 
 from workresidentpermit.classes import WorkResidentPermitApplicationDecisionService
 
@@ -43,3 +43,31 @@ def create_board_decision(sender, instance, created, **kwargs):
 	except Exception as ex:
 		logger.error(f"An error occurred while trying to create board decision after saving voting process. "
 		             f"Got {ex} ")
+
+
+@receiver(post_save, sender=BoardMeeting)
+def update_meeting_votes(sender, instance, created, **kwargs):
+	try:
+		logger.info(f"Updating meeting votes for {instance.title}")
+		if instance.status == CANCELLED:
+			# Get the agenda of the meeting
+			logger.info(f"Updating meeting status for {instance.status}")
+			agenda = Agenda.objects.get(meeting=instance)
+			if agenda:
+				app_batch = agenda.application_batch
+				app_batch.delete()
+			# Update the votes of the meeting
+	
+	except Agenda.DoesNotExist:
+		logger.warning("No agenda found for the canceled meeting.")
+	
+	except Exception as e:
+		logger.error(f"Error handling cancelled meeting: {e}")
+
+
+# Optionally, add a pre_delete signal to handle cascading deletion or updates if needed
+@receiver(pre_delete, sender=ApplicationBatch)
+def pre_delete_application_batch(sender, instance, **kwargs):
+	# Update batched status to False for each application in the batch before deletion
+	batched_apps = instance.applications.all()
+	batched_apps.update(batched=False)

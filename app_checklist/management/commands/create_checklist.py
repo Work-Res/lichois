@@ -1,3 +1,4 @@
+import glob
 import os
 
 from django.core.management.base import BaseCommand
@@ -5,7 +6,7 @@ from django.core.management.base import BaseCommand
 from ...classes import CreateChecklistService
 
 
-class CreateChecklist(BaseCommand):
+class Command(BaseCommand):
     help = 'This is management command to create checklist data'
 
     def add_arguments(self, parser):
@@ -23,12 +24,18 @@ class CreateChecklist(BaseCommand):
         service.create(file_location=output_file)
 
         file_name = "work_resident_permit.json"
-        worklfow_file = os.path.join(os.getcwd(), "app_checklist", "data", "workflow", file_name)
-        workflow_service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
-                                                  foreign_name="classifier",
-                                                  parent_app_label_model_name="app_checklist.classifier",
-                                                  foreign_app_label_model_name="app_checklist.classifieritem")
-        workflow_service.create(file_location=worklfow_file)
+        
+        folder_path = os.path.join(os.getcwd(), "app_checklist", "data", "workflow")
+        # Get a list of all JSON files in the folder
+        file_list = glob.glob(os.path.join(folder_path, '*.json'))
+
+        for file in file_list:
+            if os.path.isfile(file):
+                workflow_service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
+                                                          foreign_name="classifier",
+                                                          parent_app_label_model_name="app_checklist.classifier",
+                                                          foreign_app_label_model_name="app_checklist.classifieritem")
+                workflow_service.create(file_location=file)
 
         file_name = "office_locations.json"
         office_file = os.path.join(os.getcwd(), "app_checklist", "data", "offices", file_name)

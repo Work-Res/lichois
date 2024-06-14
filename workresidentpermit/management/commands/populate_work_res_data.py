@@ -3,6 +3,7 @@ from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import CreateNewApplicationService
 from app.models import ApplicationStatus
+from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
@@ -17,20 +18,29 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        ApplicationStatus.objects.get_or_create(
-            code='new',
-            name='New',
-            processes='WORK_RESIDENT_PERMIT',
-            valid_from='2024-01-01',
-            valid_to='2026-12-31',
-        )
-
-        for _ in range(250):
-            fname = faker.unique.first_name()
-            lname = faker.unique.last_name()
-            with atomic():
+        process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.name
+        with atomic():
+            ApplicationStatus.objects.get_or_create(
+                code='new',
+                name='New',
+                processes='WORK_RESIDENT_PERMIT',
+                valid_from='2024-01-01',
+                valid_to='2026-12-31',
+            )
+            ApplicationStatus.objects.get_or_create(
+                code='VERIFICATION',
+                name='Verification',
+                processes='WORK_RESIDENT_PERMIT',
+                valid_from='2024-01-01',
+                valid_to='2026-12-31',
+            )
+    
+            for _ in range(250):
+                fname = faker.unique.first_name()
+                lname = faker.unique.last_name()
+               
                 new_app = NewApplicationDTO(
-                    process_name='WORK_RESIDENT_PERMIT',
+                    process_name=process_name,
                     application_type=faker.random_element(elements=('WORK_RESIDENT_PERMIT', 'RENEWAL_PERMIT',
                                                                     'REPLACEMENT_PERMIT')),
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
@@ -72,7 +82,7 @@ class Command(BaseCommand):
                     street_address=faker.street_name(),
                     private_bag=faker.building_number(),
                 )
-
+    
                 ApplicationContact.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -82,7 +92,7 @@ class Command(BaseCommand):
                     status=faker.random_element(elements=('active', 'inactive')),
                     description=faker.text(),
                 )
-
+    
                 Passport.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -93,7 +103,7 @@ class Command(BaseCommand):
                     nationality=faker.country(),
                     photo=faker.image_url(),
                 )
-
+    
                 ResidencePermit.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -113,7 +123,7 @@ class Command(BaseCommand):
                     entry_place=faker.city(),
                     arrival_date=faker.date_this_century(),
                 )
-
+    
                 WorkPermit.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,

@@ -1,3 +1,5 @@
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
@@ -30,26 +32,31 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 		queryset = BoardMeeting.objects.filter(board=board_member.board)
 		return queryset
 	
-	@action(detail=False, methods=['get'], url_path='accepted',
-	        url_name='accepted')
+	@action(detail=False, methods=['get'], url_path='accepted', url_name='accepted')
 	def get_accepted_meeting(self, request):
-		board_member = BoardMember.objects.filter(user=self.request.user).first()
-		if not board_member:
+		# Retrieve the board member or raise a 404 error if not found
+		try:
+			# Attempt to retrieve the board member
+			board_member = get_object_or_404(BoardMember, user=request.user)
+		except Http404:
+			# Create a custom APIMessage and raise PermissionDenied if not found
 			api_message = APIMessage(
 				code=400,
 				message="Bad request",
 				details="User is not a member of any board"
 			)
-			raise PermissionDenied(api_message.to_dict())
-		meetings = []
-		meeting_attendees = MeetingAttendee.objects.filter(
-			board_member=board_member,
-			attendance_status=PRESENT)
-		for meeting_attendee in meeting_attendees:
-			meetings.append(meeting_attendee.meeting)
-		
-		# oder by start date
-		meetings.sort(key=lambda x: x.meeting_date)
-		return Response(data=BoardMeetingSerializer(meetings, many=True).data)
+			raise PermissionDenied(detail=api_message.to_dict())
+		else:
+			# Filter and order BoardMeeting objects using the related MeetingAttendee objects
+			meetings = BoardMeeting.objects.filter(
+				meetingattendee__board_member=board_member,
+				meetingattendee__attendance_status=PRESENT  # Adjust the status value as necessary
+			).order_by('meeting_date')
+			
+			# Serialize the filtered and ordered meetings
+			serialized_meetings = BoardMeetingSerializer(meetings, many=True)
+			
+			return Response(data=serialized_meetings.data)
+
 	
 	

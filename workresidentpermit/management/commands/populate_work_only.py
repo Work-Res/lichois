@@ -3,6 +3,7 @@ from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import CreateNewApplicationService
 from app.models import ApplicationStatus
+from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
@@ -23,7 +24,7 @@ class Command(BaseCommand):
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    process_name='WORK_PERMIT',
+                    process_name=ApplicationProcesses.WORK_PERMIT.name,
                     application_type=faker.random_element(elements=('WORK_PERMIT', 'RENEWAL_PERMIT',
                                                                     'REPLACEMENT_PERMIT')),
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
@@ -32,7 +33,7 @@ class Command(BaseCommand):
                     work_place=randint(1000, 9999),
                     full_name=f'{fname} {lname}',
                 )
-                self.stdout.write(self.style.SUCCESS('Populating data...'))
+                
                 app = CreateNewApplicationService(new_application=new_app)
                 version = app.create()
                 Person.objects.get_or_create(

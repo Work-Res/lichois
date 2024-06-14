@@ -15,4 +15,4 @@ class ApplicationAttachmentVerification(ApplicationBaseModel):
 	verified_at = models.DateTimeField(auto_now_add=True)
 	
 	def __str__(self):
-		return f"Verification for {self.document.name} by {self.verifier.name}"
+		return f"Verification for {self.verification_status} by {self.verifier.name}"

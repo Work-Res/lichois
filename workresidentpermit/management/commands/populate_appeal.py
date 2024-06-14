@@ -3,13 +3,14 @@ from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import CreateNewApplicationService
 from app.models import ApplicationStatus
+from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal, PermitCancellation
+from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal
 
 
 class Command(BaseCommand):
@@ -17,20 +18,30 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		# ApplicationStatus.objects.get_or_create(
-		# 	code='new',
-		# 	name='New',
-		# 	processes='EMERGENCY_PERMIT',
-		# 	valid_from='2024-01-01',
-		# 	valid_to='2026-12-31',
-		# )
+		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
+		self.stdout.write(self.style.SUCCESS(f'Process name {process_name}'))
+		ApplicationStatus.objects.get_or_create(
+			code='NEW',
+			name='New',
+			processes=process_name,
+			valid_from='2024-01-01',
+			valid_to='2026-12-31',
+		)
+		ApplicationStatus.objects.get_or_create(
+			code='VERIFICATION',
+			name='Verification',
+			processes=process_name,
+			valid_from='2024-01-01',
+			valid_to='2026-12-31',
+		)
+		
 		for _ in range(150):
 			fname = faker.unique.first_name()
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
-					application_type='CANCELLATION_PERMIT',
-					process_name='WORK_RESIDENT_PERMIT',
+					application_type='WORK_RES_APPEAL_PERMIT',
+					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',
@@ -43,9 +54,9 @@ class Command(BaseCommand):
 				version = app.create()
 				Person.objects.get_or_create(
 					application_version=version,
-					document_number=app.application_document.document_number,
 					first_name=fname,
 					last_name=lname,
+					document_number=app.application_document.document_number,
 					dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
 					middle_name=faker.first_name(),
 					marital_status=faker.random_element(elements=('single', 'married', 'divorced')),
@@ -93,10 +104,12 @@ class Command(BaseCommand):
 					photo=faker.image_url(),
 				)
 				
-				PermitCancellation.objects.get_or_create(
+				PermitAppeal.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,
-					cancellation_reasons=faker.sentence(),
+					appeal_type=faker.random_element(elements=('appeal', 'review', 'renewal', 'reconsideration')),
+					reason_for_appeal=faker.text(),
+					appeal_date=faker.date_this_century(),
 				)
 				
 				self.stdout.write(self.style.SUCCESS('Successfully populated data'))
