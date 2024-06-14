@@ -11,6 +11,7 @@ from faker import Faker
 from random import randint
 
 from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal, PermitCancellation
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -19,7 +20,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		faker = Faker()
 		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
-		application_type = 'WORK_RESIDENT_CANCELLATION_PERMIT'
+		application_type = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_CANCELLATION.name
 		# ApplicationStatus.objects.get_or_create(
 		# 	code='new',
 		# 	name='New',

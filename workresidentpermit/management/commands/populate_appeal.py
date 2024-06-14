@@ -11,6 +11,7 @@ from faker import Faker
 from random import randint
 
 from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -19,7 +20,6 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		faker = Faker()
 		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
-		application_type = 'WORK_RESIDENT_APPEAL_PERMIT'
 		self.stdout.write(self.style.SUCCESS(f'Process name {process_name}'))
 		ApplicationStatus.objects.get_or_create(
 			code='NEW',
@@ -41,7 +41,7 @@ class Command(BaseCommand):
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
-					application_type=application_type,
+					application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.name,
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',

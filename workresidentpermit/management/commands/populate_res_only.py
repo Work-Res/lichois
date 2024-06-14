@@ -10,6 +10,7 @@ from faker import Faker
 from random import randint
 
 from workresidentpermit.models import ResidencePermit, WorkPermit
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -17,15 +18,16 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		
+		res_permit = WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_ONLY.name
+		renewal_res = WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_RENEWAL.name
+		replacement = WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_REPLACEMENT.name
 		for _ in range(250):
 			fname = faker.unique.first_name()
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
 					process_name=ApplicationProcesses.RESIDENT_PERMIT.name,
-					application_type=faker.random_element(elements=('RESIDENT_PERMIT', 'RENEWAL_PERMIT',
-					                                                'REPLACEMENT_PERMIT')),
+					application_type=faker.random_element(elements=(res_permit, renewal_res,replacement)),
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',
