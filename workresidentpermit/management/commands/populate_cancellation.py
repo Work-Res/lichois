@@ -31,7 +31,7 @@ class Command(BaseCommand):
 			with atomic():
 				new_app = NewApplicationDTO(
 					application_type='CANCELLATION_PERMIT',
-					process_name=ApplicationProcesses.SPECIAL_PERMIT,
+					process_name=ApplicationProcesses.SPECIAL_PERMIT.name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',

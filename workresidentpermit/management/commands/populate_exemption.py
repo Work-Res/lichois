@@ -38,7 +38,7 @@ class Command(BaseCommand):
 				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
 					application_type='EXEMPTION_PERMIT',
-					process_name='WORK_RESIDENT_PERMIT',
+					process_name=ApplicationProcesses.SPECIAL_PERMIT.name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',
