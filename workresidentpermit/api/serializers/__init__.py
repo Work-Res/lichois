@@ -12,3 +12,4 @@ from .security_clearance_serializer import SecurityClearanceSerializer
 from .work_permit_serializer import WorkPermitSerializer
 from .security_clearance_request_serializer import SecurityClearanceRequestDTOSerializer
 from .permit_replacement_serializer import PermitReplacementSerializer
+from .commissioner_decision_serializer import CommissionerDecisionSerializer

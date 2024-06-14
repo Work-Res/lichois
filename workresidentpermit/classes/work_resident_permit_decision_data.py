@@ -3,7 +3,7 @@ from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
 
-from ..models import Permit, Child, Spouse, WorkResidencePermit
+from ..models import ResidencePermit, WorkPermit, Child, Spouse
 
 
 class WorkResidentPermitData(object):
@@ -19,7 +19,6 @@ class WorkResidentPermitData(object):
         self.work_resident_permit_application.personal_details = self.personal_details()
         self.work_resident_permit_application.passport = self.passport()
         self.work_resident_permit_application.address = self.address()
-        self.work_resident_permit_application.permit = self.permit()
         self.work_resident_permit_application.child = self.child()
         self.work_resident_permit_application.spouse = self.spouse()
         self.work_resident_permit_application.form_details = self.form_details()
@@ -50,11 +49,18 @@ class WorkResidentPermitData(object):
         except ApplicationAddress.DoesNotExist:
             pass
 
-    def permit(self):
+    def resident_permit(self):
         try:
-            permit = Permit.objects.get(document_number=self.document_number)
+            permit = ResidencePermit.objects.get(document_number=self.document_number)
             return permit
-        except Permit.DoesNotExist:
+        except ResidencePermit.DoesNotExist:
+            pass
+    
+    def work_permit(self):
+        try:
+            permit = WorkPermit.objects.get(document_number=self.document_number)
+            return permit
+        except WorkPermit.DoesNotExist:
             pass
 
     def child(self):
@@ -64,13 +70,6 @@ class WorkResidentPermitData(object):
     def spouse(self):
         spouse = Spouse.objects.filter(document_number=self.document_number)
         return spouse
-
-    def form_details(self):
-        try:
-            form_details = WorkResidencePermit.objects.get(document_number=self.document_number)
-            return form_details
-        except WorkResidencePermit.DoesNotExist:
-            pass
 
     def attachments(self):
         attachments = ApplicationAttachment.objects.filter(document_number=self.document_number)

@@ -18,26 +18,12 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		ApplicationStatus.objects.get_or_create(
-			code='new',
-			name='New',
-			processes=ApplicationProcesses.SPECIAL_PERMIT,
-			valid_from='2024-01-01',
-			valid_to='2026-12-31',
-		)
-		# ApplicationStatus.objects.get_or_create(
-		# 	code='new',
-		# 	name='New',
-		# 	processes='EMERGENCY_PERMIT',
-		# 	valid_from='2024-01-01',
-		# 	valid_to='2026-12-31',
-		# )
 		for _ in range(50):
 			with atomic():
 				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
-					application_type='EXEMPTION_PERMIT',
+					application_type='WORK_RES_EXEMPTION_PERMIT',
 					process_name=ApplicationProcesses.SPECIAL_PERMIT.name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',

@@ -30,7 +30,7 @@ class Command(BaseCommand):
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
-					application_type='CANCELLATION_PERMIT',
+					application_type='WORK_RES_CANCELLATION_PERMIT',
 					process_name=ApplicationProcesses.SPECIAL_PERMIT.name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',

@@ -12,3 +12,4 @@ from .security_clearance import SecurityClearance
 from .employer_record import EmploymentRecord
 from .replacement_permit import PermitReplacement
 from .dependant import Dependant
+from .commissioner_decision import CommissionerDecision
