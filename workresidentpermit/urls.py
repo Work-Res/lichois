@@ -3,7 +3,7 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from .views import (ChildCreateListView, EmergencyResidencePermitViewSet,
+from .views import (ChildCreateListView, CommissionerDecisionViewSet, EmergencyResidencePermitViewSet,
                     ExemptionCertificateViewSet, PermitCancellationViewSet,
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
@@ -18,6 +18,7 @@ router.register(r'work-permit', WorkPermitViewSet)
 router.register(r'emergency-permit', EmergencyResidencePermitViewSet, basename='emergency-permit')
 router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-certificate')
 router.register(r'permit-cancellation', PermitCancellationViewSet, basename='permit-cancellation')
+router.register(r'commissioner-decision', CommissionerDecisionViewSet, basename='commissioner-decision')
 
 
 urlpatterns = [
