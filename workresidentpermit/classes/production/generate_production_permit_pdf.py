@@ -35,9 +35,9 @@ class GenerateProductionPermitPDF:
             # Generate PDF
             self.logger.info(f"Starting PDF generation for document number {self.document_number}.")
             pdf_data = self.pdf_generator.convert_html_to_pdf(
-                data_context=prepared_data,
+                context=prepared_data,
                 file_location=self.file_location,
-                template_path="pdf/invoice_sample.html",
+                template_path="pdf/work-permit.html",
             )
             self.logger.info(f"PDF generation completed. File saved to {self.file_location}.")
 

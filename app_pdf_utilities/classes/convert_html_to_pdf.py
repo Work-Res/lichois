@@ -9,6 +9,8 @@ from django.template import Template, Context
 
 from django.conf import settings
 
+from app_pdf_utilities.exceptions import PDFGeneratorException
+
 
 class ConvertHtmlToPdf(object):
     """
@@ -32,6 +34,7 @@ class ConvertHtmlToPdf(object):
                     self.logger.debug("Failed to create a PDF")
         except Exception as e:
             self.logger.debug(f"Error occurred: {e}")
+            raise PDFGeneratorException(str(e))
             pisa_render_status = True
         return pisa_render_status
 
@@ -61,7 +64,7 @@ class ConvertHtmlToPdf(object):
             file_location = file_location or self.output_filename or os.path.join(
                 settings.MEDIA_ROOT, settings.PDF_FOLDER, _file_name)
 
-            context = Context(context)
+            # context = Context(context)
             rendered_html = template.render(context)
             pisa_render_status = self.to_pdf(file_location, rendered_html)
 
@@ -70,3 +73,4 @@ class ConvertHtmlToPdf(object):
             return pisa_render_status
         except Exception as e:
             self.logger.debug("An error occurred while to generate the pdf, Got ", e)
+            raise PDFGeneratorException(str(e))

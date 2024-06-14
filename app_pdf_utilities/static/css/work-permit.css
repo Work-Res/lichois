@@ -145,7 +145,7 @@ body{
 
 .bottom-section{
     position: relative;
-    width: 100%;
+    width: 512pt;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -155,7 +155,7 @@ body{
 .bottom-section > p{
     text-align: center;
     font-size: 22px;
-    width: 88%;
+    width: 480pt;
 }
 .bottom-section > .file-info{
     display: flex;

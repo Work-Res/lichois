@@ -208,7 +208,7 @@ STORAGES = {
 }
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_ROOT = BASE_DIR / 'media'
 PDF_FOLDER = 'generated'
 PDF_TEMPLATE_WORKRESIDENTPERMIT = "pdf/application_summary.html"
 DEPARTMENT = "ministry of Citizen and industry"

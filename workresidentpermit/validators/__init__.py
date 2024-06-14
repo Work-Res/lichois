@@ -3,3 +3,4 @@ from .work_permit_verification_validator import WorkResidentPermitVerificationVa
 from .work_permit_validator import WorkPermitValidator
 from .resident_permit_validator import ResidentPermitValidator
 from .security_clearance_validator import SecurityClearanceValidator
+from .production_validator import ProductionValidator

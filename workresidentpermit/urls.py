@@ -8,7 +8,7 @@ from .views import (ChildCreateListView, EmergencyResidencePermitViewSet,
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
                     WorkPermitApplicationVerificationAPIView,
-                    SecurityClearanceCreateAPIView)
+                    SecurityClearanceCreateAPIView, ProductionPermitView)
 
 router = DefaultRouter()
 router.register(r'spouse', SpouseCreateListView, basename='spouse')
@@ -40,6 +40,9 @@ urlpatterns = [
          name='submit-workresident-permit'),
     path('workresidentpermit/summary/<str:document_number>', WorkResidentPermitApplicationDetailView.as_view(),
          name='work_resident_permit_detail'),
+
+    path('production/<str:document_number>', ProductionPermitView.as_view(),
+         name='production-permit'),
     path('', include(router.urls)),
 ]
 
