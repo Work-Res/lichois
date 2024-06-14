@@ -2,10 +2,11 @@ import logging
 
 from app.api.common.web import APIMessage, APIResponse
 from app.identifiers import WorkResidentPermitIdentifier
-from app.identifiers.work_resident_identifier import ResidentPermitIdentifier, SpecialPermitIdentifier, \
+from app.identifiers.work_resident_identifier import ExemptionCertificateIdentifier, ResidentPermitIdentifier, \
+	SpecialPermitIdentifier, \
 	WorkPermitIdentifier
 from app.utils import ApplicationProcesses
-from app.utils.system_enums import ApplicationTypesEnum
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class DocumentGenerator:
@@ -51,11 +52,11 @@ class DocumentGenerator:
         Handle the creation of special permit identifiers.
         """
 		special_permit_handlers = {
-			ApplicationTypesEnum.WORK_RES_APPEAL_PERMIT.value: SpecialPermitIdentifier,
-			ApplicationTypesEnum.WORK_RES_CANCELLATION_PERMIT.value: SpecialPermitIdentifier,
-			ApplicationTypesEnum.WORK_RES_RENEWAL_PERMIT.value: SpecialPermitIdentifier,
-			ApplicationTypesEnum.WORK_RES_EMERGENCY_PERMIT.value: SpecialPermitIdentifier,
-			ApplicationTypesEnum.WORK_RES_EXEMPTION_PERMIT.value: SpecialPermitIdentifier,
+			WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value: SpecialPermitIdentifier,
+			WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_CANCELLATION.value: SpecialPermitIdentifier,
+			WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value: SpecialPermitIdentifier,
+			WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.value: SpecialPermitIdentifier,
+			WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
 		}
 		
 		handler_class = special_permit_handlers.get(self.application.application_type)
