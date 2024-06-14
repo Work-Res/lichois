@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
-from app.models import ApplicationStatus
 from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country

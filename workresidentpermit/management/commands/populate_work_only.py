@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
-from app.classes import CreateNewApplicationService
-from app.models import ApplicationStatus
+from app.classes import ApplicationService
 from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
@@ -34,8 +33,8 @@ class Command(BaseCommand):
                     full_name=f'{fname} {lname}',
                 )
                 
-                app = CreateNewApplicationService(new_application=new_app)
-                version = app.create()
+                app = ApplicationService(new_application=new_app)
+                version = app.create_application()
                 Person.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
