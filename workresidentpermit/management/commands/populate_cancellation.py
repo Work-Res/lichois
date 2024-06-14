@@ -3,13 +3,14 @@ from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import CreateNewApplicationService
 from app.models import ApplicationStatus
+from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyPermit, ExemptionCertificate
+from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal, PermitCancellation
 
 
 class Command(BaseCommand):
@@ -17,13 +18,6 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		ApplicationStatus.objects.get_or_create(
-			code='new',
-			name='New',
-			processes='CONTINGENT_PERMIT',
-			valid_from='2024-01-01',
-			valid_to='2026-12-31',
-		)
 		# ApplicationStatus.objects.get_or_create(
 		# 	code='new',
 		# 	name='New',
@@ -31,20 +25,20 @@ class Command(BaseCommand):
 		# 	valid_from='2024-01-01',
 		# 	valid_to='2026-12-31',
 		# )
-		for _ in range(50):
+		for _ in range(150):
+			fname = faker.unique.first_name()
+			lname = faker.unique.last_name()
 			with atomic():
-				fname = faker.unique.first_name()
-				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
-					application_type='EXEMPTION_PERMIT',
-					process_name='WORK_RESIDENT_PERMIT',
+					application_type='CANCELLATION_PERMIT',
+					process_name=ApplicationProcesses.SPECIAL_PERMIT,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',
 					work_place=randint(1000, 9999),
-					full_name=f'{fname} {lname}'
+					full_name=f'{fname} {lname}',
 				)
-				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
+				self.stdout.write(self.style.SUCCESS('Populating appeal data...'))
 				app = CreateNewApplicationService(new_application=new_app)
 				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
 				version = app.create()
@@ -100,16 +94,10 @@ class Command(BaseCommand):
 					photo=faker.image_url(),
 				)
 				
-				ExemptionCertificate.objects.get_or_create(
-					document_number=app.application_document.document_number,
+				PermitCancellation.objects.get_or_create(
 					application_version=version,
-					business_name=faker.company(),
-					employment_capacity=faker.job(),
-					proposed_period=randint(1, 12),
-					status=faker.random_element(elements=('approved', 'rejected', 'pending')),
-					applicant_signature=faker.text(),
-					application_date=faker.date_this_century(),
-					commissioner_signature=faker.name(),
+					document_number=app.application_document.document_number,
+					cancellation_reasons=faker.sentence(),
 				)
 				
 				self.stdout.write(self.style.SUCCESS('Successfully populated data'))
