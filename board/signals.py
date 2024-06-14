@@ -58,11 +58,11 @@ def update_meeting_votes(sender, instance, created, **kwargs):
 				app_batch.delete()
 			# Update the votes of the meeting
 	
-	except SystemError as e:
-		logger.error("SystemError: An error occurred while updating meeting votes, Got ", e)
-	except Exception as ex:
-		logger.error(f"An error occurred while trying to update meeting votes after saving board meeting. "
-		             f"Got {ex} ")
+	except Agenda.DoesNotExist:
+		logger.warning("No agenda found for the canceled meeting.")
+	
+	except Exception as e:
+		logger.error(f"Error handling cancelled meeting: {e}")
 
 
 # Optionally, add a pre_delete signal to handle cascading deletion or updates if needed
