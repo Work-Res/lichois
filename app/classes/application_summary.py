@@ -2,6 +2,8 @@ import re
 
 from django.apps import apps
 
+from app_attachments.api.serializers import ApplicationAttachmentSerializer
+
 
 class ApplicationSummary(object):
 	
@@ -32,8 +34,7 @@ class ApplicationSummary(object):
 		""" Get the attachments based on the document number. """
 		attachment_models = apps.get_model('app_attachments.ApplicationAttachment').objects.filter(
 			document_number=self.document_number)
-		serializer = apps.get_model('app_attachments.ApplicationAttachmentSerializer')
-		attachments = serializer(attachment_models, many=True)
+		attachments = ApplicationAttachmentSerializer(attachment_models, many=True).data
 		return attachments
 	
 	def serialize_model(self, model_instance):
