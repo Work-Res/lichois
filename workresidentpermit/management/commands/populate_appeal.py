@@ -31,7 +31,8 @@ class Command(BaseCommand):
 		ApplicationStatus.objects.get_or_create(
 			code='verification',
 			name='Verification',
-			processes=process_name,
+			processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
+			          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
 			valid_from='2024-01-01',
 			valid_to='2026-12-31',
 		)
