@@ -3,9 +3,9 @@ import logging
 from datetime import datetime
 
 from app_decision.models import ApplicationDecisionType
-from ..api.dto import SecurityClearanceRequestDTO
-from ..api.serializers import SecurityClearanceSerializer
-from ..models import SecurityClearance
+from workresidentpermit.api.dto import SecurityClearanceRequestDTO
+from workresidentpermit.api.serializers import SecurityClearanceSerializer
+from workresidentpermit.models import SecurityClearance
 from app.api.common.web import APIMessage, APIResponse
 
 from django.db import transaction

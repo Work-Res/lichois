@@ -3,8 +3,8 @@ import logging
 from datetime import date
 
 from app_pdf_utilities.classes import ConvertHtmlToPdf
-from .work_resident_permit_data import WorkResidentPermitData
-from .report_details import ReportDetails
+from workresidentpermit.classes.work_resident_permit_data import WorkResidentPermitData
+from workresidentpermit.classes.report_details import ReportDetails
 
 from django.conf import settings
 

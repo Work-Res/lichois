@@ -6,12 +6,12 @@ from django.shortcuts import get_object_or_404
 from app.models import Application, ApplicationStatus
 
 from workflow.signals import create_or_update_task_signal
-from workflow.classes import WorkflowTransition, TaskDeActivation
+from workflow.classes import WorkflowTransition
 
 from app_comments.models import Comment
 from board.models import BoardDecision
-from ..exceptions import WorkResidentPermitApplicationDecisionException
-from ..models import SecurityClearance
+from workresidentpermit.exceptions import WorkResidentPermitApplicationDecisionException
+from workresidentpermit.models import SecurityClearance
 from app.utils import ApplicationDecisionEnum, ApplicationStatuses, WorkflowEnum
 
 from workresidentpermit.workflow import ProductionTransactionData
@@ -106,7 +106,6 @@ class WorkResidentPermitApplicationDecisionService:
             proposed_decision_type=proposed_decision,
             comment=self.comment
         )
-
         self.run_workflow(application=self._board_decision.assessed_application)
 
     def run_workflow(self, application: Application):

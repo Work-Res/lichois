@@ -4,7 +4,7 @@ import time
 
 from .classes import GenerateProductionPermitPDF
 from django_q.tasks import async_task
-from .classes import ProductionGeneratedPDFDocumentService
+from .classes.production import ProductionDocumentService
 
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ def async_production(document_number: str, application):
 
     time.sleep(3) # temporarily pause, TODO: consider using scheduler..for uploading pdfs
 
-    document_service = ProductionGeneratedPDFDocumentService(
+    document_service = ProductionDocumentService(
         document_number=document_number,
         permit_type=application.application_type)
     document_service.upload_generated_pdf()

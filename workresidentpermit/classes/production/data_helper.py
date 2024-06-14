@@ -15,7 +15,7 @@ class DataHelper:
         """
         if data_object:
             if hasattr(data_object, field_name):
-                self.add_field(field_name, getattr(data_object, field_name))
+                return getattr(data_object, field_name)
             else:
                 raise AttributeError(f"{data_object} does not have the field '{field_name}'.")
 

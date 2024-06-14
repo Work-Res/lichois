@@ -1,3 +1,5 @@
 from .test_work_resident_permit_application import TestWorkResidentPermitApplication
 from .test_work_permit_validator import TestWorkPermitValidator
 from .test_resident_permit_validator import TestResidentPermitValidator
+from .test_fetch_required_data_for_production import TestFetchRequiredDataForProduction
+from .test_generate_production_permit_pdf import TestGenerateProductionPermitPDF

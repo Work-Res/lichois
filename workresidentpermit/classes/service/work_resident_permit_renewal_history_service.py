@@ -6,7 +6,7 @@ from app.models import ApplicationUser, ApplicationRenewalHistory
 
 from app_personal_details.models import Permit
 
-from .historical_record import PermitData, historical_record_to_dict, permit_data_to_dict, HistoricalRecord
+from workresidentpermit.classes.historical_record import PermitData, historical_record_to_dict, HistoricalRecord
 
 
 class WorkResidentPermitRenewalHistoryService:

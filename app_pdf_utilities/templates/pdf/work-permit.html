@@ -5,8 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% load static %}
+    
     <link rel="stylesheet" href="{% static 'work-permit.css' %}">
-    <title>application templates</title>
+    <title>{{report_details.report_name}}</title>
+    
 </head>
 <body>
 
@@ -14,27 +18,27 @@
     <div class="top-section">
         <h1 class="rop">REPUBLIC OF <br/>BOTSWANA</h1>
         <div class="top-left">
-            <p class="document-type">{{data.permit_type}}</p>
-            <div class="id">{{data.permit_number}}</div>
+            <p class="document-type">{{permit_type}}</p>
+            <div class="id">{{permit_number}}</div>
         </div>
     </div>
     <div class="mid-section">
         <div class="pass-photo">
-            <img src="{% static 'images/{{data.passport_photo}}' %}" alt="passport photo"/>
+            <img src="{% static 'images/{{passport_photo}}' %}" alt="Passport Photo"/>
         </div>
         <div class="document-details">
             <div class="top">
                 <div class="details">
                     <span>place of issue</span>
-                    <p>{{data.place_of_issue}}</p>
+                    <p>{{place_of_issue}}</p>
                 </div>
                 <div class="details">
                     <span>valid from</span>
-                    <p>{{data.valid_from}}</p>
+                    <p>{{valid_from}}</p>
                 </div>
                 <div class="details">
                     <span>valid until</span>
-                    <p>{{data.valid_to}}</p>
+                    <p>{{valid_to}}</p>
                 </div>
             </div>
             <div class="mid">
@@ -45,9 +49,9 @@
                 <div class="barcode-col">
                     <div class="details">
                         <span>document no</span>
-                        <p>{{data.permit_number}}</p>
+                        <p>{{permit_number}}</p>
                     </div>
-                    <img src="{% static 'images/{{data.generated_barcode}}'" alt="barcode">
+                    <img src="{% static 'images/{{generated_barcode}}'" alt="barcode">
                 </div>
                 <div class="sticker">
                     <img src="./" alt="">
@@ -57,11 +61,11 @@
             <div class="names">
                 <div class="details">
                     <span>surname</span>
-                    <p>{{data.surname}}</p>
+                    <p>{{surname}}</p>
                 </div>
                 <div class="details">
                     <span>given names</span>
-                    <p>{{data.full_name}}</p>
+                    <p>{{full_name}}</p>
                 </div>
             </div>
 
@@ -69,19 +73,19 @@
                 <div>
                     <div class="details">
                         <span>passport no</span>
-                        <p>{{data.passport_number}}</p>
+                        <p>{{passport_number}}</p>
                     </div>
                     <div class="details">
                         <span>sex</span>
-                        <p>{{data.gender}}</p>
+                        <p>{{gender}}</p>
                     </div>
                     <div class="details">
                         <span>DATE OF BIRTH</span>
-                        <p>{{data.date_of_birth}}</p>
+                        <p>{{date_of_birth}}</p>
                     </div>
                     <div class="details">
                         <span>NATIONALITY</span>
-                        <p>{{data.country_cso}}</p>
+                        <p>{{country_cso}}</p>
                     </div>
                 </div>
                 <div class="qr">
@@ -93,11 +97,11 @@
     <div class="bottom-section">
         <p id="passcode"></p>
         <div class="file-info">
-            <span>file: 15/100002570  DOC: {{data.permit_number}}</span>
+            <span>file: 15/100002570  DOC: {{permit_number}}</span>
             <img src='./barcode.png' alt="barcode">
         </div>
         <div class="flipped">
-            {{data.security_code}}
+            {{security_code}}
         </div>
     </div>
 </div>

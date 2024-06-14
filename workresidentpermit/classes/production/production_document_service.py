@@ -12,7 +12,7 @@ from app_personal_details.models import Permit
 logger = logging.getLogger(__name__)
 
 
-class ProductionGeneratedPDFDocumentService:
+class ProductionDocumentService:
 
     def __init__(self, document_number: str, permit_date=None, permit_type=None, place_issue=None):
         self.document_number = document_number

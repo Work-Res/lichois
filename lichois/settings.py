@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 	"django.contrib.contenttypes",
 	"django.contrib.sessions",
 	"django.contrib.messages",
+	"whitenoise.runserver_nostatic",
 	"django.contrib.staticfiles",
 	"base_module.apps.AppConfig",
 	"app.apps.AppConfig",
@@ -77,6 +78,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
 	"django.middleware.security.SecurityMiddleware",
+	"whitenoise.middleware.WhiteNoiseMiddleware",
 	"django.contrib.sessions.middleware.SessionMiddleware",
 	"corsheaders.middleware.CorsMiddleware",
 	"django.middleware.common.CommonMiddleware",
@@ -84,7 +86,7 @@ MIDDLEWARE = [
 	"django.contrib.auth.middleware.AuthenticationMiddleware",
 	"django.contrib.messages.middleware.MessageMiddleware",
 	"django.middleware.clickjacking.XFrameOptionsMiddleware",
-	'corsheaders.middleware.CorsMiddleware',
+	'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = "lichois.urls"
@@ -201,7 +203,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static', ]
 
 STORAGES = {
 	"staticfiles": {
-		"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+		"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
 	},
 }
 
