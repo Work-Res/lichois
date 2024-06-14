@@ -2,6 +2,8 @@ import os
 
 from django.core.management.base import BaseCommand
 
+from ...classes import CreateChecklistService
+
 
 class CreateChecklist(BaseCommand):
     help = 'This is management command to create checklist data'
@@ -11,8 +13,30 @@ class CreateChecklist(BaseCommand):
 
     def handle(self, *args, **kwargs):
         parameter = kwargs['create']
+
         file_name = "attachment_documents.json"
-        output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
-        create = CreateChecklist()
-        create.create(file_location=output_file)
+        output_file = os.path.join(os.getcwd(), "app_checklist", "data", "checklist", file_name)
+        service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
+                                         foreign_name="checklist_classifier",
+                                         parent_app_label_model_name="app_checklist.checklistclassifier",
+                                         foreign_app_label_model_name="app_checklist.checklistclassifieritem")
+        service.create(file_location=output_file)
+
+        file_name = "work_resident_permit.json"
+        worklfow_file = os.path.join(os.getcwd(), "app_checklist", "data", "workflow", file_name)
+        workflow_service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
+                                                  foreign_name="classifier",
+                                                  parent_app_label_model_name="app_checklist.classifier",
+                                                  foreign_app_label_model_name="app_checklist.classifieritem")
+        workflow_service.create(file_location=worklfow_file)
+
+        file_name = "office_locations.json"
+        office_file = os.path.join(os.getcwd(), "app_checklist", "data", "offices", file_name)
+        service_office = CreateChecklistService(parent_classifier_name="Location", child_name="offices",
+                                                foreign_name="office_location_classifier",
+                                                parent_app_label_model_name="app_checklist.officelocationclassifier",
+                                                foreign_app_label_model_name="app_checklist"
+                                                                             ".officelocationclassifieritem")
+        service_office.create(file_location=office_file)
+
         self.stdout.write(self.style.SUCCESS(f'Create or Update document types: {parameter}'))
