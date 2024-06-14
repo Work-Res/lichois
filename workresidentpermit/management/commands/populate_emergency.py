@@ -30,7 +30,7 @@ class Command(BaseCommand):
 				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
-					application_type='WORK_RES_EMERGENCY_PERMIT',
+					application_type=f'WORK_RESIDENT_EMERGENCY_PERMIT',
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',

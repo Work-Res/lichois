@@ -9,7 +9,7 @@ from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyPermit, ExemptionCertificate
+from workresidentpermit.models import ExemptionCertificate
 
 
 class Command(BaseCommand):
@@ -23,7 +23,7 @@ class Command(BaseCommand):
 				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
-					application_type='WORK_RES_EXEMPTION_PERMIT',
+					application_type='WORK_RESIDENT_EXEMPTION_PERMIT',
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
