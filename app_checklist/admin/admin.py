@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app_checklist.models import ChecklistClassifierItem, ChecklistClassifier, ClassifierItem, \
+from app_checklist.models import ChecklistClassifierItem, ChecklistClassifier, Classifier, ClassifierItem, \
 	OfficeLocationClassifierItem, OfficeLocationClassifier
 
 
@@ -26,6 +26,13 @@ class ClassifierItemAdmin(admin.ModelAdmin):
 	search_fields = ('code', 'name', 'process', 'description')
 	list_filter = ('mandatory', 'valid_from', 'valid_to', 'classifier')
 	ordering = ('sequence', 'valid_from')
+	
+
+class ClassifierAdmin(admin.ModelAdmin):
+	list_display = ('code', 'name', 'valid_from', 'valid_to')
+	search_fields = ('code', 'name', 'description')
+	list_filter = ('valid_from', 'valid_to')
+	ordering = ('-created',)
 
 
 # Admin class for OfficeLocationClassifier
@@ -48,5 +55,6 @@ class OfficeLocationClassifierAdmin(admin.ModelAdmin):
 admin.site.register(ChecklistClassifierItem, ChecklistClassifierItemAdmin)
 admin.site.register(ChecklistClassifier, ChecklistClassifierAdmin)
 admin.site.register(ClassifierItem, ClassifierItemAdmin)
+admin.site.register(Classifier, ClassifierAdmin)
 admin.site.register(OfficeLocationClassifierItem, OfficeLocationClassifierItemAdmin)
 admin.site.register(OfficeLocationClassifier, OfficeLocationClassifierAdmin)

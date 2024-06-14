@@ -32,7 +32,7 @@ class Command(BaseCommand):
                     work_place=randint(1000, 9999),
                     full_name=f'{fname} {lname}',
                 )
-                self.stdout.write(self.style.SUCCESS('Populating data...'))
+                
                 app = CreateNewApplicationService(new_application=new_app)
                 version = app.create()
                 Person.objects.get_or_create(

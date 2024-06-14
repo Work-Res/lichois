@@ -6,6 +6,7 @@ class ApplicationProcesses(Enum):
     WORK_RESIDENT_PERMIT = "WORK_RESIDENT_PERMIT"
     WORK_PERMIT = "WORK_PERMIT"
     RESIDENT_PERMIT = "RESIDENT_PERMIT"
+    CONTINGENT_PERMIT = "CONTINGENT_PERMIT"
 
 
 class ApplicationStatuses(Enum):

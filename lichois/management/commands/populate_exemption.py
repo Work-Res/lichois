@@ -20,7 +20,7 @@ class Command(BaseCommand):
 		ApplicationStatus.objects.get_or_create(
 			code='new',
 			name='New',
-			processes='WORK_RESIDENT_PERMIT',
+			processes='CONTINGENT_PERMIT',
 			valid_from='2024-01-01',
 			valid_to='2026-12-31',
 		)

@@ -16,7 +16,7 @@
                 "sequence": 1,
                 "valid_from": "2024-01-01",
                 "valid_to": "2030-01-01",
-                "create_rules": {
+                "create_task_rules": {
                   "qualification":  {
                     "degree": 25,
                     "diploma": 20,
