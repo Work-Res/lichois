@@ -27,10 +27,10 @@
           "valid_to": "2030-01-01"
         },
         {
-          "code": "COVER_LETTER",
-          "name": "COVER LETTER",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
-          "description": "Cover letter",
+          "code": "COVER_LETTER_FROM_APPLICANT",
+          "name": "COVER LETTER FROM APPLICANT",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION",
+          "description": "Cover letter from the applicant",
           "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
@@ -40,7 +40,7 @@
           "name": "CONFIRMATION LETTER",
           "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
           "description": "Confirmation Letter",
-          "mandatory": false,
+          "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         },
@@ -49,7 +49,7 @@
           "name": "CERTIFIED COPY OF OMANG",
           "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
           "description": "Certified copy of omang",
-          "mandatory": false,
+          "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         },
@@ -58,7 +58,7 @@
           "name": "MARRIAGE_CERTIFICATE",
           "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
           "description": "Certified copy of Marriage Certificate",
-          "mandatory": false,
+          "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         },
@@ -67,7 +67,7 @@
           "name": "ORIGINAL WORK PERMIT",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
           "description": "Original work permit", 
-          "mandatory":false,
+          "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
         },
@@ -76,7 +76,7 @@
           "name": "ORIGINAL RESIDENCE PERMIT",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
           "description": "Original residence permit", 
-          "mandatory":false,
+          "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
         },
@@ -85,7 +85,7 @@
           "name": "CERTIFIED COPY OF PASSPORT",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
           "description": "Certified copy of passport", 
-          "mandatory":false,
+          "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
         },
@@ -94,7 +94,7 @@
           "name": "OFFER LETTER",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
           "description": "Offer letter if changing employment", 
-          "mandatory":false,
+          "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
         },
@@ -103,7 +103,7 @@
           "name": "RELEASE LETTER",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
           "description": "Release letter", 
-          "mandatory":false,
+          "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
         },
@@ -112,9 +112,54 @@
           "name": "RESIGNATION LETTER",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
           "description": "Resignation letter", 
-          "mandatory":false,
+          "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
+        },
+        {
+          "code": "DATA_PAGE_OF_PASSPORT",
+          "name": "DATA PAGE OF PASSPORT",
+          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "description": "Certified copy of a data page of a valid passport", 
+          "mandatory":true,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        },
+        {
+          "code": "COVER_LETTER_FROM_EMPLOYER",
+          "name": "COVER LETTER FROM EMPLOYER",
+          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "description": "Cover letter from the employer",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "AFFIDAVIT",
+          "name": "AFFIDAVIT",
+          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "description": "Affidavit from Botswana Police",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "FEE_OF_2000",
+          "name": "FEE OF 2000",
+          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "description": "A P2000 fee",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPY_OF_WORK_PERMIT",
+          "name": "COPY OF WORK PERMIT",
+          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "description": "A copy of work permit",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
         }
       ]
     }
