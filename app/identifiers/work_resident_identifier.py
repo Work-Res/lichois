@@ -7,10 +7,16 @@ class WorkResidentPermitIdentifier(Identifier):
 	identifier_type = 'WR'
 
 
-class WorkResidentPermitRenewalIdentifier(Identifier):
+class SpecialPermitIdentifier(Identifier):
 	template = '{identifier_type}{address_code}{dob}{sequence}'
 	label = 'workresidentpermit'  # e.g. work_permit_identifier, visa_identifier, etc
-	identifier_type = 'WRR'
+	identifier_type = 'SP'
+	
+
+class ExemptionCertificateIdentifier(Identifier):
+	template = '{identifier_type}{address_code}{dob}{sequence}'
+	label = 'exemptioncertificate'  # e.g. work_permit_identifier, visa_identifier, etc
+	identifier_type = 'EX'
 
 
 class WorkPermitIdentifier(Identifier):

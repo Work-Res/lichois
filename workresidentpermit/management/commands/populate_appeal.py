@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
-from app.classes import CreateNewApplicationService
+from app.classes import ApplicationService
 from app.models import ApplicationStatus
 from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
@@ -11,6 +11,7 @@ from faker import Faker
 from random import randint
 
 from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -40,7 +41,7 @@ class Command(BaseCommand):
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
-					application_type='WORK_RES_APPEAL_PERMIT',
+					application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.name,
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
@@ -49,9 +50,9 @@ class Command(BaseCommand):
 					full_name=f'{fname} {lname}',
 				)
 				self.stdout.write(self.style.SUCCESS('Populating appeal data...'))
-				app = CreateNewApplicationService(new_application=new_app)
+				app = ApplicationService(new_application=new_app)
 				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
-				version = app.create()
+				version = app.create_application()
 				Person.objects.get_or_create(
 					application_version=version,
 					first_name=fname,

@@ -9,7 +9,7 @@ from pathlib import Path
 from app.api.common.web import APIResponse, APIMessage
 from app.utils import ApplicationStatuses, ApplicationProcesses
 from .pre_pupolation_service import PrePopulationService
-from .create_new_application_service import CreateNewApplicationService
+from .create_new_application_service import ApplicationService
 
 from ..exceptions import ApplicationRenewalException
 
@@ -133,8 +133,8 @@ class RenewalApplicationService(object):
         """
         if not self.response.messages:
             new_application_dto = self.prepare_new_application_dto()
-            application_service = CreateNewApplicationService(new_application=new_application_dto)
-            self.new_application_version = application_service.create()
+            application_service = ApplicationService(new_application=new_application_dto)
+            self.new_application_version = application_service.create_application()
             self.create_application_renewal(new_application_version=self.new_application_version)
             # self.run_prepopulation() disable prepopulation
 

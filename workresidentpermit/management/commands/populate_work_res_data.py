@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
-from app.classes import CreateNewApplicationService
+from app.classes import ApplicationService
 from app.models import ApplicationStatus
-from app.utils import ApplicationProcesses
+from app.utils import ApplicationProcesses, ApplicationStatuses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
@@ -11,6 +11,7 @@ from faker import Faker
 from random import randint
 
 from workresidentpermit.models import ResidencePermit, WorkPermit
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -19,30 +20,32 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         faker = Faker()
         process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.name
+        work_res_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.name
+        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.name
+        replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.name
         with atomic():
             ApplicationStatus.objects.get_or_create(
-                code='new',
+                code=ApplicationStatuses.NEW,
                 name='New',
-                processes='WORK_RESIDENT_PERMIT',
+                processes=process_name,
                 valid_from='2024-01-01',
                 valid_to='2026-12-31',
             )
             ApplicationStatus.objects.get_or_create(
-                code='VERIFICATION',
+                code=ApplicationStatuses.VERIFICATION,
                 name='Verification',
-                processes='WORK_RESIDENT_PERMIT',
+                processes=process_name,
                 valid_from='2024-01-01',
                 valid_to='2026-12-31',
             )
-    
+            
             for _ in range(250):
                 fname = faker.unique.first_name()
                 lname = faker.unique.last_name()
                
                 new_app = NewApplicationDTO(
                     process_name=process_name,
-                    application_type=faker.random_element(elements=('WORK_RESIDENT_PERMIT', 'RENEWAL_PERMIT',
-                                                                    'REPLACEMENT_PERMIT')),
+                    application_type=faker.random_element(elements=(work_res_permit, renewal_permit, replacement_permit)),
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
                     status='verification',
                     dob='1990-06-10',
@@ -50,8 +53,8 @@ class Command(BaseCommand):
                     full_name=f'{fname} {lname}',
                 )
                 self.stdout.write(self.style.SUCCESS('Populating data...'))
-                app = CreateNewApplicationService(new_application=new_app)
-                version = app.create()
+                app = ApplicationService(new_application=new_app)
+                version = app.create_application()
                 Person.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,

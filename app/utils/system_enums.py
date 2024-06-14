@@ -7,6 +7,7 @@ class ApplicationProcesses(Enum):
     WORK_PERMIT = "WORK_PERMIT"
     RESIDENT_PERMIT = "RESIDENT_PERMIT"
     SPECIAL_PERMIT = "SPECIAL_PERMIT"
+    EXEMPTION_CERTIFICATE = "EXEMPTION_CERTIFICATE"
 
 
 class ApplicationStatuses(Enum):
@@ -36,3 +37,5 @@ class ApplicationDecisionEnum(Enum):
     REJECTED = "Rejected"
     APPROVED = "approved"
     DEFERRED = "deferred"
+
+    

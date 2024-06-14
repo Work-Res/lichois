@@ -12,7 +12,6 @@ def get_app_labels():
 		'app_personal_details.Person',
 		'app_address.ApplicationAddress',
 		'app_contact.ApplicationContact',
-		'app_attachments.ApplicationAttachment',
 		'app_personal_details.Passport',
 		'workresidentpermit.EmergencyPermit'
 	]

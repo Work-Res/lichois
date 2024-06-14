@@ -2,6 +2,8 @@ import re
 
 from django.apps import apps
 
+from app_attachments.api.serializers import ApplicationAttachmentSerializer
+
 
 class ApplicationSummary(object):
 	
@@ -17,6 +19,7 @@ class ApplicationSummary(object):
 			form_details = self.get_model(app_label)
 			if form_details is not None:
 				summary[snake_case_model_name] = self.serialize_model(form_details)
+			summary['attachments'] = self.get_attachments()
 		return summary
 	
 	def get_model(self, app_label):
@@ -26,6 +29,13 @@ class ApplicationSummary(object):
 			return model_cls.objects.get(document_number=self.document_number)
 		except model_cls.DoesNotExist:
 			return None
+		
+	def get_attachments(self):
+		""" Get the attachments based on the document number. """
+		attachment_models = apps.get_model('app_attachments.ApplicationAttachment').objects.filter(
+			document_number=self.document_number)
+		attachments = ApplicationAttachmentSerializer(attachment_models, many=True).data
+		return attachments
 	
 	def serialize_model(self, model_instance):
 		""" Serialize model instance to a dictionary. """
@@ -63,7 +73,6 @@ class ApplicationSummary(object):
 			'app_personal_details.Person',
 			'app_address.ApplicationAddress',
 			'app_contact.ApplicationContact',
-			'app_attachments.ApplicationAttachment',
 			'app_personal_details.Passport',
 		]
 		generic_label.extend(self.app_labels)

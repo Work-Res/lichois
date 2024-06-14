@@ -1,7 +1,7 @@
 import random
 
 from django.core.management.base import BaseCommand
-from app.models import  ApplicationDocument
+from app.models import ApplicationDocument
 from app_attachments.models import ApplicationAttachment, ApplicationAttachmentVerification, AttachmentDocumentType
 from faker import Faker
 from random import randint

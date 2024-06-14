@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from app.api import NewApplicationDTO
-from app.classes import CreateNewApplicationService
+from app.classes import ApplicationService
 from app.api.serializers import NewApplicationSerializer
 
 
@@ -35,8 +35,8 @@ class ApplicationCreateView(APIView):
                     work_place=serializer.data.get('work_place'),
                     full_name=serializer.data.get('full_name')
                 )
-                create_new = CreateNewApplicationService(new_application=new_app)
-                create_new.create()
+                create_new = ApplicationService(new_application=new_app)
+                create_new.create_application()
                 return JsonResponse(create_new.response.result())
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

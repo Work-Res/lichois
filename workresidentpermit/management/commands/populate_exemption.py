@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
-from app.classes import CreateNewApplicationService
-from app.models import ApplicationStatus
+from app.classes import ApplicationService
 from app.utils import ApplicationProcesses
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
@@ -10,7 +9,8 @@ from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from workresidentpermit.models import EmergencyPermit, ExemptionCertificate
+from workresidentpermit.models import ExemptionCertificate
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -18,13 +18,14 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
+		process_name = ApplicationProcesses.EXEMPTION_CERTIFICATE.name
+		application_type = WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE
 		for _ in range(50):
 			with atomic():
 				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
 				new_app = NewApplicationDTO(
-					application_type='WORK_RES_EXEMPTION_PERMIT',
+					application_type=application_type,
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
@@ -33,9 +34,9 @@ class Command(BaseCommand):
 					full_name=f'{fname} {lname}'
 				)
 				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
-				app = CreateNewApplicationService(new_application=new_app)
+				app = ApplicationService(new_application=new_app)
 				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
-				version = app.create()
+				version = app.create_application()
 				Person.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,
