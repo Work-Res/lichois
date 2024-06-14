@@ -18,6 +18,7 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
+		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
 		# ApplicationStatus.objects.get_or_create(
 		# 	code='new',
 		# 	name='New',
@@ -31,7 +32,7 @@ class Command(BaseCommand):
 			with atomic():
 				new_app = NewApplicationDTO(
 					application_type='WORK_RES_CANCELLATION_PERMIT',
-					process_name=ApplicationProcesses.SPECIAL_PERMIT.name,
+					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',

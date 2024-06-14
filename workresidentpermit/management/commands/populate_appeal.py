@@ -18,17 +18,18 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
+		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
 		ApplicationStatus.objects.get_or_create(
 			code='NEW',
 			name='New',
-			processes=ApplicationProcesses.SPECIAL_PERMIT.name,
+			processes=process_name,
 			valid_from='2024-01-01',
 			valid_to='2026-12-31',
 		)
 		ApplicationStatus.objects.get_or_create(
 			code='VERIFICATION',
 			name='Verification',
-			processes=ApplicationProcesses.SPECIAL_PERMIT.name,
+			processes=process_name,
 			valid_from='2024-01-01',
 			valid_to='2026-12-31',
 		)
@@ -39,7 +40,7 @@ class Command(BaseCommand):
 			with atomic():
 				new_app = NewApplicationDTO(
 					application_type='WORK_RES_APPEAL_PERMIT',
-					process_name=ApplicationProcesses.SPECIAL_PERMIT,
+					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status='verification',
 					dob='1990-06-10',
