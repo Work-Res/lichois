@@ -25,14 +25,14 @@ class Command(BaseCommand):
         replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.name
         with atomic():
             ApplicationStatus.objects.get_or_create(
-                code=ApplicationStatuses.NEW,
+                code=ApplicationStatuses.NEW.value.lower(),
                 name='New',
                 processes=process_name,
                 valid_from='2024-01-01',
                 valid_to='2026-12-31',
             )
             ApplicationStatus.objects.get_or_create(
-                code=ApplicationStatuses.VERIFICATION,
+                code=ApplicationStatuses.VERIFICATION.value.lower(),
                 name='Verification',
                 processes=process_name,
                 valid_from='2024-01-01',
