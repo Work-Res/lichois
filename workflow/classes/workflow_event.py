@@ -17,21 +17,20 @@ class WorkflowEvent(object):
         """
         Searches for business process in the classifier records then create workflow models based on that.
         """
-        print("self.application.process_name: ", self.application.process_name)
-        classifer = None
+        self.logger.info("self.application.process_name: ", self.application.process_name)
         try:
-            classifer = Classifier.objects.get(
+            classifier = Classifier.objects.get(
                 code=self.application.process_name
             )
         except Classifier.DoesNotExist:
             self.logger.debug(f"No workflow exits for {self.application.process_name}.")
             pass
-        if classifer:
+        else:
             self.logger.debug(f"Found workflow {self.application.process_name}.")
-            classifier_items = ClassifierItem.objects.filter(classifier=classifer)
+            classifier_items = ClassifierItem.objects.filter(classifier=classifier)
             self.bussiness_process = BusinessProcess.objects.create(
-                name=classifer.code,
-                description=classifer.description,
+                name=classifier.code,
+                description=classifier.description,
                 document_number=self.application.application_document.document_number
             )
             self.logger.debug(f"Created business process: {self.bussiness_process.name}.")
