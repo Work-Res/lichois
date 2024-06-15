@@ -1,9 +1,7 @@
-import logging
-
 from rest_framework import status
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
+import logging
 
 from workresidentpermit.api.dto import RecommendationRequestDTO
 from workresidentpermit.api.serializers import RecommendationRequestDTOSerializer
@@ -14,20 +12,22 @@ logger = logging.getLogger(__name__)
 
 class CommissionerDecisionAPIView(APIView):
 	"""
-	      Responsible for creating a commissioner decision record
-	      POST
-	          {
-	              document_number = document_number
-	              status = pending # list of valid options ['pending', 'Rejected', 'Accepted'],
-	              summary="text"
-	          }
-	  """
+    Responsible for creating a commissioner decision record.
+    POST
+        {
+            "document_number": "document_number",
+            "status": "pending", # list of valid options ['pending', 'Rejected', 'Accepted'],
+            "summary": "text"
+        }
+    """
+	
 	def post(self, request):
 		try:
-			serializer = RecommendationRequestDTOSerializer(request.data)
+			serializer = RecommendationRequestDTOSerializer(data=request.data)
 			if serializer.is_valid():
-				request = RecommendationRequestDTO(**serializer.data)
-				service = RecommendationService(request)
+				data = serializer.validated_data
+				request_dto = RecommendationRequestDTO(**data)
+				service = RecommendationService(request_dto)
 				return service.create_recommendation()
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 		except Exception as e:
@@ -37,7 +37,7 @@ class CommissionerDecisionAPIView(APIView):
 	
 	def get(self, request, document_number=None):
 		if document_number:
-			request = RecommendationRequestDTO(document_number=document_number)
-			service = RecommendationService(request)
+			request_dto = RecommendationRequestDTO(document_number=document_number)
+			service = RecommendationService(request_dto)
 			return service.retrieve_recommendation()
 		return Response({'detail': 'Document number is required'}, status=status.HTTP_400_BAD_REQUEST)
