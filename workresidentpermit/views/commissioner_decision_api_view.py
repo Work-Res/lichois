@@ -33,7 +33,7 @@ class CommissionerDecisionViewSet(viewsets.GenericViewSet):
 	
 	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
 	        url_name='commissioner-decision-detail')
-	def get_commissioner_decision(self, request, *args, **kwargs):
+	def retrieve(self, request, *args, **kwargs):
 		document_number = kwargs.get('document_number')
 		if document_number:
 			request_dto = RecommendationRequestDTO(document_number=document_number)
