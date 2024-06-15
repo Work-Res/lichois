@@ -53,7 +53,7 @@ def create_application_decision(sender, instance, created, **kwargs):
 def create_production_pdf(sender, instance, created, **kwargs):
     try:
         if created:
-            if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.ACCEPTED.value.lower():
+            if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.APPROVED.value.lower():
                 async_production(document_number=instance.document_number)
     except SystemError as e:
         logger.error("SystemError: An error occurred while creating production pdf ", e)

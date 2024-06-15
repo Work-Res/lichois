@@ -11,7 +11,7 @@ from workflow.classes import WorkflowTransition
 from app_comments.models import Comment
 from board.models import BoardDecision
 from workresidentpermit.exceptions import WorkResidentPermitApplicationDecisionException
-from workresidentpermit.models import SecurityClearance
+from workresidentpermit.models import SecurityClearance, CommissionerDecision
 from app.utils import ApplicationDecisionEnum, ApplicationStatuses, WorkflowEnum
 
 from workresidentpermit.workflow import ProductionTransactionData
@@ -25,13 +25,25 @@ class WorkResidentPermitApplicationDecisionService:
 
     def __init__(self, document_number, security_clearance: SecurityClearance = None,
                  board_decision: BoardDecision = None,
-                 comment: Comment = None):
+                 comment: Comment = None, commissioner_decision: CommissionerDecision = None):
         self.document_number = document_number
         self._board_decision = board_decision
         self._security_clearance = security_clearance
+        self._commissioner_decision = commissioner_decision
         self.comment = comment
         self.application = None
         self.logger = logging.getLogger(__name__)
+
+    def commissioner_decision(self):
+        if not self._commissioner_decision:
+            try:
+                self._commissioner_decision = CommissionerDecision.objects.get(
+                    document_number=self.document_number
+                )
+            except CommissionerDecision.DoesNotExist:
+                pass
+        else:
+            return self._commissioner_decision
 
     def security_clearance(self):
         if not self._security_clearance:
@@ -58,17 +70,24 @@ class WorkResidentPermitApplicationDecisionService:
     def create(self):
         is_security_clearance_accepted = False
         is_board_decision_taken = False
+        is_commissioner_decision = False
+
         workflow = ProductionTransactionData()
 
         security_clearance = self.security_clearance()
         if security_clearance:
             is_security_clearance_accepted = security_clearance.status.code.lower() \
-                                          == ApplicationDecisionEnum.ACCEPTED.value.lower()
+                                             == ApplicationDecisionEnum.ACCEPTED.value.lower()
         board_decision = self.board_decision()
         if board_decision:
             self.application = self._board_decision.assessed_application
             is_board_decision_taken = \
                 self._board_decision.decision_outcome.lower() == ApplicationDecisionEnum.APPROVED.value.lower()
+
+        commissioner_decision = self.commissioner_decision()
+        if commissioner_decision:
+            is_commissioner_decision = commissioner_decision.status.code.lower() == \
+                                       ApplicationDecisionEnum.ACCEPTED.value.lower()
 
         if is_security_clearance_accepted and is_board_decision_taken:
             decision_type = ApplicationDecisionEnum.ACCEPTED.value
@@ -78,6 +97,9 @@ class WorkResidentPermitApplicationDecisionService:
         elif self._board_decision and security_clearance:
             decision_type = ApplicationDecisionEnum.REJECTED.value
             decision_status = "REJECTED"
+        elif is_commissioner_decision:
+            decision_type = ApplicationDecisionEnum.ACCEPTED.value
+            decision_status = "ACCEPTED"
         else:
             self.logger.info("Application decision cannot be completed, pending security clearance or board decision.")
             return
@@ -109,6 +131,11 @@ class WorkResidentPermitApplicationDecisionService:
         self.run_workflow(application=self._board_decision.assessed_application)
 
     def run_workflow(self, application: Application):
+        """
+        TODO: Refactor as per the new workflow changes..
+        :param application:
+        :return:
+        """
         self.logger.info(f"START the workflow for {application.application_document.document_number}")
         previous_activity = application.application_status.code.upper()
         source_data = WorkflowTransition(

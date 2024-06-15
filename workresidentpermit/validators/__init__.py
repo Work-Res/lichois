@@ -4,3 +4,4 @@ from .work_permit_validator import WorkPermitValidator
 from .resident_permit_validator import ResidentPermitValidator
 from .security_clearance_validator import SecurityClearanceValidator
 from .production_validator import ProductionValidator
+from .commisioner_decision_validator import CommissionerDecisionValidator
