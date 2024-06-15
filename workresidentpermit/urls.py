@@ -2,11 +2,11 @@ from django.urls import include, path, re_path
 
 from rest_framework.routers import DefaultRouter
 
-from .views import (ChildCreateListView, CommissionerDecisionAPIView, EmergencyResidencePermitViewSet,
+from .views import (ChildCreateListView, CommissionerDecisionViewSet, EmergencyResidencePermitViewSet,
                     ExemptionCertificateViewSet, PermitCancellationViewSet,
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
-                    WorkPermitApplicationVerificationAPIView, MinisterDecisionAPIView,
+                    WorkPermitApplicationVerificationAPIView, MinisterDecisionViewView,
                     SecurityClearanceCreateAPIView, ProductionPermitView)
 
 router = DefaultRouter()
@@ -17,8 +17,8 @@ router.register(r'work-permit', WorkPermitViewSet)
 router.register(r'emergency-permit', EmergencyResidencePermitViewSet, basename='emergency-permit')
 router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-certificate')
 router.register(r'permit-cancellation', PermitCancellationViewSet, basename='permit-cancellation')
-router.register(r'minister-decision', MinisterDecisionAPIView, basename='minister-decision')
-router.register(r'commissioner-decision', CommissionerDecisionAPIView, basename='commissioner-decision')
+router.register(r'minister-decision', MinisterDecisionViewView, basename='minister-decision')
+router.register(r'commissioner-decision', CommissionerDecisionViewSet, basename='commissioner-decision')
 urlpatterns = [
 	
 	path('spouse/<str:document_number>/<str:pk>', SpouseCreateListView.as_view({'get': 'list'}),
@@ -29,12 +29,6 @@ urlpatterns = [
 	     WorkPermitApplicationVerificationAPIView.as_view(), name='submit-verification'),
 	path('security_clearance/<str:document_number>/submit/',
 	     SecurityClearanceCreateAPIView.as_view(), name='submit-security-clearance'),
-	# path('commissioner-decision/', CommissionerDecisionAPIView.as_view(), name='commissioner-decision-create'),
-	# path('commissioner-decision/<str:document_number>/', CommissionerDecisionAPIView.as_view(),
-	#      name='commissioner-decision-detail'),
-	# path('minister-decision/', MinisterDecisionAPIView.as_view(), name='minister-decision-create'),
-	# path(r'^minister-decision/<document_number>', MinisterDecisionAPIView.as_view(),
-	#         name='minister-decision-detail'),
 	# Old endpoints
 	path('workpermit/<str:document_number>/submit/verification',
 	     WorkPermitApplicationVerificationAPIView.as_view(), name='submit-work-res-verification'),
