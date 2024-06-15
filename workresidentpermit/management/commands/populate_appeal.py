@@ -22,22 +22,22 @@ class Command(BaseCommand):
 		faker = Faker()
 		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
 		self.stdout.write(self.style.SUCCESS(f'Process name {process_name}'))
-		ApplicationStatus.objects.get_or_create(
-			code=ApplicationStatusEnum.NEW.value,
-			name=ApplicationStatusEnum.VERIFICATION.name,
-			processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
-			          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
-			valid_from='2024-01-01',
-			valid_to='2026-12-31',
-		)
-		ApplicationStatus.objects.get_or_create(
-			code=ApplicationStatusEnum.VERIFICATION.value,
-			name=ApplicationStatusEnum.VERIFICATION.name,
-			processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
-			          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
-			valid_from='2024-01-01',
-			valid_to='2026-12-31',
-		)
+		# ApplicationStatus.objects.get_or_create(
+		# 	code=ApplicationStatusEnum.NEW.value,
+		# 	name=ApplicationStatusEnum.VERIFICATION.name,
+		# 	processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
+		# 	          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
+		# 	valid_from='2024-01-01',
+		# 	valid_to='2026-12-31',
+		# )
+		# ApplicationStatus.objects.get_or_create(
+		# 	code=ApplicationStatusEnum.VERIFICATION.value,
+		# 	name=ApplicationStatusEnum.VERIFICATION.name,
+		# 	processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
+		# 	          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
+		# 	valid_from='2024-01-01',
+		# 	valid_to='2026-12-31',
+		# )
 		
 		for _ in range(150):
 			fname = faker.unique.first_name()
