@@ -1,4 +1,5 @@
 from rest_framework import mixins, status, viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 import logging
 
@@ -29,6 +30,8 @@ class CommissionerDecisionViewSet(mixins.CreateModelMixin, mixins.RetrieveModelM
 			return Response({'detail': f'Something went wrong. Got {str(e)}'},
 			                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 	
+	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
+	        url_name='commissioner-decision-detail')
 	def retrieve(self, request, *args, **kwargs):
 		document_number = kwargs.get('document_number')
 		if document_number:

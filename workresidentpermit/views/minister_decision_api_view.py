@@ -20,6 +20,8 @@ class MinisterDecisionViewView(viewsets.ViewSet):
 		except Exception as e:
 			return Response({'detail': f'Something went wrong. Got {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 		
+	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
+	        url_name='minister-decision-detail')
 	def get(self, request, document_number=None):
 		if document_number:
 			request = MinisterRequestDTO(document_number=document_number)
