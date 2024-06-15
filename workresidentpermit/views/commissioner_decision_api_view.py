@@ -3,6 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 import logging
 
+from rest_framework.views import APIView
+
 from workresidentpermit.api.dto import RecommendationRequestDTO
 from workresidentpermit.api.serializers import RecommendationRequestDTOSerializer
 from workresidentpermit.classes.service.recommendation_service import RecommendationService
@@ -10,16 +12,13 @@ from workresidentpermit.classes.service.recommendation_service import Recommenda
 logger = logging.getLogger(__name__)
 
 
-class CommissionerDecisionViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class CommissionerDecisionAPIView(APIView):
 	"""
     Responsible for creating and retrieving a commissioner decision record.
     """
-	serializer_class = RecommendationRequestDTOSerializer
-	
-	@action(detail=False, methods=['post'], url_path='/', url_name='commissioner-decision-create')
-	def create_decision(self, request, *args, **kwargs):
+	def post(self, request, *args, **kwargs):
 		try:
-			serializer = self.get_serializer(data=request.data)
+			serializer = RecommendationRequestDTOSerializer(data=request.data)
 			if serializer.is_valid():
 				data = serializer.validated_data
 				request_dto = RecommendationRequestDTO(**data)
@@ -31,9 +30,7 @@ class CommissionerDecisionViewSet(mixins.CreateModelMixin, mixins.RetrieveModelM
 			return Response({'detail': f'Something went wrong. Got {str(e)}'},
 			                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 	
-	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
-	        url_name='commissioner-decision-detail')
-	def retrieve_decision(self, request, *args, **kwargs):
+	def get(self, request, *args, **kwargs):
 		document_number = kwargs.get('document_number')
 		if document_number:
 			request_dto = RecommendationRequestDTO(document_number=document_number)

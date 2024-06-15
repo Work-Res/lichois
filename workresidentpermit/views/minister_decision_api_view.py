@@ -9,10 +9,9 @@ from workresidentpermit.api.serializers import MinisterDecisionRequestDTOSeriali
 from workresidentpermit.classes.service import MinisterDecisionService
 
 
-class MinisterDecisionViewView(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class MinisterDecisionAPIView(APIView):
 	
-	@action(detail=False, methods=['post'], url_path='/', url_name='minister-decision-create')
-	def create_decision(self, request):
+	def post(self, request):
 		try:
 			serializer = MinisterDecisionRequestDTOSerializer(request.data)
 			if serializer.is_valid():
@@ -20,11 +19,11 @@ class MinisterDecisionViewView(mixins.CreateModelMixin, mixins.RetrieveModelMixi
 				service = MinisterDecisionService(request)
 				return service.create_minister_decision()
 		except Exception as e:
-			return Response({'detail': f'Something went wrong. Got {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-		
-	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
-	        url_name='minister-decision-detail')
-	def retrieve_decision(self, request, document_number=None):
+			return Response({'detail': f'Something went wrong. Got {str(e)}'},
+			                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+	
+	def get(self, request, *args, **kwargs):
+		document_number = kwargs.get('document_number')
 		if document_number:
 			request = MinisterRequestDTO(document_number=document_number)
 			service = MinisterDecisionService(request)
