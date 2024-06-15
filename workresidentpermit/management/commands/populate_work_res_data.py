@@ -18,10 +18,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.name
-        work_res_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.name
-        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.name
-        replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.name
+        process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+        work_res_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
+        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
+        replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
         with atomic():
             
             for _ in range(250):
