@@ -6,7 +6,7 @@ class User(AbstractUser):
 	phone_number = models.IntegerField(unique=True, null=True)
 	
 	def is_chairperson(self):
-		return self.groups.filter(name='chair_person').exists()
+		return self.groups.filter(name='chairperson').exists()
 	
 	def is_board_member(self):
 		return self.groups.filter(name='board_member').exists()
