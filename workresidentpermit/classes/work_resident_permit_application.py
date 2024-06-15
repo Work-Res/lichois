@@ -18,8 +18,6 @@ from .crm_communication_api import CRMCommunicationApi
 
 from django.db import transaction
 
-from ..workflow.verification_transaction_data import RecommendationWorkflow
-
 
 class WorkResidentPermitApplication:
     """
