@@ -28,12 +28,9 @@ urlpatterns = [
 	     WorkPermitApplicationVerificationAPIView.as_view(), name='submit-verification'),
 	path('security_clearance/<str:document_number>/submit/',
 	     SecurityClearanceCreateAPIView.as_view(), name='submit-security-clearance'),
-	path('commissioner/submit/', CommissionerDecisionAPIView.as_view(),
-	     name='submit-commissioner-decision'),
 	path('commissioner/<str:document_number>/', CommissionerDecisionAPIView.as_view(),
-	     name='get-commissioner-decision'),
-	path('minister/submit/', MinisterDecisionAPIView.as_view(), name='submit-minister-decision'),
-	path('minister/<str:document_number>/', MinisterDecisionAPIView.as_view(), name='get-minister-decision'),
+	     name='submit-commissioner-decision'),
+	path('minister/<str:document_number>/', MinisterDecisionAPIView.as_view(), name='submit-minister-decision'),
 	
 	# Old endpoints
 	path('workpermit/<str:document_number>/submit/verification',
