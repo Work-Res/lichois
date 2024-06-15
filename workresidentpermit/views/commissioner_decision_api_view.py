@@ -1,7 +1,6 @@
 from rest_framework import mixins, status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
 import logging
 
 from workresidentpermit.api.dto import RecommendationRequestDTO
@@ -10,9 +9,8 @@ from workresidentpermit.classes.service.recommendation_service import Recommenda
 
 logger = logging.getLogger(__name__)
 
-
 class CommissionerDecisionAPIView(mixins.CreateModelMixin, mixins.RetrieveModelMixin, GenericAPIView):
-	"""
+    """
     Responsible for creating a commissioner decision record.
     POST
         {
@@ -21,24 +19,32 @@ class CommissionerDecisionAPIView(mixins.CreateModelMixin, mixins.RetrieveModelM
             "summary": "text"
         }
     """
-	
-	def create(self, request, *args, **kwargs):
-		try:
-			serializer = RecommendationRequestDTOSerializer(data=request.data)
-			if serializer.is_valid():
-				data = serializer.validated_data
-				request_dto = RecommendationRequestDTO(**data)
-				service = RecommendationService(request_dto)
-				return service.create_recommendation()
-			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-		except Exception as e:
-			logger.error(f"Unexpected error: {str(e)}", exc_info=True)
-			return Response({'detail': f'Something went wrong. Got {str(e)}'},
-			                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-	
-	def retrieve(self, request, document_number, *args, **kwargs):
-		if document_number:
-			request_dto = RecommendationRequestDTO(document_number=document_number)
-			service = RecommendationService(request_dto)
-			return service.retrieve_recommendation()
-		return Response({'detail': 'Document number is required'}, status=status.HTTP_400_BAD_REQUEST)
+    serializer_class = RecommendationRequestDTOSerializer
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            serializer = self.get_serializer(data=request.data)
+            if serializer.is_valid():
+                data = serializer.validated_data
+                request_dto = RecommendationRequestDTO(**data)
+                service = RecommendationService(request_dto)
+                return service.create_recommendation()
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            return Response({'detail': f'Something went wrong. Got {str(e)}'},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def get(self, request, *args, **kwargs):
+        document_number = kwargs.get('document_number')
+        if document_number:
+            return self.retrieve(request, document_number, *args, **kwargs)
+        return Response({'detail': 'Document number is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, document_number, *args, **kwargs):
+        request_dto = RecommendationRequestDTO(document_number=document_number)
+        service = RecommendationService(request_dto)
+        return service.retrieve_recommendation()
