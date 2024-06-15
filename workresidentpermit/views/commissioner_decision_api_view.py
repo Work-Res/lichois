@@ -1,4 +1,5 @@
-from rest_framework import status
+from rest_framework import mixins, status
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import logging
@@ -10,7 +11,7 @@ from workresidentpermit.classes.service.recommendation_service import Recommenda
 logger = logging.getLogger(__name__)
 
 
-class CommissionerDecisionAPIView(APIView):
+class CommissionerDecisionAPIView(mixins.CreateModelMixin, mixins.RetrieveModelMixin, GenericAPIView):
 	"""
     Responsible for creating a commissioner decision record.
     POST
@@ -21,7 +22,7 @@ class CommissionerDecisionAPIView(APIView):
         }
     """
 	
-	def post(self, request):
+	def create(self, request, *args, **kwargs):
 		try:
 			serializer = RecommendationRequestDTOSerializer(data=request.data)
 			if serializer.is_valid():
@@ -35,7 +36,7 @@ class CommissionerDecisionAPIView(APIView):
 			return Response({'detail': f'Something went wrong. Got {str(e)}'},
 			                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 	
-	def get(self, request, document_number=None):
+	def retrieve(self, request, document_number, *args, **kwargs):
 		if document_number:
 			request_dto = RecommendationRequestDTO(document_number=document_number)
 			service = RecommendationService(request_dto)

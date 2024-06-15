@@ -1,4 +1,5 @@
-from rest_framework import status
+from rest_framework import mixins, status
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -7,9 +8,9 @@ from workresidentpermit.api.serializers import MinisterDecisionRequestDTOSeriali
 from workresidentpermit.classes.service import MinisterDecisionService
 
 
-class MinisterDecisionAPIView(APIView):
+class MinisterDecisionAPIView(mixins.CreateModelMixin, mixins.RetrieveModelMixin, GenericAPIView):
 	
-	def post(self, request):
+	def create(self, request, *args, **kwargs):
 		try:
 			serializer = MinisterDecisionRequestDTOSerializer(request.data)
 			if serializer.is_valid():
