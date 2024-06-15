@@ -60,7 +60,7 @@ class WorkResidentPermitApplication:
                     comment_type="OVERALL_APPLICATION_COMMENT"
                 )
             application_decision_type = ApplicationDecisionType.objects.get(
-                code__iexact=self.verification_request.decision)
+                code__iexact=self.verification_request.decision.lower())
             workflow.verification_decision = application_decision_type.code.upper()
 
             ApplicationVerification.objects.create(
