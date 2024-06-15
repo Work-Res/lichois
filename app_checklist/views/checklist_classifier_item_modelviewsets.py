@@ -1,3 +1,5 @@
+import re
+
 import django_filters
 
 from rest_framework import viewsets
@@ -41,3 +43,13 @@ class ChecklistClassifierItemModelViewSets(viewsets.ModelViewSet):
     serializer_class = ChecklistClassifierItemSerializer
     filterset_class = ChecklistClassifierItemFilter
     pagination_class = StandardResultsSetPagination
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        application_type = self.request.query_params.get('application_type', None)
+        if application_type:
+            # Filter the queryset where any application_type matches one of the values in the list
+            queryset = queryset.filter(
+                application_type__iregex=r'\b{}\b'.format(re.escape(application_type.strip()))
+            )
+        return queryset
