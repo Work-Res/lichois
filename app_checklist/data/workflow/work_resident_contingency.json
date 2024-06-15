@@ -1,6 +1,6 @@
 {
   "classifiers": {
-    "workresidentpermit_contingency_workflow": {
+    "special_permit_workflow": {
             "code": "SPECIAL_PERMIT",
             "name": "Work Resident Exceptions Permit Process",
             "description": "Work Resident Permit Process Flow",
