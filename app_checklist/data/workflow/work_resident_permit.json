@@ -14,10 +14,10 @@
           "mandatory": false,
           "sequence": 1,
           "valid_from": "2024-01-01",
-          "next_activity_name": "VETTING",
           "valid_to": "2030-01-01",
+          "next_activity_name": "VETTING",
           "create_task_rules": {
-            "current_status": "VERIFICATION",
+            "current_status": "NEW",
             "system_verification": "validated"
           }
         },
