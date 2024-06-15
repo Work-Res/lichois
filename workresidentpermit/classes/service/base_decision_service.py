@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 
 from django.db import transaction
+from rest_framework.response import Response
 
 from app.api.common.web import APIMessage, APIResponse
 from app_decision.models import ApplicationDecisionType
@@ -53,7 +54,7 @@ class BaseDecisionService:
 		self.response.status = "success"
 		self.response.data = serializer_class(decision).data
 		self.response.messages.append(api_message.to_dict())
-		return self.response
+		return Response(self.response.result())
 	
 	def retrieve_decision(self, decision_model, serializer_class):
 		try:
@@ -68,7 +69,6 @@ class BaseDecisionService:
 			self.response.status = "success"
 			self.response.data = serializer_class(decision).data
 			self.response.messages.append(api_message.to_dict())
-			return self.response
 		except decision_model.DoesNotExist:
 			api_message = APIMessage(
 				code=404,
@@ -77,4 +77,4 @@ class BaseDecisionService:
 			)
 			self.response.messages.append(api_message.to_dict())
 			self.response.status = "error"
-			return self.response
+		return Response(self.response.result())
