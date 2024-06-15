@@ -22,7 +22,6 @@ class CommissionerDecisionAPIView(APIView):
 	              summary="text"
 	          }
 	  """
-	@action(detail=True, methods=['post'], url_path='submit')
 	def post(self, request):
 		try:
 			serializer = RecommendationRequestDTOSerializer(request.data)
