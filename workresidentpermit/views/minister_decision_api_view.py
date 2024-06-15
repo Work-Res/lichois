@@ -1,5 +1,5 @@
 from django.views.generic import View
-from rest_framework import status, viewsets
+from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,7 +9,7 @@ from workresidentpermit.api.serializers import MinisterDecisionRequestDTOSeriali
 from workresidentpermit.classes.service import MinisterDecisionService
 
 
-class MinisterDecisionViewView(viewsets.GenericViewSet):
+class MinisterDecisionViewView(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 	
 	@action(detail=False, methods=['post'], url_path='/', url_name='minister-decision-create')
 	def create(self, request):
