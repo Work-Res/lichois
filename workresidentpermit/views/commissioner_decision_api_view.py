@@ -10,12 +10,13 @@ from workresidentpermit.classes.service.recommendation_service import Recommenda
 logger = logging.getLogger(__name__)
 
 
-class CommissionerDecisionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class CommissionerDecisionViewSet(viewsets.GenericViewSet):
 	"""
     Responsible for creating and retrieving a commissioner decision record.
     """
 	serializer_class = RecommendationRequestDTOSerializer
 	
+	@action(detail=False, methods=['post'], url_path='/', url_name='commissioner-decision-create')
 	def create(self, request, *args, **kwargs):
 		try:
 			serializer = self.get_serializer(data=request.data)
