@@ -30,7 +30,7 @@ class CommissionerDecisionAPIView(APIView):
 			return Response({'detail': f'Something went wrong. Got {str(e)}'},
 			                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 	
-	def get(self, request, *args, **kwargs):
+	def get(self, request, **kwargs):
 		document_number = kwargs.get('document_number')
 		if document_number:
 			request_dto = RecommendationRequestDTO(document_number=document_number)
