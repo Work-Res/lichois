@@ -24,20 +24,6 @@ class Command(BaseCommand):
         renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.name
         replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.name
         with atomic():
-            ApplicationStatus.objects.get_or_create(
-                code=ApplicationStatuses.NEW,
-                name='New',
-                processes=process_name,
-                valid_from='2024-01-01',
-                valid_to='2026-12-31',
-            )
-            ApplicationStatus.objects.get_or_create(
-                code=ApplicationStatuses.VERIFICATION,
-                name='Verification',
-                processes=process_name,
-                valid_from='2024-01-01',
-                valid_to='2026-12-31',
-            )
             
             for _ in range(250):
                 fname = faker.unique.first_name()

@@ -17,7 +17,7 @@ class WorkResidentPermitVerificationValidator:
         try:
             self.application = Application.objects.get(
                 application_document__document_number=document_number,
-                application_status__code=ApplicationStatuses.VERIFICATION.value
+                application_status__code__iexact=ApplicationStatuses.VERIFICATION.value
             )
         except Application.DoesNotExist:
             self.response.messages.append(
