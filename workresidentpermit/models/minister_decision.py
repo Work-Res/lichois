@@ -20,4 +20,4 @@ class MinisterDecision(BaseUuidModel):
 	summary = models.TextField(null=True, blank=True)
 
 	class Meta:
-		verbose_name = 'Commissioner Decision'
+		verbose_name = 'Minister Decision'
