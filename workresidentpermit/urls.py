@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 from rest_framework.routers import DefaultRouter
 
@@ -28,10 +28,12 @@ urlpatterns = [
 	     WorkPermitApplicationVerificationAPIView.as_view(), name='submit-verification'),
 	path('security_clearance/<str:document_number>/submit/',
 	     SecurityClearanceCreateAPIView.as_view(), name='submit-security-clearance'),
-	path('commissioner/<str:document_number>/', CommissionerDecisionAPIView.as_view(),
-	     name='submit-commissioner-decision'),
-	path('minister/<str:document_number>/', MinisterDecisionAPIView.as_view(), name='submit-minister-decision'),
-	
+	path('commissioner-decision/', CommissionerDecisionAPIView.as_view(), name='commissioner-decision'),
+	re_path(r'^commissioner-decision/(?P<document_number>[^/]+)/$', CommissionerDecisionAPIView.as_view(),
+	        name='commissioner-decision-detail'),
+	path('minister-decision/', MinisterDecisionAPIView.as_view(), name='minister-decision'),
+	re_path(r'^minister-decision/(?P<document_number>[^/]+)/$', MinisterDecisionAPIView.as_view(),
+	        name='minister-decision-detail'),
 	# Old endpoints
 	path('workpermit/<str:document_number>/submit/verification',
 	     WorkPermitApplicationVerificationAPIView.as_view(), name='submit-work-res-verification'),
