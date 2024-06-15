@@ -38,11 +38,11 @@ class CreateChecklistService:
         model = self.get_model_by_app_label_and_model_name(app_label, model_name)
 
         for item in data:
-            # item[self.foreign_name] = classifier
-
+            item[self.foreign_name] = classifier
+            lookup_kwargs = {self.foreign_name: classifier, "code": item['code']}
+            
             classifier_item, created = model.objects.update_or_create(
-                code=item['code'],
-                checklist_classifier=classifier,
+                **lookup_kwargs,
                 defaults=item
             )
 
