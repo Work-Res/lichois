@@ -1,5 +1,5 @@
 from django.views.generic import View
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,7 +9,7 @@ from workresidentpermit.api.serializers import MinisterDecisionRequestDTOSeriali
 from workresidentpermit.classes.service import MinisterDecisionService
 
 
-class MinisterDecisionAPIView(APIView):
+class MinisterDecisionAPIView(viewsets.ViewSet):
 	def post(self, request):
 		try:
 			serializer = MinisterDecisionRequestDTOSerializer(request.data)

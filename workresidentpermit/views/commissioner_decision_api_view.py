@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import logging
@@ -10,7 +10,7 @@ from workresidentpermit.classes.service.recommendation_service import Recommenda
 logger = logging.getLogger(__name__)
 
 
-class CommissionerDecisionAPIView(APIView):
+class CommissionerDecisionAPIView(viewsets.ViewSet):
 	"""
     Responsible for creating a commissioner decision record.
     POST
