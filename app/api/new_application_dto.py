@@ -1,7 +1,4 @@
-
-
 class NewApplicationDTO(object):
-
     """Represent NewApplicationDTO model submitted by the front-end.
 
         Attributes:
@@ -14,7 +11,8 @@ class NewApplicationDTO(object):
                "work_place": ""
             }
     """
-    def __init__(self, process_name, applicant_identifier, status, dob=None, work_place=None, full_name=None,
+
+    def __init__(self, process_name, applicant_identifier: str, status, dob=None, work_place=None, full_name=None,
                  application_type=None):
         self.proces_name = process_name
         self.full_name = full_name

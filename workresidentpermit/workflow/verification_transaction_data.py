@@ -2,7 +2,7 @@ class VerificationTransactionData:
 	
 	def __init__(self, next_activity_name=None, application_status=None, system_verification=None):
 		self.next_activity_name = next_activity_name
-		self.application_status = application_status
+		self.current_status = application_status
 		self.system_verification = system_verification
 
 

@@ -8,7 +8,7 @@ from app_decision.models import ApplicationDecisionType
 from faker import Faker
 
 from app.models import ApplicationStatus
-from app.classes import CreateNewApplicationService
+from app.classes import ApplicationService
 from app_checklist.classes import CreateChecklistService
 
 from app.api import NewApplicationDTO
@@ -20,7 +20,7 @@ from app_contact.models import ApplicationContact
 
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 
 from workresidentpermit.models import WorkPermit
 
@@ -77,12 +77,12 @@ class TestGenerateProductionPermitPDF(TestCase):
         self.new_app = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             applicant_identifier='317918515',
-            status=ApplicationStatuses.NEW.value,
+            status=ApplicationStatusEnum.NEW.value,
             dob="06101990",
             work_place="01",
             full_name="Test test")
 
-        self.create_new = CreateNewApplicationService(new_application=self.new_app)
+        self.create_new = ApplicationService(new_application=self.new_app)
 
         application_version = self.create_new.create()
 

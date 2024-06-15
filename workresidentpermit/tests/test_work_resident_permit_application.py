@@ -1,5 +1,6 @@
 import arrow
 import os
+import glob
 
 from datetime import date
 from django.test import TestCase
@@ -10,7 +11,7 @@ from authentication.models import User
 from faker import Faker
 
 from app.models import Application, ApplicationStatus, ApplicationRenewal
-from app.classes import CreateNewApplicationService
+from app.classes import ApplicationService
 from app_checklist.classes import CreateChecklistService
 
 from app.api import NewApplicationDTO
@@ -22,7 +23,7 @@ from app_contact.models import ApplicationContact
 
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 from board.models import BoardDecision, BoardMeeting
 from workresidentpermit.api.dto import SecurityClearanceRequestDTO
 
@@ -76,14 +77,17 @@ class TestWorkResidentPermitApplication(TestCase):
                                                    foreign_app_label_model_name="app_checklist.checklistclassifieritem")
         checklist_service.create(file_location=output_file)
 
-        file_name = "attachment_documents.json"
-        output_file = os.path.join(os.getcwd(), "app_checklist", "data", file_name)
+        folder_path = os.path.join(os.getcwd(), "app_checklist", "data", "workflow")
+        # Get a list of all JSON files in the folder
+        file_list = glob.glob(os.path.join(folder_path, '*.json'))
 
-        service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
-                                         foreign_name="classifier",
-                                         parent_app_label_model_name="app_checklist.classifier",
-                                         foreign_app_label_model_name="app_checklist.classifieritem")
-        service.create(file_location=output_file)
+        for file in file_list:
+            if os.path.isfile(file):
+                workflow_service = CreateChecklistService(parent_classifier_name="classifiers", child_name="classifier_items",
+                                                          foreign_name="classifier",
+                                                          parent_app_label_model_name="app_checklist.classifier",
+                                                          foreign_app_label_model_name="app_checklist.classifieritem")
+                workflow_service.create(file_location=file)
 
         for status in statuses:
             ApplicationStatus.objects.create(
@@ -93,17 +97,13 @@ class TestWorkResidentPermitApplication(TestCase):
         self.new_app = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             applicant_identifier='317918515',
-            status=ApplicationStatuses.NEW.value,
+            status=ApplicationStatusEnum.NEW.value,
             dob="06101990",
             work_place="01",
             full_name="Test test")
 
-        self.create_new = CreateNewApplicationService(new_application=self.new_app)
-
-        application_version = self.create_new.create()
-
-        # for message in self.create_new.response.messages:
-        #     print("Message: ", message)
+        self.application_service = ApplicationService(new_application=self.new_app)
+        application_version = self.application_service.create_application()
 
         app = application_version.application
         self.application = application_version.application
@@ -244,6 +244,8 @@ class TestWorkResidentPermitApplication(TestCase):
 
         tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
         self.assertEqual(tasks_count, 1)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.VERIFICATION.value.upper())
 
     def test_workpermit_submission_when_vetting_task_should_exists(self):
         """
@@ -284,6 +286,8 @@ class TestWorkResidentPermitApplication(TestCase):
             activity__process__document_number=self.document_number)]
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.VETTING.value.upper())
 
     def test_workpermit_submission_when_production_task_should_exists(self):
         """

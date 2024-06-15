@@ -1,6 +1,6 @@
 
 from app.utils import ApplicationStatusEnum
-from app.models import ApplicationUser, ApplicationStatus, Application, ApplicationVersion
+from app.models import ApplicationUser, ApplicationStatus, Application
 
 
 class ApplicationRepository:

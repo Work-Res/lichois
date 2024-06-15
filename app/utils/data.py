@@ -48,6 +48,13 @@ statuses = [{
         'processes': 'WORK_RESIDENT_PERMIT,residentpermit,visa',
         'valid_from': date(2023, 1, 1),
         'valid_to': None
+    },
+    {
+        'code': 'final_decision',
+        'name': 'FINAL_DECISION',
+        'processes': 'WORK_RESIDENT_PERMIT,residentpermit,visa',
+        'valid_from': date(2023, 1, 1),
+        'valid_to': None
     }
 ]
 
