@@ -1,6 +1,7 @@
 import logging
 
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -21,6 +22,7 @@ class CommissionerDecisionAPIView(APIView):
 	              summary="text"
 	          }
 	  """
+	@action(detail=True, methods=['post'], url_path='submit')
 	def post(self, request):
 		try:
 			serializer = RecommendationRequestDTOSerializer(request.data)
