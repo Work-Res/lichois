@@ -42,7 +42,7 @@ class CreateChecklistService:
 
             classifier_item, created = model.objects.update_or_create(
                 code=item['code'],
-                classifier=classifier,
+                checklist_classifier=classifier,
                 defaults=item
             )
 
