@@ -12,6 +12,15 @@ logger = logging.getLogger(__name__)
 
 
 class CommissionerDecisionAPIView(APIView):
+	"""
+	      Responsible for creating a commissioner decision record
+	      POST
+	          {
+	              document_number = document_number
+	              status = pending # list of valid options ['pending', 'Rejected', 'Accepted'],
+	              summary="text"
+	          }
+	  """
 	def post(self, request):
 		try:
 			serializer = RecommendationRequestDTOSerializer(request.data)
