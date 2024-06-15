@@ -12,7 +12,7 @@ from workresidentpermit.classes.service import MinisterDecisionService
 class MinisterDecisionViewView(viewsets.GenericViewSet):
 	
 	@action(detail=False, methods=['post'], url_path='/', url_name='minister-decision-create')
-	def create(self, request):
+	def create_decision(self, request):
 		try:
 			serializer = MinisterDecisionRequestDTOSerializer(request.data)
 			if serializer.is_valid():
@@ -24,7 +24,7 @@ class MinisterDecisionViewView(viewsets.GenericViewSet):
 		
 	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
 	        url_name='minister-decision-detail')
-	def retrieve(self, request, document_number=None):
+	def retrieve_decision(self, request, document_number=None):
 		if document_number:
 			request = MinisterRequestDTO(document_number=document_number)
 			service = MinisterDecisionService(request)
