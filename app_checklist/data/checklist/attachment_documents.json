@@ -12,7 +12,7 @@
           "code": "PASSPORT_COPY",
           "name": "PASSPORT COPY",
           "description": "Scanned passport page 1 copy.",
-          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, EXEMPTION_CERTIFICATE_ONLY, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_APPEAL, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_APPEAL, RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY, WORK_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
           "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
@@ -20,16 +20,16 @@
         {
           "code": "PASSPORT_PHOTO",
           "name": "PASSPORT PHOTO",
-          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, EXEMPTION_CERTIFICATE_ONLY, , WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_REPLACEMENT, WORK_PERMIT_REPLACEMENT, RESIDENT_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_EMERGENCY, RESIDENT_PERMIT_ONLY, WORK_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
           "description": "Passport photo",
           "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         },
         {
-          "code": "COVER_LETTER_FROM_APPLICANT",
-          "name": "COVER LETTER FROM APPLICANT",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION",
+          "code": "APPLICANT_COVER_LETTER",
+          "name": "APPLICANTCOVER LETTER",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT",
           "description": "Cover letter from the applicant",
           "mandatory": true,
           "valid_from": "2024-01-01",
@@ -56,16 +56,16 @@
         {
           "code": "MARRIAGE CERTIFICATE",
           "name": "MARRIAGE_CERTIFICATE",
-          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
+          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT, RESIDENT_PERMIT_ONLY",
           "description": "Certified copy of Marriage Certificate",
-          "mandatory": true,
+          "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         },
         {
           "code": "ORIGINAL_WORK_PERMIT",
           "name": "ORIGINAL WORK PERMIT",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL",
           "description": "Original work permit", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
@@ -74,17 +74,8 @@
         {
           "code": "ORIGINAL_RESIDENCE_PERMIT",
           "name": "ORIGINAL RESIDENCE PERMIT",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_CANCELLATION",
           "description": "Original residence permit", 
-          "mandatory":true,
-          "valid_from" :"2024-01-01",
-          "valid_to":"2030-01-01"
-        },
-        {
-          "code": "CERTIFIED_COPY_OF_PASSPORT",
-          "name": "CERTIFIED COPY OF PASSPORT",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-          "description": "Certified copy of passport", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
@@ -92,7 +83,7 @@
         {
           "code": "OFFER_LETTER",
           "name": "OFFER LETTER",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, , EXEMPTION_CERTIFICATE_ONLY, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
           "description": "Offer letter if changing employment", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
@@ -128,7 +119,7 @@
         {
           "code": "COVER_LETTER_FROM_EMPLOYER",
           "name": "COVER LETTER FROM EMPLOYER",
-          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "application_type": "WORK_PERMIT_REPLACEMENT, , EXEMPTION_CERTIFICATE_ONLY, WORK_PERMIT_REPLACEMENT",
           "description": "Cover letter from the employer",
           "mandatory": true,
           "valid_from": "2024-01-01",
@@ -137,27 +128,252 @@
         {
           "code": "AFFIDAVIT",
           "name": "AFFIDAVIT",
-          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT, WORK_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_REPLACEMENT",
           "description": "Affidavit from Botswana Police",
           "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         },
         {
-          "code": "FEE_OF_2000",
-          "name": "FEE OF 2000",
-          "application_type": "WORK_PERMIT_REPLACEMENT",
-          "description": "A P2000 fee",
-          "mandatory": true,
+          "code": "POLICE_REPORT",
+          "name": "POLICE REPORT",
+          "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT, WORK_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_REPLACEMENT",
+          "description": "Botswana Police report if permit was stolen",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "FEE_PAYMENT",
+          "name": "FEE PAYMENT",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, WORK_PERMIT_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_APPEAL, RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_CANCELLATION, EXEMPTION_CERTIFICATE_ONLY, RESIDENT_PERMIT_ONLY, WORK_PERMIT_APPEAL, WORK_PERMIT_EMERGENCY, RESIDENT_PERMIT_ONLY, WORK_PERMIT_ONLY, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
+          "description": "A fee payment",
+          "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         },
         {
           "code": "COPY_OF_WORK_PERMIT",
           "name": "COPY OF WORK PERMIT",
-          "application_type": "WORK_PERMIT_REPLACEMENT",
+          "application_type": "WORK_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_APPEAL, EXEMPTION_CERTIFICATE_APPEAL, RESIDENT_PERMIT_ONLY, WORK_PERMIT_CANCELLATION",
           "description": "A copy of work permit",
           "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPY_OF_EMPLOYMENT_CONTRACT",
+          "name": "COPY OF EMPLOYMENT CONTRACT",
+          "application_type": "EXEMPTION_CERTIFICATE_ONLY, EXEMPTION_CERTIFICATE_RENEWAL, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL,  WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY, WORK_PERMIT_CANCELLATION",
+          "description": "A copy of employment contract",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "QUALIFICATION",
+          "name": "QUALIFICATION",
+          "application_type": "EXEMPTION_CERTIFICATE_ONLY, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_ONLY, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY, WORK_PERMIT_RENEWAL",
+          "description": "Certified copies of academic documents",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CV",
+          "name": "CV",
+          "application_type": "EXEMPTION_CERTIFICATE_ONLY, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_ONLY, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
+          "description": "A copy of applicant cv",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }, 
+        {
+          "code": "CONTRACT_RENEWAL",
+          "name": "CONTRACT RENEWAL",
+          "application_type": "EXEMPTION_CERTIFICATE_APPEAL",
+          "description": "A renewed contract",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPY_OF_RESIDENCE_PERMIT",
+          "name": "COPY OF RESIDENCE PERMIT",
+          "application_type": "EXEMPTION_CERTIFICATE_APPEAL, WORK_RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_APPEAL, WORK_PERMIT_CANCELLATION",
+          "description": "A copy of residence permit",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPY_OF_ADVERT",
+          "name": "COPY OF ADVERT",
+          "application_type": "EXEMPTION_CERTIFICATE_ONLY, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
+          "description": "A copy of advert",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "APPLICATION_LETTER",
+          "name": "APPLICATION LETTER",
+          "application_type": "RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_EMERGENCY, RESIDENT_PERMIT_CANCELLATION, EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_ONLY, EXEMPTION_CERTIFICATE_RENEWAL, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
+          "description": "An application letter",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "MANUAL_CERTIFICATE",
+          "name": "MANUAL CERTIFICATE",
+          "application_type": "RESIDENT_PERMIT_ONLY",
+          "description": "A manual certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "LETTER_OF_APPEAL",
+          "name": "LETTER OF APPEAL",
+          "application_type": "WORK_PERMIT_APPEAL, RESIDENT_PERMIT_APPEAL, WORK_RESIDENT_PERMIT_APPEAL",
+          "description": "A letter of appeal",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPY_OF_REJECTION_LETTER",
+          "name": "COPY OF REJECTION LETTER",
+          "application_type": "WORK_PERMIT_APPEAL, RESIDENT_PERMIT_APPEAL, WORK_RESIDENT_PERMIT_APPEAL",
+          "description": "A copy of rejection letter",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CLEARANCE",
+          "name": "CLEARANCE",
+          "application_type": "WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
+          "description": "Clearance from relevant professional regulatory bodies",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "LETTER_FROM_DOCTOR",
+          "name": "LETTER FROM DOCTOR",
+          "application_type": "WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
+          "description": "Letter from the doctor",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SUPPORTING_LETTER",
+          "name": "SUPPORTING LETTER",
+          "application_type": "WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
+          "description": "Supporting letter from relevant Ministries for Government projects",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "MEDICAL_REPORT",
+          "name": "MEDICAL REPORT",
+          "application_type": "EXEMPTION_CERTIFICATE_ONLY, EXEMPTION_CERTIFICATE_APPEAL, RESIDENT_PERMIT_ONLY, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
+          "description": "Medical report",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPY_OF_BIRTH_CERTIFICATE",
+          "name": "COPY OF BIRTH CERTIFICATE",
+          "application_type": "RESIDENT_PERMIT_ONLY",
+          "description": "A certified copy of birth certificate",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "LACK_OF_BIRTH_CERTIFICATE",
+          "name": "LACK OF BIRTH CERTIFICATE",
+          "application_type": "RESIDENT_PERMIT_ONLY",
+          "description": "Statement setting out the reasons for failure to attach copy of birth certificate",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "EMPLOYER_LETTER",
+          "name": "EMPLOYER LETTER",
+          "application_type": "WORK_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
+          "description": "Letter from employer",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SPONSOR_LETTER",
+          "name": "SPONSOR LETTER",
+          "application_type": "RESIDENT_PERMIT_EMERGENCY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_CANCELLATION",
+          "description": "Letter from sponsor",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PROOF_OF_RELATIONSHIP",
+          "name": "PROOF OF RELATIONSHIP",
+          "application_type": "RESIDENT_PERMIT_EMERGENCY",
+          "description": "If the emergency involves family members, provide documentation",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PROOF_OF_RESIDENCE",
+          "name": "PROOF OF RESIDENCE",
+          "application_type": "EXEMPTION_CERTIFICATE_RENEWAL, RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_REPLACEMENT",
+          "description": "Documentation proving the applicants current residence in Botswana",
+          "mandatory":true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PROOF_OF_DEPARTURE",
+          "name": "PROOF OF DEPARTURE",
+          "application_type": "WORK_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_CANCELLATION",
+          "description": "Proof of departure",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "TAX_CLEARANCE_CERTIFICATE",
+          "name": "TAX CLEARANCE CERTIFICATE",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, WORK_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, WORK_PERMIT_RENEWAL,RESIDENT_PERMIT_CANCELLATION",
+          "description": "A tax clearance certificate",
+          "mandatory":true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "ORIGINAL_WORK_RES_PERMIT",
+          "name": "ORIGINAL WORK RES PERMIT",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+          "description": "A work res permit",
+          "mandatory":true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "ORIGINAL_EXEMPTION_CERTIFICATE",
+          "name": "ORIGINAL EXEMPTION CERTIFICATE",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_RENEWAL",
+          "description": "Current exemption certificate",
+          "mandatory":true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         }
