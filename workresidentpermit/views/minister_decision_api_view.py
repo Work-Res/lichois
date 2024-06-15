@@ -13,7 +13,7 @@ class MinisterDecisionAPIView(APIView):
 	
 	def post(self, request):
 		try:
-			serializer = MinisterDecisionRequestDTOSerializer(request.data)
+			serializer = MinisterDecisionRequestDTOSerializer(data=request.data)
 			if serializer.is_valid():
 				request = MinisterRequestDTO(**serializer.data)
 				service = MinisterDecisionService(request)
