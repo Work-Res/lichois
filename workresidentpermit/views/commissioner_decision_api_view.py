@@ -10,7 +10,7 @@ from workresidentpermit.classes.service.recommendation_service import Recommenda
 logger = logging.getLogger(__name__)
 
 
-class CommissionerDecisionViewSet(viewsets.GenericViewSet):
+class CommissionerDecisionViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 	"""
     Responsible for creating and retrieving a commissioner decision record.
     """
