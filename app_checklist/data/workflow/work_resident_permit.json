@@ -14,11 +14,11 @@
           "mandatory": false,
           "sequence": 1,
           "valid_from": "2024-01-01",
+          "next_activity_name": "VETTING",
           "valid_to": "2030-01-01",
           "create_task_rules": {
-            "current_status": "NEW",
-            "system_verification": "validated",
-            "next_activity_name": "VETTING"
+            "current_status": "VERIFICATION",
+            "system_verification": "validated"
           }
         },
         {
@@ -29,9 +29,9 @@
           "sequence": 2,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
+          "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
             "current_status": "VERIFICATION",
-            "next_activity_name": "FINAL_DECISION",
             "verification_decision": "ACCEPTED"
           }
         },
@@ -43,11 +43,11 @@
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
+          "next_activity_name": "PERMIT_CANCELLATION",
           "create_task_rules": {
             "board_decision": "ACCEPTED",
             "security_clearance": "ACCEPTED",
-            "current_status": "VETTING",
-            "next_activity_name": "PERMIT_CANCELLATION"
+            "current_status": "VETTING"
           }
         }
       ]
