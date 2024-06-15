@@ -22,7 +22,7 @@ class MinisterDecisionViewView(viewsets.ViewSet):
 		
 	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
 	        url_name='minister-decision-detail')
-	def get(self, request, document_number=None):
+	def get_minister_decision(self, request, document_number=None):
 		if document_number:
 			request = MinisterRequestDTO(document_number=document_number)
 			service = MinisterDecisionService(request)

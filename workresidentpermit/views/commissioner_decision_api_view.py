@@ -10,7 +10,7 @@ from workresidentpermit.classes.service.recommendation_service import Recommenda
 logger = logging.getLogger(__name__)
 
 
-class CommissionerDecisionViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class CommissionerDecisionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 	"""
     Responsible for creating and retrieving a commissioner decision record.
     """
@@ -32,7 +32,7 @@ class CommissionerDecisionViewSet(mixins.CreateModelMixin, mixins.RetrieveModelM
 	
 	@action(detail=False, methods=['get'], url_path='(?P<document_number>[A-Za-z0-9-]+)',
 	        url_name='commissioner-decision-detail')
-	def retrieve(self, request, *args, **kwargs):
+	def get_commissioner_decision(self, request, *args, **kwargs):
 		document_number = kwargs.get('document_number')
 		if document_number:
 			request_dto = RecommendationRequestDTO(document_number=document_number)
