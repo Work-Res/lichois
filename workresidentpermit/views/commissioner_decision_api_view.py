@@ -17,7 +17,7 @@ class CommissionerDecisionViewSet(viewsets.GenericViewSet):
 	serializer_class = RecommendationRequestDTOSerializer
 	
 	@action(detail=False, methods=['post'], url_path='/', url_name='commissioner-decision-create')
-	def create_decision(self, request, *args, **kwargs):
+	def create(self, request, *args, **kwargs):
 		try:
 			serializer = self.get_serializer(data=request.data)
 			if serializer.is_valid():
