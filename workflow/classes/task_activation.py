@@ -31,7 +31,6 @@ class TaskActivation:
             process__name=self.application.process_name,
             process__document_number=self.application.application_document.document_number)
         for activity in activities:
-            self.source.current_status = self.application.application_status.code
             self.source.next_activity_name = activity.next_activity_name
 
             if workflow.test_rule(activity.name.upper(), self.source, activity.create_task_rules):

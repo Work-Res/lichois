@@ -50,7 +50,7 @@ class WorkResidentPermitApplication:
         crm.send_aknowledgement()
         # WorkPermitApplicationPDFGenerator TODO: Review business needs
         with transaction.atomic():
-            workflow = VettingTransactionData()
+            workflow = VerificationTransactionData()
             # Fixme add condition to check if comment is provided
             comment = None
             if self.verification_request.comment:
@@ -61,7 +61,8 @@ class WorkResidentPermitApplication:
                 )
             application_decision_type = ApplicationDecisionType.objects.get(
                 code__iexact=self.verification_request.decision.lower())
-            workflow.verification_decision = application_decision_type.code.upper()
+            workflow.system_verification = application_decision_type.code.upper()
+            workflow.current_status = self.application.application_status.code
 
             ApplicationVerification.objects.create(
                 document_number=self.document_number,

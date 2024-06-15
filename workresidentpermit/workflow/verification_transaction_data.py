@@ -14,7 +14,7 @@ class VettingTransactionData:
 		self.verification_decision = verification_decision
 
 
-class RecommendationWorkflow:
+class RecommendationTransitionData:
 	def __init__(self, next_activity_name=None, application_status=None, verification_decision=None):
 		self.next_activity_name = next_activity_name
 		self.application_status = application_status
