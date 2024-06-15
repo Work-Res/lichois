@@ -4,7 +4,7 @@ from typing import Optional
 
 from app.models import Application
 from app.api.common.web import APIResponse, APIMessage
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 from app_decision.models import ApplicationDecisionType
 from ..models import SecurityClearance
 
@@ -31,7 +31,7 @@ class SecurityClearanceValidator:
         try:
             self.application = Application.objects.get(
                 application_document__document_number=self.document_number,
-                application_status__code__iexact=ApplicationStatuses.VETTING.value
+                application_status__code__iexact=ApplicationStatusEnum.VETTING.value
             )
         except Application.DoesNotExist:
             self.logger.error(f"Application with document number {self.document_number} does not exist or is not in vetting status.")

@@ -9,7 +9,7 @@ from workresidentpermit.models import WorkPermit, SecurityClearance
 from app_decision.models import ApplicationDecision
 from workresidentpermit.classes import WorkResidentPermitApplicationDecisionService
 
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 from .tasks import async_production
 
 from .classes import WorkPermitApplicationPDFGenerator
@@ -21,10 +21,10 @@ logger = logging.getLogger(__name__)
 def generate_pdf_summary(sender, instance, created, **kwargs):
     try:
         if sender.application_version.application.application_status.name in \
-                [ApplicationStatuses.VERIFICATION.value,
-                 ApplicationStatuses.CANCELLED.value,
-                 ApplicationStatuses.REJECTED.value,
-                 ApplicationStatuses.ACCEPTED.value]:
+                [ApplicationStatusEnum.VERIFICATION.value,
+                 ApplicationStatusEnum.CANCELLED.value,
+                 ApplicationStatusEnum.REJECTED.value,
+                 ApplicationStatusEnum.ACCEPTED.value]:
             generator = WorkPermitApplicationPDFGenerator(work_resident_permit=sender)
             generator.generate()
     except SystemError as e:

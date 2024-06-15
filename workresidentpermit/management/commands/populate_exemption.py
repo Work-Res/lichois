@@ -3,6 +3,7 @@ from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.utils import ApplicationProcesses
+from app.utils.system_enums import ApplicationStatusEnum
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
@@ -28,7 +29,7 @@ class Command(BaseCommand):
 					application_type=application_type,
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
-					status='verification',
+					status=ApplicationStatusEnum.VERIFICATION.value,
 					dob='1990-06-10',
 					work_place=randint(1000, 9999),
 					full_name=f'{fname} {lname}'

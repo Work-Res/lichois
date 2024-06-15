@@ -3,7 +3,7 @@ import logging
 from app.models import Application, ApplicationStatus, ApplicationVerification
 from app_comments.models import Comment
 
-from app.utils import ApplicationStatuses, WorkflowEnum
+from app.utils import ApplicationStatusEnum
 from app.api.common.web import APIResponse, APIMessage
 from app.api.serializers import ApplicationSerializer
 
@@ -87,7 +87,7 @@ class WorkResidentPermitApplication:
                 source=None,
                 model=None
             )
-            task_deactivation.update_task_by_activity(name=ApplicationStatuses.VERIFICATION.value)
+            task_deactivation.update_task_by_activity(name=ApplicationStatusEnum.VERIFICATION.value)
             return self.response
 
     def submit(self):
@@ -96,7 +96,7 @@ class WorkResidentPermitApplication:
         workflow.system_verification = "validated"
         with transaction.atomic():
             self.logger.info("Application has been submitted successfully.")
-            application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatuses.DRAFT.value)
+            application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatusEnum.DRAFT.value)
             self.application.application_status = application_status
             self.application.save()
 

@@ -12,7 +12,7 @@ from app_comments.models import Comment
 from board.models import BoardDecision
 from workresidentpermit.exceptions import WorkResidentPermitApplicationDecisionException
 from workresidentpermit.models import SecurityClearance, CommissionerDecision
-from app.utils import ApplicationDecisionEnum, ApplicationStatuses, WorkflowEnum
+from app.utils import ApplicationDecisionEnum, ApplicationStatusEnum, WorkflowEnum
 
 from workresidentpermit.workflow import ProductionTransactionData
 
@@ -141,7 +141,7 @@ class WorkResidentPermitApplicationDecisionService:
         source_data = WorkflowTransition(
             previous_status=previous_activity
         )
-        application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatuses.ACCEPTED.value)
+        application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatusEnum.ACCEPTED.value)
         application.application_status = application_status
         application.save()
         source_data.current_status = WorkflowEnum.FINAL_DECISION.value

@@ -1,5 +1,5 @@
 
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 from app.models import ApplicationUser, ApplicationStatus, Application, ApplicationVersion
 
 
@@ -24,7 +24,7 @@ class ApplicationRepository:
 		Get existing application status for a particular process.
 		"""
 		return ApplicationStatus.objects.get(
-			code__iexact=status or ApplicationStatuses.NEW.value,
+			code__iexact=status or ApplicationStatusEnum.NEW.value,
 			processes__icontains=process_name
 		)
 	
