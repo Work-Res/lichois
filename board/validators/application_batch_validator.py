@@ -3,7 +3,7 @@ from app.models import Application
 from app.api.common.web import APIMessage, APIResponse
 from ..models import ApplicationBatch
 
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 
 
 class ApplicationBatchValidator:
@@ -49,7 +49,7 @@ class ApplicationBatchValidator:
 
     def check_application_status(self, application: Application):
         error = False
-        if application.application_status.code.lower() != ApplicationStatuses.VETTING.value.lower():
+        if application.application_status.code.lower() != ApplicationStatusEnum.VETTING.value.lower():
             self.add_error_message(
                 "Only applications at the vetting stage can be added to a batch",
                 application.application_document.document_number

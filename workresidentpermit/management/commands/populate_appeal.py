@@ -4,6 +4,7 @@ from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.models import ApplicationStatus
 from app.utils import ApplicationProcesses
+from app.utils.system_enums import ApplicationStatusEnum
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
@@ -21,20 +22,22 @@ class Command(BaseCommand):
 		faker = Faker()
 		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
 		self.stdout.write(self.style.SUCCESS(f'Process name {process_name}'))
-		ApplicationStatus.objects.get_or_create(
-			code='new',
-			name='New',
-			processes=process_name,
-			valid_from='2024-01-01',
-			valid_to='2026-12-31',
-		)
-		ApplicationStatus.objects.get_or_create(
-			code='verification',
-			name='Verification',
-			processes=process_name,
-			valid_from='2024-01-01',
-			valid_to='2026-12-31',
-		)
+		# ApplicationStatus.objects.get_or_create(
+		# 	code=ApplicationStatusEnum.NEW.value,
+		# 	name=ApplicationStatusEnum.VERIFICATION.name,
+		# 	processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
+		# 	          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
+		# 	valid_from='2024-01-01',
+		# 	valid_to='2026-12-31',
+		# )
+		# ApplicationStatus.objects.get_or_create(
+		# 	code=ApplicationStatusEnum.VERIFICATION.value,
+		# 	name=ApplicationStatusEnum.VERIFICATION.name,
+		# 	processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
+		# 	          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
+		# 	valid_from='2024-01-01',
+		# 	valid_to='2026-12-31',
+		# )
 		
 		for _ in range(150):
 			fname = faker.unique.first_name()
@@ -44,7 +47,7 @@ class Command(BaseCommand):
 					application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.name,
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
-					status='verification',
+					status=ApplicationStatusEnum.VERIFICATION.value,
 					dob='1990-06-10',
 					work_place=randint(1000, 9999),
 					full_name=f'{fname} {lname}',

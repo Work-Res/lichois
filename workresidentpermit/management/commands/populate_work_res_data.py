@@ -2,8 +2,7 @@ from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
-from app.models import ApplicationStatus
-from app.utils import ApplicationProcesses, ApplicationStatuses
+from app.utils.system_enums import ApplicationProcesses, ApplicationStatusEnum
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
@@ -19,25 +18,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.name
-        work_res_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.name
-        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.name
-        replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.name
+        process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+        work_res_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
+        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
+        replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
         with atomic():
-            ApplicationStatus.objects.get_or_create(
-                code=ApplicationStatuses.NEW.value.lower(),
-                name='New',
-                processes=process_name,
-                valid_from='2024-01-01',
-                valid_to='2026-12-31',
-            )
-            ApplicationStatus.objects.get_or_create(
-                code=ApplicationStatuses.VERIFICATION.value.lower(),
-                name='Verification',
-                processes=process_name,
-                valid_from='2024-01-01',
-                valid_to='2026-12-31',
-            )
             
             for _ in range(250):
                 fname = faker.unique.first_name()
@@ -47,7 +32,7 @@ class Command(BaseCommand):
                     process_name=process_name,
                     application_type=faker.random_element(elements=(work_res_permit, renewal_permit, replacement_permit)),
                     applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
-                    status='verification',
+                    status=ApplicationStatusEnum.VERIFICATION.value,
                     dob='1990-06-10',
                     work_place=randint(1000, 9999),
                     full_name=f'{fname} {lname}',

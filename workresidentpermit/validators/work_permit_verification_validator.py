@@ -3,7 +3,7 @@ import logging
 from app_attachments.models import ApplicationAttachmentVerification
 from app.models import Application
 from app.api.common.web import APIResponse, APIMessage
-from app.utils import VerificationStatusEnum, ApplicationStatuses
+from app.utils import VerificationStatusEnum, ApplicationStatusEnum
 
 # TODO: Unit testing required
 
@@ -17,7 +17,7 @@ class WorkResidentPermitVerificationValidator:
         try:
             self.application = Application.objects.get(
                 application_document__document_number=document_number,
-                application_status__code=ApplicationStatuses.VERIFICATION.value
+                application_status__code__iexact=ApplicationStatusEnum.VERIFICATION.value
             )
         except Application.DoesNotExist:
             self.response.messages.append(

@@ -1,3 +1,5 @@
+import re
+
 import django_filters
 
 from rest_framework import viewsets
@@ -27,7 +29,7 @@ class ChecklistClassifierItemFilter(django_filters.FilterSet):
     classifier_code = django_filters.CharFilter(field_name='checklist_classifier__code', lookup_expr='iexact')
     process_name = django_filters.CharFilter(field_name='checklist_classifier__process_name', lookup_expr='icontains')
     mandatory = django_filters.BooleanFilter(field_name='mandatory')
-    application_type = django_filters.CharFilter(field_name='application_type', lookup_expr='iexact')
+    application_type = django_filters.CharFilter(field_name='application_type', lookup_expr='icontains')
     valid_from = django_filters.DateFilter(field_name='valid_from', lookup_expr='gte')
     valid_to = django_filters.DateFilter(field_name='valid_to', lookup_expr='lte')
 

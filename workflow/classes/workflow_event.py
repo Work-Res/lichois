@@ -41,6 +41,7 @@ class WorkflowEvent(object):
                     sequence=item.sequence,
                     description=item.description,
                     create_task_rules=item.create_task_rules,
+                    next_activity_name=item.next_activity_name,
                     valid_from=date.today()
                 )
                 self.logger.debug(

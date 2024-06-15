@@ -10,7 +10,7 @@ class ApplicationProcesses(Enum):
     EXEMPTION_CERTIFICATE = "EXEMPTION_CERTIFICATE"
 
 
-class ApplicationStatuses(Enum):
+class ApplicationStatusEnum(Enum):
     NEW = "NEW"
     DRAFT = "DRAFT"
     VERIFICATION = "VERIFICATION"

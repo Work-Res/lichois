@@ -9,7 +9,7 @@ from workresidentpermit.models import WorkPermit, SecurityClearance
 from app_decision.models import ApplicationDecision
 from workresidentpermit.classes import WorkResidentPermitApplicationDecisionService
 
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 from .tasks import async_production
 
 from .classes import WorkPermitApplicationPDFGenerator
@@ -21,10 +21,10 @@ logger = logging.getLogger(__name__)
 def generate_pdf_summary(sender, instance, created, **kwargs):
     try:
         if sender.application_version.application.application_status.name in \
-                [ApplicationStatuses.VERIFICATION.value,
-                 ApplicationStatuses.CANCELLED.value,
-                 ApplicationStatuses.REJECTED.value,
-                 ApplicationStatuses.ACCEPTED.value]:
+                [ApplicationStatusEnum.VERIFICATION.value,
+                 ApplicationStatusEnum.CANCELLED.value,
+                 ApplicationStatusEnum.REJECTED.value,
+                 ApplicationStatusEnum.ACCEPTED.value]:
             generator = WorkPermitApplicationPDFGenerator(work_resident_permit=sender)
             generator.generate()
     except SystemError as e:
@@ -53,7 +53,7 @@ def create_application_decision(sender, instance, created, **kwargs):
 def create_production_pdf(sender, instance, created, **kwargs):
     try:
         if created:
-            if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.ACCEPTED.value.lower():
+            if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.APPROVED.value.lower():
                 async_production(document_number=instance.document_number)
     except SystemError as e:
         logger.error("SystemError: An error occurred while creating production pdf ", e)

@@ -3,7 +3,7 @@ import logging
 from app.models import Application, ApplicationStatus, ApplicationVerification
 from app_comments.models import Comment
 
-from app.utils import ApplicationStatuses, WorkflowEnum
+from app.utils import ApplicationStatusEnum
 from app.api.common.web import APIResponse, APIMessage
 from app.api.serializers import ApplicationSerializer
 
@@ -17,8 +17,6 @@ from workresidentpermit.workflow import VerificationTransactionData, VettingTran
 from .crm_communication_api import CRMCommunicationApi
 
 from django.db import transaction
-
-from ..workflow.verification_transaction_data import RecommendationWorkflow
 
 
 class WorkResidentPermitApplication:
@@ -50,7 +48,7 @@ class WorkResidentPermitApplication:
         crm.send_aknowledgement()
         # WorkPermitApplicationPDFGenerator TODO: Review business needs
         with transaction.atomic():
-            workflow = VettingTransactionData()
+            workflow = VerificationTransactionData()
             # Fixme add condition to check if comment is provided
             comment = None
             if self.verification_request.comment:
@@ -60,8 +58,9 @@ class WorkResidentPermitApplication:
                     comment_type="OVERALL_APPLICATION_COMMENT"
                 )
             application_decision_type = ApplicationDecisionType.objects.get(
-                code__iexact=self.verification_request.decision)
-            workflow.verification_decision = application_decision_type.code.upper()
+                code__iexact=self.verification_request.decision.lower())
+            workflow.system_verification = application_decision_type.code.upper()
+            workflow.current_status = self.application.application_status.code
 
             ApplicationVerification.objects.create(
                 document_number=self.document_number,
@@ -87,7 +86,7 @@ class WorkResidentPermitApplication:
                 source=None,
                 model=None
             )
-            task_deactivation.update_task_by_activity(name=ApplicationStatuses.VERIFICATION.value)
+            task_deactivation.update_task_by_activity(name=ApplicationStatusEnum.VERIFICATION.value)
             return self.response
 
     def submit(self):
@@ -96,7 +95,7 @@ class WorkResidentPermitApplication:
         workflow.system_verification = "validated"
         with transaction.atomic():
             self.logger.info("Application has been submitted successfully.")
-            application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatuses.DRAFT.value)
+            application_status = ApplicationStatus.objects.get(code__iexact=ApplicationStatusEnum.DRAFT.value)
             self.application.application_status = application_status
             self.application.save()
 

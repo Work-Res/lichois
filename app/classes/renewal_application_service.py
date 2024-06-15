@@ -7,7 +7,7 @@ from django.db import models, transaction
 from pathlib import Path
 
 from app.api.common.web import APIResponse, APIMessage
-from app.utils import ApplicationStatuses, ApplicationProcesses
+from app.utils import ApplicationStatusEnum, ApplicationProcesses
 from .pre_pupolation_service import PrePopulationService
 from .create_new_application_service import ApplicationService
 
@@ -46,11 +46,11 @@ class RenewalApplicationService(object):
         try:
             previous_application = Application.objects.get(
                 application_document__document_number=self.renewal_application.document_number,
-                application_status__code__iexact=ApplicationStatuses.ACCEPTED.value
+                application_status__code__iexact=ApplicationStatusEnum.ACCEPTED.value
             )
         except Application.DoesNotExist:
             error_message = (
-                f"An application with status '{ApplicationStatuses.ACCEPTED.value}' does not exist for creating renewal: "
+                f"An application with status '{ApplicationStatusEnum.ACCEPTED.value}' does not exist for creating renewal: "
                 f"{self.renewal_application.document_number}."
             )
             api_message = APIMessage(
@@ -116,7 +116,7 @@ class RenewalApplicationService(object):
         new_application_dto = NewApplicationDTO(
             process_name=self.renewal_application.proces_name,
             applicant_identifier=self.renewal_application.applicant_identifier,
-            status=ApplicationStatuses.NEW.value
+            status=ApplicationStatusEnum.NEW.value
         )
         new_application_dto.dob = self.previous_application.application_document.applicant.dob
         new_application_dto.full_name = self.previous_application.application_document.applicant.full_name

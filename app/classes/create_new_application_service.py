@@ -3,9 +3,9 @@ from datetime import date
 
 from app.api.common.web import APIResponse, APIMessage
 from app.api import NewApplicationDTO
-from app.utils import ApplicationStatuses
 from app.api.serializers import ApplicationVersionSerializer
 from app.models import ApplicationDocument, ApplicationUser, ApplicationStatus, Application, ApplicationVersion
+from app.utils import ApplicationStatusEnum
 from workresidentpermit.classes.document_generator import DocumentGenerator, DocumentGeneratorFactory
 from workresidentpermit.classes.work_res_application_repository import ApplicationRepository
 
@@ -47,7 +47,8 @@ class ApplicationService:
 		"""
 		Check if an application with a new status already exists for the applicant.
 		"""
-		status = ['new', 'draft', 'verification', 'vetting', 'committee_evaluation']
+		status = [status.value for status in ApplicationStatusEnum]
+		
 		existing_application = ApplicationRepository.get_existing_application(
 			self.application.applicant_identifier, status
 		)
