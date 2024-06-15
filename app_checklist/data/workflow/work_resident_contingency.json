@@ -31,7 +31,7 @@
                 "next_activity_name": "FINAL_DECISION",
                 "create_task_rules": {
                   "verification_decision": "ACCEPTED",
-                  "current_status":  "Recommendation"
+                  "current_status":  "VERIFICATION"
                 }
               },
               {
@@ -45,7 +45,7 @@
                 "next_activity_name": "END",
                 "create_task_rules": {
                   "recommendation_decision": "ACCEPTED",
-                  "current_status":  "FINAL_DECISION"
+                  "current_status":  "RECOMMENDATION"
                 }
               }
             ]
