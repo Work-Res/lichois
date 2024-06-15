@@ -36,7 +36,7 @@
               },
               {
                 "code":  "FINAL_DECISION",
-                "name":  "Special Permit Final decision",
+                "name":  "Special Permit Production decision",
                 "description": "Final decision for work resident permit",
                 "sequence": 3,
                 "mandatory": false,

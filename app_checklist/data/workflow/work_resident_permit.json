@@ -9,7 +9,7 @@
       "classifier_items": [
         {
           "code": "VERIFICATION",
-          "name": "Verification",
+          "name": "Work Res Verification",
           "description": "Verification Task",
           "mandatory": false,
           "sequence": 1,
@@ -23,7 +23,7 @@
         },
         {
           "code": "VETTING",
-          "name": "Security Clearance",
+          "name": "Work Res Security Clearance",
           "description": "Security Vetting Task.",
           "mandatory": false,
           "sequence": 2,
@@ -37,7 +37,7 @@
         },
         {
           "code": "FINAL_DECISION",
-          "name": "Production Decision",
+          "name": "Work Res Production Decision",
           "description": "Permit Production Task",
           "sequence": 3,
           "mandatory": false,
