@@ -29,7 +29,7 @@ class ChecklistClassifierItemFilter(django_filters.FilterSet):
     classifier_code = django_filters.CharFilter(field_name='checklist_classifier__code', lookup_expr='iexact')
     process_name = django_filters.CharFilter(field_name='checklist_classifier__process_name', lookup_expr='icontains')
     mandatory = django_filters.BooleanFilter(field_name='mandatory')
-    application_type = django_filters.CharFilter(field_name='application_type', lookup_expr='iexact')
+    application_type = django_filters.CharFilter(field_name='application_type', lookup_expr='icontains')
     valid_from = django_filters.DateFilter(field_name='valid_from', lookup_expr='gte')
     valid_to = django_filters.DateFilter(field_name='valid_to', lookup_expr='lte')
 
@@ -43,13 +43,3 @@ class ChecklistClassifierItemModelViewSets(viewsets.ModelViewSet):
     serializer_class = ChecklistClassifierItemSerializer
     filterset_class = ChecklistClassifierItemFilter
     pagination_class = StandardResultsSetPagination
-    
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        application_type = self.request.query_params.get('application_type', None)
-        if application_type:
-            # Filter the queryset where any application_type matches one of the values in the list
-            queryset = queryset.filter(
-                application_type__iregex=r'\b{}\b'.format(re.escape(application_type.strip()))
-            )
-        return queryset
