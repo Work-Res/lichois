@@ -9,7 +9,7 @@ from workresidentpermit.api.serializers import MinisterDecisionRequestDTOSeriali
 from workresidentpermit.classes.service import MinisterDecisionService
 
 
-class MinisterDecisionAPIView(viewsets.ViewSet):
+class MinisterDecisionViewView(viewsets.ViewSet):
 	def post(self, request):
 		try:
 			serializer = MinisterDecisionRequestDTOSerializer(request.data)
