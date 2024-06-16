@@ -10,6 +10,8 @@ from workresidentpermit.workflow import ProductionTransactionData
 
 from .application_decision_service import ApplicationDecisionService
 
+from ...utils import WorkResidentPermitApplicationTypeEnum
+
 
 class SpecialPermitDecisionService(ApplicationDecisionService):
     """ Responsible for create application decision based on commissioner's decision.
@@ -49,30 +51,41 @@ class SpecialPermitDecisionService(ApplicationDecisionService):
             return self._commissioner_decision
 
     def decision_predicate(self):
-        is_commissioner_decision = False
-        is_minister_decision = False
 
-        commissioner_decision = self.commissioner_decision()
-        if commissioner_decision:
-            is_commissioner_decision = commissioner_decision.status.code.lower() == \
+        normal_types = [
+            e.name.upper() for e in WorkResidentPermitApplicationTypeEnum if not "CANCELLATION" in e.name]
+
+        if self.application.application_type.upper() in normal_types:
+            is_commissioner_decision = False
+            is_minister_decision = False
+
+            commissioner_decision = self.commissioner_decision()
+            if commissioner_decision:
+                is_commissioner_decision = commissioner_decision.status.code.lower() == \
+                                           ApplicationDecisionEnum.ACCEPTED.value.lower()
+
+            minister_decision = self.minister_decision()
+            if minister_decision:
+                is_minister_decision = minister_decision.status.code.lower() == \
                                        ApplicationDecisionEnum.ACCEPTED.value.lower()
 
-        minister_decision = self.minister_decision()
-        if minister_decision:
-            is_minister_decision = minister_decision.status.code.lower() == \
-                                   ApplicationDecisionEnum.ACCEPTED.value.lower()
-
-        if is_commissioner_decision:
-            self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
-            self.workflow.commissioner_decision = ApplicationDecisionEnum.ACCEPTED.value
-            return True
-        elif commissioner_decision:
-            self.decision_value = ApplicationDecisionEnum.REJECTED.value
-            self.workflow.commissioner_decision = ApplicationDecisionEnum.REJECTED.value
-            return True
-        elif is_minister_decision:
-            self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
-            self.workflow.minister_decision = ApplicationDecisionEnum.ACCEPTED.value
-        else:
-            self.logger.info("Application decision cannot be completed, pending security clearance or board decision.")
-            return False
+            if is_commissioner_decision:
+                self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
+                self.workflow.commissioner_decision = ApplicationDecisionEnum.ACCEPTED.value
+                return True
+            elif commissioner_decision:
+                self.decision_value = ApplicationDecisionEnum.REJECTED.value
+                self.workflow.commissioner_decision = ApplicationDecisionEnum.REJECTED.value
+                return True
+            elif is_minister_decision:
+                self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
+                self.workflow.minister_decision = ApplicationDecisionEnum.ACCEPTED.value
+                return True
+            elif minister_decision:
+                self.decision_value = ApplicationDecisionEnum.REJECTED.value
+                self.workflow.minister_decision = ApplicationDecisionEnum.REJECTED.value
+                return True
+            else:
+                self.logger.info(
+                    "Application decision cannot be completed, pending security clearance or board decision.")
+                return False
