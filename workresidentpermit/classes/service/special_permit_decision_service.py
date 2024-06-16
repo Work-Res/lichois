@@ -8,8 +8,10 @@ from app.utils import ApplicationDecisionEnum
 
 from workresidentpermit.workflow import ProductionTransactionData
 
+from .application_decision_service import ApplicationDecisionService
 
-class SpecialPermitDecisionService:
+
+class SpecialPermitDecisionService(ApplicationDecisionService):
     """ Responsible for create application decision based on commissioner's decision.
     """
 

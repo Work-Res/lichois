@@ -25,7 +25,7 @@ class ApplicationDecision(ApplicationBaseModel):
 # ApplicationDecision
 
 # TypeError: Object of type Person is not JSON serializable
-#
+# #
 # from app_personal_details.models import Permit, Person
 # from app.models import Application
 # from datetime import date
