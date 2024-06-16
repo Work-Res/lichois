@@ -8,7 +8,6 @@ from ..models import ApplicationAttachment
 
 
 class ApplicationAttachmentVerification(ApplicationBaseModel):
-	id = models.IntegerField()
 	attachment = models.ForeignKey(ApplicationAttachment, on_delete=models.CASCADE)
 	verification_status = models.CharField(max_length=120, choices=VERIFICATION_STATUS)
 	comment = models.ForeignKey(Comment, on_delete=models.SET_NULL, null=True)

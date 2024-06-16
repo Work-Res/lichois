@@ -23,7 +23,7 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 		board_member = BoardMember.objects.filter(user=self.request.user).first()
 		if not board_member:
 			api_message = APIMessage(
-				code=400,
+				code=403,
 				message="Bad request",
 				details="User is not a member of any board"
 			)
