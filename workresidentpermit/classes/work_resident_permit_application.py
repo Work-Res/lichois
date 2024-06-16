@@ -56,6 +56,7 @@ class WorkResidentPermitApplication:
                 )
             application_decision_type = ApplicationDecisionType.objects.get(
                 code__iexact=self.verification_request.decision.lower())
+            
             workflow.verification_decision = application_decision_type.code.upper()
             workflow.current_status = self.application.application_status.code
 

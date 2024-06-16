@@ -9,7 +9,6 @@ from ..serializers import UserSerializer
 
 class UserView(RolesMixin, APIView):
 	permission_classes = (permissions.IsAuthenticated,)
-	authentication_classes = (SessionAuthentication, )
 	
 	##
 	def get(self, request):
