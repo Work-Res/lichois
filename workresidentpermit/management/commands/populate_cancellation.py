@@ -29,7 +29,7 @@ class Command(BaseCommand):
 		# 	valid_from='2024-01-01',
 		# 	valid_to='2026-12-31',
 		# )
-		for _ in range(150):
+		for _ in range(50):
 			fname = faker.unique.first_name()
 			lname = faker.unique.last_name()
 			with atomic():

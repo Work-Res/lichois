@@ -22,7 +22,7 @@ class Command(BaseCommand):
         work_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_ONLY.name
         renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_RENEWAL.name
         replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_REPLACEMENT.name
-        for _ in range(250):
+        for _ in range(50):
             fname = faker.unique.first_name()
             lname = faker.unique.last_name()
             with atomic():
