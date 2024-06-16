@@ -27,12 +27,18 @@ class ApplicationAttachmentSerializer(serializers.ModelSerializer):
             'id',
             'filename',
             'storage_object_key',
+            'description',
             'document_url',
             'received_date',
             'document_type',
             'document_number'
         )
 
+    def create(self, validated_data):
+        document_type_data = validated_data.pop('document_type')
+        document_type = AttachmentDocumentType.objects.create(**document_type_data)
+        application_attachment = ApplicationAttachment.objects.create(document_type=document_type, **validated_data)
+        return application_attachment
 
 class ApplicationAttachmentVerificationSerializer(serializers.ModelSerializer):
     attachment = ApplicationAttachmentSerializer(required=False)

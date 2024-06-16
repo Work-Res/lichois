@@ -5,6 +5,7 @@ from .application_document_type import AttachmentDocumentType
 
 
 class ApplicationAttachment(ApplicationBaseModel):
+    id = models.IntegerField()
 
     filename = models.CharField(max_length=200)
 
@@ -18,6 +19,7 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     document_type = models.ForeignKey(AttachmentDocumentType, on_delete=models.CASCADE)
 
+    document_number = models.IntegerField()
     class Meta:
         verbose_name_plural = "Application Attachments"
         ordering = ['-created']
