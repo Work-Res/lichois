@@ -11,7 +11,7 @@ from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
-from travel.models import TravelCertificate
+from travel.models import ApplicantRelative, TravelCertificate
 from workresidentpermit.models import EmergencyPermit, ExemptionCertificate, PermitAppeal
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
@@ -21,31 +21,14 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		process_name = ApplicationProcesses.SPECIAL_PERMIT.name
+		process_name = ApplicationProcesses.SPECIAL_PERMIT.value
 		self.stdout.write(self.style.SUCCESS(f'Process name {process_name}'))
-		# ApplicationStatus.objects.get_or_create(
-		# 	code=ApplicationStatusEnum.NEW.value,
-		# 	name=ApplicationStatusEnum.VERIFICATION.name,
-		# 	processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
-		# 	          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
-		# 	valid_from='2024-01-01',
-		# 	valid_to='2026-12-31',
-		# )
-		# ApplicationStatus.objects.get_or_create(
-		# 	code=ApplicationStatusEnum.VERIFICATION.value,
-		# 	name=ApplicationStatusEnum.VERIFICATION.name,
-		# 	processes=f'{process_name}, {ApplicationProcesses.WORK_RESIDENT_PERMIT.name}, '
-		# 	          f'{ApplicationProcesses.WORK_PERMIT.name}, {ApplicationProcesses.RESIDENT_PERMIT.name}',
-		# 	valid_from='2024-01-01',
-		# 	valid_to='2026-12-31',
-		# )
-		
 		for _ in range(50):
 			fname = faker.unique.first_name()
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
-					application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.name,
+					application_type=WorkResidentPermitApplicationTypeEnum.TRAVEL_CERTIFICATE.value,
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status=ApplicationStatusEnum.VERIFICATION.value,
@@ -88,27 +71,6 @@ class Command(BaseCommand):
 					private_bag=faker.building_number(),
 				)
 				
-				ApplicationContact.objects.get_or_create(
-					application_version=version,
-					document_number=app.application_document.document_number,
-					contact_type=faker.random_element(elements=('cell', 'email', 'fax', 'landline')),
-					contact_value=faker.phone_number(),
-					preferred_method_comm=faker.boolean(chance_of_getting_true=50),
-					status=faker.random_element(elements=('active', 'inactive')),
-					description=faker.text(),
-				)
-				
-				Passport.objects.get_or_create(
-					application_version=version,
-					document_number=app.application_document.document_number,
-					passport_number=faker.passport_number(),
-					date_issued=faker.date_this_century(),
-					expiry_date=faker.date_this_century(),
-					place_issued=faker.city(),
-					nationality=faker.country(),
-					photo=faker.image_url(),
-				)
-				
 				TravelCertificate.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,
@@ -118,6 +80,28 @@ class Command(BaseCommand):
 					applicant_signature=faker.name(),
 					issuing_authority_signature=faker.name(),
 					date=faker.date_this_century(),
+				)
+				address = ApplicationAddress.objects.create(
+					po_box=faker.address(),
+					apartment_number=faker.building_number(),
+					plot_number=faker.building_number(),
+					address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
+					                                            'other')),
+					country=country[0],
+					status=faker.random_element(elements=('active', 'inactive')),
+					city=faker.city(),
+					street_address=faker.street_name(),
+					private_bag=faker.building_number(),
+				)
+				
+				ApplicantRelative.objects.get_or_create(
+					application_version=version,
+					document_number=app.application_document.document_number,
+					surname=faker.last_name(),
+					name=faker.first_name(),
+					relationship=faker.random_element(elements=('father', 'mother', 'sister', 'brother', 'uncle',
+					                                            'aunt', 'cousin')),
+					address=address
 				)
 				
 				self.stdout.write(self.style.SUCCESS('Successfully populated data'))
