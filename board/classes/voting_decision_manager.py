@@ -1,5 +1,6 @@
 import logging
 
+from app.models import Application
 from workresidentpermit.models import SecurityClearance
 from ..choices import ACCEPTED, REJECTED, APPROVED
 from ..models import BoardDecision, BoardMeeting, BoardMeetingVote
@@ -52,6 +53,14 @@ class VotingDecisionManager(object):
 				self.logger.info(f"Security clearance is pending for {self.document_number}")
 		else:
 			return self._security_clearance
+		
+	@property
+	def application(self):
+		try:
+			return Application.objects.get(application_document__document_number=self.document_number)
+		except Application.DoesNotExist:
+			print("Application does not exist")
+			return None
 	
 	def create_board_decision(self):
 		try:
@@ -66,11 +75,16 @@ class VotingDecisionManager(object):
 			print("Security clearance status: ", security_clearance.status.code.lower())
 			if voting_decision_outcome:
 				print("Voting outcome: ", voting_decision_outcome)
+				print("document_number: ", self.document_number)
+				print("board_meeting: ", self.board_meeting)
+				print("application: ", self.application)
 				self._board_decision = BoardDecision.objects.create(
-					assessed_application__application_document__document_number=self.document_number,
+					assessed_application=self.application,
 					decision_outcome=voting_decision_outcome,
 					board_meeting=self.board_meeting,
 					vetting_outcome=security_clearance.status.code.lower()
 				)
+				print("Board decision created: ", self._board_decision)
+				print("--------------------------------")
 		finally:
 			return self._board_decision
