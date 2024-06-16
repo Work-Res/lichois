@@ -1,0 +1,1 @@
+from .travel_certificate_viewset import TravelCertificateViewSet
