@@ -38,7 +38,8 @@ def create_board_decision(sender, instance, created, **kwargs):
                 document_number=instance.document_number,
                 board_meeting=instance.board_meeting
             )
-            service.create_board_decision()
+            board_decision = service.create_board_decision()
+            print("board_decision", board_decision)
     except SystemError as e:
         logger.error("SystemError: An error occurred while creating new board decision, Got ", e)
     except Exception as ex:
