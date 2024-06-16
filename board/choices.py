@@ -3,12 +3,14 @@ ABSENT = 'absent'
 ENDED = 'ended'
 STARTED = 'started'
 APPROVED = 'approved'
+ACCEPTED = 'accepted'
 REJECTED = 'rejected'
 PENDING = 'pending'
 CANCELLED = 'cancelled'
 SCHEDULED = 'scheduled'
 ON_GOING = 'on_going'
 COMPLETED = 'completed'
+DEFERRED = 'deferred'
 
 ATTENDANCE_STATUS = (
     (ABSENT, 'Absent'),
@@ -16,9 +18,9 @@ ATTENDANCE_STATUS = (
 )
 
 DECISION_OUTCOME = (
-    ('approved', 'Approved'),
-    ('deferred', 'Deferred'),
-    ('rejected', 'Rejected')
+    (ACCEPTED, 'Accepted'),
+    (DEFERRED, 'Deferred'),
+    (REJECTED, 'Rejected')
 )
 
 BOARD_ROLES = (

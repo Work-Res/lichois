@@ -1,7 +1,7 @@
 import logging
 
 from workresidentpermit.models import SecurityClearance
-from ..choices import APPROVED, REJECTED
+from ..choices import ACCEPTED, REJECTED, APPROVED
 from ..models import BoardDecision, BoardMeeting, BoardMeetingVote
 
 
@@ -24,7 +24,7 @@ class VotingDecisionManager(object):
 			self.logger.info(f"Chairperson has to break the tie, no board decision")
 			raise Exception("Chairperson has to break the tie, no board decision")
 		elif total_approved > total_rejected:
-			return APPROVED
+			return ACCEPTED
 		elif total_approved < total_rejected:
 			return REJECTED
 		return None
