@@ -7,7 +7,7 @@ from board.choices import CANCELLED, ENDED
 from board.classes.voting_decision_manager import VotingDecisionManager
 from board.models import Agenda, ApplicationBatch, BoardDecision, BoardMeeting, VotingProcess
 
-from workresidentpermit.classes import WorkResidentPermitApplicationDecisionService
+from workresidentpermit.classes.service import WorkResidentPermitDecisionService
 
 logger = logging.getLogger(__name__)
 
@@ -16,11 +16,11 @@ logger = logging.getLogger(__name__)
 def create_application_decision(sender, instance, created, **kwargs):
 	try:
 		if created:
-			service = WorkResidentPermitApplicationDecisionService(
+			work_resident_permit_decision_service = WorkResidentPermitDecisionService(
 				document_number=instance.assessed_application.application_document.document_number,
 				board_decision=instance
 			)
-			service.create()
+			work_resident_permit_decision_service.create_application_decision()
 	except SystemError as e:
 		logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
 	except Exception as ex:

@@ -14,6 +14,3 @@ class RecommendationService(BaseDecisionService):
     
     def retrieve_recommendation(self):
         return self.retrieve_decision(CommissionerDecision, CommissionerDecisionSerializer)
-
-
-	
