@@ -33,6 +33,7 @@ def create_application_decision(sender, instance, created, **kwargs):
 def create_board_decision(sender, instance, created, **kwargs):
     # if updated then update the board decision
     try:
+        logger.info(f"instance status {instance.status}")
         if instance.status == ENDED:
             service = VotingDecisionManager(
                 document_number=instance.document_number,
