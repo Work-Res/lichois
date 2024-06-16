@@ -7,6 +7,6 @@ class AppConfig(DjangoAppConfig):
 	verbose_name = 'Board'
 	
 	def ready(self):
-		from .models import board_meeting_on_post_save
-		from .signals import create_application_decision, create_board_decision
+		from board.models import board_meeting_on_post_save
+		from board.signals import create_application_decision, create_board_decision
 
