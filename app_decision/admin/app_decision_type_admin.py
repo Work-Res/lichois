@@ -6,4 +6,4 @@ class ApplicationDecisionTypeAdmin(admin.ModelAdmin):
 	pass
 
 
-admin.register(ApplicationDecisionType, ApplicationDecisionTypeAdmin)
+admin.site.register(ApplicationDecisionType, ApplicationDecisionTypeAdmin)
