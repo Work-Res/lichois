@@ -5,7 +5,7 @@ from ..models import ApplicantRelative
 
 
 class ApplicantRelativeSerializer(serializers.ModelSerializer):
-	address = ApplicationAddressSerializer()
+	# address = ApplicationAddressSerializer()
 	
 	class Meta:
 		model = ApplicantRelative

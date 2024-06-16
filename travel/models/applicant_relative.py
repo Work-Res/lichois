@@ -1,5 +1,4 @@
 from django.db import models
-from base_module.model_mixins import BaseUuidModel, DeclarationModelMixin
 from app.models import ApplicationBaseModel
 from app_address.models import ApplicationAddress
 
