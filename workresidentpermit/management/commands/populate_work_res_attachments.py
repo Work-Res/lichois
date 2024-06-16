@@ -14,7 +14,7 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		apps = ApplicationDocument.objects.all()
+		apps = ApplicationDocument.objects.filter(document_number__startswith='R').all()
 		verifier = User.objects.filter(username='tverification1').first()
 		for app in apps:
 			for _ in range(randint(1, 3) + 1):
