@@ -10,7 +10,7 @@ class TravelCertificate(ApplicationBaseModel):
 	clan_name = models.CharField(max_length=200)
 	date = models.DateField(auto_now=True)
 	applicant_signature = models.CharField(max_length=200)
-	issuing_authority_signature = models.CharField(max_length=200)
+	issuing_authority_signature = models.CharField(max_length=200, null=True, blank=True)
 	
 	class Meta:
 		verbose_name = 'Travel Certificate'
