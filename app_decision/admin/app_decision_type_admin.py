@@ -3,9 +3,9 @@ from ..models import ApplicationDecisionType
 
 
 class ApplicationDecisionTypeAdmin(admin.ModelAdmin):
-	list_display = ('code', 'description', 'created_at', 'updated_at')
-	search_fields = ('code', 'description')
-	list_filter = ('code', 'description', 'created_at', 'updated_at')
+	list_display = ('code', 'name')
+	search_fields = ('code', 'name')
+	list_filter = ('code', 'name')
 
 
 admin.site.register(ApplicationDecisionType, ApplicationDecisionTypeAdmin)
