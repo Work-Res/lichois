@@ -73,6 +73,5 @@ class ApplicationSummary:
             'app_address.ApplicationAddress',
             'app_contact.ApplicationContact',
             'app_personal_details.Passport',
-            'app_attachments.ApplicationAttachment',
         ]
         return generic_labels + self.app_labels
