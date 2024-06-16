@@ -65,17 +65,17 @@ def create_application_final_decision_by_commissioner_decision(sender, instance,
                      f"Got {ex} ")
 
 
-@receiver(post_save, sender=ApplicationDecision)
-def create_production_pdf(sender, instance, created, **kwargs):
-    try:
-        if created:
-            if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.APPROVED.value.lower():
-                async_production(document_number=instance.document_number)
-    except SystemError as e:
-        logger.error("SystemError: An error occurred while creating production pdf ", e)
-    except Exception as ex:
-        logger.error(f"An error occurred while trying to creating a production pdf "
-                     f"Got {ex} ")
+# @receiver(post_save, sender=ApplicationDecision)
+# def create_production_pdf(sender, instance, created, **kwargs):
+#     try:
+#         if created:
+#             if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.APPROVED.value.lower():
+#                 async_production(document_number=instance.document_number)
+#     except SystemError as e:
+#         logger.error("SystemError: An error occurred while creating production pdf ", e)
+#     except Exception as ex:
+#         logger.error(f"An error occurred while trying to creating a production pdf "
+#                      f"Got {ex} ")
         
 
 

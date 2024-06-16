@@ -36,6 +36,7 @@ class ApplicationDecisionService:
         Please override this method on based class for decision making
         :return: True or False.
         """
+        print("Running running running..")
         return False
 
     def proposed_application_decision_type(self) -> ApplicationDecisionType:

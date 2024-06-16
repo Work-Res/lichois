@@ -33,7 +33,6 @@ class TaskActivation:
         for activity in activities:
             self.source.next_activity_name = activity.next_activity_name
             self.source.current_status = self.application.application_status.code.upper()
-            print("Source model: ", self.source.__dict__)
             if workflow.test_rule(activity.name.upper(), self.source, activity.create_task_rules):
                 WorkflowApplication(application=self.application, application_status_code=activity.name.upper())
                 self.logger.info(

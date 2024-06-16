@@ -9,3 +9,4 @@ class WorkresidentpermitConfig(AppConfig):
     def ready(self):
         from .signals import create_application_final_decision_by_security_clearance
         from .signals import create_application_final_decision_by_commissioner_decision
+        from board.signals import create_application_decision

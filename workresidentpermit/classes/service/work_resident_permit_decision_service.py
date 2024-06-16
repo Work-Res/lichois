@@ -28,6 +28,7 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
         self.logger = logging.getLogger(__name__)
 
     def decision_predicate(self):
+        print("Running conditions in the based classes")
         is_security_clearance_accepted = False
         is_board_decision_taken = False
 
@@ -35,21 +36,20 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
         if security_clearance:
             is_security_clearance_accepted = security_clearance.status.code.lower() \
                                              == ApplicationDecisionEnum.ACCEPTED.value.lower()
-
         board_decision = self.board_decision()
         if board_decision:
             is_board_decision_taken = \
-                self._board_decision.decision_outcome.lower() == ApplicationDecisionEnum.APPROVED.value.lower()
+                self._board_decision.decision_outcome.lower() == ApplicationDecisionEnum.ACCEPTED.value.lower()
 
         if is_security_clearance_accepted and is_board_decision_taken:
             self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
-            self.workflow.board_decision = ApplicationDecisionEnum.ACCEPTED.value
-            self.workflow.security_clearance = ApplicationDecisionEnum.ACCEPTED.value
+            self.workflow.board_decision = ApplicationDecisionEnum.ACCEPTED.value.upper()
+            self.workflow.security_clearance = ApplicationDecisionEnum.ACCEPTED.value.upper()
             return True
         elif self._board_decision and security_clearance:
             self.decision_value = ApplicationDecisionEnum.REJECTED.value
-            self.workflow.board_decision = ApplicationDecisionEnum.REJECTED.value
-            self.workflow.security_clearance = ApplicationDecisionEnum.REJECTED.value
+            self.workflow.board_decision = ApplicationDecisionEnum.REJECTED.value.upper()
+            self.workflow.security_clearance = ApplicationDecisionEnum.REJECTED.value.upper()
             return True
         else:
             self.logger.info("Application decision cannot be completed, pending security clearance or board decision.")
@@ -75,4 +75,4 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
             except BoardDecision.DoesNotExist:
                 self.logger.info(f"Board decision is pending for {self.document_number}")
         else:
-            return self._security_clearance
+            return self._board_decision
