@@ -1,4 +1,4 @@
-from .create_new_application_service import ApplicationService
+from .application_service import ApplicationService
 from .pre_pupolation_service import PrePopulationService
 from .renewal_application_service import RenewalApplicationService
 from .pre_pupolation_model_definition import PrepopulationModelDefinition, PrepopulationConfiguration

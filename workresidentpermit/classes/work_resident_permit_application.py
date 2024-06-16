@@ -10,11 +10,9 @@ from app.api.serializers import ApplicationSerializer
 from app_decision.models import ApplicationDecisionType
 
 from workflow.signals import create_or_update_task_signal
-from workflow.classes import WorkflowTransition, TaskDeActivation
+from workflow.classes import TaskDeActivation
 
 from workresidentpermit.workflow import VerificationTransactionData, VettingTransactionData
-
-from .crm_communication_api import CRMCommunicationApi
 
 from django.db import transaction
 
@@ -40,15 +38,14 @@ class WorkResidentPermitApplication:
         """
          1. CRM Acknowledgement via Communication platform
          2. Generate consolidated document including attached documents
-         3. Changed application status to PENDING_BOARD or PENDING_SECURITY_CLEARANCE. ( Trigger workflow tasks creations )
+         3. Changed application status to PENDING_BOARD or PENDING_SECURITY_CLEARANCE. (
+         Trigger workflow tasks creations )
          4. Close verification task( TODO: Confirm current task closure )
         """
         self.logger.info(f"Verification process started. {self.document_number}")
-        crm = CRMCommunicationApi()
-        crm.send_aknowledgement()
         # WorkPermitApplicationPDFGenerator TODO: Review business needs
         with transaction.atomic():
-            workflow = VerificationTransactionData()
+            workflow = VettingTransactionData()
             # Fixme add condition to check if comment is provided
             comment = None
             if self.verification_request.comment:
@@ -59,7 +56,8 @@ class WorkResidentPermitApplication:
                 )
             application_decision_type = ApplicationDecisionType.objects.get(
                 code__iexact=self.verification_request.decision.lower())
-            workflow.system_verification = application_decision_type.code.upper()
+            
+            workflow.verification_decision = application_decision_type.code.upper()
             workflow.current_status = self.application.application_status.code
 
             ApplicationVerification.objects.create(

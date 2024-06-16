@@ -7,5 +7,5 @@ class WorkresidentpermitConfig(AppConfig):
     verbose_name = "Work Resident Permit Module"
 
     def ready(self):
-        from .signals import create_production_pdf
-        from .signals import create_application_decision
+        from .signals import create_application_final_decision_by_security_clearance
+        from .signals import create_application_final_decision_by_commissioner_decision

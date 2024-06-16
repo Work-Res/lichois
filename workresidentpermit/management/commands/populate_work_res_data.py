@@ -24,7 +24,7 @@ class Command(BaseCommand):
         replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
         with atomic():
             
-            for _ in range(250):
+            for _ in range(50):
                 fname = faker.unique.first_name()
                 lname = faker.unique.last_name()
                

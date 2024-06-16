@@ -13,15 +13,16 @@ class TaskRuleEvaluator(object):
         self.logger = logging.getLogger(__name__)
         all_rules = []
         try:
-            print("conditions: ", conditions)
             rules = ast.literal_eval(conditions)
-            print("rules.items(): ", rules.items())
+            print(rules)
             for prop, value in rules.items():
                 if hasattr(source, prop):
                     if isinstance(getattr(source, prop), dict):
                         self.predicate(getattr(source, prop), value)
                     else:
                         all_rules.append(True) if getattr(source, prop) == value else all_rules.append(False)
+                else:
+                    all_rules.append(False)
             if settings.DEBUG:
                 print("TaskRuleEvaluator.result: ", all(all_rules))
             return all(all_rules)

@@ -14,7 +14,7 @@ from app_contact.models import ApplicationContact
 from app_checklist.classes import CreateChecklistService
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
-from app.utils import ApplicationStatuses
+from app.utils import ApplicationStatusEnum
 from workresidentpermit.models import ResidencePermit
 
 from faker import Faker
@@ -78,7 +78,7 @@ class TestResidentPermitValidator(TestCase):
         """Test WorkPermitValidator.validate when all required that not provided.
         """
         application_mock.return_value = self.create_data()
-        app = application(ApplicationStatuses.NEW.value)
+        app = application(ApplicationStatusEnum.NEW.value)
 
         validator = ResidentPermitValidator(
            process=app.process_name,
@@ -97,7 +97,7 @@ class TestResidentPermitValidator(TestCase):
         """
         faker = Faker()
         application_mock.return_value = self.create_data()
-        app = application(ApplicationStatuses.NEW.value)
+        app = application(ApplicationStatusEnum.NEW.value)
 
         validator = ResidentPermitValidator(
            process=app.process_name,
@@ -129,7 +129,7 @@ class TestResidentPermitValidator(TestCase):
         """
         faker = Faker()
         application_mock.return_value = self.create_data()
-        app = application(ApplicationStatuses.NEW.value)
+        app = application(ApplicationStatusEnum.NEW.value)
 
         validator = ResidentPermitValidator(
            process=app.process_name,

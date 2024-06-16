@@ -25,12 +25,12 @@ class ApplicationDecision(ApplicationBaseModel):
 # ApplicationDecision
 
 # TypeError: Object of type Person is not JSON serializable
-
+# #
 # from app_personal_details.models import Permit, Person
 # from app.models import Application
 # from datetime import date
 #
-# apps = Application.objects.all()[20:22]
+# apps = Application.objects.all()[25:35]
 # application_status = ApplicationStatus.objects.get(code__iexact='Accepted')
 # accepted = ApplicationDecisionType.objects.get(id='1745ceeb-3b5a-4e4a-b499-73593068ac9d')
 # i = 0

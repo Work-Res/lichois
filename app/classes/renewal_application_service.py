@@ -9,7 +9,7 @@ from pathlib import Path
 from app.api.common.web import APIResponse, APIMessage
 from app.utils import ApplicationStatusEnum, ApplicationProcesses
 from .pre_pupolation_service import PrePopulationService
-from .create_new_application_service import ApplicationService
+from .application_service import ApplicationService
 
 from ..exceptions import ApplicationRenewalException
 
