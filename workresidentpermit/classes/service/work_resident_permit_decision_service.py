@@ -28,7 +28,6 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
         self.logger = logging.getLogger(__name__)
 
     def decision_predicate(self):
-        print("Running conditions in the based classes")
         is_security_clearance_accepted = False
         is_board_decision_taken = False
 
