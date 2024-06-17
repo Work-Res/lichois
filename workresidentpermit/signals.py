@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 from app.utils import ApplicationDecisionEnum
 
-from workresidentpermit.models import WorkPermit, SecurityClearance, CommissionerDecision
+from workresidentpermit.models import MinisterDecision, WorkPermit, SecurityClearance, CommissionerDecision
 from app_decision.models import ApplicationDecision
 from workresidentpermit.classes.service import SpecialPermitDecisionService, WorkResidentPermitDecisionService
 
@@ -64,6 +64,21 @@ def create_application_final_decision_by_commissioner_decision(sender, instance,
         logger.error(f"An error occurred while trying to create application decision after saving board decision. "
                      f"Got {ex} ")
 
+
+@receiver(post_save, sender=MinisterDecision)
+def create_application_final_decision_by_minister_decision(sender, instance, created, **kwargs):
+    try:
+        if created:
+            special_permit_decision_service = SpecialPermitDecisionService(
+                document_number=instance.document_number,
+                minister_decision=instance
+            )
+            special_permit_decision_service.create_application_decision()
+    except SystemError as e:
+        logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
+    except Exception as ex:
+        logger.error(f"An error occurred while trying to create application decision after saving board decision. "
+                     f"Got {ex} ")
 
 # @receiver(post_save, sender=ApplicationDecision)
 # def create_production_pdf(sender, instance, created, **kwargs):
