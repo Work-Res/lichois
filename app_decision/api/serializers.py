@@ -4,7 +4,6 @@ from app_decision.models import ApplicationDecision, ApplicationDecisionType
 
 
 class ApplicationDecisionTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ApplicationDecisionType
         fields = (
@@ -18,14 +17,14 @@ class ApplicationDecisionTypeSerializer(serializers.ModelSerializer):
 
 class ApplicationDecisionSerializer(serializers.ModelSerializer):
 
-    decision_type = ApplicationDecisionTypeSerializer()
+    final_decision_type = ApplicationDecisionTypeSerializer()
 
     proposed_decision_type = ApplicationDecisionTypeSerializer()
 
     class Meta:
         model = ApplicationDecision
         fields = (
-            'decision_type',
+            'final_decision_type',
             'proposed_decision_type'
             # 'application_document'
         )
