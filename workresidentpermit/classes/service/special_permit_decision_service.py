@@ -24,6 +24,7 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
 		self.application = Application.objects.get(application_document__document_number=document_number)
 		self.workflow = ProductionTransactionData()
 		self.logger = logging.getLogger(__name__)
+		self.logger.setLevel(logging.DEBUG)
 		self.decision_value = None
 		self.approval_processes = self._load_approval_processes(config_loader)
 	
@@ -31,13 +32,18 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
 	def _load_approval_processes(config_loader: BaseConfigLoader):
 		""" Load approval processes using the provided config loader. """
 		process_names = config_loader.load() if config_loader else []
-		return [getattr(WorkResidentPermitApplicationTypeEnum, process.strip()) for process in process_names]
+		return process_names
+		# return [getattr(WorkResidentPermitApplicationTypeEnum.value, process.strip()) for process in process_names]
 	
 	def decision_predicate(self):
 		""" Determine the final decision based on commissioner and/or minister decisions. """
 		is_commissioner_accepted = self.is_decision_accepted(CommissionerDecision)
+		self.logger.info(f"Commissioner decision accepted: {is_commissioner_accepted}")
 		is_minister_accepted = self.is_decision_accepted(MinisterDecision)
+		self.logger.info(f"Minister decision accepted: {is_minister_accepted}")
 		requires_approval = self.application.application_type in self.approval_processes
+		self.logger.info(f"Application requires approval: {requires_approval}")
+		self.logger.info(f"Application approval processes: {self.approval_processes}")
 		
 		if requires_approval:
 			if is_commissioner_accepted and is_minister_accepted:

@@ -35,4 +35,6 @@ class DecisionLoader:
 	def is_decision_accepted(self, decision_class):
 		""" Check if a decision of a given class is accepted. """
 		decision = self.get_decision(decision_class)
-		return decision and decision.status.code.lower() == ApplicationDecisionEnum.ACCEPTED.value.lower()
+		if decision:
+			return decision.status.code.lower() == ApplicationDecisionEnum.ACCEPTED.value.lower()
+		return False
