@@ -1,20 +1,30 @@
 import logging
+import os
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 from app.utils import ApplicationDecisionEnum
 
-from workresidentpermit.models import WorkPermit, SecurityClearance, CommissionerDecision
+from workresidentpermit.models import MinisterDecision, WorkPermit, SecurityClearance, CommissionerDecision
 from app_decision.models import ApplicationDecision
 from workresidentpermit.classes.service import SpecialPermitDecisionService, WorkResidentPermitDecisionService
 
 from app.utils import ApplicationStatusEnum
+from .classes.config.configuration_loader import JSONConfigLoader
 from .tasks import async_production
 
 from .classes import WorkPermitApplicationPDFGenerator
 
 logger = logging.getLogger(__name__)
+
+logger.setLevel(logging.WARNING)
+
+json_file_name = 'approval_process.json'
+json_file_path = os.path.join(os.path.dirname(__file__), 'data', json_file_name)
+
+logger.info(f"Loading approval process from {json_file_path}")
+config_loader = JSONConfigLoader(file_path=json_file_path, key='MINISTER_APPROVAL_PROCESSES')
 
 
 @receiver(post_save, sender=WorkPermit)
@@ -36,6 +46,7 @@ def generate_pdf_summary(sender, instance, created, **kwargs):
 @receiver(post_save, sender=SecurityClearance)
 def create_application_final_decision_by_security_clearance(sender, instance, created, **kwargs):
     try:
+        
         if created:
             work_resident_permit_decision_service = WorkResidentPermitDecisionService(
                 document_number=instance.document_number,
@@ -49,21 +60,38 @@ def create_application_final_decision_by_security_clearance(sender, instance, cr
                      f"Got {ex} ")
 
 
+ # Assuming
+# you have a
+# ConfigurationLoader
+# implementation
+
+
+def handle_application_final_decision(instance, created):
+
+    if not created:
+        return
+    try:
+        special_permit_decision_service = SpecialPermitDecisionService(
+            document_number=instance.document_number,
+            config_loader=config_loader,
+        )
+        special_permit_decision_service.create_application_decision()
+    except SystemError as e:
+        logger.error(
+            f"SystemError: An error occurred while creating new application decision for {instance.document_number}, Got {e}")
+    except Exception as ex:
+        logger.error(
+            f"An error occurred while trying to create application decision after saving {instance.document_number}. Got {ex}")
+
+
 @receiver(post_save, sender=CommissionerDecision)
 def create_application_final_decision_by_commissioner_decision(sender, instance, created, **kwargs):
-    try:
-        if created:
-            special_permit_decision_service = SpecialPermitDecisionService(
-                document_number=instance.document_number,
-                commissioner_decision=instance
-            )
-            special_permit_decision_service.create_application_decision()
-    except SystemError as e:
-        logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
-    except Exception as ex:
-        logger.error(f"An error occurred while trying to create application decision after saving board decision. "
-                     f"Got {ex} ")
+    handle_application_final_decision(instance, created)
 
+
+@receiver(post_save, sender=MinisterDecision)
+def create_application_final_decision_by_minister_decision(sender, instance, created, **kwargs):
+    handle_application_final_decision(instance, created)
 
 # @receiver(post_save, sender=ApplicationDecision)
 # def create_production_pdf(sender, instance, created, **kwargs):
@@ -76,6 +104,3 @@ def create_application_final_decision_by_commissioner_decision(sender, instance,
 #     except Exception as ex:
 #         logger.error(f"An error occurred while trying to creating a production pdf "
 #                      f"Got {ex} ")
-        
-
-

@@ -3,7 +3,7 @@ from django.urls import include, path, re_path
 from rest_framework.routers import DefaultRouter
 
 from .views import (ChildCreateListView, CommissionerDecisionAPIView, EmergencyResidencePermitViewSet,
-                    ExemptionCertificateViewSet, PermitCancellationViewSet,
+                    ExemptionCertificateViewSet, PermitCancellationViewSet,PermitAppealViewSet,
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
                     WorkPermitApplicationVerificationAPIView, MinisterDecisionAPIView,
@@ -17,6 +17,7 @@ router.register(r'work-permit', WorkPermitViewSet)
 router.register(r'emergency-permit', EmergencyResidencePermitViewSet, basename='emergency-permit')
 router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-certificate')
 router.register(r'permit-cancellation', PermitCancellationViewSet, basename='permit-cancellation')
+router.register(r'permit-appeal', PermitAppealViewSet, basename='permit-appeal')
 urlpatterns = [
 	
 	path('spouse/<str:document_number>/<str:pk>', SpouseCreateListView.as_view({'get': 'list'}),

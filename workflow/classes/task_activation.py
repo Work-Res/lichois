@@ -33,7 +33,9 @@ class TaskActivation:
             process__document_number=self.application.application_document.document_number)
         for activity in activities:
             self.source.next_activity_name = activity.next_activity_name
+            self.logger.info(f"Processing next_activity_name {activity.next_activity_name} for ")
             self.source.current_status = self.application.application_status.code.upper()
+            self.logger.info(f"Processing current_status {self.application.application_status.code.upper()} for ")
             if workflow.test_rule(activity.name.upper(), self.source, activity.create_task_rules):
                 application_status_code = activity.name.upper()
                 if activity.name.upper() == "FINAL_DECISION":

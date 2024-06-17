@@ -57,6 +57,7 @@ class DocumentGenerator:
 			WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value: SpecialPermitIdentifier,
 			WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.value: SpecialPermitIdentifier,
 			WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
+			WorkResidentPermitApplicationTypeEnum.TRAVEL_CERTIFICATE.value: SpecialPermitIdentifier,
 		}
 		
 		handler_class = special_permit_handlers.get(self.application.application_type)

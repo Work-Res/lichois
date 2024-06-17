@@ -1,7 +1,8 @@
 import logging
 
+from app.models import Application
 from workresidentpermit.models import SecurityClearance
-from ..choices import APPROVED, REJECTED
+from ..choices import ACCEPTED, REJECTED, APPROVED
 from ..models import BoardDecision, BoardMeeting, BoardMeetingVote
 
 
@@ -19,13 +20,17 @@ class VotingDecisionManager(object):
 		total_rejected = self.get_rejected_votes()
 		
 		if total_approved == 0 and total_rejected == 0:
+			print("Total approved and rejected votes are 0")
 			self.logger.error(f"No votes have been cast for {self.document_number}")
 		elif total_approved == total_rejected:
+			print("Total approved and rejected votes are equal")
 			self.logger.info(f"Chairperson has to break the tie, no board decision")
 			raise Exception("Chairperson has to break the tie, no board decision")
 		elif total_approved > total_rejected:
-			return APPROVED
+			print("Total rejected votes are less than total approved votes")
+			return ACCEPTED
 		elif total_approved < total_rejected:
+			print("Total rejected votes are more than total approved votes")
 			return REJECTED
 		return None
 	
@@ -44,24 +49,42 @@ class VotingDecisionManager(object):
 					document_number=self.document_number
 				)
 			except SecurityClearance.DoesNotExist:
+				print(f"Security clearance is pending for {self.document_number}")
 				self.logger.info(f"Security clearance is pending for {self.document_number}")
 		else:
 			return self._security_clearance
+		
+	@property
+	def application(self):
+		try:
+			return Application.objects.get(application_document__document_number=self.document_number)
+		except Application.DoesNotExist:
+			print("Application does not exist")
+			return None
 	
 	def create_board_decision(self):
 		try:
 			self._board_decision = BoardDecision.objects.get(
 				assessed_application__application_document__document_number=self.document_number
 			)
+			print("Board decision already exists")
 		except BoardDecision.DoesNotExist:
 			voting_decision_outcome = self._create_voting_decision()
+			print("Voting decision outcome: ", voting_decision_outcome)
 			security_clearance = self.security_clearance()
+			print("Security clearance status: ", security_clearance.status.code.lower())
 			if voting_decision_outcome:
+				print("Voting outcome: ", voting_decision_outcome)
+				print("document_number: ", self.document_number)
+				print("board_meeting: ", self.board_meeting)
+				print("application: ", self.application)
 				self._board_decision = BoardDecision.objects.create(
-					assessed_application__application_document__document_number=self.document_number,
+					assessed_application=self.application,
 					decision_outcome=voting_decision_outcome,
 					board_meeting=self.board_meeting,
 					vetting_outcome=security_clearance.status.code.lower()
 				)
+				print("Board decision created: ", self._board_decision)
+				print("--------------------------------")
 		finally:
 			return self._board_decision

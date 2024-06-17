@@ -1,91 +1,71 @@
 import logging
-
 from app.models import Application
-
-from app_comments.models import Comment
-from workresidentpermit.models import CommissionerDecision, MinisterDecision
 from app.utils import ApplicationDecisionEnum
-
+from app_comments.models import Comment
 from workresidentpermit.workflow import ProductionTransactionData
-
 from .application_decision_service import ApplicationDecisionService
+from ..config.configuration_loader import BaseConfigLoader
+from ..config.decision_loader import DecisionLoader
+from workresidentpermit.models import CommissionerDecision, MinisterDecision
 
-from ...utils import WorkResidentPermitApplicationTypeEnum
 
+class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
+    """ Responsible for creating an application decision based on commissioner or minister decisions. """
 
-class SpecialPermitDecisionService(ApplicationDecisionService):
-    """ Responsible for create application decision based on commissioner's decision.
-    """
+    def __init__(self, document_number, comment: Comment = None, config_loader: BaseConfigLoader = None):
+        # Initialize DecisionLoader with document_number
+        DecisionLoader.__init__(self, document_number=document_number)
 
-    def __init__(self, document_number, commissioner_decision: CommissionerDecision = None,
-                 comment: Comment = None, minister_decision: MinisterDecision = None):
+        # Initialize ApplicationDecisionService with document_number and comment
+        ApplicationDecisionService.__init__(self, document_number=document_number, comment=comment)
+
         self.document_number = document_number
-        self.comment = comment
-        super().__init__(document_number=document_number, comment=comment)
-        self._commissioner_decision = commissioner_decision
-        self._minister_decision = minister_decision
         self.application = Application.objects.get(application_document__document_number=document_number)
         self.workflow = ProductionTransactionData()
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
+        self.decision_value = None
+        self.approval_processes = self._load_approval_processes(config_loader)
 
-    def minister_decision(self):
-        if not self._minister_decision:
-            try:
-                self._minister_decision = MinisterDecision.objects.get(
-                    document_number=self.document_number
-                )
-            except MinisterDecision.DoesNotExist:
-                pass
-        else:
-            return self._minister_decision
+    @staticmethod
+    def _load_approval_processes(config_loader: BaseConfigLoader):
+        """ Load approval processes using the provided config loader. """
+        process_names = config_loader.load() if config_loader else []
+        return process_names
 
-    def commissioner_decision(self):
-        if not self._commissioner_decision:
-            try:
-                self._commissioner_decision = CommissionerDecision.objects.get(
-                    document_number=self.document_number
-                )
-            except CommissionerDecision.DoesNotExist:
-                pass
-        else:
-            return self._commissioner_decision
+    # return [getattr(WorkResidentPermitApplicationTypeEnum.value, process.strip()) for process in process_names]
 
     def decision_predicate(self):
+        """ Determine the final decision based on commissioner and/or minister decisions. """
+        is_commissioner_accepted = self.is_decision_accepted(CommissionerDecision)
+        self.logger.info(f"Commissioner decision accepted: {is_commissioner_accepted}")
+        is_minister_accepted = self.is_decision_accepted(MinisterDecision)
+        self.logger.info(f"Minister decision accepted: {is_minister_accepted}")
+        requires_approval = self.application.application_type in self.approval_processes
+        self.logger.info(f"Application requires approval: {requires_approval}")
+        self.logger.info(f"Application approval processes: {self.approval_processes}")
 
-        normal_types = [
-            e.name.upper() for e in WorkResidentPermitApplicationTypeEnum if not "CANCELLATION" in e.name]
-
-        if self.application.application_type.upper() in normal_types:
-            is_commissioner_decision = False
-            is_minister_decision = False
-
-            commissioner_decision = self.commissioner_decision()
-            if commissioner_decision:
-                is_commissioner_decision = commissioner_decision.status.code.lower() == \
-                                           ApplicationDecisionEnum.ACCEPTED.value.lower()
-
-            minister_decision = self.minister_decision()
-            if minister_decision:
-                is_minister_decision = minister_decision.status.code.lower() == \
-                                       ApplicationDecisionEnum.ACCEPTED.value.lower()
-
-            if is_commissioner_decision:
-                self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
-                self.workflow.commissioner_decision = ApplicationDecisionEnum.ACCEPTED.value
+        if requires_approval:
+            if is_commissioner_accepted and is_minister_accepted:
+                self.set_decision(ApplicationDecisionEnum.ACCEPTED)
+                self.workflow.recommendation_decision = ApplicationDecisionEnum.ACCEPTED.value.upper()
                 return True
-            elif commissioner_decision:
-                self.decision_value = ApplicationDecisionEnum.REJECTED.value
-                self.workflow.commissioner_decision = ApplicationDecisionEnum.REJECTED.value
+            elif is_minister_accepted:
+                self.set_decision(ApplicationDecisionEnum.ACCEPTED)
+                self.workflow.recommendation_decision = ApplicationDecisionEnum.ACCEPTED.value.upper()
                 return True
-            elif is_minister_decision:
-                self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
-                self.workflow.minister_decision = ApplicationDecisionEnum.ACCEPTED.value
+        else:
+            if is_commissioner_accepted:
+                self.set_decision(ApplicationDecisionEnum.ACCEPTED)
+                self.workflow.recommendation_decision = ApplicationDecisionEnum.ACCEPTED.value.upper()
                 return True
-            elif minister_decision:
-                self.decision_value = ApplicationDecisionEnum.REJECTED.value
-                self.workflow.minister_decision = ApplicationDecisionEnum.REJECTED.value
-                return True
-            else:
-                self.logger.info(
-                    "Application decision cannot be completed, pending security clearance or board decision.")
-                return False
+
+        # If neither condition is met, reject the application
+        if self.get_decision(CommissionerDecision) or (self.get_decision(MinisterDecision) and requires_approval):
+            self.set_decision(ApplicationDecisionEnum.REJECTED)
+            self.workflow.recommendation_decision = ApplicationDecisionEnum.REJECTED.value.upper()
+            return True
+
+    def set_decision(self, decision_enum):
+        """ Set the decision value. """
+        self.decision_value = decision_enum.value

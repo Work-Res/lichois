@@ -1,79 +1,120 @@
 import re
-
 from django.apps import apps
+from django.core.exceptions import FieldDoesNotExist, FieldError, ObjectDoesNotExist
+from django.db.models import ForeignKey, ManyToManyField, QuerySet
+from django.forms import model_to_dict
 
-from app_attachments.api.serializers import ApplicationAttachmentSerializer
 
-
-class ApplicationSummary(object):
-	
+class ApplicationSummary:
 	def __init__(self, document_number, app_labels):
+		"""Initialize the ApplicationSummary with a document number and application labels."""
 		self.document_number = document_number
 		self.app_labels = app_labels
 	
 	def data(self):
+		"""Generate a summary of the application data."""
 		summary = {}
-		for app_label in self.get_app_label():
-			model_name = apps.get_model(app_label).__name__
-			snake_case_model_name = self.to_snake_case(model_name)
-			form_details = self.get_model(app_label)
-			if form_details is not None:
-				summary[snake_case_model_name] = self.serialize_model(form_details)
-			summary['attachments'] = self.get_attachments()
+		for app_label in self.get_app_labels():
+			model_instance = self.get_model_instance(app_label)
+			if model_instance:
+				model_name = apps.get_model(app_label).__name__
+				snake_case_model_name = self.to_snake_case(model_name)
+				summary[snake_case_model_name] = self.serialize_model_instance(model_instance)
 		return summary
 	
-	def get_model(self, app_label):
-		""" Get the model instance based on app label, model name, and document number. """
+	def get_model_instance(self, app_label):
+		"""Get the model instance based on the app label and document number."""
 		model_cls = apps.get_model(app_label)
-		try:
-			return model_cls.objects.get(document_number=self.document_number)
-		except model_cls.DoesNotExist:
-			return None
-		
-	def get_attachments(self):
-		""" Get the attachments based on the document number. """
-		attachment_models = apps.get_model('app_attachments.ApplicationAttachment').objects.filter(
-			document_number=self.document_number)
-		attachments = ApplicationAttachmentSerializer(attachment_models, many=True).data
-		return attachments
+		return self._get_model_instance_recursive(model_cls)
 	
-	def serialize_model(self, model_instance):
-		""" Serialize model instance to a dictionary. """
+	def _get_model_instance_recursive(self, model_cls, traversed_models=None):
+		"""Recursively get the model instance based on the document number."""
+		if traversed_models is None:
+			traversed_models = set()
+		
+		try:
+			# Attempt to filter using document_number directly
+			return model_cls.objects.get(document_number=self.document_number)
+		except (FieldError, model_cls.DoesNotExist):
+			# Add the current model to traversed models to avoid infinite loops
+			traversed_models.add(model_cls)
+			
+			# Fallback to check for ForeignKey relationships with document_number
+			for field in model_cls._meta.get_fields():
+				if isinstance(field, ForeignKey):
+					related_model = field.related_model
+					if related_model not in traversed_models:
+						try:
+							related_instance = self._get_model_instance_recursive(related_model, traversed_models)
+							if related_instance:
+								return model_cls.objects.get(**{field.name: related_instance})
+						except ObjectDoesNotExist:
+							continue
+		except FieldDoesNotExist:
+			return None
+		return None
+	
+	def serialize_model_instance(self, model_instance):
+		"""Serialize a model instance to a dictionary."""
 		serialized_data = {}
-		fields = model_instance._meta.get_fields()
-		for field in fields:
+		for field in model_instance._meta.get_fields():
 			field_name = field.name
-			if field_name == 'application_version':
-				# Handle the serialization of ApplicationVersion separately
-				serialized_data[field_name] = self.serialize_application_version(getattr(model_instance, field_name))
-			else:
-				# Serialize other fields as usual
-				serialized_data[field_name] = getattr(model_instance, field_name)
+			try:
+				if isinstance(field, ForeignKey):
+					# Handle ForeignKey relationships
+					related_instance = getattr(model_instance, field_name)
+					if related_instance:
+						serialized_data[field_name] = self.serialize_related_instance(related_instance)
+					else:
+						serialized_data[field_name] = None
+				elif isinstance(field, ManyToManyField):
+					# Handle ManyToManyField relationships
+					related_manager = getattr(model_instance, field_name)
+					serialized_data[field_name] = [
+						self.serialize_related_instance(instance) for instance in related_manager.all()
+					]
+				elif hasattr(getattr(model_instance, field_name), 'all'):
+					# Handle reverse ForeignKey relationships
+					related_manager = getattr(model_instance, field_name)
+					serialized_data[field_name] = [
+						self.serialize_related_instance(instance) for instance in related_manager.all()
+					]
+				else:
+					# Handle other fields normally
+					serialized_data[field_name] = getattr(model_instance, field_name)
+			except AttributeError as e:
+				# Handle the case where an attribute doesn't exist on the model instance
+				print(f"Error accessing field '{field_name}' on {model_instance}: {e}")
+				serialized_data[field_name] = None
+		
 		return serialized_data
 	
-	def to_snake_case(self, camel_str):
-		""" Convert a CamelCase string to snake_case."""
+	
+	def serialize_related_instance(self, related_instance):
+		"""Serialize a related instance (ForeignKey or queryset) to a dictionary."""
+		if isinstance(related_instance, QuerySet):
+			# Handle queryset of related instances
+			return [
+				model_to_dict(instance, fields=[field.name for field in instance._meta.fields])
+				for instance in related_instance
+			]
+		else:
+			# Handle ForeignKey relationships
+			return model_to_dict(related_instance, fields=[field.name for field in related_instance._meta.fields])
+	
+	@staticmethod
+	def to_snake_case(camel_str):
+		"""Convert a CamelCase string to snake_case."""
 		return re.sub('([a-z0-9])([A-Z])', r'\1_\2', camel_str).lower()
 	
-	def serialize_application_version(self, application_version):
-		""" Serialize ApplicationVersion instance to a dictionary. """
-		if application_version is not None:
-			# You can customize this serialization process according to your requirements
-			return {
-				'id': application_version.id,
-				'version_number': application_version.version_number,
-				# Include other fields as needed
-			}
-		else:
-			return None
-		
-	def get_app_label(self) -> list:
-		""" Get the list of app labels to be used in the summary. """
-		generic_label = [
+	def get_app_labels(self):
+		"""Get the list of app labels to be used in the summary."""
+		generic_labels = [
 			'app_personal_details.Person',
 			'app_address.ApplicationAddress',
 			'app_contact.ApplicationContact',
 			'app_personal_details.Passport',
+			'app.Application',
+			'app.ApplicationVerification',
 		]
-		generic_label.extend(self.app_labels)
-		return generic_label
+		return generic_labels + self.app_labels
