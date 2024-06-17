@@ -2,6 +2,7 @@ import logging
 
 from typing import TypeVar
 
+from app.utils import ApplicationStatusEnum
 from ..rules import workflow
 from ..models import Activity, Task
 from ..choices import TaskStatus, TaskPriority
@@ -34,7 +35,10 @@ class TaskActivation:
             self.source.next_activity_name = activity.next_activity_name
             self.source.current_status = self.application.application_status.code.upper()
             if workflow.test_rule(activity.name.upper(), self.source, activity.create_task_rules):
-                WorkflowApplication(application=self.application, application_status_code=activity.name.upper())
+                application_status_code = activity.name.upper()
+                if activity.name.upper() == "FINAL_DECISION":
+                    application_status_code = "ACCEPTED"
+                WorkflowApplication(application=self.application, application_status_code=application_status_code)
                 self.logger.info(
                     f"Attempting to create a new task for "
                     f"{activity.name} - {self.application.application_document.document_number}.")
