@@ -14,7 +14,7 @@ from app.models import Application, ApplicationStatus
 from app.classes import ApplicationService
 from app_checklist.classes import CreateChecklistService
 
-from app.api import NewApplicationDTO
+from app.api import NewApplicationDTO, ApplicationVerificationRequest
 from app.utils import ApplicationProcesses
 
 from app_personal_details.models import Person, Passport
@@ -25,7 +25,7 @@ from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
 from app.utils import ApplicationStatusEnum
 
-from workresidentpermit.models import WorkPermit
+from workresidentpermit.models import WorkPermit, CommissionerDecision
 from workresidentpermit.classes import WorkResidentPermitApplication
 
 
@@ -240,3 +240,81 @@ class TestSpecialPermitWorkflow(TestCase):
         self.assertEqual(tasks_count, 1)
         app = Application.objects.get(application_document__document_number=self.document_number)
         self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.VERIFICATION.value.upper())
+
+    def test_workpermit_special_when_done_with_verification_to_recommandation(self):
+        """
+        Check if all tasks created, the verification task should be created.
+        """
+        app_verification = ApplicationVerificationRequest()
+        app_verification.comment = "Testing"
+        app_verification.decision = "ACCEPTED"
+        app_verification.outcome_reason = "UNKNOW"
+
+        work_resident_permit_application = WorkResidentPermitApplication(
+            document_number=self.document_number,
+            verification_request=app_verification,
+        )
+
+        response = work_resident_permit_application.submit()
+        message = "Application has been submitted successfully."
+        status = message in [message.get("details") for message in response.messages]
+        self.assertTrue(status)
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 1)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.VERIFICATION.value.upper())
+
+        work_resident_permit_application.submit_verification()
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 2)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.RECOMMENDATION.value.upper())
+
+    def test_workpermit_special_when_complete_recommandation_then_production(self):
+        """
+        Check if all tasks created, the commisioner's decision task should be created.
+        """
+        app_verification = ApplicationVerificationRequest()
+        app_verification.comment = "Testing"
+        app_verification.decision = "ACCEPTED"
+        app_verification.outcome_reason = "UNKNOW"
+
+        work_resident_permit_application = WorkResidentPermitApplication(
+            document_number=self.document_number,
+            verification_request=app_verification,
+        )
+
+        response = work_resident_permit_application.submit()
+        message = "Application has been submitted successfully."
+        status = message in [message.get("details") for message in response.messages]
+        self.assertTrue(status)
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 1)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.VERIFICATION.value.upper())
+
+        work_resident_permit_application.submit_verification()
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 2)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.RECOMMENDATION.value.upper())
+
+        self.create_commissioner_decision()
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 3)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.ACCEPTED.value.upper())
+
+    def create_commissioner_decision(self):
+        CommissionerDecision.objects.create(
+            document_number=self.document_number,
+            date_requested=date.today(),
+            date_approved=date.today(),
+            status=ApplicationDecisionType.objects.get(code__iexact=ApplicationDecisionEnum.ACCEPTED.value),
+            approved_by='test',
+            summary="commissioner"
+        )

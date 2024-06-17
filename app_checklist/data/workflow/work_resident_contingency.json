@@ -18,7 +18,7 @@
                 "next_activity_name": "RECOMMENDATION",
                 "create_task_rules": {
                   "system_verification": "validated",
-                  "current_status":  "VERIFICATION"
+                  "current_status":  "DRAFT"
                 }
               },{
                 "code":  "RECOMMENDATION",
