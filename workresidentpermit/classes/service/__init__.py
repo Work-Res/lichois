@@ -4,3 +4,4 @@ from .security_clearance_service import SecurityClearanceService
 from .work_resident_permit_decision_service import WorkResidentPermitDecisionService
 from .special_permit_decision_service import SpecialPermitDecisionService
 from .permit_cancellation_decision_service import PermitCancellationDecisionService
+from .permit_production_service import PermitProductionService

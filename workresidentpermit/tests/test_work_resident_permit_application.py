@@ -341,7 +341,7 @@ class TestWorkResidentPermitApplication(TestCase):
             activity__process__document_number=self.document_number)
         statuses = [task.status for task in all_tasks]
         self.application = Application.objects.get(application_document__document_number=self.document_number)
-        self.assertEqual(self.application.application_status.code.upper(), WorkflowEnum.FINAL_DECISION.value.upper())
+        self.assertEqual(self.application.application_status.code.upper(), ApplicationStatusEnum.ACCEPTED.value.upper())
         self.assertEqual(all_tasks.count(), 3)
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)

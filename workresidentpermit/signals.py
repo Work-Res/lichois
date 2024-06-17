@@ -4,11 +4,14 @@ import os
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from app.models import Application
 from app.utils import ApplicationDecisionEnum
 
+from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
 from workresidentpermit.models import MinisterDecision, WorkPermit, SecurityClearance, CommissionerDecision
 from app_decision.models import ApplicationDecision
-from workresidentpermit.classes.service import SpecialPermitDecisionService, WorkResidentPermitDecisionService
+from workresidentpermit.classes.service import SpecialPermitDecisionService, WorkResidentPermitDecisionService, \
+    PermitProductionService
 
 from app.utils import ApplicationStatusEnum
 from .classes.config.configuration_loader import JSONConfigLoader
@@ -92,6 +95,29 @@ def create_application_final_decision_by_commissioner_decision(sender, instance,
 @receiver(post_save, sender=MinisterDecision)
 def create_application_final_decision_by_minister_decision(sender, instance, created, **kwargs):
     handle_application_final_decision(instance, created)
+
+
+@receiver(post_save, sender=ApplicationDecision)
+def create_production_permit_record(sender, instance, created, **kwargs):
+
+    if not created:
+        return
+    try:
+        if instance.proposed_decision_type.code == ApplicationDecisionEnum.ACCEPTED.value:
+            request = PermitRequestDTO()
+            application = Application.objects.get(application_document__document_number=instance.document_number)
+            if application.process_name.upper() == "WORK_RESIDENT_PERMIT":
+                request.permit_type = application.process_name
+                request.place_issue = "Gaborone" # Pending location solution
+                request.document_number = instance.document_number
+                permit = PermitProductionService(request=request)
+                permit.create_new_permit()
+    except SystemError as e:
+        logger.error(
+            f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}")
+    except Exception as ex:
+        logger.error(
+            f"An error occurred while trying to create permit for production {instance.document_number}. Got {ex}")
 
 # @receiver(post_save, sender=ApplicationDecision)
 # def create_production_pdf(sender, instance, created, **kwargs):

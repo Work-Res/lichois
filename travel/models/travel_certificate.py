@@ -8,7 +8,7 @@ class TravelCertificate(ApplicationBaseModel):
 	kraal_head_name = models.CharField(max_length=200)
 	chief_name = models.CharField(max_length=200)
 	clan_name = models.CharField(max_length=200)
-	date = models.DateField(auto_now=True)
+	date_issued = models.DateField(auto_now=True)
 	applicant_signature = models.CharField(max_length=200)
 	issuing_authority_signature = models.CharField(max_length=200, null=True, blank=True)
 	
