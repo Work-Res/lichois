@@ -1,3 +1,4 @@
+import random
 import logging
 import base64
 
@@ -54,14 +55,16 @@ class PermitProductionService:
             return permit
 
     def generate_security_number(self):
-        short_identifier = ShortIdentifier(
-            prefix_pattern='^[0-9]{10}$', prefix=24)
-        self.request.permit_no = short_identifier.identifier
-        encoded_data = base64.b64encode(self.request.permit_no)
-        if len(encoded_data) > 8:
-            code = encoded_data[:6]
-            return code.upper()
-        return encoded_data.upper()
+        # try:
+        self.request.permit_no = str(random.randint(320000000, 3399999999))
+        #     encoded_data = base64.b64encode(self.request.permit_no)
+        #     if len(encoded_data) > 8:
+        #         code = encoded_data[:6]
+        #         return code.upper()
+        #     return encoded_data.upper()
+        # except Exception as e:
+        #     print(f"{e}")
+        return self.request.permit_no
 
     def generate_permint_number(self):
         return self.request.permit_no
@@ -72,6 +75,7 @@ class PermitProductionService:
         if not permit:
             security_code = self.generate_security_number()
             Permit.objects.create(
+                document_number=self.request.document_number,
                 permit_type=self.request.permit_type,
                 permit_no=self.request.permit_no,
                 date_issued=self.request.date_issued or date.today(),
@@ -86,6 +90,7 @@ class PermitProductionService:
             )
             self.response.status = "success"
             self.response.messages.append(api_message.to_dict())
+            print("created permit.")
         return permit
 
     def invalidate_existing_permit(self):

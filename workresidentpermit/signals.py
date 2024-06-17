@@ -99,7 +99,7 @@ def create_application_final_decision_by_minister_decision(sender, instance, cre
 
 @receiver(post_save, sender=ApplicationDecision)
 def create_production_permit_record(sender, instance, created, **kwargs):
-
+    print("create_production_permit_record create_production_permit_record create_production_permit_record")
     if not created:
         return
     try:

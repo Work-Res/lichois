@@ -17,7 +17,7 @@ from app_checklist.classes import CreateChecklistService
 from app.api import NewApplicationDTO
 from app.utils import ApplicationProcesses, ApplicationDecisionEnum
 
-from app_personal_details.models import Person, Passport
+from app_personal_details.models import Person, Passport, Permit
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 
@@ -349,6 +349,9 @@ class TestWorkResidentPermitApplication(TestCase):
         application_decision = ApplicationDecision.objects.all()
         self.assertGreater(application_decision.count(), 0)
 
+        permit_production_count = Permit.objects.filter(document_number=self.document_number)
+        self.assertGreater(len(permit_production_count), 0)
+
     def create_board_decision(self):
         # Create Board decision
         board_meeting_data = {'description': 'test meeting',
@@ -424,6 +427,7 @@ class TestWorkResidentPermitApplication(TestCase):
         self.assertEqual(all_tasks.count(), 3)
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)
+
 
         # application_decision = ApplicationDecision.objects.all()
         # self.assertGreater(application_decision.count(), 0)
