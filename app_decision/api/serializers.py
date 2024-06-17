@@ -24,6 +24,7 @@ class ApplicationDecisionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationDecision
         fields = (
+            'document_number',
             'final_decision_type',
             'proposed_decision_type'
             # 'application_document'
