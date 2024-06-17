@@ -26,6 +26,8 @@ class ApplicationDecisionSerializer(serializers.ModelSerializer):
         fields = (
             'document_number',
             'final_decision_type',
-            'proposed_decision_type'
+            'proposed_decision_type',
+            'created',
+            'modified',
             # 'application_document'
         )

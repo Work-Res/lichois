@@ -60,6 +60,7 @@ class ApplicationDecisionService:
             raise WorkflowProductionRequiredDecisionException()
         if self.decision_predicate():
             ApplicationDecision.objects.create(
+                document_number=self.document_number,
                 final_decision_type=None,
                 proposed_decision_type=self.proposed_application_decision_type(),
                 comment=self.comment
