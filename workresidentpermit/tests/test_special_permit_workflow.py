@@ -1,22 +1,21 @@
-
-import arrow
 import os
 import glob
+
+from random import randint
 
 from datetime import date
 from django.test import TestCase
 
-from app_decision.models import ApplicationDecisionType, ApplicationDecision
-from authentication.models import User
+from app_decision.models import ApplicationDecisionType
 
 from faker import Faker
 
-from app.models import Application, ApplicationStatus, ApplicationRenewal
+from app.models import Application, ApplicationStatus
 from app.classes import ApplicationService
 from app_checklist.classes import CreateChecklistService
 
 from app.api import NewApplicationDTO
-from app.utils import ApplicationProcesses, ApplicationDecisionEnum
+from app.utils import ApplicationProcesses
 
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress, Country
@@ -24,21 +23,17 @@ from app_contact.models import ApplicationContact
 
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
-from app.utils import ApplicationStatusEnum, WorkflowEnum
-from board.models import BoardDecision, BoardMeeting
-from workresidentpermit.api.dto import SecurityClearanceRequestDTO
+from app.utils import ApplicationStatusEnum
 
 from workresidentpermit.models import WorkPermit
-from workresidentpermit.classes import WorkResidentPermitApplication, SecurityClearanceService
+from workresidentpermit.classes import WorkResidentPermitApplication
 
-from app.api import ApplicationVerificationRequest, RenewalApplicationDTO
-from app.classes import RenewalApplicationService
 
 from workflow.models import Task
 from model_mommy import mommy
 
 from app.utils import statuses, ApplicationDecisionEnum
-from workresidentpermit.validators import SecurityClearanceValidator
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 def application(status):
@@ -49,7 +44,7 @@ def application(status):
         return None
 
 
-class TestWorkResidentPermitApplication(TestCase):
+class TestSpecialPermitWorkflow(TestCase):
 
     def application_decision_type(self):
         for value in [ApplicationDecisionEnum.ACCEPTED.value,
@@ -65,7 +60,7 @@ class TestWorkResidentPermitApplication(TestCase):
             )
 
     def setUp(self):
-
+        faker = Faker()
         self.board = mommy.make_recipe(
             'board.board', )
 
@@ -94,17 +89,26 @@ class TestWorkResidentPermitApplication(TestCase):
             ApplicationStatus.objects.create(
                 **status
             )
+        process_name = ApplicationProcesses.SPECIAL_PERMIT.name
+        application_type = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.name
 
-        self.new_app = NewApplicationDTO(
-            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            applicant_identifier='317918515',
+        fname = faker.unique.first_name()
+        lname = faker.unique.last_name()
+
+        new_app = NewApplicationDTO(
+            application_type=application_type,
+            process_name=process_name,
+            applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
             status=ApplicationStatusEnum.NEW.value,
-            dob="06101990",
-            work_place="01",
-            full_name="Test test")
+            dob='1990-06-10',
+            work_place=randint(1000, 9999),
+            full_name=f'{fname} {lname}'
+        )
 
-        self.application_service = ApplicationService(new_application=self.new_app)
+        self.application_service = ApplicationService(new_application=new_app)
         application_version = self.application_service.create_application()
+        print(self.application_service.response.messages)
+        print("application_version application_version ", application_version)
 
         app = application_version.application
         self.application = application_version.application
@@ -218,3 +222,21 @@ class TestWorkResidentPermitApplication(TestCase):
         )
 
         self.application_decision_type()
+
+    def test_workpermit_special_submission_when_verification_task_should_exists(self):
+        """
+        Check if all tasks created, the verification task should be created.
+        """
+        work_resident_permit_application = WorkResidentPermitApplication(
+            document_number=self.document_number
+        )
+
+        response = work_resident_permit_application.submit()
+        message = "Application has been submitted successfully."
+        status = message in [message.get("details") for message in response.messages]
+        self.assertTrue(status)
+
+        tasks_count = Task.objects.filter(activity__process__document_number=self.document_number).count()
+        self.assertEqual(tasks_count, 1)
+        app = Application.objects.get(application_document__document_number=self.document_number)
+        self.assertEqual(app.application_status.code.upper(), ApplicationStatusEnum.VERIFICATION.value.upper())

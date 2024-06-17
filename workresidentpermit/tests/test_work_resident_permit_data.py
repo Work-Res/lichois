@@ -1,7 +1,7 @@
 import pytest
 
 from datetime import date
-from app.classes import CreateNewApplicationService
+from app.classes import ApplicationService
 from app.api import NewApplicationDTO
 from app.utils import ApplicationProcesses, statuses
 from app.models import ApplicationStatus

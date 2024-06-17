@@ -57,7 +57,8 @@ class ApplicationService:
 			self._log_and_set_response(
 				400,
 				"Bad request",
-				f"An application with (NEW) status exists for applicant: {self.application.applicant_identifier}. Complete the existing application before opening a new one."
+				f"An application with (NEW) status exists for applicant: {self.application.applicant_identifier}. "
+				f"Complete the existing application before opening a new one."
 			)
 			return True
 		return False
@@ -74,7 +75,8 @@ class ApplicationService:
 			self._log_and_set_response(
 				400,
 				"Bad request",
-				f"Application status ({self.application.status}) does not exist for process name {self.application.proces_name}. User identifier: {self.application.applicant_identifier}"
+				f"Application status ({self.application.status}) does not exist for process name "
+				f"{self.application.proces_name}. User identifier: {self.application.applicant_identifier}"
 			)
 			return None
 	
