@@ -24,10 +24,9 @@ class RecommendationTransitionData:
 class ProductionTransactionData:
 
     def __init__(self, board_decision=None, security_clearance=None, current_status=None,
-                 next_activity_name=None, commissioner_decision=None, minister_decision=None):
+                 next_activity_name=None, recommendation_decision=None):
         self.board_decision = board_decision
         self.security_clearance = security_clearance
         self.current_status = current_status
         self.next_activity_name = next_activity_name
-        self.commissioner_decision = commissioner_decision
-        self.minister_decision = minister_decision
+        self.recommendation_decision = recommendation_decision
