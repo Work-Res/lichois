@@ -115,5 +115,6 @@ class ApplicationSummary:
 			'app_contact.ApplicationContact',
 			'app_personal_details.Passport',
 			'app.Application',
+			'app.ApplicationVerification',
 		]
 		return generic_labels + self.app_labels

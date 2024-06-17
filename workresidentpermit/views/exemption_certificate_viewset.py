@@ -10,7 +10,8 @@ from ..api.serializers import ExemptionCertificateSerializer
 def get_app_labels():
 	return [
 		'workresidentpermit.Dependant',
-		'workresidentpermit.ExemptionCertificate'
+		'workresidentpermit.ExemptionCertificate',
+		'workresidentpermit.CommissionerDecision',
 	]
 
 

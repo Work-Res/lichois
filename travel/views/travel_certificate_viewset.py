@@ -10,7 +10,9 @@ from ..serializers import TravelCertificateSerializer
 def get_app_labels():
 	return [
 		'travel.ApplicantRelative',
-		'travel.TravelCertificate'
+		'travel.TravelCertificate',
+		'workresidentpermit.CommissionerDecision',
+		'workresidentpermit.MinisterDecision',
 	]
 
 

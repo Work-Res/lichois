@@ -9,7 +9,8 @@ from ..api.serializers import EmergencyPermitSerializer
 
 def get_app_labels():
 	return [
-		'workresidentpermit.EmergencyPermit'
+		'workresidentpermit.EmergencyPermit',
+		'workresidentpermit.CommissionerDecision',
 	]
 
 
