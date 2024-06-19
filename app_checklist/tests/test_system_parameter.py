@@ -1,7 +1,9 @@
+# app_checklist/tests/test_system_parameter.py
+
 from django.test import TestCase
 from datetime import date, timedelta
-from .models import SystemParameter
-from .services import SystemParameterService
+from app_checklist.models.system_parameter import SystemParameter
+from app_checklist.classes.system_parameters_service import SystemParameterService
 
 class TestSystemParameterService(TestCase):
 
@@ -10,7 +12,7 @@ class TestSystemParameterService(TestCase):
         self.system_param_years = SystemParameter.objects.create(
             duration_type='years',
             duration=2,
-            application_type='test_app_years,emergency_duration_system_parameter',
+            application_type='test_app_years',
             valid_from=date(2022, 1, 1),
             valid_to=date(2024, 1, 1)
         )
