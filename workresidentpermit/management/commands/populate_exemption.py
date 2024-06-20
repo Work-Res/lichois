@@ -20,7 +20,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		faker = Faker()
 		process_name = ApplicationProcesses.SPECIAL_PERMIT.value
-		application_type = WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE
+		application_type = WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value
 		for _ in range(50):
 			with atomic():
 				fname = faker.unique.first_name()

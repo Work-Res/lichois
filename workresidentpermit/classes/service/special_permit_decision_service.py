@@ -38,12 +38,8 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
     def decision_predicate(self):
         """ Determine the final decision based on commissioner and/or minister decisions. """
         is_commissioner_accepted = self.is_decision_accepted(CommissionerDecision)
-        self.logger.info(f"Commissioner decision accepted: {is_commissioner_accepted}")
         is_minister_accepted = self.is_decision_accepted(MinisterDecision)
-        self.logger.info(f"Minister decision accepted: {is_minister_accepted}")
         requires_approval = self.application.application_type in self.approval_processes
-        self.logger.info(f"Application requires approval: {requires_approval}")
-        self.logger.info(f"Application approval processes: {self.approval_processes}")
 
         if requires_approval:
             if is_commissioner_accepted and is_minister_accepted:
