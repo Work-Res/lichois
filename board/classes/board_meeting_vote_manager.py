@@ -80,7 +80,7 @@ class BoardMeetingVoteManager:
 			# Get the meeting attendee of the user
 			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
 				document_number=self.document_number) & Q(decision='vote'))
-		except MeetingAttendee.DoesNotExist:
+		except InterestDeclaration.DoesNotExist:
 			pass
 		else:
 			meeting_attendee = declaration.meeting_attendee
