@@ -16,4 +16,6 @@ from .security_clearance_create_view import SecurityClearanceCreateAPIView
 from .production_permit_view import ProductionPermitView
 from .commissioner_decision_api_view import CommissionerDecisionAPIView
 from .minister_decision_api_view import MinisterDecisionAPIView
-
+from .travel_certificate_view import TravelCertificateView
+from .exemption_certificate_view import ExemptionCertificateView
+from .permit_cancellation_view import PermitCancellationView
