@@ -1,0 +1,8 @@
+{
+  "models": {
+    "app_personal_details.person": ["first_name", "last_name", "gender", "document_number"],
+    "app_personal_details.passport": ["passport_number"],
+    "app_personal_details.permit": ["permit_type", "security_number"],
+    "workresidentpermit.permitcancellation": ["cancellation_reasons"]
+  }
+}
