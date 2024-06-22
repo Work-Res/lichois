@@ -1,1 +1,2 @@
 from .travel_certificate_viewset import TravelCertificateViewSet
+from .travel_certificate_permit_viewset import TravelCertificatePermitViewSet
