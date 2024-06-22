@@ -3,11 +3,13 @@ from django.urls import include, path, re_path
 from rest_framework.routers import DefaultRouter
 
 from .views import (ChildCreateListView, CommissionerDecisionAPIView, EmergencyResidencePermitViewSet,
-                    ExemptionCertificateViewSet, PermitCancellationViewSet,
+                    ExemptionCertificateViewSet, PermitCancellationViewSet, PermitAppealViewSet,
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
                     WorkPermitApplicationVerificationAPIView, MinisterDecisionAPIView,
-                    SecurityClearanceCreateAPIView, ProductionPermitView)
+                    SecurityClearanceCreateAPIView, ProductionPermitView, TravelCertificateView,
+                    ExemptionCertificateView, PermitCancellationView)
+
 
 router = DefaultRouter()
 router.register(r'spouse', SpouseCreateListView, basename='spouse')
@@ -17,18 +19,19 @@ router.register(r'work-permit', WorkPermitViewSet)
 router.register(r'emergency-permit', EmergencyResidencePermitViewSet, basename='emergency-permit')
 router.register(r'exemption-certificate', ExemptionCertificateViewSet, basename='exemption-certificate')
 router.register(r'permit-cancellation', PermitCancellationViewSet, basename='permit-cancellation')
+router.register(r'permit-appeal', PermitAppealViewSet, basename='permit-appeal')
+
 urlpatterns = [
-	
-	path('spouse/<str:document_number>/<str:pk>', SpouseCreateListView.as_view({'get': 'list'}),
-	     name='spouse-detail'),
-	
+     path('spouse/<str:document_number>/<str:pk>', SpouseCreateListView.as_view({'get': 'list'}),
+          name='spouse-detail'),
+
 	#  New generic endpoints
-	path('verification/<str:document_number>/submit/',
+     path('verification/<str:document_number>/submit/',
 	     WorkPermitApplicationVerificationAPIView.as_view(), name='submit-verification'),
-	path('security_clearance/<str:document_number>/submit/',
+     path('security_clearance/<str:document_number>/submit/',
 	     SecurityClearanceCreateAPIView.as_view(), name='submit-security-clearance'),
-	path('commissioner-decision/', CommissionerDecisionAPIView.as_view(), name='commissioner-decision-create'),
-	path('minister-decision/', MinisterDecisionAPIView.as_view(), name='minister-decision-create'),
+     path('commissioner-decision/', CommissionerDecisionAPIView.as_view(), name='commissioner-decision-create'),
+     path('minister-decision/', MinisterDecisionAPIView.as_view(), name='minister-decision-create'),
 	
 	# Old endpoints
 	path('workpermit/<str:document_number>/submit/verification',
@@ -42,5 +45,11 @@ urlpatterns = [
 	
 	path('production/<str:document_number>', ProductionPermitView.as_view(),
 	     name='production-permit'),
+	path('production/travel_certificate/<str:document_number>', TravelCertificateView.as_view(),
+		 name='production-permit'),
+	path('production/exemption_certificate/<str:document_number>', ExemptionCertificateView.as_view(),
+		 name='production-permit'),
+	path('production/permit_cancellation/<str:document_number>', PermitCancellationView.as_view(),
+		 name='production-permit'),
 	path('', include(router.urls)),
 ]
