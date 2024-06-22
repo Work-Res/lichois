@@ -1,2 +1,3 @@
 from .travel_certificate import TravelCertificate
 from .applicant_relative import ApplicantRelative
+from .travel_certificate_permit import TravelCertificatePermit
