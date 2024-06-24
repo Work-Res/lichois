@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 from app.models import Application
-from app.utils import ApplicationDecisionEnum
+from app.utils import ApplicationDecisionEnum, ApplicationProcesses
 
 from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
 from workresidentpermit.models import MinisterDecision, WorkPermit, SecurityClearance, CommissionerDecision
@@ -119,7 +119,7 @@ def create_production_permit_record(sender, instance, created, **kwargs):
 		if instance.proposed_decision_type.code == ApplicationDecisionEnum.ACCEPTED.value:
 			request = PermitRequestDTO()
 			application = Application.objects.get(application_document__document_number=instance.document_number)
-			if application.process_name.upper() == "WORK_RESIDENT_PERMIT":
+			if application.process_name.upper() in ApplicationProcesses:
 				request.permit_type = application.process_name
 				request.place_issue = "Gaborone"  # Pending location solution
 				request.document_number = instance.document_number

@@ -42,7 +42,7 @@ class BoardMeetingVoteManager:
 		try:
 			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
 				document_number=self.document_number) & Q(decision='vote'))
-		except MeetingAttendee.DoesNotExist:
+		except InterestDeclaration.DoesNotExist:
 			pass
 		else:
 			if self.user.is_chairperson:
@@ -51,7 +51,7 @@ class BoardMeetingVoteManager:
 					vote = BoardMeetingVote.objects.get(Q(meeting_attendee=meeting_attendee) & Q(
 						document_number=self.document_number))
 				except BoardMeetingVote.DoesNotExist:
-					raise PermissionDenied('User is not a board member')
+					raise PermissionDenied('Chairperson has not voted yet')
 				else:
 					vote.tie_breaker = tie_breaker
 					vote.save()
