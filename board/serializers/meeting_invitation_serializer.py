@@ -7,6 +7,7 @@ from ..models import BoardMeeting, BoardMember, MeetingInvitation
 
 class MeetingInvitationSerializer(serializers.ModelSerializer):
 	# board_meeting = BoardMeetingSerializer()
+	invited_user = serializers.PrimaryKeyRelatedField(queryset=BoardMember.objects.all())
 	
 	class Meta:
 		model = MeetingInvitation
