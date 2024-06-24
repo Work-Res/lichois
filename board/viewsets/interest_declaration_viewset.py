@@ -31,5 +31,5 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
 		                                                          document_number=document_number).first()
 		if interest_declaration:
 			return Response(data=InterestDeclarationSerializer(interest_declaration).data)
-		return Response(APIMessage(message='Interest declaration not found', code=404).to_dict())
+		return Response(APIMessage(message='Interest declaration not found', code=404).to_dict(), status=404)
 	

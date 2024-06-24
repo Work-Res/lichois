@@ -40,7 +40,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 		vote = meeting_vote_manager.get_my_vote()
 		if vote:
 			return Response(data=BoardMeetingVoteSerializer(vote).data)
-		return Response(APIMessage(message='Vote not found', code=404).to_dict())
+		return Response(APIMessage(message='Vote not found', code=404).to_dict(), status=404)
 	
 	def create(self, request, *args, **kwargs):
 		# if vote exists, raise an error
