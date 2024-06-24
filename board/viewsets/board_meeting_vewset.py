@@ -58,7 +58,7 @@ class BoardMeetingViewSet(viewsets.ModelViewSet):
 			
 			return Response(data=serialized_meetings.data)
 	
-	@action(detail=False, methods=['get'], url_path='board-members/(?P<board_meeting>[A-Za-z0-9-]+)/',
+	@action(detail=False, methods=['get'], url_path='board-members/(?P<board_meeting>[A-Za-z0-9-]+)',
 	        url_name='board-members')
 	def meeting_invitations(self, request, board_meeting):
 		# Retrieve the board member or raise a 404 error if not found
