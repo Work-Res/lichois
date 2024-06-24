@@ -10,7 +10,6 @@ class AgendaViewSet(viewsets.ModelViewSet):
 	serializer_class = AgendaSerializer
 	lookup_field = 'meeting'
 
-
 	def retrieve(self, request, meeting,  *args, **kwargs):
 		# Filter by meeting
 		queryset = Agenda.objects.filter(meeting__id=meeting)
