@@ -17,7 +17,7 @@ class Command(BaseCommand):
 		apps = ApplicationDocument.objects.filter(document_number__startswith='EX')
 		verifier = User.objects.filter(username='tverification1').first()
 		for app in apps:
-			application = ApplicationVerification.objects.filter(document_number=app.document)
+			application = ApplicationVerification.objects.filter(document_number=app.document_number)
 			if not application.exists():
 				for _ in range(randint(1, 2) + 1):
 					document_type = AttachmentDocumentType.objects.create(
