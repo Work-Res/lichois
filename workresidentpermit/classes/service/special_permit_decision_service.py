@@ -42,8 +42,10 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
         is_commissioner_accepted = self.is_decision_accepted(CommissionerDecision)
         is_minister_accepted = self.is_decision_accepted(MinisterDecision)
         requires_approval = self.application.application_type in self.approval_processes
+        self.logger.info(f"Commissioner decision: {is_commissioner_accepted}, Minister decision: {is_minister_accepted}, ")
         if self._security_clearance:
             self.workflow.security_clearance = self._security_clearance.status.code.upper()
+        self.logger.info(f"Security clearance: {self.workflow.security_clearance}")
 
         if requires_approval:
             if is_commissioner_accepted and is_minister_accepted:
