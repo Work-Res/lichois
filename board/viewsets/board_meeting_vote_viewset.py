@@ -30,7 +30,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 		tiebreaker = meeting_vote_manager.create_tie_breaker(tie_breaker)
 		if tiebreaker:
 			return Response(APIMessage(message='Tie breaker successfully created').to_dict())
-		return Response(APIMessage(message=f'Tie breaker failed to create ${tiebreaker}', ).to_dict())
+		return Response(APIMessage(message=f'Tie breaker failed to create {tiebreaker}', ).to_dict())
 	
 	# get vote of current user logged in
 	@action(detail=False, methods=['get'], url_path='my-vote/(?P<document_number>[A-Za-z0-9-]+)',

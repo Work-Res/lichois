@@ -27,7 +27,10 @@ class DocumentGenerator:
 			return identifier
 		
 		# Handle special permits
-		if process_name == ApplicationProcesses.SPECIAL_PERMIT.value:
+		if process_name in [
+			ApplicationProcesses.EXEMPTION_CERTIFICATE,
+			ApplicationProcesses.SPECIAL_PERMIT.value
+		]:
 			return self.get_special_permit_identifier()
 		
 		# Log an error if no valid process found

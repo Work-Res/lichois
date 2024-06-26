@@ -6,8 +6,6 @@ from rest_framework.exceptions import PermissionDenied
 from board.models import BoardMeetingVote, BoardMember, InterestDeclaration, MeetingAttendee
 
 
-
-
 class BoardMeetingVoteManager:
 	def __init__(self, user, document_number):
 		self.user = user
