@@ -23,7 +23,7 @@
         },
         {
           "code": "VETTING",
-          "name": "Res Security Clearance",
+          "name": "Exemption Security Clearance",
           "description": "Security Vetting Task.",
           "mandatory": false,
           "sequence": 2,
@@ -37,7 +37,7 @@
         },
         {
           "code":  "RECOMMENDATION",
-          "name":  "Special Permit Recommendation",
+          "name":  "Exemption Permit Recommendation",
           "description": " Authorization completed by commissioners/authorized officer.",
           "mandatory": false,
           "sequence": 1,
@@ -45,7 +45,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
-            "current_status":  "VETTING"
+            "current_status":  "VETTING",
+            "security_clearance": "ACCEPTED"
           }
         },
         {
