@@ -6,7 +6,7 @@ from workresidentpermit.workflow import ProductionTransactionData
 from .application_decision_service import ApplicationDecisionService
 from ..config.configuration_loader import BaseConfigLoader
 from ..config.decision_loader import DecisionLoader
-from workresidentpermit.models import CommissionerDecision, MinisterDecision
+from workresidentpermit.models import CommissionerDecision, MinisterDecision, SecurityClearance
 
 
 class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
@@ -26,6 +26,8 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
         self.logger.setLevel(logging.DEBUG)
         self.decision_value = None
         self.approval_processes = self._load_approval_processes(config_loader)
+        self._security_clearance = self.security_clearance()
+        
 
     @staticmethod
     def _load_approval_processes(config_loader: BaseConfigLoader):
@@ -40,6 +42,8 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
         is_commissioner_accepted = self.is_decision_accepted(CommissionerDecision)
         is_minister_accepted = self.is_decision_accepted(MinisterDecision)
         requires_approval = self.application.application_type in self.approval_processes
+        if self._security_clearance:
+            self.workflow.security_clearance = self._security_clearance.status.code.upper()
 
         if requires_approval:
             if is_commissioner_accepted and is_minister_accepted:
@@ -65,3 +69,14 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
     def set_decision(self, decision_enum):
         """ Set the decision value. """
         self.decision_value = decision_enum.value
+        
+    def security_clearance(self):
+        if not self._security_clearance:
+            try:
+                return SecurityClearance.objects.get(
+                    document_number=self.document_number
+                )
+            except SecurityClearance.DoesNotExist:
+                self.logger.info(f"Security clearance is pending for {self.document_number}")
+        else:
+            return self._security_clearance

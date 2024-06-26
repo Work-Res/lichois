@@ -15,9 +15,7 @@ from workresidentpermit.classes.service import SpecialPermitDecisionService, Wor
 
 from app.utils import ApplicationStatusEnum
 from .classes.config.configuration_loader import JSONConfigLoader
-from .classes.production.application_decision_hander import ApplicationDecisionHandler
 from .classes.service.exemption_certification_decision_service import ExemptionCertificateDecisionService
-from .tasks import async_production
 
 from .classes import WorkPermitApplicationPDFGenerator
 
@@ -70,7 +68,7 @@ def create_application_final_decision_by_security_clearance(sender, instance, cr
 						document_number=instance.document_number,
 						security_clearance=instance
 					)
-					exemption_certificate_decision_service.create_application_decision()
+					exemption_certificate_decision_service.next_flow_activity()
 			
 	except SystemError as e:
 		logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
