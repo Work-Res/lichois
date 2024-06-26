@@ -9,6 +9,7 @@ log = logging.getLogger(__name__)
 
 log.setLevel(logging.DEBUG)
 
+
 class BoardMeetingVoteManager:
 	def __init__(self, user, document_number):
 		self.user = user

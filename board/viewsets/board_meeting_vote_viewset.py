@@ -31,7 +31,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 		print(tiebreaker)
 		if tiebreaker:
 			return Response(APIMessage(message='Tie breaker successfully created').to_dict())
-		raise Exception(APIMessage(message='Tie breaker failed to create').to_dict())
+		return Response(APIMessage(message='Tie breaker failed to create').to_dict())
 	
 	# get vote of current user logged in
 	@action(detail=False, methods=['get'], url_path='my-vote/(?P<document_number>[A-Za-z0-9-]+)',
