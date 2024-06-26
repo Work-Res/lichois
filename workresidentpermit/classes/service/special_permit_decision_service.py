@@ -73,12 +73,9 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
         self.decision_value = decision_enum.value
         
     def security_clearance(self):
-        if not self._security_clearance:
-            try:
-                return SecurityClearance.objects.get(
-                    document_number=self.document_number
-                )
-            except SecurityClearance.DoesNotExist:
-                self.logger.info(f"Security clearance is pending for {self.document_number}")
-        else:
-            return self._security_clearance
+        try:
+            return SecurityClearance.objects.get(
+                document_number=self.document_number
+            )
+        except SecurityClearance.DoesNotExist:
+            self.logger.info(f"Security clearance is pending for {self.document_number}")
