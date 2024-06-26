@@ -16,6 +16,7 @@ from workresidentpermit.classes.service import SpecialPermitDecisionService, Wor
 from app.utils import ApplicationStatusEnum
 from .classes.config.configuration_loader import JSONConfigLoader
 from .classes.production.application_decision_hander import ApplicationDecisionHandler
+from .classes.service.exemption_certification_decision_service import ExemptionCertificateDecisionService
 from .tasks import async_production
 
 from .classes import WorkPermitApplicationPDFGenerator
@@ -52,11 +53,25 @@ def create_application_final_decision_by_security_clearance(sender, instance, cr
 	try:
 		
 		if created:
-			work_resident_permit_decision_service = WorkResidentPermitDecisionService(
-				document_number=instance.document_number,
-				security_clearance=instance
-			)
-			work_resident_permit_decision_service.create_application_decision()
+			try:
+				application = Application.objects.get(application_document__document_number=instance.document_number)
+			except Application.DoesNotExist:
+				logger.error(f"Application not found for security clearance {instance.document_number}")
+				return
+			else:
+				if application.process_name.upper() == ApplicationProcesses.WORK_RESIDENT_PERMIT.value:
+					work_resident_permit_decision_service = WorkResidentPermitDecisionService(
+						document_number=instance.document_number,
+						security_clearance=instance
+					)
+					work_resident_permit_decision_service.create_application_decision()
+				elif application.process_name.upper() == ApplicationProcesses.EXEMPTION_CERTIFICATE.value:
+					exemption_certificate_decision_service = ExemptionCertificateDecisionService(
+						document_number=instance.document_number,
+						security_clearance=instance
+					)
+					exemption_certificate_decision_service.create_application_decision()
+			
 	except SystemError as e:
 		logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
 	except Exception as ex:
