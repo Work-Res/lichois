@@ -27,10 +27,7 @@ class DocumentGenerator:
 			return identifier
 		
 		# Handle special permits
-		if process_name in [
-			ApplicationProcesses.EXEMPTION_CERTIFICATE,
-			ApplicationProcesses.SPECIAL_PERMIT.value
-		]:
+		if process_name == ApplicationProcesses.SPECIAL_PERMIT.value:
 			return self.get_special_permit_identifier()
 		
 		# Log an error if no valid process found
@@ -45,6 +42,7 @@ class DocumentGenerator:
 			ApplicationProcesses.WORK_RESIDENT_PERMIT.value: WorkResidentPermitIdentifier,
 			ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
 			ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
+			ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
 		}
 		
 		identifier_class = process_mapping.get(process_name)

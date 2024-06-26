@@ -34,10 +34,11 @@ class Command(BaseCommand):
 					work_place=randint(1000, 9999),
 					full_name=f'{fname} {lname}'
 				)
-				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
+				self.stdout.write(self.style.SUCCESS('Populating exemption data...'))
 				app = ApplicationService(new_application=new_app)
-				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
 				version = app.create_application()
+				self.stdout.write(self.style.SUCCESS(f'version data... {version}'))
+				self.stdout.write(self.style.SUCCESS(app.application_document.document_number))
 				Person.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,
