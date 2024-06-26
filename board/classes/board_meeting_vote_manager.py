@@ -5,14 +5,15 @@ from rest_framework.exceptions import PermissionDenied
 
 from board.models import BoardMeetingVote, BoardMember, InterestDeclaration, MeetingAttendee
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
+
 
 
 class BoardMeetingVoteManager:
 	def __init__(self, user, document_number):
 		self.user = user
 		self.document_number = document_number
+		self.logger = logging.getLogger(__name__)
+		self.logger.setLevel(logging.WARNING)
 	
 	def get_votes(self):
 		board_member = BoardMember.objects.filter(user=self.user).first()
@@ -47,9 +48,9 @@ class BoardMeetingVoteManager:
 		try:
 			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
 				document_number=self.document_number) & Q(decision='vote'))
-			logger.info('Creating tiebreaker for document %s', self.document_number)
+			self.logger.info('Creating tiebreaker for document %s', self.document_number)
 		except InterestDeclaration.DoesNotExist:
-			logger.error('Interest declaration %s does not exist', self.document_number)
+			self.logger.error('Interest declaration %s does not exist', self.document_number)
 			raise PermissionDenied('Chairperson doesn\'t have interest declaration for this document')
 		else:
 			if self.user.is_chairperson:
@@ -57,12 +58,12 @@ class BoardMeetingVoteManager:
 				try:
 					vote = BoardMeetingVote.objects.get(Q(meeting_attendee=meeting_attendee) & Q(
 						document_number=self.document_number))
-					logger.info('Chairperson has voted for document %s', self.document_number)
+					self.logger.info('Chairperson has voted for document %s', self.document_number)
 				except BoardMeetingVote.DoesNotExist:
-					logger.error('Chairperson has not voted for document %s', self.document_number)
+					self.logger.error('Chairperson has not voted for document %s', self.document_number)
 					raise PermissionDenied('Chairperson has not voted yet')
 				else:
-					logger.info('Chairperson has broke the tie for document %s', tie_breaker)
+					self.logger.info('Chairperson has broke the tie for document %s', tie_breaker)
 					vote.tie_breaker = tie_breaker
 					vote.save()
 					return tie_breaker
