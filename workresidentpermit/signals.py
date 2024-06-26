@@ -65,9 +65,7 @@ def create_application_final_decision_by_security_clearance(sender, instance, cr
 					work_resident_permit_decision_service.create_application_decision()
 				elif application.process_name.upper() == ApplicationProcesses.EXEMPTION_CERTIFICATE.value:
 					exemption_certificate_decision_service = ExemptionCertificateDecisionService(
-						document_number=instance.document_number,
-						security_clearance=instance
-					)
+						document_number=instance.document_number)
 					exemption_certificate_decision_service.next_flow_activity()
 			
 	except SystemError as e:
