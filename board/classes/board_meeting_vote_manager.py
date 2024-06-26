@@ -43,7 +43,7 @@ class BoardMeetingVoteManager:
 			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
 				document_number=self.document_number) & Q(decision='vote'))
 		except InterestDeclaration.DoesNotExist:
-			pass
+			raise PermissionDenied('Chairperson doesn\'t have interest declaration for this document')
 		else:
 			if self.user.is_chairperson:
 				meeting_attendee = declaration.meeting_attendee
