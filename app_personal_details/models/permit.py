@@ -13,6 +13,7 @@ class PermitData:
     date_issued: date
     date_expiry: date
     place_issue: str
+    document_number: str
 
 
 class Permit(ApplicationBaseModel):
@@ -30,7 +31,8 @@ class Permit(ApplicationBaseModel):
             permit_no=self.permit_no,
             date_issued=self.date_issued,
             date_expiry=self.date_expiry,
-            place_issue=self.place_issue
+            place_issue=self.place_issue,
+            document_number=self.document_number
         )
 
     @classmethod
@@ -40,7 +42,8 @@ class Permit(ApplicationBaseModel):
             permit_no=data.permit_no,
             date_issued=data.date_issued,
             date_expiry=data.date_expiry,
-            place_issue=data.place_issue
+            place_issue=data.place_issue,
+            document_number=data.document_number
         )
 
     class Meta:

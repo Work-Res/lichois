@@ -1,18 +1,17 @@
 from django.dispatch import Signal
-from datetime import date
 
-from app_assessment.classes import AssessmentEvaluator
-from app_assessment.models import AssessmentResult
+from app_assessment.classes import AssessmentHandler
 
 run_assessment_calculation = Signal()
 
 
-def run_assessment_calculation_handler(sender, source=None, rules=None,  **kwargs):
-    assessment_evaluator = AssessmentEvaluator(source, rules)
-    assessment_evaluator.evaluate()
-    AssessmentResult.objects.create(
-        document_number=sender.application_document.document_number,
-        score=assessment_evaluator.calculate_score(),
-        output_results=assessment_evaluator.assessment_results,
-        result_date=date.today()
+def run_assessment_calculation_handler(sender, source=None, rules=None,
+                                       assessment_rules_file_location_name=None,
+                                       document_number=None,
+                                       **kwargs):
+    evaluator = AssessmentHandler(
+        assessment_rules_file_location_name=assessment_rules_file_location_name,
+        source=source,
+        document_number=document_number
     )
+    evaluator.create_assessment_results()

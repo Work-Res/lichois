@@ -1,0 +1,39 @@
+{
+  "business_attributes": {
+    "business_activity": 25,
+    "priority_sector": 25,
+    "non_priority_sector": 10
+  },
+  "financial_investment": {
+    "equity_investment": 20,
+    "over_5_million": 20,
+    "two_to_five_million": 15,
+    "below_two_million": 10
+  },
+  "total_investment_including_loans": {
+    "greater_than_ten_million": 20,
+    "between_five_to_ten_million": 15,
+    "between_two_million_to_five_million": 10,
+    "less_than_two_million": 5
+  },
+  "number_of_batswana_employees": {
+    "great_than_fifty": 50,
+    "eleven_to_fifty": 15,
+    "one_to_ten": 10
+  },
+  "proportion_of_batswana_partners_or_shareholders": {
+    "greater_than_thirty_percent": 15,
+    "between_zero_and_thirty_percent": 30,
+    "nil": 10
+  },
+  "investor_entrepreneur": {
+    "effective_communication_mechanism": 10,
+    "general_business_experience": 10,
+    "residence_in_botswana": 10,
+    "Yes": 10
+  },
+  "totals": {
+    "maximum_points": 135,
+    "pass_mark": 60
+  }
+}

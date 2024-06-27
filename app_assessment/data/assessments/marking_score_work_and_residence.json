@@ -1,0 +1,9 @@
+{
+    "competency": 10,
+    "qualification": 15,
+    "employer_justification": 25,
+    "scarce_skill": 30,
+    "work_experience": 40,
+    "maximum_points": 120,
+    "pass_mark": 60
+}

@@ -1,1 +1,1 @@
-from .assessment_view_create_list import AssessmentResultViewSet
+from .assessment_view_create_list import AssessmentResultViewSet, AssessmentViewSet

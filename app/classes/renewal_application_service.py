@@ -8,6 +8,7 @@ from pathlib import Path
 
 from app.api.common.web import APIResponse, APIMessage
 from app.utils import ApplicationStatusEnum, ApplicationProcesses
+from workresidentpermit.classes import WorkResidentPermitRenewalHistoryService
 from .pre_pupolation_service import PrePopulationService
 from .application_service import ApplicationService
 
@@ -136,7 +137,15 @@ class RenewalApplicationService(object):
             application_service = ApplicationService(new_application=new_application_dto)
             self.new_application_version = application_service.create_application()
             self.create_application_renewal(new_application_version=self.new_application_version)
+
             # self.run_prepopulation() disable prepopulation
+
+            WorkResidentPermitRenewalHistoryService(
+                document_number=self.renewal_application.document_number,
+                application_type=new_application_dto.application_type,
+                application_user=self.previous_application.application_document.applicant,
+                process_name=self.previous_application.process_name
+            ).create_application_renewal_history()
 
     def run_prepopulation(self):
         """

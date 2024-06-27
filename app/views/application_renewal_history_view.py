@@ -5,7 +5,7 @@ from ..models import ApplicationRenewalHistory
 from ..api.serializers import ApplicationRenewalHistorySerializer
 
 
-class ApplicationRenewalHistory(viewsets.ModelViewSet):
+class ApplicationRenewalHistoryView(viewsets.ModelViewSet):
 
     queryset = ApplicationRenewalHistory.objects.all()
     serializer_class = ApplicationRenewalHistorySerializer

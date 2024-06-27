@@ -20,32 +20,3 @@ class ApplicationRenewalHistory(BaseUuidModel):
 
     class Meta:
         app_label = 'app'
-
-# Test Case Scenario
-# app1 - permit1
-#  HistoryObject {
-#     modified_date=when
-#     data: [List of permits]
-# }
-
-
-# app2 - submit a renewal - register -> create ApplicationRenewalHistory(application_type=EMERGEY, commet="AAA",application_user="X", process_name="C", historical_record={
-# permits:   [{permit1}]-- searcb for existings permits
-# permit 2 issued.
-# }
-
-# app3 - submit a renewal - register -> update ApplicationRenewalHistory(application_type=EMERGEY, commet="AAA",application_user="X", process_name="C", historical_record={
-# permits:   [{permit1, permit2}]-- search for existings permits
-# permit issued.
-# } Applying for permit 3 ( Details )
-
-
-# app4 - submit a renewal - register -> update ApplicationRenewalHistory(application_type=EMERGEY, commet="AAA",application_user="X", process_name="C", historical_record={
-# permits:   [{permit1, permit2, permit3}]-- search for existings permits
-# permit issued.
-# } Applying for permit 3 ( Details )
-
-
-# 1. ApplicationRenewall - > ApplicationRenewalHistory.create ( historical_record( Permit object))
-
-# event what triggers creation or update of historical records..[signals -> ]

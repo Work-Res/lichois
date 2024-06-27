@@ -5,7 +5,6 @@ from app.api.common.web import APIResponse, APIMessage
 
 
 class ProductionValidator:
-
     """
     Responsible for validating all mandatory for work permit.
     """
@@ -19,7 +18,7 @@ class ProductionValidator:
         Check if the application is at the production stage.
         """
         try:
-           ApplicationDecision.objects.get(
+            ApplicationDecision.objects.get(
                 document_number=self.document_number,
                 proposed_decision_type__code__iexact=ApplicationDecisionEnum.ACCEPTED.value
             )
@@ -38,4 +37,3 @@ class ProductionValidator:
         """
         self.validate()
         return True if len(self.response.messages) == 0 else False
-

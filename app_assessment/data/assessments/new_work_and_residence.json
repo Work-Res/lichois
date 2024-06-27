@@ -1,0 +1,33 @@
+{
+  "languages": {
+    "setswana": 10,
+    "english": 10
+  },
+  "competency": {
+    "competency": 10
+  },
+  "higher_qualification": {
+    "degree": 15,
+    "masters": 15,
+    "doctorate": 15
+  },
+  "lower_qualification": {
+    "diploma": 10,
+    "certifications": 10,
+    "certificate": 10
+  },
+  "others": {
+    "employer_justification": 15,
+    "scarce_skill": 30
+  },
+  "relevant_work_experience": {
+    "less_than_or_equal_five_years": 10,
+    "six_to_ten_years": 15,
+    "eleven_to_twenty_years": 30,
+    "greater_than_twenty_one_years": 40
+  },
+  "totals": {
+    "maximum_points": 120,
+    "pass_mark": 60
+  }
+}
