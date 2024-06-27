@@ -26,8 +26,7 @@ class Command(BaseCommand):
 				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
 				application_type = faker.random_element(elements=(
-					# WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value,
-					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_APPEAL.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value,
 					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_RENEWAL.value,
 					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_REPLACEMENT.value,
 					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_CANCELLATION.value,
