@@ -42,6 +42,7 @@ class DocumentGenerator:
 			ApplicationProcesses.WORK_RESIDENT_PERMIT.value: WorkResidentPermitIdentifier,
 			ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
 			ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
+			ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
 		}
 		
 		identifier_class = process_mapping.get(process_name)

@@ -6,7 +6,7 @@ from workresidentpermit.workflow import ProductionTransactionData
 from .application_decision_service import ApplicationDecisionService
 from ..config.configuration_loader import BaseConfigLoader
 from ..config.decision_loader import DecisionLoader
-from workresidentpermit.models import CommissionerDecision, MinisterDecision
+from workresidentpermit.models import CommissionerDecision, MinisterDecision, SecurityClearance
 
 
 class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
@@ -26,6 +26,8 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
         self.logger.setLevel(logging.DEBUG)
         self.decision_value = None
         self.approval_processes = self._load_approval_processes(config_loader)
+        self._security_clearance = self.security_clearance()
+        
 
     @staticmethod
     def _load_approval_processes(config_loader: BaseConfigLoader):
@@ -38,12 +40,9 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
     def decision_predicate(self):
         """ Determine the final decision based on commissioner and/or minister decisions. """
         is_commissioner_accepted = self.is_decision_accepted(CommissionerDecision)
-        self.logger.info(f"Commissioner decision accepted: {is_commissioner_accepted}")
         is_minister_accepted = self.is_decision_accepted(MinisterDecision)
-        self.logger.info(f"Minister decision accepted: {is_minister_accepted}")
         requires_approval = self.application.application_type in self.approval_processes
-        self.logger.info(f"Application requires approval: {requires_approval}")
-        self.logger.info(f"Application approval processes: {self.approval_processes}")
+        self.logger.info(f"Commissioner decision: {is_commissioner_accepted}, Minister decision: {is_minister_accepted}, ")
 
         if requires_approval:
             if is_commissioner_accepted and is_minister_accepted:
@@ -55,7 +54,15 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
                 self.workflow.recommendation_decision = ApplicationDecisionEnum.ACCEPTED.value.upper()
                 return True
         else:
-            if is_commissioner_accepted:
+            if is_commissioner_accepted and self._security_clearance:
+                if self._security_clearance.status.code.lower() == ApplicationDecisionEnum.ACCEPTED.value.lower():
+                    self.set_decision(ApplicationDecisionEnum.ACCEPTED)
+                else:
+                    self.set_decision(ApplicationDecisionEnum.REJECTED)
+                self.workflow.recommendation_decision = ApplicationDecisionEnum.ACCEPTED.value.upper()
+                self.workflow.security_clearance = self._security_clearance.status.code.upper()
+                return True
+            elif is_commissioner_accepted:
                 self.set_decision(ApplicationDecisionEnum.ACCEPTED)
                 self.workflow.recommendation_decision = ApplicationDecisionEnum.ACCEPTED.value.upper()
                 return True
@@ -69,3 +76,11 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
     def set_decision(self, decision_enum):
         """ Set the decision value. """
         self.decision_value = decision_enum.value
+        
+    def security_clearance(self):
+        try:
+            return SecurityClearance.objects.get(
+                document_number=self.document_number
+            )
+        except SecurityClearance.DoesNotExist:
+            self.logger.info(f"Security clearance is pending for {self.document_number}")

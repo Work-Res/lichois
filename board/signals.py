@@ -10,6 +10,7 @@ from board.models import Agenda, ApplicationBatch, BoardDecision, BoardMeeting, 
 from workresidentpermit.classes.service import WorkResidentPermitDecisionService
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.WARNING)
 
 
 @receiver(post_save, sender=BoardDecision)

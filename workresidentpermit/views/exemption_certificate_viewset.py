@@ -12,6 +12,7 @@ def get_app_labels():
 		'workresidentpermit.Dependant',
 		'workresidentpermit.ExemptionCertificate',
 		'workresidentpermit.CommissionerDecision',
+		'workresidentpermit.SecurityClearance',
 	]
 
 

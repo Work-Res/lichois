@@ -39,12 +39,15 @@ class Command(BaseCommand):
 		# 	valid_to='2026-12-31',
 		# )
 		
-		for _ in range(50):
+		for _ in range(150):
 			fname = faker.unique.first_name()
 			lname = faker.unique.last_name()
 			with atomic():
 				new_app = NewApplicationDTO(
-					application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.name,
+					application_type=faker.random_element(elements=(
+						WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.name,
+						WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_APPEAL.name,
+					)),
 					process_name=process_name,
 					applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
 					status=ApplicationStatusEnum.VERIFICATION.value,

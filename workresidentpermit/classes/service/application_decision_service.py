@@ -11,9 +11,9 @@ from workflow.signals import create_or_update_task_signal
 
 from app_comments.models import Comment
 from workresidentpermit.exceptions import WorkResidentPermitApplicationDecisionException, \
-    ApplicationRequiredDecisionException, WorkflowProductionRequiredDecisionException
+    ApplicationRequiredDecisionException, WorkflowRequiredDecisionException
 
-from workresidentpermit.workflow import ProductionTransactionData
+from workresidentpermit.workflow import BaseTransactionData
 
 from app_decision.models import ApplicationDecision, ApplicationDecisionType
 
@@ -57,7 +57,7 @@ class ApplicationDecisionService:
         if not self.application:
             raise ApplicationRequiredDecisionException()
         if not self.workflow:
-            raise WorkflowProductionRequiredDecisionException()
+            raise WorkflowRequiredDecisionException()
         if self.decision_predicate():
             ApplicationDecision.objects.create(
                 document_number=self.document_number,
@@ -67,7 +67,7 @@ class ApplicationDecisionService:
             )
             self.run_workflow(application=self.application, workflow=self.workflow)
 
-    def run_workflow(self, application: Application, workflow: ProductionTransactionData):
+    def run_workflow(self, application: Application, workflow: BaseTransactionData):
         """
         TODO: Refactor as per the new workflow changes..
         :param application:

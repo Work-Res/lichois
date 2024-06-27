@@ -19,12 +19,18 @@ class Command(BaseCommand):
 	
 	def handle(self, *args, **options):
 		faker = Faker()
-		process_name = ApplicationProcesses.SPECIAL_PERMIT.value
-		application_type = WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE
-		for _ in range(50):
+		process_name = ApplicationProcesses.EXEMPTION_CERTIFICATE.value
+		
+		for _ in range(250):
 			with atomic():
 				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
+				application_type = faker.random_element(elements=(
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_RENEWAL.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_REPLACEMENT.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_CANCELLATION.value,
+				))
 				new_app = NewApplicationDTO(
 					application_type=application_type,
 					process_name=process_name,
@@ -34,10 +40,11 @@ class Command(BaseCommand):
 					work_place=randint(1000, 9999),
 					full_name=f'{fname} {lname}'
 				)
-				self.stdout.write(self.style.SUCCESS('Populating exemption & emergency data...'))
+				self.stdout.write(self.style.SUCCESS('Populating exemption data...'))
 				app = ApplicationService(new_application=new_app)
-				self.stdout.write(self.style.SUCCESS(new_app.__dict__))
 				version = app.create_application()
+				self.stdout.write(self.style.SUCCESS(f'version data... {version}'))
+				self.stdout.write(self.style.SUCCESS(app.application_document.document_number))
 				Person.objects.get_or_create(
 					application_version=version,
 					document_number=app.application_document.document_number,

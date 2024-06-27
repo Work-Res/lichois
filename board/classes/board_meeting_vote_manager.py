@@ -1,3 +1,5 @@
+import logging
+
 from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
 
@@ -8,6 +10,8 @@ class BoardMeetingVoteManager:
 	def __init__(self, user, document_number):
 		self.user = user
 		self.document_number = document_number
+		self.logger = logging.getLogger(__name__)
+		self.logger.setLevel(logging.WARNING)
 	
 	def get_votes(self):
 		board_member = BoardMember.objects.filter(user=self.user).first()
@@ -42,17 +46,22 @@ class BoardMeetingVoteManager:
 		try:
 			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
 				document_number=self.document_number) & Q(decision='vote'))
-		except MeetingAttendee.DoesNotExist:
-			pass
+			self.logger.info('Creating tiebreaker for document %s', self.document_number)
+		except InterestDeclaration.DoesNotExist:
+			self.logger.error('Interest declaration %s does not exist', self.document_number)
+			raise PermissionDenied('Chairperson doesn\'t have interest declaration for this document')
 		else:
 			if self.user.is_chairperson:
 				meeting_attendee = declaration.meeting_attendee
 				try:
 					vote = BoardMeetingVote.objects.get(Q(meeting_attendee=meeting_attendee) & Q(
 						document_number=self.document_number))
+					self.logger.info('Chairperson has voted for document %s', self.document_number)
 				except BoardMeetingVote.DoesNotExist:
-					raise PermissionDenied('User is not a board member')
+					self.logger.error('Chairperson has not voted for document %s', self.document_number)
+					raise PermissionDenied('Chairperson has not voted yet')
 				else:
+					self.logger.info('Chairperson has broke the tie for document %s', tie_breaker)
 					vote.tie_breaker = tie_breaker
 					vote.save()
 					return tie_breaker
@@ -80,7 +89,7 @@ class BoardMeetingVoteManager:
 			# Get the meeting attendee of the user
 			declaration = InterestDeclaration.objects.get(Q(meeting_attendee__board_member__user=self.user) & Q(
 				document_number=self.document_number) & Q(decision='vote'))
-		except MeetingAttendee.DoesNotExist:
+		except InterestDeclaration.DoesNotExist:
 			pass
 		else:
 			meeting_attendee = declaration.meeting_attendee

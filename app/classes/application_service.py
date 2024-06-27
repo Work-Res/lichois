@@ -32,6 +32,8 @@ class ApplicationService:
 		if not application_status:
 			return None
 		
+		print(application_status)
+		
 		if not self._create_application_document():
 			return None
 		
@@ -111,6 +113,7 @@ class ApplicationService:
 		"""
 		Generate the document number for the particular process and create an ApplicationUser.
 		"""
+		print ("Generating document number...")
 		doc_generator = DocumentGeneratorFactory.create_document_generator(self.application)
 		document_number = doc_generator.generate_document()
 		

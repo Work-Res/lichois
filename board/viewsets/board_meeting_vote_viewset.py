@@ -30,7 +30,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 		tiebreaker = meeting_vote_manager.create_tie_breaker(tie_breaker)
 		if tiebreaker:
 			return Response(APIMessage(message='Tie breaker successfully created').to_dict())
-		raise Exception(APIMessage(message='Tie breaker failed to create').to_dict())
+		return Response(APIMessage(message=f'Tie breaker failed to create {tiebreaker}', ).to_dict())
 	
 	# get vote of current user logged in
 	@action(detail=False, methods=['get'], url_path='my-vote/(?P<document_number>[A-Za-z0-9-]+)',
@@ -40,7 +40,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
 		vote = meeting_vote_manager.get_my_vote()
 		if vote:
 			return Response(data=BoardMeetingVoteSerializer(vote).data)
-		return Response(APIMessage(message='Vote not found', code=404).to_dict())
+		return Response(APIMessage(message='Vote not found', code=404).to_dict(), status=404)
 	
 	def create(self, request, *args, **kwargs):
 		# if vote exists, raise an error

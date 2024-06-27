@@ -1,7 +1,7 @@
 
 
-class WorkflowProductionRequiredDecisionException(Exception):
+class WorkflowRequiredDecisionException(Exception):
     def __init__(self,
-                 message="A workflow productionData is require, and cannot be None for creating application decision."):
+                 message="A workflow is required, and cannot be None for creating application decision."):
         self.message = message
         super().__init__(self.message)

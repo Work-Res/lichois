@@ -2,11 +2,13 @@ from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from app.api.common.web import APIMessage
-from ..models import BoardMeeting, BoardMember, MeetingInvitation
+from . import BoardMemberSerializer
+from ..models import BoardMember, MeetingInvitation
 
 
 class MeetingInvitationSerializer(serializers.ModelSerializer):
 	# board_meeting = BoardMeetingSerializer()
+	invited_user = serializers.StringRelatedField()
 	
 	class Meta:
 		model = MeetingInvitation

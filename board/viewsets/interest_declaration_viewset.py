@@ -15,7 +15,8 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
 	@action(
 		detail=False,
 		methods=['get'],
-		url_path='current-attendee/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)',)
+		url_path='current-attendee/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)',
+		url_name='current-attendee')
 	def check_interest_declaration(self, request, document_number, meeting):
 		board_member = BoardMember.objects.filter(user=request.user).first()
 		if not board_member:
@@ -30,5 +31,5 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
 		                                                          document_number=document_number).first()
 		if interest_declaration:
 			return Response(data=InterestDeclarationSerializer(interest_declaration).data)
-		return Response(APIMessage(message='Interest declaration not found', code=404).to_dict())
+		return Response(APIMessage(message='Interest declaration not found', code=404).to_dict(), status=404)
 	
