@@ -20,11 +20,18 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		faker = Faker()
 		process_name = ApplicationProcesses.EXEMPTION_CERTIFICATE.value
-		application_type = WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value
-		for _ in range(50):
+		
+		for _ in range(250):
 			with atomic():
 				fname = faker.unique.first_name()
 				lname = faker.unique.last_name()
+				application_type = faker.random_element(elements=(
+					# WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_APPEAL.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_RENEWAL.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_REPLACEMENT.value,
+					WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_CANCELLATION.value,
+				))
 				new_app = NewApplicationDTO(
 					application_type=application_type,
 					process_name=process_name,
