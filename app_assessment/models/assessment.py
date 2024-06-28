@@ -12,7 +12,7 @@ class Assessment(ApplicationBaseModel):
     work_experience = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
-    marking_score = models.JSONField()
+    marking_score = models.JSONField(blank=True, null=True)
 
     class Meta:
 
