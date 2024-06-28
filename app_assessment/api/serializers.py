@@ -16,6 +16,8 @@ class AssessmentResultSerializer(serializers.ModelSerializer):
 
 class AssessmentSerializer(serializers.ModelSerializer):
 
+    document_number = serializers.CharField(required=True)
+
     def validate(self, data):
 
         file_name = "marking_score_work_and_residence.json"
@@ -32,4 +34,4 @@ class AssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assessment
         fields = ['id', 'competency', 'qualification', 'employer_justification', 'scarce_skill', 'work_experience',
-                  'total', 'score', 'marking_score']
+                  'total', 'score', 'marking_score', 'document_number']
