@@ -5,6 +5,8 @@ from app.models import Application
 from app.api.common.web import APIResponse, APIMessage
 from app.utils import VerificationStatusEnum, ApplicationStatusEnum
 
+from app_assessment.models import Assessment
+
 # TODO: Unit testing required
 
 
@@ -28,6 +30,18 @@ class WorkResidentPermitVerificationValidator:
                 ).to_dict()
             )
 
+    def check_if_assessment_exists(self):
+        try:
+            return Assessment.objects.get(document_number=self.document_number)
+        except Assessment.DoesNotExist:
+            self.response.messages.append(
+                APIMessage(
+                    code=400,
+                    message="Assessment does not exists.",
+                    details="Assessment record must exists first. "
+                ).to_dict()
+            )
+
     def validate(self):
         self.attachments_verifications()
 
@@ -35,6 +49,7 @@ class WorkResidentPermitVerificationValidator:
         """
         Returns True or False after running the validate method.
         """
+        self.check_if_assessment_exists()
         self.validate()
         return True if len(self.response.messages) == 0 else False
 
