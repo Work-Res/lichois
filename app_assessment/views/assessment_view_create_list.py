@@ -1,6 +1,7 @@
 import django_filters
 
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 from ..api.serializers import AssessmentResultSerializer, AssessmentSerializer
 from ..models import AssessmentResult, Assessment
@@ -44,3 +45,8 @@ class AssessmentViewSet(viewsets.ModelViewSet):
     queryset = Assessment.objects.all()
     serializer_class = AssessmentSerializer
     filterset_class = AssessmentModelFilter
+
+    def retrieve(self, request, document_number, *args, **kwargs):
+        assessment = Assessment.objects.filter(document_number=document_number)
+        serializer = AssessmentSerializer(assessment, many=True)
+        return Response(serializer.data)
