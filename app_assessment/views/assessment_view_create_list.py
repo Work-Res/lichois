@@ -33,6 +33,7 @@ class AssessmentModelFilter(django_filters.FilterSet):
 
 
 class AssessmentResultViewSet(viewsets.ModelViewSet):
+    lookup_field = 'document_number'
     queryset = AssessmentResult.objects.all()
     serializer_class = AssessmentResultSerializer
     filterset_class = AssessmentResultModelFilter
