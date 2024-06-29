@@ -40,6 +40,7 @@ class AssessmentResultViewSet(viewsets.ModelViewSet):
 
 
 class AssessmentViewSet(viewsets.ModelViewSet):
+    lookup_field = 'document_number'
     queryset = Assessment.objects.all()
     serializer_class = AssessmentSerializer
     filterset_class = AssessmentModelFilter
