@@ -17,12 +17,14 @@ logger.setLevel(logging.WARNING)
 def create_application_decision(sender, instance, created, **kwargs):
     try:
         if created:
-            print(" Triggered signal: create_application_decision create_application_decision create_application_decision")
             work_resident_permit_decision_service = WorkResidentPermitDecisionService(
                 document_number=instance.assessed_application.application_document.document_number,
                 board_decision=instance
             )
             work_resident_permit_decision_service.create_application_decision()
+            application = instance.assessed_application
+            application.board = instance.decision_outcome
+            application.save()
     except SystemError as e:
         logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
     except Exception as ex:

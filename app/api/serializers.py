@@ -61,7 +61,9 @@ class ApplicationSerializer(serializers.ModelSerializer):
             'application_type',
             'application_status',
             'application_document',
-            'batched'
+            'batched',
+            'board',
+            'security'
         )
 
 

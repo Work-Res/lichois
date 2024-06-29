@@ -19,9 +19,9 @@ class ApplicationModelFilter(django_filters.FilterSet):
     
     batched = django_filters.BooleanFilter(field_name='batched')
 
-    security_clearance = django_filters.BooleanFilter(field_name='security_clearance')
+    security_clearance = django_filters.CharFilter(field_name='security_clearance')
 
-    board = django_filters.BooleanFilter(field_name='board')
+    board = django_filters.CharFilter(field_name='board')
     
     application_document_number = django_filters.CharFilter(
         field_name='application_document__document_number', lookup_expr='icontains')
