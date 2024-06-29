@@ -18,6 +18,7 @@ class MeetingInvitationSerializer(serializers.ModelSerializer):
 			'status',
 			'board_meeting',
 			'invited_user',
+			'comment'
 		]
 	
 	def to_internal_value(self, data):

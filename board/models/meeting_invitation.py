@@ -14,6 +14,7 @@ class MeetingInvitation(BaseUuidModel):
 	invited_user = models.ForeignKey(BoardMember, on_delete=models.CASCADE, related_name='received_invitations')
 	timestamp = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=20, choices=MEETING_INVITATION_STATUS, default='pending')  # Possible values:
+	comment = models.TextField(blank=True, null=True)
 	
 	def __str__(self):
 		return f"Invitation to {self.invited_user} for {self.board_meeting}"
