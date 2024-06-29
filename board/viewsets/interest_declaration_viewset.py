@@ -36,7 +36,7 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
     @action(
         detail=False,
         methods=['get'],
-        url_path='interest-declarations/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)',
+        url_path='participants/refrained/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)',
         url_name='interest-declarations')
     def interest_declarations(self, request, document_number, meeting):
         board_member = BoardMember.objects.filter(user=request.user).first()
