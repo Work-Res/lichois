@@ -23,6 +23,10 @@ class Application(BaseUuidModel):
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
     batched = models.BooleanField(null=True, blank=True, default=False)
+
+    verification = models.CharField(null=True, blank=True, max_length=200,
+                                          default=ApplicationDecisionEnum.PENDING.value)
+
     security_clearance = models.CharField(null=True, blank=True, max_length=200,
                                           default=ApplicationDecisionEnum.PENDING.value)
     board = models.CharField(null=True, blank=True, max_length=200, default=ApplicationDecisionEnum.PENDING.value)

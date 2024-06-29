@@ -63,7 +63,8 @@ class ApplicationSerializer(serializers.ModelSerializer):
             'application_document',
             'batched',
             'board',
-            'security_clearance'
+            'security_clearance',
+            'verification'
         )
 
 

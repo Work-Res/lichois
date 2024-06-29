@@ -22,6 +22,8 @@ class ApplicationModelFilter(django_filters.FilterSet):
     security_clearance = django_filters.CharFilter(field_name='security_clearance')
 
     board = django_filters.CharFilter(field_name='board')
+
+    verification = django_filters.CharFilter(field_name='verification')
     
     application_document_number = django_filters.CharFilter(
         field_name='application_document__document_number', lookup_expr='icontains')
