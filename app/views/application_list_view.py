@@ -1,9 +1,7 @@
 import django_filters
 
 from rest_framework import viewsets
-from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
 
 from app.models import Application
 from app.api.serializers import ApplicationSerializer
@@ -15,10 +13,15 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class ApplicationModelFilter(django_filters.FilterSet):
+
     full_name = django_filters.CharFilter(
         field_name='application_document__applicant__full_name', lookup_expr='icontains')
     
     batched = django_filters.BooleanFilter(field_name='batched')
+
+    security_clearance = django_filters.BooleanFilter(field_name='security_clearance')
+
+    board = django_filters.BooleanFilter(field_name='board')
     
     application_document_number = django_filters.CharFilter(
         field_name='application_document__document_number', lookup_expr='icontains')

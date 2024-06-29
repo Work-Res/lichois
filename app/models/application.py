@@ -21,6 +21,8 @@ class Application(BaseUuidModel):
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
     batched = models.BooleanField(null=True, blank=True, default=False)
+    security_clearance = models.BooleanField(null=True, blank=True, default=False)
+    board = models.BooleanField(null=True, blank=True, default=False)
     submission_date = models.DateField(auto_now=True)
 
     def __str__(self):
