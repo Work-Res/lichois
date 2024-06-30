@@ -26,7 +26,7 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
             attendance_status=PRESENT,
             meeting=meeting).first()
         if not meeting_attendee:
-            return Response(APIMessage(message='User is not an attendee of board meeting', code=400).to_dict())
+            return Response(APIMessage(message='User is not an attendee of board meeting', code=400).to_dict(), status=400)
         interest_declaration = InterestDeclaration.objects.filter(meeting_attendee=meeting_attendee,
                                                                   document_number=document_number).first()
         if interest_declaration:
