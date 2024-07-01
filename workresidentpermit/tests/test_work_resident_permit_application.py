@@ -21,7 +21,7 @@ from app_personal_details.models import Person, Passport, Permit
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 
-from app_checklist.models import ClassifierItem
+from app_checklist.models import ClassifierItem, SystemParameter
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
 from app.utils import ApplicationStatusEnum, WorkflowEnum
 from board.models import BoardDecision, BoardMeeting
@@ -218,6 +218,14 @@ class TestWorkResidentPermitApplication(TestCase):
 
         self.application_decision_type()
 
+        SystemParameter.objects.create(
+            duration=366,
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+            duration_type="days",
+            valid_from=date.today(),
+            valid_to=date(2024, 12, 12)
+        )
+
     def test_workpermit_submission_when_all_valid(self):
 
         work_resident_permit_application = WorkResidentPermitApplication(
@@ -342,6 +350,7 @@ class TestWorkResidentPermitApplication(TestCase):
         statuses = [task.status for task in all_tasks]
         self.application = Application.objects.get(application_document__document_number=self.document_number)
         self.assertEqual(self.application.application_status.code.upper(), ApplicationStatusEnum.ACCEPTED.value.upper())
+
         self.assertEqual(all_tasks.count(), 3)
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)

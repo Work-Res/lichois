@@ -130,10 +130,11 @@ def create_production_permit_record(sender, instance, created, **kwargs):
 		if instance.proposed_decision_type.code == ApplicationDecisionEnum.ACCEPTED.value:
 			request = PermitRequestDTO()
 			application = Application.objects.get(application_document__document_number=instance.document_number)
-			if application.process_name.upper() in ApplicationProcesses:
+			if application.process_name.upper() in [process_name.value.upper() for process_name in ApplicationProcesses]:
 				request.permit_type = application.process_name
 				request.place_issue = "Gaborone"  # Pending location solution
 				request.document_number = instance.document_number
+				request.application_type = application.process_name
 				permit = PermitProductionService(request=request)
 				permit.create_new_permit()
 	except SystemError as e:
