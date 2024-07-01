@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from app_checklist.utils import ReadJSON
 from ..models import AssessmentResult, AssessmentInvestor
-from app_assessment.models import Assessment
+from app_assessment.models import Assessment, AssessmentEmergency
 from app_assessment.validators import AssessmentValidator
 
 
@@ -56,4 +56,10 @@ class AssessmentInvestorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AssessmentInvestor
+        fields = '__all__'
+
+
+class AssessmentEmergencySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AssessmentEmergency
         fields = '__all__'
