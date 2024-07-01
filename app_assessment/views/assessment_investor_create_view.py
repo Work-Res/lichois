@@ -16,7 +16,7 @@ class AssessmentInvestorModelFilter(django_filters.FilterSet):
     max_result_date = django_filters.DateFilter(field_name='created', lookup_expr='lte')
 
     class Meta:
-        model = Assessment
+        model = AssessmentInvestor
         exclude = ('user_created', 'marking_score')
 
 
