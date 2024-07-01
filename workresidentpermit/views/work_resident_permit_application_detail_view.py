@@ -17,7 +17,6 @@ class WorkResidentPermitApplicationDetailView(APIView):
         if document_number is not None:
             work_resident_permit_data = WorkResidentPermitData(document_number=document_number)
             if work_resident_permit_data:
-                print(work_resident_permit_data.data().__dict__)
                 serializer = WorkResidentPermitDataSerializer(work_resident_permit_data.data())
                 return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({})
