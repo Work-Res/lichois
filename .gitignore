@@ -165,4 +165,3 @@ cython_debug/
 **/migrations/*.pyc
 **/migrations/**
 .DS_Store
-app_notification

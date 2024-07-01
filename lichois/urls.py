@@ -59,6 +59,7 @@ urlpatterns = [
     path('lichois/api/v1/', include('authentication.urls')),
     path('lichois/api/v1/', include('app_checklist.urls')),
     path('lichois/api/v1/', include('travel.urls')),
+    path('lichois/api/v1/', include('app_notification.urls')),
 ]
 
 if settings.DEBUG:

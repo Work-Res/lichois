@@ -76,3 +76,14 @@ def pre_delete_application_batch(sender, instance, **kwargs):
     # Update batched status to False for each application in the batch before deletion
     batched_apps = instance.applications.all()
     batched_apps.update(batched=False)
+    
+
+@receiver(post_save, sender=ApplicationBatch)
+def update_application_batch(sender, instance, created, **kwargs):
+    try:
+        if created:
+            # Update the batched status of the applications in the batch
+            batched_apps = instance.applications.all()
+            batched_apps.update(batched=True)
+    except Exception as e:
+        logger.error(f"Error updating application batch: {e}")

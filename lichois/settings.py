@@ -75,6 +75,7 @@ INSTALLED_APPS = [
 	'django_otp',
 	'drf_yasg',
 	'django_q',
+	'app_notification.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
