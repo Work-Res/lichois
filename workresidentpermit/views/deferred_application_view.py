@@ -16,7 +16,15 @@ logger = logging.getLogger(__name__)
 
 
 class DeferredApplicationView(APIView):
-
+    """
+        POST {
+            document_number = "required"
+            comment = ""
+            deferred_from = "BOARD OR COMMISSIONER"
+            expected_action ="Reason for deferment"
+            batch_id = "required"
+        }
+    """
     def post(self, request, document_number):
         try:
             serializer = RequestDeferredApplicationDTOSerializer(data=request.data)
