@@ -9,4 +9,4 @@ class RequestDeferredApplicationDTOSerializer(serializers.Serializer):
     deferred_from = serializers.CharField(max_length=100, required=False)
     expected_action = serializers.CharField(max_length=100, required=False)
     task_details_config_file = serializers.CharField(max_length=100, required=False)
-    batch_id = serializers.CharField(max_length=100, required=True, blank=True)
+    batch_id = serializers.CharField(max_length=100, required=False, blank=True)
