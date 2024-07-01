@@ -6,7 +6,7 @@ from ..admin_site import app_admin
 
 class ApplicationAdmin(admin.ModelAdmin):
     form = ApplicationForm
-    search_fields = ['document_number', 'process_name', 'application_type']
+    search_fields = ['application_document__document_number', 'process_name', 'application_type']
 
 
 app_admin.register(Application, ApplicationAdmin)
