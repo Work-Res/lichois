@@ -7,7 +7,8 @@ from .views import (ChildCreateListView, CommissionerDecisionAPIView, EmergencyR
                     ResidencePermitViewSet, SpouseCreateListView, WorkPermitViewSet,
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
                     WorkPermitApplicationVerificationAPIView, MinisterDecisionAPIView,
-                    SecurityClearanceCreateAPIView, ProductionPermitView, TravelCertificateView, DeferredApplicationView)
+                    SecurityClearanceCreateAPIView, ProductionPermitView, TravelCertificateView, DeferredApplicationView,
+                    CompleteDeferredApplicationView)
 
 router = DefaultRouter()
 router.register(r'spouse', SpouseCreateListView, basename='spouse')
@@ -45,7 +46,9 @@ urlpatterns = [
          name='production-permit'),
     path('production/travel_certificate/<str:document_number>', TravelCertificateView.as_view(),
          name='production-permit'),
-    path('deferred/<str:document_number>', DeferredApplicationView.as_view(),
+    path('defer-application/<str:document_number>/', DeferredApplicationView.as_view(),
+         name='deferred-application'),
+    path('deferred-application/<str:document_number>/complete', CompleteDeferredApplicationView.as_view(),
          name='deferred-application'),
     path('', include(router.urls)),
 ]

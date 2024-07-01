@@ -113,3 +113,8 @@ class DeferredApplicationService(CreateTaskService):
             return True
         else:
             return False
+
+    def complete_deferred_application(self):
+        application = self.application()
+        application.application_status = self.application_status(ApplicationStatusEnum.VETTING.value)
+        application.save()

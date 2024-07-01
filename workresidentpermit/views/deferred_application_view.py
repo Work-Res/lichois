@@ -38,3 +38,28 @@ class DeferredApplicationView(APIView):
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             return JsonResponse({'detail': f'Something went wrong. Got {str(e)}'},
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CompleteDeferredApplicationView(APIView):
+
+    def post(self, request, document_number):
+        try:
+            serializer = RequestDeferredApplicationDTOSerializer(data=request.data)
+            if serializer.is_valid():
+                request_deferred_application_dto = RequestDeferredApplicationDTO(**serializer.data)
+
+                service = DeferredApplicationService(
+                    request_deferred_application_dto=request_deferred_application_dto)
+                if not service.validate():
+                    service.complete_deferred_application()
+                else:
+                    return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except json.JSONDecodeError:
+            logger.error("Invalid JSON in request body")
+            return JsonResponse({'error': 'Invalid JSON in request body'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            return JsonResponse({'detail': f'Something went wrong. Got {str(e)}'},
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)

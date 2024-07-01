@@ -1,4 +1,4 @@
-from app.models import Application
+from app.models import Application, DeferredApplication
 from app.utils import ApplicationStatusEnum
 from app_checklist.models import SystemParameter
 from board.models import ApplicationBatch
@@ -37,7 +37,7 @@ class TestDeferredApplicationService(BaseTestSetup):
         request_dto = RequestDeferredApplicationDTO(
             document_number=self.document_number,
             comment="Testing deferred application",
-            deferred_from="Commisioner's Officer",
+            deferred_from="Commisioner's Office",
             expected_action="FURTHER_INVESTIGATION",
             # task_details_config_file = task_details_config_file
             batch_id=application_batch.id,
@@ -134,6 +134,7 @@ class TestDeferredApplicationService(BaseTestSetup):
         )
         self.assertTrue(deferred_application_service.remove_application_batch())
         self.assertTrue(deferred_application_service.update_application())
+        self.assertFalse(deferred_application_service.application().batched)
 
     def test_create_deferred_application(self):
         work_resident_permit_application = WorkResidentPermitApplication(
@@ -177,3 +178,4 @@ class TestDeferredApplicationService(BaseTestSetup):
             valid_to=date(2024, 12, 12)
         )
         self.assertTrue(deferred_application_service.create())
+        self.assertGreater(DeferredApplication.objects.all().count(), 0)
