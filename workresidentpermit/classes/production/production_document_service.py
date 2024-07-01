@@ -11,7 +11,7 @@ from app_personal_details.models import Permit
 
 logger = logging.getLogger(__name__)
 
-
+# Fixme: NOT USED to consider deleting it..
 class ProductionDocumentService:
 
     def __init__(self, document_number: str, permit_date=None, permit_type=None, place_issue=None):

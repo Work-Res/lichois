@@ -1,6 +1,5 @@
 import random
 import logging
-import base64
 
 from django.db import transaction
 
@@ -11,8 +10,8 @@ from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
 
 from app_personal_details.models import Permit
 from app_checklist.models import SystemParameter
-
-from identifier.short_identifier import ShortIdentifier
+from app_checklist.classes import SystemParameterService
+from workresidentpermit.exceptions import PermitProductionException
 
 
 class PermitProductionService:
@@ -36,6 +35,11 @@ class PermitProductionService:
 
     def calculated_date_duration(self):
         """ Pending for system parameter from app checklist"""
+        try:
+            return SystemParameterService.calculate_next_date(self.systems_parameter())
+        except Exception as ex:
+            self.logger.error(f"Permit Production Permit Date Error, got {ex}")
+            raise PermitProductionException(message=f"Failed to create permit for production Got {ex}")
         return date(2025, 1, 1)
 
     def _get_existing_permit(self):
