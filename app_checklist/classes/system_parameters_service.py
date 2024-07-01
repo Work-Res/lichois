@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404
 from datetime import timedelta
 from django.utils.timezone import now
+from  datetime import date
 from app_checklist.models.system_parameter import SystemParameter
-
 
 
 class SystemParameterService:
@@ -19,5 +19,18 @@ class SystemParameterService:
             return system_parameter.valid_from + timedelta(days=30 * system_parameter.duration)
         elif system_parameter.duration_type == 'weeks':
             return system_parameter.valid_from + timedelta(weeks=system_parameter.duration)
+        else:
+            raise ValueError("Invalid duration type")
+
+    @staticmethod
+    def calculate_next_date(system_parameter):
+        if system_parameter.duration_type == 'years':
+            return date.today() + timedelta(days=365 * system_parameter.duration)
+        elif system_parameter.duration_type == 'months':
+            return date.today() + timedelta(days=30 * system_parameter.duration)
+        elif system_parameter.duration_type == 'weeks':
+            return date.today() + timedelta(weeks=system_parameter.duration)
+        elif system_parameter.duration_type == 'days':
+            return date.today() + timedelta(weeks=system_parameter.duration)
         else:
             raise ValueError("Invalid duration type")

@@ -22,7 +22,7 @@ class TaskRuleEvaluator(object):
         try:
             # Parse the conditions from a JSON string to a dictionary
             rules = ast.literal_eval(conditions)
-            print(rules)  # Debug print to show the parsed rules
+            # print(rules)  # Debug print to show the parsed rules
             
             # Iterate over each property and its expected value in the rules
             for prop, value in rules.items():

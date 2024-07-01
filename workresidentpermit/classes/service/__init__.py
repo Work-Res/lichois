@@ -5,3 +5,4 @@ from .work_resident_permit_decision_service import WorkResidentPermitDecisionSer
 from .special_permit_decision_service import SpecialPermitDecisionService
 from .permit_cancellation_decision_service import PermitCancellationDecisionService
 from .permit_production_service import PermitProductionService
+from .deferred_application_service import DeferredApplicationService

@@ -62,6 +62,20 @@ statuses = [{
         'processes': 'WORK_RESIDENT_PERMIT,SPECIAL_PERMIT',
         'valid_from': date(2023, 1, 1),
         'valid_to': None
+    },
+    {
+        'code': 'deferred',
+        'name': 'DEFERRED',
+        'processes': 'WORK_RESIDENT_PERMIT,SPECIAL_PERMIT',
+        'valid_from': date(2023, 1, 1),
+        'valid_to': None
+    },
+    {
+        'code': 'pending',
+        'name': 'Pending',
+        'processes': 'WORK_RESIDENT_PERMIT,SPECIAL_PERMIT',
+        'valid_from': date(2023, 1, 1),
+        'valid_to': None
     }
 ]
 

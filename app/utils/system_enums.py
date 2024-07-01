@@ -20,6 +20,9 @@ class ApplicationStatusEnum(Enum):
     ACCEPTED = "ACCEPTED"
     CANCELLED = "CANCELLED"
     RECOMMENDATION = "RECOMMENDATION"
+    DEFERRED = "DEFERRED"
+    PENDING = "PENDING"
+    COMPLETED = "COMPLETED"
 
 
 class WorkflowEnum(Enum):
