@@ -1,12 +1,11 @@
 from typing import Dict
 
 from app.api.common.web import APIResponse, APIMessage
-from app_assessment.models.assessment import Assessment
 
 
 class AssessmentValidator:
 
-    def __init__(self, assessment: Assessment = None, rules: Dict = None):
+    def __init__(self, assessment, rules: Dict = None):
         self.assessment = assessment
         self.rules = rules
         self.response = APIResponse()
