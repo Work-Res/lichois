@@ -85,7 +85,7 @@ class DeferredApplicationService(CreateTaskService):
             api_message = APIMessage(
                 code=400,
                 message=f"Application  does not exists.",
-                details=f"An applicaiton with {self.request_deferred_application_dto.document_number} "
+                details=f"An application with {self.request_deferred_application_dto.document_number} "
                         f"does not exists."
             )
             self.response.messages.append(api_message.to_dict())
@@ -98,9 +98,6 @@ class DeferredApplicationService(CreateTaskService):
                         f"does not exists. Please report to developers."
             )
             self.response.messages.append(api_message.to_dict())
-        else:
-            self.logger.info("Deferred Application: END Updating.")
-            return True
 
     def create(self):
         if self.validate():

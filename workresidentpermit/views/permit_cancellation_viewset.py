@@ -12,6 +12,7 @@ def get_app_labels():
 		'workresidentpermit.PermitCancellation',
 		'workresidentpermit.CommissionerDecision',
 		'workresidentpermit.MinisterDecision',
+		
 	]
 
 
