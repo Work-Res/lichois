@@ -11,4 +11,5 @@ class SecurityClearanceService(BaseDecisionService):
 		super().__init__(security_clearance_request, user)
 	
 	def create_clearance(self):
-		return self.create_decision(SecurityClearance, SecurityClearanceSerializer)
+		self.create_decision(SecurityClearance, SecurityClearanceSerializer)
+		self.update_application()

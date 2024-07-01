@@ -17,6 +17,7 @@ class Task(BaseUuidModel):
     TASK_CHOICES = [
         ('NEW', 'NEW'),
         ('IN_PROGRESS', 'IN PROGRESS'),
+        ('HOLD', 'ON HOLD'),
         ('CLOSED', 'CLOSED'),
     ]
 
@@ -25,11 +26,12 @@ class Task(BaseUuidModel):
     assignee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_tasks', blank=True, null=True)
     group_owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owned_tasks', blank=True, null=True)
     details = models.TextField()
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, null=True, blank=True)
     participants = models.ManyToManyField(User, related_name='tasks_participated', blank=True, null=True)
     task_notes = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=TASK_CHOICES)
     office_location = models.ForeignKey(ClassifierItem, on_delete=models.CASCADE, blank=True, null=True)
+    comment = models.CharField(max_length=250, null=True, blank=True)
 
     def __str__(self):
         return f"Task {self.id} - {self.details}"

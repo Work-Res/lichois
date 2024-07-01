@@ -12,7 +12,6 @@ class Activity(BaseUuidModel):
     """
     Represents individual activities within the process (verification, committee review, decision making ) e.t.c
     """
-
     process = models.ForeignKey(BusinessProcess, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField()

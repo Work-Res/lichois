@@ -9,6 +9,7 @@ from app_pdf_utilities.classes import ConvertHtmlToPdf
 from .invoice_sample_html import invoice_html_content
 from .multiple_html_pages import mutiple_pages
 from .sample_static_frame import frame
+from .certificate import  html
 
 from .data_for_tests import data
 
@@ -79,6 +80,19 @@ class TestConvertHtmlToPDF(TestCase):
             template_path="pdf/work-permit.html",
             file_location=output_file)
 
+    def test_travel_certificate(self):
+        file_name = "travel_certificate.pdf"
+        output_file = os.path.join(os.getcwd(), "app_pdf_utilities", "tests", "output_results", file_name)
+
+        converter = ConvertHtmlToPdf()
+        context = {
+            "image_url": os.path.join(settings.MEDIA_ROOT, "logo.png"),
+            "data": data
+        }
+
+        status = converter.convert_html_to_pdf(context=context, html_content=html,
+                                               file_location=output_file)
+        assert status == False
 
     # def test_pdf(self):
     #     file_name = "production.pdf"

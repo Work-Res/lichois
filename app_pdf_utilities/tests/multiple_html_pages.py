@@ -2,65 +2,41 @@ mutiple_pages = """
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Watermarks example</title>
-<style type="text/css">
-@page  {
-	size: a3;
-	background-image: url('img/denker.png');
-	background-object-position: 500px 300px;  /* left bottom */
-	background-height: 150px;
-	background-width: 50px;
-	@frame content_frame {
-            left: 50pt;
-            width: 512pt;
-            top: 50pt;
-            height: 692pt;
-            -pdf-frame-border: 1;    /* for debugging the layout */
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 60pt; height: 250pt;
         }
-}
-@page pg1 {
-	size: a4;
-	background-image: url('pdf/test-invoice-bg.pdf');
-	@frame content_frame {
-            left: 50pt;
-            width: 512pt;
-            top: 50pt;
-            height: 692pt;
-            -pdf-frame-border: 1;    /* for debugging the layout */
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
         }
-}
-@page pg2 {
-	size: a4;
-	background-image: url('img/beach.jpg');
-	background-page-step: 2;
-	background-opacity: 0.5;
-	@frame content_frame {
-            left: 50pt;
-            width: 512pt;
-            top: 50pt;
-            height: 692pt;
-            -pdf-frame-border: 1;    /* for debugging the layout */
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 760pt; height: 20pt;
         }
-}
+    }
 </style>
 </head>
-<body>
 
 <body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+         <div class="container">
+            <img src="{{ image_url }}" alt="Logo" width="200px" height="200px">
+        </div>
+    </div>
 
-    <h1>Resume Page</h1>
-    <p>This is a resume page with in a3 pagesize.</p>
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - page <pdf:pagenumber>
+        of <pdf:pagecount>
+    </div>
 
-
-    <pdf:nextpage name="pg1" />
-    <h1>Title Page</h1>
-   <p> This is a title page with a large 5cm margin.</p>
-   <p> Warning: Your pdf need to have transparent page.</p>
-    <pdf:nextpage name="pg2" />
-    <h1>Chapter 1</h1>
-    <p>This is a regular page with a regular 2cm margin.</p>
-
+    <!-- HTML Content -->
+   
 </body>
 
-</body>
+
 </html>
 """

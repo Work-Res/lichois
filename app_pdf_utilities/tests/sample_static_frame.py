@@ -6,7 +6,7 @@ frame = """
         size: letter portrait;
         @frame header_frame {           /* Static frame */
             -pdf-frame-content: header_content;
-            left: 50pt; width: 512pt; top: 50pt; height: 120pt;
+            left: 50pt; width: 512pt; top: 50pt; height: 200pt;
         }
         
         @frame content_frame {
@@ -14,6 +14,7 @@ frame = """
             width: 512pt;
             top: 200pt;
             height: 500pt;
+            -pdf-frame-border: 1; 
         }
         
         @frame footer_frame {           /* Static frame */
@@ -23,7 +24,7 @@ frame = """
     }
     
     .container {
-    text-align: center; /* Center content horizontally */
+    text-align: left; /* Center content horizontally */
     }
     
     .container img {

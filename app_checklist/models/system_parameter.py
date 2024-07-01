@@ -9,6 +9,7 @@ class SystemParameter(BaseUuidModel):
         ('years', 'Year(s)'),
         ('months', 'Month(s)'),
         ('weeks', 'Week(s)'),
+        ('days', 'Days(s)'),
     ]
 
     duration_type = models.CharField(

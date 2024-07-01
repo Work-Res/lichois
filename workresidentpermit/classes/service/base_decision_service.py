@@ -5,6 +5,7 @@ from django.db import transaction
 from rest_framework.response import Response
 
 from app.api.common.web import APIMessage, APIResponse
+from app.models import Application
 from app_decision.models import ApplicationDecisionType
 from workresidentpermit.api.dto.request_dto import RequestDTO
 
@@ -31,7 +32,14 @@ class BaseDecisionService:
 			)
 			self.response.messages.append(api_message.to_dict())
 			return None
-	
+
+	@transaction.atomic
+	def update_application(self):
+		application_decision_type = self.get_application_decision_type()
+		Application.objects.filter(
+			application_document__document_number=self.request.document_number).update(
+			security_clearance=application_decision_type.code)
+
 	@transaction.atomic
 	def create_decision(self, decision_model, serializer_class):
 		application_decision_type = self.get_application_decision_type()

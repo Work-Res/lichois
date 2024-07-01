@@ -64,7 +64,7 @@ class ConvertHtmlToPdf(object):
             file_location = file_location or self.output_filename or os.path.join(
                 settings.MEDIA_ROOT, settings.PDF_FOLDER, _file_name)
 
-            # context = Context(context)
+            context = Context(context)
             rendered_html = template.render(context)
             pisa_render_status = self.to_pdf(file_location, rendered_html)
 
