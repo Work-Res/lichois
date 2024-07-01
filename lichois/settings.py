@@ -57,7 +57,7 @@ INSTALLED_APPS = [
 	"workresidentpermit.apps.WorkresidentpermitConfig",
 	"workflow.apps.WorkflowConfig",
 	"identifier.apps.AppConfig",
-	"haystack",
+	# "haystack",
 	"rules.apps.AutodiscoverRulesConfig",
 	"rest_framework",
 	"rest_framework_swagger",
