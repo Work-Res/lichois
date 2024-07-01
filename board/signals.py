@@ -22,9 +22,7 @@ def create_application_decision(sender, instance, created, **kwargs):
                 board_decision=instance
             )
             work_resident_permit_decision_service.create_application_decision()
-            application = instance.assessed_application
-            application.board = instance.decision_outcome
-            application.save()
+            work_resident_permit_decision_service.update_application()
     except SystemError as e:
         logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
     except Exception as ex:

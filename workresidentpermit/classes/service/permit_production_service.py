@@ -26,6 +26,7 @@ class PermitProductionService:
 
     def systems_parameter(self):
         try:
+            print("self.request.application_type ", self.request.application_type)
             self._systems_parameter = SystemParameter.objects.get(
                 application_type__icontains=self.request.application_type
             )
@@ -48,13 +49,7 @@ class PermitProductionService:
                 document_number=self.request.document_number
             )
         except Permit.DoesNotExist:
-            self.logger.error("Permit does not exists")
-            api_message = APIMessage(
-                code=400,
-                message="Permit does not exists.",
-                details="Permit does not exists."
-            )
-            self.response.messages.append(api_message.to_dict())
+            pass
         else:
             return permit
 

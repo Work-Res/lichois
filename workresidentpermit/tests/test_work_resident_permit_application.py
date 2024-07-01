@@ -348,8 +348,15 @@ class TestWorkResidentPermitApplication(TestCase):
         all_tasks = Task.objects.filter(
             activity__process__document_number=self.document_number)
         statuses = [task.status for task in all_tasks]
-        self.application = Application.objects.get(application_document__document_number=self.document_number)
-        self.assertEqual(self.application.application_status.code.upper(), ApplicationStatusEnum.ACCEPTED.value.upper())
+
+        self.application = Application.objects.get(
+            application_document__document_number=self.document_number)
+
+        self.assertEqual(self.application.application_status.code.upper(),
+                         ApplicationStatusEnum.ACCEPTED.value.upper())
+
+        self.assertEqual(self.application.board,
+                         ApplicationStatusEnum.ACCEPTED.value.upper())
 
         self.assertEqual(all_tasks.count(), 3)
         self.assertTrue('NEW' in statuses)
@@ -377,7 +384,7 @@ class TestWorkResidentPermitApplication(TestCase):
         )
         BoardDecision.objects.create(
             board_meeting=board_meeting,
-            assessed_application=Application.objects.get(id=self.application.id),
+            assessed_application=Application.objects.get(application_document__document_number=self.document_number),
             vetting_outcome="ACCEPTED",
             decision_outcome="ACCEPTED"
         )
@@ -436,24 +443,6 @@ class TestWorkResidentPermitApplication(TestCase):
         self.assertEqual(all_tasks.count(), 3)
         self.assertTrue('NEW' in statuses)
         self.assertTrue('CLOSED' in statuses)
-
-
-        # application_decision = ApplicationDecision.objects.all()
-        # self.assertGreater(application_decision.count(), 0)
-        #
-        # renewal_application_dto = RenewalApplicationDTO(
-        #     process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-        #     applicant_identifier=self.application.application_document.applicant.user_identifier,
-        #     document_number=self.document_number)
-        # renewal_application_dto.work_place = "01"
-        #
-        # renewal_service = RenewalApplicationService(renewal_application=renewal_application_dto)
-        # renewal_service.process_renewal()
-        #
-        # application_renewal = ApplicationRenewal.objects.filter(
-        #     previous_application__application_document__document_number=self.document_number)
-        #
-        # self.assertGreater(application_renewal.count(), 0)
 
     def test_workpermit_submission_when_vetting_task_should_not_exists(self):
         """

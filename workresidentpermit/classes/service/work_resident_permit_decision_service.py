@@ -27,6 +27,11 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
         self.workflow = ProductionTransactionData()
         self.logger = logging.getLogger(__name__)
 
+    def update_application(self):
+        application = Application.objects.get(application_document__document_number=self.document_number)
+        application.board = self._board_decision.decision_outcome
+        application.save()
+
     def decision_predicate(self):
         is_security_clearance_accepted = False
         is_board_decision_taken = False
