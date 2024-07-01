@@ -49,7 +49,7 @@ class WorkResidentPermitVerificationValidator:
         """
         Returns True or False after running the validate method.
         """
-        self.check_if_assessment_exists()
+        #self.check_if_assessment_exists()
         self.validate()
         return True if len(self.response.messages) == 0 else False
 
