@@ -59,7 +59,7 @@ class WorkResidentPermitApplication:
             
             workflow.verification_decision = application_decision_type.code.upper()
             workflow.current_status = self.application.application_status.code
-            self.application.verification = application_decision_type.code.upper()
+            self.application.verification = application_decision_type.code
             self.application.save()
 
             ApplicationVerification.objects.create(
