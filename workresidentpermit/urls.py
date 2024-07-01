@@ -50,5 +50,5 @@ urlpatterns = [
          name='deferred-application'),
     path('deferred-application/<str:document_number>/complete', CompleteDeferredApplicationView.as_view(),
          name='deferred-application'),
-    path('', include(router.urls)),
+    path('', include(router.urls))
 ]

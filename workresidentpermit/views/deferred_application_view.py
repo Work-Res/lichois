@@ -41,7 +41,9 @@ class DeferredApplicationView(APIView):
 
 
 class CompleteDeferredApplicationView(APIView):
+    """
 
+    """
     def post(self, request, document_number):
         try:
             serializer = RequestDeferredApplicationDTOSerializer(data=request.data)
