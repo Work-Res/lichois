@@ -1,5 +1,6 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
+
 from ..choices import BOARD_MEETING_TYPES, BOARD_MEETING_STATUS
 from .board import Board
 

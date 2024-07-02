@@ -14,3 +14,4 @@ from .replacement_permit import PermitReplacement
 from .dependant import Dependant
 from .commissioner_decision import CommissionerDecision
 from .minister_decision import MinisterDecision
+from .permit_cancellation_reason import PermitCancellationReason
