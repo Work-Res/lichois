@@ -10,7 +10,7 @@ from ..models import Assessment, AssessmentInvestor
 class AssessmentInvestorModelFilter(django_filters.FilterSet):
 
     document_number = django_filters.CharFilter(
-        document_number='document_number', lookup_expr='exact')
+        field_name='document_number', lookup_expr='exact')
 
     min_result_date = django_filters.DateFilter(field_name='created', lookup_expr='gte')
     max_result_date = django_filters.DateFilter(field_name='created', lookup_expr='lte')
