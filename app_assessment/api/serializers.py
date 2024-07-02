@@ -43,7 +43,7 @@ class AssessmentInvestorSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
 
-        file_name = "investor_work_residence.json"
+        file_name = "marking_score_work_and_residence_investor.json"
         file_location = os.path.join(os.getcwd(), "app_assessment", "data", "assessments", file_name)
         reader = ReadJSON(file_location=file_location)
 
