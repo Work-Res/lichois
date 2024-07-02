@@ -21,4 +21,4 @@ class AssessmentInvestor(ApplicationBaseModel):
         verbose_name_plural = 'Assessment Investors'
 
     def __str__(self):
-        return f"Assessment Investor: {self.competency}, {self.qualification}"
+        return f"Assessment Investor: {self.business_activity}, {self.total}"
