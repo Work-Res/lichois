@@ -9,3 +9,7 @@ class PermitCancellationReason(ApplicationBaseModel):
 
     def __str__(self):
         return self.reason_for_cancellation
+    
+    class Meta:
+        verbose_name_plural = "Permit Cancellation Reason"
+        ordering = ['-created']
