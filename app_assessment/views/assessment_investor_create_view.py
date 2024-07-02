@@ -17,6 +17,7 @@ class AssessmentInvestorModelFilter(django_filters.FilterSet):
 	class Meta:
 		model = AssessmentInvestor
 		exclude = ('user_created', 'marking_score')
+		fields = '__all__'
 
 
 class AssessmentInvestorViewSet(viewsets.ModelViewSet):
