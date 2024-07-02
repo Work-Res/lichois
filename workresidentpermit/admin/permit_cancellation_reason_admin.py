@@ -3,7 +3,7 @@ from ..models import PermitCancellationReason
 
 
 class PermitCancellationReasonAdmin(admin.ModelAdmin):
-	list_display = ('reason_for_cancellation', 'created_at', 'updated_at')
+	list_display = ('reason_for_cancellation', 'created', 'modified',)
 	search_fields = ('reason_for_cancellation',)
 
 
