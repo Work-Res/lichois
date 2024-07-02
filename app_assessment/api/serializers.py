@@ -48,8 +48,10 @@ class AssessmentInvestorSerializer(serializers.ModelSerializer):
         reader = ReadJSON(file_location=file_location)
 
         # assessment = Assessment(**data)
-        assessment = Assessment.objects.create(**data)
-        validator = AssessmentValidator(assessment=assessment, rules=reader.json_data())
+        assessment = AssessmentSerializer(data=data)
+        if not assessment.is_valid():
+            raise serializers.ValidationError(assessment.errors)
+        validator = AssessmentValidator(assessment=assessment.data, rules=reader.json_data())
         if not validator.is_valid():
             raise serializers.ValidationError(validator.response.result())
 
