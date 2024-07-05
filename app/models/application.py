@@ -5,31 +5,53 @@ from .application_status import ApplicationStatus
 
 from base_module.model_mixins import BaseUuidModel
 
+from ..choices import APPLICANT_TYPE
 from ..utils import ApplicationDecisionEnum
 
 
 class Application(BaseUuidModel):
     """
-     Model representing a work permit application.
+    Model representing a work permit application.
 
-     Attributes:
-         user (ForeignKey): The user who created or owns the document.
-         application_document (Foreign): Document for applicant.
-         application_status (Foreign): The status for the application.
-     """
+    Attributes:
+        user (ForeignKey): The user who created or owns the document.
+        application_document (Foreign): Document for applicant.
+        application_status (Foreign): The status for the application.
+    """
+
     last_application_version_id = models.IntegerField()
-    application_document = models.ForeignKey(ApplicationDocument, on_delete=models.CASCADE)
+    application_document = models.ForeignKey(
+        ApplicationDocument, on_delete=models.CASCADE
+    )
     process_name = models.CharField(max_length=200, null=False, blank=False)
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
     batched = models.BooleanField(null=True, blank=True, default=False)
+    applicant_type = models.CharField(
+        max_length=200,
+        choices=APPLICANT_TYPE,
+        default="employee",
+    )
 
-    verification = models.CharField(null=True, blank=True, max_length=200,
-                                          default=ApplicationDecisionEnum.PENDING.value)
+    verification = models.CharField(
+        null=True,
+        blank=True,
+        max_length=200,
+        default=ApplicationDecisionEnum.PENDING.value,
+    )
 
-    security_clearance = models.CharField(null=True, blank=True, max_length=200,
-                                          default=ApplicationDecisionEnum.PENDING.value)
-    board = models.CharField(null=True, blank=True, max_length=200, default=ApplicationDecisionEnum.PENDING.value)
+    security_clearance = models.CharField(
+        null=True,
+        blank=True,
+        max_length=200,
+        default=ApplicationDecisionEnum.PENDING.value,
+    )
+    board = models.CharField(
+        null=True,
+        blank=True,
+        max_length=200,
+        default=ApplicationDecisionEnum.PENDING.value,
+    )
     submission_date = models.DateField(auto_now=True)
 
     def __str__(self):
@@ -37,4 +59,4 @@ class Application(BaseUuidModel):
 
     class Meta:
         verbose_name_plural = "Applications"
-        ordering = ['-created']
+        ordering = ["-created"]
