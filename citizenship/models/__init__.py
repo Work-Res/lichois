@@ -12,7 +12,7 @@ from .late_citizenship_renunciation import LateCitizenshipRenunciation
 from .nationality_declaration import NationalityDeclaration
 from .naturalisation import Naturalisation
 from .oath_of_allegiance import OathOfAllegiance
-from .renunciation_of_citizenship import RenunciationOfCitizenship
+from citizenship.models.renunciation.renunciation_of_citizenship import RenunciationOfCitizenship
 from .renunciation_of_foreign_citizenship import RenunciationOfForeignCitizenship
 from .parent_details import ParentDetails
 from .personal_declaration import PersonalDeclaration
