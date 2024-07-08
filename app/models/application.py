@@ -5,7 +5,6 @@ from .application_status import ApplicationStatus
 
 from base_module.model_mixins import BaseUuidModel
 
-from ..choices import APPLICANT_TYPE
 from ..utils import ApplicationDecisionEnum
 
 
@@ -27,11 +26,6 @@ class Application(BaseUuidModel):
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
     batched = models.BooleanField(null=True, blank=True, default=False)
-    applicant_type = models.CharField(
-        max_length=200,
-        choices=APPLICANT_TYPE,
-        default="employee",
-    )
 
     verification = models.CharField(
         null=True,
