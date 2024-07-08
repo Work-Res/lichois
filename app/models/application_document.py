@@ -3,6 +3,7 @@ from django.db import models
 from .application_user import ApplicationUser
 
 from base_module.model_mixins import BaseUuidModel
+from ..choices import APPLICANT_TYPE
 
 
 class ApplicationDocument(BaseUuidModel):
@@ -16,7 +17,15 @@ class ApplicationDocument(BaseUuidModel):
         signed_date (date): The date when the document was signed.
         submission_customer (str): The customer associated with the document submission.
     """
-    applicant = models.ForeignKey(ApplicationUser, on_delete=models.CASCADE, null=False, blank=False)
+
+    applicant = models.ForeignKey(
+        ApplicationUser, on_delete=models.CASCADE, null=False, blank=False
+    )
+    applicant_type = models.CharField(
+        max_length=200,
+        choices=APPLICANT_TYPE,
+        default="employee",
+    )
     document_number = models.CharField(max_length=100, null=False, blank=False)
     document_date = models.DateField(null=False, blank=False)
     signed_date = models.DateField()
