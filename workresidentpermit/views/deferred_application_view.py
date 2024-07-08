@@ -40,14 +40,12 @@ class DeferredApplicationView(APIView):
                 )
                 if service.validate():
                     service.create()
-                    return (
-                        JsonResponse(
-                            APIMessage(
-                                code=200,
-                                message="Deferred Application created successfully",
-                            ).to_dict(),
-                            status=status.HTTP_200_OK,
-                        ),
+                    return JsonResponse(
+                        APIMessage(
+                            code=200,
+                            message="Deferred Application created successfully",
+                        ).to_dict(),
+                        status=status.HTTP_200_OK,
                     )
                 else:
                     return JsonResponse(
