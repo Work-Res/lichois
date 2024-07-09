@@ -71,6 +71,7 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
             APIResponse(
                 messages=f"Successfully created voting process for batch { application_batch}",
                 data=created_processes,
+                status=201,
             ).result(),
             status=status.HTTP_201_CREATED,
         )
