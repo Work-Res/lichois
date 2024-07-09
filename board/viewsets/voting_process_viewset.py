@@ -37,7 +37,7 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
             raise PermissionDenied(api_message.to_dict())
 
         application_batch = request.data.get("application_batch", None)
-        status = request.data.get("status", None)
+        voting_status = request.data.get("status", None)
         board_meeting = request.data.get("board_meeting", None)
         created_processes = []
         if not application_batch or not status or not board_meeting:
@@ -59,7 +59,7 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
         for app in batch.applications.all():
             data = {
                 "document_number": app.application_document.document_number,
-                "status": status,
+                "status": voting_status,
                 "board_meeting": board_meeting,
             }
             serializer = self.get_serializer(data=data)
