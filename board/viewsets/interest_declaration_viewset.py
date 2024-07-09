@@ -14,37 +14,94 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
 
     @action(
         detail=False,
-        methods=['get'],
-        url_path='current-attendee/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)',
-        url_name='current-attendee')
+        methods=["get"],
+        url_path="current-attendee/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)",
+        url_name="current-attendee",
+    )
     def check_interest_declaration(self, request, document_number, meeting):
         board_member = BoardMember.objects.filter(user=request.user).first()
         if not board_member:
-            return Response(APIMessage(message='User is not a member of any board', code=400).to_dict())
+            return Response(
+                APIMessage(
+                    message="User is not a member of any board", code=400
+                ).to_dict()
+            )
         meeting_attendee = MeetingAttendee.objects.filter(
-            board_member=board_member,
-            attendance_status=PRESENT,
-            meeting=meeting).first()
+            board_member=board_member, attendance_status=PRESENT, meeting=meeting
+        ).first()
         if not meeting_attendee:
-            return Response(APIMessage(message='User is not an attendee of board meeting', code=400).to_dict(), status=400)
-        interest_declaration = InterestDeclaration.objects.filter(meeting_attendee=meeting_attendee,
-                                                                  document_number=document_number).first()
+            return Response(
+                APIMessage(
+                    message="User is not an attendee of board meeting", code=400
+                ).to_dict(),
+                status=400,
+            )
+        interest_declaration = InterestDeclaration.objects.filter(
+            meeting_attendee=meeting_attendee, document_number=document_number
+        ).first()
         if interest_declaration:
-            return Response(data=InterestDeclarationSerializer(interest_declaration).data)
-        return Response(APIMessage(message='Interest declaration not found', code=404).to_dict(), status=404)
+            return Response(
+                data=InterestDeclarationSerializer(interest_declaration).data
+            )
+        return Response(
+            APIMessage(message="Interest declaration not found", code=404).to_dict(),
+            status=404,
+        )
 
     @action(
         detail=False,
-        methods=['get'],
-        url_path='participants/refrained/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)',
-        url_name='interest-declarations')
-    def interest_declarations(self, request, document_number, meeting):
+        methods=["get"],
+        url_path="participants/refrained/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)",
+        url_name="interest-declarations-refrain",
+    )
+    def interest_declarations_refrained(self, request, document_number, meeting):
         board_member = BoardMember.objects.filter(user=request.user).first()
         if not board_member:
-            return Response(APIMessage(message='User is not a member of any board', code=400).to_dict())
+            return Response(
+                APIMessage(
+                    message="User is not a member of any board", code=400
+                ).to_dict()
+            )
 
         interest_declarations = InterestDeclaration.objects.filter(
-            decision='refrain', document_number=document_number, meeting__id=meeting)
+            decision="refrain", document_number=document_number, meeting__id=meeting
+        )
         if interest_declarations:
-            return Response(data=InterestDeclarationSerializer(interest_declarations, many=True).data)
-        return Response(APIMessage(message='Interest declaration not found', code=404).to_dict(), status=404)
+            return Response(
+                data=InterestDeclarationSerializer(
+                    interest_declarations, many=True
+                ).data
+            )
+        return Response(
+            APIMessage(message="Interest declaration not found", code=404).to_dict(),
+            status=404,
+        )
+
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="participants/vote/(?P<document_number>[A-Za-z0-9-]+)/(?P<meeting>[A-Za-z0-9-]+)",
+        url_name="interest-declarations-vote",
+    )
+    def interest_declarations_voting(self, request, document_number, meeting):
+        board_member = BoardMember.objects.filter(user=request.user).first()
+        if not board_member:
+            return Response(
+                APIMessage(
+                    message="User is not a member of any board", code=400
+                ).to_dict()
+            )
+
+        interest_declarations = InterestDeclaration.objects.filter(
+            decision="vote", document_number=document_number, meeting__id=meeting
+        )
+        if interest_declarations:
+            return Response(
+                data=InterestDeclarationSerializer(
+                    interest_declarations, many=True
+                ).data
+            )
+        return Response(
+            APIMessage(message="Interest declaration not found", code=404).to_dict(),
+            status=404,
+        )
