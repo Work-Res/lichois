@@ -58,7 +58,7 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
             raise PermissionDenied(api_message.to_dict())
         for app in batch.applications.all():
             data = {
-                "document_number": app.application_document__document_number,
+                "document_number": app.application_document.document_number,
                 "status": status,
                 "board_meeting": board_meeting,
             }
