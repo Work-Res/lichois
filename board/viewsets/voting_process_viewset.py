@@ -56,7 +56,7 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
                 details="Application batch not found.",
             )
             raise PermissionDenied(api_message.to_dict())
-        for app in batch.applications:
+        for app in batch.applications.all():
             data = {
                 "document_number": app.application_document__document_number,
                 "status": status,
