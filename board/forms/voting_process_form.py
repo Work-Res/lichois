@@ -8,6 +8,6 @@ class VotingProcessForm(forms.ModelForm):
         fields = (
             "board",
             "status",
-            "batch",
+            "document_number",
             "board_meeting",
         )
