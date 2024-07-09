@@ -11,7 +11,7 @@ class VotingProcessSerializer(serializers.ModelSerializer):
         fields = (
             "board",
             "status",
-            "batch",
+            "document_number",
             "board_meeting",
         )
 
