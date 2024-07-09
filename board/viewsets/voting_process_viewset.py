@@ -17,15 +17,14 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
     lookup_field = "document_number"
 
     def create(self, request, *args, **kwargs):
-        if request.user.is_chairperson():
-            return super().create(request, *args, **kwargs)
-        else:
+        if not request.user.is_chairperson():
             api_message = APIMessage(
                 code=403,
                 message="Forbidden",
                 details="Only the chairperson can create a voting process.",
             )
             raise PermissionDenied(api_message.to_dict())
+        return super().create(request, *args, **kwargs)
 
     @action(detail=False, methods=["post"], url_path="batch-create")
     def create_batch(self, request, *args, **kwargs):
