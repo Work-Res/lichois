@@ -40,6 +40,14 @@ class Application(BaseUuidModel):
         max_length=200,
         default=ApplicationDecisionEnum.PENDING.value,
     )
+
+    assessment = models.CharField(
+        null=True,
+        blank=True,
+        max_length=200,
+        default=ApplicationDecisionEnum.PENDING.value,
+    )
+
     board = models.CharField(
         null=True,
         blank=True,
