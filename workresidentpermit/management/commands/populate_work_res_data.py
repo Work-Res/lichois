@@ -14,30 +14,41 @@ from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class Command(BaseCommand):
-    help = 'Populate data for Work & Res Application model'
+    help = "Populate data for Work & Res Application model"
 
     def handle(self, *args, **options):
         faker = Faker()
         process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
-        work_res_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
-        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
-        replacement_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
+        work_res_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
+        )
+        renewal_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
+        )
+        replacement_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
+        )
         with atomic():
-            
+
             for _ in range(50):
                 fname = faker.unique.first_name()
                 lname = faker.unique.last_name()
-               
+
                 new_app = NewApplicationDTO(
                     process_name=process_name,
-                    application_type=faker.random_element(elements=(work_res_permit, renewal_permit, replacement_permit)),
-                    applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
+                    application_type=faker.random_element(
+                        elements=(work_res_permit, renewal_permit, replacement_permit)
+                    ),
+                    applicant_identifier=f"{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}",
                     status=ApplicationStatusEnum.VERIFICATION.value,
-                    dob='1990-06-10',
+                    dob="1990-06-10",
                     work_place=randint(1000, 9999),
-                    full_name=f'{fname} {lname}',
+                    full_name=f"{fname} {lname}",
+                    applicant_type=faker.random_element(
+                        elements=("employee", "investor")
+                    ),
                 )
-                self.stdout.write(self.style.SUCCESS('Populating data...'))
+                self.stdout.write(self.style.SUCCESS("Populating data..."))
                 app = ApplicationService(new_application=new_app)
                 version = app.create_application()
                 Person.objects.get_or_create(
@@ -47,14 +58,18 @@ class Command(BaseCommand):
                     last_name=lname,
                     dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
                     middle_name=faker.first_name(),
-                    marital_status=faker.random_element(elements=('single', 'married', 'divorced')),
+                    marital_status=faker.random_element(
+                        elements=("single", "married", "divorced")
+                    ),
                     country_birth=faker.country(),
                     place_birth=faker.city(),
-                    gender=faker.random_element(elements=('male', 'female')),
+                    gender=faker.random_element(elements=("male", "female")),
                     occupation=faker.job(),
-                    qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd'))
+                    qualification=faker.random_element(
+                        elements=("diploma", "degree", "masters", "phd")
+                    ),
                 )
-                country = Country.objects.create(name=faker.country()),
+                country = (Country.objects.create(name=faker.country()),)
                 # temp = Country.objects.filter(name=faker)
                 ApplicationAddress.objects.get_or_create(
                     application_version=version,
@@ -62,25 +77,34 @@ class Command(BaseCommand):
                     po_box=faker.address(),
                     apartment_number=faker.building_number(),
                     plot_number=faker.building_number(),
-                    address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
-                                                                'other')),
+                    address_type=faker.random_element(
+                        elements=(
+                            "residential",
+                            "postal",
+                            "business",
+                            "private",
+                            "other",
+                        )
+                    ),
                     country__id=country[0].id,
-                    status=faker.random_element(elements=('active', 'inactive')),
+                    status=faker.random_element(elements=("active", "inactive")),
                     city=faker.city(),
                     street_address=faker.street_name(),
                     private_bag=faker.building_number(),
                 )
-    
+
                 ApplicationContact.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    contact_type=faker.random_element(elements=('cell', 'email', 'fax', 'landline')),
+                    contact_type=faker.random_element(
+                        elements=("cell", "email", "fax", "landline")
+                    ),
                     contact_value=faker.phone_number(),
                     preferred_method_comm=faker.boolean(chance_of_getting_true=50),
-                    status=faker.random_element(elements=('active', 'inactive')),
+                    status=faker.random_element(elements=("active", "inactive")),
                     description=faker.text(),
                 )
-    
+
                 Passport.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -91,7 +115,7 @@ class Command(BaseCommand):
                     nationality=faker.country(),
                     photo=faker.image_url(),
                 )
-    
+
                 ResidencePermit.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -100,24 +124,37 @@ class Command(BaseCommand):
                     previous_nationality=faker.country(),
                     current_nationality=faker.country(),
                     state_period_required=faker.date_this_century(),
-                    propose_work_employment=faker.random_element(elements=('yes', 'no')),
-                    reason_applying_permit=faker.random_element(elements=('dependent', 'volunteer', 'student',
-                                                                          'immigrant', 'missionary')),
+                    propose_work_employment=faker.random_element(
+                        elements=("yes", "no")
+                    ),
+                    reason_applying_permit=faker.random_element(
+                        elements=(
+                            "dependent",
+                            "volunteer",
+                            "student",
+                            "immigrant",
+                            "missionary",
+                        )
+                    ),
                     documentary_proof=faker.text(),
                     travelled_on_pass=faker.text(),
-                    is_spouse_applying_residence=faker.random_element(elements=('yes', 'no')),
+                    is_spouse_applying_residence=faker.random_element(
+                        elements=("yes", "no")
+                    ),
                     ever_prohibited=faker.text(),
                     sentenced_before=faker.text(),
                     entry_place=faker.city(),
                     arrival_date=faker.date_this_century(),
                 )
-    
+
                 WorkPermit.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    permit_status=faker.random_element(elements=('new', 'renewal')),
+                    permit_status=faker.random_element(elements=("new", "renewal")),
                     job_offer=faker.text(),
-                    qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
+                    qualification=faker.random_element(
+                        elements=("diploma", "degree", "masters", "phd")
+                    ),
                     years_of_study=faker.random_int(min=1, max=10),
                     business_name=faker.company(),
                     type_of_service=faker.text(),
@@ -134,7 +171,9 @@ class Command(BaseCommand):
                     labour_enquires=faker.text(),
                     no_bots_citizens=faker.random_int(min=1, max=10),
                     name=faker.name(),
-                    educational_qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
+                    educational_qualification=faker.random_element(
+                        elements=("diploma", "degree", "masters", "phd")
+                    ),
                     job_experience=faker.text(),
                     take_over_trainees=faker.first_name(),
                     long_term_trainees=faker.first_name(),
@@ -144,4 +183,4 @@ class Command(BaseCommand):
                     duration=faker.random_int(min=1, max=10),
                     names_of_trainees=faker.first_name(),
                 )
-                self.stdout.write(self.style.SUCCESS('Successfully populated data'))
+                self.stdout.write(self.style.SUCCESS("Successfully populated data"))
