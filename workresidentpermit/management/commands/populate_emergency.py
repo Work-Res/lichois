@@ -125,6 +125,9 @@ class Command(BaseCommand):
                         nature_emergency=faker.random_element(
                             elements=("fire", "flood", "earthquake", "tsunami")
                         ),
+                        emergency_period=faker.random_element(
+                            elements=("1 - 14 days", "15 - 90 days", "6 months")
+                        ),
                         job_requirements=faker.job(),
                         services_provided=faker.text(),
                         chief_authorization=faker.name(),
