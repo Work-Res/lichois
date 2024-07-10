@@ -1,4 +1,5 @@
 from .assessment_result import AssessmentResult
 from .assessment import Assessment
-from .assessment_investor import AssessmentInvestor
+from .new_assessment_investor import NewAssessmentInvestor
+from .renewal_assessment_investor import RenewalAssessmentInvestor
 from .assessment_emergency import AssessmentEmergency

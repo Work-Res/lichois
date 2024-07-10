@@ -1,3 +1,4 @@
 from .assessment_view_create_list import AssessmentResultViewSet, AssessmentViewSet
-from .assessment_investor_create_view import AssessmentInvestorViewSet
+from .new_assessment_investor_view import NewAssessmentInvestorViewSet
+from .renewal_assessment_investor_view import RenewalAssessmentInvestorViewSet
 from .assessment_emergency_viewset import AssessmentEmergencyViewSet
