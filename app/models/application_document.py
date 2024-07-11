@@ -3,7 +3,7 @@ from django.db import models
 from .application_user import ApplicationUser
 
 from base_module.model_mixins import BaseUuidModel
-from ..choices import APPLICANT_TYPE
+from ..choices import APPLICANT_TYPE, PERMIT_PERIOD
 
 
 class ApplicationDocument(BaseUuidModel):
@@ -30,6 +30,12 @@ class ApplicationDocument(BaseUuidModel):
     document_date = models.DateField(null=False, blank=False)
     signed_date = models.DateField()
     submission_customer = models.CharField(max_length=250)
+    permit_period = models.CharField(
+        max_length=255,
+        choices=PERMIT_PERIOD,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return f"Document {self.document_number}"
