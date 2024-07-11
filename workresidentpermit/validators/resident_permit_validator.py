@@ -4,7 +4,6 @@ from .work_resident_permit_validator import WorkResidentPermitValidator
 
 
 class ResidentPermitValidator(WorkResidentPermitValidator):
-
     """
     Responsible for validating all mandatory for work permit.
     """
@@ -22,6 +21,6 @@ class ResidentPermitValidator(WorkResidentPermitValidator):
                 APIMessage(
                     code=400,
                     message="Resident Permit Form is mandatory. ",
-                    details=f"A work permit form is required to captured before submission."
+                    details="A work permit form is required to be captured before submission.",
                 )
             )

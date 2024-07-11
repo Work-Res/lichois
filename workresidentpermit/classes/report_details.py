@@ -1,5 +1,3 @@
-
-
 class ReportDetails:
 
     def __init__(self, name=None, department=None):

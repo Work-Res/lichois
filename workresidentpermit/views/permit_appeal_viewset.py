@@ -9,8 +9,8 @@ from ..api.serializers import PermitAppealSerializer
 
 def get_app_labels():
     return [
-        'workresidentpermit.PermitAppeal',
-        'workresidentpermit.MinisterDecision',
+        "workresidentpermit.PermitAppeal",
+        "workresidentpermit.MinisterDecision",
     ]
 
 
@@ -18,8 +18,12 @@ class PermitAppealViewSet(viewsets.ModelViewSet):
     queryset = PermitAppeal.objects.all()
     serializer_class = PermitAppealSerializer
 
-    @action(detail=False, methods=['get'], url_path='summary/(?P<document_number>[A-Za-z0-9-]+)',
-            url_name='permit-appeal-summary')
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="summary/(?P<document_number>[A-Za-z0-9-]+)",
+        url_name="permit-appeal-summary",
+    )
     def summary(self, request, document_number):
         app_summary = ApplicationSummary(document_number, get_app_labels())
         return Response(data=app_summary.data())

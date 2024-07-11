@@ -33,7 +33,10 @@ class Command(BaseCommand):
                     application_type=faker.random_element(
                         elements=(res_permit, renewal_res, replacement)
                     ),
-                    applicant_identifier=f"{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}",
+                    applicant_identifier=(
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}"
+                    ),
                     status=ApplicationStatusEnum.VERIFICATION.value,
                     dob="1990-06-10",
                     work_place=randint(1000, 9999),

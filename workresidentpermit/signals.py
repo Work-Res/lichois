@@ -8,14 +8,24 @@ from app.models import Application
 from app.utils import ApplicationDecisionEnum, ApplicationProcesses
 
 from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
-from workresidentpermit.models import MinisterDecision, WorkPermit, SecurityClearance, CommissionerDecision
+from workresidentpermit.models import (
+    MinisterDecision,
+    WorkPermit,
+    SecurityClearance,
+    CommissionerDecision,
+)
 from app_decision.models import ApplicationDecision
-from workresidentpermit.classes.service import SpecialPermitDecisionService, WorkResidentPermitDecisionService, \
-	PermitProductionService
+from workresidentpermit.classes.service import (
+    SpecialPermitDecisionService,
+    WorkResidentPermitDecisionService,
+    PermitProductionService,
+)
 
 from app.utils import ApplicationStatusEnum
 from .classes.config.configuration_loader import JSONConfigLoader
-from .classes.service.exemption_certification_decision_service import ExemptionCertificateDecisionService
+from .classes.service.exemption_certification_decision_service import (
+    ExemptionCertificateDecisionService,
+)
 
 from .classes import WorkPermitApplicationPDFGenerator
 
@@ -23,56 +33,81 @@ logger = logging.getLogger(__name__)
 
 logger.setLevel(logging.WARNING)
 
-json_file_name = 'approval_process.json'
-json_file_path = os.path.join(os.path.dirname(__file__), 'data', json_file_name)
+json_file_name = "approval_process.json"
+json_file_path = os.path.join(os.path.dirname(__file__), "data", json_file_name)
 
 logger.info(f"Loading approval process from {json_file_path}")
-config_loader = JSONConfigLoader(file_path=json_file_path, key='MINISTER_APPROVAL_PROCESSES')
+config_loader = JSONConfigLoader(
+    file_path=json_file_path, key="MINISTER_APPROVAL_PROCESSES"
+)
 
 
 @receiver(post_save, sender=WorkPermit)
 def generate_pdf_summary(sender, instance, created, **kwargs):
-	try:
-		if sender.application_version.application.application_status.name in \
-				[ApplicationStatusEnum.VERIFICATION.value,
-				 ApplicationStatusEnum.CANCELLED.value,
-				 ApplicationStatusEnum.REJECTED.value,
-				 ApplicationStatusEnum.ACCEPTED.value]:
-			generator = WorkPermitApplicationPDFGenerator(work_resident_permit=sender)
-			generator.generate()
-	except SystemError as e:
-		logger.debug("SystemError: An error occurred while generating the PDF, Got ", e)
-	except Exception as ex:
-		logger.debug("An error occurred while generating the PDF, Got ", ex)
+    try:
+        if sender.application_version.application.application_status.name in [
+            ApplicationStatusEnum.VERIFICATION.value,
+            ApplicationStatusEnum.CANCELLED.value,
+            ApplicationStatusEnum.REJECTED.value,
+            ApplicationStatusEnum.ACCEPTED.value,
+        ]:
+            generator = WorkPermitApplicationPDFGenerator(work_resident_permit=sender)
+            generator.generate()
+    except SystemError as e:
+        logger.debug("SystemError: An error occurred while generating the PDF, Got ", e)
+    except Exception as ex:
+        logger.debug("An error occurred while generating the PDF, Got ", ex)
 
 
 @receiver(post_save, sender=SecurityClearance)
-def create_application_final_decision_by_security_clearance(sender, instance, created, **kwargs):
-	try:
-		
-		if created:
-			try:
-				application = Application.objects.get(application_document__document_number=instance.document_number)
-			except Application.DoesNotExist:
-				logger.error(f"Application not found for security clearance {instance.document_number}")
-				return
-			else:
-				if application.process_name.upper() == ApplicationProcesses.WORK_RESIDENT_PERMIT.value:
-					work_resident_permit_decision_service = WorkResidentPermitDecisionService(
-						document_number=instance.document_number,
-						security_clearance=instance
-					)
-					work_resident_permit_decision_service.create_application_decision()
-				elif application.process_name.upper() == ApplicationProcesses.EXEMPTION_CERTIFICATE.value:
-					exemption_certificate_decision_service = ExemptionCertificateDecisionService(
-						document_number=instance.document_number)
-					exemption_certificate_decision_service.next_flow_activity()
-			
-	except SystemError as e:
-		logger.error("SystemError: An error occurred while creating new application decision, Got ", e)
-	except Exception as ex:
-		logger.error(f"An error occurred while trying to create application decision after saving board decision. "
-		             f"Got {ex} ")
+def create_application_final_decision_by_security_clearance(
+    sender, instance, created, **kwargs
+):
+    try:
+
+        if created:
+            try:
+                application = Application.objects.get(
+                    application_document__document_number=instance.document_number
+                )
+            except Application.DoesNotExist:
+                logger.error(
+                    f"Application not found for security clearance {instance.document_number}"
+                )
+                return
+            else:
+                if (
+                    application.process_name.upper()
+                    == ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+                ):
+                    work_resident_permit_decision_service = (
+                        WorkResidentPermitDecisionService(
+                            document_number=instance.document_number,
+                            security_clearance=instance,
+                        )
+                    )
+                    work_resident_permit_decision_service.create_application_decision()
+                elif (
+                    application.process_name.upper()
+                    == ApplicationProcesses.EXEMPTION_CERTIFICATE.value
+                ):
+                    exemption_certificate_decision_service = (
+                        ExemptionCertificateDecisionService(
+                            document_number=instance.document_number
+                        )
+                    )
+                    exemption_certificate_decision_service.next_flow_activity()
+
+    except SystemError as e:
+        logger.error(
+            "SystemError: An error occurred while creating new application decision, Got ",
+            e,
+        )
+    except Exception as ex:
+        logger.error(
+            f"An error occurred while trying to create application decision after saving board decision. "
+            f"Got {ex} "
+        )
 
 
 # Assuming
@@ -82,30 +117,36 @@ def create_application_final_decision_by_security_clearance(sender, instance, cr
 
 
 def handle_application_final_decision(instance, created):
-	if not created:
-		return
-	try:
-		special_permit_decision_service = SpecialPermitDecisionService(
-			document_number=instance.document_number,
-			config_loader=config_loader,
-		)
-		special_permit_decision_service.create_application_decision()
-	except SystemError as e:
-		logger.error(
-			f"SystemError: An error occurred while creating new application decision for {instance.document_number}, Got {e}")
-	except Exception as ex:
-		logger.error(
-			f"An error occurred while trying to create application decision after saving {instance.document_number}. Got {ex}")
+    if not created:
+        return
+    try:
+        special_permit_decision_service = SpecialPermitDecisionService(
+            document_number=instance.document_number,
+            config_loader=config_loader,
+        )
+        special_permit_decision_service.create_application_decision()
+    except SystemError as e:
+        logger.error(
+            f"SystemError: An error occurred while creating new application decision for {instance.document_number}, Got {e}"
+        )
+    except Exception as ex:
+        logger.error(
+            f"An error occurred while trying to create application decision after saving {instance.document_number}. Got {ex}"
+        )
 
 
 @receiver(post_save, sender=CommissionerDecision)
-def create_application_final_decision_by_commissioner_decision(sender, instance, created, **kwargs):
-	handle_application_final_decision(instance, created)
+def create_application_final_decision_by_commissioner_decision(
+    sender, instance, created, **kwargs
+):
+    handle_application_final_decision(instance, created)
 
 
 @receiver(post_save, sender=MinisterDecision)
-def create_application_final_decision_by_minister_decision(sender, instance, created, **kwargs):
-	handle_application_final_decision(instance, created)
+def create_application_final_decision_by_minister_decision(
+    sender, instance, created, **kwargs
+):
+    handle_application_final_decision(instance, created)
 
 
 # TODO: Implement the signal receiver to create a production permit record after an application decision is saved.
@@ -123,26 +164,38 @@ def create_application_final_decision_by_minister_decision(sender, instance, cre
 # 	handler.handle(instance)
 @receiver(post_save, sender=ApplicationDecision)
 def create_production_permit_record(sender, instance, created, **kwargs):
-	print("create_production_permit_record create_production_permit_record create_production_permit_record")
-	if not created:
-		return
-	try:
-		if instance.proposed_decision_type.code == ApplicationDecisionEnum.ACCEPTED.value:
-			request = PermitRequestDTO()
-			application = Application.objects.get(application_document__document_number=instance.document_number)
-			if application.process_name.upper() in [process_name.value.upper() for process_name in ApplicationProcesses]:
-				request.permit_type = application.process_name
-				request.place_issue = "Gaborone"  # Pending location solution
-				request.document_number = instance.document_number
-				request.application_type = application.process_name
-				permit = PermitProductionService(request=request)
-				permit.create_new_permit()
-	except SystemError as e:
-		logger.error(
-			f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}")
-	except Exception as ex:
-		logger.error(
-			f"An error occurred while trying to create permit for production {instance.document_number}. Got {ex}")
+    print(
+        "create_production_permit_record create_production_permit_record create_production_permit_record"
+    )
+    if not created:
+        return
+    try:
+        if (
+            instance.proposed_decision_type.code
+            == ApplicationDecisionEnum.ACCEPTED.value
+        ):
+            request = PermitRequestDTO()
+            application = Application.objects.get(
+                application_document__document_number=instance.document_number
+            )
+            if application.process_name.upper() in [
+                process_name.value.upper() for process_name in ApplicationProcesses
+            ]:
+                request.permit_type = application.process_name
+                request.place_issue = "Gaborone"  # Pending location solution
+                request.document_number = instance.document_number
+                request.application_type = application.process_name
+                permit = PermitProductionService(request=request)
+                permit.create_new_permit()
+    except SystemError as e:
+        logger.error(
+            f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}"
+        )
+    except Exception as ex:
+        logger.error(
+            f"An error occurred while trying to create permit for production {instance.document_number}. Got {ex}"
+        )
+
 
 # @receiver(post_save, sender=ApplicationDecision)
 # def create_production_pdf(sender, instance, created, **kwargs):

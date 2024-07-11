@@ -16,4 +16,4 @@ class Spouse(BaseUuidModel):
     work_resident_permit = models.ForeignKey(ResidencePermit, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Spouse'
+        verbose_name = "Spouse"

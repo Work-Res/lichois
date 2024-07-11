@@ -4,8 +4,8 @@ from ..choices import GENDER
 
 
 class Dependant(ApplicationBaseModel):
-	name = models.CharField(max_length=150)
-	
-	age = models.PositiveIntegerField()
-	
-	gender = models.CharField(max_length=6, choices=GENDER)
+    name = models.CharField(max_length=150)
+
+    age = models.PositiveIntegerField()
+
+    gender = models.CharField(max_length=6, choices=GENDER)

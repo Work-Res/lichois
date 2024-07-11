@@ -1,15 +1,15 @@
 import logging
-
 from typing import Optional
 
-from ..api import WorkResidentPermitApplication
-from app_personal_details.models import Person, Passport, Permit
+from app.models import ApplicationVerification
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
 from app_contact.models import ApplicationContact
-from app.models import ApplicationVerification
+from app_personal_details.models import Passport, Permit, Person
 from board.models import BoardDecision
-from ..models import Child, Spouse, ResidencePermit, WorkPermit, SecurityClearance
+
+from ..api import WorkResidentPermitApplication
+from ..models import Child, ResidencePermit, SecurityClearance, Spouse, WorkPermit
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +36,13 @@ class WorkResidentPermitData(object):
         self.work_resident_permit_application.work_permit = self.work_permit()
         self.work_resident_permit_application.attachments = self.attachments()
         self.work_resident_permit_application.application = self.application()
-        self.work_resident_permit_application.security_clearance = self.security_clearance()
+        self.work_resident_permit_application.security_clearance = (
+            self.security_clearance()
+        )
         self.work_resident_permit_application.board_decision = self.board_decision()
-        self.work_resident_permit_application.application_verification = self.application_verification()
+        self.work_resident_permit_application.application_verification = (
+            self.application_verification()
+        )
         return self.work_resident_permit_application
 
     def personal_details(self):
@@ -60,7 +64,9 @@ class WorkResidentPermitData(object):
 
     def address(self):
         try:
-            address = ApplicationAddress.objects.get(document_number=self.document_number)
+            address = ApplicationAddress.objects.get(
+                document_number=self.document_number
+            )
             return address
         except ApplicationAddress.DoesNotExist:
             pass
@@ -73,18 +79,22 @@ class WorkResidentPermitData(object):
             pass
 
     def child(self):
-        child = Child.objects.filter(work_resident_permit__document_number=self.document_number)
+        child = Child.objects.filter(
+            work_resident_permit__document_number=self.document_number
+        )
         return child
 
     def spouse(self):
         spouse = Spouse.objects.filter(
-            work_resident_permit__document_number=self.document_number)
+            work_resident_permit__document_number=self.document_number
+        )
         return spouse
 
     def contacts(self):
         try:
             contacts = ApplicationContact.objects.get(
-                document_number=self.document_number)
+                document_number=self.document_number
+            )
             return contacts
         except ApplicationContact.DoesNotExist:
             pass
@@ -92,22 +102,23 @@ class WorkResidentPermitData(object):
     def resident_permit(self):
         try:
             form_details = ResidencePermit.objects.get(
-                document_number=self.document_number)
+                document_number=self.document_number
+            )
             return form_details
         except ResidencePermit.DoesNotExist:
             pass
 
     def work_permit(self):
         try:
-            form_details = WorkPermit.objects.get(
-                document_number=self.document_number)
+            form_details = WorkPermit.objects.get(document_number=self.document_number)
             return form_details
         except WorkPermit.DoesNotExist:
             pass
 
     def attachments(self):
         attachments = ApplicationAttachment.objects.filter(
-            application_version__application__application_document__document_number=self.document_number)
+            application_version__application__application_document__document_number=self.document_number
+        )
         return attachments
 
     def application(self):
@@ -127,7 +138,9 @@ class WorkResidentPermitData(object):
             None: If no verification object is found.
         """
         try:
-            return ApplicationVerification.objects.get(document_number=self.document_number)
+            return ApplicationVerification.objects.get(
+                document_number=self.document_number
+            )
         except ApplicationVerification.DoesNotExist:
             return None
 
@@ -142,7 +155,9 @@ class WorkResidentPermitData(object):
         try:
             return SecurityClearance.objects.get(document_number=self.document_number)
         except SecurityClearance.DoesNotExist:
-            logger.info(f"SecurityClearance with document number {self.document_number} does not exist.")
+            logger.info(
+                f"SecurityClearance with document number {self.document_number} does not exist."
+            )
             return None
 
     def board_decision(self) -> Optional[BoardDecision]:
@@ -158,5 +173,7 @@ class WorkResidentPermitData(object):
                 assessed_application__application_document__document_number=self.document_number
             )
         except BoardDecision.DoesNotExist:
-            logger.info(f"BoardDecision with document number {self.document_number} does not exist.")
+            logger.info(
+                f"BoardDecision with document number {self.document_number} does not exist."
+            )
             return None

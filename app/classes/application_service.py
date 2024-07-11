@@ -6,16 +6,12 @@ from app.api import NewApplicationDTO
 from app.api.serializers import ApplicationVersionSerializer
 from app.models import (
     ApplicationDocument,
-    ApplicationUser,
     ApplicationStatus,
     Application,
     ApplicationVersion,
 )
 from app.utils import ApplicationStatusEnum
-from workresidentpermit.classes.document_generator import (
-    DocumentGenerator,
-    DocumentGeneratorFactory,
-)
+from workresidentpermit.classes.document_generator import DocumentGeneratorFactory
 from workresidentpermit.classes.work_res_application_repository import (
     ApplicationRepository,
 )
@@ -42,8 +38,6 @@ class ApplicationService:
         application_status = self._get_application_status()
         if not application_status:
             return None
-
-        print(application_status)
 
         if not self._create_application_document():
             return None
@@ -151,6 +145,8 @@ class ApplicationService:
         self.application_document.document_date = date.today()
         self.application_document.signed_date = date.today()
         self.application_document.applicant_type = self.application.applicant_type
+        self.application_document.permit_period = self.application.permit_period
+
         ApplicationRepository.save_application_document(self.application_document)
 
         self._log_and_set_response(

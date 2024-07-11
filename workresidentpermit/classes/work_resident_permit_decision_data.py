@@ -1,9 +1,9 @@
-from ..api import WorkResidentPermitApplication
-from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
+from app_personal_details.models import Passport, Person
 
-from ..models import ResidencePermit, WorkPermit, Child, Spouse
+from ..api import WorkResidentPermitApplication
+from ..models import Child, ResidencePermit, Spouse, WorkPermit
 
 
 class WorkResidentPermitData(object):
@@ -44,7 +44,9 @@ class WorkResidentPermitData(object):
 
     def address(self):
         try:
-            address = ApplicationAddress.objects.get(document_number=self.document_number)
+            address = ApplicationAddress.objects.get(
+                document_number=self.document_number
+            )
             return address
         except ApplicationAddress.DoesNotExist:
             pass
@@ -55,7 +57,7 @@ class WorkResidentPermitData(object):
             return permit
         except ResidencePermit.DoesNotExist:
             pass
-    
+
     def work_permit(self):
         try:
             permit = WorkPermit.objects.get(document_number=self.document_number)
@@ -72,5 +74,7 @@ class WorkResidentPermitData(object):
         return spouse
 
     def attachments(self):
-        attachments = ApplicationAttachment.objects.filter(document_number=self.document_number)
+        attachments = ApplicationAttachment.objects.filter(
+            document_number=self.document_number
+        )
         return attachments

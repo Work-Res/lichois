@@ -5,9 +5,9 @@ from .recruiters_licence import RecruitersLicense
 
 class WageRate(BaseUuidModel):
 
-	recruiters_license = models.ForeignKey(RecruitersLicense, on_delete=models.CASCADE)
-	class_position = models.CharField(max_length=150)
-	rate = models.CharField(max_length=150)
+    recruiters_license = models.ForeignKey(RecruitersLicense, on_delete=models.CASCADE)
+    class_position = models.CharField(max_length=150)
+    rate = models.CharField(max_length=150)
 
-	class Meta:
-		app_label = 'workresidentpermit'
+    class Meta:
+        app_label = "workresidentpermit"

@@ -15,4 +15,6 @@ class WorkPermitApplicationAPIView(APIView):
             data = application.submit().result()
             return Response(data, status=status.HTTP_200_OK)
         else:
-            return Response(validator.response.result(), status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                validator.response.result(), status=status.HTTP_400_BAD_REQUEST
+            )
