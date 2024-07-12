@@ -3,6 +3,6 @@ from ..models import BoardDecision
 
 
 class BoardDecisionSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = BoardDecision
-		fields = '__all__'
+    class Meta:
+        model = BoardDecision
+        fields = "__all__"

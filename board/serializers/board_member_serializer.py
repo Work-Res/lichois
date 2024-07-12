@@ -5,4 +5,4 @@ from ..models import BoardMember
 class BoardMemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = BoardMember
-        fields = '__all__'
+        fields = "__all__"
