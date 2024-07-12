@@ -7,3 +7,4 @@ from app_assessment.models import AppealAssessment
 class AppealAssessmentViewSet(viewsets.ModelViewSet):
     queryset = AppealAssessment.objects.all()
     serializer_class = AppealAssessmentSerializer
+    lookup_field = "document_number"
