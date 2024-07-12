@@ -145,7 +145,6 @@ class ApplicationService:
         self.application_document.document_date = date.today()
         self.application_document.signed_date = date.today()
         self.application_document.applicant_type = self.application.applicant_type
-        self.application_document.permit_period = self.application.permit_period
 
         ApplicationRepository.save_application_document(self.application_document)
 
@@ -165,6 +164,8 @@ class ApplicationService:
         application.application_status = application_status
         application.process_name = self.application.proces_name
         application.application_type = self.application.application_type
+        application.permit_period = self.application.permit_period
+
         application.last_application_version_id = 1
 
         ApplicationRepository.save_application(application)
