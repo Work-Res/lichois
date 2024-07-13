@@ -1,4 +1,3 @@
-from .blue_card_application_viewset import BlueCardApplicationViewSet
 from .contact_method_viewset import ContactMethodViewSet
 from .disposal_money_viewset import DisposalMoneySerializer
 from .exemption_certificate_viewset import ExemptionCertificateViewSet
