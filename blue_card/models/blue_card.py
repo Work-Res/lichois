@@ -1,7 +1,9 @@
+from tabnanny import verbose
 from app.models.application_base_model import ApplicationBaseModel
 
 
 class BlueCard(ApplicationBaseModel):
 
     class Meta:
-        app_label = "visa"
+        verbose_name = "Blue Card"
+        verbose_name_plural = "Blue Cards"

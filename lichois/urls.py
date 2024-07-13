@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -30,7 +31,7 @@ from board.admin_site import board_admin
 schema_view = get_schema_view(
     openapi.Info(
         title="Africort Technologies",
-        default_version='v1',
+        default_version="v1",
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -38,28 +39,37 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('board/', board_admin.urls),
-    path('app/', app_admin.urls),
-    path('lichois/api/v1/', include('app.urls')),
-    path('lichois/api/v1/', include('app_address.urls')),
-    path('lichois/api/v1/', include('app_checklist.urls')),
-    path('lichois/api/v1/', include('app_comments.urls')),
-    path('lichois/api/v1/', include('app_contact.urls')),
-    path('lichois/api/v1/', include('app_decision.urls')),
-    path('lichois/api/v1/', include('app_attachments.urls')),
+    path("board/", board_admin.urls),
+    path("app/", app_admin.urls),
+    path("lichois/api/v1/", include("app.urls")),
+    path("lichois/api/v1/", include("app_address.urls")),
+    path("lichois/api/v1/", include("app_checklist.urls")),
+    path("lichois/api/v1/", include("app_comments.urls")),
+    path("lichois/api/v1/", include("app_contact.urls")),
+    path("lichois/api/v1/", include("app_decision.urls")),
+    path("lichois/api/v1/", include("app_attachments.urls")),
     # path('lichois/api/v1/', include('app_search.urls')),
-    path('lichois/api/v1/', include('app_personal_details.urls')),
-    path('lichois/api/v1/', include('workresidentpermit.urls')),
-    path('lichois/api/v1/', include('board.urls')),
-    path('lichois/api/v1/', include('visa.urls')),
-    path('lichois/api/v1/', include('workflow.urls')),
-    path('lichois/api/v1/', include('app_assessment.urls')),
-    path('lichois/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('lichois/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('lichois/api/v1/', include('authentication.urls')),
-    path('lichois/api/v1/', include('app_checklist.urls')),
-    path('lichois/api/v1/', include('travel.urls')),
-    path('lichois/api/v1/', include('app_notification.urls')),
+    path("lichois/api/v1/", include("app_personal_details.urls")),
+    path("lichois/api/v1/", include("workresidentpermit.urls")),
+    path("lichois/api/v1/", include("board.urls")),
+    path("lichois/api/v1/", include("visa.urls")),
+    path("lichois/api/v1/", include("workflow.urls")),
+    path("lichois/api/v1/", include("app_assessment.urls")),
+    path(
+        "lichois/docs/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path(
+        "lichois/redoc/",
+        schema_view.with_ui("redoc", cache_timeout=0),
+        name="schema-redoc",
+    ),
+    path("lichois/api/v1/", include("authentication.urls")),
+    path("lichois/api/v1/", include("app_checklist.urls")),
+    path("lichois/api/v1/", include("travel.urls")),
+    path("lichois/api/v1/", include("app_notification.urls")),
+    path("lichois/api/v1/", include("blue_card.urls")),
 ]
 
 if settings.DEBUG:
