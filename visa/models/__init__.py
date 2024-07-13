@@ -1,4 +1,4 @@
-from .blue_card import BlueCard
+from ...blue_card.models.blue_card import BlueCard
 from .blue_card_application import BlueCardApplication
 from .contact_method import ContactMethod
 from .disposal_money import DisposalMoney

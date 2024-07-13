@@ -1,8 +1,6 @@
-
-
 class BlueCardApplicationDetails:
-    """A wrapper class for work resident permit application details API model.
-    """
+    """A wrapper class for work resident permit application details API model."""
+
     def __init__(self):
         self._personal_details = None
         self._passport = None
@@ -10,7 +8,6 @@ class BlueCardApplicationDetails:
         self._address = None
         self._attachments = None
         self._blue_card_application = None
-
 
     @property
     def personal_details(self):

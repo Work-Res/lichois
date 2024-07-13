@@ -116,7 +116,8 @@ class ApplicationService:
             self._log_and_set_response(
                 400,
                 "Bad request",
-                f"The system failed to create application user with user identifier: {self.application.applicant_identifier}. Error: {e}",
+                "The system failed to create application user with user identifier: "
+                f"{self.application.applicant_identifier}. Error: {e}",
             )
             return None
 
@@ -136,7 +137,8 @@ class ApplicationService:
             self._log_and_set_response(
                 400,
                 "Bad request",
-                f"The system failed to create application document, document number: {document_number}, applicant: {applicant}.",
+                "The system failed to create application document, document number: "
+                + f"{document_number}, applicant: {applicant}.",
             )
             return False
 
