@@ -11,7 +11,7 @@ from ..models import BoardMember, InterestDeclaration, MeetingAttendee
 
 class InterestDeclarationSerializer(serializers.ModelSerializer):
     document_number = serializers.CharField(max_length=150, required=True)
-    meeting_attendee = serializers.PrimaryKeyRelatedField()
+    # meeting_attendee = serializers.PrimaryKeyRelatedField()
 
     class Meta:
         model = InterestDeclaration
