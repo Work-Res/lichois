@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from ..models.blue_card import BlueCard
+from ..models import BlueCard
 
 
-class BlueCardApplicationSerializer(serializers.ModelSerializer):
+class BlueCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlueCard
         fields = "__all__"

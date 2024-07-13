@@ -4,8 +4,8 @@ from rest_framework.response import Response
 
 from app.classes.application_summary import ApplicationSummary
 
-from ...models import BlueCardApplication
-from ..serializers import BlueCardApplicationSerializer
+from ...models import BlueCard
+from ..serializers import BlueCardSerializer
 
 
 def get_app_labels():
@@ -15,8 +15,8 @@ def get_app_labels():
 
 
 class BlueCardViewSet(viewsets.ModelViewSet):
-    queryset = BlueCardApplication.objects.all()
-    serializer_class = BlueCardApplicationSerializer
+    queryset = BlueCard.objects.all()
+    serializer_class = BlueCardSerializer
 
     @action(
         detail=False,
