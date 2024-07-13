@@ -16,10 +16,11 @@ class BlueCardApplicationViewSet(viewsets.ModelViewSet):
         # document_number = request.query_params.get('document_number', None)
 
         if document_number is not None:
-            blue_card_application_data = BlueCardApplicationData(document_number=document_number)
+            blue_card_application_data = BlueCardApplicationData(
+                document_number=document_number
+            )
             if blue_card_application_data:
                 print(blue_card_application_data.data().__dict__)
                 serializer = BlueCardApplicationData(blue_card_application_data.data())
                 return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({})
-
