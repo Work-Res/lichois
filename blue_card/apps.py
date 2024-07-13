@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from django.apps import AppConfig as BaseAppConfig
 
 
-class BlueCardConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'blue_card'
+class AppConfig(BaseAppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "blue_card"
