@@ -1,4 +1,3 @@
-from .blue_card_serializer import BlueCardSerializer
 from .blue_card_application_serializer import BlueCardApplicationSerializer
 from .contact_method_serializer import ContactMethodSerializer
 from .disposal_money_serializer import DisposalMoneySerializer
