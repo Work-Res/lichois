@@ -4,5 +4,6 @@ from ..api.serializers import CommentSerializer
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-	queryset = Comment.objects.all()
-	serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field = "document_number"
