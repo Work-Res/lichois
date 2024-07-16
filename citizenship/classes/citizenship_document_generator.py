@@ -21,6 +21,7 @@ class CitizenshipDocumentGenerator:
 
         # Get the appropriate identifier
         identifier = self.get_identifier(process_name)
+        # self.stdout.write(self.style.SUCCESS(f"Identifier: {identifier}"))
         if identifier:
             return identifier
 

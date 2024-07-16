@@ -39,6 +39,7 @@ class ApplicationService:
             return None
 
         application_status = self._get_application_status()
+        print(application_status)
         if not application_status:
             return None
 
@@ -46,6 +47,7 @@ class ApplicationService:
             return None
 
         application = self._create_application_record(application_status)
+        print(application)
         application_version = self._create_application_version(application)
 
         serializer = ApplicationVersionSerializer(application_version)

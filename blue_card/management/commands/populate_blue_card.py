@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ApplicationProcesses.BLUE_CARD.name
+        process_name = ApplicationProcesses.BLUE_CARD.value
         self.stdout.write(self.style.SUCCESS(f"Process name {process_name}"))
 
         for _ in range(150):
@@ -28,7 +28,7 @@ class Command(BaseCommand):
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    application_type=ApplicationProcesses.BLUE_CARD.name,
+                    application_type=process_name,
                     process_name=process_name,
                     applicant_identifier=(
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
