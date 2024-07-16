@@ -1,5 +1,4 @@
 from random import randint
-
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from faker import Faker
@@ -12,7 +11,7 @@ from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from app_personal_details.models import Passport, Person
 from app_personal_details.models.next_of_kin import NextOfKin
-from workresidentpermit.models import PermitAppeal
+from ...enums import BlueCardApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -28,7 +27,7 @@ class Command(BaseCommand):
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    application_type=process_name,
+                    application_type=BlueCardApplicationTypeEnum.BLUE_CARD_ONLY.value,
                     process_name=process_name,
                     applicant_identifier=(
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
