@@ -110,8 +110,8 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
     @action(
         detail=False,
         methods=["post"],
-        url_path="create-interest-declaration/batch/",
-        url_name="create-batch-interest-declaration",
+        url_path="create-batch",
+        url_name="create-batch",
     )
     def create_interest_declaration_no_conflict(self, request):
 
