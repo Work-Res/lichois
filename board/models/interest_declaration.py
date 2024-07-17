@@ -8,17 +8,15 @@ from ..choices import BOARD_RESOLUTION, INTEREST_LEVEL
 
 
 class InterestDeclaration(BaseUuidModel):
-    
+
     meeting = models.ForeignKey(
         BoardMeeting,
         on_delete=models.SET_NULL,
         null=True,
     )
-    
+
     meeting_attendee = models.ForeignKey(
-        MeetingAttendee,
-        on_delete=models.SET_NULL,
-        null=True
+        MeetingAttendee, on_delete=models.SET_NULL, null=True
     )
 
     document_number = models.CharField(max_length=150, blank=True, null=True)
@@ -29,20 +27,16 @@ class InterestDeclaration(BaseUuidModel):
         blank=True,
         null=True,
     )
-    
+
     interest_description = models.TextField(blank=True, null=True)
-    
-    decision = models.CharField(
-        max_length=50,
-        choices=BOARD_RESOLUTION
-    )
-    
+
+    decision = models.CharField(max_length=50, choices=BOARD_RESOLUTION)
+
     attendee_signature = models.BooleanField()
     date_signed = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.meeting_attendee} - {self.decision}'
+        return f"{self.meeting_attendee} - {self.decision}"
 
     class Meta:
-        app_label = 'board'
-
+        app_label = "board"

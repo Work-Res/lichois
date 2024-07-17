@@ -1,3 +1,4 @@
+import re
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -104,4 +105,41 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
         return Response(
             APIMessage(message="Interest declaration not found", code=404).to_dict(),
             status=404,
+        )
+
+    @action(
+        detail=False,
+        methods=["post"],
+        url_path="create-interest-declaration/batch/",
+        url_name="create-batch-interest-declaration",
+    )
+    def create_interest_declaration_no_conflict(self, request):
+
+        batch = request.data.get("batch", None)
+        meeting = request.data.get("meeting", None)
+        if not batch:
+            return Response(APIMessage(message="Batch is required", code=400).to_dict())
+
+        for document in batch:
+            interest_declaration = InterestDeclaration.objects.filter(
+                document_number=document
+            ).first()
+            if not interest_declaration:
+                data = {
+                    "document_number": document,
+                    "meeting": meeting,
+                    "decision": "vote",
+                    "attendee_signature": True,
+                }
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid(raise_exception=True):
+                    self.perform_create(serializer)
+
+        return Response(
+            APIMessage(
+                message="Interest declaration batch created successfully",
+                code=201,
+                details={"batch": batch},
+            ).to_dict(),
+            status=201,
         )
