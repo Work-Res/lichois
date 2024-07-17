@@ -39,7 +39,6 @@ class BoardMeetingVoteManager:
         ).values_list("meeting_attendee__board_member__id", flat=True)
         # Get the board members who have not voted
 
-        board_member = BoardMember.objects.filter(meeting_invitation).first()
         not_voted_members = board_members.exclude(id__in=voted).values_list(
             "user__username", flat=True
         )
