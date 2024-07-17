@@ -4,6 +4,9 @@ from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
 
 from board.models import BoardMeetingVote, BoardMember, InterestDeclaration
+from board.models import meeting_invitation
+from board.models.board_meeting import BoardMeeting
+from board.models.meeting_invitation import MeetingInvitation
 
 
 class BoardMeetingVoteManager:
@@ -35,6 +38,8 @@ class BoardMeetingVoteManager:
             document_number=self.document_number
         ).values_list("meeting_attendee__board_member__id", flat=True)
         # Get the board members who have not voted
+
+        board_member = BoardMember.objects.filter(meeting_invitation).first()
         not_voted_members = board_members.exclude(id__in=voted).values_list(
             "user__username", flat=True
         )

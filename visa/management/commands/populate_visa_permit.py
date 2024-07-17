@@ -11,7 +11,8 @@ from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from app_personal_details.models import Passport, Person
 from app_personal_details.models.next_of_kin import NextOfKin
-from ...enums import BlueCardApplicationTypeEnum
+from visa.models.visa_application import VisaApplication
+from ...enums import VisaApplicationTypeEnum
 
 
 class Command(BaseCommand):
@@ -19,7 +20,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ApplicationProcesses.BLUE_CARD_PERMIT.value
+        process_name = ApplicationProcesses.VISA_PERMIT.value
         self.stdout.write(self.style.SUCCESS(f"Process name {process_name}"))
 
         for _ in range(150):
@@ -27,7 +28,7 @@ class Command(BaseCommand):
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    application_type=BlueCardApplicationTypeEnum.BLUE_CARD_ONLY.value,
+                    application_type=VisaApplicationTypeEnum.VISA_PERMIT_ONLY.value,
                     process_name=process_name,
                     applicant_identifier=(
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
@@ -108,16 +109,13 @@ class Command(BaseCommand):
                     photo=faker.image_url(),
                 )
 
-                NextOfKin.objects.get_or_create(
+                VisaApplication.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    first_name=faker.first_name(),
-                    last_name=faker.last_name(),
-                    relation=faker.random_element(
-                        elements=("spouse", "parent", "child", "sibling")
-                    ),
-                    telephone=faker.phone_number(),
-                    cell_phone=faker.phone_number(),
+                    personal_info_id=faker.uuid4(),
+                    contact_info_id=faker.uuid4(),
+                    bots_address_id=faker.uuid4(),
+                    dom_country_address_id=faker.uuid4(),
                 )
 
                 self.stdout.write(
