@@ -37,16 +37,18 @@ class ApplicationDocumentGenerator:
         """
         Get the identifier for standard processes based on the process name.
         """
-
+        print("self.application.application_type: ", process_name)
         identifier_class = registrar.get_registered_class(process_name)
-
+        if not identifier_class:
+            raise IdentifierConfigNotFound(
+                f"Identifier configuration class not found "
+                f"for application type/process name: {self.application.application_type}")
         return self.create_identifier(identifier_class) if identifier_class else None
 
     def get_special_permit_identifier(self):
         """
         Handle the creation of special permit identifiers.
         """
-
         handler_class = registrar.get_registered_class(self.application.application_type)
         if not handler_class:
             raise IdentifierConfigNotFound(

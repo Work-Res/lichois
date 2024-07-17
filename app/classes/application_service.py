@@ -27,14 +27,14 @@ class ApplicationService:
 		"""
 		if self._is_existing_application():
 			return None
-		
+
 		application_status = self._get_application_status()
 		if not application_status:
 			return None
 
 		if not self._create_application_document():
 			return None
-		
+
 		application = self._create_application_record(application_status)
 		application_version = self._create_application_version(application)
 		
@@ -57,7 +57,8 @@ class ApplicationService:
 			self._log_and_set_response(
 				400,
 				"Bad request",
-				f"An application with (NEW) status exists for applicant: {self.new_application_dto.applicant_identifier}. "
+				f"An application with (NEW) status exists for "
+				f"applicant: {self.new_application_dto.applicant_identifier}. "
 				f"Complete the existing application before opening a new one."
 			)
 			return True
@@ -103,7 +104,8 @@ class ApplicationService:
 			self._log_and_set_response(
 				400,
 				"Bad request",
-				f"The system failed to create application user with user identifier: {self.new_application_dto.applicant_identifier}. Error: {e}"
+				f"The system failed to create application user with "
+				f"user identifier: {self.new_application_dto.applicant_identifier}. Error: {e}"
 			)
 			return None
 	
@@ -112,11 +114,10 @@ class ApplicationService:
 		Generate the document number for the particular process and create an ApplicationUser.
 		"""
 		print("Generating document number...")
-		doc_generator = ApplicationDocumentGeneratorFactory.create_document_generator(self.application)
+		doc_generator = ApplicationDocumentGeneratorFactory.create_document_generator(self.new_application_dto)
 		document_number = doc_generator.generate_document()
-		
 		applicant = self._get_or_create_application_user()
-		
+
 		if not document_number or not applicant:
 			self._log_and_set_response(
 				400,
@@ -124,6 +125,7 @@ class ApplicationService:
 				f"The system failed to create application document, document number: {document_number}, applicant: {applicant}."
 			)
 			return False
+		print("document_number document_number document_number")
 		
 		self.application_document.document_number = document_number
 		self.application_document.applicant = applicant
