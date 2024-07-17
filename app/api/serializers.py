@@ -73,6 +73,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
             "security_clearance",
             "verification",
             "permit_period",
+            "assessment",
         )
 
 
