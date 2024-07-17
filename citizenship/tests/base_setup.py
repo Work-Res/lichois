@@ -29,7 +29,7 @@ class BaseSetup(TestCase):
 
     def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
-            process_name=CitizenshipProcessEnum.RENUNCIATION.value,
+            process_name=CitizenshipProcessEnum.RENUNCIATION.value.lower(),
             applicant_identifier='317918515',
             status=ApplicationStatusEnum.NEW.value,
             dob="06101990",

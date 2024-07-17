@@ -1,5 +1,6 @@
 from django.test import TestCase
 from app.identifiers import IdentifierScanRegister
+from citizenship.utils import CitizenshipProcessEnum
 
 
 class IdentifierScanRegisterTest(TestCase):
@@ -12,7 +13,7 @@ class IdentifierScanRegisterTest(TestCase):
         """
         self.registrar.scan_and_register_identifier_config_classes(
             key_method_name="process_name")
-        process_name = 'citizenship_renunciation'
+        process_name = CitizenshipProcessEnum.RENUNCIATION.value
         citizenship_enunciation_cls = \
             self.registrar.get_registered_class(process_name)
         self.assertIsNotNone(citizenship_enunciation_cls)
@@ -26,5 +27,5 @@ class IdentifierScanRegisterTest(TestCase):
         process_name = 'citizenship_renunciation_invalid'
         citizenship_enunciation_cls = \
             self.registrar.get_registered_class(process_name)
-        self.assertIsNotNone(citizenship_enunciation_cls)
+        self.assertIsNone(citizenship_enunciation_cls)
         self.assertFalse(process_name in self.registrar.registered_identifier_config_classes)

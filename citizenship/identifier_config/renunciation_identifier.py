@@ -1,5 +1,7 @@
 from identifier.identifier import Identifier
 
+from citizenship.utils import CitizenshipProcessEnum
+
 
 class RenunciationIdentifier(Identifier):
     template = '{identifier_type}{address_code}{dob}{sequence}'
@@ -8,4 +10,4 @@ class RenunciationIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return 'citizenship_renunciation'
+        return CitizenshipProcessEnum.RENUNCIATION.value
