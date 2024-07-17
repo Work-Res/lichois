@@ -1,3 +1,2 @@
 from .failed_to_create_application_user_exception import FailedToCreateApplicationUser
 from .application_renewal_exception import ApplicationRenewalException
-from .document_generator_factory_not_found import IdentifierConfigNotFound
