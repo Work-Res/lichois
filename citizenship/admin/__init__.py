@@ -11,7 +11,7 @@ from .kgosana_certificate_admin import KgosanaCertificateAdmin
 from .late_citizenship_renunciation_admin import LateCitizenshipRenunciationAdmin
 from .nationality_declaration_admin import NationalityDeclarationAdmin
 from .naturalisation_admin import NaturalisationAdmin
-from .naturalisation_foreign_spouse_admin import NaturalisationOfForeignSpouseAdmin
+# from .naturalisation_foreign_spouse_admin import NaturalisationOfForeignSpouseAdmin
 from .oath_of_allegiance_admin import OathOfAllegianceAdmin
 from .parent_details_admin import ParentDetailsAdmin
 from .personal_declaration_admin import PersonalDeclarationAdmin

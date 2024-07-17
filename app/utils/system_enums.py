@@ -41,4 +41,3 @@ class ApplicationDecisionEnum(Enum):
     APPROVED = "approved"
     DEFERRED = "deferred"
 
-    

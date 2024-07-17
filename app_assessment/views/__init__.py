@@ -1,3 +1,7 @@
 from .assessment_view_create_list import AssessmentResultViewSet, AssessmentViewSet
 from .assessment_investor_create_view import AssessmentInvestorViewSet
 from .assessment_emergency_viewset import AssessmentEmergencyViewSet
+from .assessment_case_note_viewset import AssessmentCaseNoteViewSet
+from .assessment_case_summary_viewset import AssessmentCaseSummaryViewSet
+
+

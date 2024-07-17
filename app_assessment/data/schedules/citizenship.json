@@ -1,0 +1,19 @@
+{
+  "assessment_schedules": [
+    {
+      "description": "Assessment Decision by Officer.",
+      "role": "Assessment Officer",
+      "is_active": "true"
+    },
+    {
+      "description": "Assessment Decision by Director.",
+      "role": "Assessment Director",
+      "is_active": "false"
+    },
+    {
+      "description": "Assessment Decision by PS.",
+      "role": "Assessment Personal Secretary(PS).",
+      "is_active": "false"
+    }
+  ]
+}

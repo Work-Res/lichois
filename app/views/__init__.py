@@ -6,3 +6,4 @@ from .application_verification_create_list_view import ApplicationVerificationCr
 from .application_renewal_view import ApplicationRenewalView
 from .application_renewal_history_filter import ApplicationRenewalHistoryFilter
 from .application_renewal_history_view import ApplicationRenewalHistoryView
+from .application_verification_apiview import ApplicationVerificationAPIView

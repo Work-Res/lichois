@@ -108,3 +108,11 @@ SUBMITTER_TYPE = (
 	('applicant', 'Applicant'),
 	('officer', 'Officer')
 )
+
+PERSON_TYPE = (
+	('applicant', 'Applicant'),
+	('mother', 'Mother'),
+	('father', 'Father'),
+	('child', 'Child'),
+	('guardian', 'Guardian')
+)

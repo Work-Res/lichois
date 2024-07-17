@@ -7,3 +7,4 @@ from .late_citizenship_renunciation_data import LateCitizenshipRenunciationData
 from .nationality_declaration_data import NationalityDeclarationData
 from .naturalisation_data import NaturalisationData
 from .renunciation_of_foreign_citizenship_data import RenunciationOfForeignCitizenshipData
+from .citizenship_document_generator import CitizenshipDocumentGeneratorFactory

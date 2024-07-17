@@ -57,6 +57,8 @@ INSTALLED_APPS = [
 	"workresidentpermit.apps.WorkresidentpermitConfig",
 	"workflow.apps.WorkflowConfig",
 	"identifier.apps.AppConfig",
+	"citizenship",
+	"app_oath",
 	# "haystack",
 	"rules.apps.AutodiscoverRulesConfig",
 	"rest_framework",
@@ -203,17 +205,24 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static', ]
 
-STORAGES = {
-	"staticfiles": {
-		"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-	},
-}
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 PDF_FOLDER = 'generated'
 PDF_TEMPLATE_WORKRESIDENTPERMIT = "pdf/application_summary.html"
 DEPARTMENT = "ministry of Citizen and industry"
+
+STORAGES = {
+	"default": {
+		"BACKEND": "django.core.files.storage.FileSystemStorage",
+		"OPTIONS": {
+			"location": MEDIA_ROOT,
+		},
+	},
+	"staticfiles": {
+		"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+	},
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

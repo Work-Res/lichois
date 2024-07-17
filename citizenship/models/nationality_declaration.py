@@ -15,7 +15,7 @@ class NationalityDeclaration(CommissionerOathModelMixin,
     address_id = models.CharField(max_length=25)
 
     visit_country_name = models.CharField(max_length=190)
-    visit_country_reason = models.TextField(max_lenght=350)
+    visit_country_reason = models.TextField(max_length=350)
     visit_country_year = models.DateField()
 
     #Residential_place

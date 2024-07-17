@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 from app.views import (
     ApplicationListView, ApplicationCreateView, ApplicationStatusViewSet, ApplicationVerificationCreateListView,
-    ApplicationRenewalView, ApplicationRenewalHistoryView
+    ApplicationRenewalView, ApplicationRenewalHistoryView, ApplicationVerificationAPIView
 )
 
 router = DefaultRouter()
@@ -18,4 +18,6 @@ urlpatterns = [
     path('applications', ApplicationCreateView.as_view(), name='application-new'),
     path('applications/renewal', ApplicationRenewalView.as_view(), name='application-renewal'),
     path('', include(router.urls)),
+    path('app/verification/<str:document_number>/submit/',
+         ApplicationVerificationAPIView.as_view(), name='submit-verification')
 ]

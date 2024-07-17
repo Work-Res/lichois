@@ -3,7 +3,8 @@ import os
 from rest_framework import serializers
 
 from app_checklist.utils import ReadJSON
-from ..models import AssessmentResult, AssessmentInvestor
+from ..models import AssessmentResult, AssessmentInvestor, AssessmentCaseNote, AssessmentCaseSummary, \
+    AssessmentCaseDecision
 from app_assessment.models import Assessment, AssessmentEmergency
 from app_assessment.validators import AssessmentValidator
 
@@ -62,4 +63,26 @@ class AssessmentInvestorSerializer(serializers.ModelSerializer):
 class AssessmentEmergencySerializer(serializers.ModelSerializer):
     class Meta:
         model = AssessmentEmergency
+        fields = '__all__'
+
+
+class AssessmentCaseNoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AssessmentCaseNote
+        fields = '__all__'
+
+
+class AssessmentCaseSummarySerializer(serializers.ModelSerializer):
+
+    data = serializers.JSONField()
+
+    class Meta:
+        model = AssessmentCaseSummary
+        fields = '__all__'
+
+
+class AssessmentCaseDecisionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AssessmentCaseDecision
         fields = '__all__'

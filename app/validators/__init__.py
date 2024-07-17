@@ -1,1 +1,3 @@
 from .application_renewal_validator import ApplicationRenewalValidator
+from .officer_verification_validator import OfficerVerificationValidator
+

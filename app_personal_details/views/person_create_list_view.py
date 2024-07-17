@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 
+from ..filters import PersonFilter
 from ..models import Person
 from ..api import PersonSerializer
 
@@ -13,6 +14,7 @@ class PersonCreateListView(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
     lookup_field = 'document_number'
+    filterset_class = PersonFilter
 
     def post(self, request, document_number, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

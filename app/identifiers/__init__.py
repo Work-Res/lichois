@@ -1,1 +1,3 @@
 from .work_resident_identifier import WorkResidentPermitIdentifier
+from .identifier_scan_register import IdentifierScanRegister
+

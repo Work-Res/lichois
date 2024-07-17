@@ -2,3 +2,7 @@ from .assessment_result import AssessmentResult
 from .assessment import Assessment
 from .assessment_investor import AssessmentInvestor
 from .assessment_emergency import AssessmentEmergency
+from .assessment_case_note import AssessmentCaseNote
+from .assessment_case_summary import AssessmentCaseSummary
+from .assessement_case_decision import AssessmentCaseDecision
+from .parent_manager import ParentModelManager
