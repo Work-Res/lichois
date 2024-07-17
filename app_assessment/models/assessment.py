@@ -13,13 +13,14 @@ class Assessment(ApplicationBaseModel):
     total = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
     marking_score = models.JSONField(blank=True, null=True)
+    summary = models.TextField(blank=True, null=True)
 
     class Meta:
 
-        db_table = 'assessment'
-        verbose_name = 'Assessment'
-        verbose_name_plural = 'Assessments'
-        ordering = ['-competency', 'qualification']
+        db_table = "assessment"
+        verbose_name = "Assessment"
+        verbose_name_plural = "Assessments"
+        ordering = ["-competency", "qualification"]
 
     def __str__(self):
         return f"Assessment: {self.competency}, {self.qualification}"
