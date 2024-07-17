@@ -42,18 +42,7 @@ class AssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = [
-            "id",
-            "competency",
-            "qualification",
-            "employer_justification",
-            "scarce_skill",
-            "work_experience",
-            "total",
-            "score",
-            "marking_score",
-            "document_number",
-        ]
+        fields = "__all__"
 
 
 class NewAssessmentInvestorSerializer(serializers.ModelSerializer):
