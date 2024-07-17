@@ -3,3 +3,4 @@ from .new_assessment_investor_view import NewAssessmentInvestorViewSet
 from .renewal_assessment_investor_view import RenewalAssessmentInvestorViewSet
 from .assessment_emergency_viewset import AssessmentEmergencyViewSet
 from .appeal_assessment_viewset import AppealAssessmentViewSet
+from .dependant_assessment_viewset import DependantAssessmentViewSet

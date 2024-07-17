@@ -2,6 +2,7 @@ import os
 
 from rest_framework import serializers
 
+from app_assessment.models.dependant_assessment import DependantAssessment
 from app_checklist.utils import ReadJSON
 from ..models import AssessmentResult, NewAssessmentInvestor, RenewalAssessmentInvestor
 from app_assessment.models import Assessment, AssessmentEmergency, AppealAssessment
@@ -105,4 +106,10 @@ class AssessmentEmergencySerializer(serializers.ModelSerializer):
 class AppealAssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppealAssessment
+        fields = "__all__"
+
+
+class DependantAssessmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DependantAssessment
         fields = "__all__"

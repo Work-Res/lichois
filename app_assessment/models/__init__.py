@@ -4,3 +4,4 @@ from .new_assessment_investor import NewAssessmentInvestor
 from .renewal_assessment_investor import RenewalAssessmentInvestor
 from .assessment_emergency import AssessmentEmergency
 from .appeal_assessment import AppealAssessment
+from .dependant_assessment import DependantAssessment
