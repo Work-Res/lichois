@@ -1,7 +1,5 @@
 import os
 
-from unittest.mock import patch
-
 from django.test import TestCase
 
 
@@ -55,4 +53,4 @@ class TestCreateClassifier(TestCase):
         classifiers = ChecklistClassifier.objects.all()
         self.assertEqual(len(classifiers), 1)
         classifier_items = ChecklistClassifierItem.objects.all()
-        self.assertEqual(len(classifier_items), 6)
+        self.assertEqual(len(classifier_items), 41)
