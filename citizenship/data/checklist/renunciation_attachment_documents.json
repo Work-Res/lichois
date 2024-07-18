@@ -1,9 +1,8 @@
 {
   "classifiers": {
     "attachment_documents": {
-      "code": "ATTACHMENT_DOCUMENTS",
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
       "name": "ATTACHMENT DOCUMENTS",
-      "process_name": "WORK_RESIDENT_PERMIT",
       "description": "A list of document to attach",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01",
@@ -65,7 +64,7 @@
         {
           "code": "CERTIFIED_COPY_OF_CITIZENSHIP_CERTIFICATE",
           "name": "CERTIFIED COPY OF CITIZENSHIP CERTIFICATE",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION,CITIZENSHIP_RENUNCIATION,WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL",
+          "application_type": "CITIZENSHIP_RENUNCIATION",
           "description": "Certified copy of citizenship certificate",
           "mandatory":true,
           "valid_from" :"2024-01-01",

@@ -1,0 +1,66 @@
+{
+  "classifiers": {
+    "citizenship": {
+      "code": "CITIZENSHIP_INTENTION_FOREIGN_SPOUSE",
+      "name": "CITIZENSHIP OF INTENTION BY FOREIGN SPOUSE",
+      "description": "Declaration of Renunciation/Abandonment of Citizenship of Botswana Workflow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Declaration of Intention by Foreign Spouse",
+          "description": "Declaration of Intention by Foreign Spouse Verification",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2040-01-01",
+          "next_activity_name": "ASSESSMENT",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "DRAFT"
+          }
+        },
+        {
+          "code": "FIRST_ASSESSMENT",
+          "name": "FIRST ASSESSMENT",
+          "description": "Performs online assessment",
+          "sequence": 2,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "officer_verification": "ACCEPTED"
+          }
+        },
+        {
+          "code": "SECOND_ASSESSMENT",
+          "name": "SECOND ASSESSMENT",
+          "description": "Performs online assessment",
+          "sequence": 2,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "officer_verification": "ACCEPTED"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Renunciation Production decision",
+          "description": "Provision of citizenship certificate.",
+          "sequence": 2,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "officer_verification": "ACCEPTED"
+          }
+        }
+      ]
+    }
+  }
+}
