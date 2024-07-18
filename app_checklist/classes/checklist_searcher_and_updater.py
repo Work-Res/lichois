@@ -61,13 +61,13 @@ class ChecklistSearcherAndUpdater:
         self.search_json_files_in_directories()
         for app_name, json_files in self.json_files.items():
             for new_file in json_files:
-                workflow_service = CreateChecklistService(
+                checklist_service = CreateChecklistService(
                     parent_classifier_name="classifiers",
                     child_name="classifier_items",
-                    foreign_name="classifier",
-                    parent_app_label_model_name="app_checklist.classifier",
-                    foreign_app_label_model_name="app_checklist.classifieritem")
-                workflow_service.create(file_location=new_file)
+                    foreign_name="checklist_classifier",
+                    parent_app_label_model_name="app_checklist.checklistclassifier",
+                    foreign_app_label_model_name="app_checklist.checklistclassifieritem")
+                checklist_service.create(file_location=new_file)
 
     def display_results(self):
         if self.results:
