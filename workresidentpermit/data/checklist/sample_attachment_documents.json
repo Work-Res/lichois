@@ -3,7 +3,7 @@
     "attachment_documents": {
       "code": "ATTACHMENT_DOCUMENTS",
       "name": "ATTACHMENT DOCUMENTS",
-      "Classifier:": "CITIZENSHIP",
+      "process_name": "WORK_RESIDENT_PERMIT",
       "description": "A list of document to attach",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01",
@@ -12,7 +12,7 @@
           "code": "PASSPORT_COPY",
           "name": "PASSPORT COPY",
           "description": "Scanned passport page 1 copy.",
-          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, EXEMPTION_CERTIFICATE_ONLY, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_APPEAL, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_APPEAL, RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY, WORK_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, EXEMPTION_CERTIFICATE_ONLY, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_APPEAL, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_APPEAL, RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY, WORK_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY,CITIZENSHIP_RENUNCIATION",
           "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
@@ -20,7 +20,7 @@
         {
           "code": "PASSPORT_PHOTO",
           "name": "PASSPORT PHOTO",
-          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, EXEMPTION_CERTIFICATE_ONLY, , WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_REPLACEMENT, WORK_PERMIT_REPLACEMENT, RESIDENT_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_EMERGENCY, RESIDENT_PERMIT_ONLY, WORK_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, EXEMPTION_CERTIFICATE_ONLY,CITIZENSHIP_RENUNCIATION, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_REPLACEMENT, WORK_PERMIT_REPLACEMENT, RESIDENT_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_EMERGENCY, RESIDENT_PERMIT_ONLY, WORK_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, RESIDENT_PERMIT_EMERGENCY",
           "description": "Passport photo",
           "mandatory": true,
           "valid_from": "2024-01-01",
@@ -29,7 +29,7 @@
         {
           "code": "APPLICANT_COVER_LETTER",
           "name": "APPLICANTCOVER LETTER",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION,CITIZENSHIP_RENUNCIATION,WORK_PERMIT_REPLACEMENT",
           "description": "Cover letter from the applicant",
           "mandatory": true,
           "valid_from": "2024-01-01",
@@ -38,7 +38,7 @@
         {
           "code": "CONFIRMATION_LETTER",
           "name": "CONFIRMATION LETTER",
-          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
+          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,CITIZENSHIP_RENUNCIATION,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
           "description": "Confirmation Letter",
           "mandatory": true,
           "valid_from": "2024-01-01",
@@ -47,7 +47,7 @@
         {
           "code": "CERTIFIED_COPY_OF_OMANG",
           "name": "CERTIFIED COPY OF OMANG",
-          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
+          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,CITIZENSHIP_RENUNCIATION,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT",
           "description": "Certified copy of omang",
           "mandatory": true,
           "valid_from": "2024-01-01",
@@ -56,7 +56,7 @@
         {
           "code": "MARRIAGE CERTIFICATE",
           "name": "MARRIAGE_CERTIFICATE",
-          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT, RESIDENT_PERMIT_ONLY",
+          "application_type": "WORK_PERMIT_ONLY,WORK_PERMIT_EMERGENCY,CITIZENSHIP_RENUNCIATION,WORK_PERMIT_EXCEPTION,WORK_PERMIT_REPLACEMENT, RESIDENT_PERMIT_ONLY",
           "description": "Certified copy of Marriage Certificate",
           "mandatory": false,
           "valid_from": "2024-01-01",
@@ -65,8 +65,8 @@
         {
           "code": "ORIGINAL_WORK_PERMIT",
           "name": "ORIGINAL WORK PERMIT",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL",
-          "description": "Original work permit",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION,CITIZENSHIP_RENUNCIATION,WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL",
+          "description": "Original work permit", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
@@ -75,7 +75,7 @@
           "code": "ORIGINAL_RESIDENCE_PERMIT",
           "name": "ORIGINAL RESIDENCE PERMIT",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_CANCELLATION",
-          "description": "Original residence permit",
+          "description": "Original residence permit", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
@@ -83,8 +83,8 @@
         {
           "code": "OFFER_LETTER",
           "name": "OFFER LETTER",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION, , EXEMPTION_CERTIFICATE_ONLY, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
-          "description": "Offer letter if changing employment",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION,CITIZENSHIP_RENUNCIATION, EXEMPTION_CERTIFICATE_ONLY, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY",
+          "description": "Offer letter if changing employment", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
@@ -92,8 +92,8 @@
         {
           "code": "RELEASE_LETTER",
           "name": "RELEASE LETTER",
-          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-          "description": "Release letter",
+          "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION,CITIZENSHIP_RENUNCIATION",
+          "description": "Release letter", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
@@ -102,7 +102,7 @@
           "code": "RESIGNATION_LETTER",
           "name": "RESIGNATION LETTER",
           "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-          "description": "Resignation letter",
+          "description": "Resignation letter", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
@@ -111,7 +111,7 @@
           "code": "DATA_PAGE_OF_PASSPORT",
           "name": "DATA PAGE OF PASSPORT",
           "application_type": "WORK_PERMIT_REPLACEMENT",
-          "description": "Certified copy of a data page of a valid passport",
+          "description": "Certified copy of a data page of a valid passport", 
           "mandatory":true,
           "valid_from" :"2024-01-01",
           "valid_to":"2030-01-01"
@@ -187,7 +187,7 @@
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
-        },
+        }, 
         {
           "code": "CONTRACT_RENEWAL",
           "name": "CONTRACT RENEWAL",
@@ -371,7 +371,7 @@
         {
           "code": "ORIGINAL_EXEMPTION_CERTIFICATE",
           "name": "ORIGINAL EXEMPTION CERTIFICATE",
-          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_RENEWAL",
+          "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION, EXEMPTION_CERTIFICATE_RENEWAL,CITIZENSHIP_RENUNCIATION",
           "description": "Current exemption certificate",
           "mandatory":true,
           "valid_from": "2024-01-01",
