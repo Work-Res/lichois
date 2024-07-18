@@ -73,7 +73,7 @@
         {
           "code": "CERTIFIED_COPY_OF_PARENT",
           "name": "CERTIFIED COPY OF PARENT",
-          "application_type": "",
+          "application_type": "CITIZENSHIP_RENUNCIATION",
           "description": "Certified copy of parent’s citizenship status",
           "mandatory":true,
           "valid_from" :"2024-01-01",
