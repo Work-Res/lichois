@@ -80,8 +80,6 @@ class WordDocumentServiceTest(TestCase):
         for section in saved_document.sections:
             header = section.header
             self.assertTrue(any(p.text == '' for p in header.paragraphs))
-            # Check if the logo is added
-            #self.assertTrue(any('logo.png' in r.target_ref for r in header.part.rels.values()))
 
     def test_add_title(self):
         title = 'Test Title'
