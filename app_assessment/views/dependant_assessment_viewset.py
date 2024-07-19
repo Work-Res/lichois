@@ -10,13 +10,12 @@ class DependantAssessmentViewSet(viewsets.ModelViewSet):
     queryset = DependantAssessment.objects.all()
     serializer_class = DependantAssessmentSerializer
 
-    action(
+    @action(
         detail=False,
         methods=["get"],
-        url_path="dependants-assessment/(?P<document_number>[A-Za-z0-9-]+)",
-        url_name="dependants-assessment",
+        url_path="all/(?P<document_number>[A-Za-z0-9-]+)",
+        url_name="all",
     )
-
     def check_dependant_assessment(self, request, document_number):
         # Get all the dependant assessments for a document number
         dependant_assessments = DependantAssessment.objects.filter(
