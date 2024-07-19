@@ -18,3 +18,5 @@ class TestRenunciationWorkflow(BaseSetup):
         self.assertEqual(app.process_name, CitizenshipProcessEnum.RENUNCIATION.value)
         activites = Activity.objects.filter(process__document_number=self.document_number)
         self.assertEqual(7, activites.count())
+
+
