@@ -8,6 +8,7 @@ from app_assessment.views import (
     NewAssessmentInvestorViewSet,
     AssessmentEmergencyViewSet,
     RenewalAssessmentInvestorViewSet,
+    AppealAssessmentViewSet,
 )
 
 
@@ -15,8 +16,9 @@ router = DefaultRouter()
 router.register(r"assessments", AssessmentViewSet)
 router.register(r"new_assessment_investors", NewAssessmentInvestorViewSet)
 router.register(r"renewal_assessment_investors", RenewalAssessmentInvestorViewSet)
-router.register(r"assessment_emergency", AssessmentEmergencyViewSet)
+router.register(r"assessment-emergency", AssessmentEmergencyViewSet)
 router.register(r"assessment-results", AssessmentResultViewSet)
+router.register(r"assessment-appeal", AppealAssessmentViewSet)
 
 
 urlpatterns = [
