@@ -37,7 +37,15 @@ class CitizenshipDocumentGenerator:
         Get the identifier for standard processes based on the process name.
         """
         process_mapping = {
+<<<<<<< HEAD:citizenship/classes/citizenship_document_generator.py
             CitizenshipProcessEnum.RENUNCIATION.value: CitizenshipRenunciationIdentifier
+=======
+            ApplicationProcesses.WORK_RESIDENT_PERMIT.value: WorkResidentPermitIdentifier,
+            ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
+            ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
+            ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
+            ApplicationProcesses.BLUE_CARD.value: BlueCardIdentifier,
+>>>>>>> aa5e5a9 (feat(BlueCard): :sparkles: Added new service (blue card)):workresidentpermit/classes/document_generator.py
         }
 
         identifier_class = process_mapping.get(process_name)

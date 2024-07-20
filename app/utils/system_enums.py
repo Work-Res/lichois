@@ -8,6 +8,7 @@ class ApplicationProcesses(Enum):
     RESIDENT_PERMIT = "RESIDENT_PERMIT"
     SPECIAL_PERMIT = "SPECIAL_PERMIT"
     EXEMPTION_CERTIFICATE = "EXEMPTION_CERTIFICATE"
+    BLUE_CARD = "BLUE_CARD"
 
 
 class ApplicationStatusEnum(Enum):
