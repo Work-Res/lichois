@@ -38,11 +38,21 @@ class Command(BaseCommand):
                 new_app = NewApplicationDTO(
                     application_type=application_type,
                     process_name=process_name,
-                    applicant_identifier=f"{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}",
+                    applicant_identifier=(
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}"
+                    ),
                     status=ApplicationStatusEnum.VERIFICATION.value,
                     dob="1990-06-10",
                     work_place=randint(1000, 9999),
                     full_name=f"{fname} {lname}",
+                    permit_period=faker.random_element(
+                        elements=(
+                            "1 - 14 days",
+                            "15 - 90 days",
+                            "6 months",
+                        )
+                    ),
                     applicant_type=faker.random_element(
                         elements=("employee", "investor")
                     ),

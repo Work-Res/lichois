@@ -1,13 +1,13 @@
 import logging
 
-from app_checklist.models import ClassifierItem, ChecklistClassifierItem
-from app_attachments.models import ApplicationAttachment
-from app_personal_details.models import Person, Passport
-from app_contact.models import ApplicationContact
-from app_address.models import ApplicationAddress
+
+from app.api.common.web import APIMessage, APIResponse
 from app.models import Application
-from app.api.common.web import APIResponse, APIMessage
-from model_mommy import mommy
+from app_address.models import ApplicationAddress
+from app_attachments.models import ApplicationAttachment
+from app_checklist.models import ChecklistClassifierItem
+from app_contact.models import ApplicationContact
+from app_personal_details.models import Passport, Person
 
 from ..models import WorkPermit
 
@@ -17,7 +17,13 @@ class WorkResidentPermitValidator:
     Responsible for validating all mandatory for work resident and permit.
     """
 
-    def __init__(self, process=None, work_permit: WorkPermit = None, document_number=None, application_type=None):
+    def __init__(
+        self,
+        process=None,
+        work_permit: WorkPermit = None,
+        document_number=None,
+        application_type=None,
+    ):
         self.logger = logging.getLogger(__name__)
         self.document_number = document_number if document_number else ""
         self.process = process
@@ -25,14 +31,15 @@ class WorkResidentPermitValidator:
         self.response = APIResponse()
         try:
             self.application = Application.objects.get(
-                application_document__document_number=document_number)
+                application_document__document_number=document_number
+            )
             self.work_permit = work_permit
         except Application.DoesNotExist:
             self.response.messages.append(
                 APIMessage(
                     code=400,
                     message="Incorrect document number",
-                    details=f"An application with {document_number} is not found. "
+                    details=f"An application with {document_number} is not found. ",
                 ).to_dict()
             )
 
@@ -59,7 +66,7 @@ class WorkResidentPermitValidator:
                 APIMessage(
                     code=400,
                     message="Required Data",
-                    details=f"A personal details are missing, kindly submit the form. "
+                    details="A personal details are missing, kindly submit the form. ",
                 ).to_dict()
             )
 
@@ -70,7 +77,7 @@ class WorkResidentPermitValidator:
                 APIMessage(
                     code=400,
                     message="Passport are a mandatory.",
-                    details=f"A passport details are missing, kindly submit the form. "
+                    details="A passport details are missing, kindly submit the form. ",
                 ).to_dict()
             )
 
@@ -81,17 +88,19 @@ class WorkResidentPermitValidator:
                 APIMessage(
                     code=400,
                     message="Address are a mandatory.",
-                    details=f"A permit details are missing, kindly submit the form. "
+                    details="A permit details are missing, kindly submit the form. ",
                 ).to_dict()
             )
 
-        contacts_count = ApplicationContact.objects.filter(document_number=self.document_number).count()
+        contacts_count = ApplicationContact.objects.filter(
+            document_number=self.document_number
+        ).count()
         if contacts_count == 0:
             self.response.messages.append(
                 APIMessage(
                     code=400,
                     message="Address contacts are a mandatory.",
-                    details="Application contacts are missing. Please submit the required information."
+                    details="Application contacts are missing. Please submit the required information.",
                 ).to_dict()
             )
 
@@ -102,13 +111,17 @@ class WorkResidentPermitValidator:
         print("self.process ", self.process)
         attachments = ChecklistClassifierItem.objects.filter(
             checklist_classifier__code="ATTACHMENT_DOCUMENTS",
-            checklist_classifier__process_name__icontains=self.process if self.process else "",
+            checklist_classifier__process_name__icontains=(
+                self.process if self.process else ""
+            ),
             mandatory=True,
-            application_type=self.application_type
+            application_type=self.application_type,
         )
         attached_codes = set(
-            ApplicationAttachment.objects.filter(document_number=self.document_number).values_list(
-                'document_type__code', flat=True))
+            ApplicationAttachment.objects.filter(
+                document_number=self.document_number
+            ).values_list("document_type__code", flat=True)
+        )
         missing_attachments = attachments.exclude(code__in=attached_codes)
 
         for attachment in missing_attachments:
@@ -116,7 +129,7 @@ class WorkResidentPermitValidator:
                 APIMessage(
                     code=400,
                     message="Attachments are required.",
-                    details=f"A mandatory attachment is required: {attachment.name}"
+                    details=f"A mandatory attachment is required: {attachment.name}",
                 ).to_dict()
             )
 
@@ -128,13 +141,14 @@ class WorkResidentPermitValidator:
 
     def validate_preferred_channels(self):
         contacts_count = ApplicationContact.objects.filter(
-            document_number=self.document_number, preferred_method_comm=True).count()
+            document_number=self.document_number, preferred_method_comm=True
+        ).count()
         if contacts_count == 0:
             self.response.messages.append(
                 APIMessage(
                     code=400,
                     message="Required Field",
-                    details=f"Kindly indicate preferred channel of communication, e.g EMAIL or PHONE."
+                    details="Kindly indicate preferred channel of communication, e.g EMAIL or PHONE.",
                 ).to_dict()
             )
 

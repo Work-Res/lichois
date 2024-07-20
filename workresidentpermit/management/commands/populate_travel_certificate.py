@@ -34,7 +34,10 @@ class Command(BaseCommand):
                 new_app = NewApplicationDTO(
                     application_type=WorkResidentPermitApplicationTypeEnum.TRAVEL_CERTIFICATE.value,
                     process_name=process_name,
-                    applicant_identifier=f"{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}",
+                    applicant_identifier=(
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}"
+                    ),
                     status=ApplicationStatusEnum.VERIFICATION.value,
                     dob="1990-06-10",
                     work_place=randint(1000, 9999),

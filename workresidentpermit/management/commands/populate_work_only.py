@@ -1,16 +1,17 @@
+from random import randint
+
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
+from faker import Faker
+
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.utils import ApplicationProcesses
 from app.utils.system_enums import ApplicationStatusEnum
-from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
-from faker import Faker
-from random import randint
-
-from workresidentpermit.models import ResidencePermit, WorkPermit
+from app_personal_details.models import Passport, Person
+from workresidentpermit.models import WorkPermit
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
@@ -33,7 +34,10 @@ class Command(BaseCommand):
                     application_type=faker.random_element(
                         elements=(work_permit, renewal_permit, replacement_permit)
                     ),
-                    applicant_identifier=f"{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}",
+                    applicant_identifier=(
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}"
+                    ),
                     status=ApplicationStatusEnum.VERIFICATION.value,
                     dob="1990-06-10",
                     work_place=randint(1000, 9999),

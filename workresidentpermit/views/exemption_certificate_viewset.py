@@ -8,21 +8,24 @@ from ..api.serializers import ExemptionCertificateSerializer
 
 
 def get_app_labels():
-	return [
-		'workresidentpermit.Dependant',
-		'workresidentpermit.ExemptionCertificate',
-		'workresidentpermit.CommissionerDecision',
-		'workresidentpermit.SecurityClearance',
-	]
+    return [
+        "workresidentpermit.Dependant",
+        "workresidentpermit.ExemptionCertificate",
+        "workresidentpermit.CommissionerDecision",
+        "workresidentpermit.SecurityClearance",
+    ]
 
 
 class ExemptionCertificateViewSet(viewsets.ModelViewSet):
-	queryset = ExemptionCertificate.objects.all()
-	serializer_class = ExemptionCertificateSerializer
-	
-	@action(detail=False, methods=['get'], url_path='summary/(?P<document_number>[A-Za-z0-9-]+)',
-	        url_name='exemption-summary')
-	def summary(self, request, document_number):
-		app_summary = ApplicationSummary(document_number, get_app_labels())
-		return Response(data=app_summary.data())
+    queryset = ExemptionCertificate.objects.all()
+    serializer_class = ExemptionCertificateSerializer
 
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="summary/(?P<document_number>[A-Za-z0-9-]+)",
+        url_name="exemption-summary",
+    )
+    def summary(self, request, document_number):
+        app_summary = ApplicationSummary(document_number, get_app_labels())
+        return Response(data=app_summary.data())

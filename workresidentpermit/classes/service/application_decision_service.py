@@ -1,26 +1,23 @@
 import logging
-
 from abc import abstractmethod
 
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 
 from app.models import Application
-
-from workflow.signals import create_or_update_task_signal
-
 from app_comments.models import Comment
-from workresidentpermit.exceptions import WorkResidentPermitApplicationDecisionException, \
-    ApplicationRequiredDecisionException, WorkflowRequiredDecisionException
-
-from workresidentpermit.workflow import BaseTransactionData
-
 from app_decision.models import ApplicationDecision, ApplicationDecisionType
+from workflow.signals import create_or_update_task_signal
+from workresidentpermit.exceptions import (
+    ApplicationRequiredDecisionException,
+    WorkflowRequiredDecisionException,
+    WorkResidentPermitApplicationDecisionException,
+)
+from workresidentpermit.workflow import BaseTransactionData
 
 
 class ApplicationDecisionService:
-    """ Responsible for create application decision based on security clearance or board decision.
-    """
+    """Responsible for create application decision based on security clearance or board decision."""
 
     def __init__(self, document_number, comment: Comment = None):
         self.document_number = document_number
@@ -46,9 +43,7 @@ class ApplicationDecisionService:
             )
             return proposed_application_decision_type
         except ApplicationDecisionType.DoesNotExist:
-            error_message = (
-                f"Application decision type cannot be found using decision_type: {self.decision_value}"
-            )
+            error_message = f"Application decision type cannot be found using decision_type: {self.decision_value}"
             self.logger.error(error_message)
             raise WorkResidentPermitApplicationDecisionException(error_message)
 
@@ -63,7 +58,7 @@ class ApplicationDecisionService:
                 document_number=self.document_number,
                 final_decision_type=None,
                 proposed_decision_type=self.proposed_application_decision_type(),
-                comment=self.comment
+                comment=self.comment,
             )
             self.run_workflow(application=self.application, workflow=self.workflow)
 
@@ -74,6 +69,12 @@ class ApplicationDecisionService:
         :param workflow:
         :return:
         """
-        self.logger.info(f"START the workflow for {application.application_document.document_number}")
-        create_or_update_task_signal.send_robust(sender=application, source=workflow, application=application)
-        self.logger.info(f"END the workflow for {application.application_document.document_number}")
+        self.logger.info(
+            f"START the workflow for {application.application_document.document_number}"
+        )
+        create_or_update_task_signal.send_robust(
+            sender=application, source=workflow, application=application
+        )
+        self.logger.info(
+            f"END the workflow for {application.application_document.document_number}"
+        )

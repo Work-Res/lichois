@@ -7,4 +7,4 @@ from ..api.serializers import ResidencePermitSerializer
 class ResidencePermitViewSet(viewsets.ModelViewSet):
     queryset = ResidencePermit.objects.all()
     serializer_class = ResidencePermitSerializer
-    lookup_field = 'document_number'
+    lookup_field = "document_number"

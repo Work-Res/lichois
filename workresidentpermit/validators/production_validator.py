@@ -20,14 +20,14 @@ class ProductionValidator:
         try:
             ApplicationDecision.objects.get(
                 document_number=self.document_number,
-                proposed_decision_type__code__iexact=ApplicationDecisionEnum.ACCEPTED.value
+                proposed_decision_type__code__iexact=ApplicationDecisionEnum.ACCEPTED.value,
             )
         except ApplicationDecision.DoesNotExist:
             self.response.messages.append(
                 APIMessage(
                     code=400,
                     message="Production is not ready.",
-                    details="The permit production is expected when the application has been taken."
+                    details="The permit production is expected when the application has been taken.",
                 ).to_dict()
             )
 

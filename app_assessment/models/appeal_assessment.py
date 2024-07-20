@@ -11,9 +11,8 @@ class AppealAssessment(ApplicationBaseModel):
 
     class Meta:
 
-        db_table = "appeal_assessment"
         verbose_name = "Appeal Assessment"
         verbose_name_plural = "Appeal Assessment"
 
     def __str__(self):
-        return f"Appeal Assessment"
+        return "Appeal Assessment"

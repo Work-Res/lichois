@@ -6,4 +6,4 @@ from ..api.serializers import WorkPermitSerializer
 class WorkPermitViewSet(viewsets.ModelViewSet):
     queryset = WorkPermit.objects.all()
     serializer_class = WorkPermitSerializer
-    lookup_field = 'document_number'
+    lookup_field = "document_number"

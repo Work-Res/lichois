@@ -5,9 +5,9 @@ from ..choices import CERTIFICATE_STATUS
 
 
 class PermitReplacement(ApplicationBaseModel):
-	date_signed = models.DateField()
-	signature = models.CharField(max_length=255)
-	certificate_status = models.CharField(max_length=255, choices=CERTIFICATE_STATUS)
-	
-	class Meta:
-		verbose_name = 'Replacement Permit'
+    date_signed = models.DateField()
+    signature = models.CharField(max_length=255)
+    certificate_status = models.CharField(max_length=255, choices=CERTIFICATE_STATUS)
+
+    class Meta:
+        verbose_name = "Replacement Permit"

@@ -20,7 +20,7 @@ class CommissionerDecisionValidator:
         try:
             ApplicationVerification.objects.get(
                 document_number=self.document_number,
-                decision__code__iexact=ApplicationDecisionEnum.ACCEPTED.value
+                decision__code__iexact=ApplicationDecisionEnum.ACCEPTED.value,
             )
         except ApplicationVerification.DoesNotExist:
             self.response.messages.append(
@@ -28,7 +28,7 @@ class CommissionerDecisionValidator:
                     code=400,
                     message="The verification must be accepted.",
                     details="The application verification must be accepted before commercing with commissioner "
-                            "decision. "
+                    "decision. ",
                 ).to_dict()
             )
 

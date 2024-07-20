@@ -12,7 +12,7 @@ class ApplicationDocument(BaseUuidModel):
 
     Attributes:
         applicant (ForeignKey): User who has submitted the application.
-        document_number (str): The number assigned to the document, it is system generated identifier for the application.
+        document_number (str): The number assigned to the document, it is system generated identifier
         document_date (date): The date of the document.
         signed_date (date): The date when the document was signed.
         submission_customer (str): The customer associated with the document submission.
@@ -32,7 +32,6 @@ class ApplicationDocument(BaseUuidModel):
     submission_customer = models.CharField(max_length=250)
     permit_period = models.CharField(
         max_length=255,
-        choices=PERMIT_PERIOD,
         blank=True,
         null=True,
     )
