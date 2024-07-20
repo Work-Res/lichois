@@ -30,11 +30,6 @@ class ApplicationDocument(BaseUuidModel):
     document_date = models.DateField(null=False, blank=False)
     signed_date = models.DateField()
     submission_customer = models.CharField(max_length=250)
-    permit_period = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-    )
 
     def __str__(self):
         return f"Document {self.document_number}"

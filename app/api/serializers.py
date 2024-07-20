@@ -52,7 +52,6 @@ class ApplicationDocumentSerializer(serializers.ModelSerializer):
             "signed_date",
             "applicant",
             "applicant_type",
-            "permit_period",
             "submission_customer",
         )
 
@@ -73,6 +72,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
             "board",
             "security_clearance",
             "verification",
+            "permit_period",
         )
 
 

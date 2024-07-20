@@ -26,6 +26,11 @@ class Application(BaseUuidModel):
     application_status = models.ForeignKey(ApplicationStatus, on_delete=models.CASCADE)
     application_type = models.CharField(max_length=200)
     batched = models.BooleanField(null=True, blank=True, default=False)
+    permit_period = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+    )
 
     verification = models.CharField(
         null=True,

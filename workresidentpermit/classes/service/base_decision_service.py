@@ -28,7 +28,7 @@ class BaseDecisionService:
                 code=400,
                 message=f"Application decision provided is invalid: {self.request.status}.",
                 details="System failed to obtain decision type provided, check if application decision defaults."
-                f"records are created.",
+                "records are created.",
             )
             self.response.messages.append(api_message.to_dict())
             return None
