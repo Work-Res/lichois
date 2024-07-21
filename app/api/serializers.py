@@ -97,6 +97,7 @@ class NewApplicationSerializer(serializers.Serializer):
     work_place = serializers.CharField(allow_blank=False, max_length=200, required=True)
     status = serializers.CharField(max_length=30)
     dob = serializers.CharField(max_length=30)
+    applicant_type = serializers.CharField(max_length=200, required=False)
 
 
 class RenewalApplicationSerializer(serializers.Serializer):
