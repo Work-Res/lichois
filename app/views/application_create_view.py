@@ -33,7 +33,7 @@ class ApplicationCreateView(APIView):
                     status=serializer.data.get('status'),
                     dob=serializer.data.get('dob'),
                     work_place=serializer.data.get('work_place'),
-                    full_name=serializer.data.get('full_name')
+                    full_name=serializer.data.get('full_name'),
                 )
                 create_new = ApplicationService(new_application=new_app)
                 create_new.create_application()

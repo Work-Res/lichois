@@ -77,7 +77,7 @@
           }
         },
         {
-          "code": "FOREIGN_RENUNCIATION",
+          "code": "NATURALIZATION",
           "name": "Declaration of Renunciation ",
           "description": "The applicant submit a foreign renunciation letter. ",
           "mandatory": false,
