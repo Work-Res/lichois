@@ -6,7 +6,7 @@ from citizenship.models.board import InterviewDecision, Interview, Member
 logger = logging.getLogger(__name__)
 
 
-class DecisionService:
+class InterviewDecisionService:
     @staticmethod
     @transaction.atomic
     def create_decision(interview_id, member_id, passed, reason=''):
