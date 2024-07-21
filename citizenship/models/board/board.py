@@ -1,11 +1,14 @@
 from django.db import models
 
+from app_checklist.models import Region
 from citizenship.models.board.role import Role
 
+from base_module.model_mixins import BaseUuidModel
 
-class Board(models.Model):
+
+class Board(BaseUuidModel):
     name = models.CharField(max_length=200)
-    region = models.CharField(max_length=100) # Fixme: make a foregin key to read from classifers..
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     description = models.TextField()
     quorum_roles = models.ManyToManyField(Role, related_name='quorum_roles')
 

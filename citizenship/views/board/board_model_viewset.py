@@ -1,10 +1,11 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
 from django.core.exceptions import ValidationError
 
 from citizenship.api.serializers.board import BoardSerializer, MeetingSerializer
-from citizenship.models.board import Board, Meeting, Role
+from citizenship.models.board import Board
 from citizenship.service.board.board_service import BoardService
 
 
@@ -12,26 +13,28 @@ class BoardModelViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        quorum_roles = Role.objects.filter(id__in=request.data.get('quorum_roles', []))
-        board = BoardService.create_board(
-            name=serializer.validated_data['name'],
-            description=serializer.validated_data['description'],
-            quorum_roles=quorum_roles
-        )
-        return Response(BoardSerializer(board).data, status=status.HTTP_201_CREATED)
+    def create(self, request):
+        name = request.data.get('name')
+        region_id = request.data.get('region_id')
+        description = request.data.get('description')
+        quorum_role_ids = request.data.get('quorum_role_ids', [])
+        try:
+            board = BoardService.create_board(name, region_id, description, quorum_role_ids)
+            serializer = BoardSerializer(board)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except ValidationError as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['put'])
     def update_board(self, request, pk=None):
-        board_id = pk
         name = request.data.get('name')
+        region_id = request.data.get('region_id')
         description = request.data.get('description')
-        quorum_roles = Role.objects.filter(id__in=request.data.get('quorum_roles', []))
+        quorum_role_ids = request.data.get('quorum_role_ids')
         try:
-            board = BoardService.update_board(board_id=board_id, name=name, description=description, quorum_roles=quorum_roles)
-            return Response(BoardSerializer(board).data, status=status.HTTP_200_OK)
+            board = BoardService.update_board(pk, name, region_id, description, quorum_role_ids)
+            serializer = BoardSerializer(board)
+            return Response(serializer.data)
         except ValidationError as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
