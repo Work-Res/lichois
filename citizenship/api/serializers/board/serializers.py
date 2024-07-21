@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 
 from citizenship.models.board import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
-    InterviewDecision, ScoreSheet
+    InterviewDecision, ScoreSheet, Role
 from citizenship.models.board.board_recommandation import BoardRecommendation
 from citizenship.models.board.interview_question import InterviewQuestion
 from citizenship.models.board.meeting_session import MeetingSession
@@ -81,4 +81,10 @@ class ScoreSheetSerializer(serializers.ModelSerializer):
 class BoardRecommendationSerializer(serializers.ModelSerializer):
     class Meta:
         model = BoardRecommendation
+        fields = '__all__'
+
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
         fields = '__all__'

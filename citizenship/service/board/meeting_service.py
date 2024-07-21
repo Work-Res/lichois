@@ -3,7 +3,7 @@ import logging
 from django.db import transaction
 from django.core.exceptions import ValidationError
 
-from citizenship.models.board import Meeting, Member, Attendee, Board
+from citizenship.models.board import Meeting, BoardMember, Attendee, Board
 from citizenship.models.board.meeting_session import MeetingSession
 
 logger = logging.getLogger(__name__)
@@ -36,7 +36,7 @@ class MeetingService:
     def add_attendee(session_id, member_id, confirmed=False):
         try:
             session = MeetingSession.objects.get(id=session_id)
-            member = Member.objects.get(id=member_id)
+            member = BoardMember.objects.get(id=member_id)
             attendee, created = Attendee.objects.get_or_create(
                 session=session,
                 member=member,
@@ -50,7 +50,7 @@ class MeetingService:
         except MeetingSession.DoesNotExist:
             logger.error(f'Session does not exist: {session_id}')
             raise ValidationError("Session does not exist.")
-        except Member.DoesNotExist:
+        except BoardMember.DoesNotExist:
             logger.error(f'Member does not exist: {member_id}')
             raise ValidationError("Member does not exist.")
         except Exception as e:
@@ -125,3 +125,34 @@ class MeetingService:
         except Exception as e:
             logger.error(f'Error creating session: {e}')
             raise
+
+    @staticmethod
+    def check_session_conflicts(meeting, date, start_time, end_time):
+        sessions = MeetingSession.objects.filter(meeting=meeting, date=date)
+        for session in sessions:
+            if (start_time < session.end_time and end_time > session.start_time):
+                return True
+        return False
+
+    @staticmethod
+    @transaction.atomic
+    def create_session(meeting_id, title, date, start_time, end_time):
+        try:
+            meeting = Meeting.objects.get(id=meeting_id)
+            if MeetingService.check_session_conflicts(meeting, date, start_time, end_time):
+                raise ValidationError("Meeting Session times conflict with an existing session.")
+            session = MeetingSession.objects.create(
+                meeting=meeting,
+                title=title,
+                date=date,
+                start_time=start_time,
+                end_time=end_time
+            )
+            logger.info(f'Session created: {session}')
+            return session
+        except Meeting.DoesNotExist:
+            logger.error(f'Meeting does not exist: {meeting_id}')
+            raise ValidationError("Meeting does not exist.")
+        except Exception as e:
+            logger.error(f'Error creating session: {e}')
+            raise ValidationError("Error creating session.")

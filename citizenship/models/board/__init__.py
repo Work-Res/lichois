@@ -3,7 +3,7 @@ from .batch import Batch
 from .batch_application import BatchApplication
 from .board import Board
 from .meeting import Meeting
-from .member import Member
+from .board_member import BoardMember
 from .conflict_of_interest import ConflictOfInterest
 from .role import Role
 from .question import Question

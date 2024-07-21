@@ -7,7 +7,8 @@ from .views import (AdoptedChildRegistrationViewSet, DeclarationNaturalisationFo
 
 from .views import CertNaturalisationByForeignSpouseViewSet
 from .admin_site import citizenship_admin
-
+from .views.board import BoardModelViewSet, MeetingViewSet
+from .views.board.role_viewset import RoleViewSet
 
 app_name = 'citizenship'
 
@@ -32,6 +33,10 @@ router.register(r'spouse-naturalisations/', AdoptedChildRegistrationViewSet, bas
 router.register(r'under-20-citizenships/', AdoptedChildRegistrationViewSet, basename='under-20-citizenships')
 router.register(r'certificate-of-origin/', CertificateOfOriginViewSet, basename='certificate-of-origin')
 router.register(r'form-r/', FormRViewSet, basename='form-r')
+router.register(r'board/roles', RoleViewSet, basename='role')
+router.register(r'boards', BoardModelViewSet)
+router.register(r'meetings', MeetingViewSet, basename='meeting')
+
 
 urlpatterns = [
     path('admin/', citizenship_admin.urls),

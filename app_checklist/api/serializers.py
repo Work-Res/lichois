@@ -11,6 +11,8 @@ from app_checklist.models import (
     OfficeLocationClassifierItem,
     OfficeLocationClassifier
 )
+from app_checklist.models.region import Region
+
 
 class ClassifierSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,6 +72,7 @@ class ChecklistClassifierItemSerializer(serializers.ModelSerializer):
             'valid_to'
         )
 
+
 class OfficeLocationClassifierSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfficeLocationClassifier
@@ -80,6 +83,7 @@ class OfficeLocationClassifierSerializer(serializers.ModelSerializer):
             'valid_from',
             'valid_to'
         )
+
 
 class OfficeLocationClassifierItemSerializer(serializers.ModelSerializer):
     office_location_classifier = OfficeLocationClassifierSerializer()
@@ -94,3 +98,9 @@ class OfficeLocationClassifierItemSerializer(serializers.ModelSerializer):
             'valid_from',
             'valid_to'
         )
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region
+        fields = ['id', 'name', 'code', 'description', 'valid_from', 'valid_to', 'active']
