@@ -29,9 +29,3 @@ class ResidentPermitIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "residentpermit"  # e.g. work_permit_identifier, visa_identifier, etc
     identifier_type = "R"
-
-
-class BlueCardIdentifier(Identifier):
-    template = "{identifier_type}{address_code}{dob}{sequence}"
-    label = "bluecard"  # e.g. work_permit_identifier, visa_identifier, etc
-    identifier_type = "BC"
