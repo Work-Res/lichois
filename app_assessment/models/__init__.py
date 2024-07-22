@@ -8,3 +8,4 @@ from .assessment_result import AssessmentResult
 from .new_assessment_investor import NewAssessmentInvestor
 from .parent_manager import ParentModelManager
 from .renewal_assessment_investor import RenewalAssessmentInvestor
+from .dependant_assessment import DependantAssessment

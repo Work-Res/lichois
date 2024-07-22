@@ -2,9 +2,13 @@ import os
 
 from rest_framework import serializers
 
+<<<<<<< HEAD
 from app_assessment.models.assessement_case_decision import AssessmentCaseDecision
 from app_assessment.models.assessment_case_note import AssessmentCaseNote
 from app_assessment.models.assessment_case_summary import AssessmentCaseSummary
+=======
+from app_assessment.models.dependant_assessment import DependantAssessment
+>>>>>>> dbb57f7 (feat(DependentAssessment): :sparkles: Added dependant assessment endpoints)
 from app_checklist.utils import ReadJSON
 from ..models import AssessmentResult, NewAssessmentInvestor, RenewalAssessmentInvestor
 from app_assessment.models import Assessment, AssessmentEmergency, AppealAssessment
@@ -129,4 +133,10 @@ class AssessmentCaseDecisionSerializer(serializers.ModelSerializer):
 class AppealAssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppealAssessment
+        fields = "__all__"
+
+
+class DependantAssessmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DependantAssessment
         fields = "__all__"
