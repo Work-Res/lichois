@@ -5,18 +5,18 @@ from rest_framework.routers import DefaultRouter
 from app_assessment.views import (
     AssessmentResultViewSet,
     AssessmentViewSet,
-    AssessmentInvestorViewSet,
+    NewAssessmentInvestorViewSet,
     AssessmentEmergencyViewSet,
-    AssessmentCaseNoteViewSet,
+    RenewalAssessmentInvestorViewSet,
 )
 
 
 router = DefaultRouter()
 router.register(r"assessments", AssessmentViewSet)
-router.register(r"assessment_investors", AssessmentInvestorViewSet)
+router.register(r"new_assessment_investors", NewAssessmentInvestorViewSet)
+router.register(r"renewal_assessment_investors", RenewalAssessmentInvestorViewSet)
 router.register(r"assessment_emergency", AssessmentEmergencyViewSet)
 router.register(r"assessment-results", AssessmentResultViewSet)
-router.register(r"assessment-notes", AssessmentCaseNoteViewSet)
 
 
 urlpatterns = [
