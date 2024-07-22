@@ -211,18 +211,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 PDF_FOLDER = "generated"
-
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-
 PDF_TEMPLATE_WORKRESIDENTPERMIT = "pdf/application_summary.html"
 DEPARTMENT = "ministry of Citizen and industry"
 
