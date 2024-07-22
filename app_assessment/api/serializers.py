@@ -10,6 +10,7 @@ from app_assessment.models.appeal_assessment import (
 from app_assessment.models.assessement_case_decision import AssessmentCaseDecision
 from app_assessment.models.assessment_case_note import AssessmentCaseNote
 from app_assessment.models.assessment_case_summary import AssessmentCaseSummary
+
 from app_assessment.models.dependant_assessment import DependantAssessment
 from app_checklist.utils import ReadJSON
 from ..models import AssessmentResult, NewAssessmentInvestor, RenewalAssessmentInvestor
