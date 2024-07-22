@@ -1,8 +1,4 @@
 from random import randint
-<<<<<<< HEAD
-=======
-
->>>>>>> d864608 (fix merge conflicts)
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from faker import Faker
