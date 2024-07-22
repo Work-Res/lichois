@@ -85,7 +85,6 @@ APPEAL_STATUS = (
     ("accepted", "Accepted"),
 )
 
-SUBMITTER_TYPE = (("applicant", "Applicant"), ("officer", "Officer"))
 
 PERSON_TYPE = (
     ("applicant", "Applicant"),
