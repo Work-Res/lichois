@@ -3,7 +3,7 @@ from django.db import models
 from .application_user import ApplicationUser
 
 from base_module.model_mixins import BaseUuidModel
-from ..choices import APPLICANT_TYPE, PERMIT_PERIOD
+from ..choices import APPLICANT_TYPE
 
 
 class ApplicationDocument(BaseUuidModel):
