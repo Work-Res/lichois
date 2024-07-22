@@ -1,5 +1,6 @@
 import logging
 import copy
+from multiprocessing import process
 
 from django.apps import apps
 from typing import List, Dict, Any
@@ -7,8 +8,6 @@ from typing import List, Dict, Any
 
 from app_checklist.utils import ReadJSON
 from django.core.exceptions import MultipleObjectsReturned
-
-logger = logging.getLogger(__name__)
 
 
 class CreateChecklistService:
@@ -31,6 +30,8 @@ class CreateChecklistService:
         self.foreign_name = foreign_name
         self.parent_app_label_model_name = parent_app_label_model_name
         self.foreign_app_label_model_name = foreign_app_label_model_name
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
 
     def create(self, file_location=None):
         reader = ReadJSON(file_location=file_location)
@@ -55,14 +56,14 @@ class CreateChecklistService:
             lookup_kwargs = {self.foreign_name: classifier, "code": item["code"]}
             try:
                 obj = model.objects.get(code__iexact=item["code"])
-                logging.debug(f"Existing object found: {obj}")
+                self.logger.debug(f"Existing object found: {obj}")
                 try:
                     if item["application_type"] not in obj.application_type:
                         obj.application_type = (
                             f"{obj.application_type},{item['application_type']}"
                         )
                         obj.save()
-                        logging.info(
+                        self.logger.info(
                             f"Updated object {obj.id} with new application type: {obj.application_type}"
                         )
                     else:
@@ -75,7 +76,11 @@ class CreateChecklistService:
                     **lookup_kwargs, defaults=item
                 )
                 action = "created" if created else "updated"
-                logger.info(f"Classifier item {action}: {classifier_item}")
+                self.logger.info(f"Classifier item {action}: {classifier_item}")
+            except MultipleObjectsReturned:
+                self.logger.error(
+                    f"Multiple objects returned for lookup_kwargs: {lookup_kwargs}"
+                )
 
             self.classifier_items.append(classifier_item)
 
@@ -89,30 +94,31 @@ class CreateChecklistService:
         app_label, model_name = self.parent_app_label_model_name.split(".")
         model = self.get_model_by_app_label_and_model_name(app_label, model_name)
 
+        self.logger.info(
+            f"Creating or updating classifier: {self.parent_app_label_model_name}"
+        )
         try:
             obj = model.objects.get(code__iexact=data["code"])
-            logging.debug(f"Existing object found: {obj}")
+            self.logger.debug(f"Existing object found: {obj}")
             try:
                 if data["process_name"] not in obj.process_name:
                     obj.process_name = f"{obj.process_name},{data['process_name']}"
                     obj.save()
-                    logging.info(
+                    self.logger.info(
                         f"Updated object {obj.id} with new process_name: {obj.process_name}"
                     )
                 else:
-                    logging.debug(f"No update needed for object {obj.id}")
+                    self.logger.debug(f"No update needed for object {obj.id}")
                 return obj
             except Exception:
                 return obj
         except model.DoesNotExist:
             new_obj = model.objects.create(**data)
-            logging.info(f"Created new object with id: {new_obj.id}")
+            self.logger.info(f"Created new object with id: {new_obj.id}")
             return new_obj
         except Exception as e:
-            logging.error(f"Error in create_or_update_classifier: {e}")
+            self.logger.error(f"Error in create_or_update_classifier: {e}")
             raise e
-        except MultipleObjectsReturned as e:
-            logging.error(f"Multiple objects returned: {e}")
 
     def get_model_by_app_label_and_model_name(self, app_label, model_name):
         try:
