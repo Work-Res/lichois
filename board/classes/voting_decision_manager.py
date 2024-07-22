@@ -1,7 +1,7 @@
 import logging
 
 from app.models import Application
-from workresidentpermit.models import SecurityClearance
+from app.models import SecurityClearance
 from ..choices import ACCEPTED, REJECTED, APPROVED
 from ..models import BoardDecision, BoardMeetingVote
 

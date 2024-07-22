@@ -4,7 +4,9 @@ import copy
 from django.apps import apps
 from typing import List, Dict, Any
 
+
 from app_checklist.utils import ReadJSON
+from django.core.exceptions import MultipleObjectsReturned
 
 logger = logging.getLogger(__name__)
 
@@ -109,6 +111,8 @@ class CreateChecklistService:
         except Exception as e:
             logging.error(f"Error in create_or_update_classifier: {e}")
             raise e
+        except MultipleObjectsReturned as e:
+            logging.error(f"Multiple objects returned: {e}")
 
     def get_model_by_app_label_and_model_name(self, app_label, model_name):
         try:

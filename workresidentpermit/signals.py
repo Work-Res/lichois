@@ -1,33 +1,30 @@
 import logging
 import os
 
-from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from app.models import Application
-from app.utils import ApplicationDecisionEnum, ApplicationProcesses
-
-from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
-from workresidentpermit.models import (
-    MinisterDecision,
-    WorkPermit,
-    SecurityClearance,
-    CommissionerDecision,
+from app.models.security_clearance import SecurityClearance
+from app.utils import (
+    ApplicationDecisionEnum,
+    ApplicationProcesses,
+    ApplicationStatusEnum,
 )
 from app_decision.models import ApplicationDecision
+from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
 from workresidentpermit.classes.service import (
+    PermitProductionService,
     SpecialPermitDecisionService,
     WorkResidentPermitDecisionService,
-    PermitProductionService,
 )
+from workresidentpermit.models import CommissionerDecision, MinisterDecision, WorkPermit
 
-from app.utils import ApplicationStatusEnum
+from .classes import WorkPermitApplicationPDFGenerator
 from .classes.config.configuration_loader import JSONConfigLoader
 from .classes.service.exemption_certification_decision_service import (
     ExemptionCertificateDecisionService,
 )
-
-from .classes import WorkPermitApplicationPDFGenerator
 
 logger = logging.getLogger(__name__)
 

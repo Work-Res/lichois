@@ -5,8 +5,10 @@ DECISION_OUTCOME = (
 )
 
 APPLICANT_TYPE = (
-    ("employee", "Employee"),
-    ("investor", "Investor"),
+    ("new_employee", "New Employee"),
+    ("new_investor", "New Investor"),
+    ("renewal_employee", "Renewal Employee"),
+    ("renewal_investor", "Renewal Investor"),
     ("director", "Director"),
 )
 

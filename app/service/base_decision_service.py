@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from app.api.common.web import APIMessage, APIResponse
 from app.models import Application
 from app_decision.models import ApplicationDecisionType
-from workresidentpermit.api.dto.request_dto import RequestDTO
+from app.api.dto.request_dto import RequestDTO
 
 
 class BaseDecisionService:

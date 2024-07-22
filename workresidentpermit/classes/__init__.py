@@ -8,9 +8,7 @@ from workresidentpermit.classes.production.work_permit_application_pdf_generator
 )
 from .work_resident_permit_application import WorkResidentPermitApplication
 from .crm_communication_api import CRMCommunicationApi
-from workresidentpermit.classes.service.security_clearance_service import (
-    SecurityClearanceService,
-)
+
 from workresidentpermit.classes.production.data_helper import DataHelper
 from workresidentpermit.classes.production.generate_production_permit_pdf import (
     GenerateProductionPermitPDF,

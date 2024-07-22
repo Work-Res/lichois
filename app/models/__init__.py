@@ -8,3 +8,4 @@ from .application_verification import ApplicationVerification
 from .application_renewal import ApplicationRenewal
 from .application_renewal_history import ApplicationRenewalHistory
 from .deferred_application import DeferredApplication
+from .security_clearance import SecurityClearance

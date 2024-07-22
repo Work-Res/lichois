@@ -14,7 +14,6 @@ from .views import (
     PermitCancellationViewSet,
     ProductionPermitView,
     ResidencePermitViewSet,
-    SecurityClearanceCreateAPIView,
     SpouseCreateListView,
     TravelCertificateView,
     WorkPermitApplicationAPIView,
@@ -55,11 +54,6 @@ urlpatterns = [
         name="submit-verification",
     ),
     path(
-        "security_clearance/<str:document_number>/submit/",
-        SecurityClearanceCreateAPIView.as_view(),
-        name="submit-security-clearance",
-    ),
-    path(
         "commissioner-decision/",
         CommissionerDecisionAPIView.as_view(),
         name="commissioner-decision-create",
@@ -74,11 +68,6 @@ urlpatterns = [
         "workpermit/<str:document_number>/submit/verification",
         WorkPermitApplicationVerificationAPIView.as_view(),
         name="submit-work-res-verification",
-    ),
-    path(
-        "workpermit/<str:document_number>/submit/security_clearance",
-        SecurityClearanceCreateAPIView.as_view(),
-        name="submit-work-res-security-clearance",
     ),
     path(
         "workpermit/<str:document_number>/submit",
