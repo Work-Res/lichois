@@ -1,0 +1,1 @@
+from .blue_card_identifier import BlueCardPermitIdentifier
