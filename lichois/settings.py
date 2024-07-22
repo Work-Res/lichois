@@ -209,34 +209,22 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-<<<<<<< HEAD
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-PDF_FOLDER = 'generated'
-=======
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 PDF_FOLDER = "generated"
->>>>>>> a33b096 (refactor(BlueCard): :fire: fix management command to populate command)
 PDF_TEMPLATE_WORKRESIDENTPERMIT = "pdf/application_summary.html"
 DEPARTMENT = "ministry of Citizen and industry"
 
 STORAGES = {
-	"default": {
-		"BACKEND": "django.core.files.storage.FileSystemStorage",
-		"OPTIONS": {
-			"location": MEDIA_ROOT,
-		},
-	},
-	"staticfiles": {
-		"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-	},
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
 }
 
 
