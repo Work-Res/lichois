@@ -8,7 +8,11 @@ from app_assessment.models.assessment_case_summary import AssessmentCaseSummary
 from app_assessment.models.dependant_assessment import DependantAssessment
 from app_checklist.utils import ReadJSON
 from ..models import AssessmentResult, NewAssessmentInvestor, RenewalAssessmentInvestor
+<<<<<<< HEAD
 from app_assessment.models import Assessment, AssessmentEmergency, AppealAssessment
+=======
+from app_assessment.models import Assessment, AssessmentEmergency
+>>>>>>> a4e91cf (fix(Assessment): :fire: added new & renewal investor PBS assessments)
 from app_assessment.validators import AssessmentValidator
 
 
@@ -39,7 +43,22 @@ class AssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assessment
+<<<<<<< HEAD
         fields = "__all__"
+=======
+        fields = [
+            "id",
+            "competency",
+            "qualification",
+            "employer_justification",
+            "scarce_skill",
+            "work_experience",
+            "total",
+            "score",
+            "marking_score",
+            "document_number",
+        ]
+>>>>>>> a4e91cf (fix(Assessment): :fire: added new & renewal investor PBS assessments)
 
 
 class NewAssessmentInvestorSerializer(serializers.ModelSerializer):
