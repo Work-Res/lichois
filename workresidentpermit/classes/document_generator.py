@@ -49,7 +49,7 @@ class DocumentGenerator:
             ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
             ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
             ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
-            ApplicationProcesses.BLUE_CARD.value: BlueCardIdentifier,
+            ApplicationProcesses.BLUE_CARD_PERMIT.value: BlueCardIdentifier,
         }
 
         identifier_class = process_mapping.get(process_name)
