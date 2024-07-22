@@ -39,6 +39,7 @@ class ApplicationService:
             return None
 
         application_status = self._get_application_status()
+        print(application_status)
         if not application_status:
             return None
 
