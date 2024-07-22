@@ -1,8 +1,4 @@
 from random import randint
-<<<<<<< HEAD
-=======
-
->>>>>>> a33b096 (refactor(BlueCard): :fire: fix management command to populate command)
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from faker import Faker
@@ -15,11 +11,7 @@ from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from app_personal_details.models import Passport, Person
 from app_personal_details.models.next_of_kin import NextOfKin
-<<<<<<< HEAD
 from ...enums import BlueCardApplicationTypeEnum
-=======
-from workresidentpermit.models import PermitAppeal
->>>>>>> a33b096 (refactor(BlueCard): :fire: fix management command to populate command)
 
 
 class Command(BaseCommand):
