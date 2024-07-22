@@ -1,5 +1,5 @@
-from workresidentpermit.api.dto.request_dto import RequestDTO
+from app.api.dto.request_dto import RequestDTO
 
 
 class RecommendationRequestDTO(RequestDTO):
-	pass
+    pass

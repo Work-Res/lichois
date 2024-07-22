@@ -26,6 +26,7 @@ class ApplicationDocument(BaseUuidModel):
         choices=APPLICANT_TYPE,
         default="employee",
     )
+
     document_number = models.CharField(max_length=100, null=False, blank=False)
     document_date = models.DateField(null=False, blank=False)
     signed_date = models.DateField()

@@ -1,12 +1,11 @@
 import logging
-
 from typing import Optional
 
-from app.models import Application
-from app.api.common.web import APIResponse, APIMessage
-from app.utils import ApplicationStatusEnum
 from app_decision.models import ApplicationDecisionType
-from ..models import SecurityClearance
+
+from ..api.common.web import APIMessage, APIResponse
+from ..models import Application, SecurityClearance
+from ..utils import ApplicationStatusEnum
 
 
 class SecurityClearanceValidator:

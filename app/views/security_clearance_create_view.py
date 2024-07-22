@@ -8,11 +8,13 @@ from rest_framework import status
 
 from django.http import JsonResponse
 
-from ..api.serializers import SecurityClearanceRequestDTOSerializer
+from ..api.security_clearance_request_serializer import (
+    SecurityClearanceRequestDTOSerializer,
+)
 from ..api.dto import SecurityClearanceRequestDTO
 
 from ..validators import SecurityClearanceValidator
-from ..classes import SecurityClearanceService
+from ..service import SecurityClearanceService
 
 logger = logging.getLogger(__name__)
 

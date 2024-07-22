@@ -26,7 +26,8 @@ class VisaApplication(BaseUuidModel):
 
     requested_valid_to = models.DateField()  # validators=[date_not_past]
 
-    # TODO: References(2) in country of destination(with names, physical address, telephone no, residence permit no, id no)
+    # TODO: References(2) in country of destination(with names, physical address, telephone no,
+    # residence permit no, id no)
 
     # Please indicate what money or cash (amount) will be at your disposal
     # during your visit m2m?

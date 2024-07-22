@@ -2,6 +2,7 @@ import logging
 from typing import Optional
 
 from app.models import ApplicationVerification
+from app.models.security_clearance import SecurityClearance
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
 from app_contact.models import ApplicationContact
@@ -9,7 +10,7 @@ from app_personal_details.models import Passport, Permit, Person
 from board.models import BoardDecision
 
 from ..api import WorkResidentPermitApplication
-from ..models import Child, ResidencePermit, SecurityClearance, Spouse, WorkPermit
+from ..models import Child, ResidencePermit, Spouse, WorkPermit
 
 logger = logging.getLogger(__name__)
 

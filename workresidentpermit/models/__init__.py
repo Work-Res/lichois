@@ -8,7 +8,6 @@ from .resident_permit import ResidencePermit
 from .work_permit import WorkPermit
 from .declaration import Declaration
 from .place_of_residence import PlaceOfResidence, SpousePlaceOfResidence
-from .security_clearance import SecurityClearance
 from .employer_record import EmploymentRecord
 from .replacement_permit import PermitReplacement
 from .dependant import Dependant

@@ -1,24 +1,22 @@
 from django.contrib.auth.models import User
-
 from rest_framework import serializers
-
-# from rest_framework.fields import CharField
-# https://docs.viewflow.io/workflow/quick_start.html
-
 
 from app.models import (
     Application,
-    ApplicationStatus,
     ApplicationDocument,
-    ApplicationVersion,
+    ApplicationRenewalHistory,
+    ApplicationStatus,
     ApplicationUser,
     ApplicationVerification,
-    ApplicationRenewalHistory,
+    ApplicationVersion,
+    SecurityClearance,
 )
-from board.models import BoardDecision
-from workresidentpermit.models import SecurityClearance
-from app_decision.api.serializers import ApplicationDecisionTypeSerializer
 from app_comments.api.serializers import CommentSerializer
+from app_decision.api.serializers import ApplicationDecisionTypeSerializer
+from board.models import BoardDecision
+
+# from rest_framework.fields import CharField
+# https://docs.viewflow.io/workflow/quick_start.html
 
 
 class ApplicationStatusSerializer(serializers.ModelSerializer):
@@ -139,3 +137,12 @@ class ApplicationRenewalHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationRenewalHistory
         fields = ("application_type", "comment", "process_name", "historical_record")
+
+
+class SecurityClearanceSerializer(serializers.ModelSerializer):
+
+    status = ApplicationDecisionTypeSerializer()
+
+    class Meta:
+        model = SecurityClearance
+        fields = ("date_requested", "date_approved", "status", "summary")

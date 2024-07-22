@@ -6,14 +6,19 @@ from .permit_cancellation_serializer import PermitCancellationSerializer
 from .spouse_serializer import SpouseSerializer
 from .residence_permit_serializer import ResidencePermitSerializer
 from .work_res_permit_data_serializer import WorkResidentPermitDataSerializer
-from .place_of_residence_serializer import PlaceOfResidenceSerializer, SpousePlaceOfResidenceSerializer
+from .place_of_residence_serializer import (
+    PlaceOfResidenceSerializer,
+    SpousePlaceOfResidenceSerializer,
+)
 from .declaration_serializer import DeclarationSerializer
-from .security_clearance_serializer import SecurityClearanceSerializer
 from .work_permit_serializer import WorkPermitSerializer
-from .security_clearance_request_serializer import SecurityClearanceRequestDTOSerializer
+
 from .permit_replacement_serializer import PermitReplacementSerializer
 from .commissioner_decision_serializer import CommissionerDecisionSerializer
 from .recommendation_request_serializer import RecommendationRequestDTOSerializer
-from .minister_decision_serializer import MinisterDecisionSerializer, MinisterDecisionRequestDTOSerializer
+from .minister_decision_serializer import (
+    MinisterDecisionSerializer,
+    MinisterDecisionRequestDTOSerializer,
+)
 from .request_deferred_application_dto import RequestDeferredApplicationDTOSerializer
 from .permit_cancellation_reason_serializer import PermitCancellationReasonSerializer

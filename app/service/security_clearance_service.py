@@ -1,10 +1,9 @@
 from django.db import transaction
 
-from workresidentpermit.classes.service.base_decision_service import BaseDecisionService
-
 from ..api.dto import SecurityClearanceRequestDTO
 from ..api.serializers import SecurityClearanceSerializer
 from ..models import SecurityClearance
+from ..service import BaseDecisionService
 
 
 class SecurityClearanceService(BaseDecisionService):
