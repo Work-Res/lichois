@@ -100,3 +100,13 @@ EMERGENCY_PERIOD = (
     ("15 - 90 days", "15 - 90 days"),
     ("6 months", "6 months"),
 )
+
+SUBMITTER_TYPE = (("applicant", "Applicant"), ("officer", "Officer"))
+
+PERSON_TYPE = (
+    ("applicant", "Applicant"),
+    ("mother", "Mother"),
+    ("father", "Father"),
+    ("child", "Child"),
+    ("guardian", "Guardian"),
+)

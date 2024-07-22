@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     "workresidentpermit.apps.WorkresidentpermitConfig",
     "workflow.apps.WorkflowConfig",
     "identifier.apps.AppConfig",
+    "citizenship",
+    "app_oath",
     # "haystack",
     "rules.apps.AutodiscoverRulesConfig",
     "rest_framework",
@@ -77,7 +79,6 @@ INSTALLED_APPS = [
     "drf_yasg",
     "django_q",
     "app_notification.apps.AppConfig",
-    "blue_card.apps.AppConfig",
 ]
 
 MIDDLEWARE = [
@@ -209,15 +210,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-<<<<<<< HEAD
-=======
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
 
->>>>>>> a33b096 (refactor(BlueCard): :fire: fix management command to populate command)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 PDF_FOLDER = "generated"

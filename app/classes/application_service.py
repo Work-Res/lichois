@@ -38,7 +38,6 @@ class ApplicationService:
             return None
 
         application_status = self._get_application_status()
-        print(application_status)
         if not application_status:
             return None
 
@@ -152,8 +151,6 @@ class ApplicationService:
         self.application_document.applicant = applicant
         self.application_document.document_date = date.today()
         self.application_document.signed_date = date.today()
-        self.application_document.applicant_type = self.application.applicant_type
-
         ApplicationRepository.save_application_document(self.application_document)
 
         self._log_and_set_response(
