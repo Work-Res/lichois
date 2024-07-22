@@ -127,11 +127,13 @@ def handle_application_final_decision(instance, created):
         special_permit_decision_service.create_application_decision()
     except SystemError as e:
         logger.error(
-            f"SystemError: An error occurred while creating new application decision for {instance.document_number}, Got {e}"
+            "SystemError: An error occurred while creating new application decision for "
+            + f"{instance.document_number}, Got {e}"
         )
     except Exception as ex:
         logger.error(
-            f"An error occurred while trying to create application decision after saving {instance.document_number}. Got {ex}"
+            "An error occurred while trying to create application decision after saving "
+            + f"{instance.document_number}. Got {ex}"
         )
 
 

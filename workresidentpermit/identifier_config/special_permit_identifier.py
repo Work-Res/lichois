@@ -4,9 +4,9 @@ from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
 class SpecialPermitIdentifier(Identifier):
-    template = '{identifier_type}{address_code}{dob}{sequence}'
-    label = 'workresidentpermit'
-    identifier_type = 'SP'
+    template = "{identifier_type}{address_code}{dob}{sequence}"
+    label = "workresidentpermit"
+    identifier_type = "SP"
 
     @staticmethod
     def process_name():
@@ -14,19 +14,21 @@ class SpecialPermitIdentifier(Identifier):
 
 
 class SpecialPermitIdentifierCancellation(Identifier):
-    template = '{identifier_type}{address_code}{dob}{sequence}'
-    label = 'workresidentpermit'
-    identifier_type = 'SP'
+    template = "{identifier_type}{address_code}{dob}{sequence}"
+    label = "workresidentpermit"
+    identifier_type = "SP"
 
     @staticmethod
     def process_name():
-        return WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_CANCELLATION.value
+        return (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_CANCELLATION.value
+        )
 
 
 class SpecialPermitIdentifierRenewal(Identifier):
-    template = '{identifier_type}{address_code}{dob}{sequence}'
-    label = 'workresidentpermit'
-    identifier_type = 'SP'
+    template = "{identifier_type}{address_code}{dob}{sequence}"
+    label = "workresidentpermit"
+    identifier_type = "SP"
 
     @staticmethod
     def process_name():
@@ -34,19 +36,21 @@ class SpecialPermitIdentifierRenewal(Identifier):
 
 
 class SpecialPermitIdentifierEmergency(Identifier):
-    template = '{identifier_type}{address_code}{dob}{sequence}'
-    label = 'workresidentpermit'
-    identifier_type = 'SP'
+    template = "{identifier_type}{address_code}{dob}{sequence}"
+    label = "workresidentpermit"
+    identifier_type = "SP"
 
     @staticmethod
     def process_name():
-        return  WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.value
+        return (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.value
+        )
 
 
 class SpecialPermitIdentifierExemptionCertificate(Identifier):
-    template = '{identifier_type}{address_code}{dob}{sequence}'
-    label = 'workresidentpermit'
-    identifier_type = 'SP'
+    template = "{identifier_type}{address_code}{dob}{sequence}"
+    label = "workresidentpermit"
+    identifier_type = "SP"
 
     @staticmethod
     def process_name():
@@ -54,9 +58,9 @@ class SpecialPermitIdentifierExemptionCertificate(Identifier):
 
 
 class SpecialPermitIdentifierTravelCertificate(Identifier):
-    template = '{identifier_type}{address_code}{dob}{sequence}'
-    label = 'workresidentpermit'
-    identifier_type = 'SP'
+    template = "{identifier_type}{address_code}{dob}{sequence}"
+    label = "workresidentpermit"
+    identifier_type = "SP"
 
     @staticmethod
     def process_name():

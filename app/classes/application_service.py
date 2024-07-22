@@ -14,7 +14,6 @@ from app.models import (
     ApplicationVersion,
 )
 from app.utils import ApplicationStatusEnum
-from workresidentpermit.classes.document_generator import DocumentGeneratorFactory
 from workresidentpermit.classes.work_res_application_repository import (
     ApplicationRepository,
 )
@@ -39,12 +38,11 @@ class ApplicationService:
             return None
 
         application_status = self._get_application_status()
-        print(application_status)
         if not application_status:
-            return None
+            raise Exception("Application status not found")
 
         if not self._create_application_document():
-            return None
+            raise Exception("Application document creation failed")
 
         application = self._create_application_record(application_status)
         print(application)
