@@ -20,7 +20,9 @@ class ApplicationBatchService:
         batch = ApplicationBatch.objects.create(
             batch_type=self.application_batch_request.batch_type
         )
-        for application in Application.objects.filter(id__in=self.application_batch_request.applications):
+        for application in Application.objects.filter(
+            id__in=self.application_batch_request.applications
+        ):
             batch.applications.add(application)
             application.batched = True
             application.save()
@@ -28,7 +30,7 @@ class ApplicationBatchService:
         api_message = APIMessage(
             code=200,
             message="Application batch created successfully.",
-            details=f"An application batch created successfully."
+            details="An application batch created successfully.",
         )
         self.response.status = "success"
         self.response.data = ApplicationBatchSerializer(batch).data

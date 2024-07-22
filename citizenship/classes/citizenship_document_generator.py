@@ -45,8 +45,12 @@ class CitizenshipDocumentGenerator:
             ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
             ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
             ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
+<<<<<<< HEAD:citizenship/classes/citizenship_document_generator.py
             ApplicationProcesses.BLUE_CARD.value: BlueCardIdentifier,
 >>>>>>> aa5e5a9 (feat(BlueCard): :sparkles: Added new service (blue card)):workresidentpermit/classes/document_generator.py
+=======
+            ApplicationProcesses.BLUE_CARD_PERMIT.value: BlueCardIdentifier,
+>>>>>>> a20d750 (fix bluecard permit workflow):workresidentpermit/classes/document_generator.py
         }
 
         identifier_class = process_mapping.get(process_name)
