@@ -209,6 +209,15 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+<<<<<<< HEAD
+=======
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+>>>>>>> a33b096 (refactor(BlueCard): :fire: fix management command to populate command)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 PDF_FOLDER = "generated"
