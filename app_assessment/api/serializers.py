@@ -2,16 +2,14 @@ import os
 
 from rest_framework import serializers
 
+from app_assessment.models.appeal_assessment import AppealAssessment
 from app_assessment.models.dependant_assessment import DependantAssessment
+from app_assessment.models.new_assessment_investor import NewAssessmentInvestor
+from app_assessment.models.renewal_assessment_investor import RenewalAssessmentInvestor
 from app_checklist.utils import ReadJSON
-<<<<<<< HEAD
-from ..models import AssessmentResult, NewAssessmentInvestor, RenewalAssessmentInvestor
-from app_assessment.models import Assessment, AssessmentEmergency, AppealAssessment
-=======
-from ..models import AssessmentResult, AssessmentInvestor, AssessmentCaseNote, AssessmentCaseSummary, \
-    AssessmentCaseDecision
+from ..models import AssessmentResult
+
 from app_assessment.models import Assessment, AssessmentEmergency
->>>>>>> 6af02c5 (Citizenship in progress)
 from app_assessment.validators import AssessmentValidator
 
 
