@@ -1,6 +1,6 @@
 from django.db import models
 
-from citizenship.models.board import ScoreSheet
+from .score_sheet import ScoreSheet
 
 
 class BoardRecommendation(models.Model):

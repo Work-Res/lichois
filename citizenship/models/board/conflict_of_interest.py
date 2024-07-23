@@ -1,7 +1,8 @@
 from django.db import models
 
 from app.models import Application
-from citizenship.models.board import Attendee
+
+from .attendee import Attendee
 
 
 class ConflictOfInterest(models.Model):

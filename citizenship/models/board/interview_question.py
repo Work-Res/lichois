@@ -1,15 +1,14 @@
 from django.db import models
 
-from citizenship.models.board import Question
-from citizenship.models.board.interview import Interview
+from base_module.model_mixins import BaseUuidModel
+
+from .meeting import Meeting
 
 
-class InterviewQuestion(models.Model):
-    interview = models.ForeignKey(Interview, related_name='questions', on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, related_name='interview_questions', on_delete=models.CASCADE)
-    score = models.IntegerField()
-    comments = models.TextField(blank=True, null=True)
-    is_marked = models.BooleanField()
+class InterviewQuestion(BaseUuidModel):
+    meeting = models.ForeignKey(Meeting, related_name='interview_questions', on_delete=models.CASCADE)
+    text = models.CharField(max_length=500)
+    date_created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'Question: {self.question.text}'
+        return self.text

@@ -1,8 +1,9 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
 from app.models import Application
-from citizenship.models.board import Meeting, BatchApplication, Member, Board
+from authentication.models import User
+
+from citizenship.models.board import Meeting, BatchApplication, BoardMember, Board
 from citizenship.service.board import BatchService
 from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 from unittest.mock import patch
@@ -14,7 +15,7 @@ class BatchServiceTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='user1', password='pass')
         self.board = Board.objects.create(name='Board1', description='Test board')
-        self.member = Member.objects.create(user=self.user, board=self.board)
+        self.member = BoardMember.objects.create(user=self.user, board=self.board)
         self.meeting = Meeting.objects.create(
             title='Test Meeting', board=self.board, location='Conference Room',
             agenda='Discuss project updates', status='Scheduled')

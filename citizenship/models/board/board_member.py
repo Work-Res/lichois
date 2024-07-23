@@ -1,8 +1,9 @@
 from django.db import models
 
 from authentication.models import User
-from citizenship.models.board import Board
 from citizenship.models.board.role import Role
+from .board import Board
+
 
 from base_module.model_mixins import BaseUuidModel
 

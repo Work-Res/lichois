@@ -1,7 +1,7 @@
 import logging
 from django.db import transaction
 from django.core.exceptions import ValidationError
-from citizenship.models.board import InterviewDecision, Interview, Member
+from citizenship.models.board import InterviewDecision, Interview, BoardMember
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +12,7 @@ class InterviewDecisionService:
     def create_decision(interview_id, member_id, passed, reason=''):
         try:
             interview = Interview.objects.get(id=interview_id)
-            member = Member.objects.get(id=member_id)
+            member = BoardMember.objects.get(id=member_id)
             if not passed and not reason:
                 raise ValidationError("Reason is required when the decision is not passed.")
             decision = InterviewDecision.objects.create(
@@ -26,7 +26,7 @@ class InterviewDecisionService:
         except Interview.DoesNotExist:
             logger.error(f'Interview does not exist: {interview_id}')
             raise ValidationError("Interview does not exist.")
-        except Member.DoesNotExist:
+        except BoardMember.DoesNotExist:
             logger.error(f'Member does not exist: {member_id}')
             raise ValidationError("Member does not exist.")
         except Exception as e:

@@ -3,10 +3,11 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 
 from app.models import Application
-from citizenship.models.board import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest
+from citizenship.models.board import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest, Interview
 from citizenship.models.board.meeting_session import MeetingSession
 from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 
+from .batch_status_enum import BatchStatus
 logger = logging.getLogger(__name__)
 
 
@@ -33,7 +34,7 @@ class BatchService:
     @transaction.atomic
     def add_application_to_batch(batch_id, document_number, session_id):
         try:
-            if not ApplicationEligibilityValidator().is_eligible(document_number=document_number):
+            if not ApplicationEligibilityValidator(document_number=document_number).is_valid():
                 logger.error(f'Application {document_number} is not eligible to be added to batch {batch_id}')
                 raise ValidationError("Application is not eligible to be added to the batch.")
 
@@ -69,7 +70,8 @@ class BatchService:
             applications = Application.objects.filter(document_number__in=document_numbers)
 
             for application in applications:
-                if not ApplicationEligibilityValidator.is_eligible(application):
+                if not ApplicationEligibilityValidator(
+                        document_number=application.application_document.document_number).is_valid():
                     logger.error(f'Application {application.id} is not eligible to be added to batch {batch_id}')
                     raise ValidationError(f"Application {application.id} is not eligible to be added to the batch.")
 
@@ -129,14 +131,15 @@ class BatchService:
 
     @staticmethod
     @transaction.atomic
-    def declare_conflict_of_interest(attendee_id, application_id, has_conflict=False):
+    def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False):
         try:
             attendee = Attendee.objects.get(id=attendee_id)
-            application = Application.objects.get(id=application_id)
+            application = Application.objects.get(
+                application_document__document_number=document_number)
             conflict, created = ConflictOfInterest.objects.get_or_create(
                 attendee=attendee,
                 application=application,
-                has_conflict=True
+                has_conflict=has_conflict
             )
             if created:
                 logger.info(f'Conflict of interest declared: {conflict}')
@@ -145,10 +148,37 @@ class BatchService:
             logger.error(f'Attendee does not exist: {attendee_id}')
             raise ValidationError("Attendee does not exist.")
         except Application.DoesNotExist:
-            logger.error(f'Application does not exist: {application_id}')
+            logger.error(f'Application does not exist: {document_number}')
             raise ValidationError("Application does not exist.")
         except Exception as e:
             logger.error(f'Error declaring conflict of interest: {e}')
+            raise
+
+    @staticmethod
+    @transaction.atomic
+    def change_batch_status(batch_id, new_status):
+        try:
+            batch = Batch.objects.get(id=batch_id)
+            if new_status == BatchStatus.CLOSED.name:
+                # Create interview records for newly added applications in the batch
+                existing_interviews = Interview.objects.filter(batch=batch).values_list('application_id', flat=True)
+                new_applications = BatchApplication.objects.filter(batch=batch).exclude(
+                    application_id__in=existing_interviews)
+                for batch_application in new_applications:
+                    Interview.objects.create(
+                        application=batch_application.application,
+                        batch=batch,
+                        date=batch.meeting.start_date  # or any appropriate date
+                    )
+                logger.info(f'Batch {batch_id} closed and interviews created for new applications.')
+            batch.status = new_status
+            batch.save()
+            return batch
+        except Batch.DoesNotExist:
+            logger.error(f'Batch does not exist: {batch_id}')
+            raise ValidationError("Batch does not exist.")
+        except Exception as e:
+            logger.error(f'Error changing batch status: {e}')
             raise
 
     @staticmethod

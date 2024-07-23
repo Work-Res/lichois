@@ -88,3 +88,8 @@ class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
         fields = '__all__'
+
+
+class InterviewQuestionCSVSerializer(serializers.Serializer):
+    csv_file = serializers.FileField()
+

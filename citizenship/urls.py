@@ -7,7 +7,8 @@ from .views import (AdoptedChildRegistrationViewSet, DeclarationNaturalisationFo
 
 from .views import CertNaturalisationByForeignSpouseViewSet
 from .admin_site import citizenship_admin
-from .views.board import BoardModelViewSet, MeetingViewSet
+from .views.board import BoardModelViewSet, MeetingViewSet, ScoreSheetViewSet
+from .views.board.interview_decision_viewset import DecisionViewSet
 from .views.board.role_viewset import RoleViewSet
 
 app_name = 'citizenship'
@@ -36,6 +37,8 @@ router.register(r'form-r/', FormRViewSet, basename='form-r')
 router.register(r'board/roles', RoleViewSet, basename='role')
 router.register(r'boards', BoardModelViewSet)
 router.register(r'meetings', MeetingViewSet, basename='meeting')
+router.register(r'decisions', DecisionViewSet, basename='decision')
+router.register(r'scoresheets', ScoreSheetViewSet)
 
 
 urlpatterns = [
