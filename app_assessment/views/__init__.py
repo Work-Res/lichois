@@ -6,3 +6,5 @@ from .appeal_assessment_viewset import AppealAssessmentViewSet
 from .dependant_assessment_viewset import DependantAssessmentViewSet
 from .assessment_case_note_viewset import AssessmentCaseNoteViewSet
 from .assessment_case_summary_viewset import AssessmentCaseSummaryViewSet
+from .appeal_assessment_viewset import AppealAssessmentViewSet
+from .dependant_assessment_viewset import DependantAssessmentViewSet
