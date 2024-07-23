@@ -1,7 +1,6 @@
 import logging
 
 from app.api.common.web import APIMessage, APIResponse
-from app.identifiers import WorkResidentPermitIdentifier
 from app.identifiers.work_resident_identifier import (
     ExemptionCertificateIdentifier,
     ResidentPermitIdentifier,
@@ -9,8 +8,10 @@ from app.identifiers.work_resident_identifier import (
     WorkPermitIdentifier,
 )
 from app.utils import ApplicationProcesses
-from blue_card.models.blue_card import BlueCard
-from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
+from ..identifier_config.work_resident_permit_identifier import (
+    WorkResidentPermitIdentifier,
+)
+from ..utils import WorkResidentPermitApplicationTypeEnum
 
 
 class DocumentGenerator:
