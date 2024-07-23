@@ -79,7 +79,6 @@ INSTALLED_APPS = [
     "drf_yasg",
     "django_q",
     "app_notification.apps.AppConfig",
-    "blue_card.apps.AppConfig",
 ]
 
 MIDDLEWARE = [

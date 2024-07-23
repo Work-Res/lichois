@@ -1,14 +1,15 @@
 import logging
 
 from app.api.common.web import APIMessage, APIResponse
-from app.exceptions.identifier_config_not_found import IdentifierConfigNotFound
+from app.identifiers import WorkResidentPermitIdentifier
+from app.identifiers.work_resident_identifier import ExemptionCertificateIdentifier, ResidentPermitIdentifier, \
+    SpecialPermitIdentifier, \
+    WorkPermitIdentifier
 from app.utils import ApplicationProcesses
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
-from app.identifiers.identifier_scan_register import registrar
 
-
-class ApplicationDocumentGenerator:
-
+class WorkResidentPermitDocumentGenerator:
     def __init__(self, application):
         self.application = application
         self.response = APIResponse()
@@ -37,27 +38,30 @@ class ApplicationDocumentGenerator:
         """
         Get the identifier for standard processes based on the process name.
         """
-        print("self.application.application_type: ", process_name)
-        identifier_class = registrar.get_registered_class(process_name)
-        if not identifier_class:
-            raise IdentifierConfigNotFound(
-                f"Identifier configuration class not found "
-                f"for application type/process name: {self.application.application_type}"
-            )
+        process_mapping = {
+            ApplicationProcesses.WORK_RESIDENT_PERMIT.value: WorkResidentPermitIdentifier,
+            ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
+            ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
+            ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
+        }
+
+        identifier_class = process_mapping.get(process_name)
         return self.create_identifier(identifier_class) if identifier_class else None
 
     def get_special_permit_identifier(self):
         """
         Handle the creation of special permit identifiers.
         """
-        handler_class = registrar.get_registered_class(
-            self.application.application_type
-        )
-        if not handler_class:
-            raise IdentifierConfigNotFound(
-                f"Identifier configuration class not found "
-                f"for application type/process name: {self.application.application_type}"
-            )
+        special_permit_handlers = {
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value: SpecialPermitIdentifier,
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_CANCELLATION.value: SpecialPermitIdentifier,
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value: SpecialPermitIdentifier,
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.value: SpecialPermitIdentifier,
+            WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
+            WorkResidentPermitApplicationTypeEnum.TRAVEL_CERTIFICATE.value: SpecialPermitIdentifier,
+        }
+
+        handler_class = special_permit_handlers.get(self.application.application_type)
         return self.create_identifier(handler_class) if handler_class else None
 
     def create_identifier(self, identifier_class):
@@ -66,7 +70,8 @@ class ApplicationDocumentGenerator:
         """
         if identifier_class:
             identifier_instance = identifier_class(
-                address_code=self.application.work_place, dob=self.application.dob
+                address_code=self.application.work_place,
+                dob=self.application.dob
             )
             return identifier_instance.identifier
         return None
@@ -75,7 +80,9 @@ class ApplicationDocumentGenerator:
         """
         Log an error and update the response for an invalid process name.
         """
-        error_message = f"Application process: {process_name} does not match any configured application processes."
+        error_message = (
+            f"Application process: {process_name} does not match any configured application processes."
+        )
         self.logger.debug(error_message)
         api_message = APIMessage(
             code=400,
@@ -83,20 +90,20 @@ class ApplicationDocumentGenerator:
             details=(
                 f"Application processes misconfigured. "
                 f"{process_name} does not match any configured processes."
-            ),
+            )
         )
         self.response.status = False
         self.response.messages.append(api_message.to_dict())
 
 
-class ApplicationDocumentGeneratorFactory:
+class WorkResidentPermitDocumentGeneratorFactory:
     """
-    Factory for creating document generators based on the application process.
-    """
+	Factory for creating document generators based on the application process.
+	"""
 
     @staticmethod
     def create_document_generator(application):
         """
-        Create the appropriate document generator based on the application process.
-        """
-        return ApplicationDocumentGenerator(application=application)
+		Create the appropriate document generator based on the application process.
+		"""
+        return WorkResidentPermitDocumentGenerator(application=application)
