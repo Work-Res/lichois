@@ -14,7 +14,6 @@ from app.models import (
     ApplicationVersion,
 )
 from app.utils import ApplicationStatusEnum
-from workresidentpermit.classes.document_generator import DocumentGeneratorFactory
 from workresidentpermit.classes.work_res_application_repository import (
     ApplicationRepository,
 )
@@ -87,7 +86,7 @@ class ApplicationService:
                 400,
                 "Bad request",
                 f"Application status ({self.new_application_dto.status}) does not exist for process name "
-                + f"{self.new_application_dto.proces_name}. "
+                f"{self.new_application_dto.proces_name}."
                 f"User identifier: {self.new_application_dto.applicant_identifier}",
             )
             return None
