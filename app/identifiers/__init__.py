@@ -1,2 +1,1 @@
 from .identifier_scan_register import IdentifierScanRegister
-
