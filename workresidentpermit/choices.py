@@ -87,8 +87,10 @@ APPEAL_STATUS = (
 
 SUBMITTER_TYPE = (("applicant", "Applicant"), ("officer", "Officer"))
 
-EMERGENCY_PERIOD = (
-    ("1 - 14 days", "1 - 14 days"),
-    ("15 - 90 days", "15 - 90 days"),
-    ("6 months", "6 months"),
+PERSON_TYPE = (
+    ("applicant", "Applicant"),
+    ("mother", "Mother"),
+    ("father", "Father"),
+    ("child", "Child"),
+    ("guardian", "Guardian"),
 )

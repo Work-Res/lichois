@@ -1,8 +1,8 @@
 {
   "classifiers": {
     "citizenship": {
-      "code": "RENUNCIATION",
-      "name": "RENUNCIATION",
+      "code": "CITIZENSHIP_RENUNCIATION",
+      "name": "CITIZENSHIP RENUNCIATION",
       "description": "Declaration of Renunciation/Abandonment of Citizenship of Botswana Workflow",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01",
@@ -22,24 +22,79 @@
           }
         },
         {
-          "code": "RECOMMENDATION",
-          "name": "Declaration of Renunciation Recommendation",
-          "description": "??? Director/PS or Minister.",
+          "code": "FIRST_ASSESSMENT",
+          "name": "Declaration of Renunciation Assessment",
+          "description": "The assessment is performed by Officer, creating assessment case summary.",
           "mandatory": false,
-          "sequence": 1,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "SECOND_ASSESSMENT",
+          "create_task_rules": {
+            "decision": "RECOMMENDED",
+            "current_status": "FIRST_ASSESSMENT"
+          }
+        },
+        {
+          "code": "SECOND_ASSESSMENT",
+          "name": "Declaration of Renunciation Assessment by Director",
+          "description": "The assessment is performed by Director.",
+          "mandatory": false,
+          "sequence": 3,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "THIRD_ASSESSMENT",
+          "create_task_rules": {
+            "decision": "RECOMMENDED",
+            "current_status": "SECOND_ASSESSMENT"
+          }
+        }, {
+          "code": "THIRD_ASSESSMENT",
+          "name": "Declaration of Renunciation Assessment by PS",
+          "description": "Director/PS or Minister.",
+          "mandatory": false,
+          "sequence": 4,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "FINAL_DECISION",
+          "create_task_rules": {
+            "decision": "RECOMMENDED",
+            "current_status": "THIRD_ASSESSMENT"
+          }
+        },
+        {
+          "code": "MINISTER_ACCEPTANCE",
+          "name": "Declaration of Renunciation ",
+          "description": "Minister makes a decision based on recommendations from the completed assessment. Provision of renunciation letter. ",
+          "mandatory": false,
+          "sequence": 5,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "FINAL_DECISION",
+          "create_task_rules": {
+            "decision": "ACCEPTED",
+            "current_status": "MINISTER_ACCEPTANCE"
+          }
+        },
+        {
+          "code": "FOREIGN_RENUNCIATION",
+          "name": "Declaration of Renunciation ",
+          "description": "The applicant submit a foreign renunciation letter. ",
+          "mandatory": false,
+          "sequence": 6,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
             "verification_decision": "ACCEPTED",
-            "current_status": "VERIFICATION"
+            "current_status": "FOREIGN_RENUNCIATION"
           }
         },
         {
           "code": "FINAL_DECISION",
           "name": "Renunciation Production decision",
-          "description": "Final decision for work resident permit",
-          "sequence": 3,
+          "description": "Provision of citizenship certificate.",
+          "sequence": 7,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",

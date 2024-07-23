@@ -1,0 +1,2 @@
+from .citizenship_process_enum import CitizenshipProcessEnum
+from .citizenship_application_type_enum import CitizenshipApplicationTypeEnum

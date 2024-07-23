@@ -5,7 +5,8 @@ from .views import ApplicationVersionSearchView
 
 
 router = routers.DefaultRouter()
-router.register("applications/search", ApplicationVersionSearchView, base_name="application-search")
+router = routers.DefaultRouter()
+router.register(r'applications/search', ApplicationVersionSearchView, basename='applicationversionsearch')
 
 
 urlpatterns = [

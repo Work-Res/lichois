@@ -13,3 +13,5 @@ from .oath_of_allegiance_viewset import OathOfAllegianceViewSet
 from .renunciation_of_foreign_citizenship_viewset import RenunciationOfForeignCitizenshipViewSet
 from .spouse_naturalisation_viewset import SpouseNaturalizationViewSet
 from .under_20_citizenship_viewset import Under20CitizenshipViewSet
+from .certificate_of_origin_viewset import CertificateOfOriginViewSet
+from .form_r_viewset import FormRViewSet

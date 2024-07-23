@@ -11,7 +11,7 @@ from .kgosana_certificate_form import KgosanaCertificateForm
 from .late_citizenship_renunciation_form import (LateCitizenshipRenunciationForm)
 from .nationality_declaration_form import NationalityDeclarationForm
 from .naturalisation_form import NaturalisationForm
-from .naturalisation_of_foreign_spouse_form import NaturalisationOfForeignSpouseForm
+# from .naturalisation_of_foreign_spouse_form import NaturalisationOfForeignSpouseForm
 from .oath_of_allegiance_form import OathOfAllegianceForm
 from .parent_details_form import ParentDetailsForm
 from .personal_declaration_form import PersonalDeclarationForm

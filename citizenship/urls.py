@@ -2,9 +2,12 @@ from django.urls import path, include
 from django.urls.conf import path
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
-from .views import AdoptedChildRegistrationViewSet, DeclarationNaturalisationForeignSpouseViewSet
+from .views import (AdoptedChildRegistrationViewSet, DeclarationNaturalisationForeignSpouseViewSet,
+                    CertificateOfOriginViewSet, FormRViewSet)
+
 from .views import CertNaturalisationByForeignSpouseViewSet
 from .admin_site import citizenship_admin
+
 
 app_name = 'citizenship'
 
@@ -27,7 +30,8 @@ router.register(r'oath-of-allegiance/', AdoptedChildRegistrationViewSet, basenam
 router.register(r'foreign-citizenship-renunciations/', AdoptedChildRegistrationViewSet, basename='foreign-citizenship-renunciations')
 router.register(r'spouse-naturalisations/', AdoptedChildRegistrationViewSet, basename='spouse-naturalisations')
 router.register(r'under-20-citizenships/', AdoptedChildRegistrationViewSet, basename='under-20-citizenships')
-
+router.register(r'certificate-of-origin/', CertificateOfOriginViewSet, basename='certificate-of-origin')
+router.register(r'form-r/', FormRViewSet, basename='form-r')
 
 urlpatterns = [
     path('admin/', citizenship_admin.urls),

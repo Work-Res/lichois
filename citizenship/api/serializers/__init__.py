@@ -22,3 +22,5 @@ from .spouse_info_serializer import SpouseInfoSerializer
 from .travel_cert_non_citizen_serializer import TravelCertNonCitizenSerializer
 from .under_20_citizenship_serializer import Under20CitizenshipSerializer
 from .witness_details_serializer import WitnessDetailsSerializer
+from .certificate_of_origin_serializer import CertificateOfOriginSerializer
+from .form_r_serializer import FormRSerializer

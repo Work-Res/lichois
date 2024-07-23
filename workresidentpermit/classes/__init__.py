@@ -10,4 +10,4 @@ from workresidentpermit.classes.production.data_helper import DataHelper
 from workresidentpermit.classes.production.generate_production_permit_pdf import GenerateProductionPermitPDF
 from workresidentpermit.classes.service.work_resident_permit_renewal_history_service import \
     WorkResidentPermitRenewalHistoryService
-
+from .work_resident_permit_document_generator import WorkResidentPermitDocumentGeneratorFactory

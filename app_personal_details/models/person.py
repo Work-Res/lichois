@@ -1,6 +1,6 @@
 from django.db import models
 
-from workresidentpermit.choices import MARITAL_STATUS, GENDER
+from workresidentpermit.choices import MARITAL_STATUS, GENDER, PERSON_TYPE
 
 from app.models import ApplicationBaseModel
 
@@ -39,8 +39,15 @@ class Person(ApplicationBaseModel):
 
     qualification = models.CharField(max_length=190)
 
+    person_type = models.CharField(
+        max_length=150,
+        choices=PERSON_TYPE
+    )
+
+    decreased = models.BooleanField(default=False)
+
     def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} - {self.person_type}"
 
     class Meta:
         verbose_name = 'Personal Details'

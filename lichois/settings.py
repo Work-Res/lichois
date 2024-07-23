@@ -34,6 +34,7 @@ CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
+<<<<<<< HEAD
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -78,6 +79,53 @@ INSTALLED_APPS = [
     "django_q",
     "app_notification.apps.AppConfig",
     "blue_card.apps.AppConfig",
+=======
+	"django.contrib.admin",
+	"django.contrib.auth",
+	"django.contrib.contenttypes",
+	"django.contrib.sessions",
+	"django.contrib.messages",
+	"whitenoise.runserver_nostatic",
+	"django.contrib.staticfiles",
+	"base_module.apps.AppConfig",
+	"app.apps.AppConfig",
+	"board.apps.AppConfig",
+	"app_search.apps.AppSearchConfig",
+	"app_pdf_utilities.apps.AppPdfUtilitiesConfig",
+	"app_checklist.apps.AppChecklistConfig",
+	"app_attachments.apps.AppAttachmentsConfig",
+	"app_address.apps.AppAddressConfig",
+	"app_contact.apps.AppContactConfig",
+	"app_personal_details.apps.AppPersonalDetailsConfig",
+	"app_comments.apps.AppCommentsConfig",
+	"app_decision.apps.AppDecisionConfig",
+	"app_assessment.apps.AppAssessmentConfig",
+	"travel.apps.TravelConfig",
+	"workresidentpermit.apps.WorkresidentpermitConfig",
+	"workflow.apps.WorkflowConfig",
+	"identifier.apps.AppConfig",
+	"citizenship",
+	"app_oath",
+	# "haystack",
+	"rules.apps.AutodiscoverRulesConfig",
+	"rest_framework",
+	"rest_framework_swagger",
+	'rest_framework.authtoken',
+	'rest_framework_simplejwt',
+	"viewflow",
+	"viewflow.workflow",
+	"django_filters",
+	"django_api_client",
+	"corsheaders",
+	"django_extensions",
+	"lichois",
+	'django_roles_access',
+	'authentication.apps.AppConfig',
+	'django_otp',
+	'drf_yasg',
+	'django_q',
+	'app_notification.apps.AppConfig',
+>>>>>>> 6af02c5 (Citizenship in progress)
 ]
 
 MIDDLEWARE = [
@@ -209,17 +257,24 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
-PDF_FOLDER = "generated"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+PDF_FOLDER = 'generated'
 PDF_TEMPLATE_WORKRESIDENTPERMIT = "pdf/application_summary.html"
 DEPARTMENT = "ministry of Citizen and industry"
+
+STORAGES = {
+	"default": {
+		"BACKEND": "django.core.files.storage.FileSystemStorage",
+		"OPTIONS": {
+			"location": MEDIA_ROOT,
+		},
+	},
+	"staticfiles": {
+		"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+	},
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
