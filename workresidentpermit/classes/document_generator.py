@@ -7,7 +7,6 @@ from app.identifiers.work_resident_identifier import (
     ResidentPermitIdentifier,
     SpecialPermitIdentifier,
     WorkPermitIdentifier,
-    BlueCardIdentifier,
 )
 from app.utils import ApplicationProcesses
 from blue_card.models.blue_card import BlueCard
@@ -28,7 +27,6 @@ class DocumentGenerator:
 
         # Get the appropriate identifier
         identifier = self.get_identifier(process_name)
-        # self.stdout.write(self.style.SUCCESS(f"Identifier: {identifier}"))
         if identifier:
             return identifier
 
@@ -49,7 +47,6 @@ class DocumentGenerator:
             ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
             ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
             ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
-            ApplicationProcesses.BLUE_CARD_PERMIT.value: BlueCardIdentifier,
         }
 
         identifier_class = process_mapping.get(process_name)
