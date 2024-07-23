@@ -11,6 +11,7 @@ class InformationMissingRequest(models.Model):
     reason = models.CharField(max_length=255)
     description = models.TextField()
     is_provided = models.BooleanField(default=False)
+    comment = models.TextField()
 
     def __str__(self):
         return f"Missing Request for {self.parent_type} - {self.parent_object_id}"

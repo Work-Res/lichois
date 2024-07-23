@@ -61,6 +61,9 @@ class Application(BaseUuidModel):
     )
     submission_date = models.DateField(auto_now=True)
 
+    def full_name(self):
+        return self.application_document.applicant.full_name
+
     def __str__(self):
         return f"Application {self.application_document.document_number}"
 
