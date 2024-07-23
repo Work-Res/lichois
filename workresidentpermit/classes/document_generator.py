@@ -7,8 +7,10 @@ from app.identifiers.work_resident_identifier import (
     ResidentPermitIdentifier,
     SpecialPermitIdentifier,
     WorkPermitIdentifier,
+    BlueCardIdentifier,
 )
 from app.utils import ApplicationProcesses
+from blue_card.models.blue_card import BlueCard
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
@@ -46,6 +48,7 @@ class DocumentGenerator:
             ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
             ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
             ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
+            ApplicationProcesses.BLUE_CARD.value: BlueCardIdentifier,
         }
 
         identifier_class = process_mapping.get(process_name)
