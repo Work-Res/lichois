@@ -14,6 +14,8 @@ class Notification(BaseUuidModel, models.Model):
 	message = models.TextField()
 	created_at = models.DateTimeField(auto_now_add=True)
 	is_read = models.BooleanField(default=False)
+	has_attachment = models.BooleanField(default=False)
+	retry_count = models.IntegerField(null=True, blank=True)
 	
 	def __str__(self):
 		return f'Notification for {self.user.name}'
