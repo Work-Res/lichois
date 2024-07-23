@@ -1,7 +1,9 @@
 from django.db import models
 
+from base_module.model_mixins import BaseUuidModel
 
-class Role(models.Model):
+
+class Role(BaseUuidModel):
     name = models.CharField(max_length=100)
     description = models.TextField()
 

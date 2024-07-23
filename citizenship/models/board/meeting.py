@@ -12,7 +12,7 @@ class Meeting(BaseUuidModel):
     location = models.CharField(max_length=200)
     agenda = models.TextField()
 
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Scheduled')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Draft')
 
     def __str__(self):
         return self.title

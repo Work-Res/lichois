@@ -4,6 +4,7 @@ from django.conf import settings
 from django.test import TestCase, override_settings
 from docx import Document
 
+from app_information_requests.service.word import Generator
 from citizenship.service.word import WordDocumentService
 
 
@@ -31,16 +32,16 @@ class WordDocumentServiceTest(TestCase):
             with open(cls.sample_image_path, 'wb') as f:
                 f.write(b'\x00' * 1024)
 
-    @classmethod
-    def tearDownClass(cls):
-        super().tearDownClass()
-        if os.path.exists(cls.media_root):
-            for root, dirs, files in os.walk(cls.media_root, topdown=False):
-                for name in files:
-                    os.remove(os.path.join(root, name))
-                for name in dirs:
-                    os.rmdir(os.path.join(root, name))
-            os.rmdir(cls.media_root)
+    # @classmethod
+    # def tearDownClass(cls):
+    #     super().tearDownClass()
+    #     if os.path.exists(cls.media_root):
+    #         for root, dirs, files in os.walk(cls.media_root, topdown=False):
+    #             for name in files:
+    #                 os.remove(os.path.join(root, name))
+    #             for name in dirs:
+    #                 os.rmdir(os.path.join(root, name))
+    #         os.rmdir(cls.media_root)
 
     def test_create_and_save_document_with_header_and_footer(self):
         title = 'Test Document'
@@ -118,3 +119,20 @@ class WordDocumentServiceTest(TestCase):
         # Ensure the image is added (we'll check the presence of relationships as a proxy)
         rels = document.part.rels
         self.assertTrue(any(rel.target_ref.endswith('logo.png') for rel in rels.values()))
+
+    def test_generator(self):
+        logo_full_path = os.path.join(settings.MEDIA_ROOT, 'logo.png')
+        output_path = os.path.join(self.media_root, 'test_document.docx')
+        g = Generator(logo_path=logo_full_path)
+        placeholders = {
+            'full_name': 'John Doe',
+            'checklist_request': 'Passport, Birth Certificate',
+            'missing_information_request': 'Proof of Residence',
+            'due_date': 'August 1, 2024',
+            'contact_information': 'info@gov.bw',
+            'officer_fullname': 'Jane Smith',
+            'officer_position': 'Application Officer',
+            'officer_contact_information': 'jane.smith@gov.bw'
+        }
+        g.create_request_letter(placeholders=placeholders, output_path=output_path)
+

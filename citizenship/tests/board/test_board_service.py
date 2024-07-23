@@ -1,59 +1,107 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
+from app.models import Application, ApplicationDocument
+from citizenship.models.board import Meeting, Attendee, Role, Board, BoardMember
 from django.contrib.auth.models import User
-from citizenship.models.board import Member, Role
-from citizenship.service.board import BoardService
+from datetime import date, time
+
+from citizenship.models.board.meeting_session import MeetingSession
+from citizenship.service.board import BatchService
 
 
-class BoardServiceTest(TestCase):
+class BatchServiceTest(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user(username='user1', password='pass')
-        self.role1 = Role.objects.create(name='Role 1', description='Test role 1')
-        self.role2 = Role.objects.create(name='Role 2', description='Test role 2')
+        # Setup initial data for tests
+        self.board = BoardMember.objects.create(name="Test Board", description="Test Description")
+        self.role = Role.objects.create(name="Test Role", description="Test Role Description")
+        self.user = User.objects.create(username="testuser")
+        self.member = BoardMember.objects.create(user=self.user, board=self.board, role=self.role)
+        self.meeting = Meeting.objects.create(title="Test Meeting", board=self.board, location="Test Location",
+                                              agenda="Test Agenda", start_date=date.today(), end_date=date.today())
+        self.session = MeetingSession.objects.create(meeting=self.meeting, title="Morning Session", date=date.today(),
+                                                     start_time=time(9, 0), end_time=time(11, 0))
+        self.application_document = ApplicationDocument.objects.create(document_number="12345")
+        self.application = Application.objects.create(application_document=self.application_document)
+        self.attendee = Attendee.objects.create(meeting=self.meeting, member=self.member)
 
-    def test_create_board(self):
-        board = BoardService.create_board(name='Board 1', description='Test board', quorum_roles=[
-            self.role1, self.role2])
-        self.assertIsNotNone(board.id)
-        self.assertEqual(board.name, 'Board 1')
-        self.assertEqual(board.description, 'Test board')
-        self.assertEqual(board.quorum_roles.count(), 2)
+    def test_create_batch(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        self.assertIsNotNone(batch)
+        self.assertEqual(batch.name, "Test Batch")
 
-    def test_update_board(self):
-        board = BoardService.create_board(name='Board 1', description='Test board', quorum_roles=[self.role1])
-        updated_board = BoardService.update_board(board_id=board.id, name='Updated Board',
-                                                  description='Updated description', quorum_roles=[self.role1,
-                                                                                                   self.role2])
-        self.assertEqual(updated_board.name, 'Updated Board')
-        self.assertEqual(updated_board.description, 'Updated description')
-        self.assertEqual(updated_board.quorum_roles.count(), 2)
+    def test_add_application_to_batch(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        result = BatchService.add_application_to_batch(batch.id, self.application_document.document_number,
+                                                       self.session.id)
+        self.assertTrue(result)
 
-    def test_update_nonexistent_board(self):
+    def test_add_application_to_batch_with_invalid_batch(self):
         with self.assertRaises(ValidationError):
-            BoardService.update_board(board_id=999, name='Updated Board', description='Updated description',
-                                      quorum_roles=[self.role1, self.role2])
+            BatchService.add_application_to_batch(9999, self.application_document.document_number, self.session.id)
 
-    def test_add_board_meeting_without_quorum(self):
-        board = BoardService.create_board(name='Board 1', description='Test board', quorum_roles=[self.role1,
-                                                                                                  self.role2])
-        Member.objects.create(user=self.user, board=board, role=self.role1)  # Only one role satisfied
+    def test_add_application_to_batch_with_invalid_application(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
         with self.assertRaises(ValidationError):
-            BoardService.add_board_meeting(
-                board_id=board.id, title='Meeting 1', location='Conference Room',
-                agenda='Discuss updates', status='Scheduled')
+            BatchService.add_application_to_batch(batch.id, "invalid_document_number", self.session.id)
 
-    def test_add_board_meeting_with_quorum(self):
-        board = BoardService.create_board(
-            name='Board 1', description='Test board', quorum_roles=[self.role1, self.role2])
-        Member.objects.create(user=self.user,board=board, role=self.role1)
-        Member.objects.create(user=User.objects.create_user(username='user2', password='pass'), board=board,
-                              role=self.role2)
-        meeting = BoardService.add_board_meeting(
-            board_id=board.id, title='Meeting 1', location='Conference Room',
-            agenda='Discuss updates', status='Scheduled')
-        self.assertIsNotNone(meeting.id)
-        self.assertEqual(meeting.title, 'Meeting 1')
-        self.assertEqual(meeting.location, 'Conference Room')
-        self.assertEqual(meeting.agenda, 'Discuss updates')
-        self.assertEqual(meeting.status, 'Scheduled')
+    def test_add_application_to_batch_with_invalid_session(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        with self.assertRaises(ValidationError):
+            BatchService.add_application_to_batch(batch.id, self.application_document.document_number, 9999)
+
+    def test_add_applications_to_batch(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        document_numbers = [self.application_document.document_number]
+        result = BatchService.add_applications_to_batch(batch.id, document_numbers, self.session.id)
+        self.assertTrue(result)
+
+    def test_add_applications_to_batch_with_invalid_batch(self):
+        document_numbers = [self.application_document.document_number]
+        with self.assertRaises(ValidationError):
+            BatchService.add_applications_to_batch(9999, document_numbers, self.session.id)
+
+    def test_add_applications_to_batch_with_invalid_application(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        with self.assertRaises(ValidationError):
+            BatchService.add_applications_to_batch(batch.id, ["invalid_document_number"], self.session.id)
+
+    def test_add_applications_to_batch_with_invalid_session(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        document_numbers = [self.application_document.document_number]
+        with self.assertRaises(ValidationError):
+            BatchService.add_applications_to_batch(batch.id, document_numbers, 9999)
+
+    def test_remove_application_from_batch(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        BatchService.add_application_to_batch(batch.id, self.application_document.document_number, self.session.id)
+        result = BatchService.remove_application_from_batch(batch.id, self.application.id)
+        self.assertTrue(result)
+
+    def test_remove_application_from_batch_with_invalid_batch_application(self):
+        with self.assertRaises(ValidationError):
+            BatchService.remove_application_from_batch(9999, 9999)
+
+    def test_declare_conflict_of_interest(self):
+        conflict = BatchService.declare_conflict_of_interest(self.attendee.id,
+                                                             self.application_document.document_number, True)
+        self.assertIsNotNone(conflict)
+        self.assertTrue(conflict.has_conflict)
+
+    def test_declare_conflict_of_interest_with_invalid_attendee(self):
+        with self.assertRaises(ValidationError):
+            BatchService.declare_conflict_of_interest(9999, self.application_document.document_number, True)
+
+    def test_declare_conflict_of_interest_with_invalid_application(self):
+        with self.assertRaises(ValidationError):
+            BatchService.declare_conflict_of_interest(self.attendee.id, "invalid_document_number", True)
+
+    def test_declare_no_conflict_for_all(self):
+        batch = BatchService.create_batch(self.meeting.id, "Test Batch")
+        BatchService.add_application_to_batch(batch.id, self.application_document.document_number, self.session.id)
+        result = BatchService.declare_no_conflict_for_all(self.attendee.id, batch.id)
+        self.assertTrue(result)
+
+    def test_declare_no_conflict_for_all_with_invalid_attendee(self):
+        with self.assertRaises(ValidationError):
+            BatchService.declare_no_conflict_for_all(9999, 9999)

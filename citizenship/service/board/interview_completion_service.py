@@ -1,7 +1,7 @@
 import logging
 from django.db import transaction
 from django.core.exceptions import ValidationError
-from citizenship.models.board import Interview, Member, InterviewQuestion
+from citizenship.models.board import Interview, BoardMember, InterviewQuestion
 from citizenship.service.board.score_sheet_service import ScoreSheetService
 
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ class InterviewCompletionService:
     def mark_interview_as_completed(interview_id, member_id):
         try:
             interview = Interview.objects.get(id=interview_id)
-            member = Member.objects.get(id=member_id)
+            member = BoardMember.objects.get(id=member_id)
 
             # Check if all interview questions for this member are marked
             all_marked = InterviewQuestion.objects.filter(interview=interview, member=member,
@@ -37,7 +37,7 @@ class InterviewCompletionService:
         except Interview.DoesNotExist:
             logger.error(f'Interview does not exist: {interview_id}')
             raise ValidationError("Interview does not exist.")
-        except Member.DoesNotExist:
+        except BoardMember.DoesNotExist:
             logger.error(f'Member does not exist: {member_id}')
             raise ValidationError("Member does not exist.")
         except Exception as e:

@@ -15,21 +15,28 @@ class MeetingService:
     """
     @staticmethod
     @transaction.atomic
-    def create_meeting(title: str, board: Board, date, time, location, agenda: str):
+    def create_meeting(title, board_id, location, agenda, start_date, end_date):
         try:
+            board = Board.objects.get(id=board_id)
+            if MeetingService.check_meeting_conflicts(board, start_date, end_date):
+                raise ValidationError("A meeting for the same board already exists in the specified period.")
             meeting = Meeting.objects.create(
                 title=title,
                 board=board,
-                date=date,
-                time=time,
                 location=location,
-                agenda=agenda
+                agenda=agenda,
+                start_date=start_date,
+                end_date=end_date
             )
             logger.info(f'Meeting created: {meeting}')
+            MeetingService.create_attendances_for_meeting(meeting)
             return meeting
+        except Board.DoesNotExist:
+            logger.error(f'Board does not exist: {board_id}')
+            raise ValidationError("Board does not exist.")
         except Exception as e:
             logger.error(f'Error creating meeting: {e}')
-            raise
+            raise ValidationError("Error creating meeting.")
 
     @staticmethod
     @transaction.atomic
@@ -106,25 +113,23 @@ class MeetingService:
             raise
 
     @staticmethod
-    @transaction.atomic
-    def add_session(meeting_id, title, date, start_time, end_time):
+    def create_attendances_for_meeting(meeting):
         try:
-            meeting = Meeting.objects.get(id=meeting_id)
-            session = MeetingSession.objects.create(
-                meeting=meeting,
-                title=title,
-                date=date,
-                start_time=start_time,
-                end_time=end_time
-            )
-            logger.info(f'Session created: {session}')
-            return session
-        except Meeting.DoesNotExist:
-            logger.error(f'Meeting does not exist: {meeting_id}')
-            raise ValidationError("Meeting does not exist.")
+            members = BoardMember.objects.filter(board=meeting.board)
+            for member in members:
+                Attendee.objects.create(meeting=meeting, member=member)
+                logger.info(f'Attendee created: {member.user.username} for meeting {meeting.title}')
         except Exception as e:
-            logger.error(f'Error creating session: {e}')
-            raise
+            logger.error(f'Error creating attendees for meeting: {e}')
+            raise ValidationError("Error creating attendees for meeting.")
+
+    @staticmethod
+    def check_meeting_conflicts(board, start_date, end_date):
+        meetings = Meeting.objects.filter(board=board)
+        for meeting in meetings:
+            if (start_date <= meeting.end_date and end_date >= meeting.start_date):
+                return True
+        return False
 
     @staticmethod
     def check_session_conflicts(meeting, date, start_time, end_time):
@@ -141,6 +146,7 @@ class MeetingService:
             meeting = Meeting.objects.get(id=meeting_id)
             if MeetingService.check_session_conflicts(meeting, date, start_time, end_time):
                 raise ValidationError("Meeting Session times conflict with an existing session.")
+
             session = MeetingSession.objects.create(
                 meeting=meeting,
                 title=title,

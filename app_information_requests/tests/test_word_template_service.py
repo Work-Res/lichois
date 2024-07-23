@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 
 from docx import Document
 
-from app_information_requests.service.word import WordDocumentTemplateService
+from app_information_requests.service.word import WordDocumentTemplateService, Generator
 
 
 @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'test_media'))
@@ -60,6 +60,21 @@ class WordDocumentTemplateServiceTest(TestCase):
         self.assertIn('Your application for Software Engineer has been approved.', paragraphs)
         self.assertIn('Best regards,', paragraphs)
         self.assertIn('TechCorp', paragraphs)
+
+    def test_generator(self):
+        service = Generator('path/to/logo.png')
+        placeholders = {
+            'full_name': 'John Doe',
+            'checklist_request': 'Passport, Birth Certificate',
+            'missing_information_request': 'Proof of Residence',
+            'due_date': 'August 1, 2024',
+            'contact_information': 'info@gov.bw',
+            'officer_fullname': 'Jane Smith',
+            'officer_position': 'Application Officer',
+            'officer_contact_information': 'jane.smith@gov.bw'
+        }
+        service.create_request_letter(placeholders, 'request_letter.docx')
+
 
     def test_replace_placeholders_new_template(self):
         self.template_path = "sample_information_request.docx"
