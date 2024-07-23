@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 	"app_comments.apps.AppCommentsConfig",
 	"app_decision.apps.AppDecisionConfig",
 	"app_assessment.apps.AppAssessmentConfig",
+	"app_information_requests.apps.AppInformationRequestsConfig",
 	"travel.apps.TravelConfig",
 	"workresidentpermit.apps.WorkresidentpermitConfig",
 	"workflow.apps.WorkflowConfig",
@@ -90,7 +91,9 @@ MIDDLEWARE = [
 	"django.contrib.auth.middleware.AuthenticationMiddleware",
 	"django.contrib.messages.middleware.MessageMiddleware",
 	"django.middleware.clickjacking.XFrameOptionsMiddleware",
-	'corsheaders.middleware.CorsMiddleware'
+	'corsheaders.middleware.CorsMiddleware',
+	'lichois.config.middleware.ApiExceptionMiddleware',
+
 ]
 
 ROOT_URLCONF = "lichois.urls"

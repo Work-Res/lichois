@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 from app.models import ApplicationBaseModel
+from authentication.models import User
 
 
 class InformationRequest(ApplicationBaseModel):
