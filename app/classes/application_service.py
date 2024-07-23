@@ -122,8 +122,8 @@ class ApplicationService:
             self._log_and_set_response(
                 400,
                 "Bad request",
-                f"The system failed to create application user with "
-                f"user identifier: {self.new_application_dto.applicant_identifier}. Error: {e}",
+                "The system failed to create application user with user identifier: "
+                f"{self.application.applicant_identifier}. Error: {e}",
             )
             return None
 
