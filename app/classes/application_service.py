@@ -153,6 +153,8 @@ class ApplicationService:
         self.application_document.document_date = date.today()
         self.application_document.signed_date = date.today()
         self.application_document.applicant_type = self.application.applicant_type
+        self.application_document.permit_period = self.application.permit_period
+
         ApplicationRepository.save_application_document(self.application_document)
 
         self._log_and_set_response(

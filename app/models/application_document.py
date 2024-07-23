@@ -30,6 +30,14 @@ class ApplicationDocument(BaseUuidModel):
     document_date = models.DateField(null=False, blank=False)
     signed_date = models.DateField()
     submission_customer = models.CharField(max_length=250)
+<<<<<<< HEAD
+=======
+    permit_period = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+    )
+>>>>>>> 37514d1 (refactor(Application): :fire: Refactor workres code)
 
     def __str__(self):
         return f"Document {self.document_number}"
