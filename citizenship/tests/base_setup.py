@@ -29,11 +29,12 @@ class BaseSetup(TestCase):
 
     def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
-            process_name=CitizenshipProcessEnum.RENUNCIATION.value.lower(),
+            process_name=CitizenshipProcessEnum.RENUNCIATION.value,
             applicant_identifier='317918515',
             status=ApplicationStatusEnum.NEW.value,
             dob="06101990",
             work_place="01",
+            application_type=CitizenshipProcessEnum.RENUNCIATION.value,
             full_name="Test test"
         )
 
@@ -78,7 +79,7 @@ class BaseSetup(TestCase):
         return Person.objects.get_or_create(
             document_number=application.application_document.document_number,
             application_version=None,
-            first_name=application.unique.first_name(),
+            first_name=faker.unique.first_name(),
             last_name=faker.unique.last_name(),
             dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
             middle_name=faker.first_name(),
@@ -118,7 +119,7 @@ class BaseSetup(TestCase):
         self.document_number = app.application_document.document_number
         faker = Faker()
         self.create_personal_details(app, faker)
-        self.create_address()
+        self.create_address(app, faker)
 
         ApplicationContact.objects.create(
             application_version=None,
@@ -161,5 +162,3 @@ class BaseSetup(TestCase):
                 document_url="",
                 received_date=date.today()
             )
-
-        self.application_decision_type()

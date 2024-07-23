@@ -4,6 +4,9 @@ from datetime import date
 from app.api.common.web import APIResponse, APIMessage
 from app.api import NewApplicationDTO
 from app.api.serializers import ApplicationVersionSerializer
+from app.classes.application_document_generator import (
+    ApplicationDocumentGeneratorFactory,
+)
 from app.models import (
     ApplicationDocument,
     ApplicationStatus,
@@ -22,9 +25,9 @@ class ApplicationService:
     Service for creating new application records.
     """
 
-    def __init__(self, new_application: NewApplicationDTO):
+    def __init__(self, new_application_dto: NewApplicationDTO):
         self.logger = logging.getLogger(__name__)
-        self.application = new_application
+        self.new_application_dto = new_application_dto
         self.response = APIResponse()
         self.application_document = ApplicationDocument()
 
@@ -36,7 +39,6 @@ class ApplicationService:
             return None
 
         application_status = self._get_application_status()
-        print(application_status)
         if not application_status:
             return None
 
@@ -58,14 +60,15 @@ class ApplicationService:
         status = [status.value for status in ApplicationStatusEnum]
 
         existing_application = ApplicationRepository.get_existing_application(
-            self.application.applicant_identifier, status
+            self.new_application_dto.applicant_identifier, status
         )
 
         if existing_application.exists():
             self._log_and_set_response(
                 400,
                 "Bad request",
-                f"An application with (NEW) status exists for applicant: {self.application.applicant_identifier}. "
+                f"An application with (NEW) status exists for "
+                f"applicant: {self.new_application_dto.applicant_identifier}. "
                 f"Complete the existing application before opening a new one.",
             )
             return True
@@ -77,14 +80,15 @@ class ApplicationService:
         """
         try:
             return ApplicationRepository.get_application_status(
-                self.application.status, self.application.proces_name
+                self.new_application_dto.status, self.new_application_dto.proces_name
             )
         except ApplicationStatus.DoesNotExist:
             self._log_and_set_response(
                 400,
                 "Bad request",
-                f"Application status ({self.application.status}) does not exist for process name "
-                f"{self.application.proces_name}. User identifier: {self.application.applicant_identifier}",
+                f"Application status ({self.new_application_dto.status}) does not exist for process name "
+                + f"{self.new_application_dto.proces_name}. "
+                f"User identifier: {self.new_application_dto.applicant_identifier}",
             )
             return None
 
@@ -94,31 +98,31 @@ class ApplicationService:
         """
         try:
             user, created = ApplicationRepository.get_or_create_application_user(
-                self.application.applicant_identifier,
+                self.new_application_dto.applicant_identifier,
                 {
-                    "work_location_code": self.application.work_place,
-                    "dob": self.application.dob,
-                    "user_identifier": self.application.applicant_identifier,
-                    "full_name": self.application.full_name,
+                    "work_location_code": self.new_application_dto.work_place,
+                    "dob": self.new_application_dto.dob,
+                    "user_identifier": self.new_application_dto.applicant_identifier,
+                    "full_name": self.new_application_dto.full_name,
                 },
             )
             if created:
                 self.logger.info(
                     "Created a new application user - %s",
-                    self.application.applicant_identifier,
+                    self.new_application_dto.applicant_identifier,
                 )
             else:
                 self.logger.info(
                     "Retrieved existing application user - %s",
-                    self.application.applicant_identifier,
+                    self.new_application_dto.applicant_identifier,
                 )
             return user
         except Exception as e:
             self._log_and_set_response(
                 400,
                 "Bad request",
-                "The system failed to create application user with user identifier: "
-                f"{self.application.applicant_identifier}. Error: {e}",
+                f"The system failed to create application user with "
+                f"user identifier: {self.new_application_dto.applicant_identifier}. Error: {e}",
             )
             return None
 
@@ -127,28 +131,26 @@ class ApplicationService:
         Generate the document number for the particular process and create an ApplicationUser.
         """
         print("Generating document number...")
-        doc_generator = DocumentGeneratorFactory.create_document_generator(
-            self.application
+        doc_generator = ApplicationDocumentGeneratorFactory.create_document_generator(
+            self.new_application_dto
         )
         document_number = doc_generator.generate_document()
-
         applicant = self._get_or_create_application_user()
 
         if not document_number or not applicant:
             self._log_and_set_response(
                 400,
                 "Bad request",
-                "The system failed to create application document, document number: "
-                + f"{document_number}, applicant: {applicant}.",
+                f"The system failed to create application document, document number: {document_number}, "
+                f"applicant: {applicant}.",
             )
             return False
+        print("document_number document_number document_number")
 
         self.application_document.document_number = document_number
         self.application_document.applicant = applicant
         self.application_document.document_date = date.today()
         self.application_document.signed_date = date.today()
-        self.application_document.applicant_type = self.application.applicant_type
-
         ApplicationRepository.save_application_document(self.application_document)
 
         self._log_and_set_response(
@@ -165,12 +167,9 @@ class ApplicationService:
         application = Application()
         application.application_document = self.application_document
         application.application_status = application_status
-        application.process_name = self.application.proces_name
-        application.application_type = self.application.application_type
-        application.permit_period = self.application.permit_period
-
+        application.process_name = self.new_application_dto.proces_name
+        application.application_type = self.new_application_dto.application_type
         application.last_application_version_id = 1
-
         ApplicationRepository.save_application(application)
         return application
 
