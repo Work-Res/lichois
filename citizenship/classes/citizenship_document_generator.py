@@ -5,6 +5,7 @@ from app.api.common.web import APIMessage, APIResponse
 from app.utils import ApplicationProcesses
 
 from citizenship.utils import CitizenshipProcessEnum
+from citizenship.identifier_config import RenunciationIdentifier
 
 
 class CitizenshipDocumentGenerator:
@@ -21,7 +22,6 @@ class CitizenshipDocumentGenerator:
 
         # Get the appropriate identifier
         identifier = self.get_identifier(process_name)
-        # self.stdout.write(self.style.SUCCESS(f"Identifier: {identifier}"))
         if identifier:
             return identifier
 
@@ -38,19 +38,7 @@ class CitizenshipDocumentGenerator:
         Get the identifier for standard processes based on the process name.
         """
         process_mapping = {
-<<<<<<< HEAD:citizenship/classes/citizenship_document_generator.py
-            CitizenshipProcessEnum.RENUNCIATION.value: CitizenshipRenunciationIdentifier
-=======
-            ApplicationProcesses.WORK_RESIDENT_PERMIT.value: WorkResidentPermitIdentifier,
-            ApplicationProcesses.WORK_PERMIT.value: WorkPermitIdentifier,
-            ApplicationProcesses.RESIDENT_PERMIT.value: ResidentPermitIdentifier,
-            ApplicationProcesses.EXEMPTION_CERTIFICATE.value: ExemptionCertificateIdentifier,
-<<<<<<< HEAD:citizenship/classes/citizenship_document_generator.py
-            ApplicationProcesses.BLUE_CARD.value: BlueCardIdentifier,
->>>>>>> aa5e5a9 (feat(BlueCard): :sparkles: Added new service (blue card)):workresidentpermit/classes/document_generator.py
-=======
-            ApplicationProcesses.BLUE_CARD_PERMIT.value: BlueCardIdentifier,
->>>>>>> a20d750 (fix bluecard permit workflow):workresidentpermit/classes/document_generator.py
+            CitizenshipProcessEnum.RENUNCIATION.value: RenunciationIdentifier,
         }
 
         identifier_class = process_mapping.get(process_name)
@@ -62,8 +50,7 @@ class CitizenshipDocumentGenerator:
         """
         if identifier_class:
             identifier_instance = identifier_class(
-                address_code=self.application.work_place,
-                dob=self.application.dob
+                address_code=self.application.work_place, dob=self.application.dob
             )
             return identifier_instance.identifier
         return None
@@ -72,9 +59,7 @@ class CitizenshipDocumentGenerator:
         """
         Log an error and update the response for an invalid process name.
         """
-        error_message = (
-            f"Application process: {process_name} does not match any configured application processes."
-        )
+        error_message = f"Application process: {process_name} does not match any configured application processes."
         self.logger.debug(error_message)
         api_message = APIMessage(
             code=400,
@@ -82,7 +67,7 @@ class CitizenshipDocumentGenerator:
             details=(
                 f"Application processes misconfigured. "
                 f"{process_name} does not match any configured processes."
-            )
+            ),
         )
         self.response.status = False
         self.response.messages.append(api_message.to_dict())
