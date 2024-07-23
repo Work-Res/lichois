@@ -94,3 +94,9 @@ PERSON_TYPE = (
     ("child", "Child"),
     ("guardian", "Guardian"),
 )
+
+EMERGENCY_PERIOD = (
+    ("1 - 14 days", "1 - 14 days"),
+    ("15 - 90 days", "15 - 90 days"),
+    ("6 months", "6 months"),
+)
