@@ -51,14 +51,10 @@ class Command(BaseCommand):
                         )
                     ),
                     process_name=process_name,
-<<<<<<< HEAD
                     applicant_identifier=(
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}"
                     ),
-=======
-                    applicant_identifier=f"{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}",
->>>>>>> a4e91cf (fix(Assessment): :fire: added new & renewal investor PBS assessments)
                     status=ApplicationStatusEnum.VERIFICATION.value,
                     applicant_type=faker.random_element(
                         elements=("employee", "investor")
