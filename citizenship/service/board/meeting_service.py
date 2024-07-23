@@ -3,7 +3,7 @@ import logging
 from django.db import transaction
 from django.core.exceptions import ValidationError
 
-from citizenship.models.board import Meeting, BoardMember, Attendee, Board
+from citizenship.models import Meeting, BoardMember, Attendee, Board
 from citizenship.models.board.meeting_session import MeetingSession
 
 logger = logging.getLogger(__name__)

@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from django.core.exceptions import ValidationError
 
 from citizenship.api.serializers.board import ScoreSheetSerializer
-from citizenship.models.board import ScoreSheet
+from citizenship.models import ScoreSheet
 from citizenship.service.board.score_sheet_service import ScoreSheetService
 
 

@@ -1,7 +1,7 @@
 import logging
 from django.db import transaction
 from django.core.exceptions import ValidationError
-from citizenship.models.board import InterviewDecision, Interview, BoardMember
+from citizenship.models import InterviewDecision, Interview, BoardMember
 
 logger = logging.getLogger(__name__)
 

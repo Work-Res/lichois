@@ -3,7 +3,7 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 
 from app.models import Application
-from citizenship.models.board import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest, Interview
+from citizenship.models import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest, Interview
 from citizenship.models.board.meeting_session import MeetingSession
 from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 

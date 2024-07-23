@@ -37,3 +37,5 @@ from .board.conflict_of_interest import ConflictOfInterest
 from .board.board_recommandation import BoardRecommendation
 from .board.batch import Batch
 from .board.batch_application import BatchApplication
+from .board.board import Board
+from .board.question import Question

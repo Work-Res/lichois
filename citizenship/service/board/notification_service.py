@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 from app_notification.models import Notification
-from citizenship.models.board import Meeting, Attendee
+from citizenship.models import Meeting, Attendee
 
 from django.contrib.contenttypes.models import ContentType
 
