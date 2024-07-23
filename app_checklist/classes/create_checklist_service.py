@@ -55,7 +55,7 @@ class CreateChecklistService:
             item[self.foreign_name] = classifier
             lookup_kwargs = {self.foreign_name: classifier, "code": item["code"]}
             try:
-                obj = model.objects.get(code__iexact=item["code"])
+                obj = model.objects.get(**lookup_kwargs)
                 self.logger.debug(f"Existing object found: {obj}")
                 try:
                     if item["application_type"] not in obj.application_type:
