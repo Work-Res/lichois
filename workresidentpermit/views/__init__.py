@@ -12,9 +12,7 @@ from .work_resident_permit_application_view import WorkPermitApplicationAPIView
 from .work_permit_viewset import WorkPermitViewSet
 from .declaration_create_list_view import DeclarationViewSet
 from .place_of_residence_viewset import PlaceOfResidenceViewSet
-from .work_resident_permit_application_verification_apiview import (
-    WorkPermitApplicationVerificationAPIView,
-)
+
 from .production_permit_view import ProductionPermitView
 from .commissioner_decision_api_view import CommissionerDecisionAPIView
 from .minister_decision_api_view import MinisterDecisionAPIView

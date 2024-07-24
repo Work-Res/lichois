@@ -4,5 +4,5 @@ from ..api.serializers import ApplicationStatusSerializer
 
 
 class ApplicationStatusViewSet(viewsets.ModelViewSet):
-	queryset = ApplicationStatus.objects.all()
-	serializer_class = ApplicationStatusSerializer
+    queryset = ApplicationStatus.objects.all()
+    serializer_class = ApplicationStatusSerializer

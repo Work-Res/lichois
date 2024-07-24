@@ -47,12 +47,6 @@ urlpatterns = [
         SpouseCreateListView.as_view({"get": "list"}),
         name="spouse-detail",
     ),
-    #  New generic endpoints
-    path(
-        "verification/<str:document_number>/submit/",
-        WorkPermitApplicationVerificationAPIView.as_view(),
-        name="submit-verification",
-    ),
     path(
         "commissioner-decision/",
         CommissionerDecisionAPIView.as_view(),
