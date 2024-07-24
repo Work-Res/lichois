@@ -17,7 +17,6 @@ from .views import (
     SpouseCreateListView,
     TravelCertificateView,
     WorkPermitApplicationAPIView,
-    WorkPermitApplicationVerificationAPIView,
     WorkPermitViewSet,
     WorkResidentPermitApplicationDetailView,
 )
@@ -58,11 +57,6 @@ urlpatterns = [
         name="minister-decision-create",
     ),
     # Old endpoints
-    path(
-        "workpermit/<str:document_number>/submit/verification",
-        WorkPermitApplicationVerificationAPIView.as_view(),
-        name="submit-work-res-verification",
-    ),
     path(
         "workpermit/<str:document_number>/submit",
         WorkPermitApplicationAPIView.as_view(),
