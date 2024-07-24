@@ -1,8 +1,7 @@
-from django.db import transaction
-from workresidentpermit.api.dto import RecommendationRequestDTO
-from workresidentpermit.api.serializers import CommissionerDecisionSerializer
+from ..api.dto import RecommendationRequestDTO
+from ..api.serializers import CommissionerDecisionSerializer
 from app.service import BaseDecisionService
-from workresidentpermit.models import CommissionerDecision
+from ..models import CommissionerDecision
 
 
 class RecommendationService(BaseDecisionService):

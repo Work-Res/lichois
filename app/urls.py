@@ -10,6 +10,8 @@ from app.views import (
     ApplicationRenewalHistoryView,
     ApplicationVerificationAPIView,
     SecurityClearanceCreateAPIView,
+    CommissionerDecisionAPIView,
+    MinisterDecisionAPIView,
 )
 
 router = DefaultRouter()
@@ -35,5 +37,15 @@ urlpatterns = [
         "security_clearance/<str:document_number>/submit/",
         SecurityClearanceCreateAPIView.as_view(),
         name="submit-security-clearance",
+    ),
+    path(
+        "commissioner-decision/",
+        CommissionerDecisionAPIView.as_view(),
+        name="commissioner-decision-create",
+    ),
+    path(
+        "minister-decision/",
+        MinisterDecisionAPIView.as_view(),
+        name="minister-decision-create",
     ),
 ]

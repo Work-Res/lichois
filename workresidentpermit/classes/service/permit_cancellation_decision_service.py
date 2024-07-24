@@ -1,11 +1,10 @@
-
 import logging
 
 from app.models import Application
 from app.utils import ApplicationDecisionEnum
 
 from app_comments.models import Comment
-from workresidentpermit.models import MinisterDecision
+from app.models import MinisterDecision
 
 
 from workresidentpermit.workflow import ProductionTransactionData
@@ -16,12 +15,19 @@ from ...utils import WorkResidentPermitApplicationTypeEnum
 
 class PermitCancellationDecisionService(ApplicationDecisionService):
 
-    def __init__(self, document_number, comment: Comment = None, minister_decision: MinisterDecision = None):
+    def __init__(
+        self,
+        document_number,
+        comment: Comment = None,
+        minister_decision: MinisterDecision = None,
+    ):
         self.document_number = document_number
         self.comment = comment
         super().__init__(document_number=document_number, comment=comment)
         self._minister_decision = minister_decision
-        self.application = Application.objects.get(application_document__document_number=document_number)
+        self.application = Application.objects.get(
+            application_document__document_number=document_number
+        )
         self.workflow = ProductionTransactionData()
         self.logger = logging.getLogger(__name__)
 
@@ -39,13 +45,18 @@ class PermitCancellationDecisionService(ApplicationDecisionService):
     def decision_predicate(self):
         is_minister_decision = False
         cancellation_types = [
-            e.name.upper() for e in WorkResidentPermitApplicationTypeEnum if "CANCELLATION" in e.name]
+            e.name.upper()
+            for e in WorkResidentPermitApplicationTypeEnum
+            if "CANCELLATION" in e.name
+        ]
 
         if self.application.application_type.upper() in cancellation_types:
             minister_decision = self.minister_decision()
             if minister_decision:
-                is_minister_decision = minister_decision.status.code.lower() == \
-                                       ApplicationDecisionEnum.ACCEPTED.value.lower()
+                is_minister_decision = (
+                    minister_decision.status.code.lower()
+                    == ApplicationDecisionEnum.ACCEPTED.value.lower()
+                )
 
             if is_minister_decision:
                 self.decision_value = ApplicationDecisionEnum.ACCEPTED.value
@@ -57,4 +68,5 @@ class PermitCancellationDecisionService(ApplicationDecisionService):
                 return True
             else:
                 self.logger.info(
-                    "Application decision cannot be completed, application cancellation.")
+                    "Application decision cannot be completed, application cancellation."
+                )

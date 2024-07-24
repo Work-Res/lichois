@@ -1,6 +1,6 @@
 from app.models.security_clearance import SecurityClearance
 from app.utils import ApplicationDecisionEnum
-from workresidentpermit.models import CommissionerDecision, MinisterDecision
+from app.models import CommissionerDecision, MinisterDecision
 from app.models import ApplicationVerification
 import logging
 

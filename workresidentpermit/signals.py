@@ -4,7 +4,7 @@ import os
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from app.models import Application
+from app.models import Application, CommissionerDecision, MinisterDecision
 from app.models.security_clearance import SecurityClearance
 from app.utils import (
     ApplicationDecisionEnum,
@@ -18,7 +18,7 @@ from workresidentpermit.classes.service import (
     SpecialPermitDecisionService,
     WorkResidentPermitDecisionService,
 )
-from workresidentpermit.models import CommissionerDecision, MinisterDecision, WorkPermit
+from workresidentpermit.models import WorkPermit
 
 from .classes import WorkPermitApplicationPDFGenerator
 from .classes.config.configuration_loader import JSONConfigLoader

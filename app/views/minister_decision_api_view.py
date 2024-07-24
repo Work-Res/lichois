@@ -1,12 +1,10 @@
-from django.views.generic import View
-from rest_framework import mixins, status, viewsets
-from rest_framework.decorators import action
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from workresidentpermit.api.dto import MinisterRequestDTO
-from workresidentpermit.api.serializers import MinisterDecisionRequestDTOSerializer
-from workresidentpermit.classes.service import MinisterDecisionService
+from ..api.dto import MinisterRequestDTO
+from ..api.serializers import MinisterDecisionRequestDTOSerializer
+from ..service import MinisterDecisionService
 
 
 class MinisterDecisionAPIView(APIView):

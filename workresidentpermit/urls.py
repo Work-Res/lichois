@@ -3,12 +3,10 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (
     ChildCreateListView,
-    CommissionerDecisionAPIView,
     CompleteDeferredApplicationView,
     DeferredApplicationView,
     EmergencyResidencePermitViewSet,
     ExemptionCertificateViewSet,
-    MinisterDecisionAPIView,
     PermitAppealViewSet,
     PermitCancellationReasonViewSet,
     PermitCancellationViewSet,
@@ -45,16 +43,6 @@ urlpatterns = [
         "spouse/<str:document_number>/<str:pk>",
         SpouseCreateListView.as_view({"get": "list"}),
         name="spouse-detail",
-    ),
-    path(
-        "commissioner-decision/",
-        CommissionerDecisionAPIView.as_view(),
-        name="commissioner-decision-create",
-    ),
-    path(
-        "minister-decision/",
-        MinisterDecisionAPIView.as_view(),
-        name="minister-decision-create",
     ),
     # Old endpoints
     path(

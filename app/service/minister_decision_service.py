@@ -1,9 +1,9 @@
 from django.db import transaction
 
-from workresidentpermit.api.dto import MinisterRequestDTO
-from workresidentpermit.api.serializers import MinisterDecisionSerializer
-from app.service import BaseDecisionService
-from workresidentpermit.models import MinisterDecision
+from ..api.dto import MinisterRequestDTO
+from ..api.serializers import MinisterDecisionSerializer
+from ..models import MinisterDecision
+from ..service import BaseDecisionService
 
 
 class MinisterDecisionService(BaseDecisionService):

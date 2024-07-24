@@ -14,11 +14,6 @@ from .declaration_serializer import DeclarationSerializer
 from .work_permit_serializer import WorkPermitSerializer
 
 from .permit_replacement_serializer import PermitReplacementSerializer
-from .commissioner_decision_serializer import CommissionerDecisionSerializer
-from .recommendation_request_serializer import RecommendationRequestDTOSerializer
-from .minister_decision_serializer import (
-    MinisterDecisionSerializer,
-    MinisterDecisionRequestDTOSerializer,
-)
+
 from .request_deferred_application_dto import RequestDeferredApplicationDTOSerializer
 from .permit_cancellation_reason_serializer import PermitCancellationReasonSerializer

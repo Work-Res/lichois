@@ -1,15 +1,12 @@
-from rest_framework import mixins, status, viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
 import logging
 
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from workresidentpermit.api.dto import RecommendationRequestDTO
-from workresidentpermit.api.serializers import RecommendationRequestDTOSerializer
-from workresidentpermit.classes.service.recommendation_service import (
-    RecommendationService,
-)
+from ..api.dto import RecommendationRequestDTO
+from ..api.serializers import RecommendationRequestDTOSerializer
+from ..service.recommendation_service import RecommendationService
 
 logger = logging.getLogger(__name__)
 

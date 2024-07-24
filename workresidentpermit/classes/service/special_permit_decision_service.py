@@ -4,7 +4,7 @@ from app.models import Application
 from app.models.security_clearance import SecurityClearance
 from app.utils import ApplicationDecisionEnum
 from app_comments.models import Comment
-from workresidentpermit.models import CommissionerDecision, MinisterDecision
+from app.models import CommissionerDecision, MinisterDecision
 from workresidentpermit.workflow import ProductionTransactionData
 
 from ..config.configuration_loader import BaseConfigLoader
