@@ -3,14 +3,17 @@ import os
 from rest_framework import serializers
 
 from app_assessment.models.appeal_assessment import AppealAssessment
-from app_assessment.models.assessement_case_decision import AssessmentCaseDecision
 from app_assessment.models.assessment import Assessment
+from app_assessment.models.assessment_emergency import AssessmentEmergency
+from app_assessment.models.assessment_result import AssessmentResult
+from app_assessment.models.dependant_assessment import DependantAssessment
+from app_assessment.models.new_assessment_investor import NewAssessmentInvestor
+from app_assessment.models.renewal_assessment_investor import RenewalAssessmentInvestor
+
+from app_assessment.models.assessement_case_decision import AssessmentCaseDecision
 from app_assessment.models.assessment_case_note import AssessmentCaseNote
 from app_assessment.models.assessment_case_summary import AssessmentCaseSummary
-from app_assessment.models.assessment_emergency import AssessmentEmergency
-from app_assessment.models.dependant_assessment import DependantAssessment
 from app_checklist.utils import ReadJSON
-from ..models import AssessmentResult, NewAssessmentInvestor, RenewalAssessmentInvestor
 from app_assessment.validators import AssessmentValidator
 
 
@@ -94,6 +97,28 @@ class RenewalAssessmentInvestorSerializer(serializers.ModelSerializer):
 class AssessmentEmergencySerializer(serializers.ModelSerializer):
     class Meta:
         model = AssessmentEmergency
+        fields = "__all__"
+
+
+class AssessmentCaseNoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AssessmentCaseNote
+        fields = "__all__"
+
+
+class AssessmentCaseSummarySerializer(serializers.ModelSerializer):
+
+    data = serializers.JSONField()
+
+    class Meta:
+        model = AssessmentCaseSummary
+        fields = "__all__"
+
+
+class AssessmentCaseDecisionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AssessmentCaseDecision
         fields = "__all__"
 
 
