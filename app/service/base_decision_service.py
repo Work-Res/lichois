@@ -38,9 +38,16 @@ class BaseDecisionService:
     def update_application(self):
         application_decision_type = self.get_application_decision_type()
         if application_decision_type:
-            Application.objects.filter(
+            updated = Application.objects.filter(
                 application_document__document_number=self.request.document_number
             ).update(security_clearance=application_decision_type.code)
+            if updated == 0:
+                api_message = APIMessage(
+                    code=400,
+                    message="Application not updated.",
+                    details="No application found with the provided document number.",
+                )
+                self.response.messages.append(api_message.to_dict())
         else:
             api_message = APIMessage(
                 code=400,

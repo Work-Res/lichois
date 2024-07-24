@@ -10,7 +10,7 @@ from ..api.serializers import PermitAppealSerializer
 def get_app_labels():
     return [
         "workresidentpermit.PermitAppeal",
-        "workresidentpermit.MinisterDecision",
+        "app.MinisterDecision",
     ]
 
 
