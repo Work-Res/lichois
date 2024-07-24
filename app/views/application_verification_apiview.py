@@ -47,7 +47,7 @@ class ApplicationVerificationAPIView(APIView):
                     details=f"Application verification with document number {document_number} does not exist",
                     code=status.HTTP_404_NOT_FOUND,
                     message="Not Found",
-                ).result(),
+                ).to_dict(),
                 status=status.HTTP_404_NOT_FOUND,
             )
         else:
