@@ -16,6 +16,7 @@ class BaseDecisionService:
         self.user = user
         self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
+        self.decision = None
 
     def get_application_decision_type(self):
         try:
@@ -46,7 +47,7 @@ class BaseDecisionService:
         if application_decision_type is None:
             return self.response
 
-        decision = decision_model.objects.create(
+        self.decision = decision_model.objects.create(
             status=application_decision_type,
             summary=self.request.summary,
             document_number=self.request.document_number,
@@ -60,13 +61,13 @@ class BaseDecisionService:
             details="Decision created successfully.",
         )
         self.response.status = "success"
-        self.response.data = serializer_class(decision).data
+        self.response.data = serializer_class(self.decision).data
         self.response.messages.append(api_message.to_dict())
         return Response(self.response.result())
 
     def retrieve_decision(self, decision_model, serializer_class):
         try:
-            decision = decision_model.objects.get(
+            self.decision = decision_model.objects.get(
                 document_number=self.request.document_number
             )
             api_message = APIMessage(
@@ -75,7 +76,7 @@ class BaseDecisionService:
                 details="Decision retrieved successfully.",
             )
             self.response.status = "success"
-            self.response.data = serializer_class(decision).data
+            self.response.data = serializer_class(self.decision).data
             self.response.messages.append(api_message.to_dict())
         except decision_model.DoesNotExist:
             api_message = APIMessage(

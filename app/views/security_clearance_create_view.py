@@ -43,7 +43,8 @@ class SecurityClearanceCreateAPIView(APIView):
                 )
                 if validator.is_valid():
                     service = SecurityClearanceService(
-                        security_clearance_request=security_clearance_request
+                        security_clearance_request=security_clearance_request,
+                        document_number=document_number,
                     )
                     service.create_clearance()
                     return JsonResponse(service.response.result())
