@@ -20,14 +20,14 @@ class ApplicationDocumentGenerator:
         """
         process_name = self.application.proces_name
 
+        # Handle special permits
+        if process_name == ApplicationProcesses.SPECIAL_PERMIT.value:
+            return self.get_special_permit_identifier()
+
         # Get the appropriate identifier
         identifier = self.get_identifier(process_name)
         if identifier:
             return identifier
-
-        # Handle special permits
-        if process_name == ApplicationProcesses.SPECIAL_PERMIT.value:
-            return self.get_special_permit_identifier()
 
         # Log an error if no valid process found
         self.log_invalid_process_error(process_name)
