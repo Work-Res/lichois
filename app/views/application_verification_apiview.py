@@ -45,7 +45,7 @@ class ApplicationVerificationAPIView(APIView):
             return Response(
                 APIMessage(
                     details=f"Application verification with document number {document_number} does not exist",
-                    status=status.HTTP_404_NOT_FOUND,
+                    code=status.HTTP_404_NOT_FOUND,
                     message="Not Found",
                 ).result(),
                 status=status.HTTP_404_NOT_FOUND,
