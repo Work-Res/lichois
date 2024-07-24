@@ -1,3 +1,4 @@
 from .security_clearance_request_dto import SecurityClearanceRequestDTO
 from .recommendation_request_dto import RecommendationRequestDTO
 from .minister_request_dto import MinisterRequestDTO
+from .application_verification_request_dto import ApplicationVerificationRequestDTO

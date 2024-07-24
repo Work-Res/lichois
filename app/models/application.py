@@ -39,6 +39,20 @@ class Application(BaseUuidModel):
         default=ApplicationDecisionEnum.PENDING.value,
     )
 
+    recommendation = models.CharField(
+        null=True,
+        blank=True,
+        max_length=200,
+        default=ApplicationDecisionEnum.PENDING.value,
+    )
+
+    minister_decision = models.CharField(
+        null=True,
+        blank=True,
+        max_length=200,
+        default=ApplicationDecisionEnum.PENDING.value,
+    )
+
     security_clearance = models.CharField(
         null=True,
         blank=True,

@@ -68,11 +68,12 @@ class VettingTransactionData(BaseTransactionData):
     def __init__(
         self,
         next_activity_name=None,
-        verification_decision=None,
+        vetting_decision=None,
         current_status=None,
     ):
         super().__init__(next_activity_name, current_status)
-        self.verification_decision = verification_decision
+        self.vetting_decision = (vetting_decision,)
+        self.vetting_obj_exists = False
 
 
 class RecommendationTransitionData(BaseTransactionData):
@@ -87,11 +88,10 @@ class RecommendationTransitionData(BaseTransactionData):
         self,
         next_activity_name=None,
         application_status=None,
-        verification_decision=None,
+        recommendation=None,
     ):
         super().__init__(next_activity_name, application_status)
-        self.verification_decision = verification_decision
-        self.vetting_obj_exists = False
+        self.recommendation = recommendation
 
 
 class ProductionTransactionData(BaseTransactionData):
