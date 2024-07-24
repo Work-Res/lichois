@@ -3,7 +3,7 @@ import pytest
 from django.core.exceptions import ValidationError
 from unittest.mock import patch
 
-from citizenship.models import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest, Interview
+from citizenship.models import BatchApplication, Attendee, ConflictOfInterest, Interview
 
 from citizenship.service.board import BatchService
 from citizenship.service.board.batch_status_enum import BatchStatus
