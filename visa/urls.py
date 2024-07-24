@@ -7,7 +7,6 @@ from .views import (
     ExemptionCertificateApplicationViewSet,
     ExemptionCertificateViewSet,
     VisaApplicationViewSet,
-    VisaViewSet,
 )
 
 app_name = "visa"
@@ -27,7 +26,6 @@ router.register(
 router.register(
     r"visa-applications", VisaApplicationViewSet, basename="visa-applications"
 )
-router.register(r"visas", VisaViewSet, basename="visas")
 
 
 urlpatterns = [
