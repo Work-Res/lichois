@@ -6,7 +6,6 @@ from app.views import (
     ApplicationListView,
     ApplicationCreateView,
     ApplicationStatusViewSet,
-    ApplicationVerificationCreateListView,
     ApplicationRenewalView,
     ApplicationRenewalHistoryView,
     ApplicationVerificationAPIView,
@@ -17,7 +16,6 @@ router = DefaultRouter()
 
 router.register(r"applications", ApplicationListView)
 router.register(r"application_statuses", ApplicationStatusViewSet)
-router.register(r"application_verifications", ApplicationVerificationCreateListView)
 router.register(r"application_renewal_history", ApplicationRenewalHistoryView)
 
 urlpatterns = [

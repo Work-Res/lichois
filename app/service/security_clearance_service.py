@@ -1,7 +1,7 @@
 from django.db import transaction
 
 from app.models.application import Application
-from app.workflow.transaction_data import VettingTransactionData
+from app.workflow.transaction_data import RecommendationTransitionData
 from workflow.signals import create_or_update_task_signal
 
 from ..api.dto import SecurityClearanceRequestDTO
@@ -29,9 +29,9 @@ class SecurityClearanceService(BaseDecisionService):
         self.update_workflow()
 
     def update_workflow(self):
-        workflow = VettingTransactionData()
+        workflow = RecommendationTransitionData()
         if self.decision:
-            workflow.verification_decision = self.decision.code.upper()
+            workflow.verification_decision = self.decision.status.code.upper()
             workflow.vetting_obj_exists = True
             create_or_update_task_signal.send(
                 self.application,
