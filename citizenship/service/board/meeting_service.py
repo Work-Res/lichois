@@ -15,7 +15,7 @@ class MeetingService:
     """
     @staticmethod
     @transaction.atomic
-    def create_meeting(title, board_id, location, agenda, start_date, end_date):
+    def create_meeting(title, board_id, location, agenda, start_date, end_date, time):
         try:
             board = Board.objects.get(id=board_id)
             if MeetingService.check_meeting_conflicts(board, start_date, end_date):
@@ -26,7 +26,8 @@ class MeetingService:
                 location=location,
                 agenda=agenda,
                 start_date=start_date,
-                end_date=end_date
+                end_date=end_date,
+                time=time
             )
             logger.info(f'Meeting created: {meeting}')
             MeetingService.create_attendances_for_meeting(meeting)
@@ -40,13 +41,12 @@ class MeetingService:
 
     @staticmethod
     @transaction.atomic
-    def add_attendee(session_id, member_id, confirmed=False):
+    def add_attendee(meeting, member_id, confirmed=False):
         try:
-            session = MeetingSession.objects.get(id=session_id)
             member = BoardMember.objects.get(id=member_id)
             attendee, created = Attendee.objects.get_or_create(
-                session=session,
                 member=member,
+                meeting=meeting,
                 defaults={'confirmed': confirmed}
             )
             if created:
@@ -54,9 +54,6 @@ class MeetingService:
             else:
                 logger.info(f'Attendee already exists: {attendee}')
             return attendee
-        except MeetingSession.DoesNotExist:
-            logger.error(f'Session does not exist: {session_id}')
-            raise ValidationError("Session does not exist.")
         except BoardMember.DoesNotExist:
             logger.error(f'Member does not exist: {member_id}')
             raise ValidationError("Member does not exist.")
@@ -66,14 +63,14 @@ class MeetingService:
 
     @staticmethod
     @transaction.atomic
-    def remove_attendee(session_id, member_id):
+    def remove_attendee(meeting_id, member_id):
         try:
-            attendee = Attendee.objects.get(session_id=session_id, member_id=member_id)
+            attendee = Attendee.objects.get(meeting_id=meeting_id, member_id=member_id)
             attendee.delete()
             logger.info(f'Attendee removed: {attendee}')
             return True
         except Attendee.DoesNotExist:
-            logger.error(f'Attendee does not exist for session {session_id} and member {member_id}')
+            logger.error(f'Attendee does not exist for session {meeting_id} and member {member_id}')
             raise ValidationError("Attendee does not exist.")
         except Exception as e:
             logger.error(f'Error removing attendee: {e}')
@@ -98,12 +95,18 @@ class MeetingService:
 
     @staticmethod
     @transaction.atomic
-    def confirm_attendance(meeting_id, member_id, confirmed=False):
+    def confirm_attendance(meeting_id, member_id, confirmed=False, proposed_date=None):
         try:
             attendee = Attendee.objects.get(meeting_id=meeting_id, member_id=member_id)
-            attendee.confirmed = confirmed
+            if proposed_date:
+                attendee.proposed_date = proposed_date
+                attendee.confirmed = False
+                logger.info(f'Attendee {attendee} proposed a new date for meeting {meeting_id}: {proposed_date}')
+            else:
+                attendee.confirmed = confirmed
+                attendee.proposed_date = None
+                logger.info(f'Attendee {attendee} confirmed attendance for meeting {meeting_id}')
             attendee.save()
-            logger.info(f'Attendee {attendee} confirmed attendance for meeting {meeting_id}')
             return attendee
         except Attendee.DoesNotExist:
             logger.error(f'Attendee does not exist for meeting {meeting_id} and member {member_id}')
