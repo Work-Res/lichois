@@ -1,8 +1,10 @@
+import re
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from app.api import ApplicationVerificationRequest
+from app.api.common.web.api_error import APIMessage
 from app.api.serializers import (
     ApplicationVerificationRequestSerializer,
     ApplicationVerificationSerializer,
@@ -35,8 +37,17 @@ class ApplicationVerificationAPIView(APIView):
 
     def get(self, request, document_number):
         # get the application verification using the document number
-        verification = ApplicationVerification.objects.get(
-            document_number=document_number
-        )
-        serializer = ApplicationVerificationSerializer(verification)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            verification = ApplicationVerification.objects.get(
+                document_number=document_number
+            )
+        except ApplicationVerification.DoesNotExist:
+            return Response(
+                APIMessage(
+                    detail=f"Application verification with document number {document_number} does not exist"
+                ).result(),
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        else:
+            serializer = ApplicationVerificationSerializer(verification)
+            return Response(serializer.data, status=status.HTTP_200_OK)
