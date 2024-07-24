@@ -25,7 +25,7 @@ class Command(BaseCommand):
                 document_number=app.document_number
             )
             if not application.exists():
-                for _ in range(randint(2)):
+                for _ in range(randint(0, 2) + 1):
                     document_type = AttachmentDocumentType.objects.create(
                         code=faker.random_int(min=1000, max=9999),
                         name=faker.random_element(
