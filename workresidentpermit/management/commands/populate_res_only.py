@@ -46,7 +46,7 @@ class Command(BaseCommand):
                     ),
                 )
                 self.stdout.write(self.style.SUCCESS("Populating data..."))
-                app = ApplicationService(new_application=new_app)
+                app = ApplicationService(new_application_dto=new_app)
                 version = app.create_application()
                 Person.objects.get_or_create(
                     application_version=version,

@@ -49,7 +49,7 @@ class Command(BaseCommand):
                     ),
                 )
                 self.stdout.write(self.style.SUCCESS("Populating exemption data..."))
-                app = ApplicationService(new_application=new_app)
+                app = ApplicationService(new_application_dto=new_app)
                 version = app.create_application()
                 self.stdout.write(self.style.SUCCESS(f"version data... {version}"))
                 self.stdout.write(

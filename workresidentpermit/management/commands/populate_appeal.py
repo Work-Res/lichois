@@ -64,7 +64,7 @@ class Command(BaseCommand):
                     full_name=f"{fname} {lname}",
                 )
                 self.stdout.write(self.style.SUCCESS("Populating appeal data..."))
-                app = ApplicationService(new_application=new_app)
+                app = ApplicationService(new_application_dto=new_app)
                 self.stdout.write(self.style.SUCCESS(new_app.__dict__))
                 version = app.create_application()
                 Person.objects.get_or_create(
