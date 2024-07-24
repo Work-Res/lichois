@@ -33,8 +33,8 @@ class SecurityClearanceService(BaseDecisionService):
         if self.decision:
             workflow.verification_decision = self.decision.status.code.upper()
             workflow.vetting_obj_exists = True
-            create_or_update_task_signal.send(
-                self.application,
+            create_or_update_task_signal.send_robust(
+                sender=self.application,
                 source=workflow,
                 application=self.application,
             )
