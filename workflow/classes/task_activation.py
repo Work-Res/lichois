@@ -62,7 +62,7 @@ class TaskActivation:
                 )
                 self.task(activity)
             else:
-                self.logger.debug(f"Failed to create task for {activity.n}")
+                self.logger.debug(f"Failed to create task for {activity.name}")
                 # print("Failed to create task for ", activity.name)
 
     def task(self, activity):
