@@ -38,3 +38,8 @@ class SecurityClearanceService(BaseDecisionService):
                 source=workflow,
                 application=self.application,
             )
+
+    def update_application(self):
+        self.application.security_clearance = self.decision.status.code.upper()
+        self.application.save()
+        return self.application

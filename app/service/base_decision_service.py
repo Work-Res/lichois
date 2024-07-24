@@ -35,29 +35,6 @@ class BaseDecisionService:
             return None
 
     @transaction.atomic
-    def update_application(self):
-        application_decision_type = self.get_application_decision_type()
-        if application_decision_type:
-            updated = Application.objects.filter(
-                application_document__document_number=self.request.document_number
-            ).update(security_clearance=application_decision_type.code)
-            if updated == 0:
-                api_message = APIMessage(
-                    code=400,
-                    message="Application not updated.",
-                    details="No application found with the provided document number.",
-                )
-                self.response.messages.append(api_message.to_dict())
-        else:
-            api_message = APIMessage(
-                code=400,
-                message="Application decision provided is invalid.",
-                details="System failed to obtain decision type provided, check if application decision defaults."
-                "records are created.",
-            )
-            raise Exception(api_message.to_dict())
-
-    @transaction.atomic
     def create_decision(self, decision_model, serializer_class):
         application_decision_type = self.get_application_decision_type()
         if application_decision_type is None:
