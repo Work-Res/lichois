@@ -23,7 +23,9 @@ class CommissionerDecisionAPIView(APIView):
                 data = serializer.validated_data
                 request_dto = RecommendationRequestDTO(**data)
                 service = RecommendationService(request_dto)
-                return service.create_recommendation()
+                return Response(
+                    service.create_recommendation(), status=status.HTTP_201_CREATED
+                )
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
