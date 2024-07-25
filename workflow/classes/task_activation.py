@@ -40,7 +40,7 @@ class TaskActivation:
                 self.application.application_status.code.upper()
             )
             self.logger.info(
-                f"Processing current_status {self.application.application_status.code.upper()} for "
+                f"Processing current_status {self.source.current_status} for "
             )
             self.logger.info(f"Source model: { self.source.__dict__}")
             self.logger.info(

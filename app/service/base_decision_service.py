@@ -189,6 +189,9 @@ class BaseDecisionService(UpdateApplicationMixin):
         Activate the next task in the workflow if a workflow and decision are specified.
         """
         if self.workflow and self.decision:
+            self.logger.info(
+                f"Creating or updating task for application workflow {self.workflow}."
+            )
             create_or_update_task_signal.send_robust(
                 sender=self.application,
                 source=self.workflow,

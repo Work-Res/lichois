@@ -26,5 +26,5 @@ class WorkflowApplication:
         self.application.application_status = application_status
         self.application.save()
         self.logger.info(
-            "Workflow:Application, updating it to the next relevant stage."
+            f"Workflow:Application, updating it to the next relevant stage. {self.application.application_status}"
         )
