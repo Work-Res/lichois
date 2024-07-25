@@ -109,7 +109,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             field_key=self.application_field_key,
             field_value=application_decision_type.code.upper(),
         )
-        self._create_comment()
+        # self._create_comment()
         # self._deactivate_current_task()
         self._activate_next_task()
 
