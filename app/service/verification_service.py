@@ -13,7 +13,7 @@ class VerificationService(BaseDecisionService):
 
     def __init__(self, verification_request: ApplicationVerificationRequestDTO):
         workflow = OfficerTransactionData()
-        workflow.verification_decision = verification_request.status.upper()
+        workflow.verification_decision = verification_request.status
 
         super().__init__(
             request=verification_request,

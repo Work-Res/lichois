@@ -1,10 +1,10 @@
 # app_assessment/mixins.py
-
 from rest_framework.exceptions import ValidationError
 from app.models import Application
 
 
 class UpdateApplicationMixin:
+
     def update_application_field(self, document_number, field_key, field_value):
         """
         Update the assessment field in the Application model based on the document number.
@@ -13,13 +13,38 @@ class UpdateApplicationMixin:
         :param assessment_field_value: The value to update the assessment field with.
         :raises ValidationError: If no Application is found with the given document number.
         """
-        if field_value and document_number and field_key:
-            updated_count = Application.objects.filter(
-                application_document__document_number=document_number
-            ).update(**{field_key: field_value})
 
-            if updated_count == 0:
-                raise ValidationError(
-                    detail=f"No application found with document number {document_number}.",
-                    code=404,
-                )
+        # Ensure the field_key is a valid field of the Application model
+        if not hasattr(Application, field_key):
+            raise ValidationError(
+                detail=f"Invalid field key: {field_key}.",
+                code=400,
+            )
+
+        # Perform the update
+        try:
+            # Retrieve the application instance
+            application = Application.objects.get(
+                application_document__document_number=document_number
+            )
+
+            # Update the field value
+            setattr(application, field_key, field_value)
+
+            # Save the instance
+            application.save()
+
+            self.logger.info(
+                f"Successfully updated application {document_number} field {field_key} to {field_value}."
+            )
+
+            self.logger.info(f"updated application {application.__dict__}")
+
+        except Application.DoesNotExist:
+            self.logger.error(
+                f"No application found with document number {document_number}."
+            )
+            raise ValidationError(
+                detail=f"No application found with document number {document_number}.",
+                code=404,
+            )

@@ -40,13 +40,14 @@ class BaseDecisionService(UpdateApplicationMixin):
             workflow: The workflow instance for task activation.
         """
         self.request = request
-        self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
         self.decision = None
         self.application_field_key = application_field_key
         self.application = self._get_application()
         self.workflow = workflow
         self.task_to_deactivate = task_to_deactivate
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
 
     def get_application_decision_type(self):
         """
@@ -102,10 +103,11 @@ class BaseDecisionService(UpdateApplicationMixin):
         self.response.data = serializer_class(self.decision).data
         self.response.messages.append(api_message.to_dict())
 
+        # Update the application field with the decision status
         self.update_application_field(
-            self.request.document_number,
-            self.application_field_key,
-            application_decision_type.code,
+            document_number=self.request.document_number,
+            field_key=self.application_field_key,
+            field_value=application_decision_type.code.upper(),
         )
         self._create_comment()
         self._deactivate_current_task()
@@ -202,4 +204,5 @@ class BaseDecisionService(UpdateApplicationMixin):
                 user=self.request.user,
                 comment_text=self.request.summary,
                 comment_type="OVERALL_APPLICATION_COMMENT",
+                document_number=self.request.document_number,
             )

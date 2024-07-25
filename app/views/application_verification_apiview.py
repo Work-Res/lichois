@@ -44,4 +44,5 @@ class ApplicationVerificationAPIView(APIView):
             document_number=document_number
         )
         service = VerificationService(verification_request=verification_request)
-        return service.retrieve_verification()
+        data = service.retrieve_verification()
+        return Response(data, status=status.HTTP_200_OK)
