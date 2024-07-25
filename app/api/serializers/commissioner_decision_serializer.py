@@ -19,10 +19,4 @@ class CommissionerDecisionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CommissionerDecision
-        fields = (
-            "document_number",
-            "date_requested",
-            "date_approved",
-            "status",
-            "summary",
-        )
+        fields = "__all__"
