@@ -1,5 +1,3 @@
-from django.db import transaction
-
 from app.models.application_verification import ApplicationVerification
 from app.service import BaseDecisionService
 from app.utils.system_enums import ApplicationStatusEnum
@@ -23,7 +21,6 @@ class VerificationService(BaseDecisionService):
             task_to_deactivate=ApplicationStatusEnum.VERIFICATION.value,
         )
 
-    @transaction.atomic
     def create_verification(self):
         return self.create_decision(
             ApplicationVerification, ApplicationVerificationSerializer

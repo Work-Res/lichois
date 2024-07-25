@@ -71,7 +71,6 @@ class BaseDecisionService(UpdateApplicationMixin):
             self.response.messages.append(api_message.to_dict())
             return None
 
-    @transaction.atomic
     def create_decision(self, decision_model, serializer_class):
         """
         Create a new decision record and update the application accordingly.
@@ -83,38 +82,39 @@ class BaseDecisionService(UpdateApplicationMixin):
         Returns:
             Response: The response object containing the result of the operation.
         """
-        application_decision_type = self.get_application_decision_type()
-        if application_decision_type is None:
-            return self.response
+        with transaction.atomic():
+            application_decision_type = self.get_application_decision_type()
+            if application_decision_type is None:
+                return self.response
 
-        self.decision = decision_model.objects.create(
-            status=application_decision_type,
-            document_number=self.request.document_number,
-            approved_by=self.request.user,
-            date_approved=datetime.now(),
-        )
+            self.decision = decision_model.objects.create(
+                status=application_decision_type,
+                document_number=self.request.document_number,
+                approved_by=self.request.user,
+                date_approved=datetime.now(),
+            )
 
-        api_message = APIMessage(
-            code=200,
-            message="Decision created successfully.",
-            details="Decision created successfully.",
-        )
-        self.response.status = "success"
-        self.response.data = serializer_class(self.decision).data
-        self.response.messages.append(api_message.to_dict())
+            api_message = APIMessage(
+                code=200,
+                message="Decision created successfully.",
+                details="Decision created successfully.",
+            )
+            self.response.status = "success"
+            self.response.data = serializer_class(self.decision).data
+            self.response.messages.append(api_message.to_dict())
 
-        # Update the application field with the decision status
-        self.update_application_field(
-            document_number=self.request.document_number,
-            field_key=self.application_field_key,
-            field_value=application_decision_type.code.upper(),
-        )
-        self.logger.info(
-            f"Application {self.request.document_number} decision created successfully."
-        )
-        self._create_comment()
-        # self._deactivate_current_task()
-        self._activate_next_task()
+            # Update the application field with the decision status
+            self.update_application_field(
+                document_number=self.request.document_number,
+                field_key=self.application_field_key,
+                field_value=application_decision_type.code.upper(),
+            )
+            self.logger.info(
+                f"Application {self.request.document_number} decision created successfully."
+            )
+            self._create_comment()
+            # self._deactivate_current_task()
+            self._activate_next_task()
 
         return self.response.result()
 

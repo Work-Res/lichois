@@ -1,5 +1,3 @@
-from django.db import transaction
-
 from ..api.dto import SecurityClearanceRequestDTO
 from ..api.serializers import SecurityClearanceSerializer
 from ..models import SecurityClearance
@@ -22,6 +20,5 @@ class SecurityClearanceService(BaseDecisionService):
             workflow=workflow,
         )
 
-    @transaction.atomic
     def create_clearance(self):
         return self.create_decision(SecurityClearance, SecurityClearanceSerializer)

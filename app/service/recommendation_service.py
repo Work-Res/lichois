@@ -1,7 +1,3 @@
-from re import A
-
-from django.db import transaction
-
 from ..api.dto import RecommendationRequestDTO
 from ..api.serializers import CommissionerDecisionSerializer
 from ..models import CommissionerDecision
@@ -23,7 +19,6 @@ class RecommendationService(BaseDecisionService):
             task_to_deactivate=ApplicationStatusEnum.RECOMMENDATION.value,
         )
 
-    @transaction.atomic
     def create_recommendation(self):
         return self.create_decision(
             CommissionerDecision, CommissionerDecisionSerializer
