@@ -10,7 +10,7 @@ from app.api.serializers import (
     ApplicationVerificationSerializer,
 )
 from app.models.application_verification import ApplicationVerification
-from app.service import OfficerVerificationService
+from app.service import VerificationService
 from app.validators import OfficerVerificationValidator
 
 
@@ -22,7 +22,7 @@ class ApplicationVerificationAPIView(APIView):
             validator = OfficerVerificationValidator(document_number=document_number)
             if validator.is_valid():
                 verification_request = ApplicationVerificationRequest(**serializer.data)
-                service = OfficerVerificationService(
+                service = VerificationService(
                     document_number=document_number,
                     verification_request=verification_request,
                 )

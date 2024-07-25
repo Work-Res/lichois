@@ -16,6 +16,13 @@ from ..models import Application
 
 
 class BaseDecisionService(UpdateApplicationMixin):
+    """
+    Base service class for handling application decisions.
+
+    This class provides methods to create and retrieve decisions related to applications.
+    It also handles updating application fields, deactivating current tasks, and activating next tasks in the workflow.
+    """
+
     def __init__(
         self,
         request: RequestDTO,
@@ -24,6 +31,16 @@ class BaseDecisionService(UpdateApplicationMixin):
         task_to_deactivate=None,
         workflow=None,
     ):
+        """
+        Initialize the service with the request data, user, and other optional parameters.
+
+        Args:
+            request (RequestDTO): The request data transfer object containing the decision details.
+            user: The user making the request.
+            application_field_key: The key of the application field to be updated.
+            task_to_deactivate: The task to be deactivated in the workflow.
+            workflow: The workflow instance for task activation.
+        """
         self.request = request
         self.user = user
         self.logger = logging.getLogger(__name__)
@@ -35,6 +52,12 @@ class BaseDecisionService(UpdateApplicationMixin):
         self.task_to_deactivate = task_to_deactivate
 
     def get_application_decision_type(self):
+        """
+        Retrieve the application decision type based on the request status.
+
+        Returns:
+            ApplicationDecisionType: The application decision type object if found, otherwise None.
+        """
         try:
             application_decision_type = ApplicationDecisionType.objects.get(
                 code__iexact=self.request.status
@@ -52,6 +75,16 @@ class BaseDecisionService(UpdateApplicationMixin):
 
     @transaction.atomic
     def create_decision(self, decision_model, serializer_class):
+        """
+        Create a new decision record and update the application accordingly.
+
+        Args:
+            decision_model: The model class for the decision.
+            serializer_class: The serializer class for the decision model.
+
+        Returns:
+            Response: The response object containing the result of the operation.
+        """
         application_decision_type = self.get_application_decision_type()
         if application_decision_type is None:
             return self.response
@@ -85,6 +118,16 @@ class BaseDecisionService(UpdateApplicationMixin):
         return Response(self.response.result())
 
     def retrieve_decision(self, decision_model, serializer_class):
+        """
+        Retrieve an existing decision record based on the document number.
+
+        Args:
+            decision_model: The model class for the decision.
+            serializer_class: The serializer class for the decision model.
+
+        Returns:
+            Response: The response object containing the result of the operation.
+        """
         try:
             self.decision = decision_model.objects.get(
                 document_number=self.request.document_number
@@ -108,6 +151,12 @@ class BaseDecisionService(UpdateApplicationMixin):
         return Response(self.response.result())
 
     def _get_application(self):
+        """
+        Retrieve the application based on the document number from the request.
+
+        Returns:
+            Application: The application object if found, otherwise None.
+        """
         try:
             application = Application.objects.get(
                 application_document__document_number=self.request.document_number
@@ -123,6 +172,9 @@ class BaseDecisionService(UpdateApplicationMixin):
             return None
 
     def _deactivate_current_task(self):
+        """
+        Deactivate the current task if a task to deactivate is specified.
+        """
         if self.task_to_deactivate:
             task_deactivation = TaskDeActivation(
                 application=self.application,
@@ -132,6 +184,9 @@ class BaseDecisionService(UpdateApplicationMixin):
             task_deactivation.update_task_by_activity(name=self.task_to_deactivate)
 
     def _activate_next_task(self):
+        """
+        Activate the next task in the workflow if a workflow and decision are specified.
+        """
         if self.workflow and self.decision:
             create_or_update_task_signal.send_robust(
                 sender=self.application,
@@ -140,6 +195,12 @@ class BaseDecisionService(UpdateApplicationMixin):
             )
 
     def _create_comment(self):
+        """
+        Create a comment if a comment is provided in the request.
+
+        Returns:
+            Comment: The created comment object.
+        """
         if self.request.comment:
             return Comment.objects.create(
                 user=self.user,
