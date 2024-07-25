@@ -33,7 +33,7 @@ class SecurityClearanceCreateAPIView(APIView):
                 security_clearance_request = SecurityClearanceRequestDTO(
                     document_number=document_number,
                     user=request.user,
-                    **serializer.data,
+                    **serializer.validated_data,
                 )
                 validator = SecurityClearanceValidator(
                     document_number=document_number,

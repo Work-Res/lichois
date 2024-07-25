@@ -22,7 +22,7 @@ class ApplicationVerificationAPIView(APIView):
                 verification_request = ApplicationVerificationRequestDTO(
                     document_number=document_number,
                     user=request.user,
-                    **serializer.data
+                    **serializer.validated_data,
                 )
                 service = VerificationService(verification_request=verification_request)
                 data = service.create_verification()
