@@ -21,7 +21,10 @@ class CommissionerDecisionAPIView(APIView):
             serializer = RecommendationRequestDTOSerializer(data=request.data)
             if serializer.is_valid():
                 data = serializer.validated_data
-                request_dto = RecommendationRequestDTO(**data)
+                request_dto = RecommendationRequestDTO(
+                    user=request.user,
+                    **data,
+                )
                 service = RecommendationService(request_dto)
                 return Response(
                     service.create_recommendation(), status=status.HTTP_201_CREATED
