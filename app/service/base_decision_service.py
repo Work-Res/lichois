@@ -109,9 +109,12 @@ class BaseDecisionService(UpdateApplicationMixin):
             field_key=self.application_field_key,
             field_value=application_decision_type.code.upper(),
         )
+        self.logger.info(
+            f"Application {self.request.document_number} decision created successfully."
+        )
         # self._create_comment()
         # self._deactivate_current_task()
-        self._activate_next_task()
+        # self._activate_next_task()
 
         return self.response.result()
 
