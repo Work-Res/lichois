@@ -1,3 +1,4 @@
+from app.api.dto.serializers import ApplicationVerificationRequestDTOSerializer
 from app.models.application_verification import ApplicationVerification
 from app.service import BaseDecisionService
 from app.utils.system_enums import ApplicationStatusEnum
@@ -23,7 +24,7 @@ class VerificationService(BaseDecisionService):
 
     def create_verification(self):
         return self.create_decision(
-            ApplicationVerification, ApplicationVerificationSerializer
+            ApplicationVerification, ApplicationVerificationRequestDTOSerializer
         )
 
     def retrieve_verification(self):

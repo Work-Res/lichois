@@ -10,6 +10,7 @@ class OfficerVerificationValidator:
 
     def __init__(self, document_number: str):
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
         self.document_number = document_number
         self.response = APIResponse()
         try:
@@ -34,6 +35,7 @@ class OfficerVerificationValidator:
         Returns True or False after running the validate method.
         """
         self.validate()
+        self.logger.warning(f"Validation response: {self.response.messages}")
         return True if len(self.response.messages) == 0 else False
 
     def attachments_verifications(self):
