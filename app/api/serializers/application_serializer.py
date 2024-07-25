@@ -11,16 +11,4 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Application
-        fields = (
-            "id",
-            "last_application_version_id",
-            "application_type",
-            "application_status",
-            "application_document",
-            "batched",
-            "board",
-            "security_clearance",
-            "verification",
-            "permit_period",
-            "assessment",
-        )
+        fields = "__all__"
