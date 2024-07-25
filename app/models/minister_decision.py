@@ -25,7 +25,5 @@ class MinisterDecision(BaseUuidModel):
         blank=True,
     )
 
-    summary = models.TextField(null=True, blank=True)
-
     class Meta:
         verbose_name = "Minister Decision"

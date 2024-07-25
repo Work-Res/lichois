@@ -6,10 +6,9 @@ from app_decision.models import ApplicationDecisionType
 
 class ApplicationVerification(ApplicationBaseModel):
 
-    decision = models.ForeignKey(
+    status = models.ForeignKey(
         ApplicationDecisionType, on_delete=models.SET_NULL, null=True
     )
-    summary = models.TextField(null=True, blank=True)
 
     date_approved = models.DateTimeField(null=True, blank=True)
 

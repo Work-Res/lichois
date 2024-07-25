@@ -2,7 +2,6 @@ import logging
 from datetime import datetime
 
 from django.db import transaction
-from rest_framework.response import Response
 
 from app_comments.models import Comment
 from app_decision.models import ApplicationDecisionType
@@ -26,7 +25,6 @@ class BaseDecisionService(UpdateApplicationMixin):
     def __init__(
         self,
         request: RequestDTO,
-        user=None,
         application_field_key=None,
         task_to_deactivate=None,
         workflow=None,
@@ -42,7 +40,6 @@ class BaseDecisionService(UpdateApplicationMixin):
             workflow: The workflow instance for task activation.
         """
         self.request = request
-        self.user = user
         self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
         self.decision = None
@@ -91,9 +88,8 @@ class BaseDecisionService(UpdateApplicationMixin):
 
         self.decision = decision_model.objects.create(
             status=application_decision_type,
-            summary=self.request.summary,
             document_number=self.request.document_number,
-            approved_by=self.user,
+            approved_by=self.request.user,
             date_approved=datetime.now(),
         )
 
@@ -115,7 +111,7 @@ class BaseDecisionService(UpdateApplicationMixin):
         self._deactivate_current_task()
         self._activate_next_task()
 
-        return Response(self.response.result())
+        return self.response.result()
 
     def retrieve_decision(self, decision_model, serializer_class):
         """
@@ -148,7 +144,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             )
             self.response.messages.append(api_message.to_dict())
             self.response.status = "error"
-        return Response(self.response.result())
+        return self.response.result()
 
     def _get_application(self):
         """
@@ -196,14 +192,14 @@ class BaseDecisionService(UpdateApplicationMixin):
 
     def _create_comment(self):
         """
-        Create a comment if a comment is provided in the request.
+        Create a comment if a comment/summary is provided in the request.
 
         Returns:
             Comment: The created comment object.
         """
-        if self.request.comment:
+        if self.request.summary:
             return Comment.objects.create(
-                user=self.user,
-                comment_text=self.request.comment,
+                user=self.request.user,
+                comment_text=self.request.summary,
                 comment_type="OVERALL_APPLICATION_COMMENT",
             )

@@ -3,8 +3,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from app.api import ApplicationVerificationRequest
 from app.api.common.web.api_error import APIMessage
+from app.api.dto.application_verification_request_dto import (
+    ApplicationVerificationRequestDTO,
+)
 from app.api.serializers import (
     ApplicationVerificationRequestSerializer,
     ApplicationVerificationSerializer,
@@ -21,12 +23,13 @@ class ApplicationVerificationAPIView(APIView):
         if serializer.is_valid():
             validator = OfficerVerificationValidator(document_number=document_number)
             if validator.is_valid():
-                verification_request = ApplicationVerificationRequest(**serializer.data)
-                service = VerificationService(
+                verification_request = ApplicationVerificationRequestDTO(
                     document_number=document_number,
-                    verification_request=verification_request,
+                    user=request.user,
+                    **serializer.data
                 )
-                data = service.submit().result()
+                service = VerificationService(verification_request=verification_request)
+                data = service.create_verification()
                 return Response(data, status=status.HTTP_200_OK)
             else:
                 return Response(
@@ -37,19 +40,8 @@ class ApplicationVerificationAPIView(APIView):
 
     def get(self, request, document_number):
         # get the application verification using the document number
-        try:
-            verification = ApplicationVerification.objects.get(
-                document_number=document_number
-            )
-        except ApplicationVerification.DoesNotExist:
-            return Response(
-                APIMessage(
-                    details=f"Application verification with document number {document_number} does not exist",
-                    code=status.HTTP_404_NOT_FOUND,
-                    message="Not Found",
-                ).to_dict(),
-                status=status.HTTP_404_NOT_FOUND,
-            )
-        else:
-            serializer = ApplicationVerificationSerializer(verification)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+        verification_request = ApplicationVerificationRequestDTO(
+            document_number=document_number
+        )
+        service = VerificationService(verification_request=verification_request)
+        return service.retrieve_verification()

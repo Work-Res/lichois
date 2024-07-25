@@ -133,3 +133,7 @@ class AssessmentCaseDecisionTransactionData(BaseTransactionData):
         super().__init__(next_activity_name, application_status)
         self.decision = decision
         self.role = role
+
+
+class MinisterDecisionTransactionData(BaseTransactionData):
+    pass

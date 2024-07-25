@@ -9,6 +9,7 @@ from .application_verification_request_serializer import (
 from .application_verification_serializer import ApplicationVerificationSerializer
 from .application_version_serializer import ApplicationVersionSerializer
 from .commissioner_decision_serializer import CommissionerDecisionSerializer
+from .count_application import ApplicationCountSerializer
 from .minister_decision_serializer import (
     MinisterDecisionRequestDTOSerializer,
     MinisterDecisionSerializer,
@@ -19,4 +20,5 @@ from .renewal_application_serializer import (
     ApplicationRenewalHistorySerializer,
     RenewalApplicationSerializer,
 )
+from .security_clearance_request_serializer import SecurityClearanceRequestDTOSerializer
 from .security_clearance_serializer import SecurityClearanceSerializer

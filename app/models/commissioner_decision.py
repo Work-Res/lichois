@@ -19,7 +19,5 @@ class CommissionerDecision(BaseUuidModel):
 
     approved_by = models.CharField(max_length=100, null=True, blank=True)
 
-    summary = models.TextField(null=True, blank=True)
-
     class Meta:
         verbose_name = "Commissioner Decision"

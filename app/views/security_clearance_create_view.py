@@ -1,20 +1,16 @@
-import logging
-
 import json
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+import logging
+from pydoc import doc
 
 from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from ..api.security_clearance_request_serializer import (
-    SecurityClearanceRequestDTOSerializer,
-)
 from ..api.dto import SecurityClearanceRequestDTO
-
-from ..validators import SecurityClearanceValidator
+from ..api.serializers import SecurityClearanceRequestDTOSerializer
 from ..service import SecurityClearanceService
+from ..validators import SecurityClearanceValidator
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +31,9 @@ class SecurityClearanceCreateAPIView(APIView):
             serializer = SecurityClearanceRequestDTOSerializer(data=request.data)
             if serializer.is_valid():
                 security_clearance_request = SecurityClearanceRequestDTO(
-                    **serializer.data
+                    document_number=document_number,
+                    user=request.user,
+                    **serializer.data,
                 )
                 validator = SecurityClearanceValidator(
                     document_number=document_number,
@@ -43,8 +41,7 @@ class SecurityClearanceCreateAPIView(APIView):
                 )
                 if validator.is_valid():
                     service = SecurityClearanceService(
-                        security_clearance_request=security_clearance_request,
-                        document_number=document_number,
+                        security_clearance_request=security_clearance_request
                     )
                     service.create_clearance()
                     return JsonResponse(service.response.result())

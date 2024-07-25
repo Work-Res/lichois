@@ -11,17 +11,12 @@ from ..api.serializers import ApplicationVerificationSerializer
 
 class VerificationService(BaseDecisionService):
 
-    def __init__(
-        self,
-        verification_request: ApplicationVerificationRequestDTO,
-        user=None,
-    ):
+    def __init__(self, verification_request: ApplicationVerificationRequestDTO):
         workflow = OfficerTransactionData()
-        workflow.verification_decision = verification_request.status
+        workflow.verification_decision = verification_request.status.upper()
 
         super().__init__(
             request=verification_request,
-            user=user,
             workflow=workflow,
             application_field_key="verification",
             task_to_deactivate=ApplicationStatusEnum.VERIFICATION.value,
@@ -33,7 +28,7 @@ class VerificationService(BaseDecisionService):
             ApplicationVerification, ApplicationVerificationSerializer
         )
 
-    def retrieve_recommendation(self):
+    def retrieve_verification(self):
         return self.retrieve_decision(
             ApplicationVerification, ApplicationVerificationSerializer
         )

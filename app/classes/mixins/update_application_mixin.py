@@ -16,7 +16,7 @@ class UpdateApplicationMixin:
         if field_value and document_number and field_key:
             updated_count = Application.objects.filter(
                 application_document__document_number=document_number
-            ).update(field_key=field_value)
+            ).update(**{field_key: field_value})
 
             if updated_count == 0:
                 raise ValidationError(
