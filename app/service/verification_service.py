@@ -12,13 +12,14 @@ from ..api.serializers import ApplicationVerificationSerializer
 class VerificationService(BaseDecisionService):
 
     def __init__(self, verification_request: ApplicationVerificationRequestDTO):
-        workflow = OfficerTransactionData()
-        workflow.verification_decision = verification_request.status
+        workflow = OfficerTransactionData(
+            verification_decision=verification_request.status
+        )
 
         super().__init__(
             request=verification_request,
-            workflow=workflow,
             application_field_key="verification",
+            workflow=workflow,
             task_to_deactivate=ApplicationStatusEnum.VERIFICATION.value,
         )
 

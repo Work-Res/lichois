@@ -1,17 +1,13 @@
-import re
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from app.api.common.web.api_error import APIMessage
 from app.api.dto.application_verification_request_dto import (
     ApplicationVerificationRequestDTO,
 )
 from app.api.serializers import (
     ApplicationVerificationRequestSerializer,
-    ApplicationVerificationSerializer,
 )
-from app.models.application_verification import ApplicationVerification
 from app.service import VerificationService
 from app.validators import OfficerVerificationValidator
 

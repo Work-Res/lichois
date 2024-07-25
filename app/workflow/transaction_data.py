@@ -70,10 +70,11 @@ class VettingTransactionData(BaseTransactionData):
         next_activity_name=None,
         vetting_decision=None,
         current_status=None,
+        vetting_obj_exists=None,
     ):
         super().__init__(next_activity_name, current_status)
-        self.vetting_decision = (vetting_decision,)
-        self.vetting_obj_exists = False
+        self.vetting_decision = vetting_decision
+        self.vetting_obj_exists = vetting_obj_exists
 
 
 class RecommendationTransitionData(BaseTransactionData):
