@@ -1,4 +1,5 @@
 import logging
+import re
 
 from app.models import Application
 from app.models.security_clearance import SecurityClearance
@@ -52,12 +53,14 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
         """Determine the final decision based on commissioner and/or minister decisions."""
         is_commissioner_accepted = self.is_decision_accepted(CommissionerDecision)
         is_minister_accepted = self.is_decision_accepted(MinisterDecision)
-        requires_approval = self.application.application_type in self.approval_processes
+        requires_minister_approval = (
+            self.application.application_type in self.approval_processes
+        )
         self.logger.info(
             f"Commissioner decision: {is_commissioner_accepted}, Minister decision: {is_minister_accepted}, "
         )
 
-        if requires_approval:
+        if requires_minister_approval:
             if is_commissioner_accepted and is_minister_accepted:
                 self.set_decision(ApplicationDecisionEnum.ACCEPTED)
                 self.workflow.recommendation_decision = (
@@ -95,7 +98,7 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
 
         # If neither condition is met, reject the application
         if self.get_decision(CommissionerDecision) or (
-            self.get_decision(MinisterDecision) and requires_approval
+            self.get_decision(MinisterDecision) and requires_minister_approval
         ):
             self.set_decision(ApplicationDecisionEnum.REJECTED)
             self.workflow.recommendation_decision = (
