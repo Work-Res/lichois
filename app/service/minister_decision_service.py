@@ -16,9 +16,9 @@ from ..service import BaseDecisionService
 
 class MinisterDecisionService(BaseDecisionService):
     def __init__(self, decision_request: MinisterRequestDTO):
-        workflow = ProductionTransactionData()
-        workflow.recommendation = decision_request.status.upper()
-
+        workflow = ProductionTransactionData(
+            recommendation_decision=decision_request.status.upper()
+        )
         super().__init__(
             request=decision_request,
             workflow=workflow,
