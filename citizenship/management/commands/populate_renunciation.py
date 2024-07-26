@@ -144,7 +144,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = CitizenshipApplicationTypeEnum.RENUNCIATION.value
+        process_name = CitizenshipProcessEnum.RENUNCIATION.value
         self.stdout.write(self.style.SUCCESS(f'Process name {process_name}'))
 
         for _ in range(10):
@@ -170,7 +170,7 @@ class Command(BaseCommand):
                 app = ApplicationService(new_application_dto=new_app)
                 version = app.create_application()
                 self.stdout.write(self.style.SUCCESS(new_app.__dict__))
-                country = Country.objects.create(name=faker.country())
+                country = (Country.objects.create(name=faker.country()),)
                 
                 ApplicationAddress.objects.get_or_create(
                     application_version=version,
