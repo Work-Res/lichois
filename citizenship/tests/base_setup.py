@@ -124,7 +124,7 @@ class BaseSetup(TestCase):
         )
         # Checklist for process
         classifer_attachment_types = ClassifierItem.objects.filter(
-            code__in=['PASSPORT_COPY', 'PASSPORT_PHOTO', 'COVER_LETTER']
+            code__iexact='CITIZENSHIP_ATTACHMENT_DOCUMENTS'
         )
 
         for classifier in classifer_attachment_types:

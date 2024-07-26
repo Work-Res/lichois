@@ -36,7 +36,7 @@ class CaseSummaryService:
                 api_message = APIMessage(
                     code=200,
                     message="Assessment note has been updated.",
-                    details="Assessment note has been updated."
+                    details=f"Assessment note has been updated for {self.case_summary_request_dto.document_number}"
                 )
                 self.response.status = True
                 self.response.messages.append(api_message.to_dict())

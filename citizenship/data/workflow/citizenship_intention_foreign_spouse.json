@@ -3,7 +3,7 @@
     "citizenship": {
       "code": "CITIZENSHIP_INTENTION_FOREIGN_SPOUSE",
       "name": "CITIZENSHIP OF INTENTION BY FOREIGN SPOUSE",
-      "description": "Declaration of Renunciation/Abandonment of Citizenship of Botswana Workflow",
+      "description": "Declaration of Intention By Foreign Spouse Workflow",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01",
       "classifier_items": [
