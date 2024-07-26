@@ -1,72 +1,75 @@
-from django.test import TestCase
+import pytest
+
 from django.core.exceptions import ValidationError
-from app.models import Application
-from authentication.models import User
-
-from citizenship.models.board import Meeting, BatchApplication, BoardMember, Board
-from citizenship.service.board import BatchService
-from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 from unittest.mock import patch
-from datetime import date
+
+from citizenship.models import BatchApplication, Attendee, ConflictOfInterest, Interview
+
+from citizenship.service.board import BatchService
+from citizenship.service.board.batch_status_enum import BatchStatus
+from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
+
+from .base_setup import BaseSetup
 
 
-class BatchServiceTest(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create_user(username='user1', password='pass')
-        self.board = Board.objects.create(name='Board1', description='Test board')
-        self.member = BoardMember.objects.create(user=self.user, board=self.board)
-        self.meeting = Meeting.objects.create(
-            title='Test Meeting', board=self.board, location='Conference Room',
-            agenda='Discuss project updates', status='Scheduled')
-        self.application1 = Application.objects.create(applicant_name='Applicant 1',
-                                                       application_date=date(2023, 7, 19),
-                                                       document_number='DOC123', status='Approved')
-        self.application2 = Application.objects.create(applicant_name='Applicant 2',
-                                                       application_date=date(2023, 7, 19),
-                                                       document_number='DOC124', status='Pending')
+class BatchServiceTestCase(BaseSetup):
 
     def test_create_batch(self):
-        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='Batch 1')
-        self.assertIsNotNone(batch.id)
-        self.assertEqual(batch.name, 'Batch 1')
+        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='New Batch')
+        self.assertIsNotNone(batch)
+        self.assertEqual(batch.name, 'New Batch')
         self.assertEqual(batch.meeting, self.meeting)
 
-    @patch.object(ApplicationEligibilityValidator, 'is_eligible', return_value=True)
-    def test_add_application_to_batch(self, mock_is_eligible):
-        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='Batch 1')
-        result = BatchService.add_application_to_batch(batch_id=batch.id, document_number='DOC123')
-        self.assertTrue(result)
-        self.assertTrue(BatchApplication.objects.filter(batch=batch, application=self.application1).exists())
-
-    @patch.object(ApplicationEligibilityValidator, 'is_eligible', return_value=False)
-    def test_add_application_to_batch_invalid(self, mock_is_eligible):
-        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='Batch 1')
+    def test_create_batch_with_invalid_meeting(self):
         with self.assertRaises(ValidationError):
-            BatchService.add_application_to_batch(batch_id=batch.id, document_number='DOC124')
+            BatchService.create_batch(meeting_id=999, name='New Batch')
 
-    @patch.object(ApplicationEligibilityValidator, 'is_eligible', return_value=True)
-    def test_add_applications_to_batch(self, mock_is_eligible):
-        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='Batch 1')
-        result = BatchService.add_applications_to_batch(batch_id=batch.id, document_numbers=['DOC123', 'DOC124'])
-        self.assertTrue(result)
-        self.assertTrue(BatchApplication.objects.filter(batch=batch, application=self.application1).exists())
-        self.assertTrue(BatchApplication.objects.filter(batch=batch, application=self.application2).exists())
+    def test_add_application_to_batch(self):
+        with patch.object(ApplicationEligibilityValidator, 'is_valid', return_value=True):
+            result = BatchService.add_application_to_batch(
+                batch_id=self.batch.id, document_number=self.application.document_number, session_id=self.session.id)
+            self.assertTrue(result)
+            self.assertTrue(BatchApplication.objects.filter(
+                batch=self.batch, application=self.application, meeting_session=self.session).exists())
 
-    @patch.object(ApplicationEligibilityValidator, 'is_eligible', return_value=False)
-    def test_add_applications_to_batch_invalid(self, mock_is_eligible):
-        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='Batch 1')
-        with self.assertRaises(ValidationError):
-            BatchService.add_applications_to_batch(batch_id=batch.id, document_numbers=['DOC123', 'DOC124'])
+    def test_add_application_to_batch_invalid(self):
+        with patch.object(ApplicationEligibilityValidator, 'is_valid', return_value=False):
+            with self.assertRaises(ValidationError):
+                BatchService.add_application_to_batch(
+                    batch_id=self.batch.id, document_number=self.application.document_number, session_id=self.session.id)
 
     def test_remove_application_from_batch(self):
-        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='Batch 1')
-        BatchService.add_application_to_batch(batch_id=batch.id, document_number='DOC123')
-        result = BatchService.remove_application_from_batch(batch_id=batch.id, application_id=self.application1.id)
+        BatchApplication.objects.create(batch=self.batch, application=self.application, meeting_session=self.session)
+        result = BatchService.remove_application_from_batch(
+            batch_id=self.batch.id, application_id=self.application.id)
         self.assertTrue(result)
-        self.assertFalse(BatchApplication.objects.filter(batch=batch, application=self.application1).exists())
+        self.assertFalse(BatchApplication.objects.filter(
+            batch=self.batch, application=self.application, meeting_session=self.session).exists())
 
-    def test_remove_application_from_batch_invalid(self):
-        batch = BatchService.create_batch(meeting_id=self.meeting.id, name='Batch 1')
-        with self.assertRaises(ValidationError):
-            BatchService.remove_application_from_batch(batch_id=batch.id, application_id=self.application1.id)
+    def test_declare_conflict_of_interest(self):
+        attendee = Attendee.objects.create(meeting=self.meeting, member=self.member)
+        conflict = BatchService.declare_conflict_of_interest(
+            attendee_id=attendee.id, document_number=self.application.application_document.document_number,
+            has_conflict=True)
+        self.assertIsNotNone(conflict)
+        self.assertEqual(conflict.attendee, attendee)
+        self.assertEqual(conflict.application, self.application)
+        self.assertTrue(conflict.has_conflict)
+
+    def test_change_batch_status(self):
+        with patch.object(ApplicationEligibilityValidator, 'is_valid', return_value=True):
+            BatchService.add_application_to_batch(
+                batch_id=self.batch.id, document_number=self.application.document_number, session_id=self.session.id)
+            BatchService.change_batch_status(batch_id=self.batch.id, new_status=BatchStatus.CLOSED.name)
+            self.batch.refresh_from_db()
+            self.assertEqual(self.batch.status, BatchStatus.CLOSED.name)
+            self.assertTrue(Interview.objects.filter(application=self.application).exists())
+
+    def test_declare_no_conflict_for_all(self):
+        BatchApplication.objects.create(batch=self.batch, application=self.application, meeting_session=self.session)
+        attendee = Attendee.objects.create(meeting=self.meeting, member=self.member)
+        result = BatchService.declare_no_conflict_for_all(attendee_id=attendee.id, batch_id=self.batch.id)
+        self.assertTrue(result)
+        self.assertTrue(ConflictOfInterest.objects.filter(
+            attendee=attendee, application=self.application, has_conflict=False).exists())
+

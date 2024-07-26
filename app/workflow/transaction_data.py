@@ -19,7 +19,6 @@ class VerificationTransactionData(BaseTransactionData):
     Attributes:
         system_verification (str): The result or status of the system verification.
     """
-
     def __init__(
         self, next_activity_name=None, application_status=None, system_verification=None
     ):
@@ -34,7 +33,6 @@ class AssessmentTransactionData(BaseTransactionData):
     Attributes:
         system_verification (str): The result or status of the system verification.
     """
-
     def __init__(
         self, next_activity_name=None, application_status=None, system_verification=None
     ):
@@ -127,14 +125,9 @@ class AssessmentCaseDecisionTransactionData(BaseTransactionData):
         decision (str)
         role (str)
     """
-
-    def __init__(
-        self, next_activity_name=None, application_status=None, decision=None, role=None
-    ):
-        super().__init__(next_activity_name, application_status)
-        self.decision = decision
-        self.role = role
+    pass
 
 
 class MinisterDecisionTransactionData(BaseTransactionData):
     pass
+

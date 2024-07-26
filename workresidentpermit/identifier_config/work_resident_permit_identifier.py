@@ -9,3 +9,4 @@ class WorkResidentPermitIdentifier(Identifier):
     @staticmethod
     def process_name():
         return "WORK_RESIDENT_PERMIT"
+

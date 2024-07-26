@@ -3,7 +3,7 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 
 from app_checklist.models import Region
-from citizenship.models.board import Board, Role
+from citizenship.models import Board, Role
 
 
 logger = logging.getLogger(__name__)

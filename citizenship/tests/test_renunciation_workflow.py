@@ -9,16 +9,12 @@ class TestRenunciationWorkflow(BaseSetup):
 
     def test_create_new_application(self):
         app = Application.objects.get(
-            application_document__document_number=self.document_number
-        )
+            application_document__document_number=self.document_number)
         self.assertEqual(app.process_name, CitizenshipProcessEnum.RENUNCIATION.value)
 
     def test_create_new_application_workflow_records(self):
         app = Application.objects.get(
-            application_document__document_number=self.document_number
-        )
+            application_document__document_number=self.document_number)
         self.assertEqual(app.process_name, CitizenshipProcessEnum.RENUNCIATION.value)
-        activites = Activity.objects.filter(
-            process__document_number=self.document_number
-        )
+        activites = Activity.objects.filter(process__document_number=self.document_number)
         self.assertEqual(7, activites.count())

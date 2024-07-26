@@ -1,6 +1,5 @@
 import os
 from django.conf import settings
-from django.test import TestCase
 from django.test import TestCase, override_settings
 
 from docx import Document
@@ -75,26 +74,19 @@ class WordDocumentTemplateServiceTest(TestCase):
         }
         service.create_request_letter(placeholders, 'request_letter.docx')
 
-
     def test_replace_placeholders_new_template(self):
-        self.template_path = "sample_information_request.docx"
-        self.output_path = "sample_information_request_1.docx"
+        self.template_path = os.path.join(self.media_root, 'test_document.docx')
+        self.output_path = os.path.join(settings.MEDIA_ROOT, 'test_document_output.docx')
         service = WordDocumentTemplateService(self.template_path)
         context = {
             'full_name': 'Tshepiso Setsiba',
             'officer_fullname': 'Moffat Motlhanka',
+            'reference_number': 'WR00010-98928-10',
             'position': 'Senior Software Engineer',
-            'officer_contact_information': '+267 73424507/tsetsiba@sample.com',
+            'today_date': '23th July, 2024',
+            'officer_contact_information': '+267 73424507/mmotlhanka@sample.com',
             'missing_information_request': 'A request for proposal (RFP) is a project announcement posted publicly by an organization indicating that bids for contractors to complete the project are sought.'
         }
         document = service.replace_placeholders(context)
         service.save_document(document, self.output_path)
 
-        # Load the output document to check if placeholders are replaced
-        output_doc = Document(self.output_path)
-        paragraphs = [p.text for p in output_doc.paragraphs]
-
-        # self.assertIn('Dear John Doe,', paragraphs)
-        # self.assertIn('Your application for Software Engineer has been approved.', paragraphs)
-        # self.assertIn('Best regards,', paragraphs)
-        # self.assertIn('TechCorp', paragraphs)

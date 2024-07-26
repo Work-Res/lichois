@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from django.core.exceptions import ValidationError
 
 from citizenship.api.serializers.board import BoardSerializer, MeetingSerializer
-from citizenship.models.board import Board
+
+from citizenship.models import Board
 from citizenship.service.board.board_service import BoardService
 
 

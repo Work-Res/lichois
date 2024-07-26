@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from django.core.exceptions import ValidationError
 
 from citizenship.api.serializers.board import BatchSerializer
-from citizenship.models.board import Batch
+
+from citizenship.models import Batch
 from citizenship.service.board import BatchService
 
 

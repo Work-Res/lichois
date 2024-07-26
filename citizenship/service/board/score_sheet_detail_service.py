@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from citizenship.models.board import ScoreSheetDetail, ScoreSheet, InterviewQuestion
+from citizenship.models import ScoreSheetDetail, ScoreSheet, InterviewQuestion
 
 
 class ScoreSheetDetailService:

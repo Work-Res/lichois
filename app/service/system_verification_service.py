@@ -55,12 +55,13 @@ class SystemVerificationService:
                     message="Application submission",
                     details="Application has been submitted successfully.",
                 ).to_dict()
+
             )
             self.response.data = ApplicationSerializer(self.application).data
             self.logger.info("Work resident submission process ended.")
-
             create_or_update_task_signal.send_robust(
                 sender=self.application, source=workflow, application=self.application
             )
+
             self.logger.debug("Task event signal completed")
             return self.response

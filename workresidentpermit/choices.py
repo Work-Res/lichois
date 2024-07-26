@@ -2,7 +2,6 @@ NOT_APPLICABLE = "N/A"
 OPEN = "open"
 CLOSED = "closed"
 
-
 COMM_METHODS = (("email", "E-mail"), ("sms", "SMS"), ("postal", "Post"))
 
 DATE_ESTIMATED_NA = (
@@ -46,7 +45,6 @@ POSTAL_PREFIX = (
     ("p_o_box", "P. O. Box"),
 )
 
-
 PREFERRED_METHOD_COMM = (("sms", "SMS"), ("post", "POST"), ("email", "EMAIL"))
 
 REASONS_PERMIT = (
@@ -85,7 +83,6 @@ APPEAL_STATUS = (
     ("accepted", "Accepted"),
 )
 
-
 PERSON_TYPE = (
     ("applicant", "Applicant"),
     ("mother", "Mother"),
@@ -101,3 +98,16 @@ EMERGENCY_PERIOD = (
 )
 
 SUBMITTER_TYPE = (("applicant", "Applicant"), ("officer", "Officer"))
+
+SUBMITTER_TYPE = (
+    ('applicant', 'Applicant'),
+    ('officer', 'Officer')
+)
+
+PERSON_TYPE = (
+    ('applicant', 'Applicant'),
+    ('mother', 'Mother'),
+    ('father', 'Father'),
+    ('child', 'Child'),
+    ('guardian', 'Guardian')
+)

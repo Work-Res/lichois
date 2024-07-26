@@ -10,6 +10,7 @@ class MeetingSession(BaseUuidModel):
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
+    batch_application_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.title} on {self.date} from {self.start_time} to {self.end_time}'

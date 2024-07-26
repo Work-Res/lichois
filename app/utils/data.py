@@ -77,7 +77,7 @@ statuses = [
         "processes": "WORK_RESIDENT_PERMIT,SPECIAL_PERMIT,CITIZENSHIP_RENUNCIATION,CITIZENSHIP_INTENTION_FOREIGN_SPOUSE",
         "valid_from": date(2023, 1, 1),
         "valid_to": None,
-    },
+    }
 ]
 
 offices = [{"name": "Gaborone", "code": "01"}]

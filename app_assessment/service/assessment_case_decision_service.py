@@ -9,7 +9,7 @@ from app.api.common.web import APIResponse, APIMessage
 
 class AssessmentCaseDecisionService:
 
-    def __init__(self, assessment_case_decision_dto: AssessmentCaseDecisionDTO = None):
+    def __init__(self, assessment_case_decision_dto: AssessmentCaseDecisionDTO=None):
         self.assessment_case_decision_dto = assessment_case_decision_dto
         self.response = APIResponse()
 
@@ -24,19 +24,17 @@ class AssessmentCaseDecisionService:
                     parent_object_type=self.assessment_case_decision_dto.parent_object_type,
                     author=self.assessment_case_decision_dto.author,
                     author_role=self.assessment_case_decision_dto.author_role,
-                    decision=self.assessment_case_decision_dto.decision,
+                    decision=self.assessment_case_decision_dto.decision
                 )
                 api_message = APIMessage(
                     code=200,
                     message="Assessment note has been created.",
-                    details="Assessment note has been created.",
+                    details="Assessment note has been created."
                 )
                 self.response.status = True
                 self.response.messages.append(api_message.to_dict())
                 self.response.data = AssessmentCaseDecisionSerializer(data=data).data
-                self.logger.info(
-                    f"Created a case note for {self.note_request_dto.document_number}"
-                )
+                self.logger.info(f"Created a case note for {self.note_request_dto.document_number}")
         except IntegrityError as ex:
             self.logger.error(f"Transaction failed and was rolled back. {ex}")
 
@@ -75,5 +73,6 @@ class AssessmentCaseDecisionService:
                 f"Assessment case decision with document number  "
                 f"{self.note_request_dto.document_number} does not exist."
             )
+
         except IntegrityError as ex:
             self.logger.error(f"Transaction failed and was rolled back. {ex}")

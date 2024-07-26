@@ -14,6 +14,9 @@ from app_assessment.models.assessement_case_decision import AssessmentCaseDecisi
 from app_assessment.models.assessment_case_note import AssessmentCaseNote
 from app_assessment.models.assessment_case_summary import AssessmentCaseSummary
 from app_checklist.utils import ReadJSON
+from ..models import AssessmentCaseNote, AssessmentCaseSummary, \
+    AssessmentCaseDecision
+from app_assessment.models import Assessment, AssessmentEmergency
 from app_assessment.validators import AssessmentValidator
 
 
@@ -97,7 +100,8 @@ class RenewalAssessmentInvestorSerializer(serializers.ModelSerializer):
 class AssessmentEmergencySerializer(serializers.ModelSerializer):
     class Meta:
         model = AssessmentEmergency
-        fields = "__all__"
+        fields = '__all__'
+
 
 
 class AssessmentCaseNoteSerializer(serializers.ModelSerializer):
@@ -112,7 +116,7 @@ class AssessmentCaseSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AssessmentCaseSummary
-        fields = "__all__"
+        fields = '__all__'
 
 
 class AssessmentCaseDecisionSerializer(serializers.ModelSerializer):
@@ -132,3 +136,4 @@ class DependantAssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = DependantAssessment
         fields = "__all__"
+

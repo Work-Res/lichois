@@ -7,15 +7,31 @@ class Generator:
     def __init__(self, logo_path):
         self.logo_path = logo_path
 
+    def add_header(self, doc):
+        # Access the header and add the logo
+        section = doc.sections[0]
+        header = section.header
+        header_paragraph = header.paragraphs[0]
+        header_paragraph.text = ""
+        header_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+        # Add logo to the header
+        run = header_paragraph.add_run()
+        run.add_picture(self.logo_path, width=Pt(60))  # Adjust the width as needed
+
+    def add_footer(self, doc):
+        # Access the footer and add some text
+        section = doc.sections[0]
+        footer = section.footer
+        footer_paragraph = footer.paragraphs[0]
+        footer_paragraph.text = "Confidential"
+        footer_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
     def create_request_letter(self, placeholders, output_path):
+
         doc = Document()
-
-        # Add the logo image
-        doc.add_picture(self.logo_path, width=Pt(60))  # Adjust the width as needed
-
-        # Add the letterhead text
-        #p = doc.add_paragraph('Republic of Botswana')
-        #p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        self.add_header(doc)
+        self.add_footer(doc)
 
         # Add the letter content with dynamic replacements
         doc.add_paragraph(f"\nDear {placeholders['full_name']},")

@@ -3,7 +3,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from citizenship.api.serializers.board import MeetingSerializer, AttendeeSerializer
-from citizenship.models.board import Meeting
+
+from citizenship.models import Meeting
+
 from citizenship.service.board import MeetingService
 
 

@@ -25,6 +25,14 @@ class TestDeclarationOfIntentionByForeignWorkflow(BaseSetup):
         return self.application_service.create_application()
 
     def test_create_new_application(self):
+
+        """Test create workflow application. """
+        app = Application.objects.get(
+            application_document__document_number=self.document_number)
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.INTENTION_FOREIGN_SPOUSE.value)
+
+    def test_system_verification(self):
+        """Test create workflow application. """
         app = Application.objects.get(
             application_document__document_number=self.document_number)
         self.assertEqual(app.process_name, CitizenshipProcessEnum.INTENTION_FOREIGN_SPOUSE.value)

@@ -9,7 +9,9 @@ from rest_framework.response import Response
 from django.core.exceptions import ValidationError
 
 from citizenship.api.serializers.board import InterviewQuestionSerializer, InterviewQuestionCSVSerializer
-from citizenship.models.board import Meeting
+
+from citizenship.models import Meeting
+
 from citizenship.service.board import InterviewQuestionService
 
 logger = logging.getLogger(__name__)

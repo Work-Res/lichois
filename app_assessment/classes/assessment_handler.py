@@ -4,9 +4,10 @@ from datetime import date
 
 from typing import Dict
 
-from app_assessment.models import AssessmentResult, Assessment
+from app_assessment.models import Assessment
 from .assessment_evaluator import AssessmentEvaluator
 from app_checklist.utils import ReadJSON
+from ..models.assessment_result import AssessmentResult
 
 
 class AssessmentHandler:

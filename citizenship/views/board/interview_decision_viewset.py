@@ -4,7 +4,9 @@ from rest_framework.response import Response
 from django.core.exceptions import ValidationError
 
 from citizenship.api.serializers.board import InterviewDecisionSerializer
-from citizenship.models.board import InterviewDecision
+
+from citizenship.models import InterviewDecision
+
 from citizenship.service.board import InterviewDecisionService
 
 

@@ -3,12 +3,16 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 
 from app.models import Application
-from citizenship.models.board import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest, Interview
+from citizenship.models import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest
 from citizenship.models.board.meeting_session import MeetingSession
 from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 
 from .batch_status_enum import BatchStatus
+from ...exception import BatchSizeMaxLimitReachedException
+
 logger = logging.getLogger(__name__)
+
+MAX_APPLICATIONS_PER_SESSION = 20
 
 
 class BatchService:
@@ -39,13 +43,27 @@ class BatchService:
                 raise ValidationError("Application is not eligible to be added to the batch.")
 
             batch = Batch.objects.get(id=batch_id)
-            application = Application.objects.get(document_number=document_number)
             session = MeetingSession.objects.get(id=session_id)
+            current_application_count = BatchApplication.objects.filter(meeting_session=session).count()
+
+            if current_application_count >= MAX_APPLICATIONS_PER_SESSION:
+                session.batch_application_complete = True
+                session.save()
+                logger.error(f'Session {session_id} has reached its application limit')
+                raise BatchSizeMaxLimitReachedException(
+                    f'Session {session_id} has reached its application limit of {MAX_APPLICATIONS_PER_SESSION} applications.')
+
+            application = Application.objects.get(document_number=document_number)
             BatchApplication.objects.create(
                 batch=batch,
                 application=application,
-                session=session
+                meeting_session=session
             )
+
+            # Update the flag if the limit is reached after adding this application
+            if current_application_count + 1 >= MAX_APPLICATIONS_PER_SESSION:
+                session.batch_application_complete = True
+                session.save()
             logger.info(f'Application {application} added to batch {batch}')
             return True
         except Batch.DoesNotExist:
@@ -133,6 +151,7 @@ class BatchService:
     @transaction.atomic
     def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False):
         try:
+            print("document_number: ", document_number)
             attendee = Attendee.objects.get(id=attendee_id)
             application = Application.objects.get(
                 application_document__document_number=document_number)
@@ -160,15 +179,16 @@ class BatchService:
         try:
             batch = Batch.objects.get(id=batch_id)
             if new_status == BatchStatus.CLOSED.name:
-                # Create interview records for newly added applications in the batch
-                existing_interviews = Interview.objects.filter(batch=batch).values_list('application_id', flat=True)
-                new_applications = BatchApplication.objects.filter(batch=batch).exclude(
-                    application_id__in=existing_interviews)
+                new_applications = BatchApplication.objects.filter(
+                    batch=batch, meeting_session__batch_application_complete=False).order_by('created')
                 for batch_application in new_applications:
-                    Interview.objects.create(
+                    Interview.objects.get_or_create(
                         application=batch_application.application,
-                        batch=batch,
-                        date=batch.meeting.start_date  # or any appropriate date
+                        defaults={
+                            'application': batch_application.application,
+                            'meeting_session': batch_application.meeting_session,
+                            'scheduled_time': batch_application.meeting_session.date
+                        }
                     )
                 logger.info(f'Batch {batch_id} closed and interviews created for new applications.')
             batch.status = new_status

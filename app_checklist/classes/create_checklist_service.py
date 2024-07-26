@@ -1,6 +1,5 @@
 import logging
 import copy
-from multiprocessing import process
 
 from django.apps import apps
 from typing import List, Dict, Any
@@ -90,7 +89,6 @@ class CreateChecklistService:
     def create_or_update_classifier(self, data):
         # Remove child_name from data dictionary
         data.pop(self.child_name, None)
-
         app_label, model_name = self.parent_app_label_model_name.split(".")
         model = self.get_model_by_app_label_and_model_name(app_label, model_name)
 

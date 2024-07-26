@@ -9,5 +9,4 @@ class AppConfig(AppConfig):
     def ready(self):
         import app.signals
         from app.identifiers.identifier_scan_register import registrar
-
         registrar.scan_and_register_identifier_config_classes()

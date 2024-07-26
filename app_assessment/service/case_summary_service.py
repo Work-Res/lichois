@@ -36,13 +36,11 @@ class CaseSummaryService:
                 for key, value in updated_data.items():
                     setattr(case_note, key, value)
                 case_note.save()
-                self.logger.info(
-                    f"Updated assessement case summary for {self.case_summary_request_dto.document_number}"
-                )
+                self.logger.info(f"Updated assessement case summary for {self.case_summary_request_dto.document_number}")
                 api_message = APIMessage(
                     code=200,
                     message="Assessment note has been updated.",
-                    details="Assessment note has been updated.",
+                    details=f"Assessment note has been updated for {self.case_summary_request_dto.document_number}"
                 )
                 self.response.status = True
                 self.response.messages.append(api_message.to_dict())
@@ -81,6 +79,6 @@ class CaseSummaryService:
             api_message = APIMessage(
                 code=400,
                 message="Failed to create assessment summary.",
-                details=f"Failed to create assessment summary for {self.case_summary_request_dto.document_number}.",
+                details=f"Failed to create assessment summary for {self.case_summary_request_dto.document_number}."
             )
             self.response.messages.append(api_message.to_dict())

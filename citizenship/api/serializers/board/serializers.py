@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-from citizenship.models.board import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
+from citizenship.models import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
     InterviewDecision, ScoreSheet, Role
 from citizenship.models.board.board_recommandation import BoardRecommendation
 from citizenship.models.board.interview_question import InterviewQuestion

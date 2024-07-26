@@ -4,7 +4,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 from ..api.serializers import AssessmentResultSerializer, AssessmentSerializer
-from ..models import AssessmentResult, Assessment
+from ..models import Assessment
+from ..models.assessment_result import AssessmentResult
 
 
 class AssessmentResultModelFilter(django_filters.FilterSet):

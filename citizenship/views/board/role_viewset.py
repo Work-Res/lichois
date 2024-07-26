@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from citizenship.api.serializers.board import RoleSerializer
-from citizenship.models.board import Role
+from citizenship.models import Role
 
 
 class RoleViewSet(viewsets.ViewSet):

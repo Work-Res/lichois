@@ -28,7 +28,6 @@ class ApplicationDocumentGenerator:
         identifier = self.get_identifier(process_name)
         if identifier:
             return identifier
-
         # Log an error if no valid process found
         self.log_invalid_process_error(process_name)
         return None
@@ -58,6 +57,11 @@ class ApplicationDocumentGenerator:
                 f"Identifier configuration class not found "
                 f"for application type/process name: {self.application.application_type}"
             )
+        handler_class = registrar.get_registered_class(self.application.application_type)
+        if not handler_class:
+            raise IdentifierConfigNotFound(
+                f"Identifier configuration class not found "
+                f"for application type/process name: {self.application.application_type}")
         return self.create_identifier(handler_class) if handler_class else None
 
     def create_identifier(self, identifier_class):
@@ -84,6 +88,7 @@ class ApplicationDocumentGenerator:
                 f"Application processes misconfigured. "
                 f"{process_name} does not match any configured processes."
             ),
+
         )
         self.response.status = False
         self.response.messages.append(api_message.to_dict())
@@ -91,12 +96,9 @@ class ApplicationDocumentGenerator:
 
 class ApplicationDocumentGeneratorFactory:
     """
-    Factory for creating document generators based on the application process.
-    """
+	Factory for creating document generators based on the application process.
+	"""
 
     @staticmethod
     def create_document_generator(application):
-        """
-        Create the appropriate document generator based on the application process.
-        """
         return ApplicationDocumentGenerator(application=application)
