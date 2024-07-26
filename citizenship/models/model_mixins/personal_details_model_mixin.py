@@ -7,7 +7,7 @@ class PersonalDetailsModelMixin(models.Model):
     first_name = models.CharField(max_length=190)
     middle_name = models.CharField(max_length=190,blank=True,null=True)
     maiden_name = models.CharField(max_length=190,blank=True,null=True)
-    dob = models.DateField(blank=True,null=True)
+    dob = models.DateField(blank=True, null=True)
     birth_place = models.CharField(max_length=190,blank=True,null=True)
     birth_country = models.CharField(max_length=190, blank=True, null=True)
     qualification = models.TextField(max_length=500, blank=True, null=True)

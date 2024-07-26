@@ -28,4 +28,3 @@ class AssessmentCaseService(AssessmentNoteService, CaseSummaryService):
         schedules = reader.json_data().get("assessment_schedules")
         for key, value in schedules.items():
             pass
-

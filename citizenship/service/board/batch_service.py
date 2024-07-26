@@ -2,8 +2,6 @@ import logging
 from django.db import transaction
 from django.core.exceptions import ValidationError
 
-from datetime import datetime
-
 from app.models import Application
 from citizenship.models import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest, Interview
 from citizenship.models.board.meeting_session import MeetingSession
