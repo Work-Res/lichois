@@ -219,9 +219,11 @@ class BaseDecisionService(UpdateApplicationMixin):
                 document_number=self.request.document_number,
             )
 
-    def _security_clearance(self, document_number):
+    def _security_clearance(self):
         try:
-            return SecurityClearance.objects.get(document_number=self.document_number)
+            return SecurityClearance.objects.get(
+                document_number=self.request.document_number
+            )
         except SecurityClearance.DoesNotExist:
             self.logger.info(
                 f"Security clearance is pending for {self.document_number}"
