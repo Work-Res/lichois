@@ -33,7 +33,6 @@ class AssessmentCaseSummaryViewSet(viewsets.ModelViewSet):
     def save(self, request):
         case_summary_request_dto = CaseSummaryRequestDTO(**request.data)
         validator = AssessmentCaseSummaryValidator(assessment_case_summary=case_summary_request_dto)
-        # Perform your custom validation logic
         if not validator.is_valid_to_update():
             return Response(validator.response.result(), status=status.HTTP_400_BAD_REQUEST)
         summary_service = CaseSummaryService(case_summary_request_dto=case_summary_request_dto)
