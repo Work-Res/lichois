@@ -7,4 +7,8 @@ from .exemption_cert_application_viewset import ExemptionCertificateApplicationV
 from .exemption_cert_dependant_viewset import ExemptionCertificateDependantViewSet
 from .visa_application_viewset import VisaApplicationViewSet
 from .visa_reference_viewset import VisaReferenceViewSet
+<<<<<<< HEAD
 from .visa_viewset import VisaViewSet
+=======
+from .visa_application_crm_view import VisaApplicationCrmView
+>>>>>>> ee07f8c... crm handling

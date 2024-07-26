@@ -1,0 +1,1 @@
+from .blue_card_crm_view import BlueCardCrmView
