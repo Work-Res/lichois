@@ -22,9 +22,6 @@ class MinisterDecisionAPIView(APIView):
                 service.response.result()
             return JsonResponse(service.response.result())
         except Exception as e:
-            self.looger.error(
-                f"An error occurred while creating minister decision. Got {e}"
-            )
             return JsonResponse(
                 {"error": "Invalid JSON in request body"},
                 status=status.HTTP_400_BAD_REQUEST,
