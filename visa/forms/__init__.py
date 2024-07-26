@@ -1,4 +1,1 @@
 from .visa_application_form import VisaApplicationForm, VisaReferenceInlineForm
-from .visa_application_form import DisposalMoneyInlineForm, ContactMethodInlineForm
-from .blue_card_application_form import BlueCardApplicationForm
-from .exemption_cert_application_form import ExemptionCertificateApplicationForm

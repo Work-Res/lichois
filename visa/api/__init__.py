@@ -1,2 +1,1 @@
-from .exemption_cert_application_details import ExemptionCertApplicationDetails
-from .visa_application_details import VisaApplicationDetails
+

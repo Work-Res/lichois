@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "workflow.apps.WorkflowConfig",
     "identifier.apps.AppConfig",
     "citizenship",
+    "app_oath",
     # "haystack",
     "rules.apps.AutodiscoverRulesConfig",
     "rest_framework",
@@ -79,8 +80,6 @@ INSTALLED_APPS = [
     "django_q",
     "app_notification.apps.AppConfig",
     "blue_card.apps.AppConfig",
-    "app_oath.apps.AppOathConfig",
-    "app_information_requests.apps.AppInformationRequestsConfig"
 ]
 
 MIDDLEWARE = [
@@ -94,7 +93,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    'lichois.config.middleware.ApiExceptionMiddleware'
 ]
 
 ROOT_URLCONF = "lichois.urls"
@@ -220,15 +218,15 @@ PDF_TEMPLATE_WORKRESIDENTPERMIT = "pdf/application_summary.html"
 DEPARTMENT = "ministry of Citizen and industry"
 
 STORAGES = {
-	"default": {
-		"BACKEND": "django.core.files.storage.FileSystemStorage",
-		"OPTIONS": {
-			"location": MEDIA_ROOT,
-		},
-	},
-	"staticfiles": {
-		"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-	},
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
 }
 
 

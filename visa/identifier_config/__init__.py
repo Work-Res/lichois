@@ -1,0 +1,1 @@
+from .visa_indentifier_config import VisaPermitIdentifier
