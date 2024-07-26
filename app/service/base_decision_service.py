@@ -235,7 +235,7 @@ class BaseDecisionService(UpdateApplicationMixin):
 
     def set_security_clearance(self):
         if self._has_security_clearance():
-            self.workflow.security_clearance = self._security_clearance().status
+            self.workflow.security_clearance = self._security_clearance().status.code
             self.logger.info(
                 f"Security clearance set in workflow {self.workflow.current_status} for {self.request.document_number}"
             )
