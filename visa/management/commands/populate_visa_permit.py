@@ -1,3 +1,4 @@
+from dataclasses import field
 from random import randint
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
@@ -10,8 +11,10 @@ from app.utils.system_enums import ApplicationStatusEnum
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from app_personal_details.models import Passport, Person
+from app_personal_details.models.education import Education
 from app_personal_details.models.next_of_kin import NextOfKin
 from visa.models.visa_application import VisaApplication
+from visa.models.visa_reference import VisaReference
 from ...enums import VisaApplicationTypeEnum
 
 
@@ -42,7 +45,7 @@ class Command(BaseCommand):
                     work_place=randint(1000, 9999),
                     full_name=f"{fname} {lname}",
                 )
-                app = ApplicationService(new_application=new_app)
+                app = ApplicationService(new_application_dto=new_app)
                 version = app.create_application()
                 Person.objects.get_or_create(
                     application_version=version,
@@ -86,6 +89,63 @@ class Command(BaseCommand):
                     private_bag=faker.building_number(),
                 )
 
+                Education.objects.get_or_create(
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                    institution=faker.company(),
+                    field_of_study=faker.random_element(
+                        elements=(
+                            "Computer Science",
+                            "Information Technology",
+                            "Business Administration",
+                            "Accounting",
+                            "Finance",
+                            "Economics",
+                            "Marketing",
+                            "Human Resource Management",
+                            "Supply Chain Management",
+                            "Logistics",
+                            "Procurement",
+                            "Engineering",
+                            "Medicine",
+                            "Nursing",
+                            "Pharmacy",
+                            "Law",
+                            "Education",
+                            "Agriculture",
+                            "Hospitality",
+                            "Tourism",
+                            "Culinary Arts",
+                            "Architecture",
+                            "Urban Planning",
+                            "Public Health",
+                            "Psychology",
+                            "Sociology",
+                            "Political Science",
+                            "International Relations",
+                            "Development Studies",
+                        )
+                    ),
+                    level=faker.random_element(
+                        elements=(
+                            "High School",
+                            "Associate Degree",
+                            "Bachelor's Degree",
+                            "Master's Degree",
+                            "Doctorate",
+                            "Diploma",
+                            "Certificate",
+                            "Vocational",
+                            "Professional Degree",
+                            "Technical Degree",
+                            "Postgraduate Certificate",
+                            "Other",
+                        )
+                    ),
+                    start_date=faker.date_this_century(),
+                    end_date=faker.date_this_century(),
+                )
+
                 ApplicationContact.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -109,14 +169,55 @@ class Command(BaseCommand):
                     photo=faker.image_url(),
                 )
 
-                VisaApplication.objects.get_or_create(
+                visa, _ = VisaApplication.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    personal_info_id=faker.uuid4(),
-                    contact_info_id=faker.uuid4(),
-                    bots_address_id=faker.uuid4(),
-                    dom_country_address_id=faker.uuid4(),
+                    visa_type=faker.random_element(
+                        elements=(
+                            "Tourist",
+                            "Business",
+                            "Transit",
+                            "Student",
+                            "Work",
+                            "Medical",
+                            "Conference",
+                            "Official",
+                            "Diplomatic",
+                            "Other",
+                        )
+                    ),
+                    no_of_entries=faker.random_element(elements=(1, 2, "multiple")),
+                    durations_stay=faker.random_element(
+                        elements=(
+                            "1 month",
+                            "3 months",
+                            "6 months",
+                            "1 year",
+                            "2 years",
+                            "3 years",
+                            "4 years",
+                            "5 years",
+                            "10 years",
+                        )
+                    ),
+                    travel_reasons=faker.text(),
+                    requested_valid_from=faker.date_this_century(),
+                    requested_valid_to=faker.date_this_century(),
+                    return_visa_to=faker.address(),
+                    return_valid_until=faker.date_this_century(),
                 )
+
+                for _ in range(2):
+                    reference, _ = VisaReference.objects.get_or_create(
+                        ref_first_name=faker.first_name(),
+                        ref_last_name=faker.last_name(),
+                        ref_tel_no=faker.phone_number(),
+                        ref_res_permit_no=faker.random_int(min=100000, max=999999),
+                        ref_id_no=faker.random_int(min=100000, max=999999),
+                    )
+
+                    visa.references.add(reference)
+                    visa.save()
 
                 self.stdout.write(
                     self.style.SUCCESS("Successfully populated blue card data")

@@ -1,7 +1,0 @@
-from .contact_method_serializer import ContactMethodSerializer
-from .disposal_money_serializer import DisposalMoneySerializer
-from .exemption_cert_application_serializer import VisaExemptionCertificateAppSerializer
-from .exemption_certificate_serializer import VisaExemptionCertSerializer
-from .exemption_cert_dependant_serializer import ExemptionCertificateDependantSerializer
-from .visa_application_serializer import VisaApplicationSerializer
-from .visa_reference_serializer import VisaReferenceSerializer

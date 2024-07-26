@@ -1,12 +1,8 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
-from .visa_application import VisaApplication
 
 
 class VisaReference(BaseUuidModel):
-
-    visa_application = models.ForeignKey(VisaApplication, on_delete=models.CASCADE)
-
     ref_first_name = models.CharField(max_length=150)
 
     ref_last_name = models.CharField(max_length=150)

@@ -1,7 +1,2 @@
-from .contact_method import ContactMethod
-from .disposal_money import DisposalMoney
-from .exemption_cert_application import ExemptionCertificateApplication
-from .exemption_cert_dependant import ExemptionCertificateDependant
-from .exemption_certificate import ExemptionCertificate
 from .visa_application import VisaApplication
 from .visa_reference import VisaReference

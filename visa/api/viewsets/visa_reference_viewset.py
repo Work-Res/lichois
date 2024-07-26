@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from ..models import VisaReference
+from ...models import VisaReference
 from ..serializers import VisaReferenceSerializer
 
 
