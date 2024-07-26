@@ -2,6 +2,8 @@ import random
 
 from django.core.management.base import BaseCommand
 from app.models import ApplicationDocument, ApplicationVerification
+from app.models.application import Application
+from app.utils.system_enums import ApplicationProcesses
 from app_attachments.models import (
     ApplicationAttachment,
     ApplicationAttachmentVerification,
@@ -18,11 +20,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        apps = ApplicationDocument.objects.all()
+        apps = Application.objects.filter(
+            process_name=ApplicationProcesses.BLUE_CARD_PERMIT.value
+        )
         verifier = User.objects.filter(username="tverification1").first()
         for app in apps:
             application = ApplicationVerification.objects.filter(
-                document_number=app.document_number
+                document_number=app.application_document.document_number
             )
             if not application.exists():
                 for _ in range(randint(0, 2) + 1):
@@ -48,7 +52,7 @@ class Command(BaseCommand):
                         document_url="https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf",
                         received_date=faker.date_time_this_decade(),
                         document_type=document_type,
-                        document_number=app.document_number,
+                        document_number=app.application_document.document_number,
                     )
                     ApplicationAttachmentVerification.objects.create(
                         attachment=attachment,
