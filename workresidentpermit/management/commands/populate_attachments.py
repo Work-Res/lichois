@@ -1,3 +1,4 @@
+from audioop import add
 import random
 
 from django.core.management.base import BaseCommand
@@ -18,10 +19,21 @@ from authentication.models import User
 class Command(BaseCommand):
     help = "Populate data for Work & Res Application model"
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "application_process",
+            type=str,
+            help="Create system classifier for document types",
+        )
+
     def handle(self, *args, **options):
+
+        parameter = options["application_process"]
+        if not parameter:
+            raise ValueError("Please provide a valid process name")
         faker = Faker()
         apps = Application.objects.filter(
-            process_name=ApplicationProcesses.BLUE_CARD_PERMIT.value
+            process_name__iexact=ApplicationProcesses.BLUE_CARD_PERMIT.value
         )
         verifier = User.objects.filter(username="tverification1").first()
         for app in apps:
