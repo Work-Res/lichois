@@ -3,7 +3,7 @@ from django.urls.conf import path
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from .views import (AdoptedChildRegistrationViewSet, DeclarationNaturalisationForeignSpouseViewSet,
-                    CertificateOfOriginViewSet, FormRViewSet)
+                    CertificateOfOriginViewSet, FormRViewSet, RenunciationSummaryViewSet)
 
 from .views import CertNaturalisationByForeignSpouseViewSet
 from .admin_site import citizenship_admin
@@ -39,12 +39,11 @@ router.register(r'boards', BoardModelViewSet)
 router.register(r'meetings', MeetingViewSet, basename='meeting')
 router.register(r'decisions', DecisionViewSet, basename='decision')
 router.register(r'scoresheets', ScoreSheetViewSet)
+router.register(r'renunciations', RenunciationSummaryViewSet, basename='renunciation-summary')
 
 
 urlpatterns = [
     path('admin/', citizenship_admin.urls),
     path('', RedirectView.as_view(url='admin/'), name='home_url'),
     path('', include(router.urls)),
-
 ]
-
