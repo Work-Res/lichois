@@ -94,10 +94,13 @@ class BaseDecisionService(UpdateApplicationMixin):
                 date_approved=datetime.now(),
             )
 
+            self.logger.info(
+                f"Application for model {decision_model} {self.request.document_number} decision created successfully."
+            )
             api_message = APIMessage(
                 code=200,
                 message="Decision created successfully.",
-                details="Decision created successfully.",
+                details=f"Decision created successfully for the application {self.request.document_number}.",
             )
             self.response.status = "success"
             self.response.data = serializer_class(self.decision).data
@@ -109,11 +112,9 @@ class BaseDecisionService(UpdateApplicationMixin):
                 field_key=self.application_field_key,
                 field_value=application_decision_type.code.upper(),
             )
-            self.logger.info(
-                f"Application {self.request.document_number} decision created successfully."
-            )
+
             self._create_comment()
-            # self._deactivate_current_task()
+            self._deactivate_current_task()
             self._activate_next_task()
 
         return self.response.result()
@@ -176,6 +177,9 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
         Deactivate the current task if a task to deactivate is specified.
         """
+
+        self.application.refresh_from_db()
+
         if self.task_to_deactivate:
             task_deactivation = TaskDeActivation(
                 application=self.application,
@@ -188,7 +192,12 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
         Activate the next task in the workflow if a workflow and decision are specified.
         """
+        self.application.refresh_from_db()
+
         if self.workflow and self.decision:
+            self.logger.warning(
+                f"Application status { self.application.verification } decision created successfully."
+            )
             create_or_update_task_signal.send_robust(
                 sender=self.application,
                 source=self.workflow,
