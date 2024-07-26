@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     "django_q",
     "app_notification.apps.AppConfig",
     "blue_card.apps.AppConfig",
+    "visa.apps.AppConfig",
 ]
 
 MIDDLEWARE = [
