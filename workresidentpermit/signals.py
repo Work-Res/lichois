@@ -4,8 +4,12 @@ import os
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from app.models import Application, CommissionerDecision, MinisterDecision
-from app.models.security_clearance import SecurityClearance
+from app.models import (
+    Application,
+    CommissionerDecision,
+    MinisterDecision,
+    SecurityClearance,
+)
 from app.utils import (
     ApplicationDecisionEnum,
     ApplicationProcesses,
@@ -187,6 +191,11 @@ def create_production_permit_record(sender, instance, created, **kwargs):
                 request.application_type = application.process_name
                 permit = PermitProductionService(request=request)
                 permit.create_new_permit()
+            else:
+                logger.error(
+                    f"Application process not found for production permit {instance.document_number}"
+                )
+
     except SystemError as e:
         logger.error(
             f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}"
