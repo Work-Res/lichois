@@ -17,7 +17,7 @@ class MinisterDecisionService(BaseDecisionService):
         super().__init__(
             request=decision_request,
             workflow=None,
-            task_to_deactivate=ApplicationStatusEnum.MINISTER_DECISION.value,
+            task_to_deactivate=ApplicationStatusEnum.RECOMMENDATION.value,
             application_field_key="minister_decision",
         )
 
