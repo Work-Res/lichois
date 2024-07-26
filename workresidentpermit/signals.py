@@ -35,7 +35,7 @@ json_file_path = os.path.join(os.path.dirname(__file__), "data", json_file_name)
 
 logger.info(f"Loading approval process from {json_file_path}")
 config_loader = JSONConfigLoader(
-    file_path=json_file_path, key="MINISTER_APPROVAL_PROCESSES"
+    file_path=json_file_path, key="MINISTER_APPROVAL_PROCESES"
 )
 
 
@@ -122,6 +122,7 @@ def handle_application_final_decision(instance, created):
             config_loader=config_loader,
         )
         special_permit_decision_service.create_application_decision()
+        logger.info("Application decision created successfully")
     except SystemError as e:
         logger.error(
             "SystemError: An error occurred while creating new application decision for "

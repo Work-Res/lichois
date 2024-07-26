@@ -4,6 +4,7 @@ import app
 from app.utils.system_enums import ApplicationStatusEnum
 from app.workflow.transaction_data import (
     MinisterDecisionTransactionData,
+    ProductionTransactionData,
     RecommendationTransitionData,
 )
 
@@ -15,7 +16,7 @@ from ..service import BaseDecisionService
 
 class MinisterDecisionService(BaseDecisionService):
     def __init__(self, decision_request: MinisterRequestDTO):
-        workflow = RecommendationTransitionData()
+        workflow = ProductionTransactionData()
         workflow.recommendation = decision_request.status.upper()
 
         super().__init__(

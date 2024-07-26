@@ -51,8 +51,8 @@ class ApplicationDecisionService:
     def create_application_decision(self):
         if not self.application:
             raise ApplicationRequiredDecisionException()
-        if not self.workflow:
-            raise WorkflowRequiredDecisionException()
+        # if not self.workflow:
+        #     raise WorkflowRequiredDecisionException()
         if self.decision_predicate():
             ApplicationDecision.objects.create(
                 document_number=self.document_number,
@@ -60,21 +60,7 @@ class ApplicationDecisionService:
                 proposed_decision_type=self.proposed_application_decision_type(),
                 comment=self.comment,
             )
-            self.run_workflow(application=self.application, workflow=self.workflow)
-
-    def run_workflow(self, application: Application, workflow: BaseTransactionData):
-        """
-        TODO: Refactor as per the new workflow changes..
-        :param application:
-        :param workflow:
-        :return:
-        """
-        self.logger.info(
-            f"START the workflow for {application.application_document.document_number}"
-        )
-        create_or_update_task_signal.send_robust(
-            sender=application, source=workflow, application=application
-        )
-        self.logger.info(
-            f"END the workflow for {application.application_document.document_number}"
-        )
+            # self.run_workflow(application=self.application, workflow=self.workflow)
+            self.logger.info(
+                f"Application decision created successfully for {self.document_number}"
+            )
