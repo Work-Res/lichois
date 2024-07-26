@@ -23,7 +23,7 @@
         },
         {
           "code": "FIRST_ASSESSMENT",
-          "name": "Declaration of Renunciation Assessment",
+          "name": "Declaration of Renunciation Assessment by officer",
           "description": "The assessment is performed by Officer, creating assessment case summary.",
           "mandatory": false,
           "sequence": 2,

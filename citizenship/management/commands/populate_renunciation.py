@@ -2,12 +2,16 @@ from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
+from app.models import ApplicationStatus
 from app.utils import ModuleProcessNameEnum
 from app.utils.system_enums import ApplicationStatusEnum
 from app_oath.models import OathDocument
 from app_personal_details.models import Passport, Person
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
+
+from app.utils import statuses
+
 from faker import Faker
 from random import randint
 
@@ -20,7 +24,7 @@ from .kgosana_certificate_factory import KgosanaCertificateFactory
 from .kgosi_certificate_factory import KgosiCertificateFactory
 
 from citizenship.models.renunciation import FormR, CertificateOfOrigin
-from citizenship.utils import CitizenshipApplicationTypeEnum
+from citizenship.utils import CitizenshipApplicationTypeEnum, CitizenshipProcessEnum
 from .oath_document_factory import OathDocumentFactory
 
 
@@ -83,6 +87,13 @@ class Command(BaseCommand):
         )
         return form_r
 
+    def create_application_statuses(self):
+        for status in statuses:
+            ApplicationStatus.objects.get_or_create(
+                code__iexact=status.get('code'),
+                defaults=status
+            )
+
     def create_certificate_of_origin(self, version, app, faker):
 
         father = self.person(person_type='father',
@@ -117,29 +128,48 @@ class Command(BaseCommand):
         )
         return certificate_of_origin
 
+    def create_new_application(self):
+        self.new_application_dto = NewApplicationDTO(
+            process_name=CitizenshipProcessEnum.RENUNCIATION.value,
+            applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
+            status=ApplicationStatusEnum.NEW.value,
+            dob="06101990",
+            work_place="01",
+            application_type=CitizenshipProcessEnum.RENUNCIATION.value,
+            full_name="Test test"
+        )
+        self.application_service = ApplicationService(
+            new_application_dto=self.new_application_dto)
+        return self.application_service.create_application()
+
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ModuleProcessNameEnum.CITIZENSHIP.name
+        process_name = CitizenshipApplicationTypeEnum.RENUNCIATION.value
         self.stdout.write(self.style.SUCCESS(f'Process name {process_name}'))
 
-        for _ in range(50):
+        for _ in range(10):
             fname = faker.unique.first_name()
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    application_type=CitizenshipApplicationTypeEnum.RENUNCIATION.name,
                     process_name=process_name,
-                    applicant_identifier=f'{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}-{randint(1000, 9999)}',
+                    applicant_identifier=(
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
+                        f"{randint(1000, 9999)}-{randint(1000, 9999)}"
+                    ),
                     status=ApplicationStatusEnum.VERIFICATION.value,
-                    dob='1990-06-10',
+                    applicant_type=faker.random_element(
+                        elements=("employee", "investor")
+                    ),
+                    dob="1990-06-10",
                     work_place=randint(1000, 9999),
-                    full_name=f'{fname} {lname}',
+                    full_name=f"{fname} {lname}"
                 )
                 self.stdout.write(self.style.SUCCESS('Populating appeal data...'))
-                app = ApplicationService(new_application=new_app)
-                self.stdout.write(self.style.SUCCESS(new_app.__dict__))
+                self.create_application_statuses()
+                app = ApplicationService(new_application_dto=new_app)
                 version = app.create_application()
-                
+                self.stdout.write(self.style.SUCCESS(new_app.__dict__))
                 country = Country.objects.create(name=faker.country())
                 
                 ApplicationAddress.objects.get_or_create(

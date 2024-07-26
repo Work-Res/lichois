@@ -112,7 +112,9 @@ class AssessmentCaseNoteSerializer(serializers.ModelSerializer):
 
 class AssessmentCaseSummarySerializer(serializers.ModelSerializer):
 
-    data = serializers.JSONField()
+    document_number = serializers.CharField(required=True)
+
+    data = serializers.JSONField(required=False)
 
     class Meta:
         model = AssessmentCaseSummary

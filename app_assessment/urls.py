@@ -8,7 +8,8 @@ from app_assessment.views import (
     NewAssessmentInvestorViewSet,
     AssessmentEmergencyViewSet,
     RenewalAssessmentInvestorViewSet,
-    AssessmentCaseNoteViewSet
+    AssessmentCaseNoteViewSet,
+    AssessmentCaseSummaryViewSet
 )
 
 from app_assessment.views.appeal_assessment_viewset import AppealAssessmentViewSet
@@ -23,6 +24,7 @@ router.register(r"assessment-appeal", AppealAssessmentViewSet)
 router.register(r"dependant-assessment", DependantAssessmentViewSet)
 router.register(r'assessment-results', AssessmentResultViewSet)
 router.register(r'assessment-notes', AssessmentCaseNoteViewSet)
+router.register(r'assessment-case-summary', AssessmentCaseSummaryViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
