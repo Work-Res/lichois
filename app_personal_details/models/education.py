@@ -14,4 +14,4 @@ class Education(ApplicationBaseModel):
     end_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.degree} in {self.field_of_study} from {self.institution}"
+        return f"{self.level} in {self.field_of_study} from {self.institution}"
