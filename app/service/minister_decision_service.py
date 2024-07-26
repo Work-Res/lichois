@@ -18,7 +18,7 @@ class MinisterDecisionService(BaseDecisionService):
             request=decision_request,
             workflow=None,
             task_to_deactivate=ApplicationStatusEnum.RECOMMENDATION.value,
-            application_field_key="minister_decision",
+            application_field_key="recommendation",
         )
 
     def create_minister_decision(self):
