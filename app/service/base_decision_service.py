@@ -113,6 +113,8 @@ class BaseDecisionService(UpdateApplicationMixin):
                 field_value=application_decision_type.code.upper(),
             )
 
+            self.application.refresh_from_db()
+
             self._create_comment()
             self._deactivate_current_task()
             self._activate_next_task()
@@ -178,8 +180,6 @@ class BaseDecisionService(UpdateApplicationMixin):
         Deactivate the current task if a task to deactivate is specified.
         """
 
-        self.application.refresh_from_db()
-
         if self.task_to_deactivate:
             task_deactivation = TaskDeActivation(
                 application=self.application,
@@ -192,7 +192,6 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
         Activate the next task in the workflow if a workflow and decision are specified.
         """
-        self.application.refresh_from_db()
 
         if self.workflow and self.decision:
             self.logger.warning(
