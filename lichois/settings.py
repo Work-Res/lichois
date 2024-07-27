@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     "app_decision.apps.AppDecisionConfig",
     "app_assessment.apps.AppAssessmentConfig",
     "travel.apps.TravelConfig",
-    "workresidentpermit.apps.WorkresidentpermitConfig",
+    "workresidentpermit.apps.AppConfig",
     "workflow.apps.WorkflowConfig",
     "identifier.apps.AppConfig",
     "citizenship",

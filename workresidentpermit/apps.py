@@ -1,7 +1,7 @@
-from django.apps import AppConfig
+from django.apps import AppConfig as BaseAppConfig
 
 
-class WorkresidentpermitConfig(AppConfig):
+class AppConfig(BaseAppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "workresidentpermit"
     verbose_name = "Work Resident Permit Module"
