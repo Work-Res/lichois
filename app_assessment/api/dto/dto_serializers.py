@@ -19,6 +19,8 @@ class AssessmentCaseDecisionDTOSerializer(serializers.Serializer):
 
 
 class CaseSummaryRequestDTOSerializer(serializers.Serializer):
-    parent_object_id = serializers.CharField(max_length=200, required=True)
-    parent_object_type = serializers.CharField(max_length=200, required=True)
-    data = serializers.JSONField()
+    parent_object_id = serializers.CharField(max_length=200, required=False)
+    parent_object_type = serializers.CharField(max_length=200, required=False)
+    data = serializers.JSONField(required=False)
+    summary = serializers.CharField(max_length=200, required=True)
+    document_number = serializers.CharField(max_length=100, required=True)

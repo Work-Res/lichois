@@ -15,7 +15,7 @@ class AssessmentCaseSummary(ApplicationBaseModel):
 
     parent_object_type = models.CharField(
         max_length=200,
-        null=False,
+        null=True,
         blank=True)
 
     summary = models.TextField(max_length=4000)

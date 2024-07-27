@@ -15,7 +15,6 @@ class MeetingService:
     """
     @staticmethod
     @transaction.atomic
-
     def create_meeting(title, board_id, location, agenda, start_date, end_date, time):
         try:
             board = Board.objects.get(id=board_id)
