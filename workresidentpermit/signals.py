@@ -30,9 +30,9 @@ from .classes.service.exemption_certification_decision_service import (
     ExemptionCertificateDecisionService,
 )
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
 
 json_file_name = "approval_process.json"
 json_file_path = os.path.join(os.path.dirname(__file__), "data", json_file_name)
