@@ -2,7 +2,7 @@ import os
 
 from django.test import TestCase
 
-from app_assessment.models import Assessment, AssessmentInvestor
+from app_assessment.models import Assessment
 from app_assessment.validators import AssessmentValidator
 
 from app_checklist.utils import ReadJSON
@@ -24,7 +24,7 @@ class TestAssessmentInvestorValidator(TestCase):
 
         file_name = "marking_score_work_and_residence_investor.json"
         self.config_location = os.path.join(os.getcwd(), "app_assessment", "data", "assessments", file_name)
-        self.assessment = AssessmentInvestor()
+        #self.assessment = AssessmentInvestor()
         self.assessment.business_activity = 40
         self.assessment.equity_investment = 10
         self.assessment.number_of_batswana_employees = 5

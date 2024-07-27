@@ -6,18 +6,18 @@ from app_assessment.models import AssessmentCaseDecision, AssessmentCaseSummary
 
 
 class AssessmentCaseSummaryValidator:
-    logger = logging.getLogger(__name__)
 
     def __init__(self, assessment_case_summary: CaseSummaryRequestDTO = None):
         self.assessment_case_summary = assessment_case_summary
         self.response = APIResponse()
+        self.logger = logging.getLogger(__name__)
 
     def check_if_decision_taken(self):
         try:
-            AssessmentCaseSummary.objects.get(
-                parent_object_id=self.assessment_case_decision.parent_object_id,
-                parent_object_type=self.assessment_case_decision.parent_object_type,
-                document_number=self.assessment_case_decision.note_request_dto.document_number
+            AssessmentCaseDecision.objects.get(
+                parent_object_id=self.assessment_case_summary.parent_object_id,
+                parent_object_type=self.assessment_case_summary.parent_object_type,
+                document_number=self.assessment_case_summary.document_number
             )
             api_message = APIMessage(
                 code=400,

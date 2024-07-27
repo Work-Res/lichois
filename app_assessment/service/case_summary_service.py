@@ -15,6 +15,7 @@ class CaseSummaryService:
     def __init__(self, case_summary_request_dto: CaseSummaryRequestDTO):
         self.case_summary_request_dto = case_summary_request_dto
         self.response = APIResponse()
+        self.logger = logging.getLogger(__name__)
 
     def update(self):
         self.logger.info(
@@ -57,8 +58,9 @@ class CaseSummaryService:
         )
         try:
             with transaction.atomic():
+                data = self.case_summary_request_dto.to_dict()
                 assessment_case_summary = AssessmentCaseSummary.objects.create(
-                    **self.case_summary_request_dto
+                    **data
                 )
                 api_message = APIMessage(
                     code=200,
@@ -67,9 +69,7 @@ class CaseSummaryService:
                 )
                 self.response.status = True
                 self.response.messages.append(api_message.to_dict())
-                self.response.data = AssessmentCaseSummarySerializer(
-                    data=assessment_case_summary
-                ).data
+                self.response.data = AssessmentCaseSummarySerializer(assessment_case_summary).data
                 self.logger.info(
                     f"Created assessment summary created for {self.case_summary_request_dto.document_number}"
                 )

@@ -25,7 +25,7 @@ class AssessmentCaseSummaryViewSet(viewsets.ModelViewSet):
         summary_service = CaseSummaryService(case_summary_request_dto=case_summary_request_dto)
         summary_service.create()
         if summary_service.response.status:
-            return Response(summary_service.response, status=status.HTTP_201_CREATED)
+            return Response(summary_service.response.result(), status=status.HTTP_201_CREATED)
         else:
             return Response(summary_service.response.result(), status=status.HTTP_400_BAD_REQUEST)
 

@@ -3,13 +3,13 @@ from django.test import TestCase
 from unittest.mock import patch
 from datetime import date
 
+from ..models.assessment_result import AssessmentResult
 from ..signals import run_assessment_calculation
 
 
 from app.models import Application, ApplicationDocument, ApplicationUser, ApplicationStatus
 from app_checklist.classes import CreateChecklistService
 from ..classes.assessment_evaluator import AssessmentEvaluator
-from ..models import AssessmentResult
 
 
 def application(status):
