@@ -1,5 +1,4 @@
-from django.test import TestCase, override_settings,  modify_settings
-from django.conf import settings
+from django.test import override_settings
 
 from django.urls import reverse
 from rest_framework import status
@@ -56,7 +55,6 @@ class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
         }
 
         response = self.client.post(self.create_url, new_case_summary_data, format='json')
-        print(response)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(AssessmentCaseSummary.objects.count(), 2)
         self.assertEqual(AssessmentCaseSummary.objects.get(document_number='DOC5678').summary, 'New summary')
@@ -85,7 +83,7 @@ class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
         }
 
         response = self.client.post(self.save_url, updated_case_summary_data, format='json')
-
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         updated_case_summary = AssessmentCaseSummary.objects.get(document_number=self.case_summary.document_number)
         self.assertEqual(updated_case_summary.summary, 'Updated summary')
