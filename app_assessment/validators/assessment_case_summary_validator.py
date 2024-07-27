@@ -32,21 +32,20 @@ class AssessmentCaseSummaryValidator:
     def check_if_update_allowable(self):
         try:
             assessment_summary = AssessmentCaseSummary.objects.get(
-                parent_object_id=self.assessment_case_decision.parent_object_id,
-                parent_object_type=self.assessment_case_decision.parent_object_type,
-                document_number=self.assessment_case_decision.note_request_dto.document_number
+                parent_object_id=self.assessment_case_summary.parent_object_id,
+                parent_object_type=self.assessment_case_summary.parent_object_type,
+                document_number=self.assessment_case_summary.document_number
             )
             assessment_decision = AssessmentCaseDecision.objects.filter(
                 parent_object_id=assessment_summary.id,
-                parent_object_type=assessment_summary.get_parent_object_type(),
-                decision__in=['draft', 'pending']
+                parent_object_type="app_assessment.AssessmentCaseSummary"
             )
-            if not assessment_decision.exists():
+            if assessment_decision.exists():
                 api_message = APIMessage(
                     code=400,
                     message="The case summary cannot be edited.",
                     details=f"The case summary cannot be edited for"
-                            f"for {self.assessment_case_decision.note_request_dto.document_number}, summary is in ["
+                            f"for {self.assessment_case_summary.document_number}, summary is in ["
                             f"DEFERRED OR RECOMMENDED]."
                 )
                 self.response.messages.append(api_message.to_dict())
@@ -55,7 +54,7 @@ class AssessmentCaseSummaryValidator:
                 code=400,
                 message="The case summary not found.",
                 details=f"The case summary not found"
-                        f"for {self.assessment_case_decision.note_request_dto.document_number}."
+                        f"for {self.assessment_case_summary.document_number}."
             )
             self.response.messages.append(api_message.to_dict())
             self.logger.error("The case summary not found.")

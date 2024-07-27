@@ -38,4 +38,4 @@ class AssessmentCaseSummaryViewSet(viewsets.ModelViewSet):
         summary_service = CaseSummaryService(case_summary_request_dto=case_summary_request_dto)
         summary_service.update()
 
-        return Response(summary_service.response, status=status.HTTP_201_CREATED)
+        return Response(summary_service.response.result(), status=status.HTTP_201_CREATED)
