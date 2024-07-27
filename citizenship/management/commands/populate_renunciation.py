@@ -55,9 +55,9 @@ class Command(BaseCommand):
 
     def create_certificate_of_origin(self, version, app, faker):
 
-        father = self.person(person_type='father',
+        father = self.personal_details(person_type='father',
                              app=app, fname=faker.unique.first_name(), lname=faker.unique.last_name(), faker=faker)
-        mother = self.person(person_type='mother',
+        mother = self.personal_details(person_type='mother',
                              app=app, fname=faker.unique.first_name(), lname=faker.unique.last_name(),
                              faker=faker)
 
