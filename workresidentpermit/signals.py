@@ -118,25 +118,29 @@ def create_application_final_decision_by_security_clearance(
 
 
 def handle_application_final_decision(instance, created):
-    if not created:
-        return
-    try:
-        special_permit_decision_service = SpecialPermitDecisionService(
-            document_number=instance.document_number,
-            config_loader=config_loader,
+    logger.info("Loading decision by the minister")
+    print("handle_application_final_decision handle_application_final_decision")
+    if created:
+        print(
+            "handle_application_final_decision handle_application_final_decision created"
         )
-        special_permit_decision_service.create_application_decision()
-        logger.info("Application decision created successfully")
-    except SystemError as e:
-        logger.error(
-            "SystemError: An error occurred while creating new application decision for "
-            + f"{instance.document_number}, Got {e}"
-        )
-    except Exception as ex:
-        logger.error(
-            "An error occurred while trying to create application decision after saving "
-            + f"{instance.document_number}. Got {ex}"
-        )
+        try:
+            special_permit_decision_service = SpecialPermitDecisionService(
+                document_number=instance.document_number,
+                config_loader=config_loader,
+            )
+            special_permit_decision_service.create_application_decision()
+            logger.info("Application decision created successfully")
+        except SystemError as e:
+            logger.error(
+                "SystemError: An error occurred while creating new application decision for "
+                + f"{instance.document_number}, Got {e}"
+            )
+        except Exception as ex:
+            logger.error(
+                "An error occurred while trying to create application decision after saving "
+                + f"{instance.document_number}. Got {ex}"
+            )
 
 
 @receiver(post_save, sender=CommissionerDecision)
