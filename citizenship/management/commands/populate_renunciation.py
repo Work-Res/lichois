@@ -170,7 +170,7 @@ class Command(BaseCommand):
                 app = ApplicationService(new_application_dto=new_app)
                 version = app.create_application()
                 self.stdout.write(self.style.SUCCESS(new_app.__dict__))
-                country = (Country.objects.create(name=faker.country()),)
+                country = Country.objects.create(name=faker.country())
                 
                 ApplicationAddress.objects.get_or_create(
                     application_version=version,
@@ -180,7 +180,7 @@ class Command(BaseCommand):
                     plot_number=faker.building_number(),
                     address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
                                                                 'other')),
-                    country__id=country[0].id,
+                    country__id=country.id,
                     status=faker.random_element(elements=('active', 'inactive')),
                     city=faker.city(),
                     street_address=faker.street_name(),
