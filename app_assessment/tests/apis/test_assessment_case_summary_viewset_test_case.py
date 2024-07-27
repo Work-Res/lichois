@@ -10,8 +10,11 @@ from .base_test_api import BaseTestAPI
 class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
 
     def setUp(self):
+        self.create_application_statuses()
+        self.application_version = self.create_new_application()
         self.create_url = reverse('assessmentcasesummary-list')  # Assuming the viewset is registered with this name
         self.save_url = reverse('assessmentcasesummary-save_summary')
+        self.document_number = self.application_version.application.application_document.document_number
 
         # Create initial test data
         self.case_summary_data = {
@@ -19,7 +22,7 @@ class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
             'parent_object_type': 'app.Application',
             'summary': 'Initial summary',
             'data': {'key': 'value'},
-            'document_number': 'DOC1234'  # Assuming this field is necessary
+            'document_number': 'DOC0101'
         }
         self.case_summary = AssessmentCaseSummary.objects.create(**self.case_summary_data)
 
@@ -34,30 +37,35 @@ class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
         }
     )
     def test_create_valid(self):
+
+        # version = self.create_new_application()
+        # document_number = version.application.application_document.document_number
         new_case_summary_data = {
             'parent_object_id': 'a1b2c3d4-a1b2-c3d4-e5f6-a1b2c3d4e5f6',
             'parent_object_type': 'app.AnotherParentModel',
             'summary': 'New summary',
             'data': {'new_key': 'new_value'},
-            'document_number': 'DOC5678'  # Assuming this field is necessary
+            'document_number': self.document_number
         }
 
         response = self.client.post(self.create_url, new_case_summary_data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(AssessmentCaseSummary.objects.count(), 2)
-        self.assertEqual(AssessmentCaseSummary.objects.get(document_number='DOC5678').summary, 'New summary')
+        self.assertEqual(AssessmentCaseSummary.objects.get(document_number=self.document_number).summary, 'New summary')
 
     def test_create_valid_when_parent_object_noavaliable(self):
+        self.application_version = self.create_new_application()
+        document_number = self.application_version.application.application_document.document_number
         new_case_summary_data = {
-            'summary': 'New summary',
-            'document_number': 'DOC5678'  # Assuming this field is necessary
+            'summary': 'New new summary',
+            'document_number': document_number  # Assuming this field is necessary
         }
 
         response = self.client.post(self.create_url, new_case_summary_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(AssessmentCaseSummary.objects.count(), 2)
-        self.assertEqual(AssessmentCaseSummary.objects.get(document_number='DOC5678').summary, 'New summary')
+        self.assertEqual(AssessmentCaseSummary.objects.get(document_number=document_number).summary, 'New new summary')
 
     def test_create_invalid(self):
         invalid_case_summary_data = {
@@ -79,7 +87,7 @@ class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
             'parent_object_type': self.case_summary.parent_object_type,
             'summary': 'Updated summary',
             'data': {'updated_key': 'updated_value'},
-            'document_number': self.case_summary.document_number
+            'document_number': self.document_number
         }
 
         response = self.client.post(self.save_url, updated_case_summary_data, format='json')
