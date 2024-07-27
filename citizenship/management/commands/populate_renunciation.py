@@ -68,7 +68,7 @@ class Command(BaseCommand):
             plot_number=faker.building_number(),
             address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
                                                         'other')),
-            country__id=country[0].id,
+            country__id=country.id,
             status=faker.random_element(elements=('active', 'inactive')),
             city=faker.city(),
             street_address=faker.street_name(),
