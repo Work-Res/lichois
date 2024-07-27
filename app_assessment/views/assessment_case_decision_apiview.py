@@ -25,7 +25,7 @@ class AssessmentCaseDecisionAPIView(APIView):
             if not serializer.is_valid():
                 return self._response_bad_request(serializer.errors)
 
-            assessment_decision_request = AssessmentCaseDecisionDTO(**serializer.validated_data)
+            assessment_decision_request = AssessmentCaseDecisionDTO(**serializer.data)
             validator = AssessmentCaseDecisionValidator(assessment_case_decision=assessment_decision_request)
 
             if not validator.is_valid():

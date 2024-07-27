@@ -65,7 +65,7 @@ class CaseSummaryService:
                 api_message = APIMessage(
                     code=200,
                     message="Assessment summary has been created.",
-                    details="Assessment summary has been created.",
+                    details=f"Assessment summary has been created for {self.case_summary_request_dto.document_number}",
                 )
                 self.response.status = True
                 self.response.messages.append(api_message.to_dict())

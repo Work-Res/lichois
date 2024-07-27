@@ -1,14 +1,14 @@
-from app_assessment.api.dto import AssessmentNoteRequestDTO
 
 
 class AssessmentCaseDecisionDTO:
 
-    def __init__(self, note_request_dto: AssessmentNoteRequestDTO, parent_object_id=None, parent_object_type=None,
+    def __init__(self, parent_object_id=None, parent_object_type=None,
                  author=None,
                  author_role=None,
-                 decision=None
+                 decision=None,
+                 document_number=None
                  ):
-        self.note_request_dto = note_request_dto
+        self.document_number = document_number
         self.parent_object_id = parent_object_id
         self.parent_object_type = parent_object_type
         self.author = author
