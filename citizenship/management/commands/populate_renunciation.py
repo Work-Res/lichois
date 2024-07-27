@@ -3,7 +3,6 @@ from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.models import ApplicationStatus
-from app.utils import ModuleProcessNameEnum
 from app.utils.system_enums import ApplicationStatusEnum
 from app_oath.models import OathDocument
 from app_personal_details.models import Passport, Person
@@ -23,9 +22,8 @@ from .declarant_factory import DeclarantFactory
 from .kgosana_certificate_factory import KgosanaCertificateFactory
 from .kgosi_certificate_factory import KgosiCertificateFactory
 
-from citizenship.models.renunciation import FormR, CertificateOfOrigin
-from citizenship.utils import CitizenshipApplicationTypeEnum, CitizenshipProcessEnum
-from .oath_document_factory import OathDocumentFactory
+from citizenship.models.renunciation import CertificateOfOrigin
+from citizenship.utils import CitizenshipProcessEnum
 
 
 class Command(BaseCommand):
@@ -47,45 +45,6 @@ class Command(BaseCommand):
             qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd')),
             person_type=person_type
         )
-
-    def create_form_r(self, version, app, faker):
-        personal_details = self.personal_details(
-            person_type='applicant',
-            fname=faker.unique.first_name(),
-            lname=faker.unique.last_name(),
-            version=version,
-            faker=faker,
-            app=app
-        )
-
-        country = Country.objects.create(name=faker.country())
-
-        address = ApplicationAddress.objects.get_or_create(
-            application_version=version,
-            document_number=app.application_document.document_number,
-            po_box=faker.address(),
-            apartment_number=faker.building_number(),
-            plot_number=faker.building_number(),
-            address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
-                                                        'other')),
-            country__id=country.id,
-            status=faker.random_element(elements=('active', 'inactive')),
-            city=faker.city(),
-            street_address=faker.street_name(),
-            private_bag=faker.building_number(),
-        )
-
-        declarant = DeclarantFactory()
-
-        commissioner_of_oath = OathDocumentFactory()
-
-        form_r = FormR.objects.create(
-            personal_details=personal_details,
-            address=address,
-            declarant=declarant,
-            commissioner_of_oath=commissioner_of_oath
-        )
-        return form_r
 
     def create_application_statuses(self):
         for status in statuses:
@@ -223,8 +182,7 @@ class Command(BaseCommand):
                     nationality=faker.country(),
                     photo=faker.image_url()
                 )
-                # add renunciation data
-                form_r = self.create_form_r(version=version, app=app, faker=faker)
-                certificate_of_origin = self.create_certificate_of_origin(version=version, app=app, faker=faker)
+
+                self.create_certificate_of_origin(version=version, app=app, faker=faker)
 
                 self.stdout.write(self.style.SUCCESS('Successfully populated data'))
