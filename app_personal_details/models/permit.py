@@ -20,7 +20,7 @@ class Permit(ApplicationBaseModel):
     permit_type = models.CharField(max_length=190)
     permit_no = models.CharField(max_length=190)
     date_issued = models.DateField()
-    date_expiry = models.DateField()
+    date_expiry = models.DateField(null=True, blank=True)
     place_issue = models.CharField(max_length=190)
     security_number = models.CharField(max_length=190)
     generated_pdf = models.FileField(upload_to="generated/", null=True, blank=True)
@@ -32,7 +32,7 @@ class Permit(ApplicationBaseModel):
             date_issued=self.date_issued,
             date_expiry=self.date_expiry,
             place_issue=self.place_issue,
-            document_number=self.document_number
+            document_number=self.document_number,
         )
 
     @classmethod
@@ -43,8 +43,8 @@ class Permit(ApplicationBaseModel):
             date_issued=data.date_issued,
             date_expiry=data.date_expiry,
             place_issue=data.place_issue,
-            document_number=data.document_number
+            document_number=data.document_number,
         )
 
     class Meta:
-        verbose_name = 'Permit'
+        verbose_name = "Permit"

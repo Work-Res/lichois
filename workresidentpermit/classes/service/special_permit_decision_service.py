@@ -35,6 +35,7 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
             application_document__document_number=document_number
         )
         self.workflow = ProductionTransactionData()
+        logging.basicConfig(level=logging.DEBUG)
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         self.decision_value = None
@@ -59,8 +60,12 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
         self.logger.info(
             f"Commissioner decision: {is_commissioner_accepted}, Minister decision: {is_minister_accepted}, "
         )
+        self.logger.info(f"minister approval processes : {self.approval_processes}")
 
         if requires_minister_approval:
+            self.logger.info(
+                f"requires_minister_approval: {requires_minister_approval}"
+            )
             if is_commissioner_accepted and is_minister_accepted:
                 self.set_decision(ApplicationDecisionEnum.ACCEPTED)
                 self.workflow.recommendation_decision = (
@@ -74,6 +79,7 @@ class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):
                 )
                 return True
         else:
+            self.logger.info("doesnt require minister approval")
             if is_commissioner_accepted and self._security_clearance:
                 if (
                     self._security_clearance.status.code.lower()

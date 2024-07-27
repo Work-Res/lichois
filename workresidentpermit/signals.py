@@ -30,17 +30,9 @@ from .classes.service.exemption_certification_decision_service import (
     ExemptionCertificateDecisionService,
 )
 
-logging.basicConfig(level=logging.CRITICAL)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.FATAL)
-
-json_file_name = "approval_process.json"
-json_file_path = os.path.join(os.path.dirname(__file__), "data", json_file_name)
-
-logger.info(f"Loading approval process from {json_file_path}")
-config_loader = JSONConfigLoader(
-    file_path=json_file_path, key="MINISTER_APPROVAL_PROCESES"
-)
+logger.setLevel(logging.WARNING)
 
 
 @receiver(post_save, sender=WorkPermit)
@@ -118,8 +110,13 @@ def create_application_final_decision_by_security_clearance(
 
 
 def handle_application_final_decision(instance, created):
-    logger.info("Loading decision by the minister")
-    print("handle_application_final_decision handle_application_final_decision")
+
+    json_file_name = "minister_approval_process.json"
+    json_file_path = os.path.join(os.path.dirname(__file__), "data", json_file_name)
+
+    config_loader = JSONConfigLoader(
+        file_path=json_file_path, key="MINISTER_APPROVAL_PROCESSES"
+    )
     if created:
         print(
             "handle_application_final_decision handle_application_final_decision created"
@@ -172,42 +169,39 @@ def create_application_final_decision_by_minister_decision(
 # 	handler.handle(instance)
 @receiver(post_save, sender=ApplicationDecision)
 def create_production_permit_record(sender, instance, created, **kwargs):
-    print(
-        "create_production_permit_record create_production_permit_record create_production_permit_record"
-    )
-    if not created:
-        return
-    try:
-        if (
-            instance.proposed_decision_type.code
-            == ApplicationDecisionEnum.ACCEPTED.value
-        ):
-            request = PermitRequestDTO()
-            application = Application.objects.get(
-                application_document__document_number=instance.document_number
-            )
-            if application.process_name.upper() in [
-                process_name.value.upper() for process_name in ApplicationProcesses
-            ]:
-                request.permit_type = application.process_name
-                request.place_issue = "Gaborone"  # Pending location solution
-                request.document_number = instance.document_number
-                request.application_type = application.process_name
-                permit = PermitProductionService(request=request)
-                permit.create_new_permit()
-            else:
-                logger.error(
-                    f"Application process not found for production permit {instance.document_number}"
+    if created:
+        try:
+            if (
+                instance.proposed_decision_type.code.upper()
+                == ApplicationDecisionEnum.ACCEPTED.value.upper()
+            ):
+                request = PermitRequestDTO()
+                application = Application.objects.get(
+                    application_document__document_number=instance.document_number
                 )
+                if application.process_name.upper() in [
+                    process_name.value.upper() for process_name in ApplicationProcesses
+                ]:
+                    request.permit_type = application.process_name
+                    request.place_issue = "Gaborone"  # Pending location solution
+                    request.document_number = instance.document_number
+                    request.application_type = application.process_name
+                    permit = PermitProductionService(request=request)
+                    permit.create_new_permit()
+                else:
+                    print("Application process not found")
+                    logger.error(
+                        f"Application process not found for production permit {instance.document_number}"
+                    )
 
-    except SystemError as e:
-        logger.error(
-            f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}"
-        )
-    except Exception as ex:
-        logger.error(
-            f"An error occurred while trying to create permit for production {instance.document_number}. Got {ex}"
-        )
+        except SystemError as e:
+            logger.error(
+                f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}"
+            )
+        except Exception as ex:
+            logger.error(
+                f"An error occurred while trying to create permit for production {instance.document_number}. Got {ex}"
+            )
 
 
 # @receiver(post_save, sender=ApplicationDecision)

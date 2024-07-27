@@ -43,7 +43,6 @@ class PermitProductionService:
             raise PermitProductionException(
                 message=f"Failed to create permit for production Got {ex}"
             )
-        return date(2025, 1, 1)
 
     def _get_existing_permit(self):
         try:
