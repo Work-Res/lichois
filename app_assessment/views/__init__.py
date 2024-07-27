@@ -4,3 +4,5 @@ from .renewal_assessment_investor_view import RenewalAssessmentInvestorViewSet
 from .assessment_emergency_viewset import AssessmentEmergencyViewSet
 from .assessment_case_note_viewset import AssessmentCaseNoteViewSet
 from .assessment_case_summary_viewset import AssessmentCaseSummaryViewSet
+from .assessment_case_decision_viewset import AssessmentCaseDecisionViewSet
+

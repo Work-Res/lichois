@@ -23,7 +23,7 @@ class AssessmentCaseDecision(ApplicationBaseModel):
 
     author_role = models.CharField(max_length=200)
 
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     decision = models.CharField(
         max_length=200,
