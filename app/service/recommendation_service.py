@@ -1,3 +1,4 @@
+from app.models.security_clearance import SecurityClearance
 from ..api.dto import RecommendationRequestDTO
 from ..api.serializers import CommissionerDecisionSerializer
 from ..models import CommissionerDecision

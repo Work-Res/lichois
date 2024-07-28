@@ -3,7 +3,6 @@ from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.models import ApplicationStatus
-from app.utils import ModuleProcessNameEnum
 from app.utils.system_enums import ApplicationStatusEnum
 from app_oath.models import OathDocument
 from app_personal_details.models import Passport, Person
@@ -23,9 +22,8 @@ from .declarant_factory import DeclarantFactory
 from .kgosana_certificate_factory import KgosanaCertificateFactory
 from .kgosi_certificate_factory import KgosiCertificateFactory
 
-from citizenship.models.renunciation import FormR, CertificateOfOrigin
-from citizenship.utils import CitizenshipApplicationTypeEnum, CitizenshipProcessEnum
-from .oath_document_factory import OathDocumentFactory
+from citizenship.models.renunciation import CertificateOfOrigin
+from citizenship.utils import CitizenshipProcessEnum
 
 
 class Command(BaseCommand):
@@ -57,10 +55,10 @@ class Command(BaseCommand):
 
     def create_certificate_of_origin(self, version, app, faker):
 
-        father = self.person(person_type='father',
+        father, created = self.personal_details(person_type='father', version=version,
                              app=app, fname=faker.unique.first_name(), lname=faker.unique.last_name(), faker=faker)
-        mother = self.person(person_type='mother',
-                             app=app, fname=faker.unique.first_name(), lname=faker.unique.last_name(),
+        mother, created = self.personal_details(person_type='mother',
+                             app=app, version=version,fname=faker.unique.first_name(), lname=faker.unique.last_name(),
                              faker=faker)
 
         declarant = DeclarantFactory()
@@ -185,6 +183,6 @@ class Command(BaseCommand):
                     photo=faker.image_url()
                 )
 
-                certificate_of_origin = self.create_certificate_of_origin(version=version, app=app, faker=faker)
+                self.create_certificate_of_origin(version=version, app=app, faker=faker)
 
                 self.stdout.write(self.style.SUCCESS('Successfully populated data'))

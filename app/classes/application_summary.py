@@ -130,5 +130,6 @@ class ApplicationSummary:
             "app_personal_details.Passport",
             "app.Application",
             "app.ApplicationVerification",
+            "app_personal_details.Education",
         ]
         return generic_labels + self.app_labels

@@ -11,7 +11,7 @@ from ..serializers import BlueCardSerializer
 def get_app_labels():
     return [
         "app_personal_details.NextOfKin",
-        "app.CommissionerDecision",
+        "app.MinisterDecision",
         "app.SecurityClearance",
     ]
 

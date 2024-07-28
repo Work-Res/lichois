@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     "app_decision.apps.AppDecisionConfig",
     "app_assessment.apps.AppAssessmentConfig",
     "travel.apps.TravelConfig",
-    "workresidentpermit.apps.WorkresidentpermitConfig",
+    "workresidentpermit.apps.AppConfig",
     "workflow.apps.WorkflowConfig",
     "identifier.apps.AppConfig",
     "citizenship",
@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "django_q",
     "app_notification.apps.AppConfig",
     "blue_card.apps.AppConfig",
+    "visa.apps.AppConfig",
 ]
 
 MIDDLEWARE = [

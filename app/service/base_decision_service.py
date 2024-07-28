@@ -3,6 +3,8 @@ from datetime import datetime
 
 from django.db import transaction
 
+from app.models.security_clearance import SecurityClearance
+from app.workflow.transaction_data import BaseTransactionData
 from app_comments.models import Comment
 from app_decision.models import ApplicationDecisionType
 from workflow.classes.task_deactivation import TaskDeActivation
@@ -27,7 +29,7 @@ class BaseDecisionService(UpdateApplicationMixin):
         request: RequestDTO,
         application_field_key=None,
         task_to_deactivate=None,
-        workflow=None,
+        workflow: BaseTransactionData = None,
     ):
         """
         Initialize the service with the request data, user, and other optional parameters.
@@ -113,6 +115,8 @@ class BaseDecisionService(UpdateApplicationMixin):
                 field_value=application_decision_type.code.upper(),
             )
 
+            self.application.refresh_from_db()
+
             self._create_comment()
             self._deactivate_current_task()
             self._activate_next_task()
@@ -178,8 +182,6 @@ class BaseDecisionService(UpdateApplicationMixin):
         Deactivate the current task if a task to deactivate is specified.
         """
 
-        self.application.refresh_from_db()
-
         if self.task_to_deactivate:
             task_deactivation = TaskDeActivation(
                 application=self.application,
@@ -192,12 +194,10 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
         Activate the next task in the workflow if a workflow and decision are specified.
         """
-        self.application.refresh_from_db()
 
         if self.workflow and self.decision:
-            self.logger.warning(
-                f"Application status { self.application.verification } decision created successfully."
-            )
+
+            self.set_security_clearance()
             create_or_update_task_signal.send_robust(
                 sender=self.application,
                 source=self.workflow,
@@ -217,4 +217,25 @@ class BaseDecisionService(UpdateApplicationMixin):
                 comment_text=self.request.summary,
                 comment_type="OVERALL_APPLICATION_COMMENT",
                 document_number=self.request.document_number,
+            )
+
+    def _security_clearance(self):
+        try:
+            return SecurityClearance.objects.get(
+                document_number=self.request.document_number
+            )
+        except SecurityClearance.DoesNotExist:
+            self.logger.info(
+                f"Security clearance is pending for {self.document_number}"
+            )
+        return None
+
+    def _has_security_clearance(self):
+        return hasattr(self.workflow, "security_clearance")
+
+    def set_security_clearance(self):
+        if self._has_security_clearance():
+            self.workflow.security_clearance = self._security_clearance().status.code
+            self.logger.info(
+                f"Security clearance set in workflow {self.workflow.current_status} for {self.request.document_number}"
             )

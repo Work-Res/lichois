@@ -1,3 +1,6 @@
+import re
+
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,11 +18,13 @@ class MinisterDecisionAPIView(APIView):
             if serializer.is_valid():
                 request = MinisterRequestDTO(**serializer.data)
                 service = MinisterDecisionService(request)
-                return service.create_minister_decision()
-        except Exception as e:
-            return Response(
-                {"detail": f"Something went wrong. Got {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                service.create_minister_decision()
+                service.response.result()
+            return JsonResponse(service.response.result())
+        except Exception as ex:
+            return JsonResponse(
+                {"error": f"Invalid JSON in request body {ex}"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
     def get(self, request):
