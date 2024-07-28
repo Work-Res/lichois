@@ -11,6 +11,12 @@ from citizenship.utils import CitizenshipProcessEnum
 
 class BaseTestAPI(APITestCase):
 
+    def setUp(self):
+        """
+        Common setup tasks for all tests.
+        """
+        self.create_application_statuses()
+
     def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
             process_name=CitizenshipProcessEnum.RENUNCIATION.value,

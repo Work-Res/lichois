@@ -20,7 +20,7 @@ class AssessmentNoteService:
         try:
             with transaction.atomic():
                 AssessmentCaseNote.objects.create(
-                    **self.note_request_dto
+                    **self.note_request_dto.__dict__
                 )
                 api_message = APIMessage(
                     code=200,

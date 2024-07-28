@@ -14,46 +14,33 @@ class AssessmentNoteValidator:
         self.assessment_note_request_dto = assessment_note_request_dto
         self.response = APIResponse()
 
-    def check_if_exists_already(self):
+    def check_if_exists_case_summary_exists(self):
         try:
-            AssessmentCaseNote.objects.get(
-                parent_object_id=self.assessment_case_decision.parent_object_id,
-                parent_object_type=self.assessment_case_decision.parent_object_type,
-                document_number=self.assessment_case_decision.note_request_dto.document_number,
-                note_type=None
+            AssessmentCaseSummary.objects.get(
+                document_number=self.assessment_note_request_dto.document_number
             )
+        except AssessmentCaseDecision.DoesNotExist:
             api_message = APIMessage(
                 code=400,
-                message="The case note has been created already.",
-                details=f"The case summary has been created already "
-                        f"for {self.assessment_case_decision.note_request_dto.document_number}."
+                message="The case summary must exists in order to create a note for it.",
+                details=f"The case summary must exists in order to create a note for it, "
+                        f"for {self.assessment_note_request_dto.document_number}."
             )
             self.response.messages.append(api_message.to_dict())
-        except AssessmentCaseDecision.DoesNotExist:
-            self.logger.error("Ready for creating or updating decision")
+            self.logger.warning("Failed to create note for case summary. ")
 
     def check_if_update_allowable(self):
         try:
-            assessment_summary = AssessmentCaseSummary.objects.get(
-                parent_object_id=self.assessment_case_decision.parent_object_id,
-                parent_object_type=self.assessment_case_decision.parent_object_type,
-                document_number=self.assessment_case_decision.note_request_dto.document_number
+            AssessmentCaseSummary.objects.get(
+                document_number=self.assessment_note_request_dto.document_number
             )
-            assessment_decision = AssessmentCaseDecision.objects.filter(
-                parent_object_id=assessment_summary.id,
-                parent_object_type=assessment_summary.get_parent_object_type(),
-                decision__in=['draft', 'pending']
+            notes = AssessmentCaseNote.objects.filter(
+                parent_object_id=self.assessment_note_request_dto.parent_object_id,
+                parent_object_type=self.assessment_note_request_dto.parent_object_type
             )
-            if not assessment_decision.exists():
-                api_message = APIMessage(
-                    code=400,
-                    message="The case summary cannot be edited.",
-                    details=f"The case summary cannot be edited for"
-                            f"for {self.assessment_case_decision.note_request_dto.document_number}, summary is in ["
-                            f"DEFERRED OR RECOMMENDED]."
-                )
-                self.response.messages.append(api_message.to_dict())
-        except AssessmentCaseDecision.DoesNotExist:
+            if not notes.exists():
+                raise Exception("Note not found for updating")
+        except AssessmentCaseSummary.DoesNotExist:
             api_message = APIMessage(
                 code=400,
                 message="The case summary not found.",
@@ -67,7 +54,7 @@ class AssessmentNoteValidator:
         """
         Returns True or False after running the validate method.
         """
-        self.check_if_exists_already()
+        self.check_if_exists_case_summary_exists()
         return True if len(self.response.messages) == 0 else False
 
     def is_valid_to_update(self):
