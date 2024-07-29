@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import OathOfAllegiance
+from citizenship.models import OathOfAllegiance
 
 
 class OathOfAllegianceSerializer(serializers.ModelSerializer):

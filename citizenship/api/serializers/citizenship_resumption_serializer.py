@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import CitizenshipResumption
+from citizenship.models import CitizenshipResumption
 
 
 class CitizenshipResumptionSerializer(serializers.ModelSerializer):

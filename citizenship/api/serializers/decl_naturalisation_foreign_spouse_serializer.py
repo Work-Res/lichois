@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import DeclarationNaturalisationByForeignSpouse
+from citizenship.models import DeclarationNaturalisationByForeignSpouse
 
 
 class DeclNaturalisationForeignSpouseSerializer(serializers.ModelSerializer):

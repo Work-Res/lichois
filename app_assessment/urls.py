@@ -8,10 +8,10 @@ from app_assessment.views import (
     NewAssessmentInvestorViewSet,
     AssessmentEmergencyViewSet,
     RenewalAssessmentInvestorViewSet,
-    AssessmentCaseNoteViewSet,
     AssessmentCaseSummaryViewSet,
     AssessmentCaseDecisionViewSet,
     BlueCardAssessmentViewSet,
+    AssessmentNoteViewSet
 )
 
 from app_assessment.views.appeal_assessment_viewset import AppealAssessmentViewSet
@@ -27,10 +27,16 @@ router.register(r"renewal_assessment_investors", RenewalAssessmentInvestorViewSe
 router.register(r"assessment-emergency", AssessmentEmergencyViewSet)
 router.register(r"assessment-appeal", AppealAssessmentViewSet)
 router.register(r"dependant-assessment", DependantAssessmentViewSet)
+<<<<<<< HEAD
 router.register(r"assessment-results", AssessmentResultViewSet)
 router.register(r"assessment-notes", AssessmentCaseNoteViewSet)
 router.register(r"assessment-case-summary", AssessmentCaseSummaryViewSet)
 router.register(r"blue-card-assessment", BlueCardAssessmentViewSet)
+=======
+router.register(r'assessment-results', AssessmentResultViewSet)
+router.register(r'assessment-case-summary', AssessmentCaseSummaryViewSet)
+router.register(r'assessment-summary-notes', AssessmentNoteViewSet, basename='assessmentnote')
+>>>>>>> citizeship-feature
 # router.register(r'assessment-case-decision', AssessmentCaseDecisionViewSet)
 
 urlpatterns = [

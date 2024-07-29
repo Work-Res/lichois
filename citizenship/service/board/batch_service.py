@@ -3,7 +3,7 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 
 from app.models import Application
-from citizenship.models import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest
+from citizenship.models import Meeting, Batch, BatchApplication, Attendee, ConflictOfInterest, Interview
 from citizenship.models.board.meeting_session import MeetingSession
 from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 
@@ -155,7 +155,7 @@ class BatchService:
             attendee = Attendee.objects.get(id=attendee_id)
             application = Application.objects.get(
                 application_document__document_number=document_number)
-            conflict, created = ConflictOfInterest.objects.get_or_create(
+            conflict, created = ConflictOfInterest.objects.create_conflict(
                 attendee=attendee,
                 application=application,
                 has_conflict=has_conflict
@@ -209,7 +209,7 @@ class BatchService:
             batch_applications = BatchApplication.objects.filter(batch_id=batch_id)
 
             for batch_application in batch_applications:
-                ConflictOfInterest.objects.update_or_create(
+                ConflictOfInterest.objects.create_conflict(
                     attendee=attendee,
                     application=batch_application.application,
                     defaults={'has_conflict': False}

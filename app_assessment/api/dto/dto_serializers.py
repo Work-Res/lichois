@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from app_assessment.models.choices import DECISION_TYPE
+
 
 class AssessmentNoteRequestDTOSerializer(serializers.Serializer):
     document_number = serializers.CharField(max_length=100, required=True)
@@ -15,7 +17,7 @@ class AssessmentCaseDecisionDTOSerializer(serializers.Serializer):
     parent_object_type = serializers.CharField(max_length=200, required=True)
     author = serializers.CharField(max_length=150, required=True)
     author_role = serializers.CharField(max_length=200, required=True)
-    decision = serializers.CharField(max_length=200, required=True)
+    decision = serializers.ChoiceField(choices=DECISION_TYPE, required=True)
 
 
 class CaseSummaryRequestDTOSerializer(serializers.Serializer):

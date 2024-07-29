@@ -2,7 +2,8 @@ from .assessment_view_create_list import AssessmentResultViewSet, AssessmentView
 from .new_assessment_investor_view import NewAssessmentInvestorViewSet
 from .renewal_assessment_investor_view import RenewalAssessmentInvestorViewSet
 from .assessment_emergency_viewset import AssessmentEmergencyViewSet
-from .assessment_case_note_viewset import AssessmentCaseNoteViewSet
 from .assessment_case_summary_viewset import AssessmentCaseSummaryViewSet
 from .assessment_case_decision_viewset import AssessmentCaseDecisionViewSet
 from .blue_card_assessment_viewset import BlueCardAssessmentViewSet
+from .assessment_case_note_viewset import AssessmentNoteViewSet
+
