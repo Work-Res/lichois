@@ -10,7 +10,6 @@ from .views import (
     PermitAppealViewSet,
     PermitCancellationReasonViewSet,
     PermitCancellationViewSet,
-    ProductionPermitView,
     ResidencePermitViewSet,
     SpouseCreateListView,
     TravelCertificateView,
@@ -54,11 +53,6 @@ urlpatterns = [
         "workresidentpermit/summary/<str:document_number>",
         WorkResidentPermitApplicationDetailView.as_view(),
         name="work_resident_permit_detail",
-    ),
-    path(
-        "production/<str:document_number>",
-        ProductionPermitView.as_view(),
-        name="production-permit",
     ),
     path(
         "production/travel_certificate/<str:document_number>",

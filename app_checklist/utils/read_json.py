@@ -13,14 +13,19 @@ class ReadJSON:
 
     def json_data(self):
         try:
-            with open(self.file_location, 'r') as file:
+            with open(self.file_location, "r") as file:
                 return json.load(file)
         except FileNotFoundError:
             self.logger.debug(f"Error: The file at {self.file_location} was not found.")
         except PermissionError:
-            self.logger.debug(f"Error: Permission denied to read the file at {self.file_location}.")
+            self.logger.debug(
+                f"Error: Permission denied to read the file at {self.file_location}."
+            )
         except IsADirectoryError:
-            self.logger.debug(f"Error: The path {self.file_location} is a directory, not a file.")
+            self.logger.debug(
+                f"Error: The path {self.file_location} is a directory, not a file."
+            )
         except IOError as e:
-            self.logger.debug(f"Error: An I/O error occurred while reading the file at {self.file_location}: {e}")
-
+            self.logger.debug(
+                f"Error: An I/O error occurred while reading the file at {self.file_location}: {e}"
+            )

@@ -185,7 +185,7 @@ def create_production_permit_record(sender, instance, created, **kwargs):
                     request.permit_type = application.process_name
                     request.place_issue = "Gaborone"  # Pending location solution
                     request.document_number = instance.document_number
-                    request.application_type = application.process_name
+                    request.application_type = application.application_type
                     permit = PermitProductionService(request=request)
                     permit.create_new_permit()
                 else:
@@ -196,7 +196,8 @@ def create_production_permit_record(sender, instance, created, **kwargs):
 
         except SystemError as e:
             logger.error(
-                f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}"
+                "SystemError: An error occurred while creating permit for production "
+                + f"{instance.document_number}, Got {e}"
             )
         except Exception as ex:
             logger.error(

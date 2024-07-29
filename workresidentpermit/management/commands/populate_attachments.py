@@ -32,9 +32,7 @@ class Command(BaseCommand):
         if not parameter:
             raise ValueError("Please provide a valid process name")
         faker = Faker()
-        apps = Application.objects.filter(
-            process_name__iexact=ApplicationProcesses.BLUE_CARD_PERMIT.value
-        )
+        apps = Application.objects.filter(process_name__iexact=parameter)
         verifier = User.objects.filter(username="tverification1").first()
         for app in apps:
             application = ApplicationVerification.objects.filter(
