@@ -13,7 +13,6 @@ from .work_permit_viewset import WorkPermitViewSet
 from .declaration_create_list_view import DeclarationViewSet
 from .place_of_residence_viewset import PlaceOfResidenceViewSet
 
-from .production_permit_view import ProductionPermitView
 
 from .travel_certificate_view import TravelCertificateView
 from .deferred_application_view import (

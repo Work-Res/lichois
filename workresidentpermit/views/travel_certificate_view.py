@@ -5,9 +5,9 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from workresidentpermit.validators import ProductionValidator
+from app_production.validators import ProductionValidator
 
-from workresidentpermit.classes.production import PermitDataProcessor
+from app_production.classes import PermitDataProcessor
 
 
 class TravelCertificateView(APIView):

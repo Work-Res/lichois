@@ -1,6 +1,6 @@
 import os
 
-from app_checklist.classes import SystemParameterService
+from app_production.services import SystemParameterService
 from app_checklist.models import SystemParameter
 from app_checklist.utils import ReadJSON
 from workflow.models import Task

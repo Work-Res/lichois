@@ -11,10 +11,13 @@ from app_personal_details.models import Permit
 
 logger = logging.getLogger(__name__)
 
+
 # Fixme: NOT USED to consider deleting it..
 class ProductionDocumentService:
 
-    def __init__(self, document_number: str, permit_date=None, permit_type=None, place_issue=None):
+    def __init__(
+        self, document_number: str, permit_date=None, permit_type=None, place_issue=None
+    ):
         self.document_number = document_number
         self.permit_date = permit_date
         self.permit_type = permit_type
@@ -29,11 +32,13 @@ class ProductionDocumentService:
             return
 
         try:
-            with open(file_path, 'rb') as generated_pdf:
+            with open(file_path, "rb") as generated_pdf:
                 permit_to_update = self.create_or_update_permit()
                 permit_to_update.generated_pdf.save(file_name, File(generated_pdf))
                 permit_to_update.save()
-                logger.info(f"PDF {file_name} saved to Permit {permit_to_update.document_number}")
+                logger.info(
+                    f"PDF {file_name} saved to Permit {permit_to_update.document_number}"
+                )
         except Exception as e:
             logger.error(f"Failed to read or save PDF: {e}")
 
@@ -43,16 +48,17 @@ class ProductionDocumentService:
             "permit_no": self.allocated_permit_number(),
             "date_issued": date.today(),
             "date_expiry": self.permit_duration_system_parameter(),
-            "place_issue": self.place_issue
+            "place_issue": self.place_issue,
         }
 
         try:
             permit, created = Permit.objects.get_or_create(
-                document_number=self.document_number,
-                defaults=defaults
+                document_number=self.document_number, defaults=defaults
             )
             if not permit:
-                logger.info(f"Permit with document number {self.document_number} already exists.")
+                logger.info(
+                    f"Permit with document number {self.document_number} already exists."
+                )
                 return created
             return permit
         except ObjectDoesNotExist as e:
