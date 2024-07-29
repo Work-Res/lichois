@@ -16,3 +16,4 @@ from .under_20_citizenship_viewset import Under20CitizenshipViewSet
 from .certificate_of_origin_viewset import CertificateOfOriginViewSet
 from .form_r_viewset import FormRViewSet
 from .summary.renunciation_summary_viewset import RenunciationSummaryViewSet
+from .board.board_recommendation_viewset import BoardRecommendationViewSet

@@ -84,8 +84,10 @@ class BaseDecisionService(UpdateApplicationMixin):
         Returns:
             Response: The response object containing the result of the operation.
         """
+        self.logger.info("STARTED: At the create_decision.")
         with transaction.atomic():
             application_decision_type = self.get_application_decision_type()
+            self.logger.info(f"GOT CREATE DECISION: {application_decision_type}")
             if application_decision_type is None:
                 return self.response
 
@@ -107,6 +109,8 @@ class BaseDecisionService(UpdateApplicationMixin):
             self.response.status = "success"
             self.response.data = serializer_class(self.decision).data
             self.response.messages.append(api_message.to_dict())
+
+            self.logger.info("END: Created a decision model.")
 
             # Update the application field with the decision status
             self.update_application_field(
@@ -196,7 +200,6 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
 
         if self.workflow and self.decision:
-
             self.set_security_clearance()
             create_or_update_task_signal.send_robust(
                 sender=self.application,

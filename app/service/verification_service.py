@@ -23,6 +23,7 @@ class VerificationService(BaseDecisionService):
         )
 
     def create_verification(self):
+        self.logger.info("START: Creating a decision model.")
         return self.create_decision(
             ApplicationVerification, ApplicationVerificationRequestDTOSerializer
         )

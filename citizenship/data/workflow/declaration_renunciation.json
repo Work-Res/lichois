@@ -15,7 +15,7 @@
           "sequence": 1,
           "valid_from": "2024-01-01",
           "valid_to": "2040-01-01",
-          "next_activity_name": "RECOMMENDATION",
+          "next_activity_name": "FIRST_ASSESSMENT",
           "create_task_rules": {
             "system_verification": "validated",
             "current_status": "DRAFT"
@@ -31,8 +31,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "SECOND_ASSESSMENT",
           "create_task_rules": {
-            "decision": "RECOMMENDED",
-            "current_status": "FIRST_ASSESSMENT"
+            "verification_decision": "ACCEPTED",
+            "current_status": "VERIFICATION"
           }
         },
         {

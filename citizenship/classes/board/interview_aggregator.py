@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.core.exceptions import ValidationError
-from citizenship.models.board import InterviewResponse, ScoreSheet, ScoreSheetDetail, InterviewQuestion
+from citizenship.models import InterviewResponse, ScoreSheet, ScoreSheetDetail, InterviewQuestion
 
 
 class InterviewAggregator:

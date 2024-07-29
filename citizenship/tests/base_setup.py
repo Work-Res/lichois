@@ -5,10 +5,15 @@ from datetime import date
 
 from faker import Faker
 
+from app.api.dto import ApplicationVerificationRequestDTO
+from app.api.serializers import ApplicationVerificationRequestSerializer
 from app.models import ApplicationStatus
 from app.classes import ApplicationService
 
 from app.api import NewApplicationDTO
+from app.service import VerificationService
+from app.validators import OfficerVerificationValidator
+from app_decision.models import ApplicationDecisionType
 
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress, Country
@@ -19,7 +24,7 @@ from app_checklist.apps import AppChecklistConfig
 
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
-from app.utils import ApplicationStatusEnum
+from app.utils import ApplicationStatusEnum, ApplicationDecisionEnum
 
 from app.utils import statuses
 from django.test import TestCase
@@ -36,11 +41,24 @@ class BaseSetup(TestCase):
         if isinstance(app_config, AppChecklistConfig):
             app_config.ready()
 
+    def application_decision_type(self):
+        for value in [ApplicationDecisionEnum.ACCEPTED.value,
+                      ApplicationDecisionEnum.APPROVED.value,
+                      ApplicationDecisionEnum.PENDING.value,
+                      ApplicationDecisionEnum.REJECTED.value]:
+            ApplicationDecisionType.objects.create(
+                code=value,
+                name=value,
+                process_types=CitizenshipProcessEnum.RENUNCIATION.value,
+                valid_from=date(2024, 1, 1),
+                valid_to=date(2025, 1, 1)
+            )
+
     def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
             process_name=CitizenshipProcessEnum.RENUNCIATION.value,
             applicant_identifier='317918515',
-            status=ApplicationStatusEnum.NEW.value,
+            status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
             application_type=CitizenshipProcessEnum.RENUNCIATION.value,
@@ -89,9 +107,26 @@ class BaseSetup(TestCase):
             private_bag=faker.building_number(),
         )
 
+    def perform_verification(self):
+        data = {
+            "status": "ACCEPTED"
+        }
+        serializer = ApplicationVerificationRequestSerializer(data=data)
+        serializer.is_valid()
+        validator = OfficerVerificationValidator(document_number=self.document_number)
+        if validator.is_valid():
+            verification_request = ApplicationVerificationRequestDTO(
+                document_number=self.document_number,
+                user=None,
+                **serializer.validated_data,
+            )
+            service = VerificationService(verification_request=verification_request)
+            return service.create_verification()
+
     def setUp(self) -> None:
 
         self.create_application_statuses()
+        self.application_decision_type()
         application_version = self.create_new_application()
 
         app = application_version.application
