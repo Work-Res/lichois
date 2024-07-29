@@ -1,5 +1,4 @@
 from .deferred_application_service import DeferredApplicationService
 from .permit_cancellation_decision_service import PermitCancellationDecisionService
-from .permit_production_service import PermitProductionService
 from .special_permit_decision_service import SpecialPermitDecisionService
 from .work_resident_permit_decision_service import WorkResidentPermitDecisionService

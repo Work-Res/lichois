@@ -2,7 +2,7 @@ from django.test import TestCase, tag
 from unittest.mock import patch, MagicMock
 from datetime import date
 from app_personal_details.models import Permit
-from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
+from app_production.api.dto.permit_request_dto import PermitRequestDTO
 from ..services.permit_production_service import (
     PermitProductionService,
 )

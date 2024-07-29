@@ -16,13 +16,13 @@ from app.utils import (
     ApplicationStatusEnum,
 )
 from app_decision.models import ApplicationDecision
-from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
-from workresidentpermit.classes.service import (
-    PermitProductionService,
+from app_production.api.dto.permit_request_dto import PermitRequestDTO
+from app_production.services import PermitProductionService
+from .classes.service import (
     SpecialPermitDecisionService,
     WorkResidentPermitDecisionService,
 )
-from workresidentpermit.models import WorkPermit
+from .models import WorkPermit
 
 from .classes import WorkPermitApplicationPDFGenerator
 from .classes.config.configuration_loader import JSONConfigLoader

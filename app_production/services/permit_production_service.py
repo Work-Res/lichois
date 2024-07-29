@@ -6,7 +6,7 @@ from django.db import transaction
 from datetime import date
 
 from app.api.common.web import APIMessage, APIResponse
-from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
+from ..api.dto import PermitRequestDTO
 
 from app_personal_details.models import Permit
 from app_checklist.models import SystemParameter
