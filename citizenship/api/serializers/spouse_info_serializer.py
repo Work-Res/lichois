@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import SpouseInfo
+from citizenship.models import SpouseInfo
 
 
 class SpouseInfoSerializer(serializers.ModelSerializer):

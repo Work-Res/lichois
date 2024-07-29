@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import ParentDetails
+from citizenship.models import ParentDetails
 
 
 class ParentDetailsSerializer(serializers.ModelSerializer):

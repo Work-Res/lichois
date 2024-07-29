@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import KgosiCertificate
+from citizenship.models import KgosiCertificate
 
 
 class KgosiCertificateSerializer(serializers.ModelSerializer):

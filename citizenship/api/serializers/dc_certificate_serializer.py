@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import DCCertificate
+from citizenship.models import DCCertificate
 
 
 class DCCertificateSerializer(serializers.ModelSerializer):

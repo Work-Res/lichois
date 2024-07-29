@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lichois.citizenship.models import AdoptedChildRegistration
+from citizenship.models import AdoptedChildRegistration
 
 
 class AdoptedChildRegistrationSerializer(serializers.ModelSerializer):
