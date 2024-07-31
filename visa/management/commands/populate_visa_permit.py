@@ -156,6 +156,18 @@ class Command(BaseCommand):
                     preferred_method_comm=faker.boolean(chance_of_getting_true=50),
                     status=faker.random_element(elements=("active", "inactive")),
                     description=faker.text(),
+                    country_code=faker.random_element(
+                        elements=(
+                            "+254",
+                            "+255",
+                            "+256",
+                            "+257",
+                            "+258",
+                            "+260",
+                            "+261",
+                            "+267",
+                        )
+                    ),
                 )
 
                 Passport.objects.get_or_create(
