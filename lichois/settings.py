@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "app_notification.apps.AppConfig",
     "blue_card.apps.AppConfig",
     "visa.apps.AppConfig",
+    "gazette.apps.GazetteConfig"
 ]
 
 MIDDLEWARE = [
