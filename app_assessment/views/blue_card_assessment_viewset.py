@@ -10,3 +10,4 @@ class BlueCardAssessmentViewSet(viewsets.ModelViewSet):
 
     queryset = BlueCardAssessment.objects.all()
     serializer_class = BlueCardAssessmentSerializer
+    lookup_field = "document_number"
