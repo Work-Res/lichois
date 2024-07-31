@@ -19,7 +19,6 @@ class BatchDecisionViewSetTests(APITestCase):
         url = reverse('batch-decision-list')
         data = {'batch_id': self.batch.id, 'decision': 'APPROVED', 'comments': 'All good'}
         response = self.client.post(url, data, format='json')
-        print(response.__dict__)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(BatchDecision.objects.count(), 0)
 

@@ -17,5 +17,5 @@ BATCH_DECISION_CHOICES = [
     ('OPEN', 'Open'),
     ('RECOMMANDED', 'Recommanded'),
     ('APPROVED', 'Approved'),
-    ('REJECTED', 'Rejected'),
+    ('REJECTED', 'Rejected')
 ]

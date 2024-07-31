@@ -12,7 +12,7 @@ class BatchApplication(BaseUuidModel):
     included_in_final_list = models.BooleanField(default=False)
     decision_notes = models.TextField(blank=True, null=True)
     reviewed_by_legal = models.BooleanField(default=False)
-    reviewed_by_ag = models.BooleanField(default=False)
+    reviewed_by_ag = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
         return f'{self.application.applicant_name} - {self.batch.name}'
