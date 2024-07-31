@@ -10,6 +10,7 @@ from app.utils.system_enums import ApplicationStatusEnum
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from app_personal_details.models import Passport, Person
+from app_personal_details.models.education import Education
 from app_personal_details.models.next_of_kin import NextOfKin
 from ...enums import BlueCardApplicationTypeEnum
 
@@ -106,6 +107,63 @@ class Command(BaseCommand):
                     place_issued=faker.city(),
                     nationality=faker.country(),
                     photo=faker.image_url(),
+                )
+
+                Education.objects.get_or_create(
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                    institution=faker.company(),
+                    field_of_study=faker.random_element(
+                        elements=(
+                            "Computer Science",
+                            "Information Technology",
+                            "Business Administration",
+                            "Accounting",
+                            "Finance",
+                            "Economics",
+                            "Marketing",
+                            "Human Resource Management",
+                            "Supply Chain Management",
+                            "Logistics",
+                            "Procurement",
+                            "Engineering",
+                            "Medicine",
+                            "Nursing",
+                            "Pharmacy",
+                            "Law",
+                            "Education",
+                            "Agriculture",
+                            "Hospitality",
+                            "Tourism",
+                            "Culinary Arts",
+                            "Architecture",
+                            "Urban Planning",
+                            "Public Health",
+                            "Psychology",
+                            "Sociology",
+                            "Political Science",
+                            "International Relations",
+                            "Development Studies",
+                        )
+                    ),
+                    level=faker.random_element(
+                        elements=(
+                            "High School",
+                            "Associate Degree",
+                            "Bachelor's Degree",
+                            "Master's Degree",
+                            "Doctorate",
+                            "Diploma",
+                            "Certificate",
+                            "Vocational",
+                            "Professional Degree",
+                            "Technical Degree",
+                            "Postgraduate Certificate",
+                            "Other",
+                        )
+                    ),
+                    start_date=faker.date_this_century(),
+                    end_date=faker.date_this_century(),
                 )
 
                 NextOfKin.objects.get_or_create(
