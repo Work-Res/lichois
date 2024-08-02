@@ -33,7 +33,10 @@ class MeetingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SessionSerializer(serializers.ModelSerializer):
+class MeetingSessionSerializer(serializers.ModelSerializer):
+
+    meeting = serializers.PrimaryKeyRelatedField(queryset=Meeting.objects.all(), required=False, allow_null=True)
+
     class Meta:
         model = MeetingSession
         fields = '__all__'

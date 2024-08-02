@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 
 from app.api.common.web import APIMessage
-from citizenship.api.serializers.board import MeetingSerializer, AttendeeSerializer
+from citizenship.api.serializers.board import MeetingSerializer, AttendeeSerializer, MeetingSessionSerializer
 
 from citizenship.models import Meeting
 
@@ -102,3 +102,20 @@ class MeetingViewSet(viewsets.ModelViewSet):
         proposed_date = request.data.get('proposed_date')
         attendee = MeetingService.confirm_attendance(meeting.id, member_id, confirmed, proposed_date)
         return Response(MeetingSerializer(attendee).data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['post'])
+    def create_session(self, request, pk=None):
+        meeting = self.get_object()
+        serializer = MeetingSessionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        title = serializer.validated_data['title']
+        date = serializer.validated_data['date']
+        start_time = serializer.validated_data['start_time']
+        end_time = serializer.validated_data['end_time']
+
+        try:
+            session = MeetingService.create_session(meeting.id, title, date, start_time, end_time)
+            return Response(MeetingSessionSerializer(session).data, status=status.HTTP_201_CREATED)
+        except ValidationError as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)

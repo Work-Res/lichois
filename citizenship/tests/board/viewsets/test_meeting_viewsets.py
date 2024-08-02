@@ -97,7 +97,7 @@ class MeetingViewSetTestCase(BaseSetup):
     def test_get_meetings_1(self):
         self.client.login(username='testuser', password='testpass')
         url = reverse('citizenship:meeting-list')
-        response = self.client.post(url, {
+        self.client.post(url, {
             'title': 'New Meeting 1',
             'board': self.board.id,
             'location': 'New Location',
@@ -107,7 +107,7 @@ class MeetingViewSetTestCase(BaseSetup):
             'time': '11:00:00'
         })
 
-        response_1 = self.client.post(url, {
+        self.client.post(url, {
             'title': 'New Meeting 2',
             'board': self.board.id,
             'location': 'New Location',
@@ -123,7 +123,7 @@ class MeetingViewSetTestCase(BaseSetup):
     def test_confirm_attendance(self):
         self.client.login(username='testuser', password='testpass')
         url = reverse('citizenship:meeting-list')
-        response = self.client.post(url, {
+        self.client.post(url, {
             'title': 'New Meeting 1',
             'board': self.board.id,
             'location': 'New Location',
@@ -149,3 +149,30 @@ class MeetingViewSetTestCase(BaseSetup):
             self.assertEqual(response.data['member'], member.id)
             self.assertEqual(response.data['confirmed'], True)
             self.assertEqual(response.data['proposed_date'], data['proposed_date'])
+
+    def test_create_session(self):
+        self.client.login(username='testuser', password='testpass')
+        url = reverse('citizenship:meeting-list')
+        self.client.post(url, {
+            'title': 'New Meeting 1',
+            'board': self.board.id,
+            'location': 'New Location',
+            'agenda': 'New Agenda',
+            'start_date': "2024-08-01T14:30:00+0000",
+            'end_date': "2024-08-01T14:30:00+0000",
+            'time': '11:00:00'
+        })
+        meeting = Meeting.objects.all().first()
+
+        url = reverse('citizenship:meeting-create-session', args=[meeting.id])
+        data = {
+            'title': 'Morning Session',
+            'date': timezone.now().date().isoformat(),
+            'start_time': '11:00:00',
+            'end_time':  '12:00:00'
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('id', response.data)
+        self.assertEqual(response.data['title'], 'Morning Session')
+        self.assertEqual(response.data['meeting'], meeting.id)
