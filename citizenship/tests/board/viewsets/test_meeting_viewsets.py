@@ -8,7 +8,7 @@ from .base_setup import BaseSetup
 
 from django.utils import timezone
 from app_checklist.models import Region
-from citizenship.models import Board, Role, Meeting
+from citizenship.models import Board, Role, Meeting, BoardMember
 
 
 class MeetingViewSetTestCase(BaseSetup):
@@ -94,7 +94,6 @@ class MeetingViewSetTestCase(BaseSetup):
         response = self.client.get(url, format='json')
         self.assertEqual(len(response.data), 2)
 
-
     def test_get_meetings_1(self):
         self.client.login(username='testuser', password='testpass')
         url = reverse('citizenship:meeting-list')
@@ -121,10 +120,32 @@ class MeetingViewSetTestCase(BaseSetup):
         response = self.client.get(url, format='json')
         self.assertEqual(len(response.data), 2)
 
-    def test_add_attendee(self):
+    def test_confirm_attendance(self):
         self.client.login(username='testuser', password='testpass')
-        response = self.client.post(f'/api/meetings/{self.meeting.id}/add_attendee/', {
-            'member_id': self.user.id,
-            'confirmed': True
+        url = reverse('citizenship:meeting-list')
+        response = self.client.post(url, {
+            'title': 'New Meeting 1',
+            'board': self.board.id,
+            'location': 'New Location',
+            'agenda': 'New Agenda',
+            'start_date': "2024-08-01T14:30:00+0000",
+            'end_date': "2024-08-01T14:30:00+0000",
+            'time': '11:00:00'
         })
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        meeting = Meeting.objects.all().first()
+        members = BoardMember.objects.filter(board=self.board)
+
+        url = reverse('citizenship:meeting-confirm-attendance', args=[meeting.id])
+        for member in members:
+            data = {
+                'member_id': self.member.id,
+                'confirmed': True,
+                'proposed_date': (timezone.now() + timezone.timedelta(days=1)).isoformat()
+            }
+            response = self.client.post(url, data, format='json')
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertIn('id', response.data)
+            self.assertEqual(response.data['meeting'], meeting.id)
+            self.assertEqual(response.data['member'], member.id)
+            self.assertEqual(response.data['confirmed'], True)
+            self.assertEqual(response.data['proposed_date'], data['proposed_date'])

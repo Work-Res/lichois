@@ -24,7 +24,6 @@ class MeetingViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         validated_data = serializer.validated_data
-        data = serializer.data
         title = validated_data['title']
         board_id = validated_data['board'].id
         location = validated_data['location']
