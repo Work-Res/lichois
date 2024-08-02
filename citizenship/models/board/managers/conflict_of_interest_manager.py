@@ -10,7 +10,6 @@ class ConflictOfInterestManager(models.Manager):
             conflict = self.create(
                 attendee=attendee,
                 application=application,
-                meeting_session=meeting_session,
                 has_conflict=has_conflict
             )
             return conflict

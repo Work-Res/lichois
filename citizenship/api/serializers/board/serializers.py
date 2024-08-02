@@ -3,7 +3,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from citizenship.models import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
-    InterviewDecision, ScoreSheet, Role
+    InterviewDecision, ScoreSheet, Role, ConflictOfInterest
 from citizenship.models.board.board_recommandation import BoardRecommendation
 from citizenship.models.board.interview_question import InterviewQuestion
 from citizenship.models.board.meeting_session import MeetingSession
@@ -115,3 +115,8 @@ class RoleSerializer(serializers.ModelSerializer):
 class InterviewQuestionCSVSerializer(serializers.Serializer):
     csv_file = serializers.FileField()
 
+
+class ConflictOfInterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConflictOfInterest
+        fields = '__all__'
