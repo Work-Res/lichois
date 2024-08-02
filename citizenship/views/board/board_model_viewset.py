@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from django.core.exceptions import ValidationError
 
+from app.api.common.pagination import StandardResultsSetPagination
 from citizenship.api.serializers.board import BoardSerializer, MeetingSerializer
 
 from citizenship.models import Board
@@ -13,6 +14,7 @@ from citizenship.service.board.board_service import BoardService
 class BoardModelViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+    pagination_class = StandardResultsSetPagination
 
     def create(self, request):
         name = request.data.get('name')

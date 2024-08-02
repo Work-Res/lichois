@@ -1,6 +1,9 @@
 import logging
 
 from django.db import transaction
+
+from django.utils import timezone
+
 from django.core.exceptions import ValidationError
 
 from citizenship.models import Meeting, BoardMember, Attendee, Board
@@ -130,7 +133,7 @@ class MeetingService:
     def check_meeting_conflicts(board, start_date, end_date):
         meetings = Meeting.objects.filter(board=board)
         for meeting in meetings:
-            if (start_date <= meeting.end_date and end_date >= meeting.start_date):
+            if start_date <= meeting.end_date and end_date >= meeting.start_date:
                 return True
         return False
 

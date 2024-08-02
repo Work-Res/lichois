@@ -8,6 +8,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django.core.exceptions import ValidationError
 
+from app.api.common.pagination import StandardResultsSetPagination
 from citizenship.api.serializers.board import InterviewQuestionSerializer, InterviewQuestionCSVSerializer
 
 from citizenship.models import Meeting
@@ -17,7 +18,10 @@ from citizenship.service.board import InterviewQuestionService
 logger = logging.getLogger(__name__)
 
 
-class InterviewQuestionViewSet(viewsets.ViewSet):
+class InterviewQuestionViewSet(viewsets.ModelViewSet):
+
+    pagination_class = StandardResultsSetPagination
+
     def list(self, request):
         meeting_id = request.query_params.get('meeting_id')
         if not meeting_id:

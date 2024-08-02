@@ -72,6 +72,7 @@ urlpatterns = [
     path("lichois/api/v1/", include("app_notification.urls")),
     path("lichois/api/v1/", include("blue_card.urls")),
     path("lichois/api/v1/", include("citizenship.urls")),
+    path("lichois/api/v1/", include("gazette.urls")),
 ]
 
 if settings.DEBUG:
