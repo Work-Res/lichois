@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 
+from app.api.common.pagination import StandardResultsSetPagination
 from app.api.common.web import APIMessage
 from citizenship.api.serializers.board import MeetingSerializer, AttendeeSerializer, MeetingSessionSerializer
 
@@ -18,6 +19,7 @@ from citizenship.utils.parse_datetime_with_timezone import parse_datetime_with_t
 class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
+    pagination_class = StandardResultsSetPagination
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
