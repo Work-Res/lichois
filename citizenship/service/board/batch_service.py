@@ -149,20 +149,21 @@ class BatchService:
 
     @staticmethod
     @transaction.atomic
-    def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False):
+    def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False, meeting_session=None):
         try:
             print("document_number: ", document_number)
             attendee = Attendee.objects.get(id=attendee_id)
             application = Application.objects.get(
                 application_document__document_number=document_number)
-            conflict, created = ConflictOfInterest.objects.create_conflict(
+            created = ConflictOfInterest.objects.create_conflict(
                 attendee=attendee,
                 application=application,
-                has_conflict=has_conflict
+                has_conflict=has_conflict,
+                meeting_session=meeting_session
             )
             if created:
-                logger.info(f'Conflict of interest declared: {conflict}')
-            return conflict
+                logger.info(f'Conflict of interest declared: {created}')
+            return created
         except Attendee.DoesNotExist:
             logger.error(f'Attendee does not exist: {attendee_id}')
             raise ValidationError("Attendee does not exist.")
@@ -203,7 +204,7 @@ class BatchService:
 
     @staticmethod
     @transaction.atomic
-    def declare_no_conflict_for_all(attendee_id, batch_id):
+    def declare_no_conflict_for_all(attendee_id, batch_id,  meeting_session=None):
         try:
             attendee = Attendee.objects.get(id=attendee_id)
             batch_applications = BatchApplication.objects.filter(batch_id=batch_id)
@@ -212,7 +213,8 @@ class BatchService:
                 ConflictOfInterest.objects.create_conflict(
                     attendee=attendee,
                     application=batch_application.application,
-                    defaults={'has_conflict': False}
+                    has_conflict=False,
+                    meeting_session=meeting_session
                 )
                 logger.info(
                     f'No conflict of interest declared for {batch_application.application.document_number} by {attendee.member.user.username}')

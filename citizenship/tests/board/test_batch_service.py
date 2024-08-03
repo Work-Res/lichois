@@ -1,4 +1,6 @@
 import pytest
+from django.utils import timezone
+from datetime import timedelta
 
 from django.core.exceptions import ValidationError
 from unittest.mock import patch
@@ -10,6 +12,7 @@ from citizenship.service.board.batch_status_enum import BatchStatus
 from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 
 from .base_setup import BaseSetup
+from ...models.board.conflict_of_interest_duration import ConflictOfInterestDuration
 
 
 class BatchServiceTestCase(BaseSetup):
@@ -48,9 +51,20 @@ class BatchServiceTestCase(BaseSetup):
 
     def test_declare_conflict_of_interest(self):
         attendee = Attendee.objects.create(meeting=self.meeting, member=self.member)
+        start_time = timezone.now() - timedelta(hours=1)
+        end_time = timezone.now() + timedelta(hours=1)
+        ConflictOfInterestDuration.objects.create(
+            meeting_session=self.session,
+            start_time=start_time,
+            end_time=end_time,
+            status='open'
+        )
+
         conflict = BatchService.declare_conflict_of_interest(
             attendee_id=attendee.id, document_number=self.application.application_document.document_number,
-            has_conflict=True)
+            has_conflict=True,
+            meeting_session=self.session
+        )
         self.assertIsNotNone(conflict)
         self.assertEqual(conflict.attendee, attendee)
         self.assertEqual(conflict.application, self.application)
@@ -66,9 +80,22 @@ class BatchServiceTestCase(BaseSetup):
             self.assertTrue(Interview.objects.filter(application=self.application).exists())
 
     def test_declare_no_conflict_for_all(self):
+
+        start_time = timezone.now() - timedelta(hours=1)
+        end_time = timezone.now() + timedelta(hours=1)
+        ConflictOfInterestDuration.objects.create(
+            meeting_session=self.session,
+            start_time=start_time,
+            end_time=end_time,
+            status='open'
+        )
+
         BatchApplication.objects.create(batch=self.batch, application=self.application, meeting_session=self.session)
         attendee = Attendee.objects.create(meeting=self.meeting, member=self.member)
-        result = BatchService.declare_no_conflict_for_all(attendee_id=attendee.id, batch_id=self.batch.id)
+        result = BatchService.declare_no_conflict_for_all(
+            attendee_id=attendee.id, batch_id=self.batch.id,
+            meeting_session=self.session
+        )
         self.assertTrue(result)
         self.assertTrue(ConflictOfInterest.objects.filter(
             attendee=attendee, application=self.application, has_conflict=False).exists())
