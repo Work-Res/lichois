@@ -9,12 +9,14 @@ from app_assessment.api.serializers import AssessmentCaseSummarySerializer
 from app_assessment.models import AssessmentCaseSummary
 from app_assessment.service import CaseSummaryService
 from app_assessment.validators import AssessmentCaseSummaryValidator
+from app_assessment.views.filters import AssessmentCaseSummaryFilter
 
 
 class AssessmentCaseSummaryViewSet(viewsets.ModelViewSet):
 
     queryset = AssessmentCaseSummary.objects.all()
     serializer_class = AssessmentCaseSummarySerializer
+    filterset_class = AssessmentCaseSummaryFilter
 
     def create(self, request, *args, **kwargs):
         case_summary_request_dto = CaseSummaryRequestDTO(**request.data)
