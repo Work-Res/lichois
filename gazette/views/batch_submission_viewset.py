@@ -1,14 +1,14 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from gazette.api.serializers.serializers import BatchSerializer
+from gazette.api.serializers.serializers import BatchGazetteSerializer
 from gazette.models import Batch, BatchApplication
 from gazette.service import BatchSubmissionService
 
 
 class BatchSubmissionViewSet(viewsets.ModelViewSet):
     queryset = Batch.objects.all()
-    serializer_class = BatchSerializer
+    serializer_class = BatchGazetteSerializer
 
     def submit_batch(self, request, pk=None):
         try:

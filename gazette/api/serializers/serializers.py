@@ -25,7 +25,7 @@ class BatchApplicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class BatchSerializer(serializers.ModelSerializer):
+class BatchGazetteSerializer(serializers.ModelSerializer):
     batch_applications = BatchApplicationSerializer(many=True, read_only=True)
     assessments = LegalAssessmentSerializer(many=True, read_only=True)
 
