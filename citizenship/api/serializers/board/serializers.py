@@ -5,6 +5,7 @@ from rest_framework import serializers
 from citizenship.models import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
     InterviewDecision, ScoreSheet, Role, ConflictOfInterest
 from citizenship.models.board.board_recommandation import BoardRecommendation
+from citizenship.models.board.conflict_of_interest_duration import ConflictOfInterestDuration
 from citizenship.models.board.interview_question import InterviewQuestion
 from citizenship.models.board.meeting_session import MeetingSession
 
@@ -119,4 +120,10 @@ class InterviewQuestionCSVSerializer(serializers.Serializer):
 class ConflictOfInterestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConflictOfInterest
+        fields = '__all__'
+
+
+class ConflictOfInterestDurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConflictOfInterestDuration
         fields = '__all__'
