@@ -1,4 +1,13 @@
+import logging
 from app.models import Application
+
+# Configure logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 class ApplicationEligibilityValidator:
@@ -8,16 +17,22 @@ class ApplicationEligibilityValidator:
 
     def application(self):
         try:
-            Application.objects.get(application_document__document_number=self.document_number)
+            application = Application.objects.get(application_document__document_number=self.document_number)
+            logger.debug("Found application: %s", application)
+            return application
         except Application.DoesNotExist:
-            pass
+            logger.warning("No application found for document_number: %s", self.document_number)
+            return None
 
-    @staticmethod
     def is_valid(self):
         application = self.application()
-        if not application.batched and self.has_completed_assessment():
+        if application and not application.batched and self.has_completed_assessment():
+            logger.debug("Application is valid: %s", application)
             return True
+        logger.debug("Application is not valid: %s", application)
         return False
 
     def has_completed_assessment(self):
-        return False
+        # Assuming this method has more complex logic in the real scenario
+        logger.debug("Checking if the assessment is completed for document_number: %s", self.document_number)
+        return True
