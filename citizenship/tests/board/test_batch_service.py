@@ -99,4 +99,3 @@ class BatchServiceTestCase(BaseSetup):
         self.assertTrue(result)
         self.assertTrue(ConflictOfInterest.objects.filter(
             attendee=attendee, application=self.application, has_conflict=False).exists())
-

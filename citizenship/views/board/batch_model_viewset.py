@@ -67,3 +67,13 @@ class BatchModelViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except ValidationError as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['post'])
+    def change_status(self, request, pk=None):
+        batch = self.get_object()
+        new_status = request.data.get('new_status')
+        try:
+            updated_batch = BatchService.change_batch_status(batch_id=batch.id, new_status=new_status)
+            return Response(BatchSerializer(updated_batch).data, status=status.HTTP_200_OK)
+        except ValidationError as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)

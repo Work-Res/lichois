@@ -183,8 +183,11 @@ class BatchService:
         try:
             batch = Batch.objects.get(id=batch_id)
             if new_status == BatchStatus.CLOSED.name:
+                if batch.status == BatchStatus.CLOSED.name:
+                    raise ValidationError("Batch is already closed.")
                 new_applications = BatchApplication.objects.filter(
-                    batch=batch, meeting_session__batch_application_complete=False).order_by('created')
+                    batch=batch).order_by('created')
+                logger.info(f"Applications found: {new_applications} to be interviewed. ")
                 for batch_application in new_applications:
                     Interview.objects.get_or_create(
                         application=batch_application.application,
