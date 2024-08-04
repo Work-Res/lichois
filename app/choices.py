@@ -10,6 +10,9 @@ APPLICANT_TYPE = (
     ("renewal_employee", "Renewal Employee"),
     ("renewal_investor", "Renewal Investor"),
     ("director", "Director"),
+    ("student", "Student"),
+    ("immigrant", "Immigrant"),
+    ("spouse_of_citizen", "Spouse of Citizen"),
 )
 
 PERMIT_PERIOD = (

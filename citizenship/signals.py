@@ -1,6 +1,5 @@
 import logging
 
-from pathlib import Path
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -24,10 +23,8 @@ def assessment_case_decision_post_save(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=ConflictOfInterestDuration)
 def handle_conflict_duration_completed(sender, instance, **kwargs):
-    interview = instance.meeting_session.applicant_meeting_sessions.first()
-    csv_path = Path(
-        "citizenship") / "service" / "board" / "configurations" / "interviews" / f"{interview.variation_type}.csv"
-    handler = ConflictDurationHandler(conflict_duration=instance, csv_path=csv_path)
+    logger.info(f"Start process for creating interview responses.")
+    handler = ConflictDurationHandler(conflict_duration=instance)
     handler.process()
 
 

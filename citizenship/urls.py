@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 from .admin_site import citizenship_admin
 from .views.board import BoardModelViewSet, MeetingViewSet, ScoreSheetViewSet, MeetingSessionViewSet, \
-    ConflictOfInterestViewSet, ConflictOfInterestDurationViewSet, BatchModelViewSet
+    ConflictOfInterestViewSet, ConflictOfInterestDurationViewSet, BatchModelViewSet, InterviewResponseViewSet
 
 app_name = 'citizenship'
 
@@ -16,6 +16,7 @@ router.register(r'citizenship-scoresheets', ScoreSheetViewSet)
 router.register(r'citizenship-conflict-of-interests', ConflictOfInterestViewSet)
 router.register(r'citizenship-conflict-of-interest-durations', ConflictOfInterestDurationViewSet)
 router.register(r'citizenship-batches', BatchModelViewSet, basename='batch')
+router.register(r'interview-responses', InterviewResponseViewSet)
 
 
 urlpatterns = [

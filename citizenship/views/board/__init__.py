@@ -6,3 +6,4 @@ from .score_sheet_viewset import ScoreSheetViewSet
 from .meeting_session_viewset import MeetingSessionViewSet
 from .conflict_of_interest_viewset import ConflictOfInterestViewSet
 from .conflict_of_interest_duration_viewset import ConflictOfInterestDurationViewSet
+from .interview_response_model_viewset import InterviewResponseViewSet

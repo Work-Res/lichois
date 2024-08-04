@@ -34,7 +34,7 @@ class BaseSetup(APITestCase):
         if isinstance(app_config, AppChecklistConfig):
             app_config.ready()
 
-    def create_new_application(self):
+    def create_new_application(self, applicant_type=None):
         self.new_application_dto = NewApplicationDTO(
             process_name=CitizenshipProcessEnum.RENUNCIATION.value,
             applicant_identifier='317918515',
@@ -42,7 +42,8 @@ class BaseSetup(APITestCase):
             dob="06101990",
             work_place="01",
             application_type=CitizenshipProcessEnum.RENUNCIATION.value,
-            full_name="Test test"
+            full_name="Test test",
+            applicant_type="student" or applicant_type
         )
 
         self.application_service = ApplicationService(

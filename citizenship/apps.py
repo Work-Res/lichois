@@ -6,3 +6,6 @@ class CitizenshipConfig(AppConfig):
     name = 'citizenship'
     verbose_name = 'Citizenship'
     admin_site_name = 'citizenship_admin'
+
+    def ready(self):
+        from .signals import handle_conflict_duration_completed

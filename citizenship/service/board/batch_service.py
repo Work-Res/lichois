@@ -194,7 +194,8 @@ class BatchService:
                         defaults={
                             'application': batch_application.application,
                             'meeting_session': batch_application.meeting_session,
-                            'scheduled_time': batch_application.meeting_session.date
+                            'scheduled_time': batch_application.meeting_session.date,
+                            'variation_type': batch_application.application.application_document.applicant_type
                         }
                     )
                 logger.info(f'Batch {batch_id} closed and interviews created for new applications.')

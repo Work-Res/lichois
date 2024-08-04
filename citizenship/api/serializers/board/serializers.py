@@ -2,8 +2,9 @@ from django.utils import timezone
 
 from rest_framework import serializers
 
+from board.models import BoardMember
 from citizenship.models import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
-    InterviewDecision, ScoreSheet, Role, ConflictOfInterest
+    InterviewDecision, ScoreSheet, Role, ConflictOfInterest, InterviewResponse
 from citizenship.models.board.board_recommandation import BoardRecommendation
 from citizenship.models.board.conflict_of_interest_duration import ConflictOfInterestDuration
 from citizenship.models.board.interview_question import InterviewQuestion
@@ -127,3 +128,48 @@ class ConflictOfInterestDurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConflictOfInterestDuration
         fields = '__all__'
+
+
+class BoardMemberCitizenshipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BoardMember
+        fields = '__all__'
+
+
+class InterviewResponseSerializer(serializers.ModelSerializer):
+    interview = InterviewSerializer()
+    member = BoardMemberCitizenshipSerializer()
+
+    class Meta:
+        model = InterviewResponse
+        fields = '__all__'
+
+    def create(self, validated_data):
+        interview_data = validated_data.pop('interview')
+        member_data = validated_data.pop('member')
+
+        interview, created = Interview.objects.get_or_create(**interview_data)
+        member, created = BoardMember.objects.get_or_create(**member_data)
+
+        interview_response = InterviewResponse.objects.create(interview=interview, member=member, **validated_data)
+        return interview_response
+
+    def update(self, instance, validated_data):
+        interview_data = validated_data.pop('interview')
+        member_data = validated_data.pop('member')
+
+        interview, created = Interview.objects.get_or_create(**interview_data)
+        member, created = BoardMember.objects.get_or_create(**member_data)
+
+        instance.interview = interview
+        instance.member = member
+        instance.text = validated_data.get('text', instance.text)
+        instance.response = validated_data.get('response', instance.response)
+        instance.marks_range = validated_data.get('marks_range', instance.marks_range)
+        instance.score = validated_data.get('score', instance.score)
+        instance.is_marked = validated_data.get('is_marked', instance.is_marked)
+        instance.additional_comments = validated_data.get('additional_comments', instance.additional_comments)
+        instance.category = validated_data.get('category', instance.category)
+        instance.save()
+
+        return instance

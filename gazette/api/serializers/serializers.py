@@ -1,14 +1,8 @@
 from rest_framework import serializers
 
-from app.models import Application
+from app.api.serializers import ApplicationSerializer
 from gazette.models import LegalAssessment, BatchApplication, Batch
 from gazette.models.batch_decision import BatchDecision
-
-
-class ApplicationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Application
-        fields = '__all__'
 
 
 class LegalAssessmentSerializer(serializers.ModelSerializer):

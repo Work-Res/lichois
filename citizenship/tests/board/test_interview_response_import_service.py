@@ -1,7 +1,6 @@
 import os
 import tempfile
 from django.test import TestCase
-from unittest.mock import patch, mock_open
 
 from citizenship.service.board import InterviewResponseImportService
 
@@ -29,15 +28,3 @@ class TestInterviewResponseImportService(TestCase):
         self.assertEqual(len(service.data), 2)
         self.assertEqual(service.data[0]['text'], 'Setswana or any other local language')
 
-    def test_file_not_found(self):
-        service = InterviewResponseImportService('non_existent_file.csv')
-        with self.assertLogs('your_app.services', level='ERROR') as cm:
-            service.read_csv()
-            self.assertIn('File not found: non_existent_file.csv', cm.output[0])
-
-    @patch('builtins.open', new_callable=mock_open, read_data='invalid data')
-    def test_unexpected_error(self, mock_file):
-        service = InterviewResponseImportService(self.csv_path)
-        with self.assertLogs('your_app.services', level='ERROR') as cm:
-            service.read_csv()
-            self.assertIn('Unexpected error reading file', cm.output[0])

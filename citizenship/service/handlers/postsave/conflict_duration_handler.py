@@ -1,4 +1,6 @@
 import logging
+
+from pathlib import Path
 from django.core.exceptions import ObjectDoesNotExist
 
 from citizenship.exception.conflict_duration_error import ConflictDurationError
@@ -17,7 +19,7 @@ class ConflictDurationHandler:
         conflict_duration (ConflictOfInterestDuration): The conflict duration instance being processed.
     """
 
-    def __init__(self, conflict_duration: ConflictOfInterestDuration, csv_path: str):
+    def __init__(self, conflict_duration: ConflictOfInterestDuration, csv_path: str = None):
 
         """
         Initializes the handler with the conflict duration instance.
@@ -35,19 +37,30 @@ class ConflictDurationHandler:
         if self.conflict_duration.status == 'completed':
             self._handle_completed_duration()
 
+    def interview(self, application):
+        interview = application.applications
+        logger.info(f"Preparing to create interview responses for {interview} interview.")
+        self.csv_path = Path(
+            "citizenship") / "service" / "board" / "configurations" / "interviews" / f"{interview.variation_type}_questions.csv"
+        logger.info(f"Scoresheet variation configuration path: {self.csv_path}")
+        return interview
+
     def _handle_completed_duration(self):
         """
         Handles the completion of the conflict duration.
         """
+
         meeting_session = self.conflict_duration.meeting_session
         batch_applications = BatchApplication.objects.filter(meeting_session=meeting_session)
-        service = InterviewResponseImportService(self.csv_path)
-        service.read_csv()
 
         for batch_application in batch_applications:
             application = batch_application.application
             meeting = meeting_session.meeting
             board_members = BoardMember.objects.filter(board=meeting.board)
+            self.interview(application)
+            service = InterviewResponseImportService(self.csv_path)
+            service.read_csv()
+
             for member in board_members:
                 if not ConflictOfInterest.objects.filter(
                         attendee__member=member, application=application, has_conflict=True).exists():
@@ -73,7 +86,7 @@ class ConflictDurationHandler:
                     member=member,
                     text=row['text'],
                     category=row['category'],
-                    marks_range=int(row['marks_range']) if row['marks_range'] else None
+                    marks_range=row['marks_range'] if row['marks_range'] else None
                 )
                 logger.info(f"Created InterviewResponse: {interview_response}")
             except ObjectDoesNotExist as e:

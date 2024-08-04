@@ -19,4 +19,4 @@ class InterviewResponse(BaseUuidModel):
     # recording = models.FileField(upload_to='recordings/', null=True, blank=True) belong to the score-sheet
 
     def __str__(self):
-        return f'{self.interview} - {self.question}'
+        return f'{self.interview} - {self.text}'

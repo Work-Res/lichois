@@ -8,7 +8,7 @@ from authentication.models import User
 from citizenship.models.board.conflict_of_interest_duration import ConflictOfInterestDuration
 from app_checklist.models import Region
 from citizenship.models import Board, Role, Meeting, BoardMember, Batch, MeetingSession, BatchApplication, Attendee, \
-    ConflictOfInterest, Interview
+    ConflictOfInterest, Interview, InterviewResponse
 from citizenship.service.board.batch_status_enum import BatchStatus
 
 from .base_setup import BaseSetup
@@ -175,6 +175,53 @@ class BatchModelViewSetTest(BaseSetup):
 
         count = ConflictOfInterest.objects.filter(attendee=attendee, has_conflict=False).count()
         self.assertEqual(count, 2)
+
+    def test_conflict_of_interest_when_completed(self):
+        meeting_session = self.create_meeting_session(self.meeting)
+        batch = self.create_batch(self.meeting)
+        version = self.create_new_application()
+
+        url = reverse('citizenship:batch-add-applications', args=[batch.id])
+        data = {
+            'document_numbers': [
+                self.application.application_document.document_number,
+                version.application.application_document.document_number
+            ],
+            'session_id': meeting_session.id
+        }
+        self.client.post(url, data, format='json')
+
+        start_time = timezone.now() - timedelta(hours=1)
+        end_time = timezone.now() + timedelta(hours=1)
+        conflict_of_interest_duration = ConflictOfInterestDuration.objects.create(
+            meeting_session=meeting_session,
+            start_time=start_time,
+            end_time=end_time,
+            status='open'
+        )
+        # close batch so that interview object get created.
+        url = reverse('citizenship:batch-change-status', args=[batch.id])
+        data = {
+            "new_status": BatchStatus.CLOSED.name
+        }
+        self.client.post(url, data, format='json')
+
+        url = reverse('citizenship:batch-declare-no-conflict-for-all', args=[batch.id])
+        attendee = Attendee.objects.get(meeting=self.meeting, member=self.member)
+        data = {
+            'attendee_id': attendee.id,
+            'meeting_session_id': meeting_session.id
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        count = ConflictOfInterest.objects.filter(attendee=attendee, has_conflict=False).count()
+        self.assertEqual(count, 2)
+
+        conflict_of_interest_duration.status = "completed"
+        conflict_of_interest_duration.save()
+        interview_responses = InterviewResponse.objects.all()
+        self.assertEqual(interview_responses.count(), 14)
 
     def test_close_batch(self):
         batch = self.create_batch(self.meeting)
