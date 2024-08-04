@@ -12,7 +12,7 @@ from ...exception import BatchSizeMaxLimitReachedException
 
 logger = logging.getLogger(__name__)
 
-MAX_APPLICATIONS_PER_SESSION = 20
+MAX_APPLICATIONS_PER_SESSION = 50
 
 
 class BatchService:
@@ -53,7 +53,7 @@ class BatchService:
                 raise BatchSizeMaxLimitReachedException(
                     f'Session {session_id} has reached its application limit of {MAX_APPLICATIONS_PER_SESSION} applications.')
 
-            application = Application.objects.get(document_number=document_number)
+            application = Application.objects.get(application_document__document_number=document_number)
             BatchApplication.objects.create(
                 batch=batch,
                 application=application,
@@ -85,20 +85,23 @@ class BatchService:
         try:
             batch = Batch.objects.get(id=batch_id)
             session = MeetingSession.objects.get(id=session_id)
-            applications = Application.objects.filter(document_number__in=document_numbers)
-
+            applications = Application.objects.filter(
+                application_document__document_number__in=document_numbers)
+            logger.info(f"Found list of applications: {applications}")
             for application in applications:
                 if not ApplicationEligibilityValidator(
                         document_number=application.application_document.document_number).is_valid():
                     logger.error(f'Application {application.id} is not eligible to be added to batch {batch_id}')
                     raise ValidationError(f"Application {application.id} is not eligible to be added to the batch.")
-
-                BatchApplication.objects.create(
-                    batch=batch,
-                    application=application,
-                    session=session
-                )
-                logger.info(f'Application {application} added to batch {batch}')
+                try:
+                    BatchApplication.objects.create(
+                        batch=batch,
+                        application=application,
+                        meeting_session=session
+                    )
+                    logger.info(f'Application {application} added to batch {batch}')
+                except ValidationError as e:
+                    logger.warning(f"{e}")
             return True
         except Batch.DoesNotExist:
             logger.error(f'Batch does not exist: {batch_id}')
@@ -208,7 +211,10 @@ class BatchService:
         try:
             attendee = Attendee.objects.get(id=attendee_id)
             batch_applications = BatchApplication.objects.filter(batch_id=batch_id)
-
+            meeting_session = MeetingSession.objects.get(id=meeting_session)
+            logger.info(f"Batch applications found: {batch_applications}")
+            if not batch_applications.exists():
+                raise ValidationError(f"Batch Applications is empty for {batch_id}")
             for batch_application in batch_applications:
                 ConflictOfInterest.objects.create_conflict(
                     attendee=attendee,

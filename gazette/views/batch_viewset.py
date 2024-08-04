@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from gazette.api.serializers.serializers import BatchSerializer
+from gazette.api.serializers.serializers import BatchGazetteSerializer
 from gazette.models import Batch
 from gazette.service import ApplicationBatchService
 from gazette.service.batch_decision_service import BatchDecisionService
@@ -9,7 +9,7 @@ from gazette.service.batch_decision_service import BatchDecisionService
 
 class BatchViewSet(viewsets.ModelViewSet):
     queryset = Batch.objects.all()
-    serializer_class = BatchSerializer
+    serializer_class = BatchGazetteSerializer
 
     def create(self, request, *args, **kwargs):
         title = request.data.get('title')

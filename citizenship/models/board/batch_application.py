@@ -4,6 +4,7 @@ from app.models import Application
 from .batch import Batch
 from .meeting_session import MeetingSession
 from base_module.model_mixins import BaseUuidModel
+from django.core.exceptions import ValidationError
 
 
 class BatchApplication(BaseUuidModel):
@@ -12,4 +13,9 @@ class BatchApplication(BaseUuidModel):
     meeting_session = models.ForeignKey(MeetingSession, related_name='meeting_sessions', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.application.applicant_name} - {self.batch.name}'
+        return f'{self.application.application_document.document_number} - {self.batch.name}'
+
+    def save(self, *args, **kwargs):
+        if BatchApplication.objects.filter(application=self.application).exists():
+            raise ValidationError(f'Application {self.application} is already added to another batch.')
+        super().save(*args, **kwargs)
