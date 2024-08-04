@@ -1,0 +1,120 @@
+{
+  "classifiers": {
+    "citizenship": {
+      "code": "PRESIDENT_POWER_10B",
+      "name": "President Power 10B",
+      "description": "President’s Power to Register Citizens: Section 10B Workflow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "President Power 10B Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2040-01-01",
+          "next_activity_name": "VETTING",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "NEW"
+          }
+        },
+        {
+          "code": "VETTING",
+          "name": "President Power 10B Security Clearance",
+          "description": "Security Vetting Task.",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "BACK_OFFICE_RECOMMENDATION",
+          "create_task_rules": {
+            "current_status": "VERIFICATION",
+            "verification_decision": "ACCEPTED"
+          }
+        },
+        {
+          "code": "BACK_OFFICE_RECOMMENDATION",
+          "name": "President Power 10B Back Office Recommendation",
+          "description": "President Power 10B Recommendation By Back Office",
+          "mandatory": false,
+          "sequence": 3,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "DIRECTOR_RECOMMENDATION",
+          "create_task_rules": {
+            "security_clearance": "ACCEPTED",
+            "current_status": "BACK_OFFICE_RECOMMENDATION"
+          }
+        },
+        {
+          "code": "DIRECTOR_RECOMMENDATION",
+          "name": "President Power 10B Director Recommendation",
+          "description": "President Power 10B Recommendation By Director",
+          "mandatory": false,
+          "sequence": 4,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "DEPUTY_PS_RECOMMENDATION",
+          "create_task_rules": {
+            "current_status": "DIRECTOR_RECOMMENDATION"
+          }
+        },
+        {
+          "code": "DEPUTY_PS_RECOMMENDATION",
+          "name": "President Power 10B Deputy PS Recommendation",
+          "description": "President Power 10B Recommendation By Deputy PS",
+          "mandatory": false,
+          "sequence": 5,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "PS_RECOMMENDATION",
+          "create_task_rules": {
+            "current_status": "DEPUTY_PS_RECOMMENDATION"
+          }
+        },
+        {
+          "code": "PS_RECOMMENDATION",
+          "name": "President Power 10B PS Recommendation",
+          "description": "President Power 10B Recommendation By Permanent Secretary",
+          "mandatory": false,
+          "sequence": 6,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "PRESIDENT_PS_RECOMMENDATION",
+          "create_task_rules": {
+            "current_status": "PS_RECOMMENDATION"
+          }
+        },
+        {
+          "code": "PRES_PS_RECOMMENDATION",
+          "name": "President Power 10B President PS Recommendation",
+          "description": "President Power 10B Recommendation By Permanent Secretary To The President",
+          "mandatory": false,
+          "sequence": 7,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "PRESIDENT_DECISION",
+          "create_task_rules": {
+            "current_status": "PRES_PS_RECOMMENDATION"
+          }
+        },
+        {
+          "code": "PRESIDENT_DECISION",
+          "name": "President Power 10B President Decision",
+          "description": "President Power 10B President Decision",
+          "mandatory": false,
+          "sequence": 8,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "recommendation_decision": "ACCEPTED"
+          }
+        }
+      ]
+    }
+  }
+}

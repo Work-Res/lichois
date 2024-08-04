@@ -1,0 +1,112 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "CERTIFIED_PARENT_MARRIAGE_CERTIFICATE",
+          "name": "CERTIFIED PARENT MARRIAGE CERTIFICATE",
+          "description": "Certified copy of parents marriage certificate",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_CITIZENSHIP_CERTIFICATE",
+          "name": "CERTIFIED CITIZENSHIP CERTIFICATE",
+          "description": "Certified copy of citizenship certificate",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_COPY_OF_OMANG",
+          "name": "CERTIFIED_COPY_OF_OMANG COPY",
+          "description": "Certified copy of Omang",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_ADOPTION_CERTIFICATE",
+          "name": "CERTIFIED ADOPTION CERTIFICATE",
+          "description": "Certified copy of adoption certificate",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PASSPORT_PHOTO",
+          "name": "PASSPORT_PHOTO",
+          "description": "passport size coloured photos",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_BIRTH_CERTIFICATE",
+          "name": "CERTIFIED BIRTH CERTIFICATE",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "description": "Certified copy of birth certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_RESIDENCE_PERMIT",
+          "name": "CERTIFIED RESIDENCE PERMIT",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "description": "Certified copy of valid residence permit",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_PASSPORT_COPY",
+          "name": "CERTIFIED PASSPORT COPY",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "description": "Certified copy of passport",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "POLICE_REPORT",
+          "name": "POLICE REPORT",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "description": "Police report",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_PARENT_RESIDENCE_PERMIT",
+          "name": "CERTIFIED PARENT RESIDENCE PERMIT",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "description": "Certified copy of parent’s valid residence permit ",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_PARENT_PASSPORT_COPY",
+          "name": "CERTIFIED PARENT PASSPORT COPY",
+          "application_type": "CITIZENSHIP_FOR_UNDER_20",
+          "description": "Certified copy of parent passport",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}

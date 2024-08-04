@@ -7,26 +7,26 @@ from app.classes.application_summary import ApplicationSummary
 
 def get_app_labels():
     return [
-
-        # personal_info,
-        # address_info,
-        # contact_info,
-        # oath
-
-        "citizenship.CertificateOfOrigin",
-        "citizenship.RenunciationOfCitizenship",
+        # kgosi_cert,
+        "citizenship.KgosiCertificate"
+        # kgosana_cert,
+        "citizenship.KgosanaCertificate"
+        # oath,
         "app_oath.Declarant"
+        
+        # dcccertificate
+        "citizenship.DCCertificate"
     ]
 
 
-class RenunciationSummaryViewSet(viewsets.ModelViewSet):
+class SettlementViewSet(viewsets.ModelViewSet):
 
 
     @action(
         detail=False,
         methods=["get"],
         url_path="summary/(?P<document_number>[A-Za-z0-9-]+)",
-        url_name="renunciation-summary",
+        url_name="settlement-summary",
     )
     def summary(self, request, document_number):
         app_summary = ApplicationSummary(document_number, get_app_labels())

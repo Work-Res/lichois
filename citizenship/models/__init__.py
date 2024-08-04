@@ -6,9 +6,11 @@ from .citizenship_renunciation_declaration import CitizenshipRenunciationDeclara
 from .citizenship_resumption import CitizenshipResumption
 from .DC_certificate import DCCertificate
 from .declaration_naturalisation_by_foreign_spouse import DeclarationNaturalisationByForeignSpouse
+from .doubt_citizenship_certificate import DoubtCitizenshipCertificate
 from .kgosi_certificate import KgosiCertificate
 from .kgosana_certificate import KgosanaCertificate
 from .late_citizenship_renunciation import LateCitizenshipRenunciation
+from .maturity_period_waiver import MaturityPeriodWaiver
 from .nationality_declaration import NationalityDeclaration
 from .naturalisation import Naturalisation
 from .oath_of_allegiance import OathOfAllegiance
@@ -17,6 +19,8 @@ from .renunciation_of_foreign_citizenship import RenunciationOfForeignCitizenshi
 from .parent_details import ParentDetails
 from .personal_declaration import PersonalDeclaration
 from .place_of_residence import PlaceOfResidence
+from .president_power_10A import PresidentPower10A
+from .president_power_10B import PresidentPower10B
 from .residential_history import ResidentialHistory
 from .spouse_info import SpouseInfo
 from .travel_certificate_non_citizen import TravelCertNonCitizen

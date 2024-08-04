@@ -1,0 +1,184 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "PASSPORT_PHOTO",
+          "name": "PASSPORT PHOTO",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "passport size photos",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_RESIDENCE_PERMIT",
+          "name": "CERTIFIED RESIDENCE PERMIT",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Certified copy of valid residence permit",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "EXEMPTION_CERTIFICATE",
+          "name": "EXEMPTION CERTIFICATE",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Valid exemption certificate or PR",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "APPLICANT_COVERING_LETTER",
+          "name": "APPLICANT COVERING LETTER",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Letter addressed to HE",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "POLICE_REPORT",
+          "name": "POLICE REPORT",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Police report",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CITIZENSHIP_STATUS",
+          "name": "CITIZENSHIP STATUS",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Family background – citizenship status",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "WITNESS_AFFIDAVIT",
+          "name": "WITNESS AFFIDAVIT",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Affidavit from witnesses (relatives, community members, chiefs)",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "IDENTITY_DOCUMENTS_WITNESSES",
+          "name": "IDENTITY DOCUMENTS WITNESSES",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Identity documents witnesses (relatives, community members, chiefs)",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_BIRTH_CERTIFICATE",
+          "name": "CERTIFIED BIRTH CERTIFICATE",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Certified copy of Unabridged birth certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_PASSPORT_COPY",
+          "name": "CERTIFIED PASSPORT COPY",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Certified copy of valid passport",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "EDUCATIONAL_CERTIFICATES",
+          "name": "EDUCATIONAL CERTIFICATES",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Resume and educational certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_MARRIAGE_CERTIFICATE",
+          "name": "CERTIFIED MARRIAGE CERTIFICATE",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Certified copy of marriage certificate",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "ONLINE_PAYMENT",
+          "name": "ONLINE PAYMENT",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Online payment",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SHARES_CERTIFICATE",
+          "name": "SHARES CERTIFICATE",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Shares certificate",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFICATE_OF_INCORPORATION",
+          "name": "CERTIFICATE OF INCORPORATION",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Certificate of incorporation",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SHAREHOLDERS_INFORMATION",
+          "name": "SHAREHOLDERS INFORMATION",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Shareholders information(nationalitites)",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SHAREHOLDERS_IDENTITY_DOCUMENTS",
+          "name": "SHAREHOLDERS IDENTITY DOCUMENTS",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Certified copies of shareholders identity documents",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "FINANCIAL_STATEMENT",
+          "name": "FINANCIAL STATEMENT",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Financial statement for current year",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PROPERTY_VALUATION_LEASE",
+          "name": "PROPERTY VALUATION LEASE",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+          "description": "Value of property or copy of lease agreement",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}

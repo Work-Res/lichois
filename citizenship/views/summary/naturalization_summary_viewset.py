@@ -11,22 +11,22 @@ def get_app_labels():
         # personal_info,
         # address_info,
         # contact_info,
-        # oath
+        # spouse_info,
+        # parental_details,
+        # parental_details_father,
+        # parental_details_mother
 
-        "citizenship.CertificateOfOrigin",
-        "citizenship.RenunciationOfCitizenship",
-        "app_oath.Declarant"
     ]
 
 
-class RenunciationSummaryViewSet(viewsets.ModelViewSet):
+class NaturalizationSummaryViewSet(viewsets.ModelViewSet):
 
 
     @action(
         detail=False,
         methods=["get"],
         url_path="summary/(?P<document_number>[A-Za-z0-9-]+)",
-        url_name="renunciation-summary",
+        url_name="naturalization-summary",
     )
     def summary(self, request, document_number):
         app_summary = ApplicationSummary(document_number, get_app_labels())

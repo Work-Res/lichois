@@ -6,9 +6,11 @@ from .citizenship_renunciation_declaration_form import CitizenshipRenunciationDe
 from .citizenship_resumption_form import CitizenshipResumptionForm
 from .decl_naturalisation_foreign_spouse_form import DeclNaturalisationByForeignSpouseForm
 from .dc_certificate_form import DCCertificateForm
+from .doubt_citizenship_certificate_form import DoubtCitizenshipCertificateForm
 from .kgosi_certificate_form import KgosiCertificateForm
 from .kgosana_certificate_form import KgosanaCertificateForm
-from .late_citizenship_renunciation_form import (LateCitizenshipRenunciationForm)
+from .late_citizenship_renunciation_form import LateCitizenshipRenunciationForm
+from .maturity_period_waiver_form import MaturityPeriodWaiverForm
 from .nationality_declaration_form import NationalityDeclarationForm
 from .naturalisation_form import NaturalisationForm
 # from .naturalisation_of_foreign_spouse_form import NaturalisationOfForeignSpouseForm
@@ -16,6 +18,8 @@ from .oath_of_allegiance_form import OathOfAllegianceForm
 from .parent_details_form import ParentDetailsForm
 from .personal_declaration_form import PersonalDeclarationForm
 from .place_of_residence_form import PlaceOfResidenceForm
+from .president_power_10A_form import PresidentPower10AForm
+from .president_power_10B_form import PresidentPower10BForm
 from .renunciation_of_citizenship_form import RenunciationOfCitizenshipForm
 from .renunciation_of_foreign_citizenship_form import RenunciationOfForeignCitizenshipForm
 from .residential_history_form import ResidentialHistoryForm
