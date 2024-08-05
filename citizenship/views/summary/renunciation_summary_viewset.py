@@ -5,9 +5,14 @@ from rest_framework.response import Response
 from app.classes.application_summary import ApplicationSummary
 
 
-
 def get_app_labels():
     return [
+
+        # personal_info,
+        # address_info,
+        # contact_info,
+        # oath
+
         "citizenship.CertificateOfOrigin",
         "citizenship.RenunciationOfCitizenship",
         "app_oath.Declarant"

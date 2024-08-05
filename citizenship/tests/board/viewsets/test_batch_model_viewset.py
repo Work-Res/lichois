@@ -174,6 +174,7 @@ class BatchModelViewSetTest(BaseSetup):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         count = ConflictOfInterest.objects.filter(attendee=attendee, has_conflict=False).count()
+<<<<<<< HEAD
         self.assertEqual(count, 2)
 
     def test_conflict_of_interest_when_completed(self):

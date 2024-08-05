@@ -1,0 +1,94 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "COLORED_PASSPORT_COPY",
+          "name": "COLORED RECENT PASSPORT COPY",
+          "description": "Recent Coloured Passport Size Photo",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_RESIDENCE_PERMIT",
+          "name": "CERTIFIED RESIDENCE PERMIT",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Certified copy of valid residence permit",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPIES_PREVIOUS_RESIDENCE_PERMIT",
+          "name": "COPIES PREVIOUS RESIDENCE PERMIT",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Copies of previous residence permits *if any",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "APPLICANT_COVERING_LETTER",
+          "name": "APPLICANT COVERING LETTER",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Covering letter from the Applicant",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_BIRTH_CERTIFICATE",
+          "name": "CERTIFIED BIRTH CERTIFICATE",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Certified copy of Unabridged birth certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_MARRIAGE_CERTIFICATE",
+          "name": "CERTIFIED MARRIAGE CERTIFICATE",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Certified copy of marriage certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_SPOUSE_NATIONAL_IDENTITY",
+          "name": "CERTIFIED SPOUSE NATIONAL IDENTITY",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Certified copy of spouse national identity/omang",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_SPOUSE_CITIZENSHIP_CERTIFICATE",
+          "name": "CERTIFIED SPOUSE CITIZENSHIP CERTIFICATE",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Certified copy of a spouse citizenship certificate *if applicable",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SPOUSE_SUPPORT_LETTER",
+          "name": "SPOUSE_SUPPORT_LETTER",
+          "application_type": "DECLARATION_OF_INTENTION_BY_FOREIGN_SPOUSE",
+          "description": "Support letter from spouse",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}

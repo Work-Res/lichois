@@ -3,8 +3,8 @@ from django.apps import AppConfig
 
 
 class AppChecklistConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'app_checklist'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "app_checklist"
     verbose_name = "Application Checklist Module"
 
     def ready(self):
@@ -20,16 +20,19 @@ class AppChecklistConfig(AppConfig):
         # Configure logging
         logging.basicConfig(
             level=logging.DEBUG,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[logging.StreamHandler()]
+            format="%(asctime)s - %(levelname)s - %(message)s",
+            handlers=[logging.StreamHandler()],
         )
         logging.info("Logging is configured.")
 
     def run_initial_configuration(self):
         from app_checklist.classes import ChecklistSearcherAndUpdater
+
         logging.info("Running initial workflow configuration...")
         try:
-            workflow_configs = ChecklistSearcherAndUpdater(target_directory_name="workflow")
+            workflow_configs = ChecklistSearcherAndUpdater(
+                target_directory_name="workflow"
+            )
             workflow_configs.update_workflow()
             logging.info("Workflow configuration updated successfully.")
         except Exception as e:

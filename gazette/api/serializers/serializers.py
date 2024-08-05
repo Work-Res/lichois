@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from app.api.serializers import ApplicationSerializer
+
 from gazette.models import LegalAssessment, BatchApplication, Batch
 from gazette.models.batch_decision import BatchDecision
 

@@ -1,0 +1,85 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "PASSPORT_PHOTO",
+          "name": "PASSPORT PHOTO",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "passport size photos",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_ADOPTION_CERTIFICATE",
+          "name": "CERTIFIED ADOPTION CERTIFICATE",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "Certified copy of  adoption certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_PARENT_MARRIAGE_CERTIFICATE",
+          "name": "CERTIFIED PARENT MARRIAGE CERTIFICATE",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "Certified copy of adoptive parents marriage certificate if applicable",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PARENT_CITIZENSHIP_STATUS_PROOF",
+          "name": "PARENT CITIZENSHIP STATUS PROOF",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "Proof of parents citizenship status",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "POLICE_REPORT",
+          "name": "POLICE REPORT",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "Police report forms for children over sixteen(16) years old",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_RESIDENCE_PERMIT",
+          "name": "CERTIFIED RESIDENCE PERMIT",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "Certified copy of valid residence permit",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_MARRIAGE_CERTIFICATE",
+          "name": "CERTIFIED MARRIAGE CERTIFICATE",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "Applicant’s marriage certificate",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "RENUNCIATION_PROOF",
+          "name": "RENUNCIATION PROOF",
+          "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+          "description": "Proof of renunciation",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}

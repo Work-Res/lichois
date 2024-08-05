@@ -1,0 +1,54 @@
+ {
+  "classifiers": {
+    "citizenship": {
+      "code": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+      "name": "Registration Of Adopted Child Over 3years",
+      "description": "Registration Of Adopted Child Over 3years Workflow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Registration Of Adopted Child Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2040-01-01",
+          "next_activity_name": "DIRECTOR_RECOMMENDATION",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "NEW"
+          }
+        },
+        {
+          "code": "DIRECTOR_RECOMMENDATION",
+          "name": "Registration Of Adopted Child Director Recommendation",
+          "description": "Registration Of Adopted Child Recommendation By Director",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "MINISTER_DECISION",
+          "create_task_rules": {
+            "current_status": "DIRECTOR_RECOMMENDATION"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Registration Of Adopted Child Decision",
+          "description": "Certificate Production Task",
+          "sequence": 3,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "current_status": "ACCEPTED",
+            "recommendation_decision": "ACCEPTED"
+          }
+        }
+      ]
+    }
+  }
+}

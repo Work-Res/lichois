@@ -6,7 +6,6 @@ from .assessment_case_summary import AssessmentCaseSummary
 from .new_assessment_investor import NewAssessmentInvestor
 from .renewal_assessment_investor import RenewalAssessmentInvestor
 from .assessment_emergency import AssessmentEmergency
-from .assessment_case_note import AssessmentCaseNote
-from .assessment_case_summary import AssessmentCaseSummary
-from .assessement_case_decision import AssessmentCaseDecision
 from .parent_manager import ParentModelManager
+from .blue_card_assessment import BlueCardAssessment
+from .dependant_assessment import DependantAssessment

@@ -3,6 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.core.exceptions import ValidationError
 
+from app.api.common.pagination import StandardResultsSetPagination
 from citizenship.api.serializers.board import BatchSerializer
 
 from citizenship.models import Batch
@@ -12,6 +13,7 @@ from citizenship.service.board import BatchService
 class BatchModelViewSet(viewsets.ModelViewSet):
     queryset = Batch.objects.all()
     serializer_class = BatchSerializer
+    pagination_class = StandardResultsSetPagination
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

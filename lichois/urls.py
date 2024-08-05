@@ -55,6 +55,7 @@ urlpatterns = [
     path("lichois/api/v1/", include("visa.urls")),
     path("lichois/api/v1/", include("workflow.urls")),
     path("lichois/api/v1/", include("app_assessment.urls")),
+    path("lichois/api/v1/", include("app_production.urls")),
     path(
         "lichois/docs/",
         schema_view.with_ui("swagger", cache_timeout=0),

@@ -16,13 +16,13 @@ from app.utils import (
     ApplicationStatusEnum,
 )
 from app_decision.models import ApplicationDecision
-from workresidentpermit.api.dto.permit_request_dto import PermitRequestDTO
-from workresidentpermit.classes.service import (
-    PermitProductionService,
+from app_production.api.dto.permit_request_dto import PermitRequestDTO
+from app_production.services import PermitProductionService
+from .classes.service import (
     SpecialPermitDecisionService,
     WorkResidentPermitDecisionService,
 )
-from workresidentpermit.models import WorkPermit
+from .models import WorkPermit
 
 from .classes import WorkPermitApplicationPDFGenerator
 from .classes.config.configuration_loader import JSONConfigLoader
@@ -185,7 +185,7 @@ def create_production_permit_record(sender, instance, created, **kwargs):
                     request.permit_type = application.process_name
                     request.place_issue = "Gaborone"  # Pending location solution
                     request.document_number = instance.document_number
-                    request.application_type = application.process_name
+                    request.application_type = application.application_type
                     permit = PermitProductionService(request=request)
                     permit.create_new_permit()
                 else:
@@ -196,7 +196,8 @@ def create_production_permit_record(sender, instance, created, **kwargs):
 
         except SystemError as e:
             logger.error(
-                f"SystemError: An error occurred while creating permit for production {instance.document_number}, Got {e}"
+                "SystemError: An error occurred while creating permit for production "
+                + f"{instance.document_number}, Got {e}"
             )
         except Exception as ex:
             logger.error(

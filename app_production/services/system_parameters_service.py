@@ -27,18 +27,28 @@ class SystemParameterService:
             return system_parameter.valid_from + timedelta(
                 weeks=system_parameter.duration
             )
+        elif system_parameter.duration_type.lower() == "permanent":
+            return None
         else:
             raise ValueError("Invalid duration type")
 
     @staticmethod
     def calculate_next_date(system_parameter):
-        if not system_parameter:
-            return None
         if system_parameter.duration_type == "years":
             return date.today() + timedelta(days=365 * system_parameter.duration)
         elif system_parameter.duration_type == "months":
             return date.today() + timedelta(days=30 * system_parameter.duration)
         elif system_parameter.duration_type in ["weeks", "days"]:
             return date.today() + timedelta(weeks=system_parameter.duration)
+        elif system_parameter.duration_type.lower() == "permanent":
+            return None
         else:
             raise ValueError("Invalid duration type")
+
+    @staticmethod
+    def create_system_parameter(data):
+        SystemParameter.objects.update_or_create(
+            duration_type=data.get("duration_type"),
+            duration=data.get("duration"),
+            application_type=data.get("application_type"),
+        )

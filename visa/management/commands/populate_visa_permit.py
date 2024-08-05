@@ -65,7 +65,7 @@ class Command(BaseCommand):
                         elements=("diploma", "degree", "masters", "phd")
                     ),
                 )
-                country = (Country.objects.create(name=faker.country()),)
+                country = Country.objects.create(name=faker.country())
 
                 ApplicationAddress.objects.get_or_create(
                     application_version=version,
@@ -82,7 +82,7 @@ class Command(BaseCommand):
                             "other",
                         )
                     ),
-                    country__id=country[0].id,
+                    country__id=country.id,
                     status=faker.random_element(elements=("active", "inactive")),
                     city=faker.city(),
                     street_address=faker.street_name(),
@@ -156,6 +156,18 @@ class Command(BaseCommand):
                     preferred_method_comm=faker.boolean(chance_of_getting_true=50),
                     status=faker.random_element(elements=("active", "inactive")),
                     description=faker.text(),
+                    country_code=faker.random_element(
+                        elements=(
+                            "+254",
+                            "+255",
+                            "+256",
+                            "+257",
+                            "+258",
+                            "+260",
+                            "+261",
+                            "+267",
+                        )
+                    ),
                 )
 
                 Passport.objects.get_or_create(

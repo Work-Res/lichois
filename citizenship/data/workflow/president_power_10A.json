@@ -1,0 +1,41 @@
+{
+  "classifiers": {
+    "citizenship": {
+      "code": "PRESIDENT_POWER_10A",
+      "name": "President Power 10A",
+      "description": "President’s Power to Register Citizens: Section 10A Workflow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "President Power 10A Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "LETTER_PRODUCTION",
+          "create_task_rules": {
+            "current_status": "NEW",
+            "system_verification": "validated"
+          }
+        },
+        {
+          "code": "LETTER_PRODUCTION",
+          "name": "President Power 10A Certificate Production",
+          "description": "Produce citizenship certificate for client",
+          "mandatory": true,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2040-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "ACCEPTED"
+          }
+        }
+      ]
+    }
+  }
+}
