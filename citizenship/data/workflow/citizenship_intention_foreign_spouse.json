@@ -1,7 +1,7 @@
 {
   "classifiers": {
     "citizenship": {
-      "code": "CITIZENSHIP_INTENTION_FOREIGN_SPOUSE",
+      "code": "NATURALIZATION_INTENTION_FOREIGN_SPOUSE",
       "name": "CITIZENSHIP OF INTENTION BY FOREIGN SPOUSE",
       "description": "Declaration of Intention By Foreign Spouse Workflow",
       "valid_from": "2024-01-01",
@@ -31,7 +31,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "officer_verification": "ACCEPTED"
+            "current_status": "VERIFICATION",
+             "verification_decision": "ACCEPTED"
           }
         }
       ]
