@@ -1,2 +1,3 @@
 from .citizenship_process_enum import CitizenshipProcessEnum
 from .citizenship_application_type_enum import CitizenshipApplicationTypeEnum
+from .document_generation_is_required_for_production import CitizenshipDocumentGenerationIsRequiredForProduction

@@ -22,7 +22,7 @@
           }
         },
         {
-          "code": "PS_RECOMMENDATION",
+          "code": "RECOMMENDATION",
           "name": "Maturity Period Waiver PS Recommendation",
           "description": "Maturity Period Waiver Recommendation By Permanent Secretary",
           "mandatory": false,
@@ -31,7 +31,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "MINISTER_DECISION",
           "create_task_rules": {
-            "current_status": "PS_RECOMMENDATION"
+            "current_status": "VERIFICATION",
+            "verification_decision": "ACCEPTED"
           }
         },
         {
@@ -44,8 +45,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "current_status": "ACCEPTED",
-            "recommendation_decision": "ACCEPTED"
+            "current_status": "RECOMMENDATION",
+            "decision": "recommended"
           }
         }
       ]

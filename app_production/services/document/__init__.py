@@ -1,0 +1,1 @@
+from .word_template_service import WordDocumentTemplateService
