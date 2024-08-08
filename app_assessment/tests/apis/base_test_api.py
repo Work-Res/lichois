@@ -25,7 +25,8 @@ class BaseTestAPI(APITestCase):
             dob="06101990",
             work_place="01",
             application_type=CitizenshipProcessEnum.RENUNCIATION.value,
-            full_name="Test test"
+            full_name="Test test",
+            applicant_type="student"
         )
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto)

@@ -47,8 +47,8 @@ class AssessmentCaseSummaryValidator:
     def check_if_update_allowable(self):
         try:
             assessment_summary = AssessmentCaseSummary.objects.get(
-                parent_object_id=self.assessment_case_summary.parent_object_id,
-                parent_object_type=self.assessment_case_summary.parent_object_type,
+                # parent_object_id=self.assessment_case_summary.parent_object_id,
+                # parent_object_type=self.assessment_case_summary.parent_object_type,
                 document_number=self.assessment_case_summary.document_number
             )
             assessment_decision = AssessmentCaseDecision.objects.filter(

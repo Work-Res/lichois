@@ -1,6 +1,5 @@
 from django.db import models
 
-from base_module.model_fields import UUIDAutoField
 from app.models import ApplicationBaseModel
 
 from .parent_manager import ParentModelManager
@@ -8,7 +7,8 @@ from .parent_manager import ParentModelManager
 
 class AssessmentCaseSummary(ApplicationBaseModel):
 
-    parent_object_id = UUIDAutoField(
+    parent_object_id = models.UUIDField(
+        null=True,
         blank=True,
         editable=False,
         help_text="Parent ID primary key.")
