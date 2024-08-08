@@ -24,7 +24,7 @@ class CaseSummaryService:
         try:
             with transaction.atomic():
                 # Fetch the existing case note
-                case_note = AssessmentCaseSummary.objects.get(
+                case_summary = AssessmentCaseSummary.objects.get(
                     document_number=self.case_summary_request_dto.document_number,
                     parent_object_id=self.case_summary_request_dto.parent_object_id,
                     parent_object_type=self.case_summary_request_dto.parent_object_type,
@@ -35,8 +35,8 @@ class CaseSummaryService:
 
                 updated_data = self.case_summary_request_dto.__dict__
                 for key, value in updated_data.items():
-                    setattr(case_note, key, value)
-                case_note.save()
+                    setattr(case_summary, key, value)
+                case_summary.save()
                 self.logger.info(f"Updated assessement case summary for {self.case_summary_request_dto.document_number}")
                 api_message = APIMessage(
                     code=200,
@@ -47,7 +47,7 @@ class CaseSummaryService:
                 self.response.messages.append(api_message.to_dict())
         except AssessmentCaseSummary.DoesNotExist:
             self.logger.error(
-                f"Case note with document number  {self.case_summary_request_dto.document_number} does not exist."
+                f"Case summary with document number  {self.case_summary_request_dto.document_number} does not exist."
             )
         except IntegrityError as ex:
             self.logger.error(f"Transaction failed and was rolled back. {ex}")
