@@ -1,0 +1,31 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "PROOF_OF_ACQUISITION",
+          "name": "PROOF OF ACQUISITION",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10A",
+          "description": "Proof of acquisition",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "OTHER_DOCUMENTS",
+          "name": "OTHER DOCUMENTS",
+          "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10A",
+          "description": "Other documents",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}

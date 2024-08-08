@@ -12,7 +12,7 @@ def get_app_labels():
         # kgosana_cert,
         "citizenship.KgosanaCertificate"
         # oath,
-        "app_oath.Declarant"
+        "citizenship.OathOfAllegiance"
         
         # dcccertificate
         "citizenship.DCCertificate"

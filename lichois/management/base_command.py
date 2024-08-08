@@ -30,6 +30,21 @@ class CustomBaseCommand(BaseCommand):
         fname = self.faker.unique.first_name()
         lname = self.faker.unique.last_name()
 
+        app, version = self.create_new_application(fname, lname)
+
+        self.create_personal_details(app, version, lname, fname)
+
+        self.create_application_address(app, version)
+
+        self.create_application_contact(app, version)
+
+        self.create_passport(app, version)
+
+        self.create_education(app, version)
+
+        return app, version
+
+    def create_new_application(self, fname, lname):
         new_app = NewApplicationDTO(
             application_type=self.application_type,
             process_name=self.process_name,
@@ -45,6 +60,10 @@ class CustomBaseCommand(BaseCommand):
         )
         app = ApplicationService(new_application_dto=new_app)
         version = app.create_application()
+
+        return app, version
+
+    def create_personal_details(self, app, version, fname, lname):
         Person.objects.get_or_create(
             application_version=version,
             first_name=fname,
@@ -63,6 +82,8 @@ class CustomBaseCommand(BaseCommand):
                 elements=("diploma", "degree", "masters", "phd")
             ),
         )
+
+    def create_application_address(self, app, version):
         country = Country.objects.create(name=self.faker.country())
 
         ApplicationAddress.objects.get_or_create(
@@ -87,6 +108,7 @@ class CustomBaseCommand(BaseCommand):
             private_bag=self.faker.building_number(),
         )
 
+    def create_application_contact(self, app, version):
         contact_type = ["cell", "email", "fax", "landline"]
         contact_value = {
             "cell": self.faker.phone_number(),
@@ -107,6 +129,7 @@ class CustomBaseCommand(BaseCommand):
             description=self.faker.text(),
         )
 
+    def create_passport(self, app, version):
         Passport.objects.get_or_create(
             application_version=version,
             document_number=app.application_document.document_number,
@@ -117,6 +140,8 @@ class CustomBaseCommand(BaseCommand):
             nationality=self.faker.country(),
             photo=self.faker.image_url(),
         )
+
+    def create_education(self, app, version):
 
         Education.objects.get_or_create(
             application_version=version,
@@ -174,4 +199,4 @@ class CustomBaseCommand(BaseCommand):
             start_date=self.faker.date_this_century(),
             end_date=self.faker.date_this_century(),
         )
-        return app, version
+

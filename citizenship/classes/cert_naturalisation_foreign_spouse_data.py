@@ -1,9 +1,8 @@
 from django.apps import apps
 from ..api import CertNaturalisationForeignSpouseApplication
-from app_personal_details.models import Person
 from app_address.models import ApplicationAddress
-from app_attachments.models import ApplicationAttachment
 from app_contact.models import ApplicationContact
+from app_personal_details.models import Person
 from ..models import CertNaturalisationByForeignSpouse, SpouseInfo, ParentDetails
 
 

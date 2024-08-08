@@ -1,6 +1,6 @@
 from django.db import models
 
-from workresidentpermit.choices import MARITAL_STATUS, GENDER, PERSON_TYPE
+from ..choices import MARITAL_STATUS, GENDER, PERSON_TYPE
 
 from app.models import ApplicationBaseModel
 

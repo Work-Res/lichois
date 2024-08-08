@@ -9,7 +9,7 @@ def get_app_labels():
     return [
         # "citizenship.CertificateOfOrigin",
         # "citizenship.RenunciationOfCitizenship",
-        # "app_oath.Declarant"
+        # "citizenship.OathOfAllegiance"
     ]
 
 

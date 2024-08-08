@@ -7,7 +7,7 @@ from app.classes.application_summary import ApplicationSummary
 
 def get_app_labels():
     return [
-        "app_oath.Declarant"
+        "citizenship.OathOfAllegiance"
     ]
 
 

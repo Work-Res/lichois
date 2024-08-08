@@ -11,7 +11,7 @@ def get_app_labels():
         # residential_history,
         "citizenship.ResidentialHistory"
         # oath
-        "app_oath.Declarant"
+        "citizenship.OathOfAllegiance"
         # model
         "citizenship.DeclarationNaturalisationByForeignSpouse",
     ]

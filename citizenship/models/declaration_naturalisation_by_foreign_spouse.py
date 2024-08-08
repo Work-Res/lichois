@@ -9,12 +9,7 @@ class DeclarationNaturalisationByForeignSpouse(CommissionerOathModelMixin, Appli
     # Address
     #ContactInfo
 
-    #TODO: link residential history
     #ResidentialHistory
-    personal_info_id = models.CharField(max_length=25)
-    contact_info_id = models.CharField(max_length=25)
-    address_id = models.CharField(max_length=25)
-    residential_history_id = models.CharField(max_length=25)
 
     birth_citizenship = models.CharField(max_length=190)
     present_citizenship = models.CharField(max_length=190)

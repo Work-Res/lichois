@@ -15,7 +15,7 @@ def get_app_labels():
 
         "citizenship.CertificateOfOrigin",
         "citizenship.RenunciationOfCitizenship",
-        "app_oath.Declarant"
+        "citizenship.OathOfAllegiance"
     ]
 
 

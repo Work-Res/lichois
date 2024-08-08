@@ -1,0 +1,58 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "PASSPORT_PHOTO",
+          "name": "PASSPORT_PHOTO",
+          "description": "passport size coloured photos",
+          "application_type": "SETTLEMENT",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_BIRTH_CERTIFICATE",
+          "name": "CERTIFIED BIRTH CERTIFICATE",
+          "description": "Certified copy of birth certificate",
+          "application_type": "SETTLEMENT",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PERSONAL_DECLARATION",
+          "name": "PERSONAL DECLARATION TO ESTABLISH NATIONALITY",
+          "description": "Personal declaration to establish nationality",
+          "application_type": "SETTLEMENT",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_COPY_RESIDENCE_PERMIT",
+          "name": "CERTIFIED COPY OF RESIDENCE PERMIT",
+          "description": "Certified copy of valid residence permits",
+          "application_type": "SETTLEMENT",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PROOF_OF_RESIDING_IN_BOTSWANA",
+          "name": "PROOF OF RESIDING IN BOTSWANA",
+          "description": "Proof that the applicant has been in Botswana for such a period",
+          "application_type": "SETTLEMENT",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}

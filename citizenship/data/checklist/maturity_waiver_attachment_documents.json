@@ -1,0 +1,40 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "COVER_LETTER",
+          "name": "COVER LETTER",
+          "application_type": "MATURITY_PERIOD_WAIVER",
+          "description": "cover letter",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SPOUSE_SUPPORT_LETTER",
+          "name": "SPOUSE SUPPORT LETTER",
+          "application_type": "MATURITY_PERIOD_WAIVER",
+          "description": "Support letter from spouse",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "ADDITIONAL_DOCUMENTS",
+          "name": "ADDITIONAL DOCUMENTS",
+          "application_type": "MATURITY_PERIOD_WAIVER",
+          "description": "Additional documents",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}
