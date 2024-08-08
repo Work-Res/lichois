@@ -12,7 +12,8 @@ class Meeting(BaseUuidModel):
     date = models.DateField(default=timezone.now)
     time = models.TimeField()
     location = models.CharField(max_length=200)
-    agenda = models.TextField()
+    agenda = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     board = models.ForeignKey(Board, related_name='board_meetings', on_delete=models.CASCADE)  # New field
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Draft')
     start_date = models.DateTimeField()
