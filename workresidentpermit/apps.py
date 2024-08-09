@@ -28,6 +28,4 @@ class AppConfig(BaseAppConfig):
         from board.signals import create_application_decision
 
         logger.info("Imported create_application_decision")
-        from .signals import create_production_permit_record
-
         logger.info("Imported create_production_permit_record")

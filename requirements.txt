@@ -20,7 +20,6 @@ drf-yasg
 setuptools~=68.2.0
 django-cors-headers
 rules~=3.3
-
 django-auth-ldap
 django-cors-headers
 django-roles-access
@@ -39,3 +38,4 @@ rich~=13.7.1
 django-q
 whitenoise
 python-decouple
+docx2pdf

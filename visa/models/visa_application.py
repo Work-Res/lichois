@@ -21,7 +21,7 @@ class VisaApplication(ApplicationBaseModel):
 
     requested_valid_to = models.DateField()  # validators=[date_not_past]
 
-    return_visa_to = models.CharField(max_length=100)
+    return_visa_to = models.DateField()
 
     return_valid_until = models.DateField()  # validators=[date_not_past]
 

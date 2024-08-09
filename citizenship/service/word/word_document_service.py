@@ -6,8 +6,8 @@ from datetime import datetime
 
 
 class WordDocumentService:
-    """Responsible for generating a word document for assessment case summary.
-    """
+    """Responsible for generating a word document for assessment case summary."""
+
     def __init__(self, title, paragraphs, table_data, image_path=None):
         self.document = Document()
         self.title = title
@@ -33,8 +33,10 @@ class WordDocumentService:
     def _add_table(self):
         if not self.table_data:
             return
-        table = self.document.add_table(rows=len(self.table_data), cols=len(self.table_data[0]))
-        table.style = 'Table Grid'
+        table = self.document.add_table(
+            rows=len(self.table_data), cols=len(self.table_data[0])
+        )
+        table.style = "Table Grid"
         for row_idx, row in enumerate(self.table_data):
             for col_idx, cell_text in enumerate(row):
                 table.cell(row_idx, col_idx).text = cell_text
@@ -49,7 +51,11 @@ class WordDocumentService:
             header = section.header
             if logo_path:
                 logo_full_path = os.path.join(settings.MEDIA_ROOT, logo_path)
-                paragraph = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
+                paragraph = (
+                    header.paragraphs[0]
+                    if header.paragraphs
+                    else header.add_paragraph()
+                )
                 run = paragraph.add_run()
                 run.add_picture(logo_full_path, width=Inches(1.25))
                 paragraph.alignment = 1  # Center alignment
@@ -59,7 +65,9 @@ class WordDocumentService:
     def add_footer(self):
         for section in self.document.sections:
             footer = section.footer
-            footer_paragraph = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+            footer_paragraph = (
+                footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+            )
 
             # Add date to the left
             date_run = footer_paragraph.add_run(datetime.now().strftime("%d/%m/%Y"))

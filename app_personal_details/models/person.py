@@ -11,37 +11,58 @@ class Person(ApplicationBaseModel):
 
     last_name = models.CharField(max_length=190)
 
-    middle_name = models.CharField(
-        max_length=190,
-        blank=True,
-        null=True)
+    middle_name = models.CharField(max_length=190, blank=True, null=True)
 
-    maiden_name = models.CharField(
-        max_length=190,
-        blank=True,
-        null=True)
+    maiden_name = models.CharField(max_length=190, blank=True, null=True)
 
     marital_status = models.CharField(
         max_length=50,
-        choices=MARITAL_STATUS)
+        blank=True,
+        null=True,
+        choices=MARITAL_STATUS,
+    )
 
     dob = models.DateField(
+        blank=True,
+        null=True,
         # validations=date_not_future TODO: add validation (more than 18 years only )
     )
 
-    country_birth = models.CharField(max_length=190)
+    country_birth = models.CharField(
+        max_length=190,
+        blank=True,
+        null=True,
+    )
 
-    place_birth = models.CharField(max_length=190)
+    place_birth = models.CharField(
+        max_length=190,
+        blank=True,
+        null=True,
+    )
 
-    gender = models.CharField(max_length=6, choices=GENDER)
+    gender = models.CharField(
+        max_length=6,
+        choices=GENDER,
+        blank=True,
+        null=True,
+    )
 
-    occupation = models.CharField(max_length=190)
+    occupation = models.CharField(
+        max_length=190,
+        blank=True,
+        null=True,
+    )
 
-    qualification = models.CharField(max_length=190)
+    qualification = models.CharField(
+        max_length=190,
+        blank=True,
+        null=True,
+    )
 
     person_type = models.CharField(
         max_length=150,
-        choices=PERSON_TYPE
+        choices=PERSON_TYPE,
+        default="applicant",
     )
 
     decreased = models.BooleanField(default=False)
@@ -50,5 +71,5 @@ class Person(ApplicationBaseModel):
         return f"{self.first_name} {self.last_name} - {self.person_type}"
 
     class Meta:
-        verbose_name = 'Personal Details'
-        verbose_name_plural = 'Personal Details'
+        verbose_name = "Personal Details"
+        verbose_name_plural = "Personal Details"

@@ -55,13 +55,3 @@ class SpecialPermitIdentifierExemptionCertificate(Identifier):
     @staticmethod
     def process_name():
         return WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value
-
-
-class SpecialPermitIdentifierTravelCertificate(Identifier):
-    template = "{identifier_type}{address_code}{dob}{sequence}"
-    label = "workresidentpermit"
-    identifier_type = "SP"
-
-    @staticmethod
-    def process_name():
-        return WorkResidentPermitApplicationTypeEnum.TRAVEL_CERTIFICATE.value

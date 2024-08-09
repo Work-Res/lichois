@@ -2,37 +2,30 @@ from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
-from app.models import ApplicationStatus
 from app.utils import ApplicationProcesses
 from app.utils.system_enums import ApplicationStatusEnum
-from app_personal_details.models import Passport, Person
+from app_personal_details.models import Person
 from app_address.models import ApplicationAddress, Country
-from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 
 from travel.models import ApplicantRelative, TravelCertificate
-from workresidentpermit.models import (
-    EmergencyPermit,
-    ExemptionCertificate,
-    PermitAppeal,
-)
-from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
+from ...utils import TravelCertificateEnum
 
 
 class Command(BaseCommand):
-    help = "Populate data for Populate data for Emergency & Exemption model"
+    help = "Populate data for Populate data for Travel certificate"
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ApplicationProcesses.SPECIAL_PERMIT.value
+        process_name = ApplicationProcesses.TRAVEL_CERTIFICATE.value
         self.stdout.write(self.style.SUCCESS(f"Process name {process_name}"))
         for _ in range(50):
             fname = faker.unique.first_name()
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    application_type=WorkResidentPermitApplicationTypeEnum.TRAVEL_CERTIFICATE.value,
+                    application_type=TravelCertificateEnum.TRAVEL_CERTIFICATE.value,
                     process_name=process_name,
                     applicant_identifier=(
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
@@ -92,15 +85,25 @@ class Command(BaseCommand):
                     private_bag=faker.building_number(),
                 )
 
+                father, _ = Person.objects.get_or_create(
+                    first_name=faker.first_name(),
+                    last_name=faker.last_name(),
+                )
+                mother, _ = Person.objects.get_or_create(
+                    first_name=faker.first_name(),
+                    last_name=faker.last_name(),
+                )
                 TravelCertificate.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
                     kraal_head_name=faker.name(),
                     chief_name=faker.name(),
                     clan_name=faker.name(),
-                    applicant_signature=faker.name(),
-                    issuing_authority_signature=faker.name(),
-                    date=faker.date_this_century(),
+                    issuing_authority=faker.name(),
+                    names_of_other_relatives=faker.name(),
+                    date_issued=faker.date_this_century(),
+                    mother=mother,
+                    father=father,
                 )
                 address = ApplicationAddress.objects.create(
                     po_box=faker.address(),

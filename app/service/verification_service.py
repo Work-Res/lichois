@@ -11,9 +11,11 @@ from ..api.serializers import ApplicationVerificationSerializer
 class VerificationService(BaseDecisionService):
 
     def __init__(self, verification_request: ApplicationVerificationRequestDTO):
-        workflow = OfficerTransactionData(
-            verification_decision=verification_request.status.upper()
-        )
+        workflow = None
+        if verification_request.status:
+            workflow = OfficerTransactionData(
+                verification_decision=verification_request.status.upper()
+            )
 
         super().__init__(
             request=verification_request,
