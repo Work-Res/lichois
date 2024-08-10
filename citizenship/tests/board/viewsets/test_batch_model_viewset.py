@@ -140,6 +140,54 @@ class BatchModelViewSetTest(BaseSetup):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
+    def test_declare_conflict_of_interest(self):
+        # Set up the required objects
+        meeting_session = self.create_meeting_session(self.meeting)
+        batch = self.create_batch(self.meeting)
+
+        # Add applications to the batch
+        version = self.create_new_application()
+        url = reverse('citizenship:batch-add-applications', args=[batch.id])
+        data = {
+            'document_numbers': [
+                self.application.application_document.document_number,
+                version.application.application_document.document_number
+            ],
+            'session_id': meeting_session.id
+        }
+        self.client.post(url, data, format='json')
+        # Create a Conflict of Intereset allowable duration
+        start_time = timezone.now() - timedelta(hours=1)
+        end_time = timezone.now() + timedelta(hours=1)
+        conflict_of_interest_duration = ConflictOfInterestDuration.objects.create(
+            meeting_session=meeting_session,
+            start_time=start_time,
+            end_time=end_time,
+            status='open'
+        )
+
+        # Declare a conflict of interest
+        url = reverse('citizenship:batch-declare-conflict-of-interest', args=[batch.id])
+        attendee = Attendee.objects.get(meeting=self.meeting, member=self.member)
+        data = {
+            'attendee_id': attendee.id,
+            'document_number': self.application.application_document.document_number,
+            'has_conflict': True,
+            'meeting_session_id': meeting_session.id,
+            'client_relationship': 'Friend',
+            'interest_description': 'Close friend of the client'
+        }
+        response = self.client.post(url, data, format='json')
+
+        # Check the response and the result in the database
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['detail'], 'Conflict of interest declared successfully')
+
+        conflict = ConflictOfInterest.objects.get(attendee=attendee)
+        self.assertTrue(conflict.has_conflict)
+        self.assertEqual(conflict.client_relationship, 'Friend')
+        self.assertEqual(conflict.interest_description, 'Close friend of the client')
+
     def test_declare_no_conflict_for_all(self):
         meeting_session = self.create_meeting_session(self.meeting)
         batch = self.create_batch(self.meeting)

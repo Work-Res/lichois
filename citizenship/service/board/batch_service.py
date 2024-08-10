@@ -152,7 +152,8 @@ class BatchService:
 
     @staticmethod
     @transaction.atomic
-    def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False, meeting_session=None):
+    def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False, meeting_session=None,
+                                     client_relationship=None, interest_description=None):
         try:
             print("document_number: ", document_number)
             attendee = Attendee.objects.get(id=attendee_id)
@@ -162,7 +163,9 @@ class BatchService:
                 attendee=attendee,
                 application=application,
                 has_conflict=has_conflict,
-                meeting_session=meeting_session
+                meeting_session=meeting_session,
+                client_relationship=client_relationship,
+                interest_description=interest_description
             )
             if created:
                 logger.info(f'Conflict of interest declared: {created}')

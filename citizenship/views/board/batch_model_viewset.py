@@ -94,13 +94,17 @@ class BatchModelViewSet(viewsets.ModelViewSet):
         document_number = request.data.get('document_number')
         has_conflict = request.data.get('has_conflict', False)
         meeting_session_id = request.data.get('meeting_session_id')
+        client_relationship = request.data.get('client_relationship')
+        interest_description = request.data.get('interest_description')
 
         try:
             BatchService.declare_conflict_of_interest(
                 attendee_id=attendee_id,
                 document_number=document_number,
                 has_conflict=has_conflict,
-                meeting_session=meeting_session_id
+                meeting_session=meeting_session_id,
+                client_relationship=client_relationship,
+                interest_description=interest_description
             )
             return Response({'detail': 'Conflict of interest declared successfully'}, status=status.HTTP_201_CREATED)
         except ValidationError as e:
