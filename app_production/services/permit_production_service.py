@@ -7,7 +7,6 @@ from django.db import transaction
 from app.api.common.web import APIMessage, APIResponse
 from app_checklist.models import SystemParameter
 from app_personal_details.models import Permit
-from workresidentpermit.exceptions import PermitProductionException
 
 from ..api.dto import PermitRequestDTO
 

@@ -4,7 +4,9 @@ from django.test import TestCase
 from datetime import date
 
 from app_production.handlers.common import ProductionConfig, GenericProductionContext
-from app_production.handlers.postsave.upload_document_production_handler import UploadDocumentProductionHandler
+from app_production.handlers.postsave.upload_document_production_handler import (
+    UploadDocumentProductionHandler,
+)
 from app_production.models import ProductionAttachmentDocument
 
 
@@ -34,26 +36,39 @@ class TravelWorkTemplate(TestCase):
             "document_number": "TRC/010000",
             "date": "09/08/2024",
             "original_home_address": "",
-            "year": "2024"
+            "year": "2024",
         }
 
     def test_populate_travel_certificate_template(self):
-        """Check if the travel certificate is create as per configuration """
+        """Check if the travel certificate is create as per configuration"""
         self.context = {key: value.upper() for key, value in self.context.items()}
-        template_path = os.path.join("travel", "data", "production", "templates", "travel_certificate_template.docx")
+        template_path = os.path.join(
+            "travel",
+            "data",
+            "production",
+            "templates",
+            "travel_certificate_template.docx",
+        )
         document_output_path_word = os.path.join(
-            "travel", "tests", "outputs", "travel_certificate_output.docx")
+            "travel", "tests", "outputs", "travel_certificate_output.docx"
+        )
         document_output_path_pdf = os.path.join(
-            "travel", "tests", "outputs", "travel_certificate_output.pdf")
+            "travel", "tests", "outputs", "travel_certificate_output.pdf"
+        )
 
-        config = ProductionConfig(template_path=template_path, document_output_path=document_output_path_word,
-                                  document_output_path_pdf=document_output_path_pdf,
-                                  is_required=True)
+        config = ProductionConfig(
+            template_path=template_path,
+            document_output_path=document_output_path_word,
+            document_output_path_pdf=document_output_path_pdf,
+            is_required=True,
+        )
         context = GenericProductionContext()
         context.context = lambda: self.context
 
         handler = UploadDocumentProductionHandler()
         handler.execute(config_cls=config, production_context=context)
-        production_attachments = ProductionAttachmentDocument.objects.get(document_number="TRC/010000")
+        production_attachments = ProductionAttachmentDocument.objects.get(
+            document_number="TRC/010000"
+        )
 
         self.assertIsNotNone(production_attachments)

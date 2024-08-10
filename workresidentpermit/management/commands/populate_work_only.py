@@ -1,118 +1,39 @@
 from random import randint
 
-from django.core.management.base import BaseCommand
+from base_module.models import Child, Spouse
 from django.db.transaction import atomic
 from faker import Faker
 
-from app.api import NewApplicationDTO
-from app.classes import ApplicationService
-from app.utils import ApplicationProcesses
-from app.utils.system_enums import ApplicationStatusEnum
-from app_address.models import ApplicationAddress, Country
-from app_contact.models import ApplicationContact
-from app_personal_details.models import Passport, Person
-from workresidentpermit.models import WorkPermit
+from app.utils.system_enums import ApplicationProcesses
+from lichois.management.base_command import CustomBaseCommand
+from workresidentpermit.model_mixins.employer_model_mixin import EmployerModelMixin
+from workresidentpermit.models import ResidencePermit, WorkPermit
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
-class Command(BaseCommand):
-    help = "Populate data for Work & Res Application model"
+class Command(CustomBaseCommand):
+    help = "Populate data for Work Application model"
+    application_type = None
+    process_name = ApplicationProcesses.WORK_PERMIT.value
 
     def handle(self, *args, **options):
         faker = Faker()
-        work_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_ONLY.name
-        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_RENEWAL.name
-        replacement_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_REPLACEMENT.name
+        work_res_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
         )
-        for _ in range(50):
-            fname = faker.unique.first_name()
-            lname = faker.unique.last_name()
-            with atomic():
-                new_app = NewApplicationDTO(
-                    process_name=ApplicationProcesses.WORK_PERMIT.name,
-                    application_type=faker.random_element(
-                        elements=(work_permit, renewal_permit, replacement_permit)
-                    ),
-                    applicant_identifier=(
-                        f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
-                        f"{randint(1000, 9999)}-{randint(1000, 9999)}"
-                    ),
-                    status=ApplicationStatusEnum.VERIFICATION.value,
-                    dob="1990-06-10",
-                    work_place=randint(1000, 9999),
-                    full_name=f"{fname} {lname}",
-                    applicant_type=faker.random_element(
-                        elements=("employee", "investor")
-                    ),
-                )
+        renewal_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
+        )
+        replacement_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
+        )
+        with atomic():
 
-                app = ApplicationService(new_application_dto=new_app)
-                version = app.create_application()
-                Person.objects.get_or_create(
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    first_name=fname,
-                    last_name=lname,
-                    dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
-                    middle_name=faker.first_name(),
-                    marital_status=faker.random_element(
-                        elements=("single", "married", "divorced")
-                    ),
-                    country_birth=faker.country(),
-                    place_birth=faker.city(),
-                    gender=faker.random_element(elements=("male", "female")),
-                    occupation=faker.job(),
-                    qualification=faker.random_element(
-                        elements=("diploma", "degree", "masters", "phd")
-                    ),
+            for _ in range(50):
+                self.application_type = faker.random_element(
+                    elements=(work_res_permit, renewal_permit, replacement_permit)
                 )
-                country = (Country.objects.create(name=faker.country()),)
-                # temp = Country.objects.filter(name=faker)
-                ApplicationAddress.objects.get_or_create(
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=faker.address(),
-                    apartment_number=faker.building_number(),
-                    plot_number=faker.building_number(),
-                    address_type=faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    country__id=country[0].id,
-                    status=faker.random_element(elements=("active", "inactive")),
-                    city=faker.city(),
-                    street_address=faker.street_name(),
-                    private_bag=faker.building_number(),
-                )
-
-                ApplicationContact.objects.get_or_create(
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    contact_type=faker.random_element(
-                        elements=("cell", "email", "fax", "landline")
-                    ),
-                    contact_value=faker.phone_number(),
-                    preferred_method_comm=faker.boolean(chance_of_getting_true=50),
-                    status=faker.random_element(elements=("active", "inactive")),
-                    description=faker.text(),
-                )
-
-                Passport.objects.get_or_create(
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    passport_number=faker.passport_number(),
-                    date_issued=faker.date_this_century(),
-                    expiry_date=faker.date_this_century(),
-                    place_issued=faker.city(),
-                    nationality=faker.country(),
-                    photo=faker.image_url(),
-                )
+                app, version = self.create_basic_data()
 
                 WorkPermit.objects.get_or_create(
                     application_version=version,
@@ -150,4 +71,27 @@ class Command(BaseCommand):
                     duration=faker.random_int(min=1, max=10),
                     names_of_trainees=faker.first_name(),
                 )
+
+                Child.objects.get_or_create(
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                    first_name=faker.first_name(),
+                    last_name=faker.last_name(),
+                    age=randint(1, 18),
+                    gender=faker.random_element(elements=("male", "female")),
+                    is_applying_residence=faker.random_element(elements=("yes", "no")),
+                )
+
+                Spouse.objects.get_or_create(
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                    first_name=faker.first_name(),
+                    last_name=faker.last_name(),
+                    middle_name=faker.first_name(),
+                    maiden_name=faker.last_name(),
+                    country=faker.country(),
+                    dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
+                    place_birth=faker.city(),
+                )
+
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))

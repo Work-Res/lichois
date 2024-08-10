@@ -1,8 +1,6 @@
-
-
 class WorkResidentPermitApplication:
-    """A wrapper class for work resident permit application details API model.
-    """
+    """A wrapper class for work resident permit application details API model."""
+
     def __init__(self):
         self._personal_details = None
         self._address = None
@@ -99,11 +97,11 @@ class WorkResidentPermitApplication:
     @resident_permit.setter
     def resident_permit(self, value):
         self._resident_permit = value
-    
+
     @property
     def work_permit(self):
         return self._work_permit
-    
+
     @work_permit.setter
     def work_permit(self, value):
         self._work_permit = value
