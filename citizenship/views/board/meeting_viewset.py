@@ -14,11 +14,13 @@ from citizenship.models import Meeting
 from citizenship.service.board import MeetingService
 
 from citizenship.utils.parse_datetime_with_timezone import parse_datetime_with_timezone
+from citizenship.views.board.filter import MeetingFilter
 
 
 class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
+    filterset_class = MeetingFilter
     pagination_class = StandardResultsSetPagination
 
     def create(self, request, *args, **kwargs):
