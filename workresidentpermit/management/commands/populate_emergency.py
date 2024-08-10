@@ -128,36 +128,21 @@ class Command(BaseCommand):
                     photo=faker.image_url(),
                 )
 
-                if new_app.application_type == "EMERGENCY_PERMIT":
-                    EmergencyPermit.objects.get_or_create(
-                        document_number=app.application_document.document_number,
-                        application_version=version,
-                        nature_emergency=faker.random_element(
-                            elements=("fire", "flood", "earthquake", "tsunami")
-                        ),
-                        emergency_period=faker.random_element(
-                            elements=("1 - 14 days", "15 - 90 days", "6 months")
-                        ),
-                        job_requirements=faker.job(),
-                        services_provided=faker.text(),
-                        chief_authorization=faker.name(),
-                        capacity=faker.random_element(
-                            elements=("full-time", "part-time", "contract", "volunteer")
-                        ),
-                    )
-                else:
-                    ExemptionCertificate.objects.get_or_create(
-                        document_number=app.application_document.document_number,
-                        application_version=version,
-                        business_name=faker.company(),
-                        employment_capacity=faker.job(),
-                        proposed_period=randint(1, 12),
-                        status=faker.random_element(
-                            elements=("approved", "rejected", "pending")
-                        ),
-                        applicant_signature=faker.text(),
-                        application_date=faker.date_this_century(),
-                        commissioner_signature=faker.name(),
-                    )
+                EmergencyPermit.objects.get_or_create(
+                    document_number=app.application_document.document_number,
+                    application_version=version,
+                    nature_emergency=faker.random_element(
+                        elements=("fire", "flood", "earthquake", "tsunami")
+                    ),
+                    emergency_period=faker.random_element(
+                        elements=("1 - 14 days", "15 - 90 days", "6 months")
+                    ),
+                    job_requirements=faker.job(),
+                    services_provided=faker.text(),
+                    chief_authorization=faker.name(),
+                    capacity=faker.random_element(
+                        elements=("full-time", "part-time", "contract", "volunteer")
+                    ),
+                )
 
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))

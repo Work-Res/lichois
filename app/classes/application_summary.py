@@ -131,5 +131,7 @@ class ApplicationSummary:
             "app.Application",
             "app.ApplicationVerification",
             "app_personal_details.Education",
+            "base_module.Spouse",
+            "base_module.Child",
         ]
         return generic_labels + self.app_labels

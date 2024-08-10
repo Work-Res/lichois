@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from ..models import Spouse
-from ..api.serializers import SpouseSerializer
+from base_module.models import Spouse
+from base_module.serializers import SpouseSerializer
 
 
 class SpouseCreateListView(viewsets.ModelViewSet):
