@@ -81,15 +81,11 @@ class WorkResidentPermitData(object):
             pass
 
     def child(self):
-        child = Child.objects.filter(
-            work_resident_permit__document_number=self.document_number
-        )
+        child = Child.objects.filter(document_number=self.document_number)
         return child
 
     def spouse(self):
-        spouse = Spouse.objects.filter(
-            work_resident_permit__document_number=self.document_number
-        )
+        spouse = Spouse.objects.filter(document_number=self.document_number)
         return spouse
 
     def contacts(self):
