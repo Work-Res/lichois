@@ -20,7 +20,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ApplicationProcesses.SPECIAL_PERMIT.name
+        process_name = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value
+        )
         self.stdout.write(self.style.SUCCESS(f"Process name {process_name}"))
         # ApplicationStatus.objects.get_or_create(
         # 	code=ApplicationStatusEnum.NEW.value,
@@ -44,12 +46,7 @@ class Command(BaseCommand):
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    application_type=faker.random_element(
-                        elements=(
-                            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.name,
-                            WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_APPEAL.name,
-                        )
-                    ),
+                    application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value,
                     process_name=process_name,
                     applicant_identifier=(
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
