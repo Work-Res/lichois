@@ -56,7 +56,7 @@ class BatchSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class BatchApplicationSerializer(serializers.ModelSerializer):
+class BatchApplicationCitizenshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = BatchApplication
         fields = '__all__'

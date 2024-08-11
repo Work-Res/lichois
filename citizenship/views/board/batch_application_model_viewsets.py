@@ -2,14 +2,14 @@ from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
 from app.api.common.pagination import StandardResultsSetPagination
-from citizenship.api.serializers.board import BatchApplicationSerializer
+from citizenship.api.serializers.board import BatchApplicationCitizenshipSerializer
 from citizenship.models import BatchApplication
 from citizenship.views.board.filter import BatchApplicationFilter
 
 
 class BatchApplicationViewSet(viewsets.ModelViewSet):
     queryset = BatchApplication.objects.all()
-    serializer_class = BatchApplicationSerializer
+    serializer_class = BatchApplicationCitizenshipSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = BatchApplicationFilter
     pagination_class = StandardResultsSetPagination
