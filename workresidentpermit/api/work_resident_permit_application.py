@@ -17,6 +17,7 @@ class WorkResidentPermitApplication:
         self._security_clearance = None
         self._board_decision = None
         self._application_verification = None
+        self._education = None
 
     @property
     def security_clearance(self):
