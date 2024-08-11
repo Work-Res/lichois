@@ -10,13 +10,13 @@ class SpecialPermitIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value
+        return WorkResidentPermitApplicationTypeEnum.SPECIAL_PERMIT.value
 
 
 class SpecialPermitIdentifierCancellation(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"
-    identifier_type = "SP"
+    identifier_type = "CA"
 
     @staticmethod
     def process_name():
@@ -28,7 +28,7 @@ class SpecialPermitIdentifierCancellation(Identifier):
 class SpecialPermitIdentifierRenewal(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"
-    identifier_type = "SP"
+    identifier_type = "RW"
 
     @staticmethod
     def process_name():
@@ -38,7 +38,7 @@ class SpecialPermitIdentifierRenewal(Identifier):
 class SpecialPermitIdentifierEmergency(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"
-    identifier_type = "SP"
+    identifier_type = "EM"
 
     @staticmethod
     def process_name():
@@ -50,7 +50,7 @@ class SpecialPermitIdentifierEmergency(Identifier):
 class SpecialPermitIdentifierExemptionCertificate(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"
-    identifier_type = "SP"
+    identifier_type = "EX"
 
     @staticmethod
     def process_name():
