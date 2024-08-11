@@ -6,7 +6,7 @@ from .admin_site import citizenship_admin
 from .views.board import (BoardModelViewSet, MeetingViewSet, ScoreSheetViewSet, MeetingSessionViewSet, \
                           ConflictOfInterestViewSet, ConflictOfInterestDurationViewSet, BatchModelViewSet,
                           InterviewResponseViewSet, \
-                          AttendeeViewSet, BoardMemberViewSet)
+                          AttendeeViewSet, BoardMemberViewSet, BatchApplicationViewSet)
 
 app_name = 'citizenship'
 
@@ -21,6 +21,7 @@ router.register(r'citizenship-batches', BatchModelViewSet, basename='batch')
 router.register(r'citizenship-interview-responses', InterviewResponseViewSet)
 router.register(r'citizenship-meeting-attendees', AttendeeViewSet)
 router.register(r'citizenship-boardmembers', BoardMemberViewSet),
+router.register(r'citizenship-batch-applications', BatchApplicationViewSet)
 
 urlpatterns = [
     path('admin/', citizenship_admin.urls),
