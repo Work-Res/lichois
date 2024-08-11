@@ -14,7 +14,7 @@ rest-swagger
 django-rest-swagger
 gunicorn
 git+https://github.com/Work-Res/identifier.git
-git+https://github.com/Work-Res/base.git
+git+https://github.com/Work-Res/base-module.git
 haystack~=0.42
 django-haystack~=3.2.1
 drf-yasg
@@ -40,3 +40,4 @@ django-q
 whitenoise
 python-decouple
 docx2pdf
+python-docx
