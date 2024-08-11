@@ -1,5 +1,6 @@
 from identifier.identifier import Identifier
 
+from app.utils.system_enums import ApplicationProcesses
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
@@ -10,7 +11,7 @@ class SpecialPermitIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return WorkResidentPermitApplicationTypeEnum.SPECIAL_PERMIT.value
+        return ApplicationProcesses.SPECIAL_PERMIT.value
 
 
 class SpecialPermitIdentifierCancellation(Identifier):
