@@ -11,3 +11,4 @@ from .new_assessment_investor_serializer import NewAssessmentInvestorSerializer
 from .renewal_assessment_investor_assessment import (
     RenewalAssessmentInvestorSerializer,
 )
+from .summary_assessment_serializer import SummaryAssessmentSerializer
