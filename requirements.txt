@@ -40,3 +40,4 @@ django-q
 whitenoise
 python-decouple
 docx2pdf
+python-docx
