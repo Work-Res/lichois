@@ -9,3 +9,4 @@ from .assessment_emergency import AssessmentEmergency
 from .parent_manager import ParentModelManager
 from .blue_card_assessment import BlueCardAssessment
 from .dependant_assessment import DependantAssessment
+from .summary_assessment import SummaryAssessment
