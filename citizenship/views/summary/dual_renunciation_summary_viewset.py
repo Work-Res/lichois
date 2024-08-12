@@ -7,14 +7,12 @@ from app.classes.application_summary import ApplicationSummary
 
 def get_app_labels():
     return [
-        # "citizenship.CertificateOfOrigin",
-        # "citizenship.RenunciationOfCitizenship",
-        # "citizenship.OathOfAllegiance"
+        "app_oath.OathDocument",
+        "app_oath.Declarant"
     ]
 
 
 class DualRenunciationSummaryViewSet(viewsets.ModelViewSet):
-
 
     @action(
         detail=False,

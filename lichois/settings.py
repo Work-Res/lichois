@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "identifier.apps.AppConfig",
     "citizenship",
     "app_oath",
+    "app_information_requests",
     # "haystack",
     "rules.apps.AutodiscoverRulesConfig",
     "rest_framework",
