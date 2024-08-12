@@ -1,6 +1,6 @@
 import django_filters
 
-from board.models import Board
+from citizenship.models import Board
 
 
 class BoardFilter(django_filters.FilterSet):
