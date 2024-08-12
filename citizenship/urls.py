@@ -8,6 +8,8 @@ from .views.board import (BoardModelViewSet, MeetingViewSet, ScoreSheetViewSet, 
                           InterviewResponseViewSet, \
                           AttendeeViewSet, BoardMemberViewSet, BatchApplicationViewSet)
 
+from .views.board.interview_viewset import InterviewViewSet
+
 app_name = 'citizenship'
 
 router = DefaultRouter()
@@ -22,6 +24,8 @@ router.register(r'citizenship-interview-responses', InterviewResponseViewSet)
 router.register(r'citizenship-meeting-attendees', AttendeeViewSet)
 router.register(r'citizenship-boardmembers', BoardMemberViewSet),
 router.register(r'citizenship-batch-applications', BatchApplicationViewSet)
+router.register(r'citizenship-interviews', InterviewViewSet, basename='interview')
+
 
 urlpatterns = [
     path('admin/', citizenship_admin.urls),

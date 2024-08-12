@@ -178,3 +178,13 @@ class InterviewResponseSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class InterviewSerializer(serializers.ModelSerializer):
+
+    meeting_session = MeetingSessionSerializer()
+
+    class Meta:
+        model = Interview
+        fields = '__all__'
+

@@ -5,3 +5,4 @@ from .board_member_filter import BoardMemberFilter
 from .batch_application_filter import BatchApplicationFilter
 from .board_filter import BoardFilter
 from .interview_response_filter import InterviewResponseFilter
+from .interview_filter import InterviewFilter
