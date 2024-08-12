@@ -116,6 +116,8 @@ class BatchModelViewSetTest(BaseSetup):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        application_batchs = BatchApplication.objects.all()
+        self.assertEqual(application_batchs.count(), 2)
 
     def test_remove_application(self):
         meeting_session = self.create_meeting_session(self.meeting)
