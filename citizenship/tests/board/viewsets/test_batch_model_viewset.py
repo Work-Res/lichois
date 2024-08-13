@@ -172,7 +172,6 @@ class BatchModelViewSetTest(BaseSetup):
         url = reverse('citizenship:batch-declare-conflict-of-interest', args=[batch.id])
         attendee = Attendee.objects.get(meeting=self.meeting, member=self.member)
         data = {
-            'attendee_id': attendee.id,
             'document_number': self.application.application_document.document_number,
             'has_conflict': True,
             'meeting_session_id': meeting_session.id,

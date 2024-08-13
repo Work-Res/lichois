@@ -65,7 +65,7 @@ class BatchModelViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def declare_no_conflict_for_all(self, request, pk=None):
-        attendee_id = request.data.get('attendee_id')
+        attendee_id = request.user
         meeting_session_id = request.data.get('meeting_session_id')
         try:
             BatchService.declare_no_conflict_for_all(
@@ -90,7 +90,7 @@ class BatchModelViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def declare_conflict_of_interest(self, request, pk=None):
-        attendee_id = request.data.get('attendee_id')
+        attendee_id = request.user
         document_number = request.data.get('document_number')
         has_conflict = request.data.get('has_conflict', False)
         meeting_session_id = request.data.get('meeting_session_id')

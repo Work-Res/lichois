@@ -204,8 +204,7 @@ class BatchService:
     def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False, meeting_session=None,
                                      client_relationship=None, interest_description=None):
         try:
-            print("document_number: ", document_number)
-            attendee = Attendee.objects.get(id=attendee_id)
+            attendee = Attendee.objects.get(member__user=attendee_id) #Fixme refactor attendee_id to user
             application = Application.objects.get(
                 application_document__document_number=document_number)
             created = ConflictOfInterest.objects.create_conflict(
@@ -265,7 +264,7 @@ class BatchService:
     @transaction.atomic
     def declare_no_conflict_for_all(attendee_id, batch_id,  meeting_session=None):
         try:
-            attendee = Attendee.objects.get(id=attendee_id)
+            attendee = Attendee.objects.get(member__user=attendee_id)
             batch_applications = BatchApplication.objects.filter(batch_id=batch_id)
             meeting_session = MeetingSession.objects.get(id=meeting_session)
             logger.info(f"Batch applications found: {batch_applications}")
