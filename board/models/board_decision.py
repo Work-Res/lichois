@@ -14,8 +14,7 @@ class BoardDecision(BaseUuidModel):
     outcome_reason = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.assessed_application}'
+        return f"{self.assessed_application}"
 
     class Meta:
-        app_label = 'board'
-
+        app_label = "board"
