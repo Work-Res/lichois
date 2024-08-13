@@ -79,29 +79,6 @@ class BatchService:
             logger.error(f'Error adding application to batch: {e}')
             raise
 
-    def set_application_batched(self, document_number: str, batched: bool):
-        """
-        Sets the `batched` field to True for a specific Application.
-
-        Args:
-            application_id (int): The ID of the Application to update.
-
-        Returns:
-            tuple: A tuple containing a boolean indicating success, and a message.
-        """
-        try:
-            application = Application.objects.get(application_document__document_number=document_number)
-            application.batched = batched
-            application.save()
-            logger.info(f"Application {document_number} batched successfully.")
-            return True, "Batch status updated to True"
-        except Application.DoesNotExist:
-            logger.error(f"Application {document_number} not found.")
-            return False
-        except Exception as e:
-            logger.exception(f"An unexpected error occurred while updating application {document_number}: {e}")
-            return False
-
     @staticmethod
     @transaction.atomic
     def add_applications_to_batch(batch_id, document_numbers, session_id):
@@ -152,7 +129,7 @@ class BatchService:
             document_number = application.application_document.document_number
             BatchService.validate_application_eligibility(application)
             BatchService.create_batch_application(batch, session, application)
-            BatchService.set_application_batched(document_number)
+            BatchService.set_application_batched(document_number, True)
 
     @staticmethod
     def validate_application_eligibility(application):
@@ -176,10 +153,10 @@ class BatchService:
             raise
 
     @staticmethod
-    def set_application_batched(document_number):
+    def set_application_batched(document_number, batched):
         try:
             application = Application.objects.get(application_document__document_number=document_number)
-            application.batched = True
+            application.batched = batched
             application.save()
             logger.info(f"Application {document_number} batched successfully.")
         except Application.DoesNotExist:
@@ -192,7 +169,8 @@ class BatchService:
             batch_application = BatchApplication.objects.get(batch_id=batch_id, application_id=application_id)
             batch_application.delete()
             logger.info(f'Application {application_id} removed from batch {batch_id}')
-            BatchService.set_application_batched(batch_application.application.application_document.document_number)
+            BatchService.set_application_batched(batch_application.application.application_document.document_number,
+                                                 False)
         except BatchApplication.DoesNotExist:
             logger.error(f'BatchApplication does not exist for batch {batch_id} and application {application_id}')
             raise ValidationError("The application is not part of the batch.")
