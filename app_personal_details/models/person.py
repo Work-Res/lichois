@@ -65,7 +65,7 @@ class Person(ApplicationBaseModel):
         default="applicant",
     )
 
-    decreased = models.BooleanField(default=False)
+    deceased = models.BooleanField(default=False)
 
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
