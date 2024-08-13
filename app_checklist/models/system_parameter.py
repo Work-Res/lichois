@@ -25,7 +25,8 @@ class SystemParameter(BaseUuidModel):
     valid_to = models.DateField(null=True, blank=True, auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        self.valid_to = date.today() + timedelta(days=365 * self.duration)
+        if not self.valid_to:
+            self.valid_to = date.today() + timedelta(days=365 * self.duration)
         return super().save(*args, **kwargs)
 
     class Meta:

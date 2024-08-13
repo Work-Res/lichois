@@ -66,6 +66,7 @@ class Application(BaseUuidModel):
         max_length=200,
         default=ApplicationDecisionEnum.PENDING.value,
     )
+
     submission_date = models.DateField(auto_now=True)
 
     def full_name(self):

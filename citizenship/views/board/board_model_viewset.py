@@ -9,11 +9,13 @@ from citizenship.api.serializers.board import BoardSerializer, MeetingSerializer
 
 from citizenship.models import Board
 from citizenship.service.board.board_service import BoardService
+from citizenship.views.board.filter import BoardFilter
 
 
 class BoardModelViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+    filterset_class = BoardFilter
     pagination_class = StandardResultsSetPagination
 
     def create(self, request):

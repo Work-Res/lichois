@@ -11,7 +11,7 @@ class RecommendationService(BaseDecisionService):
     def __init__(self, recommendation_request: RecommendationRequestDTO):
 
         workflow = RecommendationTransitionData()
-        workflow.recommendation = recommendation_request.status.upper()
+        workflow.recommendation_decision = recommendation_request.status.upper()
 
         super().__init__(
             request=recommendation_request,

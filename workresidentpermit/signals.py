@@ -57,7 +57,6 @@ def create_application_final_decision_by_security_clearance(
     sender, instance, created, **kwargs
 ):
     try:
-
         if created:
             try:
                 application = Application.objects.get(
@@ -103,12 +102,6 @@ def create_application_final_decision_by_security_clearance(
         )
 
 
-# Assuming
-# you have a
-# ConfigurationLoader
-# implementation
-
-
 def handle_application_final_decision(instance, created):
 
     json_file_name = "minister_approval_process.json"
@@ -118,9 +111,7 @@ def handle_application_final_decision(instance, created):
         file_path=json_file_path, key="MINISTER_APPROVAL_PROCESSES"
     )
     if created:
-        print(
-            "handle_application_final_decision handle_application_final_decision created"
-        )
+        print("handle_application_final_decision created")
         try:
             special_permit_decision_service = SpecialPermitDecisionService(
                 document_number=instance.document_number,
@@ -152,67 +143,3 @@ def create_application_final_decision_by_minister_decision(
     sender, instance, created, **kwargs
 ):
     handle_application_final_decision(instance, created)
-
-
-# TODO: Implement the signal receiver to create a production permit record after an application decision is saved.
-# @receiver(post_save, sender=ApplicationDecision)
-# def create_production_permit_record(sender, instance, created, **kwargs):
-# 	"""Signal receiver to create a production permit record after an application decision is saved."""
-# 	if not created:
-# 		return
-#
-# 	# Create an instance of the service and handler
-# 	permit_service = PermitProductionService(request=None)
-# 	handler = ApplicationDecisionHandler(permit_service)
-#
-# 	# Handle the application decision
-# 	handler.handle(instance)
-@receiver(post_save, sender=ApplicationDecision)
-def create_production_permit_record(sender, instance, created, **kwargs):
-    if created:
-        try:
-            if (
-                instance.proposed_decision_type.code.upper()
-                == ApplicationDecisionEnum.ACCEPTED.value.upper()
-            ):
-                request = PermitRequestDTO()
-                application = Application.objects.get(
-                    application_document__document_number=instance.document_number
-                )
-                if application.process_name.upper() in [
-                    process_name.value.upper() for process_name in ApplicationProcesses
-                ]:
-                    request.permit_type = application.process_name
-                    request.place_issue = "Gaborone"  # Pending location solution
-                    request.document_number = instance.document_number
-                    request.application_type = application.application_type
-                    permit = PermitProductionService(request=request)
-                    permit.create_new_permit()
-                else:
-                    print("Application process not found")
-                    logger.error(
-                        f"Application process not found for production permit {instance.document_number}"
-                    )
-
-        except SystemError as e:
-            logger.error(
-                "SystemError: An error occurred while creating permit for production "
-                + f"{instance.document_number}, Got {e}"
-            )
-        except Exception as ex:
-            logger.error(
-                f"An error occurred while trying to create permit for production {instance.document_number}. Got {ex}"
-            )
-
-
-# @receiver(post_save, sender=ApplicationDecision)
-# def create_production_pdf(sender, instance, created, **kwargs):
-#     try:
-#         if created:
-#             if instance.final_decision_type.code.lower() == ApplicationDecisionEnum.APPROVED.value.lower():
-#                 async_production(document_number=instance.document_number)
-#     except SystemError as e:
-#         logger.error("SystemError: An error occurred while creating production pdf ", e)
-#     except Exception as ex:
-#         logger.error(f"An error occurred while trying to creating a production pdf "
-#                      f"Got {ex} ")

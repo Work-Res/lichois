@@ -10,7 +10,8 @@ from app_personal_details.models import Passport, Permit, Person
 from board.models import BoardDecision
 
 from ..api import WorkResidentPermitApplication
-from ..models import Child, ResidencePermit, Spouse, WorkPermit
+from ..models import ResidencePermit, WorkPermit
+from base_module.models import Child, Spouse
 
 logger = logging.getLogger(__name__)
 
@@ -80,15 +81,11 @@ class WorkResidentPermitData(object):
             pass
 
     def child(self):
-        child = Child.objects.filter(
-            work_resident_permit__document_number=self.document_number
-        )
+        child = Child.objects.filter(document_number=self.document_number)
         return child
 
     def spouse(self):
-        spouse = Spouse.objects.filter(
-            work_resident_permit__document_number=self.document_number
-        )
+        spouse = Spouse.objects.filter(document_number=self.document_number)
         return spouse
 
     def contacts(self):

@@ -12,6 +12,8 @@ class ConflictOfInterest(BaseUuidModel):
     attendee = models.ForeignKey(Attendee, related_name='conflicts', on_delete=models.CASCADE)
     application = models.ForeignKey(Application, related_name='conflicts', on_delete=models.CASCADE)
     has_conflict = models.BooleanField(default=True)
+    client_relationship = models.CharField(max_length=150, null=True, blank=True)
+    interest_description = models.CharField(max_length=150, null=True, blank=True)
     declared_at = models.DateTimeField(auto_now_add=True)
     objects = ConflictOfInterestManager()
 

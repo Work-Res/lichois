@@ -1,16 +1,14 @@
-import random
 import logging
+import random
+from datetime import date, datetime
 
 from django.db import transaction
 
-from datetime import date
-
 from app.api.common.web import APIMessage, APIResponse
-from ..api.dto import PermitRequestDTO
-
-from app_personal_details.models import Permit
 from app_checklist.models import SystemParameter
-from workresidentpermit.exceptions import PermitProductionException
+from app_personal_details.models import Permit
+
+from ..api.dto import PermitRequestDTO
 
 
 class PermitProductionService:
@@ -32,18 +30,6 @@ class PermitProductionService:
         except SystemParameter.DoesNotExist:
             pass
         return self._systems_parameter
-
-    def calculated_date_duration(self):
-        """Pending for system parameter from app checklist"""
-        from app_production.services import SystemParameterService
-
-        try:
-            return SystemParameterService.calculate_next_date(self.systems_parameter())
-        except Exception as ex:
-            self.logger.error(f"Permit Production Permit Date Error, got {ex}")
-            raise PermitProductionException(
-                message=f"Failed to create permit for production Got {ex}"
-            )
 
     def _get_existing_permit(self):
         try:
@@ -71,6 +57,7 @@ class PermitProductionService:
     @transaction.atomic
     def create_new_permit(self):
         permit = self._get_existing_permit()
+        date_expiry = self.systems_parameter().valid_to
         if not permit:
             security_code = self.generate_security_number()
             Permit.objects.create(
@@ -78,10 +65,11 @@ class PermitProductionService:
                 permit_type=self.request.permit_type,
                 permit_no=self.request.permit_no,
                 date_issued=self.request.date_issued or date.today(),
-                date_expiry=self.calculated_date_duration(),
+                date_expiry=date_expiry,
                 place_issue=self.request.place_issue,
                 security_number=security_code,
             )
+            print(f"Permit created successfully for {self.request.document_number}")
 
             api_message = APIMessage(
                 code=200,
@@ -97,3 +85,8 @@ class PermitProductionService:
 
     def invalidate_existing_permit(self):
         pass
+
+    def parse_iso_date(self, date_input):
+        if not isinstance(date_input, str):
+            raise ValueError("fromisoformat: argument must be str")
+        return datetime.fromisoformat(date_input)

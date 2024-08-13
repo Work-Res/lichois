@@ -18,11 +18,12 @@ class GenericDocumentProductionHandler(ProductionHandler[ProductionConfig, Gener
 
         try:
             self.logger.debug(f"Loading template from path: {config_cls.template_path}")
-            document = WordDocumentTemplateService(template_path=config_cls.template_path)
+            word_template_service = WordDocumentTemplateService(template_path=config_cls.template_path)
 
             self.logger.debug(f"Replacing placeholders with context: {production_context.context()}")
-            document.replace_placeholders(context=production_context.context())
-            document.save_document(document, config_cls.document_output_path)
+            document = word_template_service.replace_placeholders(context=production_context.context())
+            word_template_service.save_document(document, config_cls.document_output_path)
+            #word_template_service.convert_to_pdf(config_cls.document_output_path, config_cls.document_output_path_pdf)
             self.logger.info("Document production completed successfully")
         except FileNotFoundError as e:
             self.logger.error(f"Template file not found: {e}")

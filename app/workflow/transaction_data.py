@@ -89,10 +89,12 @@ class RecommendationTransitionData(BaseTransactionData):
         self,
         next_activity_name=None,
         application_status=None,
-        recommendation=None,
+        recommendation_decision=None,
+        security_clearance=None,
     ):
         super().__init__(next_activity_name, application_status)
-        self.recommendation = recommendation
+        self.recommendation_decision = recommendation_decision
+        self.security_clearance = security_clearance
 
 
 class ProductionTransactionData(BaseTransactionData):

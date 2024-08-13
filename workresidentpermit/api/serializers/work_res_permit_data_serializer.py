@@ -15,9 +15,8 @@ from app_personal_details.api.serializers import (
 )
 from board.serializers import BoardDecisionSerializer
 
-from .child_serializer import ChildSerializer
+from base_module.serializers import ChildSerializer, SpouseSerializer
 from .residence_permit_serializer import ResidencePermitSerializer
-from .spouse_serializer import SpouseSerializer
 from .work_permit_serializer import WorkPermitSerializer
 
 

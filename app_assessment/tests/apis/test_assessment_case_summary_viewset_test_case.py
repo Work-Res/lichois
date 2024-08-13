@@ -14,7 +14,7 @@ class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
         user = User.objects.create_user(username='testuser', password='testpass')
         self.create_application_statuses()
         self.application_version = self.create_new_application()
-        self.create_url = reverse('assessmentcasesummary-list')  # Assuming the viewset is registered with this name
+        self.create_url = reverse('assessmentcasesummary-list')
         self.save_url = reverse('assessmentcasesummary-save_summary')
         self.document_number = self.application_version.application.application_document.document_number
 
@@ -119,7 +119,7 @@ class AssessmentCaseSummaryViewSetTestCase(BaseTestAPI):
             # 'parent_object_id': self.case_summary.parent_object_id,
             # 'parent_object_type': self.case_summary.parent_object_type,
             'summary': 'New new summary',
-            'document_number': document_number  # Assuming this field is necessary
+            'document_number': document_number
         }
         response = self.client.post(self.create_url, new_case_summary_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

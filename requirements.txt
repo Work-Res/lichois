@@ -14,13 +14,13 @@ rest-swagger
 django-rest-swagger
 gunicorn
 git+https://github.com/Work-Res/identifier.git
+git+https://github.com/Work-Res/base-module.git
 haystack~=0.42
 django-haystack~=3.2.1
 drf-yasg
 setuptools~=68.2.0
 django-cors-headers
 rules~=3.3
-
 django-auth-ldap
 django-cors-headers
 django-roles-access
@@ -39,3 +39,5 @@ rich~=13.7.1
 django-q
 whitenoise
 python-decouple
+docx2pdf
+python-docx

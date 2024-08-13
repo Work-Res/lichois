@@ -2,6 +2,7 @@ from django.utils import timezone
 
 from rest_framework import serializers
 
+from app.api.serializers import ApplicationSerializer
 from board.models import BoardMember
 from citizenship.models import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
     InterviewDecision, ScoreSheet, Role, ConflictOfInterest, InterviewResponse
@@ -56,7 +57,11 @@ class BatchSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class BatchApplicationSerializer(serializers.ModelSerializer):
+class BatchApplicationCitizenshipSerializer(serializers.ModelSerializer):
+    batch = BatchSerializer()
+    application = ApplicationSerializer()
+    meeting_session = MeetingSessionSerializer()
+
     class Meta:
         model = BatchApplication
         fields = '__all__'
@@ -173,3 +178,13 @@ class InterviewResponseSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class InterviewSerializer(serializers.ModelSerializer):
+
+    meeting_session = MeetingSessionSerializer()
+
+    class Meta:
+        model = Interview
+        fields = '__all__'
+

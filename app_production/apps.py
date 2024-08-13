@@ -1,3 +1,4 @@
+import os
 from django.apps import AppConfig as BaseAppConfig
 
 
@@ -6,7 +7,24 @@ class AppConfig(BaseAppConfig):
     name = "app_production"
 
     def ready(self):
-        from .classes import ProductionPermitTemplateSearcher
+        from .classes import (
+            ProductionPermitTemplateSearcher,
+            ServiceLoader,
+            ServiceRegistry,
+        )
 
         searcher = ProductionPermitTemplateSearcher()
         searcher.search_and_create_template()
+
+        # Initialize the service registry
+        service_registry = ServiceRegistry()
+
+        services_directory = os.path.join(os.path.dirname(__file__), "services")
+
+        # Load services from the 'services' directory
+        service_loader = ServiceLoader(services_directory, service_registry)
+        service_loader.load_services()
+
+        # Store the service registry in the app config for later use
+        self.service_registry = service_registry
+        from .signals import create_production_permit_record
