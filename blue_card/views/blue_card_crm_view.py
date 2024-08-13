@@ -3,7 +3,7 @@ import logging
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..api.serializers import BlueCardSerializer
+from .api.serializers import BlueCardSerializer 
 from app_personal_details.models import Person, Passport, NextOfKin
 from app_address.models import ApplicationAddress
 from app_contact.models import ApplicationContact

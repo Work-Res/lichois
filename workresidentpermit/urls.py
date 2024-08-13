@@ -8,7 +8,7 @@ from .views import (ChildCreateListView, CommissionerDecisionAPIView, EmergencyR
                     WorkResidentPermitApplicationDetailView, WorkPermitApplicationAPIView,
                     WorkPermitApplicationVerificationAPIView, MinisterDecisionAPIView,
                     SecurityClearanceCreateAPIView, ProductionPermitView, TravelCertificateView,
-                    ExemptionCertificateView, PermitCancellationView)
+                    ExemptionCertificateView, PermitCancellationView, WorkResidentPermitCrmView)
 
 
 router = DefaultRouter()
@@ -32,6 +32,8 @@ urlpatterns = [
 	     SecurityClearanceCreateAPIView.as_view(), name='submit-security-clearance'),
      path('commissioner-decision/', CommissionerDecisionAPIView.as_view(), name='commissioner-decision-create'),
      path('minister-decision/', MinisterDecisionAPIView.as_view(), name='minister-decision-create'),
+     
+     path('work-resident-permit-form/submit/', WorkResidentPermitCrmView.as_view(), name='work_resident_permit_submit'),
 	
 	# Old endpoints
 	path('workpermit/<str:document_number>/submit/verification',
