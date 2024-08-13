@@ -8,8 +8,7 @@ class Board(BaseUuidModel):
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name} {self.region}'
+        return f"{self.name} {self.region}"
 
     class Meta:
-        app_label = 'board'
-
+        app_label = "board"

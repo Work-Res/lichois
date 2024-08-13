@@ -1,16 +1,15 @@
 import logging
 import re
 
-from app.models import Application
+from app.models import Application, CommissionerDecision, MinisterDecision
 from app.models.security_clearance import SecurityClearance
 from app.utils import ApplicationDecisionEnum
 from app_comments.models import Comment
-from app.models import CommissionerDecision, MinisterDecision
+from app_decision.services import ApplicationDecisionService
 from workresidentpermit.workflow import ProductionTransactionData
 
 from ..config.configuration_loader import BaseConfigLoader
 from ..config.decision_loader import DecisionLoader
-from .application_decision_service import ApplicationDecisionService
 
 
 class SpecialPermitDecisionService(DecisionLoader, ApplicationDecisionService):

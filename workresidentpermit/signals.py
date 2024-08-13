@@ -10,25 +10,18 @@ from app.models import (
     MinisterDecision,
     SecurityClearance,
 )
-from app.utils import (
-    ApplicationDecisionEnum,
-    ApplicationProcesses,
-    ApplicationStatusEnum,
-)
-from app_decision.models import ApplicationDecision
-from app_production.api.dto.permit_request_dto import PermitRequestDTO
-from app_production.services import PermitProductionService
+from app.utils import ApplicationProcesses, ApplicationStatusEnum
+
+from .classes import WorkPermitApplicationPDFGenerator
+from .classes.config.configuration_loader import JSONConfigLoader
 from .classes.service import (
     SpecialPermitDecisionService,
     WorkResidentPermitDecisionService,
 )
-from .models import WorkPermit
-
-from .classes import WorkPermitApplicationPDFGenerator
-from .classes.config.configuration_loader import JSONConfigLoader
 from .classes.service.exemption_certification_decision_service import (
     ExemptionCertificateDecisionService,
 )
+from .models import WorkPermit
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)

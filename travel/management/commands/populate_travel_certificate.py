@@ -104,6 +104,10 @@ class Command(BaseCommand):
                     date_issued=faker.date_this_century(),
                     mother=mother,
                     father=father,
+                    mother_full_address=faker.address(),
+                    father_full_address=faker.address(),
+                    full_address_of_relative=faker.address(),
+                    original_home_address=faker.address(),
                 )
                 address = ApplicationAddress.objects.create(
                     po_box=faker.address(),

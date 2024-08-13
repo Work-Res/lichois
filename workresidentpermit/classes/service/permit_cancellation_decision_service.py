@@ -1,15 +1,11 @@
 import logging
 
-from app.models import Application
+from app.models import Application, MinisterDecision
 from app.utils import ApplicationDecisionEnum
-
 from app_comments.models import Comment
-from app.models import MinisterDecision
-
-
+from app_decision.services import ApplicationDecisionService
 from workresidentpermit.workflow import ProductionTransactionData
 
-from .application_decision_service import ApplicationDecisionService
 from ...utils import WorkResidentPermitApplicationTypeEnum
 
 

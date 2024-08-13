@@ -4,7 +4,7 @@ from base_module.model_mixins import BaseUuidModel
 
 
 class AttachmentDocumentType(BaseUuidModel):
-    
+
     code = models.CharField(max_length=100)
 
     name = models.CharField(max_length=200)
@@ -15,4 +15,4 @@ class AttachmentDocumentType(BaseUuidModel):
 
     class Meta:
         verbose_name_plural = "Application Document Types"
-        ordering = ['-created']
+        ordering = ["-created"]

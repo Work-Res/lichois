@@ -1,1 +1,2 @@
 from .production_permit_view import ProductionPermitView
+from .travel_certificate_view import TravelCertificateProductionPermitView

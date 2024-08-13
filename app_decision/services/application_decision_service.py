@@ -4,26 +4,22 @@ from abc import abstractmethod
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 
-from app.models import Application
 from app_comments.models import Comment
 from app_decision.models import ApplicationDecision, ApplicationDecisionType
-from workflow.signals import create_or_update_task_signal
 from workresidentpermit.exceptions import (
     ApplicationRequiredDecisionException,
-    WorkflowRequiredDecisionException,
     WorkResidentPermitApplicationDecisionException,
 )
-from workresidentpermit.workflow import BaseTransactionData
 
 
 class ApplicationDecisionService:
     """Responsible for create application decision based on security clearance or board decision."""
 
-    def __init__(self, document_number, comment: Comment = None):
+    def __init__(self, document_number, comment: Comment = None, application=None):
         self.document_number = document_number
         self.comment = comment
         self.decision_value = None
-        self.application = None
+        self.application = application
         self.logger = logging.getLogger(__name__)
 
     @abstractmethod
