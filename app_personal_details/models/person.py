@@ -68,7 +68,7 @@ class Person(ApplicationBaseModel):
     decreased = models.BooleanField(default=False)
 
     def full_name(self):
-        return f"{self.first_name} {self.last_name} - {self.person_type}"
+        return f"{self.first_name} {self.last_name}"
 
     class Meta:
         verbose_name = "Personal Details"

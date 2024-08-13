@@ -26,7 +26,6 @@ class TravelWorkTemplate(TestCase):
             "mother_full_address": "Ntsweng, Kanye",
             "chief": "Thelekelo, Karabo",
             "country_of_origin": "Botswana",
-            "original_home_address": "",
             "father_full_names": "",
             "father_full_address": "",
             "names_of_other_living_relatives": "",
@@ -35,7 +34,6 @@ class TravelWorkTemplate(TestCase):
             "clan": "",
             "document_number": "TRC/010000",
             "date": "09/08/2024",
-            "original_home_address": "",
             "year": "2024",
         }
 

@@ -15,6 +15,9 @@ class TravelCertificate(ApplicationBaseModel):
         null=True,
         blank=True,
     )
+
+    father_full_address = models.CharField(max_length=200, null=True, blank=True)
+
     mother = models.ForeignKey(
         Person,
         on_delete=models.CASCADE,
@@ -22,7 +25,10 @@ class TravelCertificate(ApplicationBaseModel):
         null=True,
         blank=True,
     )
-    names_of_other_relatives = models.CharField(max_length=200)
+    mother_full_address = models.CharField(max_length=200, null=True, blank=True)
+    names_of_other_relatives = models.CharField(max_length=200, null=True, blank=True)
+    full_address_of_relative = models.CharField(max_length=200, null=True, blank=True)
+    original_home_address = models.CharField(max_length=200, null=True, blank=True)
     issuing_authority = models.CharField(
         max_length=200,
         null=True,

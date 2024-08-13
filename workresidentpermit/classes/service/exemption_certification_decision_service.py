@@ -1,14 +1,8 @@
-import logging
-
-
 from app.models import Application
-
 from app_comments.models import Comment
-from app.models import CommissionerDecision
+from app_decision.services import ApplicationDecisionService
 
-from workresidentpermit.workflow import RecommendationTransitionData
-
-from .application_decision_service import ApplicationDecisionService
+from ...workflow import RecommendationTransitionData
 
 
 class ExemptionCertificateDecisionService(ApplicationDecisionService):

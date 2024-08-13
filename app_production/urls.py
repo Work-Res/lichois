@@ -1,11 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .api.viewsets.production_attachment_document_viewset import ProductionAttachmentDocumentViewSet
-from .api.viewsets.production_permit_view import ProductionPermitView
+from .api.viewsets.production_attachment_document_viewset import (
+    ProductionAttachmentDocumentViewSet,
+)
+from .api.viewsets import ProductionPermitView, TravelCertificateProductionPermitView
 
 router = DefaultRouter()
-router.register(r'documents', ProductionAttachmentDocumentViewSet)
+router.register(r"documents", ProductionAttachmentDocumentViewSet)
 
 urlpatterns = [
     path(
@@ -13,5 +15,9 @@ urlpatterns = [
         ProductionPermitView.as_view(),
         name="production-permit",
     ),
-    path('', include(router.urls)),
+    path(
+        "travel/production/<str:document_number>",
+        TravelCertificateProductionPermitView.as_view(),
+    ),
+    path("", include(router.urls)),
 ]

@@ -1,15 +1,12 @@
 import logging
 
-from app.models import Application
-
-from app_comments.models import Comment
-from board.models import BoardDecision
-from app.models import SecurityClearance
+from app.models import Application, SecurityClearance
 from app.utils import ApplicationDecisionEnum
+from app_comments.models import Comment
+from app_decision.services import ApplicationDecisionService
+from board.models import BoardDecision
 
-from workresidentpermit.workflow import ProductionTransactionData
-
-from .application_decision_service import ApplicationDecisionService
+from ...workflow import ProductionTransactionData
 
 
 class WorkResidentPermitDecisionService(ApplicationDecisionService):
