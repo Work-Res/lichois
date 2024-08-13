@@ -6,3 +6,4 @@ from .batch_application_filter import BatchApplicationFilter
 from .board_filter import BoardFilter
 from .interview_response_filter import InterviewResponseFilter
 from .interview_filter import InterviewFilter
+from .conflict_of_interest_filter import ConflictOfInterestFilter

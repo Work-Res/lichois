@@ -1,9 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
 
+from app.api.common.pagination import StandardResultsSetPagination
 from citizenship.api.serializers.board import ConflictOfInterestSerializer
 from citizenship.models import ConflictOfInterest
+from citizenship.views.board.filter import ConflictOfInterestFilter
 
 
 class ConflictOfInterestViewSet(viewsets.ModelViewSet):
@@ -12,6 +15,9 @@ class ConflictOfInterestViewSet(viewsets.ModelViewSet):
     """
     serializer_class = ConflictOfInterestSerializer
     queryset = ConflictOfInterest.objects.all()
+    pagination_class = StandardResultsSetPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ConflictOfInterestFilter
 
     @action(detail=True, methods=['post'])
     def declare_conflict(self, request, pk=None):
