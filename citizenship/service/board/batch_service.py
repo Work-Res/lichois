@@ -12,7 +12,7 @@ from ...exception import BatchSizeMaxLimitReachedException
 
 logger = logging.getLogger(__name__)
 
-MAX_APPLICATIONS_PER_SESSION = 50
+MAX_APPLICATIONS_PER_SESSION = 200
 
 
 class BatchService:
