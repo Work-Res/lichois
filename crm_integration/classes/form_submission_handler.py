@@ -1,6 +1,8 @@
 # form_submission_handler.py
-import re
+import logging
+
 from django.apps import apps
+
 from .model_repository import ModelRepository
 from .model_service import ModelService
 
@@ -10,6 +12,8 @@ class FormSubmissionHandler:
         self.data = data
         self.model_data = {}
         self.errors = {}
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
 
     def collect_model_data(self):
         for key, value in self.data.items():
@@ -35,9 +39,8 @@ class FormSubmissionHandler:
                 self.model_data[model_name]["fields"][field_name] = value
 
             except Exception as e:
+                self.logger.error(f"Error processing key '{key}': {e}")
                 self.errors[key] = str(e)
-
-        print(self.model_data)
 
     def handle(self):
         self.collect_model_data()
@@ -54,11 +57,16 @@ class FormSubmissionHandler:
                 print(f"Instance: {instance}, Created: {created}")
 
             except LookupError:
+                self.logger.error(
+                    f"Model '{model_name}' not found in app '{app_name}'."
+                )
                 self.errors[model_name] = (
                     f"Model '{model_name}' not found in app '{app_name}'."
                 )
             except ValueError as e:
+                self.logger.error(f"Error processing model '{model_name}': {e}")
                 self.errors[model_name] = e.args[0]
             except Exception as e:
+                self.logger.error(f"Error processing model '{model_name}': {e}")
                 self.errors[model_name] = str(e)
         return self.errors
