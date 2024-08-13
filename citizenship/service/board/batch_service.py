@@ -79,42 +79,111 @@ class BatchService:
             logger.error(f'Error adding application to batch: {e}')
             raise
 
+    def set_application_batched(self, document_number: str, batched: bool):
+        """
+        Sets the `batched` field to True for a specific Application.
+
+        Args:
+            application_id (int): The ID of the Application to update.
+
+        Returns:
+            tuple: A tuple containing a boolean indicating success, and a message.
+        """
+        try:
+            application = Application.objects.get(application_document__document_number=document_number)
+            application.batched = batched
+            application.save()
+            logger.info(f"Application {document_number} batched successfully.")
+            return True, "Batch status updated to True"
+        except Application.DoesNotExist:
+            logger.error(f"Application {document_number} not found.")
+            return False
+        except Exception as e:
+            logger.exception(f"An unexpected error occurred while updating application {document_number}: {e}")
+            return False
+
     @staticmethod
     @transaction.atomic
     def add_applications_to_batch(batch_id, document_numbers, session_id):
         try:
-            batch = Batch.objects.get(id=batch_id)
-            session = MeetingSession.objects.get(id=session_id)
-            applications = Application.objects.filter(
-                application_document__document_number__in=document_numbers)
-            logger.info(f"Found list of applications: {applications}")
-            for application in applications:
-                if not ApplicationEligibilityValidator(
-                        document_number=application.application_document.document_number).is_valid():
-                    logger.error(f'Application {application.id} is not eligible to be added to batch {batch_id}')
-                    raise ValidationError(f"Application {application.id} is not eligible to be added to the batch.")
-                try:
-                    BatchApplication.objects.create(
-                        batch=batch,
-                        application=application,
-                        meeting_session=session
-                    )
-                    logger.info(f'Application {application} added to batch {batch}')
-                except ValidationError as e:
-                    logger.warning(f"{e}")
+            batch = BatchService.get_batch(batch_id)
+            session = BatchService.get_meeting_session(session_id)
+            applications = BatchService.get_applications_by_document_numbers(document_numbers)
+            BatchService.validate_and_add_applications(batch, session, applications)
             return True
-        except Batch.DoesNotExist:
-            logger.error(f'Batch does not exist: {batch_id}')
-            raise ValidationError("Batch does not exist.")
-        except Application.DoesNotExist:
-            logger.error(f'One or more applications do not exist.')
-            raise ValidationError("One or more applications do not exist.")
-        except MeetingSession.DoesNotExist:
-            logger.error(f'Session does not exist: {session_id}')
-            raise ValidationError("Session does not exist.")
+        except (Batch.DoesNotExist, Application.DoesNotExist, MeetingSession.DoesNotExist) as e:
+            logger.error(e)
+            raise ValidationError(str(e))
         except Exception as e:
             logger.error(f'Error adding applications to batch: {e}')
             raise
+
+    @staticmethod
+    def get_batch(batch_id):
+        try:
+            return Batch.objects.get(id=batch_id)
+        except Batch.DoesNotExist:
+            error_message = f'Batch does not exist: {batch_id}'
+            logger.error(error_message)
+            raise ValidationError(error_message)
+
+    @staticmethod
+    def get_meeting_session(session_id):
+        try:
+            return MeetingSession.objects.get(id=session_id)
+        except MeetingSession.DoesNotExist:
+            error_message = f'Session does not exist: {session_id}'
+            logger.error(error_message)
+            raise ValidationError(error_message)
+
+    @staticmethod
+    def get_applications_by_document_numbers(document_numbers):
+        applications = Application.objects.filter(application_document__document_number__in=document_numbers)
+        if not applications.exists():
+            error_message = 'One or more applications do not exist.'
+            logger.error(error_message)
+            raise ValidationError(error_message)
+        logger.info(f"Found list of applications: {applications}")
+        return applications
+
+    @staticmethod
+    def validate_and_add_applications(batch, session, applications):
+        for application in applications:
+            document_number = application.application_document.document_number
+            BatchService.validate_application_eligibility(application)
+            BatchService.create_batch_application(batch, session, application)
+            BatchService.set_application_batched(document_number)
+
+    @staticmethod
+    def validate_application_eligibility(application):
+        document_number = application.application_document.document_number
+        if not ApplicationEligibilityValidator(document_number=document_number).is_valid():
+            error_message = f'Application {application.id} is not eligible to be added to the batch.'
+            logger.error(error_message)
+            raise ValidationError(error_message)
+
+    @staticmethod
+    def create_batch_application(batch, session, application):
+        try:
+            BatchApplication.objects.create(
+                batch=batch,
+                application=application,
+                meeting_session=session
+            )
+            logger.info(f'Application {application} added to batch {batch}')
+        except ValidationError as e:
+            logger.warning(f"{e}")
+            raise
+
+    @staticmethod
+    def set_application_batched(document_number):
+        try:
+            application = Application.objects.get(application_document__document_number=document_number)
+            application.batched = True
+            application.save()
+            logger.info(f"Application {document_number} batched successfully.")
+        except Application.DoesNotExist:
+            logger.error(f"Application {document_number} not found.")
 
     @staticmethod
     @transaction.atomic
@@ -123,13 +192,15 @@ class BatchService:
             batch_application = BatchApplication.objects.get(batch_id=batch_id, application_id=application_id)
             batch_application.delete()
             logger.info(f'Application {application_id} removed from batch {batch_id}')
-            return True
+            BatchService.set_application_batched(batch_application.application.application_document.document_number)
         except BatchApplication.DoesNotExist:
             logger.error(f'BatchApplication does not exist for batch {batch_id} and application {application_id}')
             raise ValidationError("The application is not part of the batch.")
         except Exception as e:
             logger.error(f'Error removing application from batch: {e}')
             raise
+        return False
+
 
     @staticmethod
     @transaction.atomic
