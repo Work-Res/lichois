@@ -87,8 +87,15 @@ class InterviewQuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# class InterviewSerializer(serializers.ModelSerializer):
+#     questions = InterviewQuestionSerializer(many=True, read_only=True)
+#
+#     class Meta:
+#         model = Interview
+#         fields = '__all__'
 class InterviewSerializer(serializers.ModelSerializer):
-    questions = InterviewQuestionSerializer(many=True, read_only=True)
+
+    meeting_session = MeetingSessionSerializer()
 
     class Meta:
         model = Interview
@@ -178,13 +185,4 @@ class InterviewResponseSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
-
-
-class InterviewSerializer(serializers.ModelSerializer):
-
-    meeting_session = MeetingSessionSerializer()
-
-    class Meta:
-        model = Interview
-        fields = '__all__'
 
