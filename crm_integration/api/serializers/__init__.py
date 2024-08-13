@@ -1,0 +1,1 @@
+from .crm_integration_serializer import create_model_serializer
