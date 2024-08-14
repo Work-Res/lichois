@@ -130,6 +130,7 @@ class ApplicationSummary:
             "app_personal_details.Passport",
             "app.Application",
             "app.ApplicationVerification",
+            "app.SecurityClearance",
             "app_personal_details.Education",
             "base_module.Spouse",
             "base_module.Child",
