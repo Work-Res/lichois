@@ -1,9 +1,10 @@
 from django.db import models
 
 from app.models import ApplicationBaseModel
+from .assessment_update_mixin import AssessmentUpdateMixin
 
 
-class Assessment(ApplicationBaseModel):
+class Assessment(ApplicationBaseModel, AssessmentUpdateMixin):
 
     competency = models.IntegerField(default=0)
     qualification = models.IntegerField(default=0)
@@ -14,6 +15,10 @@ class Assessment(ApplicationBaseModel):
     score = models.IntegerField(default=0)
     marking_score = models.JSONField(blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.save_assessment()
 
     class Meta:
 

@@ -215,7 +215,7 @@ class Command(BaseCommand):
                     travel_reasons=faker.text(),
                     requested_valid_from=faker.date_this_century(),
                     requested_valid_to=faker.date_this_century(),
-                    return_visa_to=faker.address(),
+                    return_visa_to=faker.date_this_century(),
                     return_valid_until=faker.date_this_century(),
                 )
 

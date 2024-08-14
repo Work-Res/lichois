@@ -1,9 +1,10 @@
 from django.db import models
 
+from .assessment_update_mixin import AssessmentUpdateMixin
 from .base_assessment_investor import BaseAssessmentInvestor
 
 
-class NewAssessmentInvestor(BaseAssessmentInvestor):
+class NewAssessmentInvestor(BaseAssessmentInvestor, AssessmentUpdateMixin):
     business_activity = models.IntegerField(default=0)
     qualification = models.IntegerField(default=0)
     equity_investment = models.IntegerField(default=0)
@@ -13,6 +14,10 @@ class NewAssessmentInvestor(BaseAssessmentInvestor):
     communication = models.IntegerField(default=0)
     general_experience = models.IntegerField(default=0)
     residence = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.save_assessment()
 
     class Meta:
 

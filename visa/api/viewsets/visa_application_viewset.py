@@ -11,6 +11,7 @@ from ..serializers import VisaApplicationSerializer
 def get_app_labels():
     return [
         "visa.VisaApplication",
+        "app.CommissionerDecision",
     ]
 
 
