@@ -1,9 +1,10 @@
 from django.db import models
 
 from app.models import ApplicationBaseModel
+from .assessment_update_mixin import AssessmentUpdateMixin
 
 
-class Assessment(ApplicationBaseModel):
+class Assessment(ApplicationBaseModel, AssessmentUpdateMixin):
 
     competency = models.IntegerField(default=0)
     qualification = models.IntegerField(default=0)

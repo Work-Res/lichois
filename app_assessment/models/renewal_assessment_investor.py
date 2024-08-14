@@ -1,9 +1,11 @@
 from django.db import models
 
+from .assessment_update_mixin import AssessmentUpdateMixin
+
 from .base_assessment_investor import BaseAssessmentInvestor
 
 
-class RenewalAssessmentInvestor(BaseAssessmentInvestor):
+class RenewalAssessmentInvestor(BaseAssessmentInvestor, AssessmentUpdateMixin):
     capital_investment = models.IntegerField(default=0)
     employment_creation = models.IntegerField(default=0)
     compliance = models.IntegerField(default=0)

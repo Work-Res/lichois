@@ -1,9 +1,10 @@
 from django.db import models
 
 from app.models import ApplicationBaseModel
+from .assessment_update_mixin import AssessmentUpdateMixin
 
 
-class AppealAssessment(ApplicationBaseModel):
+class AppealAssessment(ApplicationBaseModel, AssessmentUpdateMixin):
 
     summary = models.TextField()
 

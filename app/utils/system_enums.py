@@ -43,4 +43,4 @@ class ApplicationDecisionEnum(Enum):
     REJECTED = "Rejected"
     APPROVED = "approved"
     DEFERRED = "deferred"
-    DONE = "done"
+    DONE = "Done"
