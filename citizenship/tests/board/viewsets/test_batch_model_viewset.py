@@ -170,6 +170,7 @@ class BatchModelViewSetTest(BaseSetup):
 
         # Declare a conflict of interest
         url = reverse('citizenship:batch-declare-conflict-of-interest', args=[batch.id])
+        print("<<<<<<<<<<<<>>>>>>>>>: ", url)
         attendee = Attendee.objects.get(meeting=self.meeting, member=self.member)
         data = {
             'document_number': self.application.application_document.document_number,
@@ -216,9 +217,9 @@ class BatchModelViewSetTest(BaseSetup):
         url = reverse('citizenship:batch-declare-no-conflict-for-all', args=[batch.id])
         attendee = Attendee.objects.get(meeting=self.meeting, member=self.member)
         data = {
-            'attendee_id': attendee.id,
             'meeting_session_id': meeting_session.id
         }
+        print("for url", url)
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 

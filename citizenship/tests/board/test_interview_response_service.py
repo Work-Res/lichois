@@ -1,11 +1,10 @@
-import pytest
+
 from django.core.exceptions import ValidationError
 
 from django.utils import timezone
 
-from app_checklist.models import Region
 from citizenship.models import InterviewResponse, Interview, InterviewQuestion, BoardMember, Board, Role
-from authentication.models import User
+
 from citizenship.service.board.interview_response_service import InterviewResponseService
 from citizenship.tests.board.base_setup import BaseSetup
 
@@ -13,43 +12,23 @@ from citizenship.tests.board.base_setup import BaseSetup
 class InterviewResponseServiceTestCase(BaseSetup):
 
     def setUp(self):
-        # Create User
-        self.user = User.objects.create_user(username='johndoe', password='password123')
-        self.role1 = Role.objects.create(name='Role 1', description='First role')
-        self.role2 = Role.objects.create(name='Role 2', description='Second role')
-        # Create Region
-        self.region = Region.objects.create(
-            name='Test Region',
-            code='TR01',
-            description='A test region',
-            valid_from=timezone.now().date(),
-            valid_to=(timezone.now() + timezone.timedelta(days=365)).date(),
-            active=True
-        )
-
-        # Create Board
-        self.board = Board.objects.create(name='Test Board', region=self.region)
-
-        # Create BoardMember
-        self.member = BoardMember.objects.create(user=self.user, board=self.board, role=self.role1)
+        super().setUp()
+        self.start_date = timezone.now()
+        self.end_date = self.start_date + timezone.timedelta(hours=2)
 
         # Create Interview
         self.interview = Interview.objects.create(
-            application_id=1,
-            date=timezone.now(),
-            status='Scheduled'
-        )
-
-        # Create InterviewQuestion
-        self.interview_question = InterviewQuestion.objects.create(
-            meeting=self.interview.meeting,
-            text='What are your strengths?'
+            meeting_session=self.session,
+            application=self.application,
+            scheduled_time=timezone.now(),
+            status='Draft',
+            conducted=False
         )
 
         # Create InterviewResponse
         self.interview_response = InterviewResponse.objects.create(
             interview=self.interview,
-            question=self.interview_question,
+            text="test",
             member=self.member,
             response='My strengths are...',
             score=5
@@ -58,7 +37,6 @@ class InterviewResponseServiceTestCase(BaseSetup):
     def test_create_interview_response(self):
         response = InterviewResponseService.create_interview_response(
             interview_id=self.interview.id,
-            question_id=self.interview_question.id,
             member_id=self.member.id,
             response='I am very motivated.',
             score=4

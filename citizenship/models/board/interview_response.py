@@ -16,7 +16,12 @@ class InterviewResponse(BaseUuidModel):
     is_marked = models.BooleanField(null=True, blank=True)
     additional_comments = models.TextField(null=True, blank=True)
     category = models.CharField(max_length=200)
+    sequence = models.IntegerField(null=True, blank=True)  # New sequence field
+
     # recording = models.FileField(upload_to='recordings/', null=True, blank=True) belong to the score-sheet
 
     def __str__(self):
         return f'{self.interview} - {self.text}'
+
+    class Meta:
+        ordering = ['sequence']

@@ -49,24 +49,42 @@ class ConflictDurationHandler:
         """
         Handles the completion of the conflict duration.
         """
-
         meeting_session = self.conflict_duration.meeting_session
         batch_applications = BatchApplication.objects.filter(meeting_session=meeting_session)
 
         for batch_application in batch_applications:
             application = batch_application.application
-            meeting = meeting_session.meeting
-            board_members = BoardMember.objects.filter(board=meeting.board)
+            board_members = self._get_board_members_for_interview(application, meeting_session.meeting.board)
             self.interview(application)
+
             service = InterviewResponseImportService(self.csv_path)
             service.read_csv()
 
-            for member in board_members:
-                if not ConflictOfInterest.objects.filter(
-                        attendee__member=member, application=application, has_conflict=True).exists():
-                    self._create_interview_responses(meeting_session, application, member, service.data)
+            self._create_interview_responses_for_members(meeting_session, application, board_members, service.data)
 
-        logger.info(f"Duration for session {self.conflict_duration.meeting_session} is now completed.")
+        logger.info(f"Duration for session {meeting_session} is now completed.")
+
+    def _get_board_members_for_interview(self, application, board):
+        """
+        Retrieves board members who have explicitly declared no conflict of interest for the given application.
+        Excludes those who have either declared a conflict or have not made any declaration.
+        """
+        members_with_no_conflict = ConflictOfInterest.objects.filter(
+            application=application, has_conflict=False
+        ).values_list('attendee__member_id', flat=True)
+
+        return BoardMember.objects.filter(
+            board=board,
+            id__in=members_with_no_conflict
+        ).distinct()
+
+    def _create_interview_responses_for_members(self, meeting_session, application, members, data):
+        """
+        Creates interview responses for the provided members.
+        """
+        for member in members:
+            self._create_interview_responses(meeting_session, application, member, data)
+            logger.info(f"Created interview responses for member {member.id} for application {application.id}")
 
     def _create_interview_responses(self, meeting_session, application, member, data):
         """
@@ -86,7 +104,8 @@ class ConflictDurationHandler:
                     member=member,
                     text=row['text'],
                     category=row['category'],
-                    marks_range=row['marks_range'] if row['marks_range'] else None
+                    marks_range=row['marks_range'] if row['marks_range'] else None,
+                    sequence=row['order']
                 )
                 logger.info(f"Created InterviewResponse: {interview_response}")
             except ObjectDoesNotExist as e:

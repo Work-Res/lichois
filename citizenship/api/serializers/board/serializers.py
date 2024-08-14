@@ -149,40 +149,26 @@ class BoardMemberCitizenshipSerializer(serializers.ModelSerializer):
 
 
 class InterviewResponseSerializer(serializers.ModelSerializer):
-    interview = InterviewSerializer()
-    member = BoardMemberCitizenshipSerializer()
+    interview = InterviewSerializer(read_only=True)  # Make interview read-only
+    member = BoardMemberCitizenshipSerializer(read_only=True)  # Make member read-only
 
     class Meta:
         model = InterviewResponse
         fields = '__all__'
-
-    def create(self, validated_data):
-        interview_data = validated_data.pop('interview')
-        member_data = validated_data.pop('member')
-
-        interview, created = Interview.objects.get_or_create(**interview_data)
-        member, created = BoardMember.objects.get_or_create(**member_data)
-
-        interview_response = InterviewResponse.objects.create(interview=interview, member=member, **validated_data)
-        return interview_response
+        read_only_fields = [
+            'interview',
+            'member',
+            'text',
+            'marks_range',
+            'category',
+            'sequence'
+        ]
 
     def update(self, instance, validated_data):
-        interview_data = validated_data.pop('interview')
-        member_data = validated_data.pop('member')
-
-        interview, created = Interview.objects.get_or_create(**interview_data)
-        member, created = BoardMember.objects.get_or_create(**member_data)
-
-        instance.interview = interview
-        instance.member = member
-        instance.text = validated_data.get('text', instance.text)
-        instance.response = validated_data.get('response', instance.response)
-        instance.marks_range = validated_data.get('marks_range', instance.marks_range)
         instance.score = validated_data.get('score', instance.score)
         instance.is_marked = validated_data.get('is_marked', instance.is_marked)
+        instance.additional_comments = validated_data.get('response', instance.response)
         instance.additional_comments = validated_data.get('additional_comments', instance.additional_comments)
-        instance.category = validated_data.get('category', instance.category)
         instance.save()
-
         return instance
 

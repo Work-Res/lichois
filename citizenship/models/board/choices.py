@@ -1,7 +1,7 @@
 
 STATUS_CHOICES = [
     ('Scheduled', 'Scheduled'),
-    ('Dratt', 'Draft'),
+    ('Draft', 'Draft'),
     ('In Progress', 'In Progress'),
     ('Completed', 'Completed'),
     ('Cancelled', 'Cancelled'),

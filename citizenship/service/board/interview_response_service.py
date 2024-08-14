@@ -1,5 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import transaction
+
+from citizenship.api.serializers.board import InterviewResponseSerializer
 from citizenship.models import InterviewResponse, Interview, InterviewQuestion, BoardMember
 
 
@@ -39,16 +41,17 @@ class InterviewResponseService:
 
     @staticmethod
     @transaction.atomic
-    def update_interview_response(response_id, response=None, score=None):
+    def update_interview_response(response_id, data):
         try:
             interview_response = InterviewResponse.objects.get(id=response_id)
-            if response is not None:
-                interview_response.response = response
-            if score is not None:
-                interview_response.score = score
-            interview_response.is_marked = True
-            interview_response.save()
-            return interview_response
+            serializer = InterviewResponseSerializer(interview_response, data=data, partial=True)
+
+            if serializer.is_valid():
+                serializer.save()
+                return serializer.data
+            else:
+                raise ValidationError(serializer.errors)
+
         except InterviewResponse.DoesNotExist:
             raise ValidationError("Interview response does not exist.")
         except Exception as e:

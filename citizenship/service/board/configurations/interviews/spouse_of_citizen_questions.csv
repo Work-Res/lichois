@@ -1,8 +1,8 @@
-text,category,marks_range
-"Setswana or any other local language","Proficiency",0-10
-"Level of Education","Proficiency",0-10
-"Length of Marriage(Marriage Certificate)","Proficiency",0-10
-"Source of Livelihood","Proficiency",0-20
-"Community involvement/Engagement","Proficiency",0-20
-"Presentation","Proficiency",0-15
-"Character","Proficiency",0-15
+text,category,marks_range,order
+"Setswana or any other local language","Proficiency",0-10,1
+"Level of Education","Proficiency",0-10,2
+"Length of Marriage(Marriage Certificate)","Proficiency",0-10,3
+"Source of Livelihood","Proficiency",0-20,4
+"Community involvement/Engagement","Proficiency",0-20,5
+"Presentation","Proficiency",0-15,6
+"Character","Proficiency",0-15,7

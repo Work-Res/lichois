@@ -1,7 +1,7 @@
-text,category,marks_range
-"Setswana or any other Local language","Proficiency","0-10"
-"Level of Education & Experience","Education & Experience","0-15"
-"Business Priority (Non Priority Sector, Priority Sector)","Business Priority","0-20"
-"Level of Investment (P1 million and Above)","Investment","0-30"
-"Level of Employment (5 employees and Above)","Employment","0-20"
-"Corporate Social Responsibility","Corporate Social Responsibility","0-5"
+text,category,marks_range,order
+"Setswana or any other Local language","Proficiency","0-10",1
+"Level of Education & Experience","Education & Experience","0-15",2
+"Business Priority (Non Priority Sector, Priority Sector)","Business Priority","0-20",3
+"Level of Investment (P1 million and Above)","Investment","0-30",4
+"Level of Employment (5 employees and Above)","Employment","0-20",5
+"Corporate Social Responsibility","Corporate Social Responsibility","0-5",6

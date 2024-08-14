@@ -1,7 +1,7 @@
-text,category,marks_range
-"Setswana or any other local language","Proficiency","0-10"
-"Level of Education Attained / Currently being Pursued (Diploma, Bachelors Degree or equivalent, Masters, PHD)","Education","0-40"
-"Other special talents or skills to benefit Botswana","Special Talents","0-10"
-"Course Priority (Non-Priority (Social Sciences, Humanities etc.), Priority (Sciences, ICT etc))","Course Priority","0-20"
-"Sponsorship","Sponsorship","0-10"
-"Character","Character","0-10"
+text,category,marks_range,order
+"Setswana or any other local language","Proficiency","0-10",1
+"Level of Education Attained / Currently being Pursued (Diploma, Bachelors Degree or equivalent, Masters, PHD)","Education","0-40",2
+"Other special talents or skills to benefit Botswana","Special Talents","0-10",3
+"Course Priority (Non-Priority (Social Sciences, Humanities etc.), Priority (Sciences, ICT etc))","Course Priority","0-20",4
+"Sponsorship","Sponsorship","0-10",5
+"Character","Character","0-10",6
