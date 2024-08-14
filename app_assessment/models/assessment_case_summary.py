@@ -1,11 +1,12 @@
 from django.db import models
 
 from app.models import ApplicationBaseModel
+from .assessment_update_mixin import AssessmentUpdateMixin
 
 from .parent_manager import ParentModelManager
 
 
-class AssessmentCaseSummary(ApplicationBaseModel):
+class AssessmentCaseSummary(ApplicationBaseModel, AssessmentUpdateMixin):
 
     parent_object_id = models.UUIDField(
         null=True,
@@ -22,6 +23,7 @@ class AssessmentCaseSummary(ApplicationBaseModel):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        self.save_assessment()
 
     class Meta:
         db_table = "assessment_case_summary"

@@ -4,7 +4,7 @@ from app.utils.system_enums import ApplicationDecisionEnum
 
 class AssessmentUpdateMixin(UpdateApplicationMixin):
 
-    def save(self, *args, **kwargs):
+    def save_assessment(self):
         # Update the related application's assessment field to "done"
         if self.document_number:
             self.update_application_field(

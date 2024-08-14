@@ -1,10 +1,10 @@
 from django.db import models
 
-from app.classes.mixins.update_application_mixin import UpdateApplicationMixin
 from app.models.application_base_model import ApplicationBaseModel
+from .assessment_update_mixin import AssessmentUpdateMixin
 
 
-class DependantAssessment(ApplicationBaseModel, UpdateApplicationMixin):
+class DependantAssessment(ApplicationBaseModel, AssessmentUpdateMixin):
     observation = models.TextField()
     recommendation = models.TextField()
     name_of_dependent = models.CharField(max_length=255)
@@ -17,3 +17,4 @@ class DependantAssessment(ApplicationBaseModel, UpdateApplicationMixin):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        self.save_assessment()

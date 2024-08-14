@@ -13,6 +13,7 @@ class RenewalAssessmentInvestor(BaseAssessmentInvestor, AssessmentUpdateMixin):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        self.save_assessment()
 
     class Meta:
 
