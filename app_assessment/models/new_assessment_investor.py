@@ -15,6 +15,9 @@ class NewAssessmentInvestor(BaseAssessmentInvestor, AssessmentUpdateMixin):
     general_experience = models.IntegerField(default=0)
     residence = models.IntegerField(default=0)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     class Meta:
 
         verbose_name = "New Assessment Investors"

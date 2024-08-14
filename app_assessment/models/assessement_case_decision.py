@@ -1,11 +1,10 @@
+from base_module.model_fields import UUIDAutoField
 from django.db import models
 
-from app_assessment.models.assessment_update_mixin import AssessmentUpdateMixin
-
-from .choices import DECISION_TYPE
-
-from base_module.model_fields import UUIDAutoField
 from app.models import ApplicationBaseModel
+
+from .assessment_update_mixin import AssessmentUpdateMixin
+from .choices import DECISION_TYPE
 
 
 class AssessmentCaseDecision(ApplicationBaseModel, AssessmentUpdateMixin):
@@ -27,6 +26,9 @@ class AssessmentCaseDecision(ApplicationBaseModel, AssessmentUpdateMixin):
     decision = models.CharField(
         max_length=200, choices=DECISION_TYPE, null=False, blank=True
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = "assessment_case_decisions"

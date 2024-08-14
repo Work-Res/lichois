@@ -8,3 +8,6 @@ class BlueCardAssessment(ApplicationBaseModel, AssessmentUpdateMixin):
     name_of_supporter = models.CharField(max_length=255)
     relationship_to_supporter = models.CharField(max_length=255)
     observations = models.TextField()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)

@@ -8,6 +8,9 @@ class AssessmentEmergency(ApplicationBaseModel, AssessmentUpdateMixin):
 
     comment = models.TextField()
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     class Meta:
 
         db_table = "assessment_emergency"

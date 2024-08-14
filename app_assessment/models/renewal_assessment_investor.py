@@ -11,6 +11,9 @@ class RenewalAssessmentInvestor(BaseAssessmentInvestor, AssessmentUpdateMixin):
     compliance = models.IntegerField(default=0)
     social_investment = models.IntegerField(default=0)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     class Meta:
 
         verbose_name = "Renewal Assessment Investors"

@@ -16,6 +16,9 @@ class Assessment(ApplicationBaseModel, AssessmentUpdateMixin):
     marking_score = models.JSONField(blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     class Meta:
 
         db_table = "assessment"
