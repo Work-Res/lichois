@@ -3,6 +3,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from app.api.serializers import ApplicationSerializer
+from authentication.serializers import UserSerializer
 from board.models import BoardMember
 from citizenship.models import Meeting, Attendee, Batch, BatchApplication, Board, Question, Interview, \
     InterviewDecision, ScoreSheet, Role, ConflictOfInterest, InterviewResponse
@@ -143,6 +144,10 @@ class ConflictOfInterestDurationSerializer(serializers.ModelSerializer):
 
 
 class BoardMemberCitizenshipSerializer(serializers.ModelSerializer):
+
+    board = BoardSerializer()
+    user = UserSerializer()
+
     class Meta:
         model = BoardMember
         fields = '__all__'

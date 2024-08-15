@@ -52,7 +52,7 @@ class ConflictOfInterestViewSet(viewsets.ModelViewSet):
                     f"{attendee_id} and application ID: {application_id}")
 
         try:
-            conflict_of_interest = ConflictOfInterestService.authorize_member_for_interview(attendee_id, application_id)
+            conflict_of_interest = ConflictOfInterestService.authorize_member_for_interview(pk, attendee_id, application_id)
             logger.info(
                 f"Member {conflict_of_interest.attendee.member.user.username} authorized to participate in the interview "
                 f"for application {conflict_of_interest.application}."

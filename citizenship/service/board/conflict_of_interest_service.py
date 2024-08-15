@@ -8,7 +8,17 @@ logger = logging.getLogger(__name__)
 class ConflictOfInterestService:
 
     @staticmethod
-    def authorize_member_for_interview(attendee_id, application_id):
+    def get_conflict_of_interest_by_id(id):
+        if id:
+            return ConflictOfInterest.objects.get(id=id)
+
+    @staticmethod
+    def get_conflict_of_interest_by_attendee_and_application(attendee_id, application_id):
+        if attendee_id and application_id:
+            return ConflictOfInterest.objects.get(attendee__id=attendee_id, application__id=application_id)
+
+    @staticmethod
+    def authorize_member_for_interview(pk, attendee_id=None, application_id=None):
         """
         Authorizes a board member with a declared conflict of interest to participate in the interview.
 
@@ -25,9 +35,13 @@ class ConflictOfInterestService:
         """
         try:
             # Fetch the ConflictOfInterest record
-            conflict_of_interest = ConflictOfInterest.objects.get(
-                attendee__id=attendee_id, application__id=application_id)
-
+            conflict_of_interest = ConflictOfInterestService.get_conflict_of_interest_by_id(pk)
+            if not conflict_of_interest:
+                ConflictOfInterestService.get_conflict_of_interest_by_attendee_and_application(
+                    attendee_id, application_id)
+            if conflict_of_interest:
+                logger.error("Conflict of interest not found.")
+                raise ValidationError("Conflict of interest not found.")
             # Check if the member has already been authorized
             if conflict_of_interest.is_authorized:
                 logger.warning(
