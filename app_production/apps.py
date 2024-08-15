@@ -14,7 +14,7 @@ class AppConfig(BaseAppConfig):
         )
 
         searcher = ProductionPermitTemplateSearcher()
-        searcher.search_and_create_template()
+        # searcher.search_and_create_template()
 
         # Initialize the service registry
         service_registry = ServiceRegistry()
