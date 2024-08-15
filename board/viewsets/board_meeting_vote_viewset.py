@@ -42,9 +42,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
                 status=201,
             )
         return Response(
-            APIMessage(
-                message=f"Tie breaker failed to create {tiebreaker}",
-            ).to_dict(),
+            APIMessage(message=f"Tie breaker failed to create {tiebreaker}").to_dict(),
             status=500,
         )
 
