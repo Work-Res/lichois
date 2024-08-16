@@ -2,12 +2,10 @@ from django.urls import reverse
 from rest_framework import status
 from datetime import timedelta
 
-from rest_framework.test import APITestCase, APIClient
-from app.models import Application
+from rest_framework.test import APIClient
 from authentication.models import User
-from citizenship.models import InterviewResponse, Interview, BoardMember, MeetingSession, Attendee, ConflictOfInterest
+from citizenship.models import InterviewResponse, Interview, MeetingSession, ConflictOfInterest
 from citizenship.models.board.conflict_of_interest_duration import ConflictOfInterestDuration
-from citizenship.service.board import InterviewResponseService
 
 from django.utils import timezone
 from app_checklist.models import Region
