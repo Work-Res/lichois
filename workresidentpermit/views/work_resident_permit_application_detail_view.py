@@ -11,7 +11,6 @@ def get_app_labels():
         "base_module.Child",
         "base_module.Spouse",
         "app.SecurityClearance",
-        "board.BoardDecision",
     ]
 
 
