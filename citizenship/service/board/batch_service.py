@@ -8,6 +8,7 @@ from citizenship.models.board.meeting_session import MeetingSession
 from citizenship.validators.board.application_eligibility_validator import ApplicationEligibilityValidator
 
 from .batch_status_enum import BatchStatus
+from .interview_service import InterviewService
 from ...exception import BatchSizeMaxLimitReachedException
 
 logger = logging.getLogger(__name__)
@@ -216,6 +217,9 @@ class BatchService:
                 interest_description=interest_description
             )
             if created:
+                interview_service = InterviewService(
+                    application=application, meeting_session=meeting_session)
+                interview_service.add_board_member(board_member=attendee.member)
                 logger.info(f'Conflict of interest declared: {created}')
             return created
         except Attendee.DoesNotExist:
@@ -277,8 +281,12 @@ class BatchService:
                     has_conflict=False,
                     meeting_session=meeting_session
                 )
+                interview_service = InterviewService(
+                    application=batch_application.application, meeting_session=meeting_session)
+                interview_service.add_board_member(board_member=attendee.member)
                 logger.info(
-                    f'No conflict of interest declared for {batch_application.application.document_number} by {attendee.member.user.username}')
+                    f'No conflict of interest declared for {batch_application.application.document_number} by '
+                    f'{attendee.member.user.username}')
             return True
         except Attendee.DoesNotExist:
             logger.error(f'Attendee does not exist: {attendee_id}')

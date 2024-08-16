@@ -12,7 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class InterviewService:
-    def __init__(self, meeting_session: MeetingSession, application: Application, scheduled_time: timezone):
+    def __init__(self, meeting_session: MeetingSession = None, application: Application = None,
+                 scheduled_time: timezone = None):
         self.meeting_session = meeting_session
         self.application = application
         self.scheduled_time = scheduled_time
@@ -87,11 +88,15 @@ class InterviewService:
             raise
 
     @transaction.atomic
-    def add_board_member(self, interview: Interview, board_member: BoardMember):
+    def add_board_member(self, interview: Interview = None, board_member: BoardMember = None):
         try:
+            if not interview:
+                interview = Interview.objects.get(application=self.application)
             interview.completed_by.add(board_member)
             logger.info(f"Board member {board_member.id} added to interview {interview.id}.")
             return interview
+        except Interview.DoesNotExist:
+            logger.error(f"Interview record not found for {self.application.application_document.document_number}")
         except Exception as e:
             logger.exception(f"Unexpected error adding board member to interview: {e}")
             raise
