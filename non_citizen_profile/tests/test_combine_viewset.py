@@ -1,7 +1,7 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
 from datetime import date, datetime
-from ..models import Address, Biometrics, ContactDetails, Passport, PersonalDetails
+from ..models import Address, Biometrics, ContactDetails, Passport, PersonalDetails, Education, NextOfKin
 from api.serializers import CombinedSerializer
 
 class UserProfileTests(APITestCase):
@@ -50,6 +50,23 @@ class UserProfileTests(APITestCase):
             dob=date(2019, 6, 30),  
             occupation='Developer'
         )
+        self.education = Education.objects.create(
+            non_citizen_id=1,
+            level='Bachelor\'s Degree',
+            field_of_study='Computer Science',
+            institution='University of Botswana',
+            start_date=date(2015, 1, 1),
+            end_date=date(2019, 12, 31)
+        )
+        self.next_of_kin = NextOfKin.objects.create(
+            non_citizen_id=1,
+            first_name='John',
+            last_name='Doe',
+            telephone='123456789',
+            cell_phone='987654321',
+            relation='Brother'
+        )
+
         self.combined_url = '/combined/'  
 
     def test_combined_view_success(self):
