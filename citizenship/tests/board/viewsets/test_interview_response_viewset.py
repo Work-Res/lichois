@@ -191,7 +191,6 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         self.assertEqual(responses, 28)
 
     def test_update_interview_responses_for_batch_applications(self):
-
         batch = self.create_batch(self.meeting)
         version = self.create_new_application()
         url = reverse('citizenship:batch-add-applications', args=[batch.id])
@@ -213,6 +212,7 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         batch.refresh_from_db()
         self.assertEqual(batch.status, BatchStatus.CLOSED.name)
         self.assertEqual(Interview.objects.all().count(), 2)
+
         # Declare conflict of interest..
         start_time = timezone.now() - timedelta(hours=1)
         end_time = timezone.now() + timedelta(hours=1)
@@ -222,7 +222,6 @@ class InterviewResponseViewSetTestCase(BaseSetup):
             end_time=end_time,
             status='open'
         )
-
         url = reverse('citizenship:batch-declare-no-conflict-for-all', args=[batch.id])
         data = {
             'meeting_session_id': self.meeting_session.id
@@ -230,23 +229,19 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         self.client.post(url, data, format='json')
         duration.status = "completed"
         duration.save()
-        interview = Interview.objects.first()
-        interview_responses = InterviewResponse.objects.filter(
-            member=self.member_police,
-            interview=interview
-        )
-        print("interview_responses interview_responses", interview_responses)
+        interview_response = InterviewResponse.objects.first()
 
-        url = reverse('citizenship:interviewresponse-detail', kwargs={'pk': self.interview_response.id})
+        url = reverse('citizenship:interviewresponse-detail', kwargs={'pk': interview_response.id})
         data = {
             'response': 'Updated response',
-            'score': 5
+            'score': 5,
+            'additional_comments': 'testing'
         }
+        interview_response = InterviewResponse.objects.get(id=interview_response.id)
         response = self.client.put(url, data, format='json')
-
-        self.interview_response.refresh_from_db()
+        interview_response.refresh_from_db()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(self.interview_response.response, 'Updated response')
-        self.assertEqual(self.interview_response.score, 5)
-        self.assertTrue(self.interview_response.is_marked)
+        self.assertEqual(interview_response.response, 'Updated response')
+        self.assertEqual(interview_response.score, 5)
+        self.assertTrue(interview_response.is_marked)

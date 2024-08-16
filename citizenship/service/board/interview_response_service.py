@@ -47,7 +47,10 @@ class InterviewResponseService:
             serializer = InterviewResponseSerializer(interview_response, data=data, partial=True)
 
             if serializer.is_valid():
-                serializer.save()
+                for key, value in data.items():
+                    setattr(interview_response, key, value)
+                interview_response.is_marked = True
+                interview_response.save()
                 return serializer.data
             else:
                 raise ValidationError(serializer.errors)

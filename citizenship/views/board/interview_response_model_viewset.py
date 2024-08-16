@@ -10,6 +10,8 @@ from citizenship.models import InterviewResponse
 from citizenship.service.board import InterviewResponseService
 from citizenship.views.board.filter import InterviewResponseFilter
 
+logger = logging.getLogger(__name__)
+
 
 class InterviewResponseViewSet(viewsets.ModelViewSet):
     queryset = InterviewResponse.objects.all()
@@ -35,4 +37,3 @@ class InterviewResponseViewSet(viewsets.ModelViewSet):
             logger.exception(
                 f"An unexpected error occurred while updating InterviewResponse with id: {response_id} - {str(e)}")
             return Response({'detail': 'An unexpected error occurred.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
