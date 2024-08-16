@@ -1,0 +1,1 @@
+from .test_combine_viewset import UserProfileTests

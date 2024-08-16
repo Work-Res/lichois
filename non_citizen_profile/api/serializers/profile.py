@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from ...models import Address, Biometrics, ContactDetails, Passport, PersonalDetails
+from ...models import Address, Biometrics, ContactDetails, Passport, PersonalDetails, Education, NextOfKin
+
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,9 +27,21 @@ class PersonalDetailsSerializer(serializers.ModelSerializer):
         model = PersonalDetails
         fields = '__all__'
 
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = '__all__'
+
+class NextOfKinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NextOfKin
+        fields = '__all__'
+
 class CombinedSerializer(serializers.Serializer):
     address = AddressSerializer()
     biometrics = BiometricsSerializer()
     contact_details = ContactDetailsSerializer()
     passport = PassportSerializer()
     personal_details = PersonalDetailsSerializer()
+    education = EducationSerializer()
+    next_of_kin = NextOfKinSerializer()
