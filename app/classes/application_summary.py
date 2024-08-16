@@ -105,6 +105,7 @@ class ApplicationSummary:
         def instance_to_dict(instance):
             """Convert a model instance to a dictionary."""
             if hasattr(instance, "to_dict"):
+                print("Using custom to_dict method")
                 return instance.to_dict()
             return model_to_dict(
                 instance, fields=[field.name for field in instance._meta.fields]

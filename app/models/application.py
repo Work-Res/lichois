@@ -75,6 +75,22 @@ class Application(BaseUuidModel):
     def __str__(self):
         return f"Application {self.application_document.document_number}"
 
+    def to_dict(self):
+        return {
+            "document_number": self.application_document.document_number,
+            "process_name": self.process_name,
+            "application_status": self.application_status.code,
+            "application_type": self.application_type,
+            "batched": self.batched,
+            "permit_period": self.permit_period,
+            "verification": self.verification,
+            "recommendation": self.recommendation,
+            "security_clearance": self.security_clearance,
+            "assessment": self.assessment,
+            "board": self.board,
+            "submission_date": self.submission_date,
+        }
+
     class Meta:
         verbose_name_plural = "Applications"
         ordering = ["-created"]

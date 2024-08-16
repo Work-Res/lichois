@@ -18,6 +18,8 @@ class BoardDecision(BaseUuidModel):
 
     def to_dict(self):
         return {
+            "board_meeting": self.board_meeting.title,
+            "assessed_application": self.assessed_application.to_dict(),
             "vetting_outcome": self.vetting_outcome,
             "decision_outcome": self.decision_outcome,
             "outcome_reason": self.outcome_reason,
