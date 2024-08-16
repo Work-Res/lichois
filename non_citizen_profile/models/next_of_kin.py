@@ -5,6 +5,8 @@ from app.models.application_base_model import ApplicationBaseModel
 
 class NextOfKin(ApplicationBaseModel):
 
+    non_citizen_id = models.IntegerField(primary_key=True)
+
     first_name = models.CharField(max_length=190)
 
     last_name = models.CharField(max_length=190)

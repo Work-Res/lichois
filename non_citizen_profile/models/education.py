@@ -6,7 +6,7 @@ from app.models import ApplicationBaseModel
 
 
 class Education(ApplicationBaseModel):
-
+    non_citizen_id = models.IntegerField(primary_key=True)
     level = models.CharField(max_length=50, choices=EDUCATION_LEVELS)
     field_of_study = models.CharField(max_length=100)
     institution = models.CharField(max_length=100)
