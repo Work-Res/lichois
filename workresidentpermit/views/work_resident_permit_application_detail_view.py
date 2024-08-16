@@ -1,11 +1,7 @@
 from rest_framework.views import APIView
-from rest_framework import status
 from rest_framework.response import Response
 
 from app.classes.application_summary import ApplicationSummary
-
-from ..classes import WorkResidentPermitData
-from ..api import WorkResidentPermitDataSerializer
 
 
 def get_app_labels():
@@ -14,7 +10,6 @@ def get_app_labels():
         "workresidentpermit.ResidencePermit",
         "base_module.Child",
         "base_module.Spouse",
-        "app.SecurityClearance",
         "board.BoardDecision",
     ]
 

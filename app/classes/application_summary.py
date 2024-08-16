@@ -27,6 +27,7 @@ class ApplicationSummary:
     def get_model_instance(self, app_label):
         """Get the model instance based on the app label and document number."""
         model_cls = apps.get_model(app_label)
+        print(f"Getting model instance for {model_cls}")
         return self._get_model_instance_recursive(model_cls)
 
     def _get_model_instance_recursive(self, model_cls, traversed_models=None):
@@ -101,20 +102,22 @@ class ApplicationSummary:
 
     def serialize_related_instance(self, related_instance):
         """Serialize a related instance (ForeignKey or queryset) to a dictionary."""
+
+        def instance_to_dict(instance):
+            """Convert a model instance to a dictionary."""
+            if hasattr(instance, "to_dict"):
+                print("Using custom to_dict method")
+                return instance.to_dict()
+            return model_to_dict(
+                instance, fields=[field.name for field in instance._meta.fields]
+            )
+
         if isinstance(related_instance, QuerySet):
             # Handle queryset of related instances
-            return [
-                model_to_dict(
-                    instance, fields=[field.name for field in instance._meta.fields]
-                )
-                for instance in related_instance
-            ]
+            return [instance_to_dict(instance) for instance in related_instance]
         else:
             # Handle ForeignKey relationships
-            return model_to_dict(
-                related_instance,
-                fields=[field.name for field in related_instance._meta.fields],
-            )
+            return instance_to_dict(related_instance)
 
     @staticmethod
     def to_snake_case(camel_str):
