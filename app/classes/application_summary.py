@@ -27,6 +27,7 @@ class ApplicationSummary:
     def get_model_instance(self, app_label):
         """Get the model instance based on the app label and document number."""
         model_cls = apps.get_model(app_label)
+        print(f"Getting model instance for {model_cls}")
         return self._get_model_instance_recursive(model_cls)
 
     def _get_model_instance_recursive(self, model_cls, traversed_models=None):

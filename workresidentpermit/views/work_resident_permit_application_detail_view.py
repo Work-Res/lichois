@@ -10,6 +10,7 @@ def get_app_labels():
         "workresidentpermit.ResidencePermit",
         "base_module.Child",
         "base_module.Spouse",
+        "board.BoardDecision",
     ]
 
 

@@ -67,14 +67,14 @@ class VotingDecisionManager(object):
     def create_board_decision(self):
         try:
             self._board_decision = BoardDecision.objects.get(
-                assessed_application__application_document__document_number=self.document_number
+                document_number=self.document_number
             )
         except BoardDecision.DoesNotExist:
             voting_decision_outcome = self._create_voting_decision()
             security_clearance = self.security_clearance()
             if voting_decision_outcome:
                 self._board_decision = BoardDecision.objects.create(
-                    assessed_application=self.application,
+                    document_number=self.document_number,
                     decision_outcome=voting_decision_outcome,
                     board_meeting=self.board_meeting,
                     vetting_outcome=security_clearance.status.code.lower(),
