@@ -16,5 +16,12 @@ class BoardDecision(BaseUuidModel):
     def __str__(self):
         return f"{self.assessed_application}"
 
+    def to_dict(self):
+        return {
+            "vetting_outcome": self.vetting_outcome,
+            "decision_outcome": self.decision_outcome,
+            "outcome_reason": self.outcome_reason,
+        }
+
     class Meta:
         app_label = "board"
