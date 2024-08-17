@@ -113,7 +113,7 @@ class Command(CustomBaseCommand):
                 app, version = self.create_basic_data()
 
                 self.stdout.write(
-                    self.style.SUCCESS("Successfully populated blue card data")
+                    self.style.SUCCESS("Successfully populated renunciation data")
                 )
 
                 self.create_certificate_of_origin(version=version, app=app, faker=faker)

@@ -9,6 +9,7 @@ from .views.board import (BoardModelViewSet, MeetingViewSet, ScoreSheetViewSet, 
                           AttendeeViewSet, BoardMemberViewSet, BatchApplicationViewSet)
 
 from .views.board.interview_viewset import InterviewViewSet
+from .views.summary import RenunciationSummaryViewSet
 
 app_name = 'citizenship'
 
@@ -25,6 +26,10 @@ router.register(r'citizenship-meeting-attendees', AttendeeViewSet)
 router.register(r'citizenship-boardmembers', BoardMemberViewSet),
 router.register(r'citizenship-batch-applications', BatchApplicationViewSet)
 router.register(r'citizenship-interviews', InterviewViewSet, basename='interview')
+router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet)
+# router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet)
+# router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet)
+# router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet)
 
 
 urlpatterns = [
