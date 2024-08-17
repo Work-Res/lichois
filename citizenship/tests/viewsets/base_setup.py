@@ -157,10 +157,10 @@ class BaseSetup(APITestCase):
     def setUp(self) -> None:
 
         self.create_application_statuses()
-        application_version = self.create_new_application()
+        self.application_version = self.create_new_application()
 
-        app = application_version.application
-        self.application = application_version.application
+        app = self.application_version.application
+        self.application = self.application_version.application
         self.document_number = app.application_document.document_number
         faker = Faker()
         self.create_personal_details(app, faker)
