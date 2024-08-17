@@ -111,7 +111,7 @@ class ApplicationSummary:
             except AttributeError as e:
                 # Handle the case where an attribute doesn't exist on the model instance
                 print(f"Error accessing field '{field_name}' on {model_instance}: {e}")
-                serialized_data[field_name] = None
+                # serialized_data[field_name] = None
 
         return serialized_data
 

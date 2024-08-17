@@ -94,9 +94,7 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
     def board_decision(self):
         if not self._board_decision:
             try:
-                return BoardDecision.objects.get(
-                    assessed_application__application_document__document_number=self.document_number
-                )
+                return BoardDecision.objects.get(document_number=self.document_number)
             except BoardDecision.DoesNotExist:
                 self.logger.info(
                     f"Board decision is pending for {self.document_number}"

@@ -14,7 +14,7 @@ class BoardDecision(ApplicationBaseModel):
     outcome_reason = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.assessed_application}"
+        return f"{self.document_number} - {self.decision_outcome}"
 
     def to_dict(self):
         return {

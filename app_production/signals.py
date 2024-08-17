@@ -33,9 +33,10 @@ def create_production_permit_record(sender, instance, created, **kwargs):
                 request.application_type = application.application_type
                 request.place_issue = "Gaborone"
                 request.security_number = "123456"
+                request.permit_type = application.application_type
 
                 service_registry = get_service_registry()
-                service_cls = service_registry.get_service(application.application_type)
+                service_cls = service_registry.get_service(application.process_name)
                 print("service_cls ", service_cls)
                 service_cls(request).create_new_permit()
 
