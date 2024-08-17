@@ -3,6 +3,7 @@ import os
 from datetime import date
 import re
 
+from app.utils.system_enums import ApplicationProcesses
 from app_address.models.application_address import ApplicationAddress
 from app_attachments.models.application_attachment import ApplicationAttachment
 from app_personal_details.models.passport import Passport
@@ -21,7 +22,7 @@ from .permit_production_service import PermitProductionService
 
 class TravelCertificateProductionService(PermitProductionService):
 
-    application_type = TravelCertificateEnum.TRAVEL_CERTIFICATE.value
+    process_name = ApplicationProcesses.TRAVEL_CERTIFICATE.value
 
     def __init__(self, request: PermitRequestDTO):
         self.logger = logging.getLogger(__name__)

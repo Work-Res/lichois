@@ -7,13 +7,17 @@ from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
 from app_production.services.permit_production_service import PermitProductionService
 from blue_card.enums import BlueCardApplicationTypeEnum
+from workresidentpermit.models.work_permit import WorkPermit
+from workresidentpermit.utils.work_resident_permit_application_type_enum import (
+    WorkResidentPermitApplicationTypeEnum,
+)
 
 from ..api.dto.permit_request_dto import PermitRequestDTO
 
 
-class BlueCardProductionService(PermitProductionService):
+class WorkResidenceProductionService(PermitProductionService):
 
-    process_name = ApplicationProcesses.BLUE_CARD_PERMIT.value
+    process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
 
     def __init__(self, request: PermitRequestDTO):
         self.logger = logging.getLogger(__name__)
@@ -26,20 +30,29 @@ class BlueCardProductionService(PermitProductionService):
     def systems_parameter(self):
         try:
             self._systems_parameter = SystemParameter.objects.get(
-                application_type__icontains=self.request.permit_type
+                application_type__icontains=self.request.application_type
             )
             self.logger.info(
-                f"System parameter found for {self.application_type}, returning existing one."
+                f"System parameter found for {self.request.application_type}, returning existing one."
             )
         except SystemParameter.DoesNotExist:
             self.logger.info(
-                f"System parameter not found for {self.visa_type}, creating a new one."
+                f"System parameter not found for {self.request.application_type}, creating a new one."
             )
             self._systems_parameter = SystemParameter.objects.create(
-                application_type=self.request.permit_type,
+                application_type=self.request.application_type,
                 valid_from=date.today(),
-                valid_to=date.today() + relativedelta(years=100),
+                valid_to=date.today() + relativedelta(years=3),
                 duration_type="years",
                 duration=100,
             )
         return self._systems_parameter
+
+    def _get_work_resident_permit_application(self, document_number):
+        try:
+            work_resident_permit_application = WorkPermit.objects.get(
+                document_number=document_number
+            )
+        except WorkPermit.DoesNotExist:
+            return None
+        return work_resident_permit_application

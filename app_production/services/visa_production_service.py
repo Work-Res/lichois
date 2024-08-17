@@ -2,6 +2,7 @@ import logging
 
 from dateutil.relativedelta import relativedelta
 
+from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
 from app_production.services.permit_production_service import PermitProductionService
 from visa.enums import VisaApplicationTypeEnum
@@ -12,7 +13,7 @@ from ..api.dto.permit_request_dto import PermitRequestDTO
 
 class VisaProductionService(PermitProductionService):
 
-    application_type = VisaApplicationTypeEnum.VISA_PERMIT_ONLY.value
+    process_name = ApplicationProcesses.VISA_PERMIT.value
 
     def __init__(self, request: PermitRequestDTO):
         self.visa = self._get_visa_application(request.document_number)

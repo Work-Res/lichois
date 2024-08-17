@@ -49,12 +49,11 @@ class ServiceLoader:
                         attribute, PermitProductionService
                     ):  # Check if it's a class
                         # Check if the class has an application_type attribute
-                        if hasattr(attribute, "application_type"):
-                            application_type = getattr(attribute, "application_type")
-                            print(application_type)
-                            self.registry.register(application_type, attribute)
+                        if hasattr(attribute, "process_name"):
+                            process_name = getattr(attribute, "process_name")
+                            self.registry.register(process_name, attribute)
 
                         else:
                             print(
-                                f"Warning: Service {attribute.__name__} does not have an application_type attribute."
+                                f"Warning: Service {attribute.__name__} does not have an process_name attribute."
                             )
