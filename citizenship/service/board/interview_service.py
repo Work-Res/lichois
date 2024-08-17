@@ -48,6 +48,7 @@ class InterviewService:
             # Check if all board members have submitted their responses
             responses = InterviewResponse.objects.filter(interview=interview)
             submitted_members = responses.values_list('member', flat=True)
+            print()
             if set(submitted_members) == set(board_members.values_list('id', flat=True)):
                 total_score = responses.aggregate(total=models.Sum('score'))['total']
                 average_score = responses.aggregate(avg=models.Avg('score'))['avg']
@@ -85,6 +86,22 @@ class InterviewService:
             raise ValidationError("Interview does not exist.")
         except Exception as e:
             logger.exception(f"Unexpected error updating interview: {e}")
+            raise
+
+    @transaction.atomic
+    def update_interview_by_application_id(self, application_id: int, conducted: bool, status: str):
+        try:
+            interview = Interview.objects.get(application__id=application_id)
+            interview.conducted = conducted
+            interview.status = status
+            interview.save()
+            logger.info(f"Interview for application {application_id} updated: conducted={conducted}, status={status}.")
+            return interview
+        except Interview.DoesNotExist:
+            logger.error(f"Interview does not exist for application ID {application_id}.")
+            raise ValidationError("Interview does not exist for the given application ID.")
+        except Exception as e:
+            logger.exception(f"Unexpected error updating interview for application ID {application_id}: {e}")
             raise
 
     @transaction.atomic

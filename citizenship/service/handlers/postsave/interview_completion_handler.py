@@ -21,12 +21,18 @@ class InterviewCompletionHandler:
         try:
             with transaction.atomic():
                 # Get all board members for the meeting session's meeting
-                board_members = BoardMember.objects.filter(board=self.interview.meeting_session.meeting.board)
+                members_participated = self.interview.completed_by.all()
 
                 # Check if all board members have submitted their responses
-                responses = InterviewResponse.objects.filter(interview=self.interview)
+                for member in members_participated:
+                    responses = InterviewResponse.objects.filter(
+                        interview=self.interview,
+                        member=member
+                    )
+                    print(responses)
+
                 submitted_members = responses.values_list('member', flat=True)
-                if set(submitted_members) == set(board_members.values_list('id', flat=True)):
+                if set(submitted_members) == set(members_participated.values_list('id', flat=True)):
                     total_score = responses.aggregate(total=models.Sum('score'))['total']
                     average_score = responses.aggregate(avg=models.Avg('score'))['avg']
 
