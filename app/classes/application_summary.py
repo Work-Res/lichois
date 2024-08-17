@@ -1,10 +1,13 @@
 import re
+import logging
 from django.apps import apps
 
 from django.db.models.query import QuerySet
 from django.core.exceptions import FieldDoesNotExist, FieldError, ObjectDoesNotExist
 from django.db.models import ForeignKey, ManyToManyField, QuerySet
 from django.forms import model_to_dict
+
+logger = logging.getLogger(__name__)
 
 
 class ApplicationSummary:
@@ -76,10 +79,18 @@ class ApplicationSummary:
             return model_cls.objects.filter(document_number=self.document_number)
         return None
 
+    def get_fields(self, model_instance):
+        try:
+            fields = model_instance._meta.get_fields()
+            return fields
+        except Exception as e:
+            logger.error(f"Error retrieving fields for {model_instance}: {e}")
+            return []
+
     def serialize_model_instance(self, model_instance):
         """Serialize a model instance to a dictionary."""
         serialized_data = {}
-        for field in model_instance._meta.get_fields():
+        for field in self.get_fields(model_instance):
             field_name = field.name
             try:
                 if isinstance(field, ForeignKey):
@@ -109,9 +120,11 @@ class ApplicationSummary:
                     # Handle other fields normally
                     serialized_data[field_name] = getattr(model_instance, field_name)
             except AttributeError as e:
-                # Handle the case where an attribute doesn't exist on the model instance
-                print(f"Error accessing field '{field_name}' on {model_instance}: {e}")
-                # serialized_data[field_name] = None
+                logger.error(f"Error accessing field '{field_name}' on {model_instance}: {e}")
+                serialized_data[field_name] = None
+            except Exception as e:
+                logger.error(f"Unexpected error processing field '{field_name}' on {model_instance}: {e}")
+                serialized_data[field_name] = None
 
         return serialized_data
 
