@@ -30,12 +30,10 @@ class ApplicationSummary:
             elif isinstance(model_instance, QuerySet):
                 temp = []
                 snake_case_model_name = None
-                for model_obj in model_instance:
-                    model_name = apps.get_model(app_label).__name__
-                    snake_case_model_name = self.to_snake_case(model_name)
-                    temp.append(self.serialize_model_instance(
-                        model_obj
-                    ))
+                model_name = apps.get_model(app_label).__name__
+                snake_case_model_name = self.to_snake_case(model_name)
+                temp = self.serialize_model_instance(model_instance)
+                print(temp, "model_instance model_instance model_instance")
                 summary[snake_case_model_name] = temp
 
         return summary
@@ -83,51 +81,66 @@ class ApplicationSummary:
 
     def get_fields(self, model_instance):
         try:
-            fields = model_instance._meta.get_fields()
-            return fields
+            if not isinstance(model_instance, QuerySet):
+                fields = model_instance._meta.get_fields()
+                return fields
+            else:
+                first_model_obj = model_instance[0]
+                fields = first_model_obj._meta.get_fields()
+                return fields
         except Exception as e:
             logger.error(f"Error retrieving fields for {model_instance}: {e}")
             return []
+
+    def _prepare_model_field_name_value(self, serialized_data, field, field_name, model_instance):
+        try:
+            if isinstance(field, ForeignKey):
+                # Handle ForeignKey relationships
+                related_instance = getattr(model_instance, field_name)
+                if related_instance:
+                    serialized_data[field_name] = self.serialize_related_instance(
+                        related_instance
+                    )
+                else:
+                    serialized_data[field_name] = None
+            elif isinstance(field, ManyToManyField):
+                # Handle ManyToManyField relationships
+                related_manager = getattr(model_instance, field_name)
+                serialized_data[field_name] = [
+                    self.serialize_related_instance(instance)
+                    for instance in related_manager.all()
+                ]
+            elif hasattr(getattr(model_instance, field_name), "all"):
+                # Handle reverse ForeignKey relationships
+                related_manager = getattr(model_instance, field_name)
+                serialized_data[field_name] = [
+                    self.serialize_related_instance(instance)
+                    for instance in related_manager.all()
+                ]
+            else:
+                # Handle other fields normally
+                serialized_data[field_name] = getattr(model_instance, field_name)
+        except AttributeError as e:
+            logger.error(f"Error accessing field '{field_name}' on {model_instance}: {e}")
+            serialized_data[field_name] = None
+        except Exception as e:
+            logger.error(f"Unexpected error processing field '{field_name}' on {model_instance}: {e}")
+            serialized_data[field_name] = None
 
     def serialize_model_instance(self, model_instance):
         """Serialize a model instance to a dictionary."""
         serialized_data = {}
         for field in self.get_fields(model_instance):
             field_name = field.name
-            try:
-                if isinstance(field, ForeignKey):
-                    # Handle ForeignKey relationships
-                    related_instance = getattr(model_instance, field_name)
-                    if related_instance:
-                        serialized_data[field_name] = self.serialize_related_instance(
-                            related_instance
-                        )
-                    else:
-                        serialized_data[field_name] = None
-                elif isinstance(field, ManyToManyField):
-                    # Handle ManyToManyField relationships
-                    related_manager = getattr(model_instance, field_name)
-                    serialized_data[field_name] = [
-                        self.serialize_related_instance(instance)
-                        for instance in related_manager.all()
-                    ]
-                elif hasattr(getattr(model_instance, field_name), "all"):
-                    # Handle reverse ForeignKey relationships
-                    related_manager = getattr(model_instance, field_name)
-                    serialized_data[field_name] = [
-                        self.serialize_related_instance(instance)
-                        for instance in related_manager.all()
-                    ]
-                else:
-                    # Handle other fields normally
-                    serialized_data[field_name] = getattr(model_instance, field_name)
-            except AttributeError as e:
-                logger.error(f"Error accessing field '{field_name}' on {model_instance}: {e}")
-                serialized_data[field_name] = None
-            except Exception as e:
-                logger.error(f"Unexpected error processing field '{field_name}' on {model_instance}: {e}")
-                serialized_data[field_name] = None
-
+            if not isinstance(model_instance, QuerySet):
+                self._prepare_model_field_name_value(
+                    serialized_data, field=field, field_name=field_name, model_instance=model_instance)
+            else:
+                temp = []
+                for model_obj in model_instance:
+                    prepared_data = self.serialize_related_instance(model_obj)
+                    temp.append(prepared_data)
+                return temp
         return serialized_data
 
     def serialize_related_instance(self, related_instance):
