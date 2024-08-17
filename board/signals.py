@@ -24,7 +24,7 @@ def create_application_decision(sender, instance, created, **kwargs):
     try:
         if created:
             work_resident_permit_decision_service = WorkResidentPermitDecisionService(
-                document_number=instance.assessed_application.application_document.document_number,
+                document_number=instance.document_number,
                 board_decision=instance,
             )
             work_resident_permit_decision_service.create_application_decision()
@@ -50,7 +50,7 @@ def create_board_decision(sender, instance, created, **kwargs):
                 document_number=instance.document_number,
                 board_meeting=instance.board_meeting,
             )
-            board_decision = service.create_board_decision()
+            service.create_board_decision()
     except SystemError as e:
         logger.error(
             "SystemError: An error occurred while creating new board decision, Got ", e

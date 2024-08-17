@@ -23,20 +23,4 @@ class ResidencePermitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ResidencePermit
-        fields = (
-            "file_number",
-            "preferred_method_comm",
-            "preferred_method_comm_value",
-            "language",
-            "permit_reason",
-            "state_period_required",
-            "propose_work_employment",
-            "reason_applying_permit",
-            "documentary_proof",
-            "travelled_on_pass",
-            "is_spouse_applying_residence",
-            "ever_prohibited",
-            "sentenced_before",
-            "entry_place",
-            "arrival_date"
-        )
+        fields = "__all__"
