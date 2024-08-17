@@ -3,6 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from app.classes.application_summary import ApplicationSummary
+from citizenship.api.serializers import CitizenshipSummarySerializer
+from citizenship.models import CitizenshipSummary
 
 
 def get_app_labels():
@@ -15,6 +17,8 @@ def get_app_labels():
 
 class PresPower10BSummaryViewSet(viewsets.ModelViewSet):
 
+    queryset = CitizenshipSummary.objects.all()
+    serializer_class = CitizenshipSummarySerializer
 
     @action(
         detail=False,

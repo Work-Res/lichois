@@ -43,3 +43,5 @@ from .board.batch import Batch
 from .board.batch_application import BatchApplication
 from .board.board import Board
 from .board.question import Question
+from .citizenship_summary import CitizenshipSummary
+

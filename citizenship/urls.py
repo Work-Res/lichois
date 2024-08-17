@@ -9,7 +9,9 @@ from .views.board import (BoardModelViewSet, MeetingViewSet, ScoreSheetViewSet, 
                           AttendeeViewSet, BoardMemberViewSet, BatchApplicationViewSet)
 
 from .views.board.interview_viewset import InterviewViewSet
-from .views.summary import RenunciationSummaryViewSet
+from .views.summary import (RenunciationSummaryViewSet, AdoptedChildSummaryViewSet, PresPower10ASummaryViewSet,
+                            PresPower10BSummaryViewSet, IntentionNaturalizationFSSummaryViewSet,
+                            MaturityPeriodWaiverSummaryViewSet, DualRenunciationSummaryViewSet)
 
 app_name = 'citizenship'
 
@@ -27,9 +29,13 @@ router.register(r'citizenship-boardmembers', BoardMemberViewSet),
 router.register(r'citizenship-batch-applications', BatchApplicationViewSet)
 router.register(r'citizenship-interviews', InterviewViewSet, basename='interview')
 router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet, basename='renunciation-summary')
-# router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet)
-# router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet)
-# router.register(r'citizenship-renunciation-summary', RenunciationSummaryViewSet)
+router.register(r'citizenship-adopted-child-summary', AdoptedChildSummaryViewSet, basename='adopted-child-summary')
+router.register(r'citizenship-pre-10a-summary', PresPower10ASummaryViewSet, basename='pre-10a-summary')
+router.register(r'citizenship-pre-10b-summary', PresPower10BSummaryViewSet, basename='pre-10b-summary')
+router.register(r'citizenship-intention-naturalization', IntentionNaturalizationFSSummaryViewSet,
+                basename='intention-naturalization')
+router.register(r'citizenship-maturity-waiver', MaturityPeriodWaiverSummaryViewSet, basename='maturity-waiver')
+router.register(r'citizenship-dual-renunciation', DualRenunciationSummaryViewSet, basename='dual-renunciationr')
 
 
 urlpatterns = [
