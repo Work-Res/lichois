@@ -22,7 +22,7 @@ class TestRenunciationSummaryViewSetTests(BaseSetup):
         """
         # Create the URL
         url = reverse('citizenship:renunciation-summary', kwargs={'document_number': self.document_number})
-
+        print(url)
         # Make the GET request
         response = self.client.get(url)
 

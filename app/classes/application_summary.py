@@ -1,5 +1,7 @@
 import re
 from django.apps import apps
+
+from django.db.models.query import QuerySet
 from django.core.exceptions import FieldDoesNotExist, FieldError, ObjectDoesNotExist
 from django.db.models import ForeignKey, ManyToManyField, QuerySet
 from django.forms import model_to_dict
@@ -22,6 +24,17 @@ class ApplicationSummary:
                 summary[snake_case_model_name] = self.serialize_model_instance(
                     model_instance
                 )
+            elif isinstance(model_instance, QuerySet):
+                temp = []
+                snake_case_model_name = None
+                for model_obj in model_instance:
+                    model_name = apps.get_model(app_label).__name__
+                    snake_case_model_name = self.to_snake_case(model_name)
+                    temp.append(self.serialize_model_instance(
+                        model_obj
+                    ))
+                summary[snake_case_model_name] = temp
+
         return summary
 
     def get_model_instance(self, app_label):
@@ -59,6 +72,8 @@ class ApplicationSummary:
                             continue
         except FieldDoesNotExist:
             return None
+        except model_cls.MultipleObjectsReturned:
+            return model_cls.objects.filter(document_number=self.document_number)
         return None
 
     def serialize_model_instance(self, model_instance):
