@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
 from authentication.models import User
+from django.contrib.postgres.fields import JSONField
 
 
 class Notification(BaseUuidModel, models.Model):
@@ -16,6 +17,8 @@ class Notification(BaseUuidModel, models.Model):
 	is_read = models.BooleanField(default=False)
 	has_attachment = models.BooleanField(default=False)
 	retry_count = models.IntegerField(null=True, blank=True)
-	
+	context = JSONField(null=True, blank=True)
+	template_name = models.CharField(max_length=255, null=True, blank=True)
+
 	def __str__(self):
 		return f'Notification for {self.user.name}'

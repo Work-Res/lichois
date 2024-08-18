@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Citizenship Application Interview Invitation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+        }
+        h1 {
+            font-size: 16px;
+            color: #0056b3;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .details {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Good day, {{ applicant_name }}!</h1>
+    <p>We are pleased to inform you that you have been scheduled for an interview as part of your citizenship
+        application process with <strong>{{ company_name }}</strong>. This interview is a crucial step in your
+        application, and we look forward to discussing your application further.</p>
+    
+    <div class="details">
+        <h2>Interview Details:</h2>
+        <p><strong>Date:</strong> {{ interview_date }}</p>
+        <p><strong>Time:</strong> {{ interview_time }}</p>
+        <p><strong>Location:</strong> {{ interview_location }}</p>
+        <p><strong>Duration:</strong> {{ interview_duration }}</p>
+        {% if is_remote %}
+        <p><strong>Join the Meeting:</strong> <a href="{{ meeting_link }}">Click here to join</a></p>
+        {% endif %}
+    </div>
+    
+    <p>Please confirm your availability for the interview by replying to this email at your earliest convenience.
+        If the suggested time does not work for you, we would be happy to arrange a different time.</p>
+    
+    <p>During the interview, we will discuss your application in detail. Please bring any necessary documents,
+        including those listed in your application package or any additional materials that may support your
+        application.</p>
+    
+    <p>Thank you for your interest in becoming a citizen. We look forward to meeting with you and discussing
+        your application further.</p>
+    
+    <div style="text-align: center; margin-top: 30px;">
+        <img src="{{footer_image}}" alt="Agency Logo" style="width: 100%; max-width: 600px;">
+    </div>
+</body>
+</html>

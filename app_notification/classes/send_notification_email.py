@@ -1,51 +1,72 @@
 import logging
-from django.core.mail import EmailMessage, send_mail
 from django_q.tasks import async_task
 
-# Configure logging
-from app_notification.models import Notification
+from app_notification.service import EmailNotificationService
 
 logger = logging.getLogger(__name__)
 
 
-def send_notification_email(notification_id):
-    try:
-        notification = Notification.objects.get(id=notification_id)
-        if notification.user and notification.user.email:
-            try:
-                if notification.has_attachment:
-                    # Dynamically fetch the attachment based on content_type and object_id
-                    content_type = notification.content_type
-                    model_class = content_type.model_class()
-                    attachment = model_class.objects.get(id=notification.object_id)
+class NotificationSender:
+    def __init__(self, notification, context, template_name=None):
+        self.notification = notification
+        self.context = notification.context
+        self.template_name = notification.template_name
 
-                    email = EmailMessage(
-                        'New Notification',
-                        notification.message,
-                        'from@example.com',
-                        [notification.user.email]
-                    )
-                    email.attach_file(attachment.file.path)
-                    email.send(fail_silently=False)
-                else:
-                    send_mail(
-                        'New Notification',
-                        notification.message,
-                        'from@example.com',
-                        [notification.user.email],
-                        fail_silently=False,
-                    )
-                notification.is_read = True
-                notification.save()
-                logger.info(f'Notification {notification_id} sent to {notification.user.email}')
+    def send(self):
+        if not self.notification:
+            return
+
+        if self.notification.user and self.notification.user.email:
+            try:
+                self.send_email(self.notification)
+                self.mark_as_read(self.notification)
+                logger.info(f'Notification {self.notification.id} sent to {self.notification.user.email}')
             except Exception as e:
-                notification.retry_count += 1
-                notification.save()
-                logger.error(f'Error sending notification {notification_id} to {notification.user.email}: {e}')
-                # Optionally, re-queue the task for retry if needed
-                if notification.retry_count < 3:  # For example, retry up to 3 times
-                    async_task('path.to.tasks.send_notification_email', notification_id)
-    except Notification.DoesNotExist:
-        logger.error(f'Notification with id {notification_id} does not exist')
+                self.handle_send_error(self.notification, e)
+
+    def send_email(self, notification):
+        if notification.has_attachment:
+            attachment = self.get_attachment(notification)
+            EmailNotificationService.send_email_notifications(
+                context=self.context,
+                template_name=self.template_name,
+                attachment_file_path=attachment.file.path if attachment else None
+            )
+        else:
+            EmailNotificationService.send_email_notifications(
+                context=self.context,
+                template_name=self.template_name,
+                attachment_file_path=None
+            )
+
+    def get_attachment(self, notification):
+        try:
+            content_type = notification.content_type
+            model_class = content_type.model_class()
+            return model_class.objects.get(id=notification.object_id)
+        except Exception as e:
+            logger.error(f'Error retrieving attachment for notification {self.notification_id}: {e}')
+            return None
+
+    def mark_as_read(self, notification):
+        notification.is_read = True
+        notification.save()
+
+    def handle_send_error(self, notification, error):
+        notification.retry_count += 1
+        notification.save()
+        logger.error(f'Error sending notification {self.notification_id} to {notification.user.email}: {error}')
+        if notification.retry_count < 3:
+            async_task('path.to.tasks.send_notification_email', self.notification_id)
+
+
+def send_notification_email(notification):
+    sender = NotificationSender(notification)
+    try:
+        sender.send()
     except Exception as e:
-        logger.error(f'Unexpected error occurred while processing notification {notification_id}: {e}')
+        logger.error(f'Error sending notification {notification.id}: {e}')
+        notification.retry_count += 1
+        notification.save()
+        if notification.retry_count < 3:
+            async_task('path.to.tasks.send_notification_email', notification.id)

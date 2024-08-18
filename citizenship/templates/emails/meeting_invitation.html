@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Board Meeting Invitation</title>
+    <style>
+        /* Apply font and size to the entire body */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="font-size: 16px;">Good day, {{ user.first_name }}!</h1>
+    <p>We wanted to notify you about an upcoming meeting: {{ notification_message }}</p>
+    <p>The meeting is scheduled to take place on {{ meeting_date }} at {{ meeting_time }}.</p>
+    <p>You are kindly requested to confirm your attendance through the Immigration System.</p>
+    <p>Thank you for your attention. We look forward to your participation!</p>
+    
+    <!-- Footer Image -->
+    <div style="text-align: center; margin-top: 30px;">
+        <img src="{{ footer_image }}" alt="Footer Image" style="width: 100%; max-width: 600px;">
+    </div>
+</body>
+</html>

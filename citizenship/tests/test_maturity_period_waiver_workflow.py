@@ -16,7 +16,6 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
     # 4. Minister decision
     # 5. Dispatch
 
-
     def test_create_new_application(self):
         app = Application.objects.get(
             application_document__document_number=self.document_number)
