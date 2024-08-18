@@ -22,3 +22,10 @@ def handle_meeting_notification_on_status_change(sender, instance, **kwargs):
                 logger.info(f"Notification sent for Meeting ID: {instance.id}")
         except Exception as e:
             logger.error(f"Error sending notification for Meeting ID: {instance.id}: {e}")
+    elif instance.status == 'Scheduled':
+        try:
+            with transaction.atomic():
+                NotificationService.create_notifications_for_interviewees(instance.id)
+                logger.info(f"Notification prepared for sending, meeting ID: {instance.id}")
+        except Exception as e:
+            logger.error(f"Error sending notification for Meeting ID: {instance.id}: {e}")

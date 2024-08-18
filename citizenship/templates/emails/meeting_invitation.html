@@ -12,9 +12,9 @@
     </style>
 </head>
 <body>
-    <h1 style="font-size: 16px;">Good day, {{ user.first_name }}!</h1>
-    <p>We wanted to notify you about an upcoming meeting: {{ notification_message }}</p>
-    <p>The meeting is scheduled to take place on {{ meeting_date }} at {{ meeting_time }}.</p>
+    <h1 style="font-size: 16px;">Good day, {{ full_name }}!</h1>
+    <p>We wanted to notify you about an upcoming meeting: {{ meeting_title }}</p>
+    <p>The meeting is scheduled to take place starting {{ meeting_start_date }} and ends, {{ meeting_end_date }}.</p>
     <p>You are kindly requested to confirm your attendance through the Immigration System.</p>
     <p>Thank you for your attention. We look forward to your participation!</p>
     

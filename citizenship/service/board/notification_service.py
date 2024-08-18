@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django_q.tasks import async_task
 from django.conf import settings
@@ -18,6 +19,7 @@ class NotificationService:
 
     @staticmethod
     def create_notifications_for_interviewees(meeting_id):
+        footer_image = os.path.join(settings.BASE_DIR, 'media')
         meeting = Meeting.objects.get(id=meeting_id)
         batch_applications = BatchApplication.objects.filter(
             meeting_session__meeting=meeting
@@ -38,8 +40,8 @@ class NotificationService:
                 "Time": meeting_session.start_time,
                 "Location": meeting.location,
                 "Duration": meeting_session.get_duration(),
-                "subject": "Citizenship Application Interview Invitation",
-                "footer_image": ""
+                "subject": f"Citizenship Application Interview Invitation - {meeting_session.date}",
+                "footer_image": os.path.join(footer_image, "image_footer.png")
             }
 
             Notification.objects.create(
@@ -52,6 +54,7 @@ class NotificationService:
 
     @staticmethod
     def create_notifications_for_attendees(meeting_id):
+
         try:
             meeting = Meeting.objects.get(id=meeting_id)
             logger.info(f'Creating notifications for meeting ID: {meeting_id}, Title: {meeting.title}')
@@ -68,41 +71,28 @@ class NotificationService:
         except Exception as e:
             logger.error(f'Error retrieving attendees for meeting ID {meeting_id}: {e}')
             return
-
+        footer_image = os.path.join(settings.BASE_DIR, 'media', "footer_image.png")
         for attendee in attendees:
-            # I need to create context here..TODO complete this context code below
-            # context = {
-            #     "to_email": application_contact.contact_value,
-            #     "interview_date": meeting_session.date,
-            #     "Time": meeting_session.start_time,
-            #     "Location": meeting.location,
-            #     "Duration": meeting_session.get_duration(),
-            #     "subject": "Citizenship Application Interview Invitation",
-            #     "footer_image": ""
-            # }
-
+            context = {
+                "user": "",
+                "footer_image": footer_image,
+                "meeting_title": meeting.title,
+                "meeting_start_date": meeting.start_date.strftime("%Y-%m-%d"),
+                "meeting_end_date": meeting.end_date.strftime("%Y-%m-%d"),
+                "to_email": attendee.member.user.email
+            }
             try:
                 Notification.objects.create(
                     user=attendee.member.user,
                     content_type=ContentType.objects.get_for_model(meeting),
                     object_id=meeting.id,
-                    message=f'A new meeting "{meeting.title}" has been scheduled on {meeting.date} at {meeting.time} in {meeting.location}.'
+                    context=context,
+                    template_name="interview_invitation.html"
                 )
                 logger.info(f'Notification created for user {attendee.member.user.email} for meeting ID: {meeting_id}')
             except Exception as e:
                 logger.error(f'Error creating notification for user {attendee.member.user.email} for meeting ID {meeting_id}: {e}')
 
-    # @staticmethod
-    # def send_email_notifications(meeting_id):
-    #     attendees = Attendee.objects.filter(meeting_id=meeting_id)
-    #     meeting = attendees.first().meeting
-    #     subject = f'Notification for Meeting: {meeting.title}'
-    #     message = f'A new meeting "{meeting.title}" has been scheduled on {meeting.date} at {meeting.time} in ' \
-    #               f'{meeting.location}.'
-    #     from_email = settings.DEFAULT_FROM_EMAIL
-    #     recipient_list = [attendee.member.user.email for attendee in attendees]
-    #
-    #     send_mail(subject, message, from_email, recipient_list)
 
     @staticmethod
     def notify_attendees(meeting_id):

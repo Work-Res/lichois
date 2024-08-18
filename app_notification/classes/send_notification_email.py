@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 class NotificationSender:
-    def __init__(self, notification, context, template_name=None):
+    def __init__(self, notification):
         self.notification = notification
         self.context = notification.context
         self.template_name = notification.template_name

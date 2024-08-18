@@ -10,7 +10,7 @@ from app_notification.models import Notification
 def send_unread_notifications():
     unread_notifications = Notification.objects.filter(is_read=False)
     for notification in unread_notifications:
-        send_notification_email(notification.id)
+        send_notification_email(notification)
 
 
 # Schedule this task to run every hour
