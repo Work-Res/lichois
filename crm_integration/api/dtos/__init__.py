@@ -5,4 +5,5 @@ from .service_details_dto import ServiceDetailsDTO
 from .payload_dto import PayloadDTO
 from .payment_dto import PaymentDTO
 from .profile_dto import ProfileDTO
-
+from .crm_download_attachment_dto import CrmDownloadAttachmentDTO
+from .crm_payload_dto import CrmPayloadDTO

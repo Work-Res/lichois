@@ -366,3 +366,22 @@ RABBITMQ_HOST = 'localhost'
 RABBITMQ_USERNAME = 'guest'
 RABBITMQ_PASSWORD = 'guest'
 RABBITMQ_VHOST = '/test_vhost'
+
+crm_config = {
+    'CRM_FILE_UPLOAD_URL': 'https://api.example.com/upload',
+    'CRM_FILE_DOWNLOAD_URL': 'https://api.example.com/download',
+    'PUSH_CRM_URL_PREFIX': 'https://api.example.com/',
+    'PUSH_CRM_URL_SUFFIX': '/push',
+    'PUSH_CRM_URL': 'https://api.example.com/push',
+    'APPLICATION_ID_KEY': 'X-App-ID',
+    'AUTHORISATION_KEY': 'Authorization',
+    'NOTIFICATION_SERVICE': 'notification_service',
+    'FILE_DIR': '/path/to/files/',
+    'auth_create_url': 'https://example.com/api/auth/create',
+    'auth_refresh_url': 'https://example.com/api/auth/refresh',
+    'username': 'your_username',
+    'password': 'your_password',
+    'refresh_key': 'refresh_token'
+}
+
+USE_RABBITMQ = False
