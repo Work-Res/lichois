@@ -1,0 +1,6 @@
+from enum import Enum
+
+
+class PermanentResidenceApplicationTypeEnum(Enum):
+    PERMANENT_RESIDENCE_ONLY = "PERMANENT_RESIDENCE_ONLY"
+    PERMANENT_RESIDENCE_10_YEARS = "PERMANENT_RESIDENCE_10_YEARS"
