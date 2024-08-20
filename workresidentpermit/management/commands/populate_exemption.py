@@ -41,7 +41,9 @@ class Command(CustomBaseCommand):
                     application_version=version,
                     business_name=faker.company(),
                     employment_capacity=faker.job(),
-                    proposed_period=randint(1, 12),
+                    proposed_period=faker.random_element(
+                        elements=("1 year", "2 years", "3 years", "4 years", "5 years")
+                    ),
                 )
 
                 for _ in range(1, 5):

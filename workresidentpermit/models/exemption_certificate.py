@@ -6,7 +6,7 @@ class ExemptionCertificate(ApplicationBaseModel):
 
     business_name = models.CharField(max_length=150)
     employment_capacity = models.CharField(max_length=250)
-    proposed_period = models.PositiveIntegerField()
+    proposed_period = models.CharField(max_length=150)
 
     class Meta:
         verbose_name = "Exemption Certificate"
