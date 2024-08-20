@@ -12,6 +12,7 @@ from random import randint
 
 from lichois.management.base_command import CustomBaseCommand
 from workresidentpermit.models import ExemptionCertificate
+from workresidentpermit.models.dependant import Dependant
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
@@ -41,12 +42,17 @@ class Command(CustomBaseCommand):
                     business_name=faker.company(),
                     employment_capacity=faker.job(),
                     proposed_period=randint(1, 12),
-                    status=faker.random_element(
-                        elements=("approved", "rejected", "pending")
-                    ),
-                    applicant_signature=faker.text(),
-                    application_date=faker.date_this_century(),
-                    commissioner_signature=faker.name(),
                 )
+
+                for _ in range(1, 5):
+                    Dependant.objects.create(
+                        application_version=version,
+                        document_number=app.application_document.document_number,
+                        name=faker.name(),
+                        age=randint(1, 100),
+                        gender=faker.random_element(
+                            elements=("male", "female", "other")
+                        ),
+                    )
 
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))
