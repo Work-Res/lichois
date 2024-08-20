@@ -29,7 +29,7 @@ class BlueCardProductionService(PermitProductionService):
                 application_type__icontains=self.request.permit_type
             )
             self.logger.info(
-                f"System parameter found for {self.application_type}, returning existing one."
+                f"System parameter found for {self.request.application_type}, returning existing one."
             )
         except SystemParameter.DoesNotExist:
             self.logger.info(
