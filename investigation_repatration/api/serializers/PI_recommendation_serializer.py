@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from ...models import PIRecommendation
+from ...models import AssessmentRecommendation
 
 
-class PIRecommendationSerializer(serializers.ModelSerializer):
+class AssessmentRecommendationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PIRecommendation
+        model = AssessmentRecommendation
         fields = '__all__'

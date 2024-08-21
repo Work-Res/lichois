@@ -5,3 +5,4 @@ from .PI_declaration_order_viewset import PIDeclarationOrderViewSet
 from .PI_recommendation_viewset import PIRecommendationViewSet
 from .prisoner_viewset import PrisonerViewSet
 from .prisoner_due_release_viewset import PrisonerDueReleaseViewSet
+from .prisoner_details_viewset import PrisonerDetailsSerializer

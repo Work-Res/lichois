@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-from ..models import PIRecommendation
-from api.serializers import PIRecommendationSerializer
+from ..models import AssessmentRecommendation
+from api.serializers import AssessmentRecommendationSerializer
 
-class PIRecommendationViewSet(viewsets.ModelViewSet):
-    queryset = PIRecommendation.objects.all()
-    serializer_class = PIRecommendationSerializer
+class AssessmentRecommendationViewSet(viewsets.ModelViewSet):
+    queryset = AssessmentRecommendation.objects.all()
+    serializer_class = AssessmentRecommendationSerializer
