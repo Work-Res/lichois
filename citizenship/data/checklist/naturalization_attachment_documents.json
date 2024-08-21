@@ -1,0 +1,130 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "COLORED_PASSPORT_COPY",
+          "name": "COLORED RECENT PASSPORT COPY",
+          "description": "Recent Coloured Passport Size Photo",
+          "application_type": "NATURALIZATION",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "BOTSWANA_RESIDENCE_PERMIT_COPIES",
+          "name": "BOTSWANA RESIDENCE PERMIT COPIES",
+          "application_type": "NATURALIZATION",
+          "description": "Two certified copies of valid Botswana residence permit",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "POLICE_REPORT_FORMS ",
+          "name": "POLICE REPORT FORMS",
+          "application_type": "NATURALIZATION",
+          "description": "Completed set of police report forms",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_BIRTH_CERTIFICATE_COPY",
+          "name": "CERTIFIED BIRTH CERTIFICATE COPY",
+          "application_type": "NATURALIZATION",
+          "description": "Certified copy of birth certificate",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_MARRIAGE_CERTIFICATE_COPY",
+          "name": "CERTIFIED MARRIAGE CERTIFICATE COPY",
+          "application_type": "NATURALIZATION",
+          "description": "Certified copy of marriage certificate and copy of spouse’s citizenship status (if applicable)",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_EDUCATIONAL_CERTIFICATES_COPY",
+          "name": "CERTIFIED EDUCATIONAL CERTIFICATES COPY",
+          "application_type": "NATURALIZATION",
+          "description": "Certified copies of applicant’s educational qualifications (if married, also provide spouse’s educational qualifications)",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CURRICULUM_VITAE_COPY",
+          "name": "CURRICULUM VITAE COPY",
+          "application_type": "NATURALIZATION",
+          "description": "Copy of Curriculum Vitae",
+          "mandatory":true,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        },
+        {
+          "code": "EDUCATIONAL_INSTITUTION_ADMISSION_LETTER",
+          "name": "EDUCATIONAL INSTITUTION ADMISSION LETTER",
+          "application_type": "NATURALIZATION",
+          "description": "Admission letter from the educational institution",
+          "mandatory":false,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        },
+        {
+          "code": "TUITION_PROOF_OF_PAYMENT",
+          "name": "TUITION PROOF OF PAYMENT",
+          "application_type": "NATURALIZATION",
+          "description": "Proof of payment of tuition",
+          "mandatory":false,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        },
+        {
+          "code": "PARENTS_CITIZENSHIP_STATUS",
+          "name": "PARENTS CITIZENSHIP STATUS",
+          "application_type": "NATURALIZATION",
+          "description": "Proof of parents’ citizenship status",
+          "mandatory":false,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        },
+        {
+          "code": "PROPERTY_VALUATION",
+          "name": "PROPERTY VALUATION",
+          "application_type": "NATURALIZATION",
+          "description": "Value of property owned",
+          "mandatory":false,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        },
+        {
+          "code": "EMPLOYMENT_CONTRACT",
+          "name": "EMPLOYMENT CONTRACT",
+          "application_type": "NATURALIZATION",
+          "description": "Employment contract",
+          "mandatory":false,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        },
+        {
+          "code": "BUSINESS_DETAILS",
+          "name": "BUSINESS DETAILS",
+          "application_type": "NATURALIZATION",
+          "description": "Business details documents",
+          "mandatory":false,
+          "valid_from" :"2024-01-01",
+          "valid_to":"2030-01-01"
+        }
+      ]
+    }
+  }
+}

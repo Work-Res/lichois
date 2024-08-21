@@ -19,7 +19,7 @@
         {
           "code": "CERTIFIED_BIRTH_CERTIFICATE",
           "name": "CERTIFIED BIRTH CERTIFICATE",
-          "description": "Certified copy of birth certificate",
+          "description": "Certified copy of valid birth certificate or affidavit in lieu of birth certificate",
           "application_type": "SETTLEMENT",
           "mandatory": true,
           "valid_from": "2024-01-01",

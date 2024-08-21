@@ -1,0 +1,107 @@
+{
+  "classifiers": {
+    "citizenship": {
+      "code": "NATURALIZATION_BY_FOREIGN_SPOUSE",
+      "name": "Certificate of Naturalization by Foreign Spouse",
+      "description": "Certificate of Naturalization by Foreign Spouse",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Naturalization by Foreign Spouse Verification",
+          "description": "Verification Task",
+          "mandatory": true,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2040-01-01",
+          "next_activity_name": "SECURITY_CLEARANCE",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "NEW"
+          }
+        },
+        {
+          "code": "VETTING",
+          "name": "Naturalization by Foreign Spouse Security Clearance",
+          "description": "Certificate of Naturalization by Foreign Spouse Security Clearance",
+          "mandatory": true,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "GAZETTE_DRAFTING",
+          "create_task_rules": {
+            "current_status": "VERIFICATION",
+            "verification_decision": "ACCEPTED"
+          }
+        },
+        {
+          "code": "GAZETTE_DRAFTING",
+          "name": "Naturalization by Foreign Spouse Gazette Draft",
+          "description": "Draft and Verification of Gazette",
+          "sequence": 3,
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "GAZETTE_AUTHENTICATION",
+          "create_task_rules": {
+              "current_status":  "VETTING",
+              "vetting_obj_exists":  true
+          }
+        },
+        {
+          "code": "GAZETTE_AUTHENTICATION",
+          "name": "Naturalization by Foreign Spouse Gazette Authentication",
+          "description": "Gazette Authentication Task",
+          "sequence": 4,
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "INTERVIEW",
+          "create_task_rules": {
+            "current_status": "GAZETTE_DRAFT"
+          }
+        },
+        {
+          "code": "INTERVIEW",
+          "name": "Naturalization by Foreign Spouse Interview",
+          "description": "Naturalization by Foreign Spouse Applicant Interview Task",
+          "sequence": 5,
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "RECOMMENDATION",
+          "create_task_rules": {
+            "current_status": "GAZETTED"
+          }
+        },
+        {
+          "code": "RECOMMENDATION",
+          "name": "Naturalization by Foreign Spouse Online Recommendation",
+          "description": "Naturalization by Foreign Spouse Online Recommendation To The Minister",
+          "sequence": 6,
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "MINISTER_DECISION",
+          "create_task_rules": {
+            "current_status": "INTERVIEW"
+          }
+        },
+        {
+          "code": "MINISTER_DECISION",
+          "name": "Naturalization by Foreign Spouse Production Decision",
+          "description": "Naturalization by Foreign Spouse Production Decision",
+          "sequence": 7,
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "recommendation_decision": "ACCEPTED"
+          }
+        }
+      ]
+    }
+  }
+}

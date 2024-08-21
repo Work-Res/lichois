@@ -1,0 +1,54 @@
+{
+  "classifiers": {
+    "citizenship": {
+      "code": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+      "name": "Certificate of Citizenship incase of doubt",
+      "description": "Certificate of Citizenship incase of doubt Workflow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Certificate of Citizenship incase of doubt Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2040-01-01",
+          "next_activity_name": "DIRECTOR_RECOMMENDATION",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "NEW"
+          }
+        },
+        {
+          "code": "DIRECTOR_RECOMMENDATION",
+          "name": "Certificate of Citizenship incase of doubt Director Recommendation",
+          "description": "Certificate of Citizenship incase of doubt Recommendation By Director",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "MINISTER_DECISION",
+          "create_task_rules": {
+            "current_status": "DIRECTOR_RECOMMENDATION"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Certificate of Citizenship incase of doubt Decision",
+          "description": "Certificate Production Task",
+          "sequence": 3,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "current_status": "ACCEPTED",
+            "recommendation_decision": "ACCEPTED"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "classifiers": {
+    "attachment_documents": {
+      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "COLORED_PASSPORT_COPY",
+          "name": "COLORED RECENT PASSPORT COPY",
+          "description": "Recent Coloured Passport Size Photo",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_BIRTH_CERTIFICATE",
+          "name": "CERTIFIED BIRTH CERTIFICATE",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Certified copy of unabridged birth certificate.",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PARENTS_CITIZENSHIP_STATUS",
+          "name": "PARENTS CITIZENSHIP STATUS",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Proof of parents’ citizenship status (Omang, Passport or Citizenship Certificate)",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "BOTSWNA_PASSPORT_COPY",
+          "name": "BOTSWNA PASSPORT COPY",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Certified copy of botswana passport",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "BOTSWNA_OMANG_COPY",
+          "name": "BOTSWNA OMANG COPY",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Certified copy of botswana Omang",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "FOREIGN_PASSPORT_COPY",
+          "name": "FOREIGN PASSPORT COPY",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Certified copy of country of origin passport",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "FOREIGN_NATIONAL_ID_COPY",
+          "name": "FOREIGN NATIONAL ID COPY",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Certified copy of country of origin national id",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "AFFIDAVIT",
+          "name": "AFFIDAVIT",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Affidavit (parents, relatives and the applicant)",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "RELATIVES_OMANG_COPY",
+          "name": "RELATIVES OMANG COPY",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Certified copies of Omang (parents, relatives and the applicant)",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SCHOOL_EXAM_CERTIFICATES",
+          "name": "SCHOOL EXAM CERTIFICATES",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Copies of all school leaving examination certificates",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CITIZENSHIP_REGISTRATION_CERTIFICATE",
+          "name": "CITIZENSHIP REGISTRATION CERTIFICATE",
+          "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+          "description": "Citizenship Registration certificate (if applicable)",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
+    }
+  }
+}
