@@ -384,4 +384,5 @@ crm_config = {
     'refresh_key': 'refresh_token'
 }
 
-USE_RABBITMQ = False
+USE_RABBITMQ = True
+

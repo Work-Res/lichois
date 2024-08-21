@@ -1,0 +1,1 @@
+from .rabbit_mq_producer import RabbitMQProducer

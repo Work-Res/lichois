@@ -5,27 +5,10 @@ logger = logging.getLogger('rabbitmq_setup')
 
 
 class RabbitMQConfig:
-    def __init__(self, host='localhost', username='guest', password='guest', vhost='/'):
-        self.host = host
-        self.credentials = pika.PlainCredentials(username, password)  # Set up credentials
-        self.vhost = vhost
-        self.connection = None
-        self.channel = None
 
-    def connect(self):
-        """Establish a connection to RabbitMQ with vhost."""
-        try:
-            connection_params = pika.ConnectionParameters(
-                host=self.host,
-                virtual_host=self.vhost,  # Specify the vhost
-                credentials=self.credentials
-            )
-            self.connection = pika.BlockingConnection(connection_params)
-            self.channel = self.connection.channel()
-            logger.info(f"Connected to RabbitMQ at {self.host} on vhost '{self.vhost}' with user '{self.credentials.username}'")
-        except pika.exceptions.AMQPConnectionError as e:
-            logger.error(f"Failed to connect to RabbitMQ at {self.host} on vhost '{self.vhost}' with user '{self.credentials.username}': {e}")
-            raise
+    def __init__(self, connection):
+        self.connection = connection
+        self.channel = self.connection.connect()
 
     def create_exchange(self, exchange_name, exchange_type='direct', durable=True):
         """Create an exchange with the given parameters."""
@@ -57,8 +40,6 @@ class RabbitMQConfig:
     def setup(self):
         """Set up RabbitMQ exchanges, queues, and their bindings."""
         try:
-            self.connect()
-
             # Define exchanges, queues, and bindings
             exchanges = [
                 {'name': 'work_permit_exchange', 'type': 'direct', 'durable': True},
@@ -66,8 +47,10 @@ class RabbitMQConfig:
             ]
 
             queues = [
-                {'name': 'work_permit_queue', 'durable': True, 'exchange': 'work_permit_exchange', 'routing_key': 'work_permit'},
-                {'name': 'citizenship_queue', 'durable': True, 'exchange': 'citizenship_exchange', 'routing_key': 'citizenship'}
+                {'name': 'work_permit_queue', 'durable': True, 'exchange': 'work_permit_exchange',
+                 'routing_key': 'work_permit'},
+                {'name': 'citizenship_queue', 'durable': True, 'exchange': 'citizenship_exchange',
+                 'routing_key': 'citizenship'}
             ]
 
             # Create exchanges
@@ -83,13 +66,4 @@ class RabbitMQConfig:
         except Exception as e:
             logger.error(f"RabbitMQ setup failed: {e}")
         finally:
-            self.close_connection()
-
-    def close_connection(self):
-        """Close the connection to RabbitMQ."""
-        if self.connection:
-            try:
-                self.connection.close()
-                logger.info("Connection to RabbitMQ closed.")
-            except pika.exceptions.AMQPError as e:
-                logger.error(f"Failed to close RabbitMQ connection: {e}")
+            self.connection.close_connection()

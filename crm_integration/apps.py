@@ -1,7 +1,11 @@
+import logging
+
 from django.apps import AppConfig as BaseAppConfig
 from django.conf import settings
 
-from crm_integration.config import RabbitMQConfig
+from crm_integration.config import RabbitMQConfig, RabbitMQConnection
+
+logger = logging.getLogger('rabbitmq_setup')
 
 
 class AppConfig(BaseAppConfig):
@@ -10,10 +14,19 @@ class AppConfig(BaseAppConfig):
 
     def ready(self):
         if settings.USE_RABBITMQ:  # Conditional to ensure RabbitMQ is only set up when needed
-            rabbitmq_config = RabbitMQConfig(
-                host=settings.RABBITMQ_HOST,
-                username=settings.RABBITMQ_USERNAME,
-                password=settings.RABBITMQ_PASSWORD,
-                vhost=settings.RABBITMQ_VHOST  # vhost configuration
-            )
-            rabbitmq_config.setup()
+            try:
+                # Establish the connection to RabbitMQ
+                rabbitmq_connection = RabbitMQConnection(
+                    host=settings.RABBITMQ_HOST,
+                    username=settings.RABBITMQ_USERNAME,
+                    password=settings.RABBITMQ_PASSWORD,
+                    vhost=settings.RABBITMQ_VHOST  # vhost configuration
+                )
+
+                # Pass the connection to the config setup
+                rabbitmq_config = RabbitMQConfig(rabbitmq_connection)
+                rabbitmq_config.setup()
+                logger.debug("Connected successfully.")
+            except Exception as e:
+                # Log an error if the RabbitMQ setup fails
+                logger.error(f"Failed to set up RabbitMQ in AppConfig: {e}")

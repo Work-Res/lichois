@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .api.views import CRMFormSubmitView
+from crm_integration.api.views import CrmIncomingFormApplicationRequest
 
 urlpatterns = [
-    path("crm/submit/", CRMFormSubmitView.as_view(), name="crm_form_submit"),
+    path("external/crm/forms/receive", CrmIncomingFormApplicationRequest.as_view(), name="crm_form_submit"),
 ]

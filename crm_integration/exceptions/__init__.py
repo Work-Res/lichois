@@ -1,0 +1,1 @@
+from .rabbitmq_service_error import RabbitMQServiceError
