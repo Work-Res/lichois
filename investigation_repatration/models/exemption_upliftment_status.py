@@ -1,6 +1,5 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
-from non_citizen_profile.models import PersonalDetails
 from ..models import ProhibitedImmigrant, PIUpliftmentRecommendation, PIExemption
 
 
@@ -17,6 +16,6 @@ class ExemptionUpliftmentStatus(BaseUuidModel, models.Model):
     exemption = models.ForeignKey(PIExemption, on_delete=models.SET_NULL, null=True, blank=True, related_name='upliftment_statuses')
     status = models.CharField(max_length=50,choices=choices,default='Pending')
     status_date = models.DateTimeField(auto_now_add=True)
-    reviewed_by = models.ForeignKey(PersonalDetails, on_delete=models.SET_NULL, null=True, blank=True, related_name='upliftment_statuses')
+    reviewed_by = models.CharField(max_length=255)
     additional_notes = models.TextField(null=True, blank=True)
 

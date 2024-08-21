@@ -1,14 +1,6 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
-from identifier import UniqueNonCitizenIdentifierFieldMixin
-
-class ProhibitedImmigrant(BaseUuidModel, UniqueNonCitizenIdentifierFieldMixin, models.Model):
-    name = models.CharField(max_length=255)
-    nationality = models.CharField(max_length=100)
-    passport_number = models.CharField(max_length=50, unique=True)
-    date_of_birth = models.DateField()
-    gender = models.CharField(max_length=10)
-
+from ..models import ProhibitedImmigrant
     
 class PresidentialDeclaration(BaseUuidModel, models.Model):
     pi = models.ForeignKey(ProhibitedImmigrant, on_delete=models.CASCADE, related_name='declarations')

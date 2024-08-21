@@ -1,6 +1,5 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
-from non_citizen_profile.models import PersonalDetails  
 from ..models import ProhibitedImmigrant  
 
 choices=[
@@ -16,11 +15,12 @@ class PenaltyDecision(BaseUuidModel, models.Model):
     fine_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     imprisonment_duration = models.DurationField(null=True, blank=True)
     decision_date = models.DateTimeField(auto_now_add=True)
-    decided_by = models.ForeignKey(PersonalDetails, on_delete=models.SET_NULL, null=True, blank=True)
+    decided_by = models.CharField(max_length=255)
     additional_notes = models.TextField(null=True, blank=True)  
 
     def __str__(self):
         return f"Decision for {self.pi.name} - Severity: {self.severity_level} - Date: {self.decision_date}"
+
 
     def apply_penalty(self):
         """

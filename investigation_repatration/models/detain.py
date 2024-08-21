@@ -1,6 +1,5 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
-from non_citizen_profile.models import Person  
 from ..models import ProhibitedImmigrant, AuthorizeDetention  
 
 class Detain(BaseUuidModel, models.Model):
@@ -9,7 +8,7 @@ class Detain(BaseUuidModel, models.Model):
     detention_start_date = models.DateTimeField()
     detention_end_date = models.DateTimeField(null=True, blank=True)
     detention_location = models.CharField(max_length=255)
-    detained_by = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True, blank=True, related_name='detained_immigrants')
+    detained_by = models.CharField(max_length=255)
     notes = models.TextField(null=True, blank=True)  
 
     def __str__(self):
