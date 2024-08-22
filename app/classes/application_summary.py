@@ -51,9 +51,11 @@ class ApplicationSummary:
 
         try:
             # Attempt to filter using document_number directly
-            if hasattr(model_cls, 'document_number'):
+            if hasattr(model_cls, "document_number"):
                 return model_cls.objects.get(document_number=self.document_number)
-            logger.warning(f"Model: {model_cls._meta.label} does not have attribute document number.")
+            logger.warning(
+                f"Model: {model_cls._meta.label} does not have attribute document number."
+            )
         except (FieldError, model_cls.DoesNotExist):
             # Add the current model to traversed models to avoid infinite loops
             traversed_models.add(model_cls)
@@ -92,7 +94,9 @@ class ApplicationSummary:
             logger.error(f"Error retrieving fields for {model_instance}: {e}")
             return []
 
-    def _prepare_model_field_name_value(self, serialized_data, field, field_name, model_instance):
+    def _prepare_model_field_name_value(
+        self, serialized_data, field, field_name, model_instance
+    ):
         try:
             if isinstance(field, ForeignKey):
                 # Handle ForeignKey relationships
@@ -121,10 +125,14 @@ class ApplicationSummary:
                 # Handle other fields normally
                 serialized_data[field_name] = getattr(model_instance, field_name)
         except AttributeError as e:
-            logger.error(f"Error accessing field '{field_name}' on {model_instance}: {e}")
+            logger.error(
+                f"Error accessing field '{field_name}' on {model_instance}: {e}"
+            )
             serialized_data[field_name] = None
         except Exception as e:
-            logger.error(f"Unexpected error processing field '{field_name}' on {model_instance}: {e}")
+            logger.error(
+                f"Unexpected error processing field '{field_name}' on {model_instance}: {e}"
+            )
             serialized_data[field_name] = None
 
     def serialize_model_instance(self, model_instance):
@@ -134,7 +142,11 @@ class ApplicationSummary:
             field_name = field.name
             if not isinstance(model_instance, QuerySet):
                 self._prepare_model_field_name_value(
-                    serialized_data, field=field, field_name=field_name, model_instance=model_instance)
+                    serialized_data,
+                    field=field,
+                    field_name=field_name,
+                    model_instance=model_instance,
+                )
             else:
                 temp = []
                 for model_obj in model_instance:
@@ -180,5 +192,6 @@ class ApplicationSummary:
             "app_personal_details.Education",
             "base_module.Spouse",
             "base_module.Child",
+            "app.application",
         ]
         return generic_labels + self.app_labels
