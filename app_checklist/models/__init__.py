@@ -6,3 +6,4 @@ from .office_location_classifier_item import OfficeLocationClassifierItem
 from .checklist_classifier_item import ChecklistClassifierItem
 from .system_parameter import SystemParameter
 from .region import Region
+from .holiday import Holiday

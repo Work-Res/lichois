@@ -1,6 +1,7 @@
 from django.db import models
 from .meeting import Meeting
 
+
 from base_module.model_mixins import BaseUuidModel
 
 
@@ -12,6 +13,16 @@ class MeetingSession(BaseUuidModel):
     start_time = models.TimeField()
     end_time = models.TimeField()
     batch_application_complete = models.BooleanField(default=False)
+    skip_weekend = models.BooleanField(default=True)
+    skip_holiday = models.BooleanField(default=True)
+    is_recurring = models.BooleanField(default=False)
+    recurrence_end_date = models.DateField(null=True, blank=True)  # End date for the recurrence
+    recurrence_frequency = models.CharField(
+        max_length=10,
+        choices=[('daily', 'Daily'), ('weekly', 'Weekly')],
+        default='daily'
+    )
+    recurrence_days_of_week = models.JSONField(null=True, blank=True)
 
     def get_duration(self):
         # Convert TimeField objects to datetime objects with today's date
@@ -34,3 +45,10 @@ class MeetingSession(BaseUuidModel):
 
     def __str__(self):
         return f'{self.title} on {self.date} from {self.start_time} to {self.end_time}'
+
+    def save(self, *args, **kwargs):
+        from ...service.board import MeetingSessionService
+        super().save(*args, **kwargs)
+        if self.is_recurring:
+            service = MeetingSessionService(self)
+            service.generate_recurring_sessions()

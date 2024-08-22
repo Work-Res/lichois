@@ -7,3 +7,5 @@ from .interview_decision_service import InterviewDecisionService
 from .interview_response_import_service import InterviewResponseImportService
 from .interview_response_service import InterviewResponseService
 from .conflict_of_interest_service import ConflictOfInterestService
+from .meeting_session_service import MeetingSessionService
+
