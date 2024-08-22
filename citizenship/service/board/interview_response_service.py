@@ -62,6 +62,43 @@ class InterviewResponseService:
 
     @staticmethod
     @transaction.atomic
+    def bulk_update_interview_responses(updates):
+        try:
+            updated_responses = []
+            errors = []
+
+            for update in updates:
+                response_id = update.get('response_id')
+                data = update.get('data', {})
+
+                try:
+                    interview_response = InterviewResponse.objects.get(id=response_id)
+                    serializer = InterviewResponseSerializer(interview_response, data=data, partial=True)
+
+                    if serializer.is_valid():
+                        for key, value in data.items():
+                            setattr(interview_response, key, value)
+                        interview_response.is_marked = True
+                        interview_response.save()
+                        updated_responses.append(serializer.data)
+                    else:
+                        errors.append({response_id: serializer.errors})
+
+                except InterviewResponse.DoesNotExist:
+                    errors.append({response_id: "Interview response does not exist."})
+                except Exception as e:
+                    errors.append({response_id: f"Error updating interview response: {str(e)}"})
+
+            if errors:
+                raise ValidationError(errors)
+
+            return updated_responses
+
+        except Exception as e:
+            raise ValidationError(f"Error during bulk update: {str(e)}")
+
+    @staticmethod
+    @transaction.atomic
     def delete_interview_response(response_id):
         try:
             interview_response = InterviewResponse.objects.get(id=response_id)

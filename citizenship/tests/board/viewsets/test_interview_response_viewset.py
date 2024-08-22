@@ -179,3 +179,141 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         self.assertEqual(interview_response.response, 'Updated response')
         self.assertEqual(interview_response.score, 5)
         self.assertTrue(interview_response.is_marked)
+
+    def test_bulk_update_successful(self):
+        """Test bulk updating interview responses successfully."""
+        batch = self.create_batch(self.meeting)
+        version = self.create_new_application()
+        url = reverse('citizenship:batch-add-applications', args=[batch.id])
+        data = {
+            'document_numbers': [
+                self.application.application_document.document_number,
+                version.application.application_document.document_number
+            ],
+            'session_id': self.meeting_session.id
+        }
+        self.client.post(url, data, format='json')
+
+        url = reverse('citizenship:batch-change-status', args=[batch.id])
+        data = {
+            "new_status": BatchStatus.CLOSED.name
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        batch.refresh_from_db()
+        self.assertEqual(batch.status, BatchStatus.CLOSED.name)
+        self.assertEqual(Interview.objects.all().count(), 2)
+
+        # Declare conflict of interest..
+        start_time = timezone.now() - timedelta(hours=1)
+        end_time = timezone.now() + timedelta(hours=1)
+        duration = ConflictOfInterestDuration.objects.create(
+            meeting_session=self.meeting_session,
+            start_time=start_time,
+            end_time=end_time,
+            status='open'
+        )
+        url = reverse('citizenship:batch-declare-no-conflict-for-all', args=[batch.id])
+        data = {
+            'meeting_session_id': self.meeting_session.id
+        }
+        self.client.post(url, data, format='json')
+        duration.status = "completed"
+        duration.save()
+        interview_responses = InterviewResponse.objects.all()
+
+        url = reverse('citizenship:interviewresponse-bulk-update')
+        bulk_data = [
+            {
+                'response_id': interview_responses[0].id,
+                'data': {
+                    'response': 'Bulk Updated Response 1',
+                    'score': 8,
+                    'additional_comments': 'bulk update test 1'
+                }
+            },
+            {
+                'response_id': interview_responses[1].id,
+                'data': {
+                    'response': 'Bulk Updated Response 2',
+                    'score': 7,
+                    'additional_comments': 'bulk update test 2'
+                }
+            }
+        ]
+
+        response = self.client.put(url, bulk_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        interview_responses[0].refresh_from_db()
+        interview_responses[1].refresh_from_db()
+
+        self.assertEqual(interview_responses[0].response, 'Bulk Updated Response 1')
+        self.assertEqual(interview_responses[1].response, 'Bulk Updated Response 2')
+
+    def test_bulk_update_with_nonexistent_ids(self):
+        """Test bulk updating interview responses where some IDs do not exist."""
+        batch = self.create_batch(self.meeting)
+        version = self.create_new_application()
+        url = reverse('citizenship:batch-add-applications', args=[batch.id])
+        data = {
+            'document_numbers': [
+                self.application.application_document.document_number,
+                version.application.application_document.document_number
+            ],
+            'session_id': self.meeting_session.id
+        }
+        self.client.post(url, data, format='json')
+
+        url = reverse('citizenship:batch-change-status', args=[batch.id])
+        data = {
+            "new_status": BatchStatus.CLOSED.name
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        batch.refresh_from_db()
+        self.assertEqual(batch.status, BatchStatus.CLOSED.name)
+        self.assertEqual(Interview.objects.all().count(), 2)
+
+        # Declare conflict of interest..
+        start_time = timezone.now() - timedelta(hours=1)
+        end_time = timezone.now() + timedelta(hours=1)
+        duration = ConflictOfInterestDuration.objects.create(
+            meeting_session=self.meeting_session,
+            start_time=start_time,
+            end_time=end_time,
+            status='open'
+        )
+        url = reverse('citizenship:batch-declare-no-conflict-for-all', args=[batch.id])
+        data = {
+            'meeting_session_id': self.meeting_session.id
+        }
+        self.client.post(url, data, format='json')
+        duration.status = "completed"
+        duration.save()
+
+        interview_response_first = InterviewResponse.objects.first()
+
+        url = reverse('citizenship:interviewresponse-bulk-update')
+        bulk_data = [
+            {
+                'response_id': 9999,  # Non-existent ID
+                'data': {
+                    'response': 'Bulk Updated Response 1',
+                    'score': 8,
+                    'additional_comments': 'bulk update test 1'
+                }
+            },
+            {
+                'response_id': interview_response_first.id,
+                'data': {
+                    'response': 'Bulk Updated Response 2',
+                    'score': 7,
+                    'additional_comments': 'bulk update test 2'
+                }
+            }
+        ]
+
+        response = self.client.put(url, bulk_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
