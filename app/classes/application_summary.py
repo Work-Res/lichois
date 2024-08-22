@@ -7,6 +7,8 @@ from django.core.exceptions import FieldDoesNotExist, FieldError, ObjectDoesNotE
 from django.db.models import ForeignKey, ManyToManyField, QuerySet
 from django.forms import model_to_dict
 
+from app.models.application import Application
+
 logger = logging.getLogger(__name__)
 
 
@@ -36,12 +38,17 @@ class ApplicationSummary:
                 print(temp, "model_instance model_instance model_instance")
                 summary[snake_case_model_name] = temp
 
+        application = Application.objects.filter(
+            application_document__document_number=self.document_number
+        ).first()
+        if application:
+            summary["application"] = self.serialize_model_instance(application)
+
         return summary
 
     def get_model_instance(self, app_label):
         """Get the model instance based on the app label and document number."""
         model_cls = apps.get_model(app_label)
-        print(f"Getting model instance for {model_cls}")
         return self._get_model_instance_recursive(model_cls)
 
     def _get_model_instance_recursive(self, model_cls, traversed_models=None):
@@ -186,12 +193,10 @@ class ApplicationSummary:
             "app_address.ApplicationAddress",
             "app_contact.ApplicationContact",
             "app_personal_details.Passport",
-            "app.Application",
             "app.ApplicationVerification",
             "app.SecurityClearance",
             "app_personal_details.Education",
             "base_module.Spouse",
             "base_module.Child",
-            "app.application",
         ]
         return generic_labels + self.app_labels
