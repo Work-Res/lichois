@@ -6,8 +6,8 @@ from .PI_recommendation_serializer import PIRecommendationSerializer
 from .prisoner_serializer import PrisonerSerializer
 from .prisoner_due_release_serializer import PrisonerDueReleaseSerializer
 from .prisoner_details_serializer import PrisonerDetailsSerializer
-from .authorize_detention_serializer import AuthorizeDetentionSerializer
-from .detain_serializer import DetainSerializer
+from .detention_warrant_serializer import AuthorizeDetentionSerializer
+from .detention_details_serializer import DetentionDetailsSerializer
 from .exemption_upliftment_status_serializer import ExemptionUpliftmentStatusSerializer
 from .fine_imprisonment_serializer import PenaltyDecisionSerializer
 from .intel_verification_serializer import IntelVerificationSerializer
@@ -20,3 +20,4 @@ from .tracing_information_serializer import MovementLogSerializer
 from .tracing_information_serializer import InteractionSerializer
 from .tracing_information_serializer import TracingInformationSerializer
 from .upliftment_decision_serializer import UpliftmentDecisionSerializer
+from .pi_history_serializer import PIHistorySerializer

@@ -1,6 +1,6 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
-from ..models import ProhibitedImmigrant  
+from identifier.identifier import UniqueNonCitizenIdentifierFieldMixin
 
 choices=[
             ('Low', 'Low'),
@@ -8,14 +8,24 @@ choices=[
             ('High', 'High')
         ] 
 
-class PenaltyDecision(BaseUuidModel, models.Model):
-    pi = models.ForeignKey(ProhibitedImmigrant, on_delete=models.CASCADE)
+class PenaltyDecision(BaseUuidModel, UniqueNonCitizenIdentifierFieldMixin):
+
+    '''
+    Model records decisions related to penalties awarded to PIs.
+    '''    
+    
     reason_for_violation = models.CharField(max_length=255)  
+    
     severity_level = models.CharField(max_length=50,choices=choices)
+    
     fine_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    
     imprisonment_duration = models.DurationField(null=True, blank=True)
+    
     decision_date = models.DateTimeField(auto_now_add=True)
+    
     decided_by = models.CharField(max_length=255)
+    
     additional_notes = models.TextField(null=True, blank=True)  
 
     def __str__(self):
@@ -25,6 +35,8 @@ class PenaltyDecision(BaseUuidModel, models.Model):
     def apply_penalty(self):
         """
         Applies the penalty based on the decision made.
+
+        TODO: Add actual penalties
         """
         if self.severity_level == 'Low':
             self.fine_amount = 100

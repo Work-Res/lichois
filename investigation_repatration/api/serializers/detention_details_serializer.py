@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from ...models import Detain
+from ...models import DetentionDetails
 
-class DetainSerializer(serializers.ModelSerializer):
+class DetentionDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detain
         fields = '__all__'

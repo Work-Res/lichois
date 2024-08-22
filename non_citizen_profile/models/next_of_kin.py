@@ -1,9 +1,10 @@
 from django.db import models
 
-from app.models.application_base_model import ApplicationBaseModel
+from base_module.model_mixins import BaseUuidModel
+from identifier.identifier import  NonUniqueNonCitizenIdentifierFieldMixin
 
 
-class NextOfKin(ApplicationBaseModel):
+class NextOfKin(BaseUuidModel, NonUniqueNonCitizenIdentifierFieldMixin):
 
     non_citizen_id = models.IntegerField(primary_key=True)
 

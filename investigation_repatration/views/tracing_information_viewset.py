@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from ..models import PresidentialDeclaration, MovementLog, Interaction
 from api.serializers import PresidentialDeclarationSerializer, MovementLogSerializer, InteractionSerializer, TracingInformationSerializer
-
+from rest_framework.response import Response
 
 class PresidentialDeclarationViewSet(viewsets.ModelViewSet):
     queryset = PresidentialDeclaration.objects.all()

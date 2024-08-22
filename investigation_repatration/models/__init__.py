@@ -6,8 +6,8 @@ from .PI_recommendation import AssessmentRecommendation
 from .prisoner import Prisoner
 from .prisoner_due_release import PrisonerDueForRelease
 from .prisoner_due_release import PrisonerDetails
-from .authorize_detention import AuthorizeDetention
-from .detain import Detain
+from .detention_warrant import DetentionWarrant
+from .detention_details import DetentionDetails
 from .exemption_upliftment_status import ExemptionUpliftmentStatus
 from .fine_imprisonment import PenaltyDecision
 from .intel_verification import IntelVerification
@@ -19,3 +19,4 @@ from .tracing_information import PresidentialDeclaration
 from .tracing_information import Interaction
 from .tracing_information import MovementLog
 from .upliftment_decision import UpliftmentDecision
+from .pi_history import PIHistory
