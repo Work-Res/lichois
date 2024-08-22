@@ -1,4 +1,5 @@
 from identifier.identifier import Identifier
+from app.utils import ApplicationProcesses
 
 
 class PermanentResidenceIdentifier(Identifier):
@@ -10,4 +11,4 @@ class PermanentResidenceIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return "PERMANENT_RESIDENCE_PERMIT"
+        return ApplicationProcesses.PERMANENT_RESIDENCE.value
