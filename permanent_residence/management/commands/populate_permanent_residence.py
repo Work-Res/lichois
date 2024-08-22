@@ -29,7 +29,7 @@ class Command(CustomBaseCommand):
                     application_type=self.application_type,
                     investor_contribution=faker.text(),
                     employee_contribution=faker.text(),
-                    any_other_resident=faker.full_name(),
+                    any_other_resident=faker.name(),
                     violated_terms_before=faker.text(),
                     preferred_method_comm=faker.text(),
                     language=faker.text(),
