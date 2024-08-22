@@ -41,7 +41,7 @@ class MeetingServiceTestCase(TestCase):
     def test_create_meeting(self):
         meeting = MeetingService.create_meeting(
             title='Test Meeting',
-            board_id=self.board.id,
+            board=self.board.id,
             location='Conference Room',
             agenda='Discuss Q3 targets',
             start_date=self.start_date,
@@ -55,7 +55,7 @@ class MeetingServiceTestCase(TestCase):
     def test_create_meeting_with_conflict(self):
         MeetingService.create_meeting(
             title='Test Meeting 1',
-            board_id=self.board.id,
+            board=self.board.id,
             location='Conference Room',
             agenda='Discuss Q3 targets',
             start_date=self.start_date,
@@ -65,7 +65,7 @@ class MeetingServiceTestCase(TestCase):
         with self.assertRaises(ValidationError):
             MeetingService.create_meeting(
                 title='Test Meeting 2',
-                board_id=self.board.id,
+                board=self.board.id,
                 location='Conference Room',
                 agenda='Discuss Q4 targets',
                 start_date=self.start_date,
@@ -76,7 +76,7 @@ class MeetingServiceTestCase(TestCase):
     def test_add_attendee(self):
         meeting = MeetingService.create_meeting(
             title='Test Meeting',
-            board_id=self.board.id,
+            board=self.board.id,
             location='Conference Room',
             agenda='Discuss Q3 targets',
             start_date=self.start_date,
@@ -90,7 +90,7 @@ class MeetingServiceTestCase(TestCase):
     def test_remove_attendee(self):
         meeting = MeetingService.create_meeting(
             title='Test Meeting',
-            board_id=self.board.id,
+            board=self.board.id,
             location='Conference Room',
             agenda='Discuss Q3 targets',
             start_date=self.start_date,
@@ -105,7 +105,7 @@ class MeetingServiceTestCase(TestCase):
     def test_confirm_attendance(self):
         meeting = MeetingService.create_meeting(
             title='Test Meeting',
-            board_id=self.board.id,
+            board=self.board.id,
             location='Conference Room',
             agenda='Discuss Q3 targets',
             start_date=self.start_date,
@@ -118,7 +118,7 @@ class MeetingServiceTestCase(TestCase):
     def test_confirm_attendance_with_proposed_date(self):
         meeting = MeetingService.create_meeting(
             title='Test Meeting',
-            board_id=self.board.id,
+            board=self.board.id,
             location='Conference Room',
             agenda='Discuss Q3 targets',
             start_date=self.start_date,

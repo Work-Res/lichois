@@ -1,4 +1,7 @@
+import logging
+
 from django.utils import timezone
+from django.db import transaction
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -16,6 +19,8 @@ from citizenship.service.board import MeetingService
 from citizenship.utils.parse_datetime_with_timezone import parse_datetime_with_timezone
 from citizenship.views.board.filter import MeetingFilter
 
+logger = logging.getLogger(__name__)
+
 
 class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
@@ -28,33 +33,26 @@ class MeetingViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         validated_data = serializer.validated_data
-        title = validated_data['title']
-        board_id = validated_data['board'].id
-        location = validated_data['location']
-        agenda = validated_data['agenda']
-        start_date = validated_data['start_date']
-        end_date = validated_data['end_date']
-        time = validated_data['time']
-
+        print("testing testing..", validated_data)
         try:
-            meeting = MeetingService.create_meeting(
-                title=title,
-                board_id=board_id,
-                location=location,
-                agenda=agenda,
-                start_date=start_date,
-                end_date=end_date,
-                time=time
-            )
+            with transaction.atomic():
+                meeting = MeetingService.create_meeting(**validated_data)
             api_message = APIMessage(
                 code=201,
                 message="Board Meeting is created",
                 details=f"Board Meeting is created for {meeting.id}",
             )
-
             return Response(api_message.to_dict(), status=status.HTTP_201_CREATED)
+
         except ValidationError as e:
+            logger.warning(f"Validation error during meeting creation: {str(e)}")
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(f"Unexpected error during meeting creation: {str(e)}", exc_info=True)
+            return Response(
+                {'detail': 'An unexpected error occurred while creating the meeting.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
     def list(self, request, *args, **kwargs):
         meetings = self.get_queryset()

@@ -47,12 +47,16 @@ class MeetingViewSetTestCase(BaseSetup):
             'title': 'New Meeting',
             'board': self.board.id,
             'location': 'New Location',
+            'description': 'Testing',
             'agenda': 'New Agenda',
             'start_date': "2024-08-01T14:30:00+0000",
             'end_date': "2024-08-01T14:30:00+0000",
             'time': '11:00:00'
         })
+        meeting = Meeting.objects.first()
+        print(response.__dict__)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(meeting.description, "Testing")
 
     def test_get_meetings(self):
         self.client.login(username='testuser', password='testpass')

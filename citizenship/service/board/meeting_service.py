@@ -16,11 +16,12 @@ class MeetingService:
     """
     @staticmethod
     @transaction.atomic
-    def create_meeting(title, board_id, location, agenda, start_date, end_date, time):
+    def create_meeting(title, board, location, agenda, start_date, end_date, time, description=None):
         try:
-            board = Board.objects.get(id=board_id)
+
             if MeetingService.check_meeting_conflicts(board, start_date, end_date):
                 raise ValidationError("A meeting for the same board already exists in the specified period.")
+            print(title, board, location, agenda, start_date, end_date)
             meeting = Meeting.objects.create(
                 title=title,
                 board=board,
@@ -28,13 +29,14 @@ class MeetingService:
                 agenda=agenda,
                 start_date=start_date,
                 end_date=end_date,
-                time=time
+                time=time,
+                description=description
             )
             logger.info(f'Meeting created: {meeting}')
             MeetingService.create_attendances_for_meeting(meeting)
             return meeting
         except Board.DoesNotExist:
-            logger.error(f'Board does not exist: {board_id}')
+            logger.error(f'Board does not exist: {board}')
             raise ValidationError("Board does not exist.")
         except Exception as e:
             logger.error(f'Error creating meeting: {e}')
