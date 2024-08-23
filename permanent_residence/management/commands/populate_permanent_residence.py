@@ -25,8 +25,7 @@ class Command(CustomBaseCommand):
 
                 PermanentResidence.objects.get_or_create(
                     application_version=version,
-                    documne_number=app.application_document.document_number,
-                    application_type=self.application_type,
+                    document_number=app.application_document.document_number,
                     investor_contribution=faker.text(),
                     employee_contribution=faker.text(),
                     any_other_resident=faker.name(),
