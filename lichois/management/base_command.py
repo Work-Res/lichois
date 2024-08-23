@@ -71,7 +71,7 @@ class CustomBaseCommand(BaseCommand):
             marital_status=self.faker.random_element(
                 elements=("single", "married", "divorced")
             ),
-            country_name=self.faker.country(),
+            country_birth=self.faker.country(),
             place_birth=self.faker.city(),
             gender=self.faker.random_element(elements=("male", "female")),
             occupation=self.faker.job(),
