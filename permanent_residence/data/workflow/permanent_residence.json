@@ -1,7 +1,7 @@
 {
   "classifiers": {
     "visa_permit_workflow": {
-      "code": "PERMANENT_RESIDENCE_PERMIT",
+      "code": "PERMANENT_RESIDENCE",
       "name": "PERMANENT RESIDENCE PERMIT",
       "description": "Permanent Residence Workflow",
       "valid_from": "2024-01-01",
