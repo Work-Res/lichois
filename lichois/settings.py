@@ -384,5 +384,7 @@ crm_config = {
     'refresh_key': 'refresh_token'
 }
 
+GAZETTE_BATCH_SIZE = 300
+
 USE_RABBITMQ = True
 

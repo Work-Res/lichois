@@ -1,6 +1,8 @@
 
 BATCH_STATUS_CHOICES = [
     ('CREATED', 'Created'),
+    ('OPEN', 'Open'),
+    ('PENDING_SUBMISSION', 'PENDING_SUBMISSION'),
     ('SUBMITTED', 'Submitted'),
     ('REVIEWED', 'Reviewed'),
     ('FINALIZED', 'Finalized'),

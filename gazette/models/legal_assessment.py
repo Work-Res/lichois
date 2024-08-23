@@ -12,7 +12,7 @@ class LegalAssessment(BaseUuidModel):
     status = models.CharField(max_length=20, choices=LEGAL_STATUS_CHOICES, default='IN_PROGRESS')
     application = models.ForeignKey(Application, related_name='assessments', on_delete=models.CASCADE)
     legal_member = models.ForeignKey(User, related_name='assessments', on_delete=models.CASCADE)
-    assessment_text = models.TextField()
+    assessment_text = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"Assessment by {self.legal_member.username} for {self.application.title}"

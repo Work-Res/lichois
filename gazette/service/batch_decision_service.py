@@ -54,3 +54,6 @@ class BatchDecisionService:
         except ValueError as ve:
             logger.error(str(ve))
             raise
+
+""" Add validation to ensure only applications that passed gazetting are eligible to board.
+"""
