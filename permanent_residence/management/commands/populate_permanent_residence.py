@@ -11,7 +11,8 @@ class Command(CustomBaseCommand):
     help = "Populate data for Populate data for Blue card service"
     process_name = ApplicationProcesses.PERMANENT_RESIDENCE.value
     application_type = (
-        PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_ONLY.value
+        PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_ONLY.value,
+        PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_10_YEARS.value,
     )
 
     def handle(self, *args, **options):
