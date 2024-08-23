@@ -23,9 +23,9 @@ class Command(CustomBaseCommand):
             with atomic():
                 app, version = self.create_basic_data()
 
-                pr, _ = PermanentResidence.objects.get_or_create(
+                PermanentResidence.objects.get_or_create(
                     application_version=version,
-                    application=app,
+                    documne_number=app.application_document.document_number,
                     application_type=self.application_type,
                     investor_contribution=faker.text(),
                     employee_contribution=faker.text(),
