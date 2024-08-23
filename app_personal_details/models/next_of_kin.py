@@ -26,3 +26,9 @@ class NextOfKin(ApplicationBaseModel):
         blank=True,
         null=True,
     )
+
+    physical_address = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+    )
