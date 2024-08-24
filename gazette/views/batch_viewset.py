@@ -2,14 +2,20 @@ import logging
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError, NotFound, APIException
+
+from app.api.common.pagination import StandardResultsSetPagination
 from gazette.api.serializers.serializers import BatchGazetteSerializer
 from gazette.models import Batch
 from gazette.service import ApplicationBatchService
 from gazette.service.batch_decision_service import BatchDecisionService
+from gazette.views.filter import BatchFilter
+
 
 class BatchViewSet(viewsets.ModelViewSet):
     queryset = Batch.objects.all()
     serializer_class = BatchGazetteSerializer
+    pagination_class = StandardResultsSetPagination
+    filterset_class = BatchFilter
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

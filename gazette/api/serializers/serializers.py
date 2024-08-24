@@ -12,7 +12,7 @@ class LegalAssessmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class BatchApplicationSerializer(serializers.ModelSerializer):
+class BatchApplicationGazetteSerializer(serializers.ModelSerializer):
     application = ApplicationSerializer(read_only=True)
 
     class Meta:
@@ -21,7 +21,7 @@ class BatchApplicationSerializer(serializers.ModelSerializer):
 
 
 class BatchGazetteSerializer(serializers.ModelSerializer):
-    batch_applications = BatchApplicationSerializer(many=True, read_only=True)
+    batch_applications = BatchApplicationGazetteSerializer(many=True, read_only=True)
     assessments = LegalAssessmentSerializer(many=True, read_only=True)
 
     class Meta:

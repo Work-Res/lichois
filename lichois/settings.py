@@ -386,5 +386,4 @@ crm_config = {
 
 GAZETTE_BATCH_SIZE = 300
 
-USE_RABBITMQ = True
-
+USE_RABBITMQ = False
