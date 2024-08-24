@@ -69,7 +69,7 @@ class InterviewService:
                     f"Not all board members have submitted responses for interview {interview.id}. Status set to in_progress.")
         except Exception as e:
             logger.exception(f"Unexpected error creating scoresheet: {e}")
-            raise
+            raise ValidationError(e)
 
     @transaction.atomic
     def update_interview(self, interview: Interview, scheduled_time: timezone = None, conducted: bool = None):
@@ -101,7 +101,7 @@ class InterviewService:
             logger.error(f"Interview does not exist for application ID {application_id}.")
             raise ValidationError("Interview does not exist for the given application ID.")
         except Exception as e:
-            logger.exception(f"Unexpected error updating interview for application ID {application_id}: {e}")
+            logger.error(f"Unexpected error updating interview for application ID {application_id}: {e}")
             raise
 
     @transaction.atomic
