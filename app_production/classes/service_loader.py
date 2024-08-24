@@ -52,8 +52,3 @@ class ServiceLoader:
                         if hasattr(attribute, "process_name"):
                             process_name = getattr(attribute, "process_name")
                             self.registry.register(process_name, attribute)
-
-                        else:
-                            print(
-                                f"Warning: Service {attribute.__name__} does not have an process_name attribute."
-                            )
