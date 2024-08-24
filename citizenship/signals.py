@@ -33,9 +33,16 @@ def handle_interview_status_change(sender, instance, **kwargs):
     """
     Signal handler to check and create scoresheet when interview status changes.
     """
-    if instance.status == 'completed':
-        handler = InterviewCompletionHandler(interview=instance)
-        try:
+    try:
+        logger.info(f"Handling interview status change for Interview ID: {instance.id}, Status: {instance.status}")
+
+        if instance.status == 'completed':
+            logger.info(f"Interview ID: {instance.id} marked as completed. Initiating scoresheet creation.")
+            handler = InterviewCompletionHandler(interview=instance)
             handler.check_and_create_scoresheet()
-        except InterviewCompletionError as e:
-            logger.error(e)
+            logger.info(f"Scoresheet creation process completed for Interview ID: {instance.id}")
+        else:
+            logger.info(f"Interview ID: {instance.id} is not in a 'completed' status. No action taken.")
+
+    except Exception as e:
+        logger.error(f"Error handling interview status change for Interview ID: {instance.id}: {e}", exc_info=True)

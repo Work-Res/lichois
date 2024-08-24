@@ -1,12 +1,14 @@
 from django.urls import reverse
-from rest_framework import status
-from datetime import timedelta
 
+from datetime import timedelta
+from django.utils import timezone
+
+from rest_framework import status
 from rest_framework.test import APIClient
+
 from citizenship.models import InterviewResponse, Interview, MeetingSession, ConflictOfInterest
 from citizenship.models.board.conflict_of_interest_duration import ConflictOfInterestDuration
 
-from django.utils import timezone
 from citizenship.service.board.batch_status_enum import BatchStatus
 
 from .base_setup import BaseSetup
@@ -316,4 +318,3 @@ class InterviewResponseViewSetTestCase(BaseSetup):
 
         response = self.client.put(url, bulk_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-

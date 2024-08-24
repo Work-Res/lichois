@@ -54,5 +54,5 @@ class InterviewResponseViewSet(viewsets.ModelViewSet):
             logger.warning(f"Validation error during bulk update of InterviewResponses - {str(e)}")
             return Response({'detail': f"{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            logger.exception("An unexpected error occurred during bulk update of InterviewResponses")
+            logger.exception(f"An unexpected error occurred during bulk update of InterviewResponses. Got, {str(e)}")
             return Response({'detail': 'An unexpected error occurred.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
