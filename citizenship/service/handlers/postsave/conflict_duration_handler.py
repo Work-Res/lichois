@@ -107,7 +107,6 @@ class ConflictDurationHandler:
                     marks_range=row['marks_range'] if row['marks_range'] else None,
                     sequence=row['order']
                 )
-                print("here here here here")
                 logger.info(f"Created InterviewResponse: {interview_response}")
             except ObjectDoesNotExist as e:
                 logger.error(f"Object does not exist: {e}")

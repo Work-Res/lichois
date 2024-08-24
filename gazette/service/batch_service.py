@@ -73,6 +73,9 @@ class BatchService:
             batch_application = BatchApplication.objects.create(
                 application=application, batch=batch
             )
+            application.refresh_from_db()
+            application.batched = True
+            application.save()
             self.logger.info(f"Application {application} added to batch {batch.title}")
             return batch_application
 
