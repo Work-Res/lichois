@@ -10,19 +10,18 @@ from permanent_residence.models.permanent_residence import PermanentResidence
 class Command(CustomBaseCommand):
     help = "Populate data for Populate data for Blue card service"
     process_name = ApplicationProcesses.PERMANENT_RESIDENCE.value
-    faker = Faker()
-    application_type = faker.random_element(
-        elements=(
-            PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_ONLY.value,
-            PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_10_YEARS.value,
-        )
-    )
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
-
+        faker = Faker()
         for _ in range(150):
 
+            self.application_type = faker.random_element(
+                elements=(
+                    PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_ONLY.value,
+                    PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_10_YEARS.value,
+                )
+            )
             with atomic():
                 app, version = self.create_basic_data()
 
