@@ -2,7 +2,10 @@ import logging
 from docx import Document
 from docx2pdf import convert
 
-from citizenship.exception.interview_score_sheet_error import WordDocumentCreationError, PDFConversionError
+from citizenship.exception.interview_score_sheet_error import (
+    WordDocumentCreationError,
+    PDFConversionError,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +33,11 @@ class ScoresheetDocumentGeneratorService:
             doc = Document()
 
             # Add a title
-            doc.add_heading('Interview Score Sheet', level=1)
+            doc.add_heading("Interview Score Sheet", level=1)
 
             # Add a table
             table = doc.add_table(rows=len(self.data), cols=4)
-            table.style = 'Table Grid'
+            table.style = "Table Grid"
 
             # Populate the table
             for row_idx, row_data in enumerate(self.data):

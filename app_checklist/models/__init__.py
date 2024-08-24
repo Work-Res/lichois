@@ -7,3 +7,4 @@ from .checklist_classifier_item import ChecklistClassifierItem
 from .system_parameter import SystemParameter
 from .region import Region
 from .holiday import Holiday
+from .system_parameter_marking_key import SystemParameterMarkingKey
