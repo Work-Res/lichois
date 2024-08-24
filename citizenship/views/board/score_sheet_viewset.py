@@ -1,17 +1,24 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
+
+from django_filters.rest_framework import DjangoFilterBackend
 from django.core.exceptions import ValidationError
 
+from app.api.common.pagination import StandardResultsSetPagination
 from citizenship.api.serializers.board import ScoreSheetSerializer
 from citizenship.models import ScoreSheet
 
 from citizenship.service.board.score_sheet_service import ScoreSheetService
+from citizenship.views.board.filter import ScoreSheetFilter
 
 
 class ScoreSheetViewSet(viewsets.ModelViewSet):
     queryset = ScoreSheet.objects.all()
     serializer_class = ScoreSheetSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ScoreSheetFilter
+    pagination_class = StandardResultsSetPagination
 
     def create(self, request, *args, **kwargs):
         try:
