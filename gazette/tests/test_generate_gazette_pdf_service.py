@@ -2,6 +2,8 @@ import os
 import docx
 
 from django.conf import settings
+from spire.doc import *
+from spire.doc.common import *
 
 
 from gazette.service import GenerateGazettePDFService
@@ -23,12 +25,12 @@ class TestGenerateGazettePDFService(BaseSetup):
         self.pdf_file_path = os.path.join(settings.MEDIA_ROOT, "test_applications_1.pdf")
         self.service = GenerateGazettePDFService(self.data, self.word_file_path, self.pdf_file_path)
 
-    def tearDown(self):
-        # Clean up temporary files
-        if os.path.exists(self.word_file_path):
-            os.remove(self.word_file_path)
-        if os.path.exists(self.pdf_file_path):
-            os.remove(self.pdf_file_path)
+    # def tearDown(self):
+    #     # Clean up temporary files
+    #     if os.path.exists(self.word_file_path):
+    #         os.remove(self.word_file_path)
+    #     if os.path.exists(self.pdf_file_path):
+    #         os.remove(self.pdf_file_path)
 
     def test_create_word_document(self):
         self.service.create_word_document()
@@ -44,6 +46,16 @@ class TestGenerateGazettePDFService(BaseSetup):
         self.assertEqual(table.cell(1, 0).text, "1")
         self.assertEqual(table.cell(2, 1).text, "Bryce Sets")
         self.assertEqual(table.cell(3, 2).text, "Moshupa")
+        # Create a Document object
+        document = Document()
+        # Load a Word DOCX file
+        document.LoadFromFile(self.word_file_path)
+        # Or load a Word DOC file
+        # document.LoadFromFile("Sample.doc")
+
+        # Save the file to a PDF file
+        document.SaveToFile("WordToPdf.pdf", FileFormat.PDF)
+        document.Close()
 
     def test_convert_to_pdf(self):
         self.service.create_word_document()
