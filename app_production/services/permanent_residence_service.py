@@ -33,7 +33,7 @@ class PermanentResidenceProductionService(PermitProductionService):
             )
         except SystemParameter.DoesNotExist:
             self.logger.info(
-                f"System parameter not found for {self.visa_type}, creating a new one."
+                f"System parameter not found for {self.request.application_type}, creating a new one."
             )
 
             duration = self.get_duration_and_validity()
@@ -50,6 +50,6 @@ class PermanentResidenceProductionService(PermitProductionService):
         return (
             10
             if self.request.permit_type
-            == PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_10_YEARS
+            == PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_10_YEARS.value
             else 100
         )
