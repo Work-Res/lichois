@@ -6,14 +6,14 @@ from dateutil.relativedelta import relativedelta
 from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
 from app_production.services.permit_production_service import PermitProductionService
-from blue_card.enums import BlueCardApplicationTypeEnum
+from permanent_residence.enums import PermanentResidenceApplicationTypeEnum
 
 from ..api.dto.permit_request_dto import PermitRequestDTO
 
 
-class BlueCardProductionService(PermitProductionService):
+class PermanentResidenceProductionService(PermitProductionService):
 
-    process_name = ApplicationProcesses.BLUE_CARD_PERMIT.value
+    process_name = ApplicationProcesses.PERMANENT_RESIDENCE.value
 
     def __init__(self, request: PermitRequestDTO):
         self.logger = logging.getLogger(__name__)
@@ -33,13 +33,23 @@ class BlueCardProductionService(PermitProductionService):
             )
         except SystemParameter.DoesNotExist:
             self.logger.info(
-                f"System parameter not found for {self.visa_type}, creating a new one."
+                f"System parameter not found for {self.request.application_type}, creating a new one."
             )
+
+            duration = self.get_duration_and_validity()
             self._systems_parameter = SystemParameter.objects.create(
                 application_type=self.request.permit_type,
                 valid_from=date.today(),
-                valid_to=date.today() + relativedelta(years=100),
+                valid_to=date.today() + relativedelta(years=duration),
                 duration_type="years",
-                duration=100,
+                duration=duration,
             )
         return self._systems_parameter
+
+    def get_duration_and_validity(self):
+        return (
+            10
+            if self.request.permit_type
+            == PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_10_YEARS.value
+            else 100
+        )

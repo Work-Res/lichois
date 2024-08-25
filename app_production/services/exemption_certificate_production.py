@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
 from app_production.services.permit_production_service import PermitProductionService
+from workresidentpermit.models.exemption_certificate import ExemptionCertificate
 from workresidentpermit.models.work_permit import WorkPermit
 
 from ..api.dto.permit_request_dto import PermitRequestDTO
@@ -43,3 +44,12 @@ class ExemptionCertificateProductionService(PermitProductionService):
                 duration=5,
             )
         return self._systems_parameter
+
+    def get_exemption_certificate(self):
+        try:
+            exemption_certificate = ExemptionCertificate.objects.get(
+                document_number=self.request.document_number
+            )
+            return exemption_certificate
+        except ExemptionCertificate.DoesNotExist:
+            return None

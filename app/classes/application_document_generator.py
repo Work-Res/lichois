@@ -36,7 +36,7 @@ class ApplicationDocumentGenerator:
         """
         Get the identifier for standard processes based on the process name.
         """
-        print("self.application.application_type: ", process_name)
+        print("self.application.application_type: ", self.application.application_type)
         identifier_class = registrar.get_registered_class(process_name)
         if not identifier_class:
             raise IdentifierConfigNotFound(

@@ -20,7 +20,12 @@ class MinisterDecisionAPIView(APIView):
                 service = MinisterDecisionService(request)
                 service.create_minister_decision()
                 service.response.result()
-            return JsonResponse(service.response.result())
+                return JsonResponse(service.response.result())
+            else:
+                return JsonResponse(
+                    {"error": serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
         except Exception as ex:
             return JsonResponse(
                 {"error": f"Invalid JSON in request body {ex}"},

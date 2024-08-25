@@ -1,0 +1,1 @@
+from .permanent_residence_viewset import PermanentResidenceViewSet

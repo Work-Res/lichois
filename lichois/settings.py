@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     "app_production.apps.AppConfig",
     "gazette.apps.GazetteConfig",
     "crm_integration.apps.AppConfig",
+    "permanent_residence.apps.AppConfig",
 ]
 
 MIDDLEWARE = [

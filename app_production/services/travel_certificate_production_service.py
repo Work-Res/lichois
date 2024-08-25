@@ -1,12 +1,10 @@
 import logging
 import os
 from datetime import date
-import re
 
 from app.utils.system_enums import ApplicationProcesses
 from app_address.models.application_address import ApplicationAddress
 from app_attachments.models.application_attachment import ApplicationAttachment
-from app_personal_details.models.passport import Passport
 from app_personal_details.models.person import Person
 from app_production.api.dto.permit_request_dto import PermitRequestDTO
 from app_production.handlers.common.production_config import ProductionConfig
@@ -15,7 +13,6 @@ from app_production.handlers.postsave.upload_document_production_handler import 
     UploadDocumentProductionHandler,
 )
 from travel.models.travel_certificate import TravelCertificate
-from travel.utils import TravelCertificateEnum
 
 from .permit_production_service import PermitProductionService
 
@@ -98,7 +95,7 @@ class TravelCertificateProductionService(PermitProductionService):
             "surname": personal_details.last_name,
             "middle_name": personal_details.middle_name,
             "place_of_birth": personal_details.place_birth,
-            "document_type": self.application_type.title(),
+            "document_type": self.process_name.title(),
             "dob": str(personal_details.dob),
             "original_home_address": travel_certificate.original_home_address,
             "mother_full_names": travel_certificate.mother.full_name(),

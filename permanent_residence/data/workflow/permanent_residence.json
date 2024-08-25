@@ -1,15 +1,15 @@
 {
   "classifiers": {
     "visa_permit_workflow": {
-      "code": "VISA_PERMIT",
-      "name": "VISA PERMIT",
-      "description": "Visa Workflow",
+      "code": "PERMANENT_RESIDENCE",
+      "name": "PERMANENT RESIDENCE PERMIT",
+      "description": "Permanent Residence Workflow",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01",
       "classifier_items": [
         {
           "code": "VERIFICATION",
-          "name": "Visa Verification",
+          "name": "Permanent Residence Verification",
           "description": "Verification Task",
           "mandatory": false,
           "sequence": 1,
@@ -23,7 +23,7 @@
         },
         {
           "code": "VETTING",
-          "name": "Visa Security Clearance",
+          "name": "Permanent Residence Security Clearance",
           "description": "Security Vetting Task.",
           "mandatory": false,
           "sequence": 2,
@@ -37,8 +37,8 @@
         },
         {
           "code":  "RECOMMENDATION",
-          "name":  "Visa Permit Recommendation",
-          "description": " Authorization completed by commissioners/authorized officer.",
+          "name":  "Permanent Residence Recommendation",
+          "description": "Authorization completed by commissioners/authorized officer.",
           "mandatory": false,
           "sequence": 1,
           "valid_from": "2024-01-01",
@@ -51,7 +51,7 @@
         },
         {
           "code": "FINAL_DECISION",
-          "name": "Visa Production Decision",
+          "name": "Permanent Residence Production Decision",
           "description": "Permit Production Task",
           "sequence": 3,
           "mandatory": false,

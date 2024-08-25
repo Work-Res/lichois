@@ -59,7 +59,6 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "security_clearance": "ACCEPTED",
             "recommendation_decision": "ACCEPTED"
           }
         }

@@ -139,7 +139,6 @@ class CustomBaseCommand(BaseCommand):
         )
 
     def create_education(self, app, version):
-
         Education.objects.get_or_create(
             application_version=version,
             document_number=app.application_document.document_number,

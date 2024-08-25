@@ -57,6 +57,7 @@ urlpatterns = [
     path("lichois/api/v1/", include("app_assessment.urls")),
     path("lichois/api/v1/", include("app_production.urls")),
     path("lichois/api/v1/", include("crm_integration.urls")),
+    path("lichois/api/v1/", include("permanent_residence.urls")),
     path(
         "lichois/docs/",
         schema_view.with_ui("swagger", cache_timeout=0),

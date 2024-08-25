@@ -29,6 +29,7 @@ class Command(CustomBaseCommand):
                     ),
                     telephone=self.faker.phone_number(),
                     cell_phone=self.faker.phone_number(),
+                    physical_address=self.faker.address(),
                 )
 
                 self.stdout.write(

@@ -10,7 +10,7 @@ class VisaApplication(ApplicationBaseModel):
     visa_type = models.CharField(choices=VISA_TYPES, max_length=50)
     no_of_entries = models.CharField(choices=ENTRY_FREQ, max_length=10)
 
-    durations_stay = models.CharField(max_length=100)
+    proposed_durations_stay = models.CharField(max_length=100)
 
     travel_reasons = models.TextField(
         verbose_name="Reasons in full for wishing to travel to the Republic of Botswana",
@@ -20,10 +20,6 @@ class VisaApplication(ApplicationBaseModel):
     requested_valid_from = models.DateField()  # validators=[date_not_past]
 
     requested_valid_to = models.DateField()  # validators=[date_not_past]
-
-    return_visa_to = models.DateField()
-
-    return_valid_until = models.DateField()  # validators=[date_not_past]
 
     references = models.ManyToManyField(
         VisaReference,

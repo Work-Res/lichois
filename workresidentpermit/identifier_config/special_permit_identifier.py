@@ -48,14 +48,14 @@ class SpecialPermitIdentifierEmergency(Identifier):
         )
 
 
-class SpecialPermitIdentifierExemptionCertificate(Identifier):
+class ExemptionCertificateIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"
     identifier_type = "EX"
 
     @staticmethod
     def process_name():
-        return WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE.value
+        return ApplicationProcesses.EXEMPTION_CERTIFICATE.value
 
 
 class SpecialPermitIdentifierAppeal(Identifier):

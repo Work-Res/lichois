@@ -3,9 +3,10 @@ from django.db import models
 from ..choices import MARITAL_STATUS, GENDER, PERSON_TYPE
 
 from app.models import ApplicationBaseModel
+from base_module.model_mixins import NationalityModelMixin
 
 
-class Person(ApplicationBaseModel):
+class Person(ApplicationBaseModel, NationalityModelMixin):
 
     first_name = models.CharField(max_length=190)
 
@@ -26,18 +27,6 @@ class Person(ApplicationBaseModel):
         blank=True,
         null=True,
         # validations=date_not_future TODO: add validation (more than 18 years only )
-    )
-
-    country_birth = models.CharField(
-        max_length=190,
-        blank=True,
-        null=True,
-    )
-
-    place_birth = models.CharField(
-        max_length=190,
-        blank=True,
-        null=True,
     )
 
     gender = models.CharField(

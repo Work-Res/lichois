@@ -198,7 +198,7 @@ class Command(BaseCommand):
                             "Other",
                         )
                     ),
-                    no_of_entries=faker.random_element(elements=(1, 2, "multiple")),
+                    no_of_entries=faker.random_element(elements=("single", "multiple")),
                     durations_stay=faker.random_element(
                         elements=(
                             "1 month",
@@ -215,8 +215,6 @@ class Command(BaseCommand):
                     travel_reasons=faker.text(),
                     requested_valid_from=faker.date_this_century(),
                     requested_valid_to=faker.date_this_century(),
-                    return_visa_to=faker.date_this_century(),
-                    return_valid_until=faker.date_this_century(),
                 )
 
                 for _ in range(2):

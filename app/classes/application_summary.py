@@ -7,6 +7,8 @@ from django.core.exceptions import FieldDoesNotExist, FieldError, ObjectDoesNotE
 from django.db.models import ForeignKey, ManyToManyField, QuerySet
 from django.forms import model_to_dict
 
+from app.models.application import Application
+
 logger = logging.getLogger(__name__)
 
 
@@ -36,12 +38,17 @@ class ApplicationSummary:
                 print(temp, "model_instance model_instance model_instance")
                 summary[snake_case_model_name] = temp
 
+        application = Application.objects.filter(
+            application_document__document_number=self.document_number
+        ).first()
+        if application:
+            summary["application"] = self.serialize_model_instance(application)
+
         return summary
 
     def get_model_instance(self, app_label):
         """Get the model instance based on the app label and document number."""
         model_cls = apps.get_model(app_label)
-        print(f"Getting model instance for {model_cls}")
         return self._get_model_instance_recursive(model_cls)
 
     def _get_model_instance_recursive(self, model_cls, traversed_models=None):
@@ -51,9 +58,11 @@ class ApplicationSummary:
 
         try:
             # Attempt to filter using document_number directly
-            if hasattr(model_cls, 'document_number'):
+            if hasattr(model_cls, "document_number"):
                 return model_cls.objects.get(document_number=self.document_number)
-            logger.warning(f"Model: {model_cls._meta.label} does not have attribute document number.")
+            logger.warning(
+                f"Model: {model_cls._meta.label} does not have attribute document number."
+            )
         except (FieldError, model_cls.DoesNotExist):
             # Add the current model to traversed models to avoid infinite loops
             traversed_models.add(model_cls)
@@ -92,7 +101,9 @@ class ApplicationSummary:
             logger.error(f"Error retrieving fields for {model_instance}: {e}")
             return []
 
-    def _prepare_model_field_name_value(self, serialized_data, field, field_name, model_instance):
+    def _prepare_model_field_name_value(
+        self, serialized_data, field, field_name, model_instance
+    ):
         try:
             if isinstance(field, ForeignKey):
                 # Handle ForeignKey relationships
@@ -121,10 +132,14 @@ class ApplicationSummary:
                 # Handle other fields normally
                 serialized_data[field_name] = getattr(model_instance, field_name)
         except AttributeError as e:
-            logger.error(f"Error accessing field '{field_name}' on {model_instance}: {e}")
+            logger.error(
+                f"Error accessing field '{field_name}' on {model_instance}: {e}"
+            )
             serialized_data[field_name] = None
         except Exception as e:
-            logger.error(f"Unexpected error processing field '{field_name}' on {model_instance}: {e}")
+            logger.error(
+                f"Unexpected error processing field '{field_name}' on {model_instance}: {e}"
+            )
             serialized_data[field_name] = None
 
     def serialize_model_instance(self, model_instance):
@@ -134,7 +149,11 @@ class ApplicationSummary:
             field_name = field.name
             if not isinstance(model_instance, QuerySet):
                 self._prepare_model_field_name_value(
-                    serialized_data, field=field, field_name=field_name, model_instance=model_instance)
+                    serialized_data,
+                    field=field,
+                    field_name=field_name,
+                    model_instance=model_instance,
+                )
             else:
                 temp = []
                 for model_obj in model_instance:
@@ -174,7 +193,6 @@ class ApplicationSummary:
             "app_address.ApplicationAddress",
             "app_contact.ApplicationContact",
             "app_personal_details.Passport",
-            "app.Application",
             "app.ApplicationVerification",
             "app.SecurityClearance",
             "app_personal_details.Education",
