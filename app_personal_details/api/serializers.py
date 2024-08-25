@@ -16,7 +16,7 @@ class PersonSerializer(serializers.ModelSerializer):
 			'maiden_name',
 			'marital_status',
 			'dob',
-			'place_birth',
+			# 'place_birth',
 			'gender',
 			'occupation',
 			'qualification',
