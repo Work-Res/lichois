@@ -11,3 +11,4 @@ from .attendee_model_viewset import AttendeeViewSet
 from .board_member_model_viewset import BoardMemberViewSet
 from .batch_application_model_viewsets import BatchApplicationViewSet
 from .interview_viewset import InterviewViewSet
+from .board_recommendation_viewset import BoardRecommendationViewSet
