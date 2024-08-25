@@ -269,8 +269,9 @@ class BatchService:
     def declare_no_conflict_for_all(attendee_id, batch_id,  meeting_session=None):
         try:
             attendee = Attendee.objects.get(member__user=attendee_id)
-            batch_applications = BatchApplication.objects.filter(batch_id=batch_id)
             meeting_session = MeetingSession.objects.get(id=meeting_session)
+            batch_applications = BatchApplication.objects.filter(
+                batch_id=batch_id, meeting_session=meeting_session)
             logger.info(f"Batch applications found: {batch_applications}")
             if not batch_applications.exists():
                 raise ValidationError(f"Batch Applications is empty for {batch_id}")

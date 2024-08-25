@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_filters",
     "django_api_client",
+    "django_mailbox",
     "corsheaders",
     "django_extensions",
     "lichois",
@@ -362,28 +363,41 @@ Q_CLUSTER = {
     },
 }
 
-RABBITMQ_HOST = 'localhost'
-RABBITMQ_USERNAME = 'guest'
-RABBITMQ_PASSWORD = 'guest'
-RABBITMQ_VHOST = '/test_vhost'
+RABBITMQ_HOST = "localhost"
+RABBITMQ_USERNAME = "guest"
+RABBITMQ_PASSWORD = "guest"
+RABBITMQ_VHOST = "/test_vhost"
 
 crm_config = {
-    'CRM_FILE_UPLOAD_URL': 'https://api.example.com/upload',
-    'CRM_FILE_DOWNLOAD_URL': 'https://api.example.com/download',
-    'PUSH_CRM_URL_PREFIX': 'https://api.example.com/',
-    'PUSH_CRM_URL_SUFFIX': '/push',
-    'PUSH_CRM_URL': 'https://api.example.com/push',
-    'APPLICATION_ID_KEY': 'X-App-ID',
-    'AUTHORISATION_KEY': 'Authorization',
-    'NOTIFICATION_SERVICE': 'notification_service',
-    'FILE_DIR': '/path/to/files/',
-    'auth_create_url': 'https://example.com/api/auth/create',
-    'auth_refresh_url': 'https://example.com/api/auth/refresh',
-    'username': 'your_username',
-    'password': 'your_password',
-    'refresh_key': 'refresh_token'
+    "CRM_FILE_UPLOAD_URL": "https://api.example.com/upload",
+    "CRM_FILE_DOWNLOAD_URL": "https://api.example.com/download",
+    "PUSH_CRM_URL_PREFIX": "https://api.example.com/",
+    "PUSH_CRM_URL_SUFFIX": "/push",
+    "PUSH_CRM_URL": "https://api.example.com/push",
+    "APPLICATION_ID_KEY": "X-App-ID",
+    "AUTHORISATION_KEY": "Authorization",
+    "NOTIFICATION_SERVICE": "notification_service",
+    "FILE_DIR": "/path/to/files/",
+    "auth_create_url": "https://example.com/api/auth/create",
+    "auth_refresh_url": "https://example.com/api/auth/refresh",
+    "username": "your_username",
+    "password": "your_password",
+    "refresh_key": "refresh_token",
 }
 
 GAZETTE_BATCH_SIZE = 300
 
 USE_RABBITMQ = False
+
+EMAIL_RECEIVER_SERVICE = {
+    "NAME": "Exchange Inbox",
+    "URI": "imap+ssl://{email}:{password}@outlook.office365.com".format(
+        email="objections_citizenship@outlook.com", password="KeyCkzKMHWm7YKew"
+    ),
+    "FROM_EMAIL": "objections_citizenship@outlook.com",
+}
+
+MS_CLIENT_ID = "173d20ad-b66c-49f4-abf4-e18fafe84417"
+MS_CLIENT_SECRET = "5dm8Q~MJoDfJEAJIcIbWIbCA1akmtDVFyeSiGauM"
+MS_TENANT_ID = "cad42c6a-07cb-4b36-88b3-aa1995b4e3ca"
+MS_EMAIL = "objections_citizenship@outlook.com"

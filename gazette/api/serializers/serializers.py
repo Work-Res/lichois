@@ -21,12 +21,15 @@ class BatchApplicationGazetteSerializer(serializers.ModelSerializer):
 
 
 class BatchGazetteSerializer(serializers.ModelSerializer):
-    batch_applications = BatchApplicationGazetteSerializer(many=True, read_only=True)
-    assessments = LegalAssessmentSerializer(many=True, read_only=True)
+
+    batch_application_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Batch
         fields = '__all__'
+
+    def get_batch_application_count(self, obj):
+        return obj.batch_applications.count()
 
 
 class BatchDecisionSerializer(serializers.ModelSerializer):

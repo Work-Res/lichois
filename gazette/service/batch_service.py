@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
 
 from gazette.models import Batch, BatchApplication
+from identifier.simple_identifier import SimpleIdentifier
 
 
 class BatchService:
@@ -28,6 +29,7 @@ class BatchService:
                 defaults={
                     "title": batch_title,
                     "description": batch_description,
+                    "identifier": self.batch_identifier()
                 },
             )
 
@@ -98,3 +100,9 @@ class BatchService:
             )
             return False
         return True
+
+    def batch_identifier(self):
+        today = date.today()
+        date_string = today.strftime('%d%m%Y')
+        simple = SimpleIdentifier(identifier_prefix="DB", address_code=date_string[-6:])
+        return simple.identifier
