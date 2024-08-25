@@ -8,3 +8,4 @@ from .interview_response_filter import InterviewResponseFilter
 from .interview_filter import InterviewFilter
 from .conflict_of_interest_filter import ConflictOfInterestFilter
 from .score_sheet_filter import ScoreSheetFilter
+from .board_recommandation_filter import BoardRecommendationFilter
