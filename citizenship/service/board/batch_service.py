@@ -286,7 +286,7 @@ class BatchService:
                     application=batch_application.application, meeting_session=meeting_session)
                 interview_service.add_board_member(board_member=attendee.member)
                 logger.info(
-                    f'No conflict of interest declared for {batch_application.application.document_number} by '
+                    f'No conflict of interest declared for {batch_application.application.application_document.document_number} by '
                     f'{attendee.member.user.username}')
             return True
         except Attendee.DoesNotExist:
