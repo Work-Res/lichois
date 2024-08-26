@@ -5,7 +5,9 @@ from .citizenship_by_settlement import CitizenshipBySettlement
 from .citizenship_renunciation_declaration import CitizenshipRenunciationDeclaration
 from .citizenship_resumption import CitizenshipResumption
 from .DC_certificate import DCCertificate
-from .declaration_naturalisation_by_foreign_spouse import DeclarationNaturalisationByForeignSpouse
+from .declaration_naturalisation_by_foreign_spouse import (
+    DeclarationNaturalisationByForeignSpouse,
+)
 from .doubt_citizenship_certificate import DoubtCitizenshipCertificate
 from .kgosi_certificate import KgosiCertificate
 from .kgosana_certificate import KgosanaCertificate
@@ -14,7 +16,9 @@ from .maturity_period_waiver import MaturityPeriodWaiver
 from .nationality_declaration import NationalityDeclaration
 from .naturalisation import Naturalisation
 from .oath_of_allegiance import OathOfAllegiance
-from citizenship.models.renunciation.renunciation_of_citizenship import RenunciationOfCitizenship
+from citizenship.models.renunciation.renunciation_of_citizenship import (
+    RenunciationOfCitizenship,
+)
 from .renunciation_of_foreign_citizenship import RenunciationOfForeignCitizenship
 from .parent_details import ParentDetails
 from .personal_declaration import PersonalDeclaration
@@ -43,5 +47,5 @@ from .board.batch import Batch
 from .board.batch_application import BatchApplication
 from .board.board import Board
 from .board.question import Question
+from .board.conflict_of_interest_duration import ConflictOfInterestDuration
 from .citizenship_summary import CitizenshipSummary
-
