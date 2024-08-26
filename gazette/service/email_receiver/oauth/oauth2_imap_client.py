@@ -1,5 +1,8 @@
+import logging
 import imaplib
 import base64
+
+logger = logging.getLogger(__name__)
 
 from .token import get_oauth2_token
 
@@ -18,12 +21,13 @@ class OAuth2IMAPClient:
         self.access_token = get_oauth2_token(
             self.client_id, self.client_secret, self.tenant_id
         )
+        logger.info(f"{self.access_token}")
 
     def connect(self):
         if not self.access_token:
             self.authenticate()
 
-        auth_string = f"user={self.email}\1auth=Bearer {self.access_token}\1\1"
+        auth_string = f"user={self.email}&auth=Bearer {self.access_token}"
         auth_string = base64.b64encode(auth_string.encode("ascii")).decode("ascii")
 
         mail = imaplib.IMAP4_SSL("outlook.office365.com")

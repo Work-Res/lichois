@@ -5,16 +5,25 @@ from .views import (
     BatchDecisionViewSet,
     LegalAssessmentViewSet,
     BatchSubmissionViewSet,
+    BatchApplicationViewSet,
 )
 
 router = DefaultRouter()
 router.register(r"gazette-batches", BatchViewSet, basename="batch")
-router.register(r"batch-decisions", BatchDecisionViewSet, basename="batch-decision")
 router.register(
-    r"legal-assessments", LegalAssessmentViewSet, basename="legal-assessment"
+    r"gazette-batch-decisions", BatchDecisionViewSet, basename="batch-decision"
 )
 router.register(
-    r"batch-submissions", BatchSubmissionViewSet, basename="batch-submission"
+    r"gazette-legal-assessments", LegalAssessmentViewSet, basename="legal-assessment"
+)
+router.register(
+    r"gazette-batch-submissions", BatchSubmissionViewSet, basename="batch-submission"
+)
+
+router.register(
+    r"gazette-batch-applications",
+    BatchApplicationViewSet,
+    basename="batch-applications",
 )
 
 urlpatterns = [

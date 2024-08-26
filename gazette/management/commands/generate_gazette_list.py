@@ -1,7 +1,6 @@
 from django.db.transaction import atomic
 
 from datetime import date
-from django.core.management.base import BaseCommand
 
 from citizenship.utils import CitizenshipProcessEnum
 from gazette.models import Batch, BatchApplication
