@@ -229,7 +229,7 @@ class BatchService:
             logger.error(f'Application does not exist: {document_number}')
             raise ValidationError("Application does not exist.")
         except Exception as e:
-            logger.error(f'Error declaring conflict of interest: {e}')
+            logger.error(f'Error declaring conflict of interest: {str(e)}')
             raise
 
     @staticmethod
