@@ -24,7 +24,7 @@ class Command(CustomBaseCommand):
                 self.stdout.write(
                     self.style.SUCCESS("Successfully populated renunciation data")
                 )
-                apps.append(app)
+                apps.append(version.application)
         count = Batch.objects.all().count()
         count = count + 1
         batch = Batch.objects.create(
