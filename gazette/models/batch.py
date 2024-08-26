@@ -19,4 +19,4 @@ class Batch(BaseUuidModel):
     objects = BatchManager()
 
     def __str__(self):
-        return f"{self.name} - {self.meeting.title}"
+        return f"{self.title} - {self.identifier}"
