@@ -19,4 +19,4 @@ class ConflictOfInterest(BaseUuidModel):
     objects = ConflictOfInterestManager()
 
     def __str__(self):
-        return f'{self.attendee.member.user.username} - {self.application.document_number}'
+        return f'{self.attendee.member.user.username} - {self.application.application_document.document_number}'
