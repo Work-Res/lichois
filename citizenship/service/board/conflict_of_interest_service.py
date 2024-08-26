@@ -46,7 +46,7 @@ class ConflictOfInterestService:
             if conflict_of_interest.is_authorized:
                 logger.warning(
                     f"Authorization attempt failed: Member {conflict_of_interest.attendee.member.user.username} "
-                    f"has already been authorized for application {conflict_of_interest.application.document_number}."
+                    f"has already been authorized for application {conflict_of_interest.application}."
                 )
                 raise ValidationError("This member has already been authorized to participate in the interview.")
 
@@ -65,7 +65,7 @@ class ConflictOfInterestService:
             logger.info(
                 f"Member {conflict_of_interest.attendee.member.user.username} "
                 f"authorized to participate in the interview for application "
-                f"{conflict_of_interest.application.document_number}."
+                f"{conflict_of_interest.application}."
             )
 
             return conflict_of_interest
