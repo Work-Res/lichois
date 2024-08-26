@@ -11,4 +11,4 @@ class BatchApplicationFilter(django_filters.FilterSet):
 
     class Meta:
         model = BatchApplication
-        fields = ['batch', 'application', 'meeting_session']
+        fields = ['batch', 'application', 'meeting_session', 'meeting']
