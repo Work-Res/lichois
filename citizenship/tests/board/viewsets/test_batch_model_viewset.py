@@ -279,6 +279,7 @@ class BatchModelViewSetTest(BaseSetup):
 
         conflict_of_interest_duration.status = "completed"
         conflict_of_interest_duration.save()
+
         interview_responses = InterviewResponse.objects.all()
         self.assertEqual(interview_responses.count(), 14)
 

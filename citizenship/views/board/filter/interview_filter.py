@@ -10,6 +10,8 @@ class InterviewFilter(django_filters.FilterSet):
     status = django_filters.CharFilter(field_name='status', lookup_expr='exact')
     variation_type = django_filters.CharFilter(field_name='variation_type', lookup_expr='exact')
     conducted = django_filters.BooleanFilter(field_name='conducted')
+    document_number = django_filters.CharFilter(field_name='application__application_document__document_number',
+                                                lookup_expr='exact')
 
     class Meta:
         model = Interview
