@@ -6,3 +6,4 @@ from api.serializers.profile import PersonalDetailsSerializer
 from api.serializers.profile import EducationSerializer
 from api.serializers.profile import NextOfKinSerializer
 from api.serializers.profile import CombinedSerializer
+from .dynamic_serializer import create_model_serializer

@@ -1,11 +1,13 @@
 from django.db import models
 
-from app.models.application_base_model import ApplicationBaseModel
+from identifier.non_citizen_identifier_model_mixins import (
+    UniqueNonCitizenIdentifierModelMixin,
+)
 
 
-class NextOfKin(ApplicationBaseModel):
+class NextOfKin(models.Model, UniqueNonCitizenIdentifierModelMixin):
 
-    non_citizen_id = models.IntegerField(primary_key=True)
+    document_number = models.CharField(max_length=190)
 
     first_name = models.CharField(max_length=190)
 
