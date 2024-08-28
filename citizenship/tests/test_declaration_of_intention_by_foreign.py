@@ -2,7 +2,9 @@ from app.api.dto import ApplicationVerificationRequestDTO
 from app.models import Application
 from app.service import VerificationService
 from app.utils import ApplicationStatusEnum
-from app_checklist.models import Classifier, ClassifierItem
+from app_checklist.models import Classifier, ClassifierItem, SystemParameter
+from app_decision.models import ApplicationDecision
+from app_personal_details.models import Permit
 from .base_setup import BaseSetup
 from app.api import NewApplicationDTO
 
@@ -45,6 +47,12 @@ class TestDeclarationOfIntentionByForeignWorkflow(BaseSetup):
     def test_submit_officer_verification_and_issued_production(self):
         """Test if application can submit for verification, and then  """
 
+        SystemParameter.objects.create(
+            application_type=CitizenshipProcessEnum.INTENTION_FOREIGN_SPOUSE.value,
+            duration_type="months",
+            duration=30
+        )
+
         verification_request = ApplicationVerificationRequestDTO(
             document_number=self.document_number,
             user="test",
@@ -58,3 +66,9 @@ class TestDeclarationOfIntentionByForeignWorkflow(BaseSetup):
 
         self.assertEqual(app.process_name, CitizenshipProcessEnum.INTENTION_FOREIGN_SPOUSE.value)
         self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())
