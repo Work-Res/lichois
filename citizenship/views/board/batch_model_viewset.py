@@ -79,6 +79,7 @@ class BatchModelViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def change_status(self, request, pk=None):
         batch = self.get_object()
+        print("payload for closing batch", request.data)
         new_status = request.data.get('new_status')
         try:
             updated_batch = BatchService.change_batch_status(batch_id=batch.id, new_status=new_status)

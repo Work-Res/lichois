@@ -6,6 +6,7 @@ from .views import (
     LegalAssessmentViewSet,
     BatchSubmissionViewSet,
     BatchApplicationViewSet,
+    DownloadGazettePDFView,
 )
 
 router = DefaultRouter()
@@ -63,4 +64,9 @@ urlpatterns = [
         BatchSubmissionViewSet.as_view({"post": "update_batch_status"}),
         name="update_batch_status_submission",
     ),
+    path(
+        "download-gazette/<uuid:batch_id>/",
+        DownloadGazettePDFView.as_view(),
+        name='download_gazette_pdf'
+    )
 ]

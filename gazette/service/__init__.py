@@ -1,3 +1,4 @@
 from .application_batch_service import ApplicationBatchService
 from .batch_submission_service import BatchSubmissionService
 from .pdf.generate_gazette_pdf_service import GenerateGazettePDFService
+from .prepare_gazette_for_download import PrepareGazetteForDownload

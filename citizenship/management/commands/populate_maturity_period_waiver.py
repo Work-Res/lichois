@@ -18,7 +18,7 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(150):
+        for _ in range(50):
 
             with atomic():
                 fname = self.faker.unique.first_name()
@@ -37,8 +37,8 @@ class Command(CustomBaseCommand):
                 # Applicant Residential Address Details
                 baker.make(ApplicationAddress,
                            application_version=version,
-                           document_number=app.application_document.document_number,
-                           person_type='applicant')
+                           document_number=app.application_document.document_number
+                           )
 
                 # Applicant Postal Address Details
                 baker.make(ApplicationAddress,

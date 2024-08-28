@@ -13,3 +13,4 @@ class BatchApplicationViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = BatchApplicationFilter
     pagination_class = StandardResultsSetPagination
+

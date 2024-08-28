@@ -84,8 +84,8 @@ class BaseSetup(TestCase):
             dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
             middle_name=faker.first_name(),
             marital_status=faker.random_element(elements=('single', 'married', 'divorced')),
-            country_birth=faker.country(),
-            place_birth=faker.city(),
+            # country_birth=faker.country(),
+            # place_birth=faker.city(),
             gender=faker.random_element(elements=('male', 'female')),
             occupation=faker.job(),
             qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd'))

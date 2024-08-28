@@ -10,6 +10,7 @@ from citizenship.validators.board.application_eligibility_validator import Appli
 from .batch_status_enum import BatchStatus
 from .interview_service import InterviewService
 from ...exception import BatchSizeMaxLimitReachedException
+from ...validators.board import ConflictOfInterestValidator
 
 logger = logging.getLogger(__name__)
 
@@ -205,23 +206,34 @@ class BatchService:
     def declare_conflict_of_interest(attendee_id, document_number, has_conflict=False, meeting_session=None,
                                      client_relationship=None, interest_description=None):
         try:
-            attendee = Attendee.objects.get(member__user=attendee_id) #Fixme refactor attendee_id to user
-            application = Application.objects.get(
-                application_document__document_number=document_number)
-            created = ConflictOfInterest.objects.create_conflict(
-                attendee=attendee,
-                application=application,
-                has_conflict=has_conflict,
+            validator = ConflictOfInterestValidator(
                 meeting_session=meeting_session,
-                client_relationship=client_relationship,
-                interest_description=interest_description
+                attendee_id=attendee_id,
+                document_number=document_number
             )
-            if created:
-                interview_service = InterviewService(
-                    application=application, meeting_session=meeting_session)
-                interview_service.add_board_member(board_member=attendee.member)
-                logger.info(f'Conflict of interest declared: {created}')
-            return created
+            has_no_reasons_for_eligible = validator.is_eligible_to_declare_conflict_of_interest()
+            if not has_no_reasons_for_eligible:
+                attendee = Attendee.objects.get(member__user=attendee_id) #Fixme refactor attendee_id to user
+                application = Application.objects.get(
+                    application_document__document_number=document_number)
+
+                created = ConflictOfInterest.objects.create_conflict(
+                    attendee=attendee,
+                    application=application,
+                    has_conflict=has_conflict,
+                    meeting_session=meeting_session,
+                    client_relationship=client_relationship,
+                    interest_description=interest_description
+                )
+                if created:
+                    interview_service = InterviewService(
+                        application=application, meeting_session=meeting_session)
+                    interview_service.add_board_member(board_member=attendee.member)
+                    logger.info(f'Conflict of interest declared: {created}')
+                return created
+            else:
+                reasons = ", ".join(map(str, has_no_reasons_for_eligible))
+                raise ValidationError(reasons)
         except Attendee.DoesNotExist:
             logger.error(f'Attendee does not exist: {attendee_id}')
             raise ValidationError("Attendee does not exist.")

@@ -263,6 +263,7 @@ class BatchModelViewSetTest(BaseSetup):
         )
         # close batch so that interview object get created.
         url = reverse("citizenship:batch-change-status", args=[batch.id])
+        print(url)
         data = {"new_status": BatchStatus.CLOSED.name}
         self.client.post(url, data, format="json")
 
