@@ -42,7 +42,8 @@ class ApplicationSummary:
             application_document__document_number=self.document_number
         ).first()
         if application:
-            summary["application"] = self.serialize_model_instance(application)
+            pass
+            # summary["application"] = self.serialize_model_instance(application)
 
         return summary
 
