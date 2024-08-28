@@ -17,8 +17,8 @@
           "valid_to": "2040-01-01",
           "next_activity_name": "SECURITY_CLEARANCE",
           "create_task_rules": {
-            "system_verification": "validated",
-            "current_status": "NEW"
+            "current_status": "NEW",
+            "system_verification": "validated"
           }
         },
         {
@@ -46,6 +46,7 @@
           "next_activity_name": "GAZETTE_AUTHENTICATION",
           "create_task_rules": {
               "current_status":  "VETTING",
+              "security_clearance": "ACCEPTED",
               "vetting_obj_exists":  true
           }
         },
@@ -98,7 +99,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "recommendation_decision": "ACCEPTED"
+            "current_status": "DIRECTOR_RECOMMENDATION",
+            "recommendation_decision": "recommended"
           }
         }
       ]

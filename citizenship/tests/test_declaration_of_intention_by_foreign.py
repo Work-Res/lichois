@@ -1,3 +1,4 @@
+from django.test import tag
 from app.api.dto import ApplicationVerificationRequestDTO
 from app.models import Application
 from app.service import VerificationService
@@ -10,6 +11,7 @@ from app.classes import ApplicationService
 from ..utils import CitizenshipProcessEnum
 
 
+@tag('decl-fs')
 class TestDeclarationOfIntentionByForeignWorkflow(BaseSetup):
 
     def setUp(self) -> None:

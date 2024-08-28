@@ -17,8 +17,8 @@
           "valid_to": "2040-01-01",
           "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
-            "system_verification": "validated",
-            "current_status": "DRAFT"
+            "current_status": "NEW",
+            "system_verification": "validated"
           }
         },
         {

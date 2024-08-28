@@ -1,3 +1,4 @@
+from django.test import tag
 from app.api.dto import ApplicationVerificationRequestDTO
 from app.models import Application
 from app.service import VerificationService
@@ -15,6 +16,7 @@ from ..utils import CitizenshipProcessEnum
 from app_assessment.api.dto import CaseSummaryRequestDTO, AssessmentCaseDecisionDTO
 
 
+@tag('mpw')
 class TestMaturityPeriodWaiverWorkflow(BaseSetup):
 
     def setUp(self) -> None:

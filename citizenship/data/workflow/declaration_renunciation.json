@@ -18,7 +18,7 @@
           "next_activity_name": "FIRST_ASSESSMENT",
           "create_task_rules": {
             "system_verification": "validated",
-            "current_status": "DRAFT"
+            "current_status": "NEW"
           }
         },
         {

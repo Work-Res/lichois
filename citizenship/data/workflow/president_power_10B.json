@@ -45,8 +45,9 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "DIRECTOR_RECOMMENDATION",
           "create_task_rules": {
+            "current_status":  "VETTING",
             "security_clearance": "ACCEPTED",
-            "current_status": "BACK_OFFICE_RECOMMENDATION"
+            "vetting_obj_exists":  true
           }
         },
         {
@@ -59,7 +60,7 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "DEPUTY_PS_RECOMMENDATION",
           "create_task_rules": {
-            "current_status": "DIRECTOR_RECOMMENDATION"
+            "current_status": "BACK_OFFICE_RECOMMENDATION"
           }
         },
         {
@@ -72,7 +73,7 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PS_RECOMMENDATION",
           "create_task_rules": {
-            "current_status": "DEPUTY_PS_RECOMMENDATION"
+            "current_status": "DIRECTOR_RECOMMENDATION"
           }
         },
         {
@@ -85,7 +86,7 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PRESIDENT_PS_RECOMMENDATION",
           "create_task_rules": {
-            "current_status": "PS_RECOMMENDATION"
+            "current_status": "DEPUTY_PS_RECOMMENDATION"
           }
         },
         {
@@ -98,7 +99,7 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PRESIDENT_DECISION",
           "create_task_rules": {
-            "current_status": "PRES_PS_RECOMMENDATION"
+            "current_status": "PS_RECOMMENDATION"
           }
         },
         {
@@ -111,6 +112,7 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
+            "current_status": "PRES_PS_RECOMMENDATION",
             "recommendation_decision": "ACCEPTED"
           }
         }

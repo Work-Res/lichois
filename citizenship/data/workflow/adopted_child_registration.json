@@ -22,7 +22,7 @@
           }
         },
         {
-          "code": "RECOMMENDATION",
+          "code": "DIRECTOR_RECOMMENDATION",
           "name": "Registration Of Adopted Child Director Recommendation",
           "description": "Registration Of Adopted Child Recommendation By Director",
           "mandatory": false,
@@ -36,20 +36,6 @@
           }
         },
         {
-          "code": "MINISTER_DECISION",
-          "name": "Registration Of Adopted Child Decision",
-          "description": "Certificate Production Task",
-          "sequence": 3,
-          "mandatory": false,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01",
-          "next_activity_name": "FINAL_DECISION",
-          "create_task_rules": {
-              "current_status": "RECOMMENDATION",
-              "decision": "recommended"
-          }
-        },
-        {
           "code": "FINAL_DECISION",
           "name": "Registration Of Adopted Child Decision",
           "description": "Certificate Production Task",
@@ -59,8 +45,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "current_status": "MINISTER_DECISION",
-            "decision": "ACCEPTED"
+              "current_status": "DIRECTOR_RECOMMENDATION",
+              "recommendation_decision": "recommended"
           }
         }
       ]
