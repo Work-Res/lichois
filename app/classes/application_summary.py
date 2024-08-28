@@ -1,12 +1,12 @@
-import re
 import logging
-from django.apps import apps
+import re
 
-from django.db.models.query import QuerySet
+from django.apps import apps
 from django.core.exceptions import FieldDoesNotExist, FieldError, ObjectDoesNotExist
 from django.db.models import ForeignKey, ManyToManyField, QuerySet
 from django.forms import model_to_dict
 
+from ..api.serializers.application_serializer import ApplicationSerializer
 from app.models.application import Application
 
 logger = logging.getLogger(__name__)
@@ -42,8 +42,7 @@ class ApplicationSummary:
             application_document__document_number=self.document_number
         ).first()
         if application:
-            pass
-            # summary["application"] = self.serialize_model_instance(application)
+            summary["application"] = ApplicationSerializer(application).data
 
         return summary
 
