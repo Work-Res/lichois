@@ -5,6 +5,7 @@ from app.utils import ApplicationStatusEnum
 from app_checklist.models import Classifier, ClassifierItem, SystemParameter
 from app_decision.models import ApplicationDecision
 from app_personal_details.models import Permit
+from app_production.models import ProductionAttachmentDocument
 from .base_setup import BaseSetup
 from app.api import NewApplicationDTO
 
@@ -72,3 +73,6 @@ class TestDeclarationOfIntentionByForeignWorkflow(BaseSetup):
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
+
+        generated_document = ProductionAttachmentDocument.objects.filter(document_number=self.document_number)
+        self.assertTrue(generated_document.exists())

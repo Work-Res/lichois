@@ -10,9 +10,10 @@ logger = logging.getLogger(__name__)
 
 
 @receiver(post_save, sender=OathOfAllegiance)
-def production_decision_post_save_handler(sender, instance, created, **kwargs):
+def production_decision_oathOfAllegiance_post_save_handler(sender, instance, created, **kwargs):
     if created:
         try:
+            print("instance instance instance instance", instance.document_number)
             accepted = ApplicationDecisionType.objects.get(
                 code=ApplicationDecisionEnum.ACCEPTED.value
             )

@@ -10,7 +10,7 @@ from app_production.handlers.postsave.upload_document_production_handler import 
 from app_production.models import ProductionAttachmentDocument
 
 
-class TestMaturityWaiverTemplate(TestCase):
+class TestIntentionByForeignSpouseTemplate(TestCase):
 
     def setUp(self):
         self.context = {
@@ -37,7 +37,7 @@ class TestMaturityWaiverTemplate(TestCase):
             "year": "2024",
         }
 
-    def test_populate_travel_certificate_template(self):
+    def test_generation_of_letter(self):
         """Check if the travel certificate is create as per configuration"""
         self.context = {key: value.upper() for key, value in self.context.items()}
         template_path = os.path.join(
@@ -45,13 +45,13 @@ class TestMaturityWaiverTemplate(TestCase):
             "data",
             "production",
             "templates",
-            "general_template.docx",
+            "maturity_letter_template.docx.docx",
         )
         document_output_path_word = os.path.join(
-            "citizenship", "tests", "outputs", "president_.docx"
+            "citizenship", "tests", "outputs", "maturity_letter_output.docx"
         )
         document_output_path_pdf = os.path.join(
-            "travel", "tests", "outputs", "travel_certificate_output.pdf"
+            "citizenship", "tests", "outputs", "maturity_letter_output.pdf"
         )
 
         config = ProductionConfig(
