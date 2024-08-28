@@ -13,7 +13,7 @@ from ...models import DeclarationNaturalisationByForeignSpouse
 class Command(CustomBaseCommand):
     help = "Populate data for registration of adopted child over 3 years old service"
     process_name = CitizenshipProcessEnum.PRESIDENT_POWER_10A.value
-    application_type = CitizenshipApplicationTypeEnum.PRESIDENT_POWER_10A.value
+    application_type = CitizenshipProcessEnum.PRESIDENT_POWER_10A.value
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
