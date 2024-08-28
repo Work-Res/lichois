@@ -5,7 +5,7 @@ from identifier.non_citizen_identifier_model_mixins import (
 )
 
 
-class NextOfKin(models.Model, UniqueNonCitizenIdentifierModelMixin):
+class NextOfKin(UniqueNonCitizenIdentifierModelMixin, models.Model):
 
     document_number = models.CharField(max_length=190)
 

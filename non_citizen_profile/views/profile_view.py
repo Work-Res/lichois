@@ -8,7 +8,7 @@ from ..models import (
     Education,
     NextOfKin,
 )
-from api.serializers import (
+from ..api.serializers import (
     AddressSerializer,
     BiometricsSerializer,
     ContactDetailsSerializer,

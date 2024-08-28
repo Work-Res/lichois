@@ -2,11 +2,11 @@ from django.db import models
 from app_address.models import Country
 from app_address.choices import ADDRESS_TYPE, ADDRESS_STATUS
 from identifier.non_citizen_identifier_model_mixins import (
-    UniqueNonCitizenIdentifierModelMixin,
+    NonUniqueNonCitizenIdentifierModelMixin,
 )
 
 
-class Address(models.Model, UniqueNonCitizenIdentifierModelMixin):
+class Address(NonUniqueNonCitizenIdentifierModelMixin, models.Model):
     document_number = models.CharField(max_length=190)
     country = models.ForeignKey(
         Country, on_delete=models.CASCADE, null=True, blank=True

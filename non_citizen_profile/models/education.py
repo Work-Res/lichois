@@ -1,12 +1,13 @@
 from django.db import models
 
 from app_personal_details.choices import EDUCATION_LEVELS
+
 from identifier.non_citizen_identifier_model_mixins import (
     UniqueNonCitizenIdentifierModelMixin,
 )
 
 
-class Education(models.Model, UniqueNonCitizenIdentifierModelMixin):
+class Education(UniqueNonCitizenIdentifierModelMixin, models.Model):
     document_number = models.CharField(max_length=190)
     level = models.CharField(max_length=50, choices=EDUCATION_LEVELS)
     field_of_study = models.CharField(max_length=100)

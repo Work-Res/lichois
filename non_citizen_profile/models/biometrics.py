@@ -4,7 +4,7 @@ from identifier.non_citizen_identifier_model_mixins import (
 )
 
 
-class Biometrics(models.Model, UniqueNonCitizenIdentifierModelMixin):
+class Biometrics(UniqueNonCitizenIdentifierModelMixin, models.Model):
     non_citizen_id = models.IntegerField(primary_key=True)
     facial_image = models.URLField()
     fingerprint = models.BinaryField()

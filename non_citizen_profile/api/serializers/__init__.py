@@ -1,9 +1,11 @@
-from api.serializers.profile import AddressSerializer
-from api.serializers.profile import BiometricsSerializer
-from api.serializers.profile import ContactDetailsSerializer
-from api.serializers.profile import PassportSerializer
-from api.serializers.profile import PersonalDetailsSerializer
-from api.serializers.profile import EducationSerializer
-from api.serializers.profile import NextOfKinSerializer
-from api.serializers.profile import CombinedSerializer
+from .profile import (
+    AddressSerializer,
+    BiometricsSerializer,
+    ContactDetailsSerializer,
+    PassportSerializer,
+    PersonalDetailsSerializer,
+    EducationSerializer,
+    NextOfKinSerializer,
+    CombinedSerializer,
+)
 from .dynamic_serializer import create_model_serializer

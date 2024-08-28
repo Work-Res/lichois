@@ -4,9 +4,8 @@ from identifier.non_citizen_identifier_model_mixins import (
 )
 
 
-class ContactDetails(models.Model, UniqueNonCitizenIdentifierModelMixin):
+class ContactDetails(UniqueNonCitizenIdentifierModelMixin, models.Model):
     document_number = models.CharField(max_length=190)
-    # review model:  base_module, simple history
     telphone = models.IntegerField()
     cellphone = models.IntegerField()
     alt_cellphone = models.IntegerField()
