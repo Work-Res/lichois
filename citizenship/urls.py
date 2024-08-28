@@ -19,6 +19,7 @@ from .views.board import (
 )
 
 from .views.board.interview_viewset import InterviewViewSet
+from .views.oath_of_allegiance_viewset import OathOfAllegianceViewSet
 from .views.summary import (
     RenunciationSummaryViewSet,
     AdoptedChildSummaryViewSet,
@@ -46,6 +47,8 @@ router.register(r"citizenship-meeting-attendees", AttendeeViewSet)
 router.register(r"citizenship-boardmembers", BoardMemberViewSet),
 router.register(r"citizenship-batch-applications", BatchApplicationViewSet)
 router.register(r"citizenship-interviews", InterviewViewSet, basename="interview")
+router.register(r"citizenship-oath-of-allegiance", OathOfAllegianceViewSet, basename="oath-of-allegiance")
+
 router.register(
     r"citizenship-renunciation-summary",
     RenunciationSummaryViewSet,
