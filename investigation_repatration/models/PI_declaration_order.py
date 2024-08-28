@@ -47,4 +47,3 @@ class PIDeclarationOrderAcknowledgement(
 
     class Meta:
         verbose_name = "Prohibited Immigrant Declaration Order Acknowledgement"
-        verbose_name_plural = "Prohibited Immigrant Declaration Order Acknowledgements"
