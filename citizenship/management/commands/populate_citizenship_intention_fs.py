@@ -38,7 +38,8 @@ class Command(CustomBaseCommand):
                 baker.make(ApplicationAddress,
                            application_version=version,
                            document_number=app.application_document.document_number,
-                           person_type='applicant')
+                           #person_type='applicant'
+                           )
 
                 # Applicant Postal Address Details
                 baker.make(ApplicationAddress,
