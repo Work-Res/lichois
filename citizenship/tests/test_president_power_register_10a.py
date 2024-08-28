@@ -1,18 +1,21 @@
 from app.api.dto import ApplicationVerificationRequestDTO
 from app.models import Application
 from app.service import VerificationService
-from app.utils import ApplicationStatusEnum
-from app_assessment.models import AssessmentCaseSummary
-from app_assessment.service import CaseSummaryService
-from app_assessment.service.assessment_case_decision_service import AssessmentCaseDecisionService
-from app_checklist.models import Classifier, ClassifierItem
+from app.utils import ApplicationStatusEnum, ApplicationDecisionEnum
+
+from datetime import date
+
+from faker import Faker
+
+from app_checklist.models import Classifier, ClassifierItem, SystemParameter
+from app_decision.models import ApplicationDecision
+from app_personal_details.models import Permit
 from .base_setup import BaseSetup
 from app.api import NewApplicationDTO
 
 from app.classes import ApplicationService
+from ..models import OathOfAllegiance
 from ..utils import CitizenshipProcessEnum
-
-from app_assessment.api.dto import CaseSummaryRequestDTO, AssessmentCaseDecisionDTO
 
 
 class TestPresidentPowerToRegister10aWorkflow(BaseSetup):
@@ -47,8 +50,16 @@ class TestPresidentPowerToRegister10aWorkflow(BaseSetup):
         steps = ClassifierItem.objects.filter(classifier=classifier)
         self.assertEqual(steps.count(), 2)
 
-    def test_submit_officer_verification_and_move_recommandation(self):
+    def test_submit_officer_verification_and_move_production(self):
         """Test if application can submit for verification, and then  """
+
+        SystemParameter.objects.create(
+            application_type=CitizenshipProcessEnum.PRESIDENT_POWER_10A.value,
+            duration_type="years",
+            duration=2
+        )
+
+        faker = Faker()
 
         verification_request = ApplicationVerificationRequestDTO(
             document_number=self.document_number,
@@ -60,42 +71,19 @@ class TestPresidentPowerToRegister10aWorkflow(BaseSetup):
 
         app = Application.objects.get(
             application_document__document_number=self.document_number)
-
-        self.assertEqual(app.process_name, CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value)
-        self.assertEqual(app.application_status.code.upper(), "RECOMMENDATION")
-
-    def test_submit_officer_verification_and_complete_recommedation(self):
-        """Test if application can submit for verification, and then  """
-
-        verification_request = ApplicationVerificationRequestDTO(
-            document_number=self.document_number,
-            user="test",
-            status="ACCEPTED",
-        )
-        service = VerificationService(verification_request=verification_request)
-        service.create_verification()
-
-        assessment_comment = CaseSummaryRequestDTO(
-            document_number=self.document_number,
-            parent_object_id='e8e8e8e8-e8e8-e8e8-e8e8-e8e8e8e8e8e8',
-            parent_object_type='app.Application',
-            summary="No issues, i recommend"
-        )
-        assessment_service = CaseSummaryService(case_summary_request_dto=assessment_comment)
-        assessment_service.create()
-        assessment = AssessmentCaseSummary.objects.get(document_number=self.document_number)
-        self.assertIsNotNone(assessment)
-
-        decision_request = AssessmentCaseDecisionDTO(
-            document_number=self.document_number,
-            parent_object_id=assessment.id,
-            parent_object_type='app_assessment.AssessmentCaseSummary',
-            author="author",
-            author_role="author_role",
-            decision="recommended",
-        )
-        assessment_decison_service = AssessmentCaseDecisionService(assessment_case_decision_dto=decision_request)
-        assessment_decison_service.create()
-
-        app = Application.objects.get(application_document__document_number=self.document_number)
+        app.refresh_from_db()
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10A.value)
         self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+
+        OathOfAllegiance.objects.create(
+            document_number=self.document_number,
+            declaration_fname=faker.unique.first_name(),
+            declaration_lname=faker.unique.last_name(),
+            declaration_date=date.today(),
+            signature='tsetsiba'
+        )
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())

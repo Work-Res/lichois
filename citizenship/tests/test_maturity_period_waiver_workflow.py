@@ -36,4 +36,4 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
         self.assertEqual(app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value)
         self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
-        self.assertEqual(app.verification, CitizenshipStagesEnum.VERIFICATION.value)
+        self.assertEqual(app.verification, 'ACCEPTED')

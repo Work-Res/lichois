@@ -18,7 +18,6 @@ logger.setLevel(logging.WARNING)
 @receiver(post_save, sender=ApplicationDecision)
 def create_production_permit_record(sender, instance, created, **kwargs):
     if created:
-        print("instance ", instance)
         try:
             if (
                 instance.proposed_decision_type.code.upper()

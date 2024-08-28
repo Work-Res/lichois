@@ -1,6 +1,8 @@
 import logging
 import os
 
+from datetime import date
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
@@ -34,7 +36,16 @@ def production_decision_post_save_handler(sender, instance, created, **kwargs):
         document_number = instance.application_version.application.application_document.document_number
         context.context = lambda: {
             'document_type': 'maturity_letter',
-            'document_number': document_number
+            'document_number': document_number,
+            'reference_number': document_number,
+            'today_date': date.today().strftime("%Y-%m-%d"),
+            'applicant_fullname': '',
+            'salutation': '',
+            'end_date': '',
+            'start_date': '',
+            'officer_fullname': '',
+            'position': '',
+            'officer_contact_information': ''
         }
         handler = UploadDocumentProductionHandler()
         try:
