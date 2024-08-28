@@ -13,9 +13,7 @@ class PrisonerDueForRelease(BaseUuidModel):
 
 class PrisonerDetails(UniqueNonCitizenIdentifierFieldMixin, BaseUuidModel):
 
-    due_release = models.ForeignKey(
-        PrisonerDueForRelease,
-        on_delete=models.CASCADE)
+    due_release = models.ForeignKey(PrisonerDueForRelease, on_delete=models.CASCADE)
 
     fullnames = models.CharField(max_length=255)
 

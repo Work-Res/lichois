@@ -5,3 +5,4 @@ from .PI_declaration_order_serializer import PIDeclarationOrderSerializer
 from .PI_recommendation_serializer import PIRecommendationSerializer
 from .prisoner_serializer import PrisonerSerializer
 from .prisoner_due_release_serializer import PrisonerDueReleaseSerializer
+from .prisoner_details_serializer import PrisonerDetailsSerializer
