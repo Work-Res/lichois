@@ -86,6 +86,7 @@ INSTALLED_APPS = [
     "crm_integration.apps.AppConfig",
     "permanent_residence.apps.AppConfig",
     "non_citizen_profile.apps.AppConfig",
+    "investigation_repatration.apps.AppConfig",
 ]
 
 MIDDLEWARE = [

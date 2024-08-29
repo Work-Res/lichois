@@ -1,7 +1,9 @@
 from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
-from identifier import UniqueNonCitizenIdentifierFieldMixin
+from identifier.non_citizen_identifier_model_mixins import (
+    UniqueNonCitizenIdentifierFieldMixin,
+)
 
 
 class PIDeclarationOrder(UniqueNonCitizenIdentifierFieldMixin, BaseUuidModel):

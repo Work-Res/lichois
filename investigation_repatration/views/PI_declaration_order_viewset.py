@@ -1,6 +1,8 @@
 from rest_framework import viewsets
-from ..models import  PIDeclarationOrder
-from api.serializers import PIDeclarationOrderSerializer
+
+from ..api.serializers import PIDeclarationOrderSerializer
+from ..models import PIDeclarationOrder
+
 
 class PIDeclarationOrderViewSet(viewsets.ModelViewSet):
     queryset = PIDeclarationOrder.objects.all()
