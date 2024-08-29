@@ -22,7 +22,7 @@ from ..models import (
 
 class NonCitizenProfile:
 
-    def __init__(self, identifier) -> None:
+    def __init__(self, identifier=None) -> None:
         self.non_citizen_identifier = identifier
 
     def get_address(self):
@@ -105,3 +105,6 @@ class NonCitizenProfile:
             "next_of_kin": self.get_next_of_kin(),
             "passport": self.get_passport(),
         }
+
+    def get_all_profiles(self):
+        return PersonalDetailsSerializer(PersonalDetails.objects.all(), many=True).data

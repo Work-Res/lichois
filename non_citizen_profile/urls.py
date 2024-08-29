@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import GetNonCitizenProfileView, CreateNonCitizenProfileView
 
+from .views import (
+    CreateNonCitizenProfileView,
+    GetNonCitizenProfileView,
+    NonCitizenProfilesView,
+)
 
 urlpatterns = [
     path(
@@ -12,5 +16,10 @@ urlpatterns = [
         "create-profile/",
         CreateNonCitizenProfileView.as_view(),
         name="create-non-citizen-profile-view",
+    ),
+    path(
+        "profiles/",
+        NonCitizenProfilesView.as_view(),
+        name="non-citizen-profiles-view",
     ),
 ]
