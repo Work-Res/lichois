@@ -1,72 +1,97 @@
+import re
+from yaml import serialize
+from ..api.serializers.profile import (
+    AddressSerializer,
+    BiometricsSerializer,
+    ContactDetailsSerializer,
+    EducationSerializer,
+    NextOfKinSerializer,
+    PassportSerializer,
+    PersonalDetailsSerializer,
+)
 from ..models import (
     Address,
     Biometrics,
     ContactDetails,
-    PersonalDetails,
     Education,
     NextOfKin,
     Passport,
+    PersonalDetails,
 )
 
 
 class NonCitizenProfile:
 
-    def ___init__(self, non_citizen_identifier) -> None:
-        self.non_citizen_identifier = non_citizen_identifier
+    def __init__(self, identifier) -> None:
+        self.non_citizen_identifier = identifier
 
-    def get_address(self) -> Address | None:
+    def get_address(self):
         try:
-            return Address.objects.get(
+            obj = Address.objects.get(
                 non_citizen_identifier=self.non_citizen_identifier
             )
+            serializer = AddressSerializer(obj)
+            return serializer.data
         except Address.DoesNotExist:
             return None
 
-    def get_biometrics(self) -> Biometrics | None:
+    def get_biometrics(self):
         try:
-            return Biometrics.objects.get(
+            obj = Biometrics.objects.get(
                 non_citizen_identifier=self.non_citizen_identifier
             )
+            serializer = BiometricsSerializer(obj)
+            return serializer.data
         except Biometrics.DoesNotExist:
             return None
 
-    def get_contact_details(self) -> ContactDetails | None:
+    def get_contact_details(self):
         try:
-            return ContactDetails.objects.get(
+            obj = ContactDetails.objects.get(
                 non_citizen_identifier=self.non_citizen_identifier
             )
+            serializer = ContactDetailsSerializer(obj)
+            return serializer.data
         except ContactDetails.DoesNotExist:
             return None
 
-    def get_personal_details(self) -> PersonalDetails | None:
+    def get_personal_details(self):
         try:
-            return PersonalDetails.objects.get(
+            obj = PersonalDetails.objects.get(
                 non_citizen_identifier=self.non_citizen_identifier
             )
+            serializer = PersonalDetailsSerializer(obj)
+            return serializer.data
         except PersonalDetails.DoesNotExist:
             return None
 
-    def get_education(self) -> Education | None:
+    def get_education(self):
         try:
-            return Education.objects.get(
+            obj = Education.objects.get(
                 non_citizen_identifier=self.non_citizen_identifier
             )
+            serializer = EducationSerializer(obj)
+            return serializer.data
         except Education.DoesNotExist:
             return None
 
-    def get_next_of_kin(self) -> NextOfKin | None:
+    def get_next_of_kin(self):
         try:
-            return NextOfKin.objects.get(
+            obj = NextOfKin.objects.get(
                 non_citizen_identifier=self.non_citizen_identifier
             )
+            serializer = NextOfKinSerializer(obj)
+            return serializer.data
         except NextOfKin.DoesNotExist:
             return None
 
-    def get_passport(self) -> Passport | None:
+    def get_passport(self):
         try:
-            return Passport.objects.get(
+            obj = Passport.objects.get(
                 non_citizen_identifier=self.non_citizen_identifier
             )
+            serializer = PassportSerializer(obj)
+            return serializer.data
         except Passport.DoesNotExist:
             return None
 
@@ -78,4 +103,5 @@ class NonCitizenProfile:
             "personal_details": self.get_personal_details(),
             "education": self.get_education(),
             "next_of_kin": self.get_next_of_kin(),
+            "passport": self.get_passport(),
         }

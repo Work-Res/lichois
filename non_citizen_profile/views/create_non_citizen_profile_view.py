@@ -1,16 +1,12 @@
-from ..api.serializers import CombinedSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..classes import NonCitizenProfile, NonCitizenProfileDeserializer
+from ..classes import NonCitizenProfileDeserializer
 
 
-class NonCitizenProfileView(APIView):
-    def get(self, request, non_citizen_identifier, *args, **kwargs):
-        profile = NonCitizenProfile(non_citizen_identifier)
-        serializer = CombinedSerializer(profile.get_combined_profile())
-        return Response(serializer.data, status=status.HTTP_200_OK)
+class CreateNonCitizenProfileView(APIView):
+    permission_classes = []
 
     def post(self, request, *args, **kwargs) -> Response:
         response = NonCitizenProfileDeserializer(request.data)

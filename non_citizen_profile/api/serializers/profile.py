@@ -60,3 +60,18 @@ class CombinedSerializer(serializers.Serializer):
     personal_details = PersonalDetailsSerializer()
     education = EducationSerializer()
     next_of_kin = NextOfKinSerializer()
+
+    def to_representation(self, instance):
+        return {
+            "address": AddressSerializer(instance.get("address")).data,
+            "biometrics": BiometricsSerializer(instance.get("biometrics")).data,
+            "contact_details": ContactDetailsSerializer(
+                instance.get("contact_details")
+            ).data,
+            "passport": PassportSerializer(instance.get("passport")).data,
+            "personal_details": PersonalDetailsSerializer(
+                instance.get("personal_details")
+            ).data,
+            "education": EducationSerializer(instance.get("education")).data,
+            "next_of_kin": NextOfKinSerializer(instance.get("next_of_kin")).data,
+        }

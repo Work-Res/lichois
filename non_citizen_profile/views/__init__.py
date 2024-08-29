@@ -1,10 +1,2 @@
-from .non_citizen_profile_view import NonCitizenProfileView
-from .profile_view import (
-    AddressViewSet,
-    PersonalDetailsViewSet,
-    PassportViewSet,
-    BiometricsViewSet,
-    EducationViewSet,
-    NextOfKinViewSet,
-    ContactDetailsViewSet,
-)
+from .get_non_citizen_profile_view import GetNonCitizenProfileView
+from .create_non_citizen_profile_view import CreateNonCitizenProfileView

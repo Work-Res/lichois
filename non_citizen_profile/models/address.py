@@ -2,15 +2,13 @@ from django.db import models
 from app_address.models import Country
 from app_address.choices import ADDRESS_TYPE, ADDRESS_STATUS
 from identifier.non_citizen_identifier_model_mixins import (
-    NonUniqueNonCitizenIdentifierModelMixin,
+    NonUniqueNonCitizenIdentifierFieldMixin,
 )
 
 
-class Address(NonUniqueNonCitizenIdentifierModelMixin, models.Model):
-    document_number = models.CharField(max_length=190)
-    country = models.ForeignKey(
-        Country, on_delete=models.CASCADE, null=True, blank=True
-    )
+class Address(NonUniqueNonCitizenIdentifierFieldMixin, models.Model):
+    document_number = models.CharField(max_length=190, null=True, blank=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
     city = models.CharField(max_length=200, blank=True, null=True)
     street_address = models.CharField(max_length=200, blank=True, null=True)
     address_type = models.CharField(

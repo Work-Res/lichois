@@ -1,8 +1,10 @@
+from ast import mod
 from django.apps import apps
 import logging
+from django.db import transaction
 from ..api.serializers import create_model_serializer
 
-# from identifier.non_citizen_identifier import NonCitizenIdentifier
+from identifier.non_citizen_identifier import NonCitizenIdentifier
 
 
 class NonCitizenProfileDeserializer:
@@ -12,6 +14,9 @@ class NonCitizenProfileDeserializer:
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         self.errors = {}
+        self.model_data = {}
+        self.app_name = "non_citizen_profile"
+        self.identifier = self.make_new_identifier()
 
     def deserialize(self):
         return self.data
@@ -30,46 +35,40 @@ class NonCitizenProfileDeserializer:
                         field_name_parts = parts[i:]
                         break
 
-                app_name = "non_citizen_profile"
                 field_name = "_".join(field_name_parts)
 
                 if model_name not in self.model_data:
-                    self.model_data[model_name] = {"app_name": app_name, "fields": {}}
+                    self.model_data[model_name] = {"fields": {}}
                 self.model_data[model_name]["fields"][field_name] = value
 
             except Exception as e:
                 self.logger.error(f"Error processing key '{key}': {e}")
                 self.errors[key] = str(e)
 
+    @transaction.atomic
     def handle(self):
         self.collect_model_data()
         for model_name, data in self.model_data.items():
             try:
-                app_name = data["app_name"]
                 fields = data["fields"]
-                identifier = self.make_new_identifier()
-                fields["non_citizen_identifier"] = identifier
-
-                serializer = create_model_serializer(self.repository.model_cls)(
-                    data=fields
-                )
+                fields["non_citizen_identifier"] = self.identifier
+                self.logger.debug(f"Fields: {fields}")
+                model_cls = apps.get_model(self.app_name, model_name)
+                serializer = create_model_serializer(model_cls)(data=fields)
                 if serializer.is_valid():
-                    model_cls = apps.get_model(app_name, model_name)
-
                     obj, _ = model_cls.objects.get_or_create(
                         defaults=serializer.validated_data
                     )
-                    print(f"Instance: {obj}, Created: {obj}")
                 else:
                     self.logger.error(serializer.errors)
                     self.errors[model_name] = serializer.errors
 
             except LookupError:
                 self.logger.error(
-                    f"Model '{model_name}' not found in app '{app_name}'."
+                    f"Model '{model_name}' not found in app '{self.app_name}'."
                 )
                 self.errors[model_name] = (
-                    f"Model '{model_name}' not found in app '{app_name}'."
+                    f"Model '{model_name}' not found in app '{self.app_name}'."
                 )
             except ValueError as e:
                 self.logger.error(f"Error processing model '{model_name}': {e}")
@@ -84,7 +83,8 @@ class NonCitizenProfileDeserializer:
 
         Override this if needed.
         """
-        # non_citizen_identifier = NonCitizenIdentifier(
-        #     dob=self.data["Address_dob"], label="non_citizen_identifier"
-        # )
-        # return non_citizen_identifier.identifier
+        non_citizen_identifier = NonCitizenIdentifier(
+            dob=self.data["PersonalDetails_dob"],
+            label="non_citizen_identifier",
+        )
+        return non_citizen_identifier.identifier
