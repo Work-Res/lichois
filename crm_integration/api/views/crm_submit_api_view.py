@@ -22,7 +22,6 @@ class CRMFormSubmitView(APIView):
         :return: Response indicating the result of the form submission.
         :rtype: rest_framework.response.Response
         """
-        print(request.data, '**************************************88')
         handler = FormSubmissionHandler(data=request.data)
         errors = handler.handle()
         error_response = ErrorHandler.handle_errors(errors)
