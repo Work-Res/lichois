@@ -46,7 +46,7 @@ class NonCitizenProfileDeserializer:
                 self.errors[key] = str(e)
 
     @transaction.atomic
-    def handle(self):
+    def handle(self) -> dict:
         self.collect_model_data()
         for model_name, data in self.model_data.items():
             try:

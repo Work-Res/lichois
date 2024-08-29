@@ -6,8 +6,7 @@ from faker import Faker
 
 from app.utils.system_enums import ApplicationProcesses
 from lichois.management.base_command import CustomBaseCommand
-from workresidentpermit.model_mixins.employer_model_mixin import EmployerModelMixin
-from workresidentpermit.models import ResidencePermit, WorkPermit
+from workresidentpermit.models import ResidencePermit
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
