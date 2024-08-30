@@ -2,18 +2,22 @@ from django.db.transaction import atomic
 from model_bakery import baker
 
 from app_address.models import ApplicationAddress
+from app_checklist.models import ChecklistClassifier
 from app_contact.models import ApplicationContact
 from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
-from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import DCCertificate, OathOfAllegiance, ResidentialHistory
-from ...models import DeclarationNaturalisationByForeignSpouse
+from ...utils import CitizenshipProcessEnum
 
 
 class Command(CustomBaseCommand):
     help = "Populate data for registration of adopted child over 3 years old service"
     process_name = CitizenshipProcessEnum.PRESIDENT_POWER_10A.value
     application_type = CitizenshipProcessEnum.PRESIDENT_POWER_10A.value
+
+    def create_attachments(self):
+        attachments = ChecklistClassifier.objects.get(
+            code="PRESIDENT_POWER_REGISTER_CITIZENS_10A_ATTACHMENT_DOCUMENTS"
+        )
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
@@ -42,21 +46,21 @@ class Command(CustomBaseCommand):
                            )
 
                 # Applicant Postal Address Details
-                baker.make(ApplicationAddress,
-                           application_version=version,
-                           document_number=app.application_document.document_number,
-                           po_box=self.faker.address(),
-                           address_type=self.faker.random_element(
-                               elements=(
-                                   "residential",
-                                   "postal",
-                                   "business",
-                                   "private",
-                                   "other",
-                               )
-                           ),
-                           private_bag=self.faker.building_number(),
-                           city=self.faker.city(),)
+                # baker.make(ApplicationAddress,
+                #            application_version=version,
+                #            document_number=app.application_document.document_number,
+                #            po_box=self.faker.address(),
+                #            address_type=self.faker.random_element(
+                #                elements=(
+                #                    "residential",
+                #                    "postal",
+                #                    "business",
+                #                    "private",
+                #                    "other",
+                #                )
+                #            ),
+                #            private_bag=self.faker.building_number(),
+                #            city=self.faker.city(),)
 
                 self.stdout.write(
                     self.style.SUCCESS("Successfully populated Maturity Period Waiver data")

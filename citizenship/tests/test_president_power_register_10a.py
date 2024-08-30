@@ -7,7 +7,9 @@ from datetime import date
 
 from faker import Faker
 
-from app_checklist.models import Classifier, ClassifierItem, SystemParameter
+from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
+from app_checklist.models import Classifier, ClassifierItem, SystemParameter, ChecklistClassifier, \
+    ChecklistClassifierItem
 from app_decision.models import ApplicationDecision
 from app_personal_details.models import Permit
 from .base_setup import BaseSetup
@@ -87,3 +89,21 @@ class TestPresidentPowerToRegister10aWorkflow(BaseSetup):
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
+
+    def test_created_attachments(self):
+        attachments = ChecklistClassifier.objects.get(
+            code="PRESIDENT_POWER_REGISTER_CITIZENS_10A_ATTACHMENT_DOCUMENTS"
+        )
+
+        items = ChecklistClassifierItem.objects.filter(
+            checklist_classifier=attachments)
+        for item in items:
+            atype = AttachmentDocumentType.objects.create(
+                code=item.code,
+                name=item.name,
+                valid_from=date.toda(),
+                valid_to=date.today()
+            )
+            ApplicationAttachment.objects.create(
+                document_type=atype,
+            )
