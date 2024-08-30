@@ -27,36 +27,45 @@ class Command(CustomBaseCommand):
                 # new_application
                 app, version = self.create_new_application(fname, lname)
 
-                #person
+                # person
                 # Applicant Personal Details
-                baker.make(Person,
-                           application_version=version,
-                           document_number=app.application_document.document_number,
-                           person_type='applicant')
+                baker.make(
+                    Person,
+                    first_name=fname,
+                    last_name=lname,
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                    person_type="applicant",
+                )
 
                 # Applicant Residential Address Details
-                baker.make(ApplicationAddress,
-                           application_version=version,
-                           document_number=app.application_document.document_number
-                           )
+                baker.make(
+                    ApplicationAddress,
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                )
 
                 # Applicant Postal Address Details
-                baker.make(ApplicationAddress,
-                           application_version=version,
-                           document_number=app.application_document.document_number,
-                           po_box=self.faker.address(),
-                           address_type=self.faker.random_element(
-                               elements=(
-                                   "residential",
-                                   "postal",
-                                   "business",
-                                   "private",
-                                   "other",
-                               )
-                           ),
-                           private_bag=self.faker.building_number(),
-                           city=self.faker.city(),)
+                baker.make(
+                    ApplicationAddress,
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                    po_box=self.faker.address(),
+                    address_type=self.faker.random_element(
+                        elements=(
+                            "residential",
+                            "postal",
+                            "business",
+                            "private",
+                            "other",
+                        )
+                    ),
+                    private_bag=self.faker.building_number(),
+                    city=self.faker.city(),
+                )
 
                 self.stdout.write(
-                    self.style.SUCCESS("Successfully populated Maturity Period Waiver data")
+                    self.style.SUCCESS(
+                        "Successfully populated Maturity Period Waiver data"
+                    )
                 )

@@ -1,7 +1,9 @@
 from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
-from identifier import UniqueNonCitizenIdentifierFieldMixin
+from identifier.non_citizen_identifier_model_mixins import (
+    UniqueNonCitizenIdentifierFieldMixin,
+)
 
 
 class PrisonerDueForRelease(BaseUuidModel):
@@ -13,9 +15,7 @@ class PrisonerDueForRelease(BaseUuidModel):
 
 class PrisonerDetails(UniqueNonCitizenIdentifierFieldMixin, BaseUuidModel):
 
-    due_release = models.ForeignKey(
-        PrisonerDueForRelease,
-        on_delete=models.CASCADE)
+    due_release = models.ForeignKey(PrisonerDueForRelease, on_delete=models.CASCADE)
 
     fullnames = models.CharField(max_length=255)
 

@@ -1,8 +1,12 @@
-import random
-from django.conf import settings
+
 from django.core.management.base import BaseCommand
-from app.models import Application, ApplicationVerification
-from app_attachments.models import ApplicationAttachment, ApplicationAttachmentVerification, AttachmentDocumentType
+from app.models import ApplicationVerification, Application
+from app_attachments.models import (
+    ApplicationAttachment,
+    ApplicationAttachmentVerification,
+    AttachmentDocumentType,
+)
+
 from faker import Faker
 from app_checklist.models import ChecklistClassifier, ChecklistClassifierItem
 from authentication.models import User

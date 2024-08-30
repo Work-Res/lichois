@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from django.apps import AppConfig as BaseAppConfig
 
 
-class InvestigationRepatrationConfig(AppConfig):
+class AppConfig(BaseAppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "investigation_repatration"
