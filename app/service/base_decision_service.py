@@ -42,6 +42,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             workflow: The workflow instance for task activation.
         """
         self.request = request
+        print("request request ", request.__dict__)
         self.response = APIResponse()
         self.decision = None
         self.application_field_key = application_field_key
@@ -64,6 +65,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             )
             return application_decision_type
         except ApplicationDecisionType.DoesNotExist:
+            self.logger.debug(f"Decision not found {self.request.status}")
             api_message = APIMessage(
                 code=400,
                 message=f"Application decision provided is invalid: {self.request.status}.",
@@ -229,7 +231,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             )
         except SecurityClearance.DoesNotExist:
             self.logger.info(
-                f"Security clearance is pending for {self.document_number}"
+                f"Security clearance is pending for {self.request.document_number}"
             )
         return None
 

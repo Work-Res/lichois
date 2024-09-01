@@ -1,5 +1,8 @@
 from .base_decision_service import BaseDecisionService
-from .recommendation_service import RecommendationService
+from .recommendation_service import (
+    RecommendationService,
+    RecommendationServiceOverideVetting,
+)
 from .minister_decision_service import MinisterDecisionService
 from .officer_verification_service import OfficerVerificationService
 from .security_clearance_service import SecurityClearanceService

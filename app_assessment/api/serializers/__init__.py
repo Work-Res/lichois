@@ -12,3 +12,5 @@ from .renewal_assessment_investor_assessment import (
     RenewalAssessmentInvestorSerializer,
 )
 from .summary_assessment_serializer import SummaryAssessmentSerializer
+from .assessement_request_serializer import AssessmentRequestSerializer
+from .review_case_decision_serializer import ReviewCaseDecisionSerializer

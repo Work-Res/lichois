@@ -122,15 +122,29 @@ class ProductionTransactionData(BaseTransactionData):
 
 
 class AssessmentCaseDecisionTransactionData(BaseTransactionData):
-    """
-    Class for handling verification transaction data.
 
-    Attributes:
-        decision (str)
-        role (str)
-    """
+    def __init__(
+        self,
+        next_activity_name=None,
+        application_status=None,
+        assessment_decision=None,
+        security_clearance=None,
+    ):
+        super().__init__(next_activity_name, application_status)
+        self.assessment_decision = assessment_decision
 
-    pass
+
+class ReviewCaseDecisionTransactionData(BaseTransactionData):
+
+    def __init__(
+        self,
+        next_activity_name=None,
+        application_status=None,
+        review_decision=None,
+        security_clearance=None,
+    ):
+        super().__init__(next_activity_name, application_status)
+        self.review_decision = review_decision
 
 
 class MinisterDecisionTransactionData(BaseTransactionData):

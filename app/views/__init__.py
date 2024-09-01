@@ -10,3 +10,4 @@ from .application_verification_apiview import ApplicationVerificationAPIView
 from .security_clearance_create_view import SecurityClearanceCreateAPIView
 from .commissioner_decision_api_view import CommissionerDecisionAPIView
 from .minister_decision_api_view import MinisterDecisionAPIView
+from .recomendation_case_decision_api_view import RecommendationCaseDecisionAPIView

@@ -29,3 +29,9 @@ class RecommendationService(BaseDecisionService):
         return self.retrieve_decision(
             CommissionerDecision, CommissionerDecisionSerializer
         )
+
+
+class RecommendationServiceOverideVetting(RecommendationService):
+
+    def _has_security_clearance(self):
+        return False

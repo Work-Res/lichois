@@ -9,6 +9,9 @@ class AssessmentNoteRequestDTOSerializer(serializers.Serializer):
     parent_object_type = serializers.CharField(max_length=200, required=True)
     note_text = serializers.CharField(max_length=2000, required=True)
     note_type = serializers.CharField(max_length=100, required=True)
+    decision = serializers.ChoiceField(choices=DECISION_TYPE, required=False)
+    status = serializers.CharField(max_length=150, required=False)
+    summary = serializers.CharField(max_length=150, required=False)
 
 
 class AssessmentCaseDecisionDTOSerializer(serializers.Serializer):
@@ -18,6 +21,8 @@ class AssessmentCaseDecisionDTOSerializer(serializers.Serializer):
     author = serializers.CharField(max_length=150, required=True)
     author_role = serializers.CharField(max_length=200, required=True)
     decision = serializers.ChoiceField(choices=DECISION_TYPE, required=True)
+    status = serializers.CharField(max_length=150, required=False)
+    summary = serializers.CharField(max_length=150, required=False)
 
 
 class CaseSummaryRequestDTOSerializer(serializers.Serializer):

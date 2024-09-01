@@ -1,5 +1,8 @@
 import logging
 
+from app.service.base_decision_service import BaseDecisionService
+from app.utils.system_enums import ApplicationStatusEnum
+from app.workflow.transaction_data import AssessmentCaseDecisionTransactionData
 from app_assessment.api.dto import AssessmentCaseDecisionDTO
 from django.db import transaction, IntegrityError
 
@@ -9,12 +12,32 @@ from app_assessment.models import AssessmentCaseDecision
 from app.api.common.web import APIResponse, APIMessage
 
 
-class AssessmentCaseDecisionService:
+class AssessmentCaseDecisionService(BaseDecisionService):
 
-    def __init__(self, assessment_case_decision_dto: AssessmentCaseDecisionDTO=None):
+    def __init__(self, assessment_case_decision_dto: AssessmentCaseDecisionDTO = None):
         self.assessment_case_decision_dto = assessment_case_decision_dto
         self.response = APIResponse()
         self.logger = logging.getLogger(__name__)
+
+        workflow = AssessmentCaseDecisionTransactionData()
+        workflow.assessment_decision = assessment_case_decision_dto.decision.upper()
+
+        super().__init__(
+            request=assessment_case_decision_dto,
+            application_field_key="assessment",
+            workflow=workflow,
+            task_to_deactivate=ApplicationStatusEnum.ASSESSMENT.value,
+        )
+
+    def create_assessment(self):
+        return self.create_decision(
+            AssessmentCaseDecision, AssessmentCaseDecisionSerializer
+        )
+
+    def retrieve_assessment(self):
+        return self.retrieve_decision(
+            AssessmentCaseDecision, AssessmentCaseDecisionSerializer
+        )
 
     def create(self):
         self.logger.info(
@@ -28,17 +51,19 @@ class AssessmentCaseDecisionService:
                     author=self.assessment_case_decision_dto.author,
                     author_role=self.assessment_case_decision_dto.author_role,
                     decision=self.assessment_case_decision_dto.decision,
-                    document_number=self.assessment_case_decision_dto.document_number
+                    document_number=self.assessment_case_decision_dto.document_number,
                 )
                 api_message = APIMessage(
                     code=200,
                     message="Assessment summary decision has been created.",
-                    details="Assessment summary decision has been created."
+                    details="Assessment summary decision has been created.",
                 )
                 self.response.status = True
                 self.response.messages.append(api_message.to_dict())
                 self.response.data = AssessmentCaseDecisionSerializer(data).data
-                self.logger.info(f"Created a summary decision for {self.assessment_case_decision_dto.document_number}")
+                self.logger.info(
+                    f"Created a summary decision for {self.assessment_case_decision_dto.document_number}"
+                )
         except IntegrityError as ex:
             self.logger.error(f"Transaction failed and was rolled back. {ex}")
 
