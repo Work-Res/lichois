@@ -17,8 +17,8 @@
           "valid_to": "2040-01-01",
           "next_activity_name": "SECURITY_CLEARANCE",
           "create_task_rules": {
-            "system_verification": "validated",
-            "current_status": "NEW"
+            "current_status": "NEW",
+            "system_verification": "validated"
           }
         },
         {
@@ -98,7 +98,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "recommendation_decision": "ACCEPTED"
+            "current_status": "DIRECTOR_RECOMMENDATION",
+            "recommendation_decision": "recommended"
           }
         }
       ]

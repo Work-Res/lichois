@@ -1,5 +1,5 @@
 import datetime
-
+from django.test import tag
 from datetime import date
 from django.utils import timezone
 
@@ -12,6 +12,7 @@ from citizenship.service.board import MeetingSessionService
 from .base_setup import BaseSetup
 
 
+@tag('mss')
 class MeetingSessionServiceTestCase(BaseSetup):
 
     def create_holiday(self, internal=1):

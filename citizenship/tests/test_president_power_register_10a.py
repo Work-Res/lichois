@@ -1,3 +1,4 @@
+from django.test import tag
 from app.api.dto import ApplicationVerificationRequestDTO
 from app.models import Application
 from app.service import VerificationService
@@ -20,6 +21,7 @@ from ..models import OathOfAllegiance
 from ..utils import CitizenshipProcessEnum
 
 
+@tag('pp10a')
 class TestPresidentPowerToRegister10aWorkflow(BaseSetup):
 
     def setUp(self) -> None:
@@ -70,11 +72,11 @@ class TestPresidentPowerToRegister10aWorkflow(BaseSetup):
         )
         service = VerificationService(verification_request=verification_request)
         service.create_verification()
-
         app = Application.objects.get(
             application_document__document_number=self.document_number)
         app.refresh_from_db()
         self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10A.value)
+
         self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
 
         OathOfAllegiance.objects.create(

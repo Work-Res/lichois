@@ -17,8 +17,8 @@
           "valid_to": "2040-01-01",
           "next_activity_name": "DIRECTOR_RECOMMENDATION",
           "create_task_rules": {
-            "system_verification": "validated",
-            "current_status": "NEW"
+            "current_status": "NEW",
+            "system_verification": "validated"
           }
         },
         {
@@ -31,7 +31,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "MINISTER_DECISION",
           "create_task_rules": {
-            "current_status": "DIRECTOR_RECOMMENDATION"
+            "current_status": "VERIFICATION",
+            "verification_decision": "ACCEPTED"
           }
         },
         {
@@ -44,8 +45,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "current_status": "ACCEPTED",
-            "recommendation_decision": "ACCEPTED"
+            "current_status": "DIRECTOR_RECOMMENDATION",
+            "recommendation_decision": "recommended"
           }
         }
       ]
