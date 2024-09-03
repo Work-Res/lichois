@@ -39,8 +39,8 @@ class BatchSubmissionViewSet(viewsets.ModelViewSet):
     def update_batch_status(self, request, pk=None):
         try:
             batch_id = pk
-            status = request.data.get("status")
-            BatchSubmissionService.update_batch_status(batch_id, status)
+            _status = request.data.get("status")
+            BatchSubmissionService.update_batch_status(batch_id, _status)
             return Response(status=status.HTTP_200_OK)
         except ValueError as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)

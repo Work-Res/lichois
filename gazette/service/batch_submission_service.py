@@ -14,7 +14,7 @@ class BatchSubmissionService:
     def submit_batch(batch_id):
         try:
             batch = Batch.objects.get(id=batch_id)
-            batch.status = 'RECOMMANDED'
+            batch.status = 'SUBMITTED'
             batch.save()
             logger.info(f"Batch with ID {batch_id} recommanded")
             # NotificationService.notify_legal_person(batch)

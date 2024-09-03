@@ -1,8 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APIClient
 
-from app.models import Application
 from authentication.models import User
 from gazette.models import LegalAssessment
 

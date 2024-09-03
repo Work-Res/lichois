@@ -211,9 +211,11 @@ class BatchService:
                 attendee_id=attendee_id,
                 document_number=document_number
             )
+            _meeting_session = MeetingSession.objects.get(id=meeting_session)
             has_no_reasons_for_eligible = validator.is_eligible_to_declare_conflict_of_interest()
             if not has_no_reasons_for_eligible:
-                attendee = Attendee.objects.get(member__user=attendee_id) #Fixme refactor attendee_id to user
+                attendee = Attendee.objects.get(meeting=_meeting_session.meeting,
+                                                member__user=attendee_id) #Fixme refactor attendee_id to user
                 application = Application.objects.get(
                     application_document__document_number=document_number)
 

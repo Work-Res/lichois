@@ -82,5 +82,4 @@ class BatchViewSetTests(BaseSetup):
         response = self.client.post(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         batch.refresh_from_db()
-        self.assertEqual(batch.status, 'RECOMMANDED')
-
+        self.assertEqual(batch.status, 'SUBMITTED')

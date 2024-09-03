@@ -42,7 +42,8 @@ class BaseSetup(APITestCase):
             dob="06101990",
             work_place="01",
             application_type=CitizenshipProcessEnum.RENUNCIATION.value,
-            full_name="Test test"
+            full_name="Test test",
+            applicant_type="student"
         )
 
         self.application_service = ApplicationService(

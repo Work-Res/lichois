@@ -5,7 +5,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from app.models import Application
 from authentication.models import User
-from gazette.exceptions import BatchNotFoundException, ApplicationNotFoundException, BatchApplicationNotFoundException
+from gazette.exceptions import (
+    BatchNotFoundException,
+    ApplicationNotFoundException,
+    BatchApplicationNotFoundException,
+)
 
 from gazette.models import Batch, BatchApplication
 
@@ -32,12 +36,14 @@ class ApplicationBatchService:
             batch = Batch.objects.get(id=batch_id)
             application = Application.objects.get(id=application_id)
             BatchApplication.objects.create(batch=batch, application=application)
-            logger.info(f"Application with ID {application_id} added to batch with ID {batch_id}")
+            logger.info(
+                f"Application with ID {application_id} added to batch with ID {batch_id}"
+            )
         except ObjectDoesNotExist as e:
-            if 'Batch' in str(e):
+            if "Batch" in str(e):
                 logger.error(f"Batch with ID {batch_id} does not exist")
                 raise BatchNotFoundException()
-            elif 'Application' in str(e):
+            elif "Application" in str(e):
                 logger.error(f"Application with ID {application_id} does not exist")
                 raise ApplicationNotFoundException()
 
@@ -45,11 +51,17 @@ class ApplicationBatchService:
     @transaction.atomic
     def remove_application_from_batch(batch_id, application_id):
         try:
-            batch_application = BatchApplication.objects.get(batch_id=batch_id, application_id=application_id)
+            batch_application = BatchApplication.objects.get(
+                batch_id=batch_id, application_id=application_id
+            )
             batch_application.delete()
-            logger.info(f"Application with ID {application_id} removed from batch with ID {batch_id}")
+            logger.info(
+                f"Application with ID {application_id} removed from batch with ID {batch_id}"
+            )
         except ObjectDoesNotExist as e:
-            logger.error(f"BatchApplication with batch ID {batch_id} and application ID {application_id} does not exist")
+            logger.error(
+                f"BatchApplication with batch ID {batch_id} and application ID {application_id} does not exist"
+            )
             raise BatchApplicationNotFoundException()
 
     @staticmethod
@@ -60,17 +72,23 @@ class ApplicationBatchService:
             applications = Application.objects.filter(id__in=application_ids)
 
             if len(applications) != len(application_ids):
-                missing_ids = set(application_ids) - set(applications.values_list('id', flat=True))
+                missing_ids = set(application_ids) - set(
+                    applications.values_list("id", flat=True)
+                )
                 logger.error(f"Applications with IDs {missing_ids} do not exist")
-                raise ApplicationNotFoundException(f"Applications with IDs {missing_ids} do not exist")
+                raise ApplicationNotFoundException(
+                    f"Applications with IDs {missing_ids} do not exist"
+                )
 
             for application in applications:
                 BatchApplication.objects.create(batch=batch, application=application)
-                logger.info(f"Application with ID {application.id} added to batch with ID {batch_id}")
+                logger.info(
+                    f"Application with ID {application.id} added to batch with ID {batch_id}"
+                )
         except ObjectDoesNotExist as e:
-            if 'Batch' in str(e):
+            if "Batch" in str(e):
                 logger.error(f"Batch with ID {batch_id} does not exist")
                 raise BatchNotFoundException()
-            elif 'Application' in str(e):
+            elif "Application" in str(e):
                 logger.error(f"Application(s) with IDs {application_ids} do not exist")
                 raise ApplicationNotFoundException()
