@@ -47,11 +47,24 @@ class ApplicationSummary:
         return summary
 
     def get_model_instance(self, app_label):
-        """Get the model instance based on the app label and document number."""
+        """Get the model instance based on the app label."""
         logger.info(f"Preparing to get model for {app_label}")
-        model_cls = apps.get_model(app_label)
-        logger.info(f"Got model for {model_cls}")
-        return self._get_model_instance_recursive(model_cls)
+
+        if self._is_valid_app_label(app_label):
+            model_cls = apps.get_model(app_label)
+            if model_cls:
+                logger.info(f"Model found: {model_cls}")
+                return self._get_model_instance_recursive(model_cls)
+            else:
+                logger.warning(f"Model could not be found for app_label: {app_label}")
+                return None
+        else:
+            logger.error(f"Invalid app_label format: {app_label}")
+            return None
+
+    def _is_valid_app_label(self, app_label):
+        """Validate the app label format."""
+        return len(app_label.split('.')) == 2
 
     def _get_model_instance_recursive(self, model_cls, traversed_models=None):
         """Recursively get the model instance based on the document number."""
