@@ -41,7 +41,7 @@ def production_decision_post_save_handler(sender, instance, created, **kwargs):
 
             context = GenericProductionContext()
             document_number = instance.document_number
-            years  = datetime.now()+relativedelta(months=30)
+            years = datetime.now()+relativedelta(months=30)
             context.context = lambda: {
                 'document_type': 'maturity_letter',
                 'document_number': document_number,
