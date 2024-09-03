@@ -45,9 +45,9 @@ class Command(BaseCommand):
             return
 
         for application_type in APPLICATION_TYPES:
-            _application_type = f"{application_type}_ATTACHMENT_DOCUMENTS"
-            applications = Application.objects.filter(process_name=_application_type)
 
+            applications = Application.objects.filter(process_name=application_type)
+            _application_type = f"{application_type}_ATTACHMENT_DOCUMENTS"
             if not applications.exists():
                 self.stdout.write(
                     self.style.WARNING(
@@ -57,7 +57,7 @@ class Command(BaseCommand):
                 continue
 
             classifier = ChecklistClassifier.objects.filter(
-                code=application_type
+                code=_application_type
             ).first()
             if not classifier:
                 self.stdout.write(
