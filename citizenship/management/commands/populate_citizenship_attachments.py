@@ -87,6 +87,7 @@ class Command(BaseCommand):
                                 defaults={
                                     "name": item.name,
                                     "valid_to": faker.date_this_decade(),
+                                    "valid_from": faker.date_this_decade()
                                 },
                             )
                         )
