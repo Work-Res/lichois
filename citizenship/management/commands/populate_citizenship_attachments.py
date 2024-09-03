@@ -117,7 +117,7 @@ class Command(BaseCommand):
 
                     self.stdout.write(
                         self.style.SUCCESS(
-                            f"Populated data for application: {app.document_number}"
+                            f"Populated data for application: {app.application_document.document_number}"
                         )
                     )
                 else:
