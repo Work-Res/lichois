@@ -106,7 +106,7 @@ class Command(BaseCommand):
                             document_url="https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf",
                             received_date=faker.date_time_this_decade(),
                             document_type=document_type,
-                            document_number=app.document_number,
+                            document_number=app.application_document.document_number,
                         )
 
                         ApplicationAttachmentVerification.objects.create(
