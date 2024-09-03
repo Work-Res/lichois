@@ -122,6 +122,6 @@ class Command(BaseCommand):
                 else:
                     self.stdout.write(
                         self.style.WARNING(
-                            f"Application {app.document_number} does not have pending verification."
+                            f"Application {app} does not have pending verification."
                         )
                     )
