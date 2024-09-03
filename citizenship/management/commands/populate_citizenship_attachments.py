@@ -11,8 +11,8 @@ from app_checklist.models import ChecklistClassifier, ChecklistClassifierItem
 from authentication.models import User
 
 APPLICATION_TYPES = [
-    "PRESIDENT_POWER_REGISTER_CITIZENS_10A_ATTACHMENT_DOCUMENTS",
-    "NATURALIZATION_INTENTION_FOREIGN_SPOUSE_ATTACHMENT_DOCUMENTS"
+    "PRESIDENT_POWER_REGISTER_CITIZENS_10A",
+    "NATURALIZATION_INTENTION_FOREIGN_SPOUSE"
     # "MATURITY_PERIOD_WAIVER",
     # "RESUMPTION_OF_CITIZENSHIP",
     # "CITIZENSHIP_RENUNCIATION",
@@ -45,7 +45,8 @@ class Command(BaseCommand):
             return
 
         for application_type in APPLICATION_TYPES:
-            applications = Application.objects.filter(process_name=application_type)
+            _application_type = f"{application_type}_ATTACHMENT_DOCUMENTS"
+            applications = Application.objects.filter(process_name=_application_type)
 
             if not applications.exists():
                 self.stdout.write(
