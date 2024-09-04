@@ -29,43 +29,7 @@ class Command(CustomBaseCommand):
                 # new_application
                 app, version = self.create_new_application(fname, lname)
 
-                # person
-                # Applicant Personal Details
-                baker.make(
-                    Person,
-                    first_name=fname,
-                    last_name=lname,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="applicant",
-                )
-
-                # Applicant Residential Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    # person_type='applicant'
-                )
-
-                # Applicant Postal Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
+                self.create_basic_data()
 
                 # Residential History
                 baker.make(
