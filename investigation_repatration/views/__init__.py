@@ -5,3 +5,4 @@ from .prisoner_details_viewset import PrisonerDetailsSerializer
 from .prisoner_due_release_viewset import PrisonerDueReleaseViewSet
 from .prisoner_viewset import PrisonerViewSet
 from .prisoner_release_log_view import PrisonerReleaseLogView
+from .update_prisoner_release_log import UpdatePrisonerReleaseLogView

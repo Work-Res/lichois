@@ -6,31 +6,21 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..api.serializers import (
-    PrisonerBatchRequestDTOSerializer,
-    PrisonerReleaseLogSerializer,
-)
+from ..api.serializers import PrisonerReleaseLogSerializer
 from ..classes import PrisonerReleaseLogBatchService
-from ..models import PrisonerReleaseLog
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-class PrisonerReleaseLogView(APIView):
+class UpdatePrisonerReleaseLogView(APIView):
 
-    def get(self, request, *args, **kwargs):
-        queryset = PrisonerReleaseLog.objects.all()
-        serializer = PrisonerReleaseLogSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, *args, **kwargs):
-
+    def put(self, request, id, *args, **kwargs):
         try:
-            serializer = PrisonerBatchRequestDTOSerializer(data=request.data)
+            serializer = PrisonerReleaseLogSerializer(data=request.data)
             if serializer.is_valid():
                 service = PrisonerReleaseLogBatchService(prisoner_batch=serializer.data)
-                service.create_batch()
+                service.update_batch(id)
                 return JsonResponse(service.response.result())
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
