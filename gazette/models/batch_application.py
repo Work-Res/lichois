@@ -25,4 +25,4 @@ class BatchApplication(BaseUuidModel):
         ]
 
     def __str__(self):
-        return f"{self.application.applicant_name} - {self.batch.name}"
+        return f"{self.batch.title}"
