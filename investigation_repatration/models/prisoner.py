@@ -21,6 +21,8 @@ class Prisoner(UniqueNonCitizenIdentifierFieldMixin, BaseUuidModel):
         max_length=12, choices=status_choices, default="INCARCERATED"
     )
 
+    batched = models.BooleanField(default=False)
+
     @property
     def first_name(self):
         if self.personal_details:
