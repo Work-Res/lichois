@@ -3,6 +3,7 @@ from django.urls.conf import path
 from rest_framework.routers import DefaultRouter
 
 from .admin_site import citizenship_admin
+from .views.assessment_decision_api_view import AssessmentDecisionAPIView
 from .views.board import (
     BoardModelViewSet,
     MeetingViewSet,
@@ -20,6 +21,8 @@ from .views.board import (
 
 from .views.board.interview_viewset import InterviewViewSet
 from .views.oath_of_allegiance_viewset import OathOfAllegianceViewSet
+from .views.recommendation_decision_api_view import RecommendationDecisionAPIView
+from .views.review_decision_api_view import ReviewDecisionAPIView
 from .views.summary import (
     RenunciationSummaryViewSet,
     AdoptedChildSummaryViewSet,
@@ -75,11 +78,13 @@ router.register(
     MaturityPeriodWaiverSummaryViewSet,
     basename="maturity-waiver",
 )
+
 router.register(
     r"citizenship-dual-renunciation",
     DualRenunciationSummaryViewSet,
     basename="dual-renunciation",
 )
+
 router.register(
     r"citizenship-board-recommandation",
     BoardRecommendationViewSet,
@@ -89,4 +94,19 @@ router.register(
 urlpatterns = [
     path("admin/", citizenship_admin.urls),
     path("", include(router.urls)),
+    path(
+        "assessment-decision/",
+        AssessmentDecisionAPIView.as_view(),
+        name="commissioner-decision-create",
+    ),
+    path(
+        "recommendation-case-decision/",
+        RecommendationDecisionAPIView.as_view(),
+        name="recommandation-decision-create",
+    ),
+    path(
+        "review-decision/",
+        ReviewDecisionAPIView.as_view(),
+        name="review-decision-create",
+    )
 ]

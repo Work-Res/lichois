@@ -152,5 +152,5 @@ class TestRenunciationWorkflow(BaseSetup):
         self.assertEqual(app.review, "ACCEPTED")
         self.assertEqual(
             app.application_status.code,
-            CitizenshipStagesEnum.RECOMMENDATION.value.lower(),
+            CitizenshipStagesEnum.MINISTER_DECISION.value.lower(),
         )

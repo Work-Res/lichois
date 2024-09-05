@@ -87,8 +87,9 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PRESIDENT_PS_RECOMMENDATION",
           "create_task_rules": {
-            "review_decision": "ACCEPTED",
-            "current_status": "REVIEW"
+            "recommendation_decision": "ACCEPTED",
+            "current_status": "RECOMMENDATION",
+            "role": "DEPUTY_PERMANENT_SECRETARY"
           }
         },
         {
@@ -101,7 +102,9 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PRESIDENT_DECISION",
           "create_task_rules": {
-            "current_status": "PS_RECOMMENDATION"
+            "recommendation_decision": "ACCEPTED",
+            "current_status": "PS_RECOMMENDATION",
+            "role": "PERMANENT_SECRETARY"
           }
         },
         {
@@ -115,7 +118,22 @@
           "next_activity_name": "END",
           "create_task_rules": {
             "current_status": "PRES_PS_RECOMMENDATION",
-            "recommendation_decision": "ACCEPTED"
+            "recommendation_decision": "ACCEPTED",
+            "role": "PRES_PERMANENT_SECRETARY"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Production Task",
+          "description": "Permit Production Task",
+          "sequence": 4,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "president_decision": "ACCEPTED",
+            "current_status": "PRESIDENT_DECISION"
           }
         }
       ]
