@@ -95,17 +95,17 @@ urlpatterns = [
     path("admin/", citizenship_admin.urls),
     path("", include(router.urls)),
     path(
-        "assessment-decision/",
+        "citizenship-assessment-decision/",
         AssessmentDecisionAPIView.as_view(),
         name="commissioner-decision-create",
     ),
     path(
-        "recommendation-case-decision/",
+        "citizenship-recommendation-case-decision/",
         RecommendationDecisionAPIView.as_view(),
         name="recommandation-decision-create",
     ),
     path(
-        "review-decision/",
+        "citizenship-review-decision/",
         ReviewDecisionAPIView.as_view(),
         name="review-decision-create",
     )
