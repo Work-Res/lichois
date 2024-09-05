@@ -97,7 +97,7 @@ urlpatterns = [
     path(
         "citizenship-assessment-decision/",
         AssessmentDecisionAPIView.as_view(),
-        name="commissioner-decision-create",
+        name="assessment-decision-create",
     ),
     path(
         "citizenship-recommendation-case-decision/",
