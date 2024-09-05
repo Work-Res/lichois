@@ -22,6 +22,7 @@ workflow.add_rule("RECOMMENDATION", can_create_or_update_task)
 workflow.add_rule("ASSESSMENT", pred=can_create_or_update_task)
 workflow.add_rule("REVIEW", can_create_or_update_task)
 workflow.add_rule("FINAL_DECISION", can_create_or_update_task)
+workflow.add_rule("MINISTER_DECISION", can_create_or_update_task)
 
 workflow_close = rules.RuleSet()
 workflow_close.add_rule("FIRST_VERIFICATION", update_task)

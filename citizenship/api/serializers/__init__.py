@@ -24,4 +24,6 @@ from .under_20_citizenship_serializer import Under20CitizenshipSerializer
 from .witness_details_serializer import WitnessDetailsSerializer
 from .certificate_of_origin_serializer import CertificateOfOriginSerializer
 from .citizenship_summary_serializer import CitizenshipSummarySerializer
+from .recommendation_decision_serializer import RecommendationDecisionSerializer
+
 

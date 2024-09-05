@@ -51,6 +51,8 @@ from app.utils import ApplicationStatusEnum, ApplicationDecisionEnum
 from app.utils import statuses
 from django.test import TestCase
 
+from citizenship.api.dto import RecommendationDecisionRequestDTO
+from citizenship.service.recommendation import RecommendationDecisionService
 from citizenship.utils import CitizenshipProcessEnum
 
 
@@ -187,13 +189,13 @@ class BaseSetup(TestCase):
         serializer = RecommendationRequestDTOSerializer(data=data)
         serializer.is_valid()
         data = serializer.validated_data
-        request_dto = RecommendationRequestDTO(
+        request_dto = RecommendationDecisionRequestDTO(
             document_number=self.document_number,
             user=None,
             status="ACCEPTED",
             **data,
         )
-        service = RecommendationServiceOverideVetting(request_dto)
+        service = RecommendationDecisionService(decision_request=request_dto)
         return service.create_recommendation()
 
     def setUp(self) -> None:

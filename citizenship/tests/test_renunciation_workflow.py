@@ -46,7 +46,7 @@ class TestRenunciationWorkflow(BaseSetup):
         self.assertEqual(activites[0].name, "VERIFICATION")
         self.assertEqual(activites[1].name, "ASSESSMENT")
         self.assertEqual(activites[2].name, "REVIEW")
-        self.assertEqual(activites[3].name, "RECOMMANDATION")
+        self.assertEqual(activites[3].name, "RECOMMENDATION")
         self.assertEqual(activites[4].name, "MINISTER_DECISION")
         self.assertEqual(activites[5].name, "FOREIGN_RENUNCIATION")
         self.assertEqual(activites[6].name, "FINAL_DECISION")

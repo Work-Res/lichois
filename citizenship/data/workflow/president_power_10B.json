@@ -29,42 +29,42 @@
           "sequence": 2,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "BACK_OFFICE_RECOMMENDATION",
+          "next_activity_name": "ASSESSMENT",
           "create_task_rules": {
             "current_status": "VERIFICATION",
             "verification_decision": "ACCEPTED"
           }
         },
         {
-          "code": "BACK_OFFICE_RECOMMENDATION",
+          "code": "ASSESSMENT",
           "name": "President Power 10B Back Office Recommendation",
           "description": "President Power 10B Recommendation By Back Office",
           "mandatory": false,
           "sequence": 3,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "DIRECTOR_RECOMMENDATION",
+          "next_activity_name": "REVIEW",
           "create_task_rules": {
             "current_status":  "VETTING",
-            "security_clearance": "ACCEPTED",
             "vetting_obj_exists":  true
           }
         },
         {
-          "code": "DIRECTOR_RECOMMENDATION",
+          "code": "REVIEW",
           "name": "President Power 10B Director Recommendation",
           "description": "President Power 10B Recommendation By Director",
           "mandatory": false,
           "sequence": 4,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "DEPUTY_PS_RECOMMENDATION",
+          "next_activity_name": "RECOMMENDATION",
           "create_task_rules": {
-            "current_status": "BACK_OFFICE_RECOMMENDATION"
+              "assessment_decision": "ACCEPTED",
+              "current_status": "ASSESSMENT"
           }
         },
         {
-          "code": "DEPUTY_PS_RECOMMENDATION",
+          "code": "RECOMMENDATION",
           "name": "President Power 10B Deputy PS Recommendation",
           "description": "President Power 10B Recommendation By Deputy PS",
           "mandatory": false,
@@ -73,7 +73,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PS_RECOMMENDATION",
           "create_task_rules": {
-            "current_status": "DIRECTOR_RECOMMENDATION"
+            "review_decision": "ACCEPTED",
+            "current_status": "REVIEW"
           }
         },
         {
@@ -86,7 +87,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PRESIDENT_PS_RECOMMENDATION",
           "create_task_rules": {
-            "current_status": "DEPUTY_PS_RECOMMENDATION"
+            "review_decision": "ACCEPTED",
+            "current_status": "REVIEW"
           }
         },
         {

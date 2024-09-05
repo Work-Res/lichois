@@ -149,3 +149,13 @@ class ReviewCaseDecisionTransactionData(BaseTransactionData):
 
 class MinisterDecisionTransactionData(BaseTransactionData):
     pass
+
+
+class RecommendationDecisionTransactionData(BaseTransactionData):
+    def __init__(
+            self,
+            next_activity_name=None,
+            application_status=None,
+            recommendation_decision=None):
+        super().__init__(next_activity_name, application_status)
+        self.recommendation_decision = recommendation_decision

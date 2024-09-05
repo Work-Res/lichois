@@ -1,19 +1,16 @@
 from django.test import tag
-from app.api.dto import ApplicationVerificationRequestDTO
+
 from app.models import Application
-from app.service import VerificationService
 from app.utils import ApplicationStatusEnum
-from app_assessment.models import AssessmentCaseSummary
-from app_assessment.service import CaseSummaryService
-from app_assessment.service.assessment_case_decision_service import AssessmentCaseDecisionService
 from app_checklist.models import Classifier, ClassifierItem
+from workflow.models import Activity
 from .base_setup import BaseSetup
 from app.api import NewApplicationDTO
 
 from app.classes import ApplicationService
 from ..utils import CitizenshipProcessEnum
 
-from app_assessment.api.dto import CaseSummaryRequestDTO, AssessmentCaseDecisionDTO
+from ..utils.citizenship_stages_enum import CitizenshipStagesEnum
 
 
 @tag('mpw')
@@ -47,18 +44,21 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
         classifier = Classifier.objects.get(code=self.application.process_name)
         self.assertIsNotNone(classifier)
         steps = ClassifierItem.objects.filter(classifier=classifier)
-        self.assertEqual(steps.count(), 3)
+        self.assertEqual(steps.count(), 4)
+
+        activites = Activity.objects.filter(
+            process__document_number=self.document_number
+        ).order_by("sequence")
+
+        self.assertEqual(activites[0].name, "VERIFICATION")
+        self.assertEqual(activites[1].name, "RECOMMENDATION")
+        self.assertEqual(activites[2].name, "MINISTER_DECISION")
+        self.assertEqual(activites[3].name, "FINAL_DECISION")
 
     def test_submit_officer_verification_and_move_recommandation(self):
         """Test if application can submit for verification, and then  """
 
-        verification_request = ApplicationVerificationRequestDTO(
-            document_number=self.document_number,
-            user="test",
-            status="ACCEPTED",
-        )
-        service = VerificationService(verification_request=verification_request)
-        service.create_verification()
+        self.assertIsNotNone(self.perform_verification())
 
         app = Application.objects.get(
             application_document__document_number=self.document_number)
@@ -69,35 +69,14 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
     def test_submit_officer_verification_and_complete_recommedation(self):
         """Test if application can submit for verification, and then  """
 
-        verification_request = ApplicationVerificationRequestDTO(
-            document_number=self.document_number,
-            user="test",
-            status="ACCEPTED",
-        )
-        service = VerificationService(verification_request=verification_request)
-        service.create_verification()
-
-        assessment_comment = CaseSummaryRequestDTO(
-            document_number=self.document_number,
-            parent_object_id='e8e8e8e8-e8e8-e8e8-e8e8-e8e8e8e8e8e8',
-            parent_object_type='app.Application',
-            summary="No issues, i recommend"
-        )
-        assessment_service = CaseSummaryService(case_summary_request_dto=assessment_comment)
-        assessment_service.create()
-        assessment = AssessmentCaseSummary.objects.get(document_number=self.document_number)
-        self.assertIsNotNone(assessment)
-
-        decision_request = AssessmentCaseDecisionDTO(
-            document_number=self.document_number,
-            parent_object_id=assessment.id,
-            parent_object_type='app_assessment.AssessmentCaseSummary',
-            author="author",
-            author_role="author_role",
-            decision="recommended",
-        )
-        assessment_decison_service = AssessmentCaseDecisionService(assessment_case_decision_dto=decision_request)
-        assessment_decison_service.create()
+        self.assertIsNotNone(self.perform_verification())
 
         app = Application.objects.get(application_document__document_number=self.document_number)
-        self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value)
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
+
+        self.assertIsNotNone(self.perform_recommendation())
+        app.refresh_from_db()
+
+        self.assertEqual(app.application_status.code, CitizenshipStagesEnum.MINISTER_DECISION.value.lower())

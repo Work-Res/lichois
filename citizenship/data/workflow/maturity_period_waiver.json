@@ -15,14 +15,14 @@
           "sequence": 1,
           "valid_from": "2024-01-01",
           "valid_to": "2040-01-01",
-          "next_activity_name": "PS_RECOMMENDATION",
+          "next_activity_name": "RECOMMENDATION",
           "create_task_rules": {
             "current_status": "NEW",
             "system_verification": "validated"
           }
         },
         {
-          "code": "DIRECTOR_RECOMMENDATION",
+          "code": "RECOMMENDATION",
           "name": "Maturity Period Waiver PS Recommendation",
           "description": "Maturity Period Waiver Recommendation By Permanent Secretary",
           "mandatory": false,
@@ -31,22 +31,36 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "MINISTER_DECISION",
           "create_task_rules": {
-            "current_status": "VERIFICATION",
-            "verification_decision": "ACCEPTED"
+            "verification_decision": "ACCEPTED",
+            "current_status": "VERIFICATION"
+          }
+        },
+        {
+          "code": "MINISTER_DECISION",
+          "name": "Maturity Period Waiver PS Recommendation",
+          "description": "Maturity Period Waiver Recommendation By Permanent Secretary",
+          "mandatory": false,
+          "sequence": 3,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "FINAL_DECISION",
+          "create_task_rules": {
+            "recommendation_decision": "ACCEPTED",
+            "current_status": "RECOMMENDATION"
           }
         },
         {
           "code": "FINAL_DECISION",
           "name": "Maturity Period Waiver Decision",
           "description": "Permit Production Task",
-          "sequence": 3,
+          "sequence": 4,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "current_status": "DIRECTOR_RECOMMENDATION",
-            "decision": "recommended"
+            "minister_decision": "ACCEPTED",
+            "current_status": "MINISTER_DECISION"
           }
         }
       ]
