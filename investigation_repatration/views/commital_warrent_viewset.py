@@ -6,3 +6,4 @@ from ..api.serializers import CommitalWarrentSerializer
 class CommitalWarrentViewSet(viewsets.ModelViewSet):
     queryset = CommittalWarrent.objects.all()
     serializer_class = CommitalWarrentSerializer
+    lookup_field = "non_citizen_identifier"
