@@ -11,4 +11,5 @@ class CitizenshipConfig(AppConfig):
         from .signals import handle_conflict_duration_completed
         from .handlers import production_decision_post_save_on_verfication_handler
         from .handlers import production_decision_post_save_handler
+        from .handlers import production_decision_minister_decision_handler
 

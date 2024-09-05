@@ -50,3 +50,4 @@ from .board.question import Question
 from .board.conflict_of_interest_duration import ConflictOfInterestDuration
 from .citizenship_summary import CitizenshipSummary
 from .recommendation_decision import RecommendationDecision
+from .citizenship_minister_decision import CitizenshipMinisterDecision
