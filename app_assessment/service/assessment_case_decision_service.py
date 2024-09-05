@@ -20,7 +20,7 @@ class AssessmentCaseDecisionService(BaseDecisionService):
         self.logger = logging.getLogger(__name__)
 
         workflow = AssessmentCaseDecisionTransactionData()
-        workflow.assessment_decision = assessment_case_decision_dto.decision.upper()
+        workflow.assessment_decision = "ACCEPTED"
 
         super().__init__(
             request=assessment_case_decision_dto,
