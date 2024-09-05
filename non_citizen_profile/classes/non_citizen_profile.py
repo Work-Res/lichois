@@ -1,6 +1,6 @@
 from venv import logger
-from ...app_personal_details.api.serializers import PermitSerializer
-from ...app_personal_details.models.permit import Permit
+from app_personal_details.api.serializers import PermitSerializer
+from app_personal_details.models.permit import Permit
 from ..api.serializers.profile import (
     AddressSerializer,
     BiometricsSerializer,
