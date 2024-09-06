@@ -22,7 +22,7 @@ class MeetingSessionServiceTestCase(BaseSetup):
             is_public_holiday=True,
             holiday_date=timezone.now() + timezone.timedelta(days=internal),
             valid_from=timezone.now(),
-            valid_to =timezone.now() + timezone.timedelta(days=internal),
+            valid_to=timezone.now() + timezone.timedelta(days=internal),
             year="2024"
         )
 
@@ -76,6 +76,32 @@ class MeetingSessionServiceTestCase(BaseSetup):
         session1 = MeetingSession.objects.first()
         session2 = MeetingSession.objects.last()
         self.assertNotEqual(session1.date, session2.date)
+
+    def test_generate_recurring_sessions_check_specific_dates(self):
+
+        self.meeting_session = MeetingSession.objects.create(
+            meeting=self.meeting,
+            title='Morning Session',
+            date=timezone.now().date(),
+            start_time=timezone.now().time(),
+            end_time=(timezone.now() + timezone.timedelta(hours=1)).time(),
+            is_recurring=True
+        )
+        # Query the database for all sessions related to this meeting
+        all_sessions = MeetingSession.objects.filter(meeting=self.meeting).order_by('date')
+        self.assertEqual(all_sessions.count(), 5)
+        s1 = all_sessions[0]
+        s2 = all_sessions[1]
+        s3 = all_sessions[2]
+        s4 = all_sessions[3]
+        s5 = all_sessions[4]
+
+        print("1, ", s1.date)
+        print("2, ", s2.date)
+        print("3, ", s3.date)
+        print("4, ", s4.date)
+        print("5, ", s5.date)
+        self.assertNotEqual(s1.date, s2.date)
 
     def test_generate_recurring_sessions_skipping_holidays(self):
         # service = MeetingSessionService(self.meeting_session)

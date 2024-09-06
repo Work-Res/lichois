@@ -1,5 +1,7 @@
 import logging
+from django.utils import timezone
 
+from datetime import datetime, time
 from datetime import timedelta
 
 from app_checklist.models import Holiday
@@ -13,9 +15,10 @@ class MeetingSessionService:
     def generate_recurring_sessions(self):
 
         meeting = self.meeting_session.meeting
-        current_date = meeting.start_date
+        current_date = timezone.make_aware(datetime.combine(self.meeting_session.date, time.min))
         sessions = []
         while current_date <= meeting.end_date:
+            current_date += timedelta(days=1)
             # Check if the current_date is a weekend (Saturday or Sunday)
             if self.meeting_session.skip_weekend and current_date.weekday() >= 5:
                 logging.info(f"Skipping {current_date} as it is a weekend.")
@@ -23,8 +26,6 @@ class MeetingSessionService:
             elif self.meeting_session.skip_holiday and Holiday.objects.filter(
                     holiday_date=current_date).exists():
                 logging.info(f"Skipping {current_date} as it is a holiday.")
-            elif current_date == self.meeting_session.date:
-                logging.info(f"Skipping the parent session.")
             else:
                 session = self.meeting_session_model.objects.create(
                     meeting=meeting,
@@ -36,8 +37,6 @@ class MeetingSessionService:
                 )
                 sessions.append(session)
 
-            # Move to the next day
-            current_date += timedelta(days=1)
         return sessions
 
     def generate_sessions_for_custom_dates(self, custom_dates):
