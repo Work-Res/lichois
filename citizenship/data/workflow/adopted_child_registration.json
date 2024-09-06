@@ -22,7 +22,7 @@
           }
         },
         {
-          "code": "DIRECTOR_RECOMMENDATION",
+          "code": "RECOMMENDATION",
           "name": "Registration Of Adopted Child Director Recommendation",
           "description": "Registration Of Adopted Child Recommendation By Director",
           "mandatory": false,
@@ -45,8 +45,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-              "current_status": "DIRECTOR_RECOMMENDATION",
-              "recommendation_decision": "recommended"
+            "recommendation_decision": "ACCEPTED",
+            "current_status": "RECOMMENDATION"
           }
         }
       ]

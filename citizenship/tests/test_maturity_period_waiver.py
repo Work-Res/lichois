@@ -3,6 +3,8 @@ from django.test import tag
 from app.models import Application
 from app.utils import ApplicationStatusEnum
 from app_checklist.models import Classifier, ClassifierItem
+from app_decision.models import ApplicationDecision
+from app_personal_details.models import Permit
 from workflow.models import Activity
 from .base_setup import BaseSetup
 from app.api import NewApplicationDTO
@@ -80,3 +82,29 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
         app.refresh_from_db()
 
         self.assertEqual(app.application_status.code, CitizenshipStagesEnum.MINISTER_DECISION.value.lower())
+
+    def test_submit_officer_verification_and_complete_minister_decision(self):
+        """Test if application can submit for verification, and then  """
+
+        self.assertIsNotNone(self.perform_verification())
+
+        app = Application.objects.get(application_document__document_number=self.document_number)
+
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value)
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
+
+        self.assertIsNotNone(self.perform_recommendation())
+        app.refresh_from_db()
+
+        self.assertEqual(app.application_status.code, CitizenshipStagesEnum.MINISTER_DECISION.value.lower())
+
+        self.assertIsNotNone(self.perform_minister_decision())
+        app.refresh_from_db()
+
+        self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())

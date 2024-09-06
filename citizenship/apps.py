@@ -12,4 +12,4 @@ class CitizenshipConfig(AppConfig):
         from .handlers import production_decision_post_save_on_verfication_handler
         from .handlers import production_decision_post_save_handler
         from .handlers import production_decision_minister_decision_handler
-
+        from .handlers import create_production_decision_when_recommendation_completed_handler

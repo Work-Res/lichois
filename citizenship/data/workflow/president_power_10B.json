@@ -1,7 +1,7 @@
 {
   "classifiers": {
     "citizenship": {
-      "code": "PRESIDENT_POWER_10B",
+      "code": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
       "name": "President Power 10B",
       "description": "President’s Power to Register Citizens: Section 10B Workflow",
       "valid_from": "2024-01-01",

@@ -52,7 +52,11 @@ from app.utils import statuses
 from django.test import TestCase
 
 from citizenship.api.dto import RecommendationDecisionRequestDTO
+from citizenship.api.dto.citizenship_minister_decision_request_dto import \
+    CitizenshipMinisterDecisionRequestDTOSerializer
+from citizenship.api.dto.request_dto import CitizenshipMinisterRequestDTO
 from citizenship.service.recommendation import RecommendationDecisionService
+from citizenship.service.recommendation.citizenship_minister_decision_service import CitizenshipMinisterDecisionService
 from citizenship.utils import CitizenshipProcessEnum
 
 
@@ -197,6 +201,16 @@ class BaseSetup(TestCase):
         )
         service = RecommendationDecisionService(decision_request=request_dto)
         return service.create_recommendation()
+
+    def perform_minister_decision(self):
+        data = {"status": "ACCEPTED"}
+        serializer = CitizenshipMinisterDecisionRequestDTOSerializer(data=data)
+        if serializer.is_valid():
+            request = CitizenshipMinisterRequestDTO(document_number=self.document_number,
+                                                    **serializer.validated_data)
+
+        service = CitizenshipMinisterDecisionService(decision_request=request)
+        return service.create_minister_decision()
 
     def setUp(self) -> None:
 

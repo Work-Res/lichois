@@ -18,3 +18,12 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
         return [
             CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value,
         ]
+
+
+class RecommendationDecisionProcessWhenCompletedIsRequiredForProduction:
+
+    @staticmethod
+    def configured_process():
+        return [
+            CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
+        ]
