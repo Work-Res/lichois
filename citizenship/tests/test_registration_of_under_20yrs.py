@@ -15,19 +15,19 @@ from ..utils import CitizenshipProcessEnum
 from ..utils.citizenship_stages_enum import CitizenshipStagesEnum
 
 
-class TestRegistrationOfAdoptedChildOver3yrsWorkflow(BaseSetup):
+class TestRegistrationOfUnder20workflow(BaseSetup):
 
     def setUp(self) -> None:
         super().setUp()
 
     def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
-            process_name=CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
+            process_name=CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value,
             applicant_identifier='317918515',
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
+            application_type=CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value,
             full_name="Test test",
             applicant_type="student"
         )
@@ -41,17 +41,19 @@ class TestRegistrationOfAdoptedChildOver3yrsWorkflow(BaseSetup):
         """Test create workflow application. """
         app = Application.objects.get(
             application_document__document_number=self.document_number)
-        self.assertEqual(app.process_name, CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value)
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value)
         classifier = Classifier.objects.get(code=self.application.process_name)
         self.assertIsNotNone(classifier)
         steps = ClassifierItem.objects.filter(classifier=classifier)
-        self.assertEqual(steps.count(), 3)
+        self.assertEqual(steps.count(), 5)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "RECOMMENDATION")
-        self.assertEqual(activites[2].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "ASSESSMENT")
+        self.assertEqual(activites[2].name, "RECOMMENDATION")
+        self.assertEqual(activites[3].name, "MINISTER_DECISION")
+        self.assertEqual(activites[4].name, "FINAL_DECISION")
 
     def test_workflow_transaction_after_when_performing_recommendation(self):
 
@@ -64,14 +66,14 @@ class TestRegistrationOfAdoptedChildOver3yrsWorkflow(BaseSetup):
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value)
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value)
         self.assertEqual(
             app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value
         )
 
-        self.assertIsNotNone(self.perform_verification())
+        self.assertIsNotNone(self.perform_assessment())
         app.refresh_from_db()
-        self.assertEqual(app.verification, "ACCEPTED")
+        self.assertEqual(app.assessment, "ACCEPTED")
         self.assertEqual(
             app.application_status.code, CitizenshipStagesEnum.RECOMMENDATION.value.lower()
         )
@@ -79,7 +81,10 @@ class TestRegistrationOfAdoptedChildOver3yrsWorkflow(BaseSetup):
         self.assertIsNotNone(self.perform_recommendation())
         app.refresh_from_db()
         self.assertEqual(app.recommendation, "ACCEPTED")
-        self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+        self.assertEqual(app.application_status.code.upper(), "MINISTER_DECISION")
+
+        self.assertIsNotNone(self.perform_minister_decision())
+        app.refresh_from_db()
 
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())

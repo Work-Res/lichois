@@ -31,7 +31,7 @@ class ReviewDecisionAPIView(APIView):
                         note_request_dto=assessment_note_request
                     )
                     return Response(
-                        service.create_assessment(), status=status.HTTP_201_CREATED
+                        service.create_review(), status=status.HTTP_201_CREATED
                     )
                 else:
                     # Return validation errors if the validator fails

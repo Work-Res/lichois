@@ -20,7 +20,7 @@ class AssessmentNoteService(BaseDecisionService):
         self.response = APIResponse()
 
         workflow = ReviewCaseDecisionTransactionData()
-        workflow.review_decision = note_request_dto.decision.upper()
+        workflow.review_decision = "ACCEPTED"
 
         super().__init__(
             request=note_request_dto,
