@@ -150,7 +150,13 @@ class ReviewCaseDecisionTransactionData(BaseTransactionData):
 
 
 class MinisterDecisionTransactionData(BaseTransactionData):
-    pass
+    def __init__(
+            self,
+            next_activity_name=None,
+            application_status=None,
+            minister_decision=None):
+        super().__init__(next_activity_name, application_status)
+        self.minister_decision = minister_decision
 
 
 class RecommendationDecisionTransactionData(BaseTransactionData):

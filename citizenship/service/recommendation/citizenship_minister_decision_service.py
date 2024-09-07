@@ -1,5 +1,6 @@
 from app.service import BaseDecisionService
 from app.utils.system_enums import ApplicationStatusEnum
+from app.workflow import MinisterDecisionTransactionData
 from app.workflow.transaction_data import (
     ProductionTransactionData
 )
@@ -10,7 +11,7 @@ from citizenship.models import CitizenshipMinisterDecision
 
 class CitizenshipMinisterDecisionService(BaseDecisionService):
     def __init__(self, decision_request: CitizenshipMinisterRequestDTO):
-        workflow = ProductionTransactionData(
+        workflow = MinisterDecisionTransactionData(
             minister_decision=decision_request.status.upper()
         )
         super().__init__(
@@ -25,3 +26,6 @@ class CitizenshipMinisterDecisionService(BaseDecisionService):
 
     def retrieve_minister_decision(self):
         return self.retrieve_decision(CitizenshipMinisterDecision, CitizenshipMinisterDecisionSerializer)
+
+    def _security_clearance(self):
+        return None

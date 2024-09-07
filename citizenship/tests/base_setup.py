@@ -205,10 +205,10 @@ class BaseSetup(TestCase):
     def perform_minister_decision(self):
         data = {"status": "ACCEPTED"}
         serializer = CitizenshipMinisterDecisionRequestDTOSerializer(data=data)
-        if serializer.is_valid():
-            request = CitizenshipMinisterRequestDTO(document_number=self.document_number,
+        serializer.is_valid()
+        request = CitizenshipMinisterRequestDTO(document_number=self.document_number,
+                                                    status="ACCEPTED",
                                                     **serializer.validated_data)
-
         service = CitizenshipMinisterDecisionService(decision_request=request)
         return service.create_minister_decision()
 
