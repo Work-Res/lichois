@@ -15,14 +15,14 @@
           "sequence": 1,
           "valid_from": "2024-01-01",
           "valid_to": "2040-01-01",
-          "next_activity_name": "DIRECTOR_RECOMMENDATION",
+          "next_activity_name": "RECOMMENDATION",
           "create_task_rules": {
             "current_status": "NEW",
             "system_verification": "validated"
           }
         },
         {
-          "code": "DIRECTOR_RECOMMENDATION",
+          "code": "RECOMMENDATION",
           "name": "Certificate of Citizenship incase of doubt Director Recommendation",
           "description": "Certificate of Citizenship incase of doubt Recommendation By Director",
           "mandatory": false,
@@ -36,17 +36,31 @@
           }
         },
         {
+          "code": "MINISTER_DECISION",
+          "name": "Maturity Period Waiver PS Recommendation",
+          "description": "Maturity Period Waiver Recommendation By Permanent Secretary",
+          "mandatory": false,
+          "sequence": 3,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "FINAL_DECISION",
+          "create_task_rules": {
+            "recommendation_decision": "ACCEPTED",
+            "current_status": "RECOMMENDATION"
+          }
+        },
+        {
           "code": "FINAL_DECISION",
           "name": "Certificate of Citizenship incase of doubt Decision",
           "description": "Certificate Production Task",
-          "sequence": 3,
+          "sequence": 4,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "current_status": "DIRECTOR_RECOMMENDATION",
-            "recommendation_decision": "recommended"
+            "minister_decision": "ACCEPTED",
+            "current_status": "MINISTER_DECISION"
           }
         }
       ]
