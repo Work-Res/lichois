@@ -55,10 +55,10 @@ class TestRegistrationOfUnder20workflow(BaseSetup):
         self.assertEqual(activites[3].name, "MINISTER_DECISION")
         self.assertEqual(activites[4].name, "FINAL_DECISION")
 
-    def test_workflow_transaction_after_when_performing_recommendation(self):
+    def test_workflow_transaction_after_when_performing_assessment(self):
 
         SystemParameter.objects.create(
-            application_type=CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
+            application_type=CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value,
             duration_type="years",
             duration=100
         )
@@ -71,11 +71,18 @@ class TestRegistrationOfUnder20workflow(BaseSetup):
             app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value
         )
 
+        self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+        self.assertEqual(
+            app.application_status.code, CitizenshipStagesEnum.ASSESSMENT.value.lower()
+        )
+
         self.assertIsNotNone(self.perform_assessment())
         app.refresh_from_db()
         self.assertEqual(app.assessment, "ACCEPTED")
         self.assertEqual(
-            app.application_status.code, CitizenshipStagesEnum.RECOMMENDATION.value.lower()
+            app.application_status.code.lower(), CitizenshipStagesEnum.RECOMMENDATION.value.lower()
         )
 
         self.assertIsNotNone(self.perform_recommendation())

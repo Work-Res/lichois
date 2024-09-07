@@ -17,6 +17,7 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
     def configured_process():
         return [
             CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value,
+            CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value
         ]
 
 

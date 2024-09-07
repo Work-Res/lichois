@@ -72,8 +72,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "recommendation_decision": "ACCEPTED",
-            "current_status": "RECOMMENDATION"
+            "minister_decision": "ACCEPTED",
+            "current_status": "MINISTER_DECISION"
           }
         }
       ]
