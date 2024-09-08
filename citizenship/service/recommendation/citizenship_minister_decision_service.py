@@ -1,9 +1,7 @@
 from app.service import BaseDecisionService
 from app.utils.system_enums import ApplicationStatusEnum
 from app.workflow import MinisterDecisionTransactionData
-from app.workflow.transaction_data import (
-    ProductionTransactionData
-)
+
 from citizenship.api.dto.citizenship_minister_decision_request_dto import CitizenshipMinisterDecisionSerializer
 from citizenship.api.dto.request_dto import CitizenshipMinisterRequestDTO
 from citizenship.models import CitizenshipMinisterDecision
