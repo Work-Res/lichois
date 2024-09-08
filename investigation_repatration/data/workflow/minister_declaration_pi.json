@@ -1,0 +1,54 @@
+{
+  "classifiers": {
+    "citizenship": {
+      "code": "MINISTER_PI_DECLARATION",
+      "name": "Minister PI Declaration",
+      "description": "Minister PI Declaration Workflow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Preparation of Minister PI Declaration",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2040-01-01",
+          "next_activity_name": "ASSESSMENT",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "NEW"
+          }
+        },
+        {
+          "code": "ASSESSMENT",
+          "name": "Assessment by DIC Officer",
+          "description": "Registration Of Adopted Child Recommendation By Director",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "RECOMMENDATION",
+          "create_task_rules": {
+            "current_status": "VERIFICATION"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Minister PI Declaration ",
+          "description": "Certificate Production Task",
+          "sequence": 3,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+              "current_status": "DIRECTOR_RECOMMENDATION",
+              "recommendation_decision": "recommended"
+          }
+        }
+      ]
+    }
+  }
+}
