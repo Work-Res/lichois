@@ -19,7 +19,8 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
             CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value,
             CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value,
             CitizenshipProcessEnum.DOUBT_CITIZENSHIP_CERTIFICATE.value,
-            CitizenshipProcessEnum.CITIZENSHIP_RESUMPTION.value
+            CitizenshipProcessEnum.CITIZENSHIP_RESUMPTION.value,
+            CitizenshipProcessEnum.SETTLEMENT.value
         ]
 
 
