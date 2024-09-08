@@ -5,18 +5,18 @@ from datetime import date
 
 from faker import Faker
 
-from app.api.dto import ApplicationVerificationRequestDTO, RecommendationRequestDTO
+from app.api.dto import ApplicationVerificationRequestDTO, RecommendationRequestDTO, SecurityClearanceRequestDTO
 from app.api.serializers import (
     ApplicationVerificationRequestSerializer,
-    RecommendationRequestDTOSerializer,
+    RecommendationRequestDTOSerializer, SecurityClearanceRequestDTOSerializer,
 )
 from app.models import ApplicationStatus
 from app.classes import ApplicationService
 
 from app.api import NewApplicationDTO
-from app.service import VerificationService
+from app.service import VerificationService, SecurityClearanceService
 from app.service.recommendation_service import RecommendationServiceOverideVetting
-from app.validators import OfficerVerificationValidator
+from app.validators import OfficerVerificationValidator, SecurityClearanceValidator
 from app_assessment.api.dto import AssessmentCaseDecisionDTO
 from app_assessment.service.assessment_note_service import AssessmentNoteService
 from app_assessment.validators.assessment_note_validator import (
@@ -211,6 +211,25 @@ class BaseSetup(TestCase):
                                                     **serializer.validated_data)
         service = CitizenshipMinisterDecisionService(decision_request=request)
         return service.create_minister_decision()
+
+    def perform_vetting(self):
+        data = {"status": "ACCEPTED"}
+        serializer = SecurityClearanceRequestDTOSerializer(data=data)
+        if serializer.is_valid():
+            security_clearance_request = SecurityClearanceRequestDTO(
+                document_number=self.document_number,
+                user=None,
+                **serializer.validated_data,
+            )
+            validator = SecurityClearanceValidator(
+                document_number=self.document_number,
+                status=security_clearance_request.status,
+            )
+            if validator.is_valid():
+                service = SecurityClearanceService(
+                    security_clearance_request=security_clearance_request
+                )
+                return service.create_clearance()
 
     def setUp(self) -> None:
 

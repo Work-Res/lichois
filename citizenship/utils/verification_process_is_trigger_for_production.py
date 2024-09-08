@@ -20,7 +20,8 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
             CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value,
             CitizenshipProcessEnum.DOUBT_CITIZENSHIP_CERTIFICATE.value,
             CitizenshipProcessEnum.CITIZENSHIP_RESUMPTION.value,
-            CitizenshipProcessEnum.SETTLEMENT.value
+            CitizenshipProcessEnum.SETTLEMENT.value,
+            CitizenshipProcessEnum.NATURALIZATION.value
         ]
 
 

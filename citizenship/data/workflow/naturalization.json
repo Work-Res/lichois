@@ -15,7 +15,7 @@
           "sequence": 1,
           "valid_from": "2024-01-01",
           "valid_to": "2040-01-01",
-          "next_activity_name": "SECURITY_CLEARANCE",
+          "next_activity_name": "VETTING",
           "create_task_rules": {
             "current_status": "NEW",
             "system_verification": "validated"
@@ -29,14 +29,14 @@
           "sequence": 2,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "GAZETTE_DRAFTING",
+          "next_activity_name": "ASSESSMENT",
           "create_task_rules": {
             "current_status": "VERIFICATION",
             "verification_decision": "ACCEPTED"
           }
         },
         {
-          "code": "GAZETTE_DRAFTING",
+          "code": "ASSESSMENT",
           "name": "Naturalization Gazette Draft",
           "description": "Draft and Verification of Gazette",
           "sequence": 3,
@@ -50,56 +50,45 @@
           }
         },
         {
-          "code": "GAZETTE_AUTHENTICATION",
-          "name": "Naturalization Gazette Authentication",
-          "description": "Gazette Authentication Task",
-          "sequence": 4,
-          "mandatory": true,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01",
-          "next_activity_name": "INTERVIEW",
-          "create_task_rules": {
-            "current_status": "GAZETTE_DRAFT"
-          }
-        },
-        {
-          "code": "INTERVIEW",
-          "name": "Naturalization Interview",
-          "description": "Naturalization by Foreign Spouse Applicant Interview Task",
-          "sequence": 5,
-          "mandatory": true,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01",
-          "next_activity_name": "RECOMMENDATION",
-          "create_task_rules": {
-            "current_status": "GAZETTED"
-          }
-        },
-        {
           "code": "RECOMMENDATION",
-          "name": "Naturalization Online Recommendation",
-          "description": "Naturalization Online Recommendation To The Minister",
-          "sequence": 6,
-          "mandatory": true,
+          "name": "Recommendation by Deputy via Board Meeting",
+          "description": "Recommendation performed by Board",
+          "mandatory": false,
+          "sequence": 4,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "MINISTER_DECISION",
           "create_task_rules": {
-            "current_status": "INTERVIEW"
+            "assessment_decision": "ACCEPTED",
+            "current_status": "ASSESSMENT"
           }
         },
         {
           "code": "MINISTER_DECISION",
           "name": "Naturalization Production Decision",
           "description": "Naturalization Production Decision",
-          "sequence": 7,
+          "sequence": 5,
           "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "FINAL_DECISION",
+          "create_task_rules": {
+            "recommendation_decision": "ACCEPTED",
+            "current_status": "RECOMMENDATION"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Settlement Decision",
+          "description": "Certificate Production Task",
+          "sequence": 6,
+          "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "current_status": "DIRECTOR_RECOMMENDATION",
-            "recommendation_decision": "recommended"
+            "minister_decision": "ACCEPTED",
+            "current_status": "MINISTER_DECISION"
           }
         }
       ]
