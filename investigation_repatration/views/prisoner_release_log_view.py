@@ -29,7 +29,8 @@ class PrisonerReleaseLogView(APIView):
         try:
             serializer = PrisonerBatchRequestDTOSerializer(data=request.data)
             if serializer.is_valid():
-                service = PrisonerReleaseLogBatchService(prisoner_batch=serializer.data)
+                prisoners = serializer.data["prisoners"]
+                service = PrisonerReleaseLogBatchService(prisoner_batch=prisoners)
                 service.create_batch()
                 return JsonResponse(service.response.result())
             else:

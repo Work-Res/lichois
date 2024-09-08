@@ -3,9 +3,12 @@ from django.db import models
 from base_module.model_mixins import BaseUuidModel
 
 from .application_version import ApplicationVersion
+from identifier.non_citizen_identifier_model_mixins import (
+    NonUniqueNonCitizenIdentifierFieldMixin,
+)
 
 
-class ApplicationBaseModel(BaseUuidModel):
+class ApplicationBaseModel(NonUniqueNonCitizenIdentifierFieldMixin, BaseUuidModel):
     """Base model class for all models using an UUID and not
     an INT for the primary key.
     """
