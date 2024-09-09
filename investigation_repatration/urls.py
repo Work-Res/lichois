@@ -7,6 +7,8 @@ from .views import (
     CommitalWarrentViewSet,
     UpdatePrisonerReleaseLogView,
     ProhibitedImmigrantViewSet,
+    PIDeclarationOrderViewSet,
+    PIDeclarationOrderAcknowledgementViewSet,
 )
 from django.urls import path, include
 
@@ -15,6 +17,11 @@ router = DefaultRouter()
 router.register(r"prisoners", PrisonerViewSet)
 router.register(r"commital-warrent", CommitalWarrentViewSet)
 router.register(r"prohibited-immigrant", ProhibitedImmigrantViewSet)
+router.register(r"pi-declaration-order", PIDeclarationOrderViewSet)
+router.register(
+    r"pi-declaration-order-acknowledgement", PIDeclarationOrderAcknowledgementViewSet
+)
+
 
 urlpatterns = [
     path("", include(router.urls)),
