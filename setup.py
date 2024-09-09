@@ -8,7 +8,15 @@ CURRENT_DIR = Path(__file__).parent
 def get_long_description() -> str:
     readme_md = CURRENT_DIR / "README.md"
     if not readme_md.exists():
-        return ""
+        return """
+        LICHOIS: Labor, Immigration, Citizenship, and Occupational Health Integrated Service
+
+        This package provides an integrated service for managing labor, immigration, citizenship,
+        and occupational health processes. For more detailed information, please refer to the
+        project's GitHub repository or contact the maintainers.
+
+        GitHub: https://github.com/Work-Res/lichois
+        """
     return readme_md.read_text(encoding="utf-8")
 
 setup(
