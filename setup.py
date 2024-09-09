@@ -1,24 +1,28 @@
 # -*- coding: utf-8 -*-
-import os
-from setuptools import setup
-from setuptools import find_packages
+from setuptools import setup, find_packages
+from pathlib import Path  # noqa E402
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
-    README = readme.read()
 
-# allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+CURRENT_DIR = Path(__file__).parent
+
+def get_long_description() -> str:
+    readme_md = CURRENT_DIR / "README.md"
+    if not readme_md.exists():
+        return ""
+    return readme_md.read_text(encoding="utf-8")
+
 setup(
     name='lichois',
     version='0.1.0',
-    author=u'Africort Investments',
+    author='Africort Investments',
     author_email='ckgathi@africortinvestmemts.com',
     packages=find_packages(),
     include_package_data=True,
     url='https://github.com/Work-Res/lichois',
     license='GPL licence, see LICENCE',
     description='Labor, Immigration, Citizenship, and Occupational Health Integrated Service (LICHOIS).',
-    long_description=README,
+    long_description=get_long_description(),
+    long_description_content_type='text/markdown',
     zip_safe=False,
     keywords='django models fields forms admin',
     install_requires=[
@@ -38,6 +42,7 @@ setup(
         'pymysql',
         'tqdm',
     ],
+    python_requires='>=3.6',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
