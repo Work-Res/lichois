@@ -6,6 +6,7 @@ from .views import (
     PrisonerReleaseLogView,
     CommitalWarrentViewSet,
     UpdatePrisonerReleaseLogView,
+    ProhibitedImmigrantViewSet,
 )
 from django.urls import path, include
 
@@ -13,6 +14,7 @@ router = DefaultRouter()
 
 router.register(r"prisoners", PrisonerViewSet)
 router.register(r"commital-warrent", CommitalWarrentViewSet)
+router.register(r"prohibited-immigrant", ProhibitedImmigrantViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

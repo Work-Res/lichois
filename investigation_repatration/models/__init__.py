@@ -5,3 +5,4 @@ from .prisoner import Prisoner
 from .prisoner_due_release import PrisonerDueForRelease
 from .prisoner_due_release import PrisonerDetails
 from .prisoner_release_log import PrisonerReleaseLog
+from .pi import ProhibitedImmigrant
