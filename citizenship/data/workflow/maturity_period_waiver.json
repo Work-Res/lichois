@@ -38,7 +38,7 @@
         {
           "code": "MINISTER_DECISION",
           "name": "Maturity Period Waiver PS Recommendation",
-          "description": "Maturity Period Waiver Recommendation By Permanent Secretary",
+          "description": "Minister makes decision about the applicaiton",
           "mandatory": false,
           "sequence": 3,
           "valid_from": "2024-01-01",

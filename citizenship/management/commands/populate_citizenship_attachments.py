@@ -11,9 +11,9 @@ from app_checklist.models import ChecklistClassifier, ChecklistClassifierItem
 from authentication.models import User
 
 APPLICATION_TYPES = [
-    "PRESIDENT_POWER_REGISTER_CITIZENS_10A"
+    # "PRESIDENT_POWER_REGISTER_CITIZENS_10A"
     # "NATURALIZATION_INTENTION_FOREIGN_SPOUSE"
-    # "MATURITY_PERIOD_WAIVER",
+    "MATURITY_PERIOD_WAIVER",
     # "RESUMPTION_OF_CITIZENSHIP",
     # "CITIZENSHIP_RENUNCIATION",
 ]
