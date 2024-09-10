@@ -1,4 +1,5 @@
 from .commital_warrent_viewset import CommitalWarrentViewSet
+from .get_release_log_profiles_view import GetReleaseLogProfilesView
 from .PI_declaration_order_viewset import (
     PIDeclarationOrderAcknowledgementViewSet,
     PIDeclarationOrderViewSet,

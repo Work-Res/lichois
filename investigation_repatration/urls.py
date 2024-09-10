@@ -9,6 +9,7 @@ from .views import (
     ProhibitedImmigrantViewSet,
     PIDeclarationOrderViewSet,
     PIDeclarationOrderAcknowledgementViewSet,
+    GetReleaseLogProfilesView,
 )
 from django.urls import path, include
 
@@ -34,5 +35,10 @@ urlpatterns = [
         "prisoner-release-log/<str:id>/",
         UpdatePrisonerReleaseLogView.as_view(),
         name="prisoner-release-log",
+    ),
+    path(
+        "get-release-log-profiles/<str:id>/",
+        GetReleaseLogProfilesView.as_view(),
+        name="get-release-log-profile",
     ),
 ]
