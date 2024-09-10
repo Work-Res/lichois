@@ -1,7 +1,7 @@
 {
   "classifiers": {
     "attachment_documents": {
-      "code": "MATURITY_PERIOD_WAIVER",
+      "code": "MATURITY_PERIOD_WAIVER_ATTACHMENT_DOCUMENTS",
       "name": "ATTACHMENT DOCUMENTS",
       "description": "A list of document to attach",
       "valid_from": "2024-01-01",
