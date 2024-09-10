@@ -10,11 +10,11 @@ class AttachmentDocumentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AttachmentDocumentType
         fields = (
-            'id',
-            'code',
-            'name',
-            'valid_from',
-            'valid_to',
+            "id",
+            "code",
+            "name",
+            "valid_from",
+            "valid_to",
         )
 
 
@@ -24,57 +24,63 @@ class ApplicationAttachmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationAttachment
         fields = (
-            'id',
-            'filename',
-            'storage_object_key',
-            'description',
-            'document_url',
-            'received_date',
-            'document_type',
-            'document_number'
+            "id",
+            "filename",
+            "storage_object_key",
+            "description",
+            "document_url",
+            "received_date",
+            "document_type",
+            "document_number",
         )
 
     def create(self, validated_data):
-        document_type_data = validated_data.pop('document_type')
+        document_type_data = validated_data.pop("document_type")
         document_type = AttachmentDocumentType.objects.create(**document_type_data)
-        application_attachment = ApplicationAttachment.objects.create(document_type=document_type, **validated_data)
+        application_attachment = ApplicationAttachment.objects.create(
+            document_type=document_type, **validated_data
+        )
         return application_attachment
 
 
 class ApplicationAttachmentVerificationSerializer(serializers.ModelSerializer):
     attachment = ApplicationAttachmentSerializer(required=False)
     verifier = serializers.PrimaryKeyRelatedField(read_only=True)
-    # comment = CommentSerializer(required=False)
+    comment = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = ApplicationAttachmentVerification
         fields = [
-            'id',
-            'attachment',
-            'verification_status',
-            'comment',
-            'verifier',
-            'verified_at'
+            "id",
+            "attachment",
+            "verification_status",
+            "comment",
+            "verifier",
+            "verified_at",
         ]
 
     def to_internal_value(self, data):
-        request = self.context.get('request')
+        request = self.context.get("request")
         auth_user = request.user
         mutable_data = data.copy()
-        mutable_data['verifier'] = auth_user.id
-        comment_text = data.get('comment')
+        mutable_data["verifier"] = auth_user.id
+        comment_text = data.get("comment")
         if comment_text:
-            comment = Comment.objects.create(user=auth_user, comment_text=comment_text, comment_type='verification')
-            mutable_data['comment'] = comment.id
+            comment = Comment.objects.create(
+                user=auth_user, comment_text=comment_text, comment_type="verification"
+            )
+            mutable_data["comment"] = comment.id
         return super().to_internal_value(mutable_data)
 
     def create(self, validated_data):
-        attachment_data = validated_data.pop('attachment', None)
+        attachment_data = validated_data.pop("attachment", None)
         if attachment_data:
-            attachment_serializer = ApplicationAttachmentSerializer(data=attachment_data)
+            attachment_serializer = ApplicationAttachmentSerializer(
+                data=attachment_data
+            )
             if attachment_serializer.is_valid():
                 attachment = attachment_serializer.save()
-                validated_data['attachment'] = attachment
+                validated_data["attachment"] = attachment
             else:
                 raise serializers.ValidationError(attachment_serializer.errors)
         return ApplicationAttachmentVerification.objects.create(**validated_data)

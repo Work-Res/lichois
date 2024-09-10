@@ -1,5 +1,6 @@
 from django.db import models
 from authentication.models import User
+
 # from app.models import ApplicationBaseModel
 
 from base_module.model_mixins import BaseUuidModel
@@ -13,4 +14,4 @@ class Comment(BaseUuidModel):
     comment_type = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.user} - {self.comment_type}"
+        return self.comment_text
