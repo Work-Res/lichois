@@ -11,7 +11,7 @@ class GetReleaseLogProfilesView(APIView):
 
     def get(self, request, id):
         release_log = PrisonerReleaseLog.objects.get(id=id)
-        prisoners = release_log.prisoners
+        prisoners = release_log.prisoners.all()
         profiles = []
         for prisoner in prisoners:
             try:
