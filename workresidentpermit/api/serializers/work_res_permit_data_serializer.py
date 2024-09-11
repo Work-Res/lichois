@@ -12,10 +12,11 @@ from app_personal_details.api.serializers import (
     PassportSerializer,
     PermitSerializer,
     PersonSerializer,
+    ChildSerializer,
+    SpouseSerializer,
 )
 from board.serializers import BoardDecisionSerializer
 
-from base_module.serializers import ChildSerializer, SpouseSerializer
 from .residence_permit_serializer import ResidencePermitSerializer
 from .work_permit_serializer import WorkPermitSerializer
 

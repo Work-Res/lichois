@@ -1,6 +1,13 @@
 from rest_framework import serializers
 
-from app_personal_details.models import Permit, Person, Passport, Education
+from app_personal_details.models import (
+    Permit,
+    Person,
+    Passport,
+    Education,
+    Child,
+    Spouse,
+)
 
 
 class PersonSerializer(serializers.ModelSerializer):
@@ -90,3 +97,17 @@ class PermitSerializer(serializers.ModelSerializer):
             "date_issued": {"format": "iso-8601"},
             "date_expiry": {"format": "iso-8601"},
         }
+
+
+class ChildSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Child
+        fields = "__all__"
+
+
+class SpouseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Spouse
+        fields = "__all__"
