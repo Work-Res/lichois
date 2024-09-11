@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from base_module.models import Child
-from base_module.serializers import ChildSerializer
+from app_personal_details.models import Child
+from app_personal_details.api.serializers import ChildSerializer
 
 
 class ChildCreateListView(viewsets.ModelViewSet):

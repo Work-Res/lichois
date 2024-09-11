@@ -11,7 +11,7 @@ from board.models import BoardDecision
 
 from ..api import WorkResidentPermitApplication
 from ..models import ResidencePermit, WorkPermit
-from base_module.models import Child, Spouse
+from app_personal_details.models import Child, Spouse
 
 logger = logging.getLogger(__name__)
 
