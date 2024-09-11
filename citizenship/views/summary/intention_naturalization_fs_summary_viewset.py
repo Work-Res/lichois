@@ -9,7 +9,6 @@ from citizenship.models import CitizenshipSummary
 
 def get_app_labels():
     return [
-        
         # residential_history,
         "citizenship.ResidentialHistory"
         # oath
