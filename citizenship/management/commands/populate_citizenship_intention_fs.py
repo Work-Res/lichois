@@ -1,13 +1,11 @@
 from django.db.transaction import atomic
 from model_bakery import baker
 
-from app_address.models import ApplicationAddress
-from app_contact.models import ApplicationContact
+
 from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import DCCertificate, OathOfAllegiance, ResidentialHistory
-from ...models import DeclarationNaturalisationByForeignSpouse
+from ...models import DeclarationNaturalisationByForeignSpouse, ResidentialHistory, OathOfAllegiance
 
 
 class Command(CustomBaseCommand):
