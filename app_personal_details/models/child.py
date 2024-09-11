@@ -1,7 +1,8 @@
 from django.db import models
 from app.models import ApplicationBaseModel
 
-from ..choices import GENDER, YES_NO
+from ..choices import GENDER
+from base_module.choices import YES_NO
 
 
 class Child(ApplicationBaseModel):
