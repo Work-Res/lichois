@@ -64,7 +64,7 @@ class ApplicationSummary:
 
     def _is_valid_app_label(self, app_label):
         """Validate the app label format."""
-        return len(app_label.split('.')) == 2
+        return len(app_label.split(".")) == 2
 
     def _get_model_instance_recursive(self, model_cls, traversed_models=None):
         """Recursively get the model instance based on the document number."""
@@ -211,7 +211,7 @@ class ApplicationSummary:
             "app.ApplicationVerification",
             "app.SecurityClearance",
             "app_personal_details.Education",
-            "base_module.Spouse",
-            "base_module.Child",
+            "app_personal_details.Spouse",
+            "app_personal_details.Child",
         ]
         return generic_labels + self.app_labels

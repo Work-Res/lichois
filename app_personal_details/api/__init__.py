@@ -1,1 +1,7 @@
-from .serializers import PassportSerializer, PersonSerializer
+from .serializers import (
+    PassportSerializer,
+    PersonSerializer,
+    ChildSerializer,
+    SpouseSerializer,
+    PermitSerializer,
+)
