@@ -14,7 +14,6 @@ from ..utils import CitizenshipProcessEnum
 from ..utils.citizenship_stages_enum import CitizenshipStagesEnum
 
 
-@tag("renunc")
 class TestNaturalizationForeignSpouse(BaseSetup):
 
     def setUp(self) -> None:
