@@ -38,7 +38,7 @@ class CitizenshipMinisterDecisionAPIView(APIView):
         if document_number:
             request = CitizenshipMinisterRequestDTO(document_number=document_number)
             service = CitizenshipMinisterDecisionService(request)
-            return service.retrieve_minister_decision()
+            return Response(service.retrieve_minister_decision(), status=status.HTTP_200_OK)
 
         return Response(
             {"detail": "Document number is required"},
