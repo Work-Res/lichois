@@ -60,7 +60,7 @@ class ScoreSheetService:
         try:
             # Query and aggregate interview responses
             aggregated_data = InterviewResponse.objects.filter(interview=interview).values(
-                'text', 'sequence').annotate(
+                'text', 'sequence', 'marks_range').annotate(
                 total_responses=Count('id'),
                 average_score=Avg('score'),
                 total_marked=Count('is_marked', filter=Q(is_marked=True)),

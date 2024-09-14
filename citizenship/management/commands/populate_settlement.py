@@ -72,6 +72,6 @@ class Command(CustomBaseCommand):
 
                 self.stdout.write(
                     self.style.SUCCESS(
-                        "Successfully populated Maturity Period Waiver data"
+                        "Successfully populated Settlement data"
                     )
                 )

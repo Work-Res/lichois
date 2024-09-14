@@ -1,3 +1,4 @@
+import json
 from django.urls import reverse
 
 from datetime import timedelta
@@ -24,6 +25,7 @@ from ....models.board.score_sheet import ScoreSheet
 from citizenship.service.board.batch_status_enum import BatchStatus
 
 from .base_setup import BaseSetup
+from ....service.word import DocumentGenerationService
 
 
 class InterviewResponseViewSetTestCase(BaseSetup):
@@ -525,12 +527,14 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         interview.status = "completed"
         interview.save()
 
+        self.service = DocumentGenerationService()
         score_sheet = ScoreSheet.objects.get(interview=interview)
-        for s in score_sheet.aggregated:
-            print(s)
-            print(">>>.")
-
         self.assertEqual(score_sheet.passed, True)
+
+        self.service = DocumentGenerationService()
+        self.service.generate_scoresheet_document(score_sheet)
+        self.assertTrue(self.scoresheet.document.endswith('.docx'))
+        self.assertIsNotNone(self.scoresheet.document)
 
     def check_submitted_interview_response(self, interview_responses):
         self.assertEqual(interview_responses[0].response, "Bulk Updated Response 1")

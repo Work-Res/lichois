@@ -1,5 +1,8 @@
 import logging
+import os.path
 import tempfile
+
+from datetime import datetime
 
 from . import DataGenerator
 from ...exception.interview_score_sheet_error import (
@@ -25,17 +28,24 @@ class DocumentGenerationService:
 
     def generate_scoresheet_document(self, scoresheet):
         logger.info(f"Handling document generation for scoresheet {scoresheet.id}")
+        template_path = os.path.join("citizenship", "data", "production", "templates", "score_sheet_template.docx")
         try:
+            context = {}
+            today = datetime.now()
+            context.update({
+                "reference_number": scoresheet.interview.application.application_document.document_number,
+                "today_date": today.strftime("%Y-%m-%d")
+            })
             data = self.data_generator_class(scoresheet).generate_data()
-
             with tempfile.TemporaryDirectory() as temp_dir:
                 word_path = f"{temp_dir}/scoresheet_{scoresheet.id}.docx"
                 pdf_path = f"{temp_dir}/scoresheet_{scoresheet.id}.pdf"
 
-                service = self.doc_generator_class(data, word_path, pdf_path)
+                service = self.doc_generator_class(data, word_path, pdf_path, template_path=template_path,
+                                                   context=context)
                 service.create_and_convert()
 
-                scoresheet.document = pdf_path
+                scoresheet.document = word_path
                 scoresheet.save()
 
                 logger.info(
