@@ -241,11 +241,11 @@ class Command(CustomBaseCommand):
                 )
 
                 # applicant declaration
-                baker.make(
-                    DCCertificate,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                )
+                # baker.make(
+                #     DCCertificate,
+                #     application_version=version,
+                #     document_number=app.application_document.document_number,
+                # )
 
                 # Oath
                 # baker.make(
