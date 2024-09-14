@@ -52,7 +52,7 @@
         {
           "code": "RECOMMENDATION",
           "name": "Settlement Director Recommendation",
-          "description": "Resumption of Citizenship Recommendation By Director",
+          "description": "Resumption of Citizenship Recommendation By PS",
           "mandatory": false,
           "sequence": 4,
           "valid_from": "2024-01-01",
@@ -81,7 +81,7 @@
           "code": "FINAL_DECISION",
           "name": "Settlement Decision",
           "description": "Certificate Production Task",
-          "sequence": 3,
+          "sequence": 6,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
