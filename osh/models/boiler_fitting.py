@@ -1,0 +1,21 @@
+from django.db import models
+
+class BoilerFitting(models.Model):
+    water_gauge_no = models.IntegerField()
+    water_gauge_type = models.CharField(max_length = 255)
+    feed_apparatus_no = models.IntegerField()
+    feed_check_value = models.IntegerField()
+    feed_stop_value = models.IntegerField()
+    low_water_alarm_type = models.CharField(max_length = 255)
+    low_water_level_indicator = models.CharField(max_length = 255)
+    safety_value_no = models.IntegerField()
+    safety_value_type = models.CharField(max_length = 255)
+    safety_value_discharge_capacity = models.IntegerField()
+    steam_stop_value = models.IntegerField()
+    blow_off_apparatus = models.CharField(max_length = 255)
+    pressure_gauge = models.CharField(max_length = 255)
+    test_pressure_gauge_connection = models.CharField(max_length = 255)
+    manhole = models.CharField(max_length = 255)
+    copper_no_plate = models.IntegerField()
+    automatic_fuel = models.CharField(max_length = 255)
+    power_isolation_method = models.CharField(max_length = 255)
