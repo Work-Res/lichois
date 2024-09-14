@@ -12,9 +12,7 @@ from ...models import DCCertificate, OathOfAllegiance
 class Command(CustomBaseCommand):
     help = "Populate data for registration of adopted child over 3 years old service"
     process_name = CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value
-    application_type = (
-        CitizenshipApplicationTypeEnum.ADOPTED_CHILD_REGISTRATION_ONLY.value
-    )
+    application_type = CitizenshipApplicationTypeEnum.ADOPTED_CHILD_REGISTRATION_ONLY.value
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
@@ -44,7 +42,7 @@ class Command(CustomBaseCommand):
                     ApplicationAddress,
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    person_type="applicant",
+                    # person_type="applicant",
                 )
 
                 # Applicant Postal Address Details
