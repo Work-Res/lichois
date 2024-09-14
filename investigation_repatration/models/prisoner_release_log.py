@@ -9,3 +9,4 @@ class PrisonerReleaseLog(models.Model):
     facility_name = models.CharField(max_length=100, null=True, blank=True)
     status = models.CharField(max_length=50, null=True, blank=True)
     batch_size = models.IntegerField(null=True, blank=True)
+    editable = models.BooleanField(default=True)

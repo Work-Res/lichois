@@ -11,6 +11,7 @@ from ..models import PrisonerReleaseLog
 class GetReleaseLogProfilesView(APIView):
 
     def get(self, request, id):
+        # Add query params to filter the profiles
         try:
             release_log = PrisonerReleaseLog.objects.get(id=id)
         except PrisonerReleaseLog.DoesNotExist:
