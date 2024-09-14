@@ -9,8 +9,9 @@ from citizenship.models import CitizenshipMinisterDecision
 
 class CitizenshipMinisterDecisionService(BaseDecisionService):
     def __init__(self, decision_request: CitizenshipMinisterRequestDTO):
+        minister_decision = decision_request.status.upper() if decision_request.status else ''
         workflow = MinisterDecisionTransactionData(
-            minister_decision=decision_request.status.upper()
+            minister_decision=minister_decision
         )
         super().__init__(
             request=decision_request,
