@@ -34,6 +34,8 @@ from .views.summary import (
     IntentionNaturalizationFSSummaryViewSet,
     MaturityPeriodWaiverSummaryViewSet,
     DualRenunciationSummaryViewSet,
+    SettlementViewSet,
+    Under20SummaryViewSet
 )
 
 app_name = "citizenship"
@@ -86,6 +88,18 @@ router.register(
     r"citizenship-dual-renunciation",
     DualRenunciationSummaryViewSet,
     basename="dual-renunciation",
+)
+
+router.register(
+    r"citizenship-settlement",
+    SettlementViewSet,
+    basename="dual-settlement",
+)
+
+router.register(
+    r"citizenship-settlement",
+    Under20SummaryViewSet,
+    basename="under-20-summary",
 )
 
 router.register(r'citizenship-minister-decisions', CitizenshipMinisterDecisionViewSet)

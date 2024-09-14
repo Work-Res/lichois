@@ -7,3 +7,4 @@ from .under20_summary_viewset import  Under20SummaryViewSet
 from .foreign_spouse_naturalization_summary_viewset import FSNaturalizationSummaryViewSet
 from .maturity_period_waiver_summary_viewset import MaturityPeriodWaiverSummaryViewSet
 from .dual_renunciation_summary_viewset import DualRenunciationSummaryViewSet
+from .settlement_summary_viewset import SettlementViewSet
