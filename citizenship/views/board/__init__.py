@@ -12,3 +12,4 @@ from .board_member_model_viewset import BoardMemberViewSet
 from .batch_application_model_viewsets import BatchApplicationViewSet
 from .interview_viewset import InterviewViewSet
 from .board_recommendation_viewset import BoardRecommendationViewSet
+from .scoresheet_attachment_document_viewset import ScoresheetAttachmentDocumentView
