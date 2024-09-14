@@ -248,11 +248,11 @@ class Command(CustomBaseCommand):
                 )
 
                 # Oath
-                baker.make(
-                    OathOfAllegiance,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                )
+                # baker.make(
+                #     OathOfAllegiance,
+                #     application_version=version,
+                #     document_number=app.application_document.document_number,
+                # )
 
                 # NOT_USED
                 # country
