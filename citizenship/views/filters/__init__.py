@@ -1,1 +1,2 @@
 from .oath_of_allegiance_filter import OathOfAllegianceFilter
+from .citizenship_minister_decision_filter import CitizenshipMinisterDecisionFilter

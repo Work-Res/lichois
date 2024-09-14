@@ -22,6 +22,7 @@ from .views.board import (
 from .views.board.interview_viewset import InterviewViewSet
 from .views.board.scoresheet_attachment_document_viewset import ScoresheetAttachmentDocumentView
 from .views.citizenship_minister_decision_api_view import CitizenshipMinisterDecisionAPIView
+from .views.citizenship_minister_decision_viewset import CitizenshipMinisterDecisionViewSet
 from .views.oath_of_allegiance_viewset import OathOfAllegianceViewSet
 from .views.recommendation_decision_api_view import RecommendationDecisionAPIView
 from .views.review_decision_api_view import ReviewDecisionAPIView
@@ -86,6 +87,8 @@ router.register(
     DualRenunciationSummaryViewSet,
     basename="dual-renunciation",
 )
+
+router.register(r'citizenship-minister-decisions', CitizenshipMinisterDecisionViewSet)
 
 router.register(
     r"citizenship-board-recommandation",
