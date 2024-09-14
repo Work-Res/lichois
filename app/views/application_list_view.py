@@ -24,6 +24,8 @@ class ApplicationModelFilter(django_filters.FilterSet):
     board = django_filters.CharFilter(field_name='board')
 
     verification = django_filters.CharFilter(field_name='verification')
+
+    assessment = django_filters.CharFilter(field_name='assessment')
     
     application_document_number = django_filters.CharFilter(
         field_name='application_document__document_number', lookup_expr='icontains')
