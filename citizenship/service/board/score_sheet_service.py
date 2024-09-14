@@ -1,6 +1,8 @@
 import logging
-from math import log
-from re import S
+import json
+
+from django.db.models import Count, Avg, Sum, Q
+from django.core.serializers.json import DjangoJSONEncoder
 
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -33,16 +35,52 @@ class ScoreSheetService:
         )
         logger.info(f"Interview {interview.id} passed: {is_passed}")
 
+        json_data = ScoreSheetService.convert_to_json(interview)
+
         scoresheet = ScoreSheet.objects.create(
             interview=interview,
             total_score=total_score,
             average_score=average_score,
             passed=is_passed,
+            aggregated=json_data
         )
         logger.info(
             f"ScoreSheet created for interview {interview.id} with ID {scoresheet.id}"
         )
         return scoresheet
+
+    @staticmethod
+    def convert_to_json(interview):
+        """
+        Converts aggregated interview responses into a JSON format.
+
+        :param interview: The interview instance to aggregate responses for.
+        :return: JSON string of aggregated interview data.
+        """
+        try:
+            # Query and aggregate interview responses
+            aggregated_data = InterviewResponse.objects.filter(interview=interview).values(
+                'text', 'sequence').annotate(
+                total_responses=Count('id'),
+                average_score=Avg('score'),
+                total_marked=Count('is_marked', filter=Q(is_marked=True)),
+                total_unmarked=Count('is_marked', filter=Q(is_marked=False)),
+                sum_scores=Sum('score')
+            ).order_by('sequence')
+
+            # Convert the queryset into a list
+            aggregated_list = list(aggregated_data)
+
+            # If no data, return an empty JSON array
+            if not aggregated_list:
+                return json.dumps([], cls=DjangoJSONEncoder)
+
+            # Return the aggregated data as a JSON string
+            return json.dumps(aggregated_list, cls=DjangoJSONEncoder)
+
+        except InterviewResponse.DoesNotExist:
+            # Handle case where interview does not exist
+            return json.dumps({"error": "Interview not found"}, cls=DjangoJSONEncoder)
 
     @staticmethod
     def get_score_sheet(score_sheet_id):

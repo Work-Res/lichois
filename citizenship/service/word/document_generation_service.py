@@ -1,6 +1,7 @@
 import logging
 import tempfile
 
+from . import DataGenerator
 from ...exception.interview_score_sheet_error import (
     PDFConversionError,
     WordDocumentCreationError,
@@ -16,7 +17,7 @@ class DocumentGenerationService:
 
     def __init__(
         self,
-        data_generator_class=DataGeneratorException,
+        data_generator_class=DataGenerator,
         doc_generator_class=ScoresheetDocumentGeneratorService,
     ):
         self.data_generator_class = data_generator_class

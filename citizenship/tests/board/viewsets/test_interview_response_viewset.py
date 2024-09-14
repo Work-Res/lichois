@@ -524,7 +524,12 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         interview.conducted = True
         interview.status = "completed"
         interview.save()
+
         score_sheet = ScoreSheet.objects.get(interview=interview)
+        for s in score_sheet.aggregated:
+            print(s)
+            print(">>>.")
+
         self.assertEqual(score_sheet.passed, True)
 
     def check_submitted_interview_response(self, interview_responses):
