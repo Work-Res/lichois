@@ -42,7 +42,6 @@ class BaseDecisionService(UpdateApplicationMixin):
             workflow: The workflow instance for task activation.
         """
         self.request = request
-        print("request request ", request.__dict__)
         self.response = APIResponse()
         self.decision = None
         self.application_field_key = application_field_key
@@ -151,6 +150,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             )
             self.response.status = "success"
             self.response.data = serializer_class(self.decision).data
+            print("self.response.data: ", self.response.data)
             self.response.messages.append(api_message.to_dict())
         except decision_model.DoesNotExist:
             api_message = APIMessage(
