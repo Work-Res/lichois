@@ -19,7 +19,7 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(150):
+        for _ in range(50):
 
             with atomic():
                 fname = self.faker.unique.first_name()
