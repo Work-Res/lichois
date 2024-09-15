@@ -50,9 +50,10 @@ class TestRegistrationOfAdoptedChildOver3yrsWorkflow(BaseSetup):
             process__document_number=self.document_number
         ).order_by("sequence")
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "RECOMMENDATION")
-        self.assertEqual(activites[2].name, "MINISTER_DECISION")
-        self.assertEqual(activites[3].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "ASSESSMENT")
+        self.assertEqual(activites[2].name, "RECOMMENDATION")
+        self.assertEqual(activites[3].name, "MINISTER_DECISION")
+        self.assertEqual(activites[4].name, "FINAL_DECISION")
 
     def test_workflow_transaction_after_when_performing_recommendation(self):
 
@@ -71,6 +72,14 @@ class TestRegistrationOfAdoptedChildOver3yrsWorkflow(BaseSetup):
         )
 
         self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+        self.assertEqual(
+            app.application_status.code, CitizenshipStagesEnum.ASSESSMENT.value.lower()
+        )
+
+
+        self.assertIsNotNone(self.perform_assessment())
         app.refresh_from_db()
         self.assertEqual(app.verification, "ACCEPTED")
         self.assertEqual(

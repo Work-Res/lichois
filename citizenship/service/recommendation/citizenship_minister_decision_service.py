@@ -28,3 +28,4 @@ class CitizenshipMinisterDecisionService(BaseDecisionService):
 
     def _security_clearance(self):
         return None
+    
