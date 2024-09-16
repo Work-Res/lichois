@@ -6,18 +6,18 @@ from app_contact.models import ApplicationContact
 from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import DCCertificate, OathOfAllegiance
+from ...models import OathOfAllegiance
 
 
 class Command(CustomBaseCommand):
     help = "Populate data for Citizenship under 20 years service"
     process_name = CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value
-    application_type = CitizenshipApplicationTypeEnum.UNDER_20_CITIZENSHIP_ONLY.value
+    application_type = CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(150):
+        for _ in range(50):
             with atomic():
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()

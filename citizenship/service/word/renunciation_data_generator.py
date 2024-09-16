@@ -1,5 +1,9 @@
-import json
 import logging
+
+from datetime import date, datetime
+
+from app.models import Application
+from app_production.handlers.common import GenericProductionContext
 
 
 class DataGeneratorException(Exception):
@@ -9,23 +13,42 @@ class DataGeneratorException(Exception):
 logger = logging.getLogger(__name__)
 
 
-class DataGenerator:
-    def __init__(self, scoresheet):
-        self.scoresheet = scoresheet
+class RenunciationDataGenerator:
+    def __init__(self, document_number):
+        self.document_number = document_number
 
-    def parse_aggregated_data(self):
-        """Parses the aggregated data from the scoresheet and ensures it's in list form."""
-        if isinstance(self.scoresheet.aggregated, str):
-            try:
-                return json.loads(self.scoresheet.aggregated)
-            except json.JSONDecodeError as e:
-                logger.error(f"Invalid JSON format in scoresheet {self.scoresheet.id}: {e}")
-                raise DataGeneratorException(f"Invalid JSON format in scoresheet {self.scoresheet.id}: {e}")
-        elif isinstance(self.scoresheet.aggregated, list):
-            return self.scoresheet.aggregated
-        else:
-            logger.error(f"Unsupported data format in scoresheet {self.scoresheet.id}")
-            raise DataGeneratorException(f"Unsupported data format in scoresheet {self.scoresheet.id}")
+    def context(self):
+        generic_production = GenericProductionContext()
+        generic_production.context = lambda: self.prepare_context()
+        return generic_production
+
+    def prepare_context(self):
+        app = self._application()
+
+        context = {
+            'document_type': 'maturity_letter',
+            'document_number': self.document_number,
+            'reference_number': self.document_number,
+            'certificate_number': '',
+            'today_date': date.today().strftime("%Y-%m-%d"),
+            'applicant_fullname': 'Test test',
+            'salutation': 'Sir/Madam',
+            'citizenship_end_date': '',
+            'citizenship_start_date': datetime.now().strftime("%Y-%m-%d"),
+            'officer_fullname': 'Ana Mokgethi',
+            'position': 'Minister',
+            'officer_contact_information': '',
+            'applicant_address': 'P O BOX 300, Gaborone'
+        }
+        return context
+
+    def _application(self):
+        try:
+            return Application.objects.get(
+                application_document__document_number=self.document_number
+            )
+        except Application.DoesNotExist:
+            pass
 
     def generate_data(self):
         """Generates the data based on the scoresheet's aggregated information."""
