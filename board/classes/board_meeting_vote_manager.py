@@ -40,9 +40,14 @@ class BoardMeetingVoteManager:
         ).values_list("meeting_attendee__board_member__id", flat=True)
         # Get the board members who have not voted
 
-        not_voted_members = board_members.exclude(id__in=voted).values_list(
-            "user__username", flat=True
+        not_voted_members = (
+            BoardMeetingVote.objects.filter(meetingattendee__isnull=False)
+            .exclude(meeting_attendee__board_member__id__in=voted)
+            .values_list("meeting_attendee__board_member__user__username", flat=True)
         )
+        # not_voted_members = board_members.exclude(id__in=voted).values_list(
+        #     "user__username", flat=True
+        # )
         # Return the voted approved members, voted rejected members, and not voted members
         return {
             "voted_approved_members": list(voted_approved_members),
