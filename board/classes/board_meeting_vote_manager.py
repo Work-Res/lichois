@@ -59,12 +59,22 @@ class BoardMeetingVoteManager:
             self.logger.info(
                 "Creating tiebreaker for document %s", self.document_number
             )
+            print("********** declaration **********")
         except InterestDeclaration.DoesNotExist:
             self.logger.error(
                 "Interest declaration %s does not exist", self.document_number
             )
+            print("********** InterestDeclaration.DoesNotExist **********")
             raise PermissionDenied(
                 "Chairperson doesn't have interest declaration for this document"
+            )
+        except InterestDeclaration.MultipleObjectsReturned:
+            self.logger.error(
+                "Multiple interest declarations for document %s", self.document_number
+            )
+            print("********** InterestDeclaration.MultipleObjectsReturned **********")
+            raise PermissionDenied(
+                "Chairperson has multiple interest declarations for this document"
             )
         else:
             if self.user.is_chairperson:
@@ -77,16 +87,19 @@ class BoardMeetingVoteManager:
                     self.logger.info(
                         "Chairperson has voted for document %s", self.document_number
                     )
+                    print("********** chair person vote **********")
                 except BoardMeetingVote.DoesNotExist:
                     self.logger.error(
                         "Chairperson has not voted for document %s",
                         self.document_number,
                     )
+                    print("********** BoardMeetingVote.DoesNotExist **********")
                     raise PermissionDenied("Chairperson has not voted yet")
                 else:
                     self.logger.info(
                         "Chairperson has broke the tie for document %s", tie_breaker
                     )
+                    print("********** Chairperson has broke the tie **********")
                     vote.tie_breaker = tie_breaker
                     vote.save()
                     return tie_breaker
