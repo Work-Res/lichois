@@ -34,7 +34,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
     )
     def create_tie_breaker(self, request, document_number):
         meeting_vote_manager = self.get_meeting_vote_manager(request, document_number)
-        tie_breaker = request.POST.get("tie_breaker")
+        tie_breaker = request.data.get("tie_breaker")
         tiebreaker = meeting_vote_manager.create_tie_breaker(tie_breaker)
         if tiebreaker:
             return Response(

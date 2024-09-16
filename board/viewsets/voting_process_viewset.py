@@ -57,15 +57,20 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
             )
             raise PermissionDenied(api_message.to_dict())
         for app in batch.applications.all():
-            data = {
-                "document_number": app.application_document.document_number,
-                "status": voting_status,
-                "board_meeting": board_meeting,
-            }
-            serializer = self.get_serializer(data=data)
-            if serializer.is_valid(raise_exception=True):
-                self.perform_create(serializer)
-                created_processes.append(serializer.data)
+            # check first if voting process already exists
+            voting_process = VotingProcess.objects.filter(
+                document_number=app.application_document.document_number
+            ).first()
+            if not voting_process:
+                data = {
+                    "document_number": app.application_document.document_number,
+                    "status": voting_status,
+                    "board_meeting": board_meeting,
+                }
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid(raise_exception=True):
+                    self.perform_create(serializer)
+                    created_processes.append(serializer.data)
 
         return Response(
             APIResponse(
