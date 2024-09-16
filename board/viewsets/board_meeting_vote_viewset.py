@@ -36,6 +36,7 @@ class BoardMeetingVoteViewSet(viewsets.ModelViewSet):
         meeting_vote_manager = self.get_meeting_vote_manager(request, document_number)
         tie_breaker = request.POST.get("tie_breaker")
         tiebreaker = meeting_vote_manager.create_tie_breaker(tie_breaker)
+        print("********** tie- breaker **********", tiebreaker)
         if tiebreaker:
             return Response(
                 APIMessage(message="Tie breaker successfully created").to_dict(),

@@ -102,6 +102,8 @@ class BoardMeetingVoteManager:
                     print("********** Chairperson has broke the tie **********")
                     vote.tie_breaker = tie_breaker
                     vote.save()
+                    print("********** vote.save() **********")
+                    print("********** tie_breaker **********", tie_breaker)
                     return tie_breaker
             raise PermissionDenied("User is not chairperson")
 
