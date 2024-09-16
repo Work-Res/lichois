@@ -1,7 +1,7 @@
 {
   "classifiers": {
     "attachment_documents": {
-      "code": "CITIZENSHIP_FOR_UNDER_20_ATTACHMENT_DOCUMENTS",
+      "code": "CITIZENSHIP_FOR_UNDER_20_ONLY_ATTACHMENT_DOCUMENTS",
       "name": "ATTACHMENT DOCUMENTS",
       "description": "A list of document to attach",
       "valid_from": "2024-01-01",
