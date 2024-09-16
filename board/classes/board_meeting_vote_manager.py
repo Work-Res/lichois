@@ -3,7 +3,12 @@ import logging
 from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
 
-from board.models import BoardMeetingVote, BoardMember, InterestDeclaration
+from board.models import (
+    BoardMeetingVote,
+    BoardMember,
+    InterestDeclaration,
+    interest_declaration,
+)
 from board.models import meeting_invitation
 from board.models.board_meeting import BoardMeeting
 from board.models.meeting_invitation import MeetingInvitation
@@ -22,10 +27,6 @@ class BoardMeetingVoteManager:
         # Check if user is a member of any board
         if not board_member:
             raise PermissionDenied("User is not a member of any board")
-        # Get the board of the user
-        board = board_member.board
-        # Get the board members
-        board_members = BoardMember.objects.filter(board=board)
         # Get the board meeting votes of the board members and filter them by status (approved or rejected)
         voted_approved_members = BoardMeetingVote.objects.filter(
             Q(status="approved") & Q(document_number=self.document_number)
@@ -40,14 +41,18 @@ class BoardMeetingVoteManager:
         ).values_list("meeting_attendee__board_member__id", flat=True)
         # Get the board members who have not voted
 
+        not_voting_members = InterestDeclaration.objects.filter(
+            Q(document_number=self.document_number) & Q(decision="refrain")
+        ).values_list("meeting_attendee__board_member__id", flat=True)
+
+        excluded_members = list(voted) + list(not_voting_members)
+
         not_voted_members = (
             BoardMeetingVote.objects.filter(meetingattendee__isnull=False)
-            .exclude(meeting_attendee__board_member__id__in=voted)
+            .exclude(meeting_attendee__board_member__id__in=excluded_members)
             .values_list("meeting_attendee__board_member__user__username", flat=True)
         )
-        # not_voted_members = board_members.exclude(id__in=voted).values_list(
-        #     "user__username", flat=True
-        # )
+
         # Return the voted approved members, voted rejected members, and not voted members
         return {
             "voted_approved_members": list(voted_approved_members),
