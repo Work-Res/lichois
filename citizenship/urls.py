@@ -23,6 +23,7 @@ from .views.board.interview_viewset import InterviewViewSet
 from .views.board.scoresheet_attachment_document_viewset import ScoresheetAttachmentDocumentView
 from .views.citizenship_minister_decision_api_view import CitizenshipMinisterDecisionAPIView
 from .views.citizenship_minister_decision_viewset import CitizenshipMinisterDecisionViewSet
+from .views.download_renunciation_attachment_view import DownloadRenunciationAttachmentView
 from .views.oath_of_allegiance_viewset import OathOfAllegianceViewSet
 from .views.recommendation_decision_api_view import RecommendationDecisionAPIView
 from .views.review_decision_api_view import ReviewDecisionAPIView
@@ -136,4 +137,6 @@ urlpatterns = [
     path('scoresheet/download/<str:document_number>/',
          ScoresheetAttachmentDocumentView.as_view(),
          name='download_by_number'),
+    path('renunciation-attachments/<str:document_number>/download/',
+         DownloadRenunciationAttachmentView.as_view(), name='download_attachment'),
 ]

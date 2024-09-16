@@ -124,4 +124,4 @@ class ScoresheetDocumentGeneratorService:
         Create the Word document from a template and convert it to PDF.
         """
         self.create_word_document_from_template()
-        self.convert_to_pdf()
+        # self.convert_to_pdf()

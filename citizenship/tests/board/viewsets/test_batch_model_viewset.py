@@ -76,7 +76,7 @@ class BatchModelViewSetTest(BaseSetup):
                 "end_date": "2024-08-01T14:30:00+0000",
                 "time": "11:00:00",
             },
-        )
+       )
         return Meeting.objects.first()
 
     def create_meeting_session(self, meeting):
