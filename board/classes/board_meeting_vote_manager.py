@@ -8,13 +8,14 @@ from board.models import meeting_invitation
 from board.models.board_meeting import BoardMeeting
 from board.models.meeting_invitation import MeetingInvitation
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.WARNING)
+
 
 class BoardMeetingVoteManager:
     def __init__(self, user, document_number):
         self.user = user
         self.document_number = document_number
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.WARNING)
 
     def get_votes(self):
         board_member = BoardMember.objects.filter(user=self.user).first()
@@ -56,23 +57,16 @@ class BoardMeetingVoteManager:
                 & Q(document_number=self.document_number)
                 & Q(decision="vote")
             )
-            self.logger.info(
-                "Creating tiebreaker for document %s", self.document_number
-            )
-            print("********** declaration **********")
+            logger.info("Creating tiebreaker for document %s", self.document_number)
         except InterestDeclaration.DoesNotExist:
-            self.logger.error(
-                "Interest declaration %s does not exist", self.document_number
-            )
-            print("********** InterestDeclaration.DoesNotExist **********")
+            logger.error("Interest declaration %s does not exist", self.document_number)
             raise PermissionDenied(
                 "Chairperson doesn't have interest declaration for this document"
             )
         except InterestDeclaration.MultipleObjectsReturned:
-            self.logger.error(
+            logger.error(
                 "Multiple interest declarations for document %s", self.document_number
             )
-            print("********** InterestDeclaration.MultipleObjectsReturned **********")
             raise PermissionDenied(
                 "Chairperson has multiple interest declarations for this document"
             )
@@ -84,26 +78,21 @@ class BoardMeetingVoteManager:
                         Q(meeting_attendee=meeting_attendee)
                         & Q(document_number=self.document_number)
                     )
-                    self.logger.info(
+                    logger.info(
                         "Chairperson has voted for document %s", self.document_number
                     )
-                    print("********** chair person vote **********")
                 except BoardMeetingVote.DoesNotExist:
-                    self.logger.error(
+                    logger.error(
                         "Chairperson has not voted for document %s",
                         self.document_number,
                     )
-                    print("********** BoardMeetingVote.DoesNotExist **********")
                     raise PermissionDenied("Chairperson has not voted yet")
                 else:
-                    self.logger.info(
+                    logger.info(
                         "Chairperson has broke the tie for document %s", tie_breaker
                     )
-                    print("********** Chairperson has broke the tie **********")
                     vote.tie_breaker = tie_breaker
                     vote.save()
-                    print("********** vote.save() **********")
-                    print("********** tie_breaker **********", tie_breaker)
                     return tie_breaker
             raise PermissionDenied("User is not chairperson")
 
