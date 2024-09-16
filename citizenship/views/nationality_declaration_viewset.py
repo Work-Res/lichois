@@ -2,7 +2,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from ..models import NationalityDeclaration
 from ..classes import NationalityDeclarationData
-from lichois.citizenship.api.serializers import NationalityDeclarationSerializer
+from citizenship.api.serializers import NationalityDeclarationSerializer
 
 
 class NationalityDeclarationViewSet(viewsets.ModelViewSet):
@@ -22,4 +22,3 @@ class NationalityDeclarationViewSet(viewsets.ModelViewSet):
                 serializer = NationalityDeclarationSerializer(nationality_declaration_data.data())
                 return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({})
-
