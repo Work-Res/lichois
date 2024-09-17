@@ -6,6 +6,76 @@
       "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT, EXEMPTION_CERTIFICATE_RENEWAL, EXEMPTION_CERTIFICATE_ONLY, WORK_RESIDENT_PERMIT_RENEWAL, WORK_RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_APPEAL, WORK_RESIDENT_PERMIT_REPLACEMENT, WORK_RESIDENT_PERMIT_EMERGENCY, WORK_RESIDENT_PERMIT_ONLY, RESIDENT_PERMIT_RENEWAL, RESIDENT_PERMIT_APPEAL, RESIDENT_PERMIT_REPLACEMENT, RESIDENT_PERMIT_CANCELLATION, WORK_RESIDENT_PERMIT_CANCELLATION, RESIDENT_PERMIT_ONLY, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_EMERGENCY, WORK_PERMIT_ONLY, WORK_PERMIT_CANCELLATION, WORK_PERMIT_REPLACEMENT, WORK_PERMIT_RENEWAL, BLUE_CARD_PERMIT",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "SETTLEMENT",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "CITIZENSHIP_FOR_UNDER_20",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "NATURALIZATION_INTENTION_FOREIGN_SPOUSE",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "RESUMPTION_OF_CITIZENSHIP",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "CITIZENSHIP_RENUNCIATION",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "NATURALIZATION",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10A",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
     }
   ]
 }

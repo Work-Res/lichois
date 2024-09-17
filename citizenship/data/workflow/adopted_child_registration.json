@@ -65,8 +65,8 @@
         },
         {
           "code": "MINISTER_DECISION",
-          "name": "Maturity Period Waiver PS Recommendation",
-          "description": "Maturity Period Waiver Recommendation By Permanent Secretary",
+          "name": "Minister Decision",
+          "description": "Registration of Adopted Child Recommendation By Permanent Secretary",
           "mandatory": false,
           "sequence": 5,
           "valid_from": "2024-01-01",
