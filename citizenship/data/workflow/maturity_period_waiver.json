@@ -15,7 +15,7 @@
           "sequence": 1,
           "valid_from": "2024-01-01",
           "valid_to": "2040-01-01",
-          "next_activity_name": "RECOMMENDATION",
+          "next_activity_name": "ASSESSMENT",
           "create_task_rules": {
             "current_status": "NEW",
             "system_verification": "validated"
@@ -29,10 +29,24 @@
           "mandatory": true,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "RECOMMENDATION",
+          "next_activity_name": "REVIEW",
           "create_task_rules": {
             "verification_decision": "ACCEPTED",
             "current_status": "VERIFICATION"
+          }
+        },
+        {
+          "code": "REVIEW",
+          "name":"Maturity Period Waiver review by Director",
+          "description": "The review is performed by the Director",
+          "mandatory":false,
+          "sequence":3,
+          "valid_from":"2024-01-01",
+          "valid_to":"2030-01-01",
+          "next_activity_name":"RECOMMENDATION",
+          "create_task_rules":{
+            "assessment_decision": "ACCEPTED",
+            "current_status": "ASSESSMENT"
           }
         },
         {
@@ -40,21 +54,21 @@
           "name": "Maturity Period Waiver PS Recommendation",
           "description": "Maturity Period Waiver Recommendation By Permanent Secretary",
           "mandatory": false,
-          "sequence": 3,
+          "sequence": 4,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "MINISTER_DECISION",
           "create_task_rules": {
-            "assessment_decision": "ACCEPTED",
-            "current_status": "ASSESSMENT"
+            "review_decision": "ACCEPTED",
+            "current_status": "REVIEW"
           }
         },
         {
           "code": "MINISTER_DECISION",
-          "name": "Maturity Period Waiver PS Recommendation",
+          "name": "Maturity Period Waiver Minister Decision",
           "description": "Minister makes decision about the applicaiton",
           "mandatory": false,
-          "sequence": 4,
+          "sequence": 5,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "FINAL_DECISION",
@@ -67,7 +81,7 @@
           "code": "FINAL_DECISION",
           "name": "Maturity Period Waiver Decision",
           "description": "Permit Production Task",
-          "sequence": 5,
+          "sequence": 6,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
