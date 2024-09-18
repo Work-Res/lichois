@@ -61,6 +61,8 @@ class CreateChecklistService:
                         obj.application_type = (
                             f"{obj.application_type},{item['application_type']}"
                         )
+                        if hasattr(obj, 'create_task_rules'):
+                            obj.create_task_rules = item["create_task_rules"]
                         obj.save()
                         self.logger.info(
                             f"Updated object {obj.id} with new application type: {obj.application_type}"
