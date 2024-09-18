@@ -45,15 +45,16 @@ class TestRegistrationOfUnder20workflow(BaseSetup):
         classifier = Classifier.objects.get(code=self.application.process_name)
         self.assertIsNotNone(classifier)
         steps = ClassifierItem.objects.filter(classifier=classifier)
-        self.assertEqual(steps.count(), 5)
+        self.assertEqual(steps.count(), 6)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
         self.assertEqual(activites[0].name, "VERIFICATION")
         self.assertEqual(activites[1].name, "ASSESSMENT")
-        self.assertEqual(activites[2].name, "RECOMMENDATION")
-        self.assertEqual(activites[3].name, "MINISTER_DECISION")
-        self.assertEqual(activites[4].name, "FINAL_DECISION")
+        self.assertEqual(activites[2].name, "REVIEW")
+        self.assertEqual(activites[3].name, "RECOMMENDATION")
+        self.assertEqual(activites[4].name, "MINISTER_DECISION")
+        self.assertEqual(activites[5].name, "FINAL_DECISION")
 
     def test_workflow_transaction_after_when_performing_assessment(self):
 
@@ -82,7 +83,15 @@ class TestRegistrationOfUnder20workflow(BaseSetup):
         app.refresh_from_db()
         self.assertEqual(app.assessment, "ACCEPTED")
         self.assertEqual(
-            app.application_status.code.lower(), CitizenshipStagesEnum.RECOMMENDATION.value.lower()
+            app.application_status.code.lower(), CitizenshipStagesEnum.REVIEW.value.lower()
+        )
+
+        self.assertIsNotNone(self.perform_review())
+        app.refresh_from_db()
+        self.assertEqual(app.review, "ACCEPTED")
+        self.assertEqual(
+            app.application_status.code,
+            CitizenshipStagesEnum.RECOMMENDATION.value.lower(),
         )
 
         self.assertIsNotNone(self.perform_recommendation())

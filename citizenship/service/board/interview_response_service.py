@@ -1,8 +1,12 @@
+import logging
+
 from django.core.exceptions import ValidationError
 from django.db import transaction
 
 from citizenship.api.serializers.board import InterviewResponseSerializer
 from citizenship.models import InterviewResponse, Interview, InterviewQuestion, BoardMember
+
+logger = logging.getLogger(__name__)
 
 
 class InterviewResponseService:
@@ -63,39 +67,55 @@ class InterviewResponseService:
     @staticmethod
     @transaction.atomic
     def bulk_update_interview_responses(updates):
-        try:
-            updated_responses = []
-            errors = []
+        updated_responses = []
+        errors = []
 
-            for update in updates:
-                response_id = update.get('response_id')
-                data = update.get('data', {})
+        logger.info("Starting bulk update of interview responses.")
 
-                try:
-                    interview_response = InterviewResponse.objects.get(id=response_id)
-                    serializer = InterviewResponseSerializer(interview_response, data=data, partial=True)
+        for update in updates:
+            response_id = update.get('response_id')
+            data = update.get('data', {})
 
-                    if serializer.is_valid():
-                        for key, value in data.items():
-                            setattr(interview_response, key, value)
-                        interview_response.is_marked = True
-                        interview_response.save()
-                        updated_responses.append(serializer.data)
-                    else:
-                        errors.append({response_id: serializer.errors})
+            logger.info(f"Processing update for response ID: {response_id} with data: {data}")
 
-                except InterviewResponse.DoesNotExist:
-                    errors.append({response_id: "Interview response does not exist."})
-                except Exception as e:
-                    errors.append({response_id: f"Error updating interview response: {str(e)}"})
+            try:
+                # Fetch the InterviewResponse instance
+                interview_response = InterviewResponse.objects.get(id=response_id)
+                logger.info(f"Found interview response with ID: {response_id}")
 
-            if errors:
-                raise ValidationError(errors)
+                # Serialize the interview response data
+                serializer = InterviewResponseSerializer(interview_response, data=data, partial=True)
 
-            return updated_responses
+                if serializer.is_valid():
+                    # Log field changes
+                    for key, value in data.items():
+                        logger.debug(f"Updating field {key} to {value} for response ID: {response_id}")
+                        setattr(interview_response, key, value)
 
-        except Exception as e:
-            raise ValidationError(f"Error during bulk update: {str(e)}")
+                    # Mark as completed and save
+                    interview_response.is_marked = True
+                    interview_response.save()
+                    logger.info(f"Successfully updated interview response with ID: {response_id}")
+
+                    updated_responses.append(serializer.data)
+                else:
+                    logger.warning(f"Validation failed for response ID: {response_id}. Errors: {serializer.errors}")
+                    errors.append({response_id: serializer.errors})
+
+            except InterviewResponse.DoesNotExist:
+                logger.error(f"Interview response with ID: {response_id} does not exist.")
+                errors.append({response_id: "Interview response does not exist."})
+
+            except Exception as e:
+                logger.error(f"Unexpected error occurred while updating response ID: {response_id}. Error: {str(e)}", exc_info=True)
+                errors.append({response_id: f"Error updating interview response: {str(e)}"})
+
+        if errors:
+            logger.error(f"Bulk update encountered errors: {errors}")
+            raise ValidationError(errors)
+
+        logger.info("Bulk update of interview responses completed successfully.")
+        return updated_responses
 
     @staticmethod
     @transaction.atomic

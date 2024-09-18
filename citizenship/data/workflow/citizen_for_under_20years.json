@@ -23,7 +23,7 @@
         },
         {
           "code": "ASSESSMENT",
-          "name": "Declaration of Renunciation Assessment by officer",
+          "name": " Registration As A Citizen Assessment by officer",
           "description": "The online assessment is performed by Officer.",
           "mandatory": false,
           "sequence": 2,
@@ -36,24 +36,39 @@
           }
         },
         {
-          "code": "RECOMMENDATION",
-          "name": "Registration As A Citizen Of A Minor Director Recommendation",
-          "description": "Registration As A Citizen Of A Minor Recommendation By Director",
+          "code": "REVIEW",
+          "name": "Registration As A Citizen Review by PS",
+          "description": "The review is performed by Director.",
           "mandatory": false,
           "sequence": 3,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "MINISTER_DECISION",
+          "next_activity_name": "RECOMMANDATION",
           "create_task_rules": {
             "assessment_decision": "ACCEPTED",
             "current_status": "ASSESSMENT"
           }
-        }, {
+        },
+        {
+          "code": "RECOMMENDATION",
+          "name": "Registration As A Citizen Of A Minor Director Recommendation",
+          "description": "Registration As A Citizen Of A Minor Recommendation By Director",
+          "mandatory": false,
+          "sequence": 4,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "MINISTER_DECISION",
+          "create_task_rules": {
+            "review_decision": "ACCEPTED",
+            "current_status": "REVIEW"
+          }
+        },
+        {
           "code": "MINISTER_DECISION",
           "name": "Online decision making by the Minister.",
           "description": "Online decision making by the Minister",
           "mandatory": false,
-          "sequence": 4,
+          "sequence": 5,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "FINAL_DECISION",
@@ -66,7 +81,7 @@
           "code": "FINAL_DECISION",
           "name": "Registration As A Citizen Of A Minor Decision",
           "description": "Certificate Production Task",
-          "sequence": 5,
+          "sequence": 6,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",

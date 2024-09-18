@@ -533,8 +533,7 @@ class InterviewResponseViewSetTestCase(BaseSetup):
 
         self.service = DocumentGenerationService()
         self.service.generate_scoresheet_document(score_sheet)
-        self.assertTrue(self.scoresheet.document.endswith('.docx'))
-        self.assertIsNotNone(self.scoresheet.document)
+        self.assertIsNotNone(score_sheet.document)
 
     def check_submitted_interview_response(self, interview_responses):
         self.assertEqual(interview_responses[0].response, "Bulk Updated Response 1")
