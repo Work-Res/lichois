@@ -98,7 +98,7 @@ router.register(
 )
 
 router.register(
-    r"citizenship-settlement",
+    r"citizenship-under-20-registration",
     Under20SummaryViewSet,
     basename="under-20-summary",
 )
