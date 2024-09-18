@@ -59,7 +59,7 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "minister_decision": "ACCEPTED",
+             "or": {"minister_decision": "ACCEPTED|REJECTED"},
             "current_status": "MINISTER_DECISION"
           }
         }

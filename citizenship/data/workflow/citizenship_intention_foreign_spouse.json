@@ -32,7 +32,7 @@
           "next_activity_name": "END",
           "create_task_rules": {
             "current_status": "VERIFICATION",
-             "verification_decision": "ACCEPTED"
+              "or": {"verification_decision": "ACCEPTED|REJECTED"}
           }
         }
       ]
