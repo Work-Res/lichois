@@ -111,11 +111,16 @@ class InterviewResponseService:
                 errors.append({response_id: f"Error updating interview response: {str(e)}"})
 
         if errors:
-            logger.error(f"Bulk update encountered errors: {errors}")
-            raise ValidationError(errors)
+            # Convert the list of error dictionaries into a single dictionary
+            combined_errors = {}
+            for error_dict in errors:
+                combined_errors.update(error_dict)
+
+            logger.error(f"Bulk update encountered errors: {combined_errors}")
+            return combined_errors, False
 
         logger.info("Bulk update of interview responses completed successfully.")
-        return updated_responses
+        return updated_responses, True
 
     @staticmethod
     @transaction.atomic

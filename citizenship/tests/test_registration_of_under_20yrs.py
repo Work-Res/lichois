@@ -1,4 +1,3 @@
-from app.api.dto import ApplicationVerificationRequestDTO
 from app.models import Application
 
 from app.utils import ApplicationStatusEnum

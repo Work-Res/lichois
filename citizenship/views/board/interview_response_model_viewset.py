@@ -47,9 +47,12 @@ class InterviewResponseViewSet(viewsets.ModelViewSet):
         logger.info("Received request for bulk update of InterviewResponses")
 
         try:
-            updated_responses = InterviewResponseService.bulk_update_interview_responses(data)
-            logger.info("Successfully performed bulk update of InterviewResponses")
-            return Response(updated_responses, status=status.HTTP_200_OK)
+            updated_responses, is_valid = InterviewResponseService.bulk_update_interview_responses(data)
+            if is_valid:
+                logger.info("Successfully performed bulk update of InterviewResponses")
+                return Response(updated_responses, status=status.HTTP_200_OK)
+            else:
+                return Response(updated_responses, status=status.HTTP_400_BAD_REQUEST)
         except ValidationError as e:
             logger.warning(f"Validation error during bulk update of InterviewResponses - {str(e)}")
             return Response({'detail': f"{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)

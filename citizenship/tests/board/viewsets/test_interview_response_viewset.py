@@ -604,7 +604,7 @@ class InterviewResponseViewSetTestCase(BaseSetup):
             {
                 "response_id": interview_responses[6].id,
                 "data": {
-                    "response": "Bulk Updated Response 7",
+                    "response": "NA",
                     "score": 10,
                     "additional_comments": "bulk update test 7",
                 },
