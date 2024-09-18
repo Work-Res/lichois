@@ -212,6 +212,16 @@ class BaseSetup(TestCase):
         service = CitizenshipMinisterDecisionService(decision_request=request)
         return service.create_minister_decision()
 
+    def perform_minister_decision_reject(self):
+        data = {"status": "REJECTED"}
+        serializer = CitizenshipMinisterDecisionRequestDTOSerializer(data=data)
+        serializer.is_valid()
+        request = CitizenshipMinisterRequestDTO(document_number=self.document_number,
+                                                    status="REJECTED",
+                                                    **serializer.validated_data)
+        service = CitizenshipMinisterDecisionService(decision_request=request)
+        return service.create_minister_decision()
+
     def perform_vetting(self):
         data = {"status": "ACCEPTED"}
         serializer = SecurityClearanceRequestDTOSerializer(data=data)
