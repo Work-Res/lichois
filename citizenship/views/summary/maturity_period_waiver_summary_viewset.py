@@ -8,7 +8,7 @@ from citizenship.models import CitizenshipSummary
 
 
 def get_app_labels():
-    return []
+    return ["app_personal_details.Spouse"]
 
 
 class MaturityPeriodWaiverSummaryViewSet(viewsets.ModelViewSet):

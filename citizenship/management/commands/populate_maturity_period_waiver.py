@@ -1,9 +1,10 @@
 from django.db.transaction import atomic
 from model_bakery import baker
+from datetime import date
 
 from app_address.models import ApplicationAddress
 from app_contact.models import ApplicationContact
-from app_personal_details.models import Person
+from app_personal_details.models import Person, Spouse
 from lichois.management.base_command import CustomBaseCommand
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
 from ...models import DCCertificate, OathOfAllegiance, ResidentialHistory
@@ -43,6 +44,17 @@ class Command(CustomBaseCommand):
                     ApplicationAddress,
                     application_version=version,
                     document_number=app.application_document.document_number,
+                )
+
+                # Spouse
+                baker.make(
+                    Spouse,
+                    last_name=self.faker.unique.last_name(),
+                    first_name=self.faker.unique.first_name(),
+                    middle_name="",
+                    maiden_name="",
+                    dob=date(1990, 10, 6),
+                    country_birth="BW"
                 )
 
                 # Applicant Postal Address Details
