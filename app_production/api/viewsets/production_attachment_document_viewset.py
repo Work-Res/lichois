@@ -12,7 +12,7 @@ class ProductionAttachmentDocumentViewSet(viewsets.ModelViewSet):
     queryset = ProductionAttachmentDocument.objects.all()
     serializer_class = ProductionAttachmentDocumentSerializer
 
-    @action(detail=False, methods=['get'], url_path='download/(?P<document_number>[^/.]+)')
+    @action(detail=False, methods=['get'], url_path='download/<str:document_number>')
     def download_by_number(self, request, document_number=None):
         try:
             document = ProductionAttachmentDocument.objects.get(document_number=document_number)
