@@ -7,7 +7,7 @@ from .api.viewsets.production_attachment_document_viewset import (
 from .api.viewsets import ProductionPermitView, TravelCertificateProductionPermitView
 
 router = DefaultRouter()
-router.register(r"documents", ProductionAttachmentDocumentViewSet)
+router.register(r"production-documents", ProductionAttachmentDocumentViewSet)
 
 urlpatterns = [
     path(
