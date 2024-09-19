@@ -7,9 +7,10 @@ class BaseTransactionData:
         current_status (str): The current status of the application or process.
     """
 
-    def __init__(self, next_activity_name=None, current_status=None):
+    def __init__(self, next_activity_name=None, current_status=None, status=None):
         self.next_activity_name = next_activity_name
         self.current_status = current_status
+        self.status = status
 
 
 class VerificationTransactionData(BaseTransactionData):
@@ -23,7 +24,9 @@ class VerificationTransactionData(BaseTransactionData):
     def __init__(
         self, next_activity_name=None, application_status=None, system_verification=None
     ):
-        super().__init__(next_activity_name, application_status)
+        super().__init__(
+            next_activity_name, application_status, status=system_verification
+        )
         self.system_verification = system_verification
 
 
@@ -38,7 +41,9 @@ class AssessmentTransactionData(BaseTransactionData):
     def __init__(
         self, next_activity_name=None, application_status=None, system_verification=None
     ):
-        super().__init__(next_activity_name, application_status)
+        super().__init__(
+            next_activity_name, application_status, status=system_verification
+        )
         self.system_verification = system_verification
 
 
@@ -53,7 +58,9 @@ class OfficerTransactionData(BaseTransactionData):
     def __init__(
         self, next_activity_name=None, verification_decision=None, current_status=None
     ):
-        super().__init__(next_activity_name, current_status)
+        super().__init__(
+            next_activity_name, current_status, status=verification_decision
+        )
         self.verification_decision = verification_decision
 
 
@@ -72,7 +79,7 @@ class VettingTransactionData(BaseTransactionData):
         current_status=None,
         vetting_obj_exists=None,
     ):
-        super().__init__(next_activity_name, current_status)
+        super().__init__(next_activity_name, current_status, status=vetting_decision)
         self.vetting_decision = vetting_decision
         self.vetting_obj_exists = vetting_obj_exists
 
@@ -92,7 +99,9 @@ class RecommendationTransitionData(BaseTransactionData):
         recommendation_decision=None,
         security_clearance=None,
     ):
-        super().__init__(next_activity_name, application_status)
+        super().__init__(
+            next_activity_name, application_status, status=recommendation_decision
+        )
         self.recommendation_decision = recommendation_decision
         self.security_clearance = security_clearance
 
@@ -114,9 +123,11 @@ class ProductionTransactionData(BaseTransactionData):
         current_status=None,
         next_activity_name=None,
         recommendation_decision=None,
-        minister_decision=None
+        minister_decision=None,
     ):
-        super().__init__(next_activity_name, current_status)
+        super().__init__(
+            next_activity_name, current_status, status=recommendation_decision
+        )
         self.board_decision = board_decision
         self.security_clearance = security_clearance
         self.recommendation_decision = recommendation_decision
@@ -132,7 +143,9 @@ class AssessmentCaseDecisionTransactionData(BaseTransactionData):
         assessment_decision=None,
         security_clearance=None,
     ):
-        super().__init__(next_activity_name, application_status)
+        super().__init__(
+            next_activity_name, application_status, status=assessment_decision
+        )
         self.assessment_decision = assessment_decision
 
 
@@ -145,25 +158,26 @@ class ReviewCaseDecisionTransactionData(BaseTransactionData):
         review_decision=None,
         security_clearance=None,
     ):
-        super().__init__(next_activity_name, application_status)
+        super().__init__(next_activity_name, application_status, status=review_decision)
         self.review_decision = review_decision
 
 
 class MinisterDecisionTransactionData(BaseTransactionData):
     def __init__(
-            self,
-            next_activity_name=None,
-            application_status=None,
-            minister_decision=None):
-        super().__init__(next_activity_name, application_status)
+        self, next_activity_name=None, application_status=None, minister_decision=None
+    ):
+        super().__init__(
+            next_activity_name, application_status, status=minister_decision
+        )
         self.minister_decision = minister_decision
 
 
 class RecommendationDecisionTransactionData(BaseTransactionData):
     def __init__(
-            self,
-            next_activity_name=None,
-            application_status=None,
-            recommendation_decision=None):
+        self,
+        next_activity_name=None,
+        application_status=None,
+        recommendation_decision=None,
+    ):
         super().__init__(next_activity_name, application_status)
         self.recommendation_decision = recommendation_decision

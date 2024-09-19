@@ -115,7 +115,7 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
         app.refresh_from_db()
         self.assertEqual(app.application_status.code, CitizenshipStagesEnum.RECOMMENDATION.value.lower())
 
-    def test_submit_officer_verification_and_complete_minister_decision(self):
+    def test_submit_officer_verification_and_complete_minister_decision_accepted(self):
         """Test if application can submit for verification, and then  """
         SystemParameter.objects.create(
             application_type=CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value,
@@ -148,6 +148,46 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
         app.refresh_from_db()
 
         self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())
+
+    def test_submit_officer_verification_and_complete_minister_decision_rejected(self):
+        """Test if application can submit for verification, and then  """
+        SystemParameter.objects.create(
+            application_type=CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value,
+            duration_type="years",
+            duration=100
+        )
+
+        self.assertIsNotNone(self.perform_verification())
+
+        app = Application.objects.get(application_document__document_number=self.document_number)
+
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value)
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.ASSESSMENT.value.upper())
+
+        self.assertIsNotNone(self.perform_assessment())
+        app.refresh_from_db()
+        self.assertEqual(app.application_status.code, CitizenshipStagesEnum.REVIEW.value.lower())
+
+        self.assertIsNotNone(self.perform_review())
+        app.refresh_from_db()
+        self.assertEqual(app.application_status.code, CitizenshipStagesEnum.RECOMMENDATION.value.lower(),)
+
+
+        self.assertIsNotNone(self.perform_recommendation())
+        app.refresh_from_db()
+
+        self.assertEqual(app.application_status.code, CitizenshipStagesEnum.MINISTER_DECISION.value.lower())
+
+        self.assertIsNotNone(self.perform_minister_decision_reject())
+        app.refresh_from_db()
+
+        self.assertEqual(app.application_status.code.upper(), "REJECTED")
 
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())

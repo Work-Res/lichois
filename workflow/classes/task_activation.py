@@ -51,7 +51,7 @@ class TaskActivation:
             ):
                 application_status_code = activity.name.upper()
                 if activity.name.upper() == "FINAL_DECISION":
-                    application_status_code = "ACCEPTED"
+                    application_status_code = self.source.status
                 WorkflowApplication(
                     application=self.application,
                     application_status_code=application_status_code,
