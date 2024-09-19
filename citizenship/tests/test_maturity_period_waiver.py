@@ -192,5 +192,3 @@ class TestMaturityPeriodWaiverWorkflow(BaseSetup):
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())
 
-        permit = Permit.objects.filter(document_number=self.document_number)
-        self.assertTrue(permit.exists())

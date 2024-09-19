@@ -8,7 +8,7 @@ from .document_context_generator import DocumentContextGenerator
 
 class MaturityLetterContextGenerator(DocumentContextGenerator):
     def generate(self, application):
-        document_number = application.document_number
+        document_number = application.application_document.document_number
         years = datetime.now() + relativedelta(months=30)
         context = {}
         if application.application_type.lower() == CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value.lower():
@@ -24,7 +24,8 @@ class MaturityLetterContextGenerator(DocumentContextGenerator):
                 'officer_fullname': 'Ana Mokgethi',
                 'position': 'Minister',
                 'officer_contact_information': '',
-                'applicant_address': self.applicant_address(application)
+                'applicant_address': self.applicant_address(application),
+                'decision_date': date.today().strftime("%Y-%m-%d")
             }
         return context
 
@@ -32,7 +33,7 @@ class MaturityLetterContextGenerator(DocumentContextGenerator):
         try:
             # Use select_related to optimize the query by fetching related objects in one go
             application_address = ApplicationAddress.objects.select_related('country').get(
-                document_document=application.application_document.document_number
+                document_number=application.application_document.document_number
             )
 
             # Format the address components
@@ -40,7 +41,7 @@ class MaturityLetterContextGenerator(DocumentContextGenerator):
                 application_address.private_bag or '',
                 application_address.po_box or '',
                 application_address.street_address or '',
-                application_address.country.code if application_address.country else ''
+                # application_address.country.code if application_address.country else ''
             ]
 
             # Join the non-empty parts with proper spacing

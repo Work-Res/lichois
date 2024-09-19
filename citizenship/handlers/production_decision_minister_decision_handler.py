@@ -16,7 +16,7 @@ def production_decision_minister_decision_handler(
     if created:
         production_service = MinisterProductionDecisionService(
             document_number=instance.document_number,
-            decision_value="ACCEPTED",
+            decision_value=instance.status.code.upper(),
         )
         production_service.create_application_decision()
 
