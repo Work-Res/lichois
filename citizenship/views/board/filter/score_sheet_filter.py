@@ -12,6 +12,9 @@ class ScoreSheetFilter(django_filters.FilterSet):
     total_score = django_filters.RangeFilter()
     average_score = django_filters.RangeFilter()
     passed = django_filters.BooleanFilter()
+    document_number = django_filters.CharFilter(
+        field_name="interview__application__application_document__document_number", lookup_expr="exact"
+    )
 
     class Meta:
         model = ScoreSheet
