@@ -1,9 +1,11 @@
+import json
 from django.db import models
 
 from .interview import Interview
 from .board_member import BoardMember
 
 from django.db.models import JSONField
+from django.core.exceptions import ValidationError
 
 
 class ScoreSheet(models.Model):
@@ -20,6 +22,18 @@ class ScoreSheet(models.Model):
     summary = models.TextField(null=True, blank=True)
     recording = models.FileField(upload_to="recordings/", null=True, blank=True)
     document = models.FileField(upload_to="documents/", null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        # Convert `aggregated` back to JSON if it is not already in a proper JSON format
+        if isinstance(self.aggregated, str):
+            try:
+                # Try to convert the string to JSON
+                self.aggregated = json.loads(self.aggregated)
+            except json.JSONDecodeError:
+                raise ValidationError("Invalid JSON format for aggregated field.")
+
+        # Call the original save method
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"ScoreSheet for {self.interview}"

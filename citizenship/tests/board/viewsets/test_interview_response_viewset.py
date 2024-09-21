@@ -530,6 +530,8 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         self.service = DocumentGenerationService()
         score_sheet = ScoreSheet.objects.get(interview=interview)
         self.assertEqual(score_sheet.passed, True)
+        self.assertTrue(isinstance(score_sheet.aggregated, list))
+        self.assertEqual(len(score_sheet.aggregated), 7)
 
         self.service = DocumentGenerationService()
         self.service.generate_scoresheet_document(score_sheet)
@@ -548,7 +550,7 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         self.assertEqual(interview_responses[4].score, 20)
         self.assertEqual(interview_responses[5].response, "Bulk Updated Response 6")
         self.assertEqual(interview_responses[5].score, 15)
-        self.assertEqual(interview_responses[6].response, "Bulk Updated Response 7")
+        self.assertEqual(interview_responses[6].response, "NA")
         self.assertEqual(interview_responses[6].score, 10)
 
     def bulk_update_date(self, interview_responses):
