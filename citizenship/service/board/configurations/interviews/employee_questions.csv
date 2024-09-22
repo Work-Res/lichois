@@ -1,0 +1,6 @@
+text,category,marks_range,order
+"Setswana or any other local language","Proficiency","0-10",1
+"Educational Qualifications and Skill. Diploma and below (including unskilled), Bachelor’s Degree or equivalent, Masters, and PHD","Education","0-40",2
+"Skill Priority.  In Scarce Skill List, Not in Scarce Skill List","Special Talents","0-30",3
+"Assets and Investment (property, vehicles, shares etc.)","Soft Skills","0-10",4
+"Social Contribution","Personality","0-10",5
