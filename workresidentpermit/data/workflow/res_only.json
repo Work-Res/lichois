@@ -45,8 +45,7 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "PERMIT_CANCELLATION",
           "create_task_rules": {
-            "board_decision": "ACCEPTED",
-            "security_clearance": "ACCEPTED",
+            "or": {"board_decision": "ACCEPTED|REJECTED"},
             "current_status": "VETTING"
           }
         }

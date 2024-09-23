@@ -1,12 +1,11 @@
-from datetime import date
 import logging
+from datetime import date
 
 from dateutil.relativedelta import relativedelta
 
 from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
 from app_production.services.permit_production_service import PermitProductionService
-from workresidentpermit.models.work_permit import WorkPermit
 
 from ..api.dto.permit_request_dto import PermitRequestDTO
 

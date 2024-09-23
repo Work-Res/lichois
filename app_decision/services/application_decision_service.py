@@ -15,7 +15,13 @@ from workresidentpermit.exceptions import (
 class ApplicationDecisionService:
     """Responsible for create application decision based on security clearance or board decision."""
 
-    def __init__(self, document_number, comment: Comment = None, application=None, decision_value=None):
+    def __init__(
+        self,
+        document_number,
+        comment: Comment = None,
+        application=None,
+        decision_value=None,
+    ):
         self.document_number = document_number
         self.comment = comment
         self.decision_value = decision_value
@@ -50,15 +56,14 @@ class ApplicationDecisionService:
         # if not self.workflow:
         #     raise WorkflowRequiredDecisionException()
         if self.decision_predicate():
-            decision, created = ApplicationDecision.objects.get_or_create(
+            decision, _ = ApplicationDecision.objects.get_or_create(
                 document_number=self.document_number,
                 defaults={
-                    'final_decision_type': None,
-                    'proposed_decision_type': self.proposed_application_decision_type(),
-                    'comment': self.comment,
-                }
+                    "final_decision_type": None,
+                    "proposed_decision_type": self.proposed_application_decision_type(),
+                    "comment": self.comment,
+                },
             )
-            # self.run_workflow(application=self.application, workflow=self.workflow)
             self.logger.info(
                 f"Application decision created successfully for {self.document_number}"
             )

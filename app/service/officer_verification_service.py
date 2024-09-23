@@ -64,7 +64,9 @@ class OfficerVerificationService:
 
     def _send_task_signal(self, workflow):
         create_or_update_task_signal.send(
-            self.application, source=workflow, application=self.application
+            self.application,
+            source=workflow,
+            application=self.application,
         )
 
     def _deactivate_task(self):

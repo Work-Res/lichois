@@ -34,7 +34,9 @@ class SystemParameterService:
 
     @staticmethod
     def calculate_next_date(system_parameter):
-        if system_parameter.duration_type == "years":
+        if not system_parameter:
+            return None
+        elif system_parameter.duration_type == "years":
             return date.today() + timedelta(days=365 * system_parameter.duration)
         elif system_parameter.duration_type == "months":
             return date.today() + timedelta(days=30 * system_parameter.duration)

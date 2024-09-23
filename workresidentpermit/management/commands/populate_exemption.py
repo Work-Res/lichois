@@ -1,12 +1,5 @@
-from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
-from app.api import NewApplicationDTO
-from app.classes import ApplicationService
 from app.utils import ApplicationProcesses
-from app.utils.system_enums import ApplicationStatusEnum
-from app_personal_details.models import Passport, Person
-from app_address.models import ApplicationAddress, Country
-from app_contact.models import ApplicationContact
 from faker import Faker
 from random import randint
 

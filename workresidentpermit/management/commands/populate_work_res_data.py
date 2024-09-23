@@ -1,9 +1,9 @@
 from random import randint
 
-from base_module.models import Child, Spouse
 from django.db.transaction import atomic
 from faker import Faker
 
+from app_personal_details.models import Child, Spouse
 from app.utils.system_enums import ApplicationProcesses
 from lichois.management.base_command import CustomBaseCommand
 from workresidentpermit.model_mixins.employer_model_mixin import EmployerModelMixin

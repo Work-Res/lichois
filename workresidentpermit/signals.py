@@ -48,7 +48,7 @@ def generate_pdf_summary(sender, instance, created, **kwargs):
 @receiver(post_save, sender=SecurityClearance)
 def create_application_final_decision_by_security_clearance(
     sender, instance, created, **kwargs
-):
+) -> None:
     try:
         if created:
             try:
@@ -104,7 +104,6 @@ def handle_application_final_decision(instance, created):
         file_path=json_file_path, key="MINISTER_APPROVAL_PROCESSES"
     )
     if created:
-        print("handle_application_final_decision created")
         try:
             special_permit_decision_service = SpecialPermitDecisionService(
                 document_number=instance.document_number,
