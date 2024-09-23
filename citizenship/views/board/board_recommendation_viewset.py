@@ -19,13 +19,13 @@ class BoardRecommendationViewSet(viewsets.ModelViewSet):
     filterset_class = BoardRecommendationFilter
 
     def create(self, request):
-        score_sheet_id = request.data.get("score_sheet_id")
+        document_number = request.data.get("document_number")
         recommendation = request.data.get("recommendation")
         reason = request.data.get("reason", "")
         try:
             board_recommendation = (
                 BoardRecommendationService.create_board_recommendation(
-                    score_sheet_id, recommendation, reason
+                    document_number, recommendation, reason
                 )
             )
             serializer = BoardRecommendationSerializer(board_recommendation)

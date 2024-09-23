@@ -1,9 +1,10 @@
 from django.db import models
+from base_module.model_mixins import BaseUuidModel
 
 from .score_sheet import ScoreSheet
 
 
-class BoardRecommendation(models.Model):
+class BoardRecommendation(BaseUuidModel):
     score_sheet = models.OneToOneField(
         ScoreSheet, related_name="board_recommendation", on_delete=models.CASCADE
     )

@@ -11,9 +11,10 @@ logger = logging.getLogger(__name__)
 class BoardRecommendationService:
     @staticmethod
     @transaction.atomic
-    def create_board_recommendation(score_sheet_id, recommendation, reason=''):
+    def create_board_recommendation(document_number, recommendation, reason=''):
         try:
-            score_sheet = ScoreSheet.objects.get(id=score_sheet_id)
+            score_sheet = ScoreSheet.objects.get(
+                interview__application__application_document_number=document_number)
             if recommendation == 'Denied' and not reason:
                 raise ValidationError("Reason is required when the recommendation is denied.")
             board_recommendation = BoardRecommendation.objects.create(
@@ -24,7 +25,7 @@ class BoardRecommendationService:
             logger.info(f'BoardRecommendation created: {board_recommendation}')
             return board_recommendation
         except ScoreSheet.DoesNotExist:
-            logger.error(f'ScoreSheet does not exist: {score_sheet_id}')
+            logger.error(f'ScoreSheet does not exist: {document_number}')
             raise ValidationError("ScoreSheet does not exist.")
         except Exception as e:
             logger.error(f'Error creating board recommendation: {e}')
