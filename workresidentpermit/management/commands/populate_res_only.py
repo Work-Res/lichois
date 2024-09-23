@@ -1,6 +1,6 @@
 from random import randint
 
-from base_module.models import Child, Spouse
+from app_personal_details.models import Child, Spouse
 from django.db.transaction import atomic
 from faker import Faker
 

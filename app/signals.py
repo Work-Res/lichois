@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 from app.models import Application
+from .models import DeferredApplication
 from workflow.classes import WorkflowEvent
 
 
@@ -13,7 +14,10 @@ def create_workflow(sender, instance, created, **kwargs):
     try:
         if created:
             WorkflowEvent(application=instance).create_workflow_process()
-            logger.info("Created workflow for application: ", instance.application_document.document_number)
+            logger.info(
+                "Created workflow for application: ",
+                instance.application_document.document_number,
+            )
             return instance
     except SystemError as e:
         logger.debug("An error occurred while creating workflow, Got ", e)

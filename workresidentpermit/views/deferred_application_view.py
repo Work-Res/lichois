@@ -21,50 +21,42 @@ class DeferredApplicationView(APIView):
     POST {
         document_number = "required"
         comment = ""
-        deferred_from = "BOARD OR COMMISSIONER"
-        expected_action ="Reason for deferment"
+        deferred_from = "BOARD/COMMISSIONER/MINISTER"
+        expected_action = "Reason for deferrement"
         batch_id = "required"
     }
     """
 
     def post(self, request, document_number):
-        try:
-            serializer = RequestDeferredApplicationDTOSerializer(data=request.data)
-            if serializer.is_valid():
-                request_deferred_application_dto = RequestDeferredApplicationDTO(
-                    **serializer.data
-                )
+        serializer = RequestDeferredApplicationDTOSerializer(data=request.data)
+        if serializer.is_valid():
+            request_deferred_application_dto = RequestDeferredApplicationDTO(
+                **serializer.data
+            )
 
-                service = DeferredApplicationService(
-                    request_deferred_application_dto=request_deferred_application_dto
+            # Get user logged in
+            request_deferred_application_dto.deferred_from = request.user.username
+
+            service = DeferredApplicationService(
+                request_deferred_application_dto=request_deferred_application_dto
+            )
+            if service.validate():
+                service.create()
+                return JsonResponse(
+                    APIMessage(
+                        code=200,
+                        message="Deferred Application created successfully",
+                    ).to_dict(),
+                    status=status.HTTP_200_OK,
                 )
-                if service.validate():
-                    service.create()
-                    return JsonResponse(
-                        APIMessage(
-                            code=200,
-                            message="Deferred Application created successfully",
-                        ).to_dict(),
-                        status=status.HTTP_200_OK,
-                    )
-                else:
-                    return JsonResponse(
-                        serializer.errors, status=status.HTTP_400_BAD_REQUEST
-                    )
             else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except json.JSONDecodeError:
-            logger.error("Invalid JSON in request body")
-            return JsonResponse(
-                {"error": "Invalid JSON in request body"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        except Exception as e:
-            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
-            return JsonResponse(
-                {"detail": f"Something went wrong. Got {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
+                return JsonResponse(
+                    data=service.response.data,
+                    status=status.HTTP_400_BAD_REQUEST,
+                    safe=False,
+                )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CompleteDeferredApplicationView(APIView):

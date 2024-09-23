@@ -13,15 +13,16 @@ class DeferredApplicationService(CreateTaskService):
     def __init__(self, request_deferred_application_dto: RequestDeferredApplicationDTO):
         self.request_deferred_application_dto = request_deferred_application_dto
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
         self.response = APIResponse()
         super().__init__(request_dto=request_deferred_application_dto)
 
     def validate(self):
-        """ Check if the deferred request exists before creating new one."""
+        """Check if the deferred request exists before creating new one."""
         try:
             Application.objects.get(
                 application_document__document_number=self.request_deferred_application_dto.document_number,
-                application_status__code__iexact=ApplicationStatusEnum.DEFERRED.value
+                application_status__code__iexact=ApplicationStatusEnum.DEFERRED.value,
             )
         except Application.DoesNotExist:
             return True
@@ -29,9 +30,9 @@ class DeferredApplicationService(CreateTaskService):
             self.logger.info("Deferred Application: already exists.")
             api_message = APIMessage(
                 code=400,
-                message=f"Deferred Application  already exists.",
+                message="Deferred Application  already exists.",
                 details=f"Deferred Applicaiton with {self.request_deferred_application_dto.document_number} "
-                        f"already exists."
+                "already exists.",
             )
             self.response.messages.append(api_message.to_dict())
             return False
@@ -42,12 +43,16 @@ class DeferredApplicationService(CreateTaskService):
             comment=self.request_deferred_application_dto.comment,
             deferred_from=self.request_deferred_application_dto.deferred_from,
             expected_action=self.request_deferred_application_dto.expected_action,
-            deferred_status=self.application_status(ApplicationStatusEnum.PENDING.value)
+            deferred_status=self.application_status(
+                ApplicationStatusEnum.PENDING.value
+            ),
         )
 
     def remove_application_batch(self):
         try:
-            application_batch = ApplicationBatch.objects.get(id=self.request_deferred_application_dto.batch_id)
+            application_batch = ApplicationBatch.objects.get(
+                id=self.request_deferred_application_dto.batch_id
+            )
             application_batch.applications.remove(self.application())
             application_batch.save()
         except ApplicationBatch.DoesNotExist:
@@ -55,7 +60,7 @@ class DeferredApplicationService(CreateTaskService):
                 code=400,
                 message=f"ApplicationBatch  does not exists.",
                 details=f"An application batch with {self.request_deferred_application_dto.batch_id} "
-                        f"does not exists."
+                f"does not exists.",
             )
             self.response.messages.append(api_message.to_dict())
         else:
@@ -66,7 +71,8 @@ class DeferredApplicationService(CreateTaskService):
 
     def application(self):
         return Application.objects.get(
-            application_document__document_number=self.request_deferred_application_dto.document_number)
+            application_document__document_number=self.request_deferred_application_dto.document_number
+        )
 
     def create_deferred_task(self):
         self.logger.info("Deferred Application: START creating a task.")
@@ -76,7 +82,9 @@ class DeferredApplicationService(CreateTaskService):
         try:
             self.logger.info("Deferred Application: START Updating.")
             application = self.application()
-            application.application_status = self.application_status(ApplicationStatusEnum.DEFERRED.value)
+            application.application_status = self.application_status(
+                ApplicationStatusEnum.DEFERRED.value
+            )
             application.batched = False
             application.save()
             return application
@@ -86,16 +94,16 @@ class DeferredApplicationService(CreateTaskService):
                 code=400,
                 message=f"Application  does not exists.",
                 details=f"An application with {self.request_deferred_application_dto.document_number} "
-                        f"does not exists."
+                f"does not exists.",
             )
             self.response.messages.append(api_message.to_dict())
         except ApplicationStatus.DoesNotExist as ex:
             self.logger.error(f"An error occurred, {ex}")
             api_message = APIMessage(
                 code=400,
-                message=f"Application Status for deferred does not exists .",
+                message="Application Status for deferred does not exists .",
                 details=f"An application with status {ApplicationStatusEnum.DEFERRED.value} "
-                        f"does not exists. Please report to developers."
+                f"does not exists. Please report to developers.",
             )
             self.response.messages.append(api_message.to_dict())
 
@@ -113,5 +121,7 @@ class DeferredApplicationService(CreateTaskService):
 
     def complete_deferred_application(self):
         application = self.application()
-        application.application_status = self.application_status(ApplicationStatusEnum.VETTING.value)
+        application.application_status = self.application_status(
+            ApplicationStatusEnum.VETTING.value
+        )
         application.save()

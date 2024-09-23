@@ -48,7 +48,7 @@ class BoardMeetingVoteManager:
         excluded_members = list(voted) + list(not_voting_members)
 
         not_voted_members = (
-            BoardMeetingVote.objects.filter(meetingattendee__isnull=False)
+            BoardMeetingVote.objects.filter(meeting_attendee__isnull=False)
             .exclude(meeting_attendee__board_member__id__in=excluded_members)
             .values_list("meeting_attendee__board_member__user__username", flat=True)
         )
