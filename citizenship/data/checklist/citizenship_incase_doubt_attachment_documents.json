@@ -1,7 +1,7 @@
 {
   "classifiers": {
     "attachment_documents": {
-      "code": "CITIZENSHIP_ATTACHMENT_DOCUMENTS",
+      "code": "CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT_ATTACHMENT_DOCUMENTS",
       "name": "ATTACHMENT DOCUMENTS",
       "description": "A list of document to attach",
       "valid_from": "2024-01-01",
