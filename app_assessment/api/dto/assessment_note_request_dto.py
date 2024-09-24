@@ -11,6 +11,7 @@ class AssessmentNoteRequestDTO:
         decision=None,
         user=None,
         summary=None,
+        comment_type=None,
     ):
         self.document_number = document_number
         self.parent_object_id = parent_object_id
@@ -21,3 +22,4 @@ class AssessmentNoteRequestDTO:
         self.user = user
         self.summary = summary
         self.decision = decision
+        self.comment_type = comment_type

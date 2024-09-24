@@ -9,6 +9,7 @@ class CitizenshipMinisterRequestDTO(RequestDTO):
         status=None,
         summary=None,
         user=None,
+        comment_type=None,
         **kwargs,
     ):
         super().__init__(
@@ -16,5 +17,6 @@ class CitizenshipMinisterRequestDTO(RequestDTO):
             status=status,
             summary=summary,
             user=user,
+            comment_type=comment_type,
             **kwargs,
         )

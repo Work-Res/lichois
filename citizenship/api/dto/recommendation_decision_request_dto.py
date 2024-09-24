@@ -10,6 +10,7 @@ class RecommendationDecisionRequestDTO(RequestDTO):
         summary=None,
         user=None,
         role=None,
+        comment_type=None,
         **kwargs,
     ):
         super().__init__(
@@ -17,6 +18,7 @@ class RecommendationDecisionRequestDTO(RequestDTO):
             status=status,
             summary=summary,
             user=user,
+            comment_type=comment_type,
             **kwargs,
         )
         self.role = role

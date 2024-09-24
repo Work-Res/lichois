@@ -220,8 +220,8 @@ class BaseDecisionService(UpdateApplicationMixin):
             return Comment.objects.create(
                 user=self.request.user,
                 comment_text=self.request.summary,
-                comment_type="OVERALL_APPLICATION_COMMENT",
                 document_number=self.request.document_number,
+                comment_type=self.request.comment_type
             )
 
     def _security_clearance(self):
