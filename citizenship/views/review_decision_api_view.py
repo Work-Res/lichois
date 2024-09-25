@@ -20,7 +20,7 @@ class ReviewDecisionAPIView(APIView):
                 # Extract validated data and initialize the DTO
                 data = serializer.validated_data
                 assessment_note_request = AssessmentNoteRequestDTO(**data)
-
+                assessment_note_request.comment_type = "review_decision"
                 # Validate the DTO
                 validator = AssessmentNoteValidator(
                     assessment_note_request_dto=assessment_note_request

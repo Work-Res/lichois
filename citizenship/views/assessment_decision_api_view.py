@@ -23,6 +23,7 @@ class AssessmentDecisionAPIView(APIView):
                 validator = AssessmentCaseDecisionValidator(
                     assessment_case_decision=assessment_case_decision
                 )
+                assessment_case_decision.comment_type = "assessment_decision"
                 if validator.is_valid():
                     # Pass the DTO to the service and return the response
                     service = AssessmentCaseDecisionService(

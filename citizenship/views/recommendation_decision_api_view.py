@@ -25,6 +25,7 @@ class RecommendationDecisionAPIView(APIView):
                 request_dto = RecommendationDecisionRequestDTO(
                     **data,
                 )
+                request_dto.comment_type = "recommendation_decision"
                 service = RecommendationDecisionService(decision_request=request_dto)
                 return Response(
                     service.create_recommendation(), status=status.HTTP_201_CREATED

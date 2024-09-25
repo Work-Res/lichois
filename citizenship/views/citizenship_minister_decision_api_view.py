@@ -18,6 +18,7 @@ class CitizenshipMinisterDecisionAPIView(APIView):
             serializer = CitizenshipMinisterDecisionRequestDTOSerializer(data=request.data)
             if serializer.is_valid():
                 request = CitizenshipMinisterRequestDTO(**serializer.data)
+                request.comment_type = "minister_decision"
                 service = CitizenshipMinisterDecisionService(request)
                 service.create_minister_decision()
                 service.response.result()

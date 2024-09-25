@@ -24,6 +24,7 @@ class ApplicationVerificationAPIView(APIView):
                     user=request.user,
                     **serializer.validated_data,
                 )
+                verification_request.comment_type = "verification"
                 service = VerificationService(verification_request=verification_request)
                 data = service.create_verification()
                 return Response(data, status=status.HTTP_200_OK)
