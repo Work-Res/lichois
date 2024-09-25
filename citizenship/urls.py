@@ -36,7 +36,9 @@ from .views.summary import (
     MaturityPeriodWaiverSummaryViewSet,
     DualRenunciationSummaryViewSet,
     SettlementViewSet,
-    Under20SummaryViewSet
+    Under20SummaryViewSet,
+    ResumptionSummaryViewSet,
+    CertificateInCaseOfDoubtSummaryViewSet
 )
 
 app_name = "citizenship"
@@ -89,6 +91,18 @@ router.register(
     r"citizenship-dual-renunciation",
     DualRenunciationSummaryViewSet,
     basename="dual-renunciation",
+)
+
+router.register(
+    r"citizenship-resumption",
+    ResumptionSummaryViewSet,
+    basename="resumption",
+)
+
+router.register(
+    r"citizenship-certificate-indoubt",
+    CertificateInCaseOfDoubtSummaryViewSet,
+    basename="certificate-in-doubt",
 )
 
 router.register(
