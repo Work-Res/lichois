@@ -13,7 +13,7 @@ class BoardRecommendation(BaseUuidModel):
         choices=[("Granted", "Granted"), ("Denied", "Denied")],
         default="Granted",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+
     reason = models.TextField(blank=True, null=True)
 
     def __str__(self):
