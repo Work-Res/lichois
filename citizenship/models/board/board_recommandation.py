@@ -17,4 +17,4 @@ class BoardRecommendation(BaseUuidModel):
     reason = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Recommendation for {self.score_sheet.interview.batch_application.application.applicant_name}"
+        return f"Recommendation for {self.score_sheet.interview.application.full_name}"

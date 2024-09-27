@@ -14,7 +14,7 @@ class BoardRecommendationService:
     def create_board_recommendation(document_number, recommendation, reason=''):
         try:
             score_sheet = ScoreSheet.objects.get(
-                interview__application__application_document_number=document_number)
+                interview__application__application_document__document_number=document_number)
             if recommendation == 'Denied' and not reason:
                 raise ValidationError("Reason is required when the recommendation is denied.")
             board_recommendation = BoardRecommendation.objects.create(
@@ -29,4 +29,4 @@ class BoardRecommendationService:
             raise ValidationError("ScoreSheet does not exist.")
         except Exception as e:
             logger.error(f'Error creating board recommendation: {e}')
-            raise ValidationError("Error creating board recommendation.")
+            raise ValidationError(f"Error creating board recommendation. {e}")

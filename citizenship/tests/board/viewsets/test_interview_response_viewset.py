@@ -15,7 +15,7 @@ from citizenship.models import (
     Interview,
     MeetingSession,
     ConflictOfInterest,
-    BoardMember,
+    BoardMember, BoardRecommendation,
 )
 from citizenship.models.board.conflict_of_interest_duration import (
     ConflictOfInterestDuration,
@@ -536,6 +536,29 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         self.service = DocumentGenerationService()
         self.service.generate_scoresheet_document(score_sheet)
         self.assertIsNotNone(score_sheet.document)
+
+        data = {
+            "document_number": self.application.application_document.document_number,
+            "recommendation": "Granted",
+            "reason": "Valid reason for recommendation"
+        }
+
+        self.url = reverse('citizenship:board-recommandation-list')
+
+        # Send POST request to create a new BoardRecommendation
+        response = self.client.post(self.url, data, format='json')
+
+        # Assert that the response status is HTTP 201 CREATED
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # Check if the BoardRecommendation object is created in the database
+        self.assertTrue(BoardRecommendation.objects.filter(
+            score_sheet__interview__application__application_document__document_number=
+            self.application.application_document.document_number).exists())
+
+        # Check the response data
+        self.assertEqual(response.data['recommendation'], data['recommendation'])
+        self.assertEqual(response.data['reason'], data['reason'])
 
     def check_submitted_interview_response(self, interview_responses):
         self.assertEqual(interview_responses[0].response, "Bulk Updated Response 1")
