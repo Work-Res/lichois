@@ -19,6 +19,13 @@ class ScoreSheetService:
     @transaction.atomic
     def create_scoresheet(interview: Interview):
         logger.info(f"Creating scoresheet for interview {interview.id}")
+
+        # Validation to ensure only one ScoreSheet per Interview
+        if ScoreSheet.objects.filter(interview=interview).exists():
+            error_message = f"A ScoreSheet already exists for interview {interview.id}"
+            logger.error(error_message)
+            raise ValidationError(error_message)
+
         total_score = InterviewResponse.objects.filter(interview=interview).aggregate(
             total=models.Sum("score")
         )["total"]
