@@ -150,3 +150,41 @@ class MeetingSessionServiceTestCase(BaseSetup):
         # No additional sessions should be created
         all_sessions = MeetingSession.objects.filter(meeting=self.meeting)
         self.assertEqual(all_sessions.count(), 1)  # Only the original session should exist
+
+    def test_generate_recurring_sessions_morning_and_afternoon_sessions(self):
+        self.meeting_session = MeetingSession.objects.create(
+            meeting=self.meeting,
+            title='Morning Session',
+            date=timezone.now().date(),
+            start_time=timezone.now().replace(hour=8, minute=30, second=0, microsecond=0).time(),
+            end_time=timezone.now().replace(hour=12, minute=30, second=0, microsecond=0).time(),
+            is_recurring=True
+        )
+
+        # Query the database for all sessions related to this meeting
+        all_sessions = MeetingSession.objects.filter(meeting=self.meeting)
+
+        # We expect 5 sessions (one for each day from January 1st to January 5th)
+        self.assertEqual(all_sessions.count(), 5)
+        session1 = MeetingSession.objects.first()
+        session2 = MeetingSession.objects.last()
+        self.assertNotEqual(session1.date, session2.date)
+
+        self.meeting_session = MeetingSession.objects.create(
+            meeting=self.meeting,
+            title='Afternoon Session',
+            date=timezone.now().date(),
+            start_time=timezone.now().replace(hour=14, minute=30, second=0, microsecond=0).time(),
+            end_time=timezone.now().replace(hour=16, minute=30, second=0, microsecond=0).time(),
+            is_recurring=True
+        )
+
+        # Query the database for all sessions related to this meeting
+        all_sessions = MeetingSession.objects.filter(meeting=self.meeting)
+        self.assertEqual(all_sessions.count(), 10)
+
+        morning_sessions_count = MeetingSession.objects.filter(meeting=self.meeting, title='Morning Session')
+        self.assertEqual(morning_sessions_count.count(), 5)
+
+        afternoon_sessions_count = MeetingSession.objects.filter(meeting=self.meeting, title='Afternoon Session')
+        self.assertEqual(afternoon_sessions_count.count(), 5)
