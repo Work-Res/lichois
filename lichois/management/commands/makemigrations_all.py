@@ -35,4 +35,10 @@ class Command(BaseCommand):
                 self.stdout.write(
                     self.style.SUCCESS(f"Successfully made migrations for {app_label}")
                 )
-                call_command("migrate", app_label)
+
+        # Optionally run migrate here after all migrations have been created
+        self.stdout.write("Running migrate for all apps...")
+        call_command("migrate")
+        self.stdout.write(
+            self.style.SUCCESS("Successfully applied migrations for all apps.")
+        )
