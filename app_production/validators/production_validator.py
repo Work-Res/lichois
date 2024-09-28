@@ -1,7 +1,5 @@
-from app_decision.models import ApplicationDecision
-from app.utils import ApplicationDecisionEnum
-
-from app.api.common.web import APIResponse, APIMessage
+from app.api.common.web import APIMessage, APIResponse
+from app.models import ApplicationDecision
 
 
 class ProductionValidator:
@@ -18,9 +16,7 @@ class ProductionValidator:
         Check if the application is at the production stage.
         """
         try:
-            ApplicationDecision.objects.get(
-                document_number=self.document_number
-            )
+            ApplicationDecision.objects.get(document_number=self.document_number)
         except ApplicationDecision.DoesNotExist:
             self.response.messages.append(
                 APIMessage(

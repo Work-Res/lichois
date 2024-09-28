@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_decision.api.serializers import ApplicationDecisionTypeSerializer
+from .application_decision_type_serializer import ApplicationDecisionTypeSerializer
 
 from ...models import SecurityClearance
 

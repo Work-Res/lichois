@@ -1,7 +1,7 @@
 from django.db import models
 from .application_base_model import ApplicationBaseModel
 
-from app_decision.models import ApplicationDecisionType
+from .application_decision_type import ApplicationDecisionType
 
 
 class ApplicationVerification(ApplicationBaseModel):

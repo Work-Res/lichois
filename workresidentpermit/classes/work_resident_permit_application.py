@@ -7,7 +7,7 @@ from app.api.serializers import ApplicationSerializer
 from app.models import Application, ApplicationStatus, ApplicationVerification
 from app.utils import ApplicationStatusEnum
 from app_comments.models import Comment
-from app_decision.models import ApplicationDecisionType
+from app.models import ApplicationDecisionType
 from workflow.classes import TaskDeActivation
 from workflow.signals import create_or_update_task_signal
 from workresidentpermit.workflow import (

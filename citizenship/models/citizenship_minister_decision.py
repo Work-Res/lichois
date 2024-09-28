@@ -2,7 +2,7 @@ from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
 
-from app_decision.models import ApplicationDecisionType
+from app.models import ApplicationDecisionType
 
 
 class CitizenshipMinisterDecision(BaseUuidModel):

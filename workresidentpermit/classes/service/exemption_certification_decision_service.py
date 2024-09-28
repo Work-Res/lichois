@@ -1,6 +1,6 @@
 from app.models import Application
 from app_comments.models import Comment
-from app_decision.services import ApplicationDecisionService
+from app.service import ApplicationDecisionService
 
 from ...workflow import RecommendationTransitionData
 

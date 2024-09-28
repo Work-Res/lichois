@@ -6,3 +6,4 @@ from .pre_pupolation_model_definition import (
     PrepopulationConfiguration,
 )
 from .mixins import UpdateApplicationMixin
+from .create_application_decision import CreateApplicationDecision

@@ -14,4 +14,4 @@ class ApplicationDecisionType(BaseUuidModel):
 
     class Meta:
         verbose_name_plural = "Application Decision Type"
-        ordering = ['-created']
+        ordering = ["-created"]

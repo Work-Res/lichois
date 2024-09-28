@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     "app_contact.apps.AppContactConfig",
     "app_personal_details.apps.AppPersonalDetailsConfig",
     "app_comments.apps.AppCommentsConfig",
-    "app_decision.apps.AppDecisionConfig",
     "app_assessment.apps.AppAssessmentConfig",
     "travel.apps.TravelConfig",
     "workresidentpermit.apps.AppConfig",

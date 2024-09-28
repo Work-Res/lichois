@@ -22,3 +22,5 @@ from .renewal_application_serializer import (
 )
 from .security_clearance_request_serializer import SecurityClearanceRequestDTOSerializer
 from .security_clearance_serializer import SecurityClearanceSerializer
+from .application_decision_type_serializer import ApplicationDecisionTypeSerializer
+from .application_decision_serializer import ApplicationDecisionSerializer

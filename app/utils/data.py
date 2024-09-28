@@ -98,7 +98,32 @@ statuses = [
         "processes": "WORK_RESIDENT_PERMIT,SPECIAL_PERMIT,CITIZENSHIP_RENUNCIATION,CITIZENSHIP_INTENTION_FOREIGN_SPOUSE,MATURITY_PERIOD_WAIVER,REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS,PRESIDENT_POWER_REGISTER_CITIZENS_10B,CITIZENSHIP_FOR_UNDER_20,CERTIFICATE_OF_CITIZENSHIP_INCASE_DOUBT,RESUMPTION_OF_CITIZENSHIP,SETTLEMENT,NATURALIZATION,NATURALIZATION_BY_FOREIGN_SPOUSE",
         "valid_from": date(2023, 1, 1),
         "valid_to": None,
-    }
+    },
 ]
 
 offices = [{"name": "Gaborone", "code": "01"}]
+
+
+data = [
+    {
+        "code": "ACCEPTED",
+        "name": "Accepted",
+        "valid_from": date(2023, 1, 1),
+        "process_types": "visa,workresidentandpermit",
+        "valid_to": date(2035, 1, 1),
+    },
+    {
+        "code": "REJECTED",
+        "name": "Rejected",
+        "valid_from": date(2023, 1, 1),
+        "process_types": "visa,workresidentandpermit",
+        "valid_to": date(2035, 1, 1),
+    },
+    {
+        "code": "PENDING",
+        "name": "Pending",
+        "valid_from": date(2023, 1, 1),
+        "process_types": "visa,workresidentandpermit",
+        "valid_to": date(2035, 1, 1),
+    },
+]

@@ -3,7 +3,6 @@ from django.db import models
 from app.models import ApplicationBaseModel
 
 from .application_decision_type import ApplicationDecisionType
-from app_comments.models import Comment
 
 
 class ApplicationDecision(ApplicationBaseModel):
@@ -24,8 +23,10 @@ class ApplicationDecision(ApplicationBaseModel):
         blank=True,
     )
 
-    comment = models.ForeignKey(
-        Comment, on_delete=models.SET_NULL, null=True, blank=True
+    comment = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
     )
 
     class Meta:

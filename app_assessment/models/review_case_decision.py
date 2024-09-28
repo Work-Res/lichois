@@ -1,7 +1,6 @@
 from django.db import models
 
-from app.models import ApplicationBaseModel
-from app_decision.models import ApplicationDecisionType
+from app.models import ApplicationBaseModel, ApplicationDecisionType
 
 
 class ReviewCaseDecision(ApplicationBaseModel):

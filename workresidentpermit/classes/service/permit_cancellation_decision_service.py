@@ -3,7 +3,7 @@ import logging
 from app.models import Application, MinisterDecision
 from app.utils import ApplicationDecisionEnum
 from app_comments.models import Comment
-from app_decision.services import ApplicationDecisionService
+from app.service import ApplicationDecisionService
 from workresidentpermit.workflow import ProductionTransactionData
 
 from ...utils import WorkResidentPermitApplicationTypeEnum

@@ -1,10 +1,9 @@
 import logging
 from typing import Optional
 
-from app_decision.models import ApplicationDecisionType
 
 from ..api.common.web import APIMessage, APIResponse
-from ..models import Application, SecurityClearance
+from ..models import Application, SecurityClearance, ApplicationDecisionType
 from ..utils import ApplicationStatusEnum
 
 

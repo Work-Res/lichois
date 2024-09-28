@@ -5,11 +5,12 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 
 from app_comments.models import Comment
-from app_decision.models import ApplicationDecision, ApplicationDecisionType
 from workresidentpermit.exceptions import (
     ApplicationRequiredDecisionException,
     WorkResidentPermitApplicationDecisionException,
 )
+
+from ..models import ApplicationDecision, ApplicationDecisionType
 
 
 class ApplicationDecisionService:

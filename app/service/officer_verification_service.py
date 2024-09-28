@@ -1,18 +1,20 @@
 import logging
+
 from django.db import transaction
 
+from app.api.common.web import APIMessage, APIResponse
 from app.api.dto.application_verification_request_dto import (
     ApplicationVerificationRequestDTO,
 )
+from app.api.serializers import ApplicationSerializer
 from app.models import Application, ApplicationVerification
+from app.utils import ApplicationStatusEnum
 from app.workflow import OfficerTransactionData
 from app_comments.models import Comment
-from app.utils import ApplicationStatusEnum
-from app.api.common.web import APIResponse, APIMessage
-from app.api.serializers import ApplicationSerializer
-from app_decision.models import ApplicationDecisionType
-from workflow.signals import create_or_update_task_signal
 from workflow.classes import TaskDeActivation
+from workflow.signals import create_or_update_task_signal
+
+from ..models import ApplicationDecisionType
 
 
 class OfficerVerificationService:

@@ -1,8 +1,6 @@
 from django.db import models
 from authentication.models import User
 
-# from app.models import ApplicationBaseModel
-
 from base_module.model_mixins import BaseUuidModel
 
 

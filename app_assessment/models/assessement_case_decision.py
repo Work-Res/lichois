@@ -1,8 +1,7 @@
 from base_module.model_fields import UUIDAutoField
 from django.db import models
 
-from app.models import ApplicationBaseModel
-from app_decision.models import ApplicationDecisionType
+from app.models import ApplicationBaseModel, ApplicationDecisionType
 
 from .assessment_update_mixin import AssessmentUpdateMixin
 from .choices import DECISION_TYPE

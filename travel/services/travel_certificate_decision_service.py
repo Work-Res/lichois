@@ -2,7 +2,7 @@ import logging
 
 from app.utils.system_enums import ApplicationDecisionEnum
 from app_comments.models.comment import Comment
-from app_decision.services import ApplicationDecisionService
+from app.service import ApplicationDecisionService
 
 
 class TravelCertificateDecisionService(ApplicationDecisionService):

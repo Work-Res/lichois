@@ -6,14 +6,13 @@ from django.db import transaction
 from app.models.security_clearance import SecurityClearance
 from app.workflow.transaction_data import BaseTransactionData
 from app_comments.models import Comment
-from app_decision.models import ApplicationDecisionType
 from workflow.classes.task_deactivation import TaskDeActivation
 from workflow.signals import create_or_update_task_signal
 
 from ..api.common.web import APIMessage, APIResponse
 from ..api.dto.request_dto import RequestDTO
 from ..classes.mixins.update_application_mixin import UpdateApplicationMixin
-from ..models import Application
+from ..models import Application, ApplicationDecisionType
 
 
 class BaseDecisionService(UpdateApplicationMixin):

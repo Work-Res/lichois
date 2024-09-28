@@ -2,7 +2,7 @@ from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
 
-from app_decision.models import ApplicationDecisionType
+from .application_decision_type import ApplicationDecisionType
 
 
 class SecurityClearance(BaseUuidModel):

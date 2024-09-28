@@ -3,7 +3,7 @@ import logging
 from app.models import Application, SecurityClearance
 from app.utils import ApplicationDecisionEnum
 from app_comments.models import Comment
-from app_decision.services import ApplicationDecisionService
+from app.service import ApplicationDecisionService
 from board.models import BoardDecision
 
 from ...workflow import ProductionTransactionData

@@ -3,12 +3,11 @@ import logging
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from app.models import Application
+from app.models import Application, ApplicationDecision
 from app.utils import ApplicationDecisionEnum
-from app_decision.models import ApplicationDecision
+
 from .api.dto.permit_request_dto import PermitRequestDTO
 from .utils import get_service_registry
-
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)

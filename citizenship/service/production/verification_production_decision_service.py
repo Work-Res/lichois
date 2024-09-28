@@ -1,6 +1,6 @@
 from app.models import Application
+from app.service import ApplicationDecisionService
 from app_comments.models import Comment
-from app_decision.services import ApplicationDecisionService
 from citizenship.utils import VerificationProcessWhenCompletedIsRequiredForProduction
 
 
@@ -11,7 +11,11 @@ class VerificationProductionDecisionService(ApplicationDecisionService):
         self.document_number = document_number
         self.comment = comment
         self.decision_value = decision_value
-        super().__init__(document_number=document_number, comment=comment, decision_value=decision_value)
+        super().__init__(
+            document_number=document_number,
+            comment=comment,
+            decision_value=decision_value,
+        )
         self.application = Application.objects.get(
             application_document__document_number=document_number
         )
