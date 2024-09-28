@@ -1,10 +1,9 @@
 from django.test import tag
 from app.api.dto import ApplicationVerificationRequestDTO
-from app.models import Application
+from app.models import Application, ApplicationDecision
 from app.service import VerificationService
 from app.utils import ApplicationStatusEnum
 from app_checklist.models import Classifier, ClassifierItem, SystemParameter
-from app_decision.models import ApplicationDecision
 from app_personal_details.models import Permit
 from app_production.models import ProductionAttachmentDocument
 from .base_setup import BaseSetup

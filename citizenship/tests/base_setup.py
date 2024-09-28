@@ -10,7 +10,7 @@ from app.api.serializers import (
     ApplicationVerificationRequestSerializer,
     RecommendationRequestDTOSerializer, SecurityClearanceRequestDTOSerializer,
 )
-from app.models import ApplicationStatus
+from app.models import ApplicationStatus, ApplicationDecisionType
 from app.classes import ApplicationService
 
 from app.api import NewApplicationDTO
@@ -35,7 +35,6 @@ from app_assessment.validators.assessment_case_decision_validator import (
 from app_assessment.api.serializers.assessement_request_serializer import (
     AssessmentRequestSerializer,
 )
-from app_decision.models import ApplicationDecisionType
 
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress, Country
