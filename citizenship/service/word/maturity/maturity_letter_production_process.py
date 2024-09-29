@@ -32,10 +32,44 @@ class MaturityLetterProductionProcess(ProductionProcess):
             document_output_path=document_output_path,
             is_required=True
         )
-        context = self.context_generator.generate(application)
-        generic_context = GenericProductionContext()
-        generic_context.context = lambda: context
+
+        self.logger.debug(f"Generated template path: {template_path}")
+        self.logger.debug(f"Generated document output path: {document_output_path}")
+        self.logger.info(
+            f"Starting production process for application {application.id} and decision {decision.id} "
+            f"with status '{status}'"
+        )
+
         try:
+            # Generate context for the production process
+            self.logger.debug("Generating context for production...")
+            context = self.context_generator.generate(application)
+            generic_context = GenericProductionContext()
+            generic_context.context = lambda: context
+            self.logger.debug(f"Generated context: {context}")
+
+            # Execute the handler with the configuration and context
+            self.logger.info(
+                f"Executing production handler with config template '{template_path}' "
+                f"and output '{document_output_path}'"
+            )
             self.handler.execute(config, generic_context)
+
+            self.logger.info(
+                f"Production process completed successfully for application {application.id}, "
+                f"decision {decision.id}"
+            )
+        except FileNotFoundError as e:
+            # Specific error logging for missing template files
+            self.logger.error(
+                f"Template file not found at '{template_path}' for application {application.id}, "
+                f"decision {decision.id}: {str(e)}",
+                exc_info=True
+            )
         except Exception as e:
-            self.logger.error(f"Error in handling production process: {str(e)}", exc_info=True)
+            # Generic error logging for unexpected exceptions
+            self.logger.error(
+                f"An error occurred during the production process for application {application.id}, "
+                f"decision {decision.id}: {str(e)}",
+                exc_info=True
+            )

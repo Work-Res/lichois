@@ -36,7 +36,6 @@ def production_decision_minister_decision_handler(sender, instance, created, **k
         # Create the renunciation letter
         _generate_renunciation_letter(application)
 
-        logger.info(f"Renunciation letter generated for application with document number {instance.document_number}")
 
     except ObjectDoesNotExist as e:
         logger.error(f"Application not found for document number {instance.document_number}: {str(e)}")

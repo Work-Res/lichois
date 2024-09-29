@@ -57,7 +57,6 @@ class RenunciationDocumentGenerationService:
                 attachment = self._save_attachment(document_number, word_path)
 
                 logger.info(f"PDF and DOCX documents created and saved for renunciation {document_number}")
-
                 return attachment  # Return the saved attachment
 
         except (WordDocumentCreationError, PDFConversionError, DataGeneratorException) as e:

@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 @receiver(post_save, sender=ApplicationDecision)
 def production_decision_post_save_handler(sender, instance, created, **kwargs):
     if created:
-        logger.info(f"Handling post-save for new instance: {instance}")
+        logger.info(f"Handling post-save for application decision new instance: {instance}")
         try:
             # Fetch the associated application
             application = Application.objects.get(
@@ -31,8 +31,8 @@ def production_decision_post_save_handler(sender, instance, created, **kwargs):
             # Check if document generation is required
             process_name = application.application_type
             if (
-                process_name
-                in CitizenshipDocumentGenerationIsRequiredForProduction.configured_process()
+                    process_name
+                    in CitizenshipDocumentGenerationIsRequiredForProduction.configured_process()
             ):
                 # Use the maturity letter process
                 handler = UploadDocumentProductionHandler()
@@ -42,7 +42,6 @@ def production_decision_post_save_handler(sender, instance, created, **kwargs):
                 # Handle the production process for the decision
                 process.handle(application, instance)
 
-                logger.info(f"Production process handled successfully for {instance}")
             else:
                 logger.info(f"Document generation not required for {process_name}")
         except Exception as e:
