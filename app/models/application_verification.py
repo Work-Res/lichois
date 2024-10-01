@@ -19,7 +19,7 @@ class ApplicationVerification(ApplicationBaseModel):
     )
 
     def __str__(self):
-        return f"{self.decision}"
+        return f"{self.status}"
 
     class Meta:
         app_label = "app"
