@@ -1,6 +1,6 @@
 {
   "classifiers": {
-    "exemption_certificate_workflow": {
+    "blue_card_workflow": {
       "code": "BLUE_CARD_PERMIT",
       "name": "Blue Card Permit",
       "description": "Blue Card Permit Workflow",
