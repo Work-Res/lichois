@@ -6,7 +6,7 @@ from app.models.security_clearance import SecurityClearance
 from app.utils import ApplicationDecisionEnum
 from app_comments.models import Comment
 from app.service import ApplicationDecisionService
-from workresidentpermit.workflow import ProductionTransactionData
+from app.workflow import ProductionTransactionData
 
 from ..config.configuration_loader import BaseConfigLoader
 from ..config.decision_loader import DecisionLoader

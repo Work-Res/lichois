@@ -43,9 +43,11 @@ class TaskActivation:
                 f"Processing current_status {self.source.current_status} for "
             )
             self.logger.info(f"Source model: { self.source.__dict__}")
+            print("Source model: ", self.source.__dict__)
             self.logger.info(
                 f"activity.create_task_rules: {activity.create_task_rules}"
             )
+            print("activity.create_task_rules: ", activity.create_task_rules)
             if workflow.test_rule(
                 activity.name.upper(), self.source, activity.create_task_rules
             ):

@@ -122,7 +122,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             self.application.refresh_from_db()
 
             self._create_comment()
-            self._deactivate_current_task()
+            # self._deactivate_current_task()
             self._activate_next_task()
             print("self.response.result(): ", self.response.result())
         return self.response.result()
@@ -201,6 +201,7 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
 
         if self.workflow and self.decision:
+            self.logger.info(f"Activating next task for {self.request.document_number}")
             self.set_security_clearance()
             create_or_update_task_signal.send_robust(
                 sender=self.application,

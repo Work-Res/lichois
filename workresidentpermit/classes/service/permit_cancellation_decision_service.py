@@ -4,7 +4,7 @@ from app.models import Application, MinisterDecision
 from app.utils import ApplicationDecisionEnum
 from app_comments.models import Comment
 from app.service import ApplicationDecisionService
-from workresidentpermit.workflow import ProductionTransactionData
+from app.workflow import ProductionTransactionData
 
 from ...utils import WorkResidentPermitApplicationTypeEnum
 

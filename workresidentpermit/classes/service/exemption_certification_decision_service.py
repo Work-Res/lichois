@@ -2,7 +2,7 @@ from app.models import Application
 from app_comments.models import Comment
 from app.service import ApplicationDecisionService
 
-from ...workflow import RecommendationTransitionData
+from app.workflow import RecommendationTransitionData
 
 
 class ExemptionCertificateDecisionService(ApplicationDecisionService):
