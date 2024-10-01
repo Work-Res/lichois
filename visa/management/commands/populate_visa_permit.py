@@ -199,7 +199,7 @@ class Command(BaseCommand):
                         )
                     ),
                     no_of_entries=faker.random_element(elements=("single", "multiple")),
-                    durations_stay=faker.random_element(
+                    proposed_durations_stay=faker.random_element(
                         elements=(
                             "1 month",
                             "3 months",
