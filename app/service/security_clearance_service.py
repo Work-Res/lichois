@@ -1,3 +1,4 @@
+from gazette.service.add_vetted_application_to_batch_service import AddVettedApplicationToBatchService
 from ..api.dto import SecurityClearanceRequestDTO
 from ..api.serializers import SecurityClearanceSerializer
 from ..models import SecurityClearance
@@ -21,4 +22,13 @@ class SecurityClearanceService(BaseDecisionService):
         )
 
     def create_clearance(self):
-        return self.create_decision(SecurityClearance, SecurityClearanceSerializer)
+        security_clearance = self.create_decision(SecurityClearance, SecurityClearanceSerializer)
+        self.add_to_gazette_if_eligible(security_clearance)
+        return security_clearance
+
+    def add_to_gazette_if_eligible(self, security_clearance):
+        document_number = security_clearance.get('data').get("document_number")
+        self.logger.info(f"Start gazette process {document_number}")
+        service = AddVettedApplicationToBatchService(document_number=document_number)
+        service.add_to_batch()
+        self.logger.info("End gazette process")

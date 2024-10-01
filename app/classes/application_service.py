@@ -79,6 +79,8 @@ class ApplicationService:
         Get the application status for the current process.
         """
         try:
+            self.logger.info(f"Application status parameters status: {self.new_application_dto.status} "
+                             f"- process_name: {self.new_application_dto.proces_name}")
             return ApplicationRepository.get_application_status(
                 self.new_application_dto.status, self.new_application_dto.proces_name
             )

@@ -6,6 +6,7 @@ from django.test import tag
 from app.utils import ApplicationStatusEnum
 from app_checklist.models import SystemParameter
 from app_personal_details.models import Permit
+from gazette.models import Batch, BatchApplication
 from workflow.models import Activity
 from .base_setup import BaseSetup
 
@@ -129,6 +130,9 @@ class TestSettlementWorkflow(BaseSetup):
         self.assertEqual(
             app.application_status.code, CitizenshipStagesEnum.ASSESSMENT.value.lower()
         )
+
+        self.assertGreater(Batch.objects.count(), 0)
+        self.assertGreater(BatchApplication.objects.count(), 0)
 
         self.assertIsNotNone(self.perform_assessment())
         app.refresh_from_db()

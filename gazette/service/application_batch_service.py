@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 from app.models import Application
-from authentication.models import User
+
 from gazette.exceptions import (
     BatchNotFoundException,
     ApplicationNotFoundException,

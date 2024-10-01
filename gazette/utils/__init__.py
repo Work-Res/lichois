@@ -1,0 +1,1 @@
+from .gazette_configuration import GazetteConfiguration
