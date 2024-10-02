@@ -45,7 +45,6 @@ class ApplicationService:
             raise Exception("Application document creation failed")
 
         application = self._create_application_record(application_status)
-        print(application)
         application_version = self._create_application_version(application)
 
         serializer = ApplicationVersionSerializer(application_version)
@@ -79,8 +78,10 @@ class ApplicationService:
         Get the application status for the current process.
         """
         try:
-            self.logger.info(f"Application status parameters status: {self.new_application_dto.status} "
-                             f"- process_name: {self.new_application_dto.proces_name}")
+            self.logger.info(
+                f"Application status parameters status: {self.new_application_dto.status} "
+                f"- process_name: {self.new_application_dto.proces_name}"
+            )
             return ApplicationRepository.get_application_status(
                 self.new_application_dto.status, self.new_application_dto.proces_name
             )
@@ -105,7 +106,7 @@ class ApplicationService:
                     "work_location_code": self.new_application_dto.work_place,
                     "dob": self.new_application_dto.dob,
                     "user_identifier": self.new_application_dto.applicant_identifier,
-                    "full_name": self.new_application_dto.full_name
+                    "full_name": self.new_application_dto.full_name,
                 },
             )
             if created:
@@ -153,7 +154,9 @@ class ApplicationService:
         self.application_document.applicant = applicant
         self.application_document.document_date = date.today()
         self.application_document.signed_date = date.today()
-        self.application_document.applicant_type = self.new_application_dto.applicant_type
+        self.application_document.applicant_type = (
+            self.new_application_dto.applicant_type
+        )
         ApplicationRepository.save_application_document(self.application_document)
 
         self._log_and_set_response(

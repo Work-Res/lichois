@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         faker = Faker()
-        process_name = ApplicationProcesses.SPECIAL_PERMIT.name
+        process_name = ApplicationProcesses.APPEAL_PERMIT.name
         self.stdout.write(self.style.SUCCESS(f"Process name {process_name}"))
         # ApplicationStatus.objects.get_or_create(
         # 	code=ApplicationStatusEnum.NEW.value,
