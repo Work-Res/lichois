@@ -44,7 +44,14 @@ class Command(BaseCommand):
             lname = faker.unique.last_name()
             with atomic():
                 new_app = NewApplicationDTO(
-                    application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value,
+                    application_type=faker.random_element(
+                        elements=(
+                            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value,
+                            WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_APPEAL.value,
+                            WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_APPEAL.value,
+                            WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_APPEAL.value,
+                        )
+                    ),
                     process_name=process_name,
                     applicant_identifier=(
                         f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
