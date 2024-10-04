@@ -39,7 +39,8 @@ from .views.summary import (
     Under20SummaryViewSet,
     ResumptionSummaryViewSet,
     CertificateInCaseOfDoubtSummaryViewSet,
-    FSNaturalizationSummaryViewSet
+    FSNaturalizationSummaryViewSet,
+    NaturalizationSummaryViewSet
 )
 
 app_name = "citizenship"
@@ -122,6 +123,12 @@ router.register(
     r"citizenship-naturalization-fs",
     FSNaturalizationSummaryViewSet,
     basename="naturalization-foreign-spouse",
+)
+
+router.register(
+    r"citizenship-naturalization",
+    NaturalizationSummaryViewSet,
+    basename="naturalization",
 )
 
 router.register(r'citizenship-minister-decisions', CitizenshipMinisterDecisionViewSet)

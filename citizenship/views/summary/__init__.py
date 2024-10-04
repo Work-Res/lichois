@@ -10,3 +10,4 @@ from .dual_renunciation_summary_viewset import DualRenunciationSummaryViewSet
 from .settlement_summary_viewset import SettlementViewSet
 from .resumption_summary_viewset import ResumptionSummaryViewSet
 from .certificate_incase_doubt_summary_viewset import CertificateInCaseOfDoubtSummaryViewSet
+from .naturalization_summary_viewset import NaturalizationSummaryViewSet
