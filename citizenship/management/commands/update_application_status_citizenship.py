@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 processes = application_status.processes.split(',')
                 for process in CitizenshipProcessEnum:
                     if not process.value in processes:
-                        application_status.processes = f"{application_status.processes},{process}"
+                        application_status.processes = f"{application_status.processes},{process.value}"
                         application_status.save()
                         self.stdout.write(
                             self.style.SUCCESS(f'Updated the application status, added {process.value}'))
