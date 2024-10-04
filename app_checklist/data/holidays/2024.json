@@ -1,0 +1,220 @@
+{
+  "holidays": [
+    {
+      "name": "New Year's Day",
+      "description": "New Year's Day",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-01-01",
+      "valid_from": "2024-01-01",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "New Year Holiday",
+      "description": "New Year Holiday",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-01-02",
+      "valid_from": "2024-01-01",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "March Equinox",
+      "description": "March Equinox",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-03-20",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Good Friday",
+      "description": "Good Friday",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-03-29",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Holy Saturday",
+      "description": "Holy Saturday",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-03-30",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Easter Monday",
+      "description": "Easter Monday",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-03-29",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Labour Day",
+      "description": "Labour Day",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-05-01",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Ascension Day",
+      "description": "Ascension Day",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-05-09",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Mother's Day",
+      "description": "Mother's Day",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-05-12",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Father's Day",
+      "description": "Father's Day",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-06-12",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "June Solstice",
+      "description": "June Solstice",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-06-20",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "June Solstice",
+      "description": "June Solstice",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-06-20",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "June Solstice",
+      "description": "June Solstice",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-06-20",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Sir Seretse Khama Day",
+      "description": "Sir Seretse Khama Day",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-07-01",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "President's Day",
+      "description": "President's Day",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-07-15",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "President's Day Holiday",
+      "description": "President's Day Holiday",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-07-16",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Olympic Gold Half Day",
+      "description": "Olympic Gold Half Day",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-08-09",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "September Equinox",
+      "description": "June Solstice",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-09-22",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Botswana Day",
+      "description": "Botswana Day",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-09-30",
+      "valid_from": "2024-01-01",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Botswana Day Holiday",
+      "description": "Botswana Day Holiday",
+      "year": 2024,
+      "is_public_holiday": false,
+      "holiday_date": "2024-10-01",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "General Election Holiday",
+      "description": "General Election Holiday",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-10-30",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "General Election Holiday",
+      "description": "General Election Holiday",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-10-31",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Christmas Day",
+      "description": "Botswana Day Holiday",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-10-01",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    },
+    {
+      "name": "Boxing Day",
+      "description": "Boxing Day",
+      "year": 2024,
+      "is_public_holiday": true,
+      "holiday_date": "2024-10-01",
+      "valid_from": "2024-01-02",
+      "valid_to": "2024-12-31"
+    }
+  ]
+}

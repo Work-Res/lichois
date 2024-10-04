@@ -1,3 +1,7 @@
+import random
+
+from random import randint
+
 from datetime import date
 
 from faker import Faker
@@ -6,6 +10,8 @@ from app.models import ApplicationStatus
 from app.classes import ApplicationService
 
 from app.api import NewApplicationDTO
+from app_checklist.api import LocationSerializer
+from app_checklist.models.location import Location
 
 from app_personal_details.models import Person, Passport
 from app_address.models import ApplicationAddress, Country
@@ -26,6 +32,7 @@ from rest_framework.test import APITestCase
 
 
 class BaseSetup(APITestCase):
+    faker = Faker()
 
     @classmethod
     def setUpClass(cls):
@@ -34,15 +41,18 @@ class BaseSetup(APITestCase):
         if isinstance(app_config, AppChecklistConfig):
             app_config.ready()
 
-    def create_new_application(self):
+    def create_new_application(self, application_type=None):
         self.new_application_dto = NewApplicationDTO(
             process_name=CitizenshipProcessEnum.RENUNCIATION.value,
-            applicant_identifier='317918515',
-            status=ApplicationStatusEnum.NEW.value,
+            applicant_identifier=(
+                f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
+                f"{randint(1000, 9999)}-{randint(1000, 9999)}"
+            ),
+            status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=CitizenshipProcessEnum.RENUNCIATION.value,
-            full_name="Test test",
+            application_type=application_type or CitizenshipProcessEnum.RENUNCIATION.value,
+            full_name=f"{self.faker.unique.first_name()} {self.faker.unique.last_name()}",
             applicant_type="student"
         )
 
@@ -72,7 +82,54 @@ class BaseSetup(APITestCase):
             qualification=faker.random_element(elements=('diploma', 'degree', 'masters', 'phd'))
         )
 
-    def create_address(self, app, faker):
+    def create_district(self):
+        districts = ["Kweneng", "Ngwaketse", "Central", "North-East", "North-West", "Ghanzi", "Kgalagadi",
+                     "Borolong"]
+        for district in districts:
+            Location.objects.create(
+                code=district,
+                name=district,
+                location_type='DISTRICT',
+                valid_from=date.today()
+            )
+
+    def _create_village(self, district_code, villages):
+        district = Location.objects.get(
+            code=district_code,
+            location_type="DISTRICT"
+        )
+        for village_name in villages:
+            Location.objects.create(
+                parent_location=district,
+                name=village_name,
+                code=village_name,
+                valid_from=date.today()
+            )
+
+    def create_village(self):
+
+        kweneng_villages = ["Metsibotlhoko", "Maratshwane", "Botlhapatlou", "Medie", "Molepolole", "Gakutlo",
+                            "Ditshukudu", "Mantshwabisi", "Monwane", "Thamaga", "Kubung", "Mmankgodi", "Mogonono",
+                            "Hatsalatladi"]
+
+        self._create_village(district_code="Kweneng", villages=kweneng_villages)
+
+        ngwaketse_villages = ["Kanye", "Ranaka", "Lotlhakane West", "Gasita", "Lorolwana", "Pitseng", "Lekgolobotlo",
+                              "Lotlhakane", "Molapowabojang", "Ralekgetho", "Moshaneng", "Ntlhantlhe"]
+
+        self._create_village(district_code="Ngwaketse", villages=ngwaketse_villages)
+
+        borolong_villages = ["Pitsane Siding", "Tlhareseleele", "Pitsana-Potokwe", "Rakhuna", "Malokaganyane", "Bethel",
+                             "Dinatshana",
+                             "Ngwatsau", "Ramatlabama", "Good Hope", "Hebron", "Makokwe"]
+
+        self._create_village(district_code="Borolong", villages=borolong_villages)
+
+        ghanzi_villages = ["Qabo", "Karakobis", "Groote Laagte", "Dekar", "Ghanzi", "New Xade",
+                           "Charles Hill", "Kule", "Ncojane", "New Xanagas", "Kacgae", "Bere"]
+        self._create_village(district_code="Ghanzi", villages=ghanzi_villages)
+
+    def create_address(self, app, faker, village):
         country = Country.objects.create(name=faker.country())
         return ApplicationAddress.objects.create(
             application_version=None,
@@ -82,6 +139,8 @@ class BaseSetup(APITestCase):
             plot_number=faker.building_number(),
             address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
                                                         'other')),
+            village=self.location_to_json(village),
+            district=self.location_to_json(village.parent_location),
             country=country,
             status=faker.random_element(elements=('active', 'inactive')),
             city=faker.city(),
@@ -89,8 +148,44 @@ class BaseSetup(APITestCase):
             private_bag=faker.building_number(),
         )
 
+    def create_apps(self, villages):
+        for village_name in villages:
+            number = random.randint(1, 50)
+            for _ in range(number):
+                village = Location.objects.get(
+                    name=village_name
+                )
+                app = self.create_new_application(application_type=CitizenshipProcessEnum.NATURALIZATION.value)
+                self.create_address(app=app, faker=self.faker, village=village)
+
+    def create_apps_villages(self):
+        kweneng_villages = ["Metsibotlhoko", "Maratshwane", "Botlhapatlou", "Medie", "Molepolole", "Gakutlo",
+                            "Ditshukudu", "Mantshwabisi", "Monwane", "Thamaga", "Kubung", "Mmankgodi", "Mogonono",
+                            "Hatsalatladi"]
+        self.create_apps(villages=kweneng_villages)
+
+        ngwaketse_villages = ["Kanye", "Ranaka", "Lotlhakane West", "Gasita", "Lorolwana", "Pitseng", "Lekgolobotlo",
+                              "Lotlhakane", "Molapowabojang", "Ralekgetho", "Moshaneng", "Ntlhantlhe"]
+        self.create_apps(villages=ngwaketse_villages)
+
+        borolong_villages = ["Pitsane Siding", "Tlhareseleele", "Pitsana-Potokwe", "Rakhuna", "Malokaganyane", "Bethel",
+                             "Dinatshana",
+                             "Ngwatsau", "Ramatlabama", "Good Hope", "Hebron", "Makokwe"]
+        self.create_apps(villages=borolong_villages)
+
+        ghanzi_villages = ["Qabo", "Karakobis", "Groote Laagte", "Dekar", "Ghanzi", "New Xade",
+                           "Charles Hill", "Kule", "Ncojane", "New Xanagas", "Kacgae", "Bere"]
+        self.create_apps(villages=ghanzi_villages)
+
+    def location_to_json(self, location):
+        if location:
+            serializer = LocationSerializer(location)
+            return serializer.data
+
     def setUp(self) -> None:
 
+        self.create_district()
+        self.create_village()
         self.create_application_statuses()
         application_version = self.create_new_application()
 

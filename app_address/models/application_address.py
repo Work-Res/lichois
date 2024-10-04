@@ -12,7 +12,18 @@ class ApplicationAddress(ApplicationBaseModel):
     country = models.ForeignKey(
         Country, on_delete=models.CASCADE, null=True, blank=True
     )
+
     city = models.CharField(max_length=100)
+
+    district = models.JSONField(
+        null=True, blank=True, db_column='district')
+
+    village = models.JSONField(
+        null=True, blank=True, db_column='village')
+
+    ward = models.JSONField(
+        null=True, blank=True, db_column='ward')
+
     street_address = models.CharField(max_length=255, blank=True, null=True)
     address_type = models.CharField(max_length=100, choices=ADDRESS_TYPE)
     status = models.CharField(max_length=100, choices=ADDRESS_STATUS, default="active")
