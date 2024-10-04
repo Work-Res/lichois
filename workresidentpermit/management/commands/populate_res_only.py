@@ -18,13 +18,13 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         faker = Faker()
         work_res_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
+            WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_ONLY.value
         )
         renewal_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
+            WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_RENEWAL.value
         )
         replacement_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
+            WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_REPLACEMENT.value
         )
         with atomic():
 

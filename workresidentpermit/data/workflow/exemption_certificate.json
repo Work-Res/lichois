@@ -45,7 +45,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
-            "current_status":  "VETTING"
+            "current_status":  "VETTING",
+            "vetting_obj_exists":  true
           }
         },
         {

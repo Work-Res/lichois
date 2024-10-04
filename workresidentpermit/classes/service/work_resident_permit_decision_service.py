@@ -6,7 +6,7 @@ from app_comments.models import Comment
 from app.service import ApplicationDecisionService
 from board.models import BoardDecision
 
-from ...workflow import ProductionTransactionData
+from app.workflow import ProductionTransactionData
 
 
 class WorkResidentPermitDecisionService(ApplicationDecisionService):

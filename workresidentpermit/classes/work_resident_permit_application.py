@@ -10,7 +10,7 @@ from app_comments.models import Comment
 from app.models import ApplicationDecisionType
 from workflow.classes import TaskDeActivation
 from workflow.signals import create_or_update_task_signal
-from workresidentpermit.workflow import (
+from app.workflow import (
     VerificationTransactionData,
     VettingTransactionData,
 )

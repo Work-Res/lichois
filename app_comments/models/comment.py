@@ -9,7 +9,7 @@ class Comment(BaseUuidModel):
     document_number = models.CharField(max_length=100, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comment_text = models.TextField()
-    comment_type = models.CharField(max_length=50)
+    comment_type = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.comment_text

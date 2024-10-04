@@ -89,7 +89,7 @@ class BaseDecisionService(UpdateApplicationMixin):
             application_decision_type = self.get_application_decision_type()
             self.logger.info(f"GOT CREATE DECISION: {application_decision_type}")
             if application_decision_type is None:
-                return self.response
+                return self.response.result()
 
             self.decision = decision_model.objects.create(
                 status=application_decision_type,
@@ -122,9 +122,9 @@ class BaseDecisionService(UpdateApplicationMixin):
             self.application.refresh_from_db()
 
             self._create_comment()
-            self._deactivate_current_task()
+            # self._deactivate_current_task()
             self._activate_next_task()
-
+            print("self.response.result(): ", self.response.result())
         return self.response.result()
 
     def retrieve_decision(self, decision_model, serializer_class):
@@ -201,6 +201,7 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
 
         if self.workflow and self.decision:
+            self.logger.info(f"Activating next task for {self.request.document_number}")
             self.set_security_clearance()
             create_or_update_task_signal.send_robust(
                 sender=self.application,
@@ -220,7 +221,7 @@ class BaseDecisionService(UpdateApplicationMixin):
                 user=self.request.user,
                 comment_text=self.request.summary,
                 document_number=self.request.document_number,
-                comment_type=self.request.comment_type
+                comment_type=self.request.comment_type,
             )
 
     def _security_clearance(self):

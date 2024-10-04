@@ -65,4 +65,4 @@ class SpecialPermitIdentifierAppeal(Identifier):
 
     @staticmethod
     def process_name():
-        return WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_APPEAL.value
+        return ApplicationProcesses.APPEAL_PERMIT.value

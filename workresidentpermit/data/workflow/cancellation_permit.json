@@ -1,6 +1,6 @@
 {
   "classifiers": {
-    "exemption_certificate_workflow": {
+    "cancellation_workflow": {
       "code": "CANCELLATION_PERMIT",
       "name": "Cancellation Permit",
       "description": "Cancellation Permit Workflow",

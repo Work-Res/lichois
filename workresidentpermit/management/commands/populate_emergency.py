@@ -35,6 +35,9 @@ class Command(BaseCommand):
             with atomic():
                 fname = faker.unique.first_name()
                 lname = faker.unique.last_name()
+                emergency_period = faker.random_element(
+                    elements=("1 - 14 days", "15 - 90 days", "6 months")
+                )
                 new_app = NewApplicationDTO(
                     application_type=application_type,
                     process_name=process_name,
@@ -46,13 +49,7 @@ class Command(BaseCommand):
                     dob="1990-06-10",
                     work_place=randint(1000, 9999),
                     full_name=f"{fname} {lname}",
-                    permit_period=faker.random_element(
-                        elements=(
-                            "1 - 14 days",
-                            "15 - 90 days",
-                            "6 months",
-                        )
-                    ),
+                    permit_period=emergency_period,
                     applicant_type=faker.random_element(
                         elements=("employee", "investor")
                     ),
@@ -63,6 +60,7 @@ class Command(BaseCommand):
                 app = ApplicationService(new_application_dto=new_app)
                 self.stdout.write(self.style.SUCCESS(new_app.__dict__))
                 version = app.create_application()
+
                 Person.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -134,9 +132,7 @@ class Command(BaseCommand):
                     nature_emergency=faker.random_element(
                         elements=("fire", "flood", "earthquake", "tsunami")
                     ),
-                    emergency_period=faker.random_element(
-                        elements=("1 - 14 days", "15 - 90 days", "6 months")
-                    ),
+                    emergency_period=emergency_period,
                     job_requirements=faker.job(),
                     services_provided=faker.text(),
                     chief_authorization=faker.name(),
