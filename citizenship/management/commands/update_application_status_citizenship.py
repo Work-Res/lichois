@@ -14,7 +14,7 @@ class Command(BaseCommand):
             code = status.get("code")
             # Assuming 'status' contains other fields that you want to create/update the object with
             application_status, created = ApplicationStatus.objects.get_or_create(
-                code=code,  # Use code to find the existing object
+                code__iexact=code,  # Use code to find the existing object
                 defaults=status  # Use 'status' as the defaults if creating a new object
             )
             if created:
