@@ -54,7 +54,7 @@ class Command(CustomBaseCommand):
                     middle_name="",
                     maiden_name="",
                     dob=date(1990, 10, 6),
-                    country_birth="BW"
+                    place_birth="BW"
                 )
 
                 # Applicant Postal Address Details
