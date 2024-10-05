@@ -1,6 +1,7 @@
 import logging
 
 from app.models import Application
+from app.utils import ApplicationDecisionEnum
 from gazette.models import Batch
 from gazette.service import ApplicationBatchService
 from gazette.utils import GazetteConfiguration
@@ -35,6 +36,8 @@ class AddVettedApplicationToBatchService:
                 batch = self.get_or_create_batch()
                 if batch:
                     ApplicationBatchService.add_application_to_batch(batch.id, self.application.id)
+                    self.application.gazette = ApplicationDecisionEnum.PENDING.value
+                    self.application.save()
                     self.logger.info(f"Application {self.application.id} added to batch {batch.id}")
             except IntegrityError as e:
                 self.logger.error(f"Integrity error while adding application {self.application.id} to batch: {e}", exc_info=True)

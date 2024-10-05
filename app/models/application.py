@@ -67,6 +67,12 @@ class Application(BaseUuidModel):
         default=ApplicationDecisionEnum.PENDING.value,
     )
 
+    gazette = models.CharField(
+        null=True,
+        blank=True,
+        max_length=200
+    )
+
     board = models.CharField(
         null=True,
         blank=True,
