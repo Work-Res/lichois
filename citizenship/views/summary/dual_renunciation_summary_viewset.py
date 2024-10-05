@@ -9,8 +9,8 @@ from citizenship.models import CitizenshipSummary
 
 def get_app_labels():
     return [
-        "app_oath.OathDocument",
-        "app_oath.Declarant"
+        # "app_oath.OathDocument",
+        # "app_oath.Declarant"
     ]
 
 
