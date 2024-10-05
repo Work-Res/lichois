@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
-from typing import Generic, TypeVar, Optional, List
+from typing import Generic, TypeVar
 
 from crm_integration.api.dtos import PayloadDTO, ReferenceDTO
 
