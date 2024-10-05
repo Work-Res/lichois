@@ -14,9 +14,9 @@ fake = Faker()
 class BotswanaCityProvider(BaseProvider):
 
     cities = [
-        'Gaborone', 'Francistown', 'Molepolole', 'Serowe', 'Maun',
-        'Mochudi', 'Kanye', 'Palapye', 'Selibe Phikwe', 'Lobatse',
-        'Ramotswa', 'Thamaga', 'Letlhakane', 'Mahalapye', 'Tlokweng'
+        'Gaborone Board', 'Francistown Board', 'Molepolole Board', 'Serowe Board', 'Maun Board',
+        'Mochudi Board', 'Kanye Board', 'Palapye Board', 'Selibe Phikwe Board', 'Lobatse Board',
+        'Ramotswa Board', 'Thamaga Board', 'Letlhakane Board', 'Mahalapye Board', 'Tlokweng Board'
     ]
 
     def botswana_city(self):
