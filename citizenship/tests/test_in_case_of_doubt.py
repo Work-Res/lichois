@@ -44,14 +44,16 @@ class TestRegistrationOfUnder20workflow(BaseSetup):
         classifier = Classifier.objects.get(code=self.application.process_name)
         self.assertIsNotNone(classifier)
         steps = ClassifierItem.objects.filter(classifier=classifier)
-        self.assertEqual(steps.count(), 4)
+        self.assertEqual(steps.count(), 6)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "RECOMMENDATION")
-        self.assertEqual(activites[2].name, "MINISTER_DECISION")
-        self.assertEqual(activites[3].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "ASSESSMENT")
+        self.assertEqual(activites[2].name, "REVIEW")
+        self.assertEqual(activites[3].name, "RECOMMENDATION")
+        self.assertEqual(activites[4].name, "MINISTER_DECISION")
+        self.assertEqual(activites[5].name, "FINAL_DECISION")
 
     def test_workflow_transaction_after_when_performing_recommendation(self):
 
@@ -71,10 +73,16 @@ class TestRegistrationOfUnder20workflow(BaseSetup):
 
         self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
-        self.assertEqual(app.verification, "ACCEPTED")
-        self.assertEqual(
-            app.application_status.code, CitizenshipStagesEnum.RECOMMENDATION.value.lower()
-        )
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.DOUBT_CITIZENSHIP_CERTIFICATE.value)
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.ASSESSMENT.value.upper())
+
+        self.assertIsNotNone(self.perform_assessment())
+        app.refresh_from_db()
+        self.assertEqual(app.application_status.code, CitizenshipStagesEnum.REVIEW.value.lower())
+
+        self.assertIsNotNone(self.perform_review())
+        app.refresh_from_db()
+        self.assertEqual(app.application_status.code, CitizenshipStagesEnum.RECOMMENDATION.value.lower())
 
         self.assertIsNotNone(self.perform_recommendation())
         app.refresh_from_db()
