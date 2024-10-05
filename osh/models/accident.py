@@ -16,15 +16,6 @@ class Accident(models.Model):
         ('DIRECTOR', 'Director'),
         ('EXECUTIVE', 'Executive'),
     ]
-    
-    FATALITY_STATUS_CHOICES = [
-        ('ALIVE', 'Alive'),
-        ('INJURED', 'Injured'),
-        ('DECEASED', 'Deceased'),
-        ('UNKNOWN', 'Unknown'),
-        ('CRITICAL', 'Critical Condition'),
-        ('RECOVERED', 'Recovered'),
-    ]
 
     date = models.DateField()
     time = models.TimeField()
@@ -35,15 +26,13 @@ class Accident(models.Model):
         choices=EXPERIENCE_LEVEL_CHOICES, 
         default='JUNIOR'
     )
-    fatality_status = models.CharField(
-        max_length=20, 
-        choices=FATALITY_STATUS_CHOICES, 
-        default='INJURED'
-    )
+    fatality_status = models.BooleanField(default = False)
     disabled_for_three_days = models.BooleanField(default=False)
     estimated_injury_cost = models.IntegerField(null=True, blank=True)
     injuries_sustained = models.TextField(null=True, blank=True)
-    machines_involved = models.TextField(null=True, blank=True)
+    machines_involved = models.BooleanField(default=False)
+    injury_nature = models.TextField()
+
 
     def format_time(self):
         return self.time.strftime('%H:%M')
