@@ -1,2 +1,1 @@
-from .crm_incoming_form_application_request import CrmIncomingFormApplicationRequest
-
+from .work_residence_permit_api_view import WorkResidenceAPIView
