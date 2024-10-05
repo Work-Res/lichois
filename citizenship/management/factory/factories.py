@@ -48,7 +48,7 @@ class BoardFactory(DjangoModelFactory):
     class Meta:
         model = Board
 
-    name = f"{factory.LazyAttribute(lambda x: fake.botswana_city())} Board"
+    name = factory.LazyAttribute(lambda x: fake.botswana_city())
     region = factory.SubFactory(RegionFactory)
     description = factory.Faker('text')
 
