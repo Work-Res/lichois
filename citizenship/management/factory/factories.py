@@ -1,10 +1,28 @@
-
 import factory
+
+from faker import Faker
 from factory.django import DjangoModelFactory
 
 from app_checklist.models import Region
 from authentication.models import User
 from citizenship.models import Board, Role, BoardMember
+from faker.providers import BaseProvider
+
+fake = Faker()
+
+
+class BotswanaCityProvider(BaseProvider):
+
+    cities = [
+        'Gaborone', 'Francistown', 'Molepolole', 'Serowe', 'Maun',
+        'Mochudi', 'Kanye', 'Palapye', 'Selibe Phikwe', 'Lobatse',
+        'Ramotswa', 'Thamaga', 'Letlhakane', 'Mahalapye', 'Tlokweng'
+    ]
+
+    def botswana_city(self):
+        return self.random_element(self.cities)
+
+fake.add_provider(BotswanaCityProvider)
 
 
 class RegionFactory(DjangoModelFactory):
@@ -30,7 +48,7 @@ class BoardFactory(DjangoModelFactory):
     class Meta:
         model = Board
 
-    name = factory.Faker('company')
+    name = f"{factory.LazyAttribute(lambda x: fake.botswana_city())} Board"
     region = factory.SubFactory(RegionFactory)
     description = factory.Faker('text')
 
