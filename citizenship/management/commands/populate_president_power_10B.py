@@ -35,7 +35,7 @@ class Command(CustomBaseCommand):
                     last_name=lname,
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    person_type="applicant",
+                    # person_type="applicant",
                 )
 
                 # Applicant Residential Address Details
@@ -43,7 +43,7 @@ class Command(CustomBaseCommand):
                     ApplicationAddress,
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    person_type="applicant",
+                    # person_type="applicant",
                 )
 
                 # Applicant Postal Address Details
