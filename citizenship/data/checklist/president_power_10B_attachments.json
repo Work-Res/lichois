@@ -1,7 +1,7 @@
 {
   "classifiers": {
     "attachment_documents": {
-      "code": "PRESIDENT_POWER_REGISTER_CITIZENS_10B_ONLY_ATTACHMENT_DOCUMENTS",
+      "code": "PRESIDENT_POWER_REGISTER_CITIZENS_10B_ATTACHMENT_DOCUMENTS",
       "name": "ATTACHMENT DOCUMENTS",
       "description": "A list of document to attach",
       "valid_from": "2024-01-01",
