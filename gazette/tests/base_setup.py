@@ -6,10 +6,14 @@ from datetime import date
 
 from faker import Faker
 
-from app.models import ApplicationStatus
+from app.api.dto import SecurityClearanceRequestDTO, ApplicationVerificationRequestDTO
+from app.api.serializers import SecurityClearanceRequestDTOSerializer, ApplicationVerificationRequestSerializer
+from app.models import ApplicationStatus, ApplicationDecisionType
 from app.classes import ApplicationService
 
 from app.api import NewApplicationDTO
+from app.service import SecurityClearanceService, VerificationService
+from app.validators import SecurityClearanceValidator, OfficerVerificationValidator
 from app_checklist.api import LocationSerializer
 from app_checklist.models.location import Location
 
@@ -22,7 +26,7 @@ from app_checklist.apps import AppChecklistConfig
 
 from app_checklist.models import ClassifierItem
 from app_attachments.models import ApplicationAttachment, AttachmentDocumentType
-from app.utils import ApplicationStatusEnum
+from app.utils import ApplicationStatusEnum, ApplicationDecisionEnum
 
 from app.utils import statuses
 
@@ -34,6 +38,21 @@ from rest_framework.test import APITestCase
 class BaseSetup(APITestCase):
     faker = Faker()
 
+    def application_decision_type(self):
+        for value in [
+            ApplicationDecisionEnum.ACCEPTED.value,
+            ApplicationDecisionEnum.APPROVED.value,
+            ApplicationDecisionEnum.PENDING.value,
+            ApplicationDecisionEnum.REJECTED.value,
+        ]:
+            ApplicationDecisionType.objects.create(
+                code=value,
+                name=value,
+                process_types=CitizenshipProcessEnum.RENUNCIATION.value,
+                valid_from=date(2024, 1, 1),
+                valid_to=date(2025, 1, 1),
+            )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -43,7 +62,7 @@ class BaseSetup(APITestCase):
 
     def create_new_application(self, application_type=None):
         self.new_application_dto = NewApplicationDTO(
-            process_name=CitizenshipProcessEnum.RENUNCIATION.value,
+            process_name=CitizenshipProcessEnum.NATURALIZATION.value,
             applicant_identifier=(
                 f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
                 f"{randint(1000, 9999)}-{randint(1000, 9999)}"
@@ -51,7 +70,7 @@ class BaseSetup(APITestCase):
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=application_type or CitizenshipProcessEnum.RENUNCIATION.value,
+            application_type=application_type or CitizenshipProcessEnum.NATURALIZATION.value,
             full_name=f"{self.faker.unique.first_name()} {self.faker.unique.last_name()}",
             applicant_type="student"
         )
@@ -99,12 +118,14 @@ class BaseSetup(APITestCase):
             location_type="DISTRICT"
         )
         for village_name in villages:
+            print(f"Attempting to create village: {village_name}")
             Location.objects.create(
                 parent_location=district,
                 name=village_name,
                 code=village_name,
                 valid_from=date.today()
             )
+            print(f"Created village: {village_name}")
 
     def create_village(self):
 
@@ -125,20 +146,20 @@ class BaseSetup(APITestCase):
 
         self._create_village(district_code="Borolong", villages=borolong_villages)
 
-        ghanzi_villages = ["Qabo", "Karakobis", "Groote Laagte", "Dekar", "Ghanzi", "New Xade",
+        ghanzi_villages = ["Qabo", "Karakobis", "Groote Laagte", "Dekar", "New Xade",
                            "Charles Hill", "Kule", "Ncojane", "New Xanagas", "Kacgae", "Bere"]
         self._create_village(district_code="Ghanzi", villages=ghanzi_villages)
 
     def create_address(self, app, faker, village):
+        _app = app.application
         country = Country.objects.create(name=faker.country())
         return ApplicationAddress.objects.create(
-            application_version=None,
-            document_number=app.application_document.document_number,
+            application_version=app,
+            document_number=_app.application_document.document_number,
             po_box=faker.address(),
             apartment_number=faker.building_number(),
             plot_number=faker.building_number(),
-            address_type=faker.random_element(elements=('residential', 'postal', 'business', 'private',
-                                                        'other')),
+            address_type='residential',
             village=self.location_to_json(village),
             district=self.location_to_json(village.parent_location),
             country=country,
@@ -148,15 +169,53 @@ class BaseSetup(APITestCase):
             private_bag=faker.building_number(),
         )
 
+    def perform_verification(self, application):
+        data = {"status": "ACCEPTED"}
+        serializer = ApplicationVerificationRequestSerializer(data=data)
+        serializer.is_valid()
+        validator = OfficerVerificationValidator(document_number=application.application_document.document_number)
+        if validator.is_valid():
+            verification_request = ApplicationVerificationRequestDTO(
+                document_number=application.application_document.document_number,
+                user=None,
+                **serializer.validated_data,
+            )
+            service = VerificationService(verification_request=verification_request)
+            return service.create_verification()
+
+    def perform_vetting(self, application):
+        data = {"status": "ACCEPTED"}
+        serializer = SecurityClearanceRequestDTOSerializer(data=data)
+        if serializer.is_valid():
+            security_clearance_request = SecurityClearanceRequestDTO(
+                document_number=application.application_document.document_number,
+                user=None,
+                **serializer.validated_data,
+            )
+            # validator = SecurityClearanceValidator(
+            #     document_number=application.application_document.document_number,
+            #     status=security_clearance_request.status,
+            # )
+            # if validator.is_valid():
+            service = SecurityClearanceService(
+                security_clearance_request=security_clearance_request
+            )
+            return service.create_clearance()
+
     def create_apps(self, villages):
+        faker = Faker()
         for village_name in villages:
-            number = random.randint(1, 50)
+            number = random.randint(1, 10)
             for _ in range(number):
                 village = Location.objects.get(
                     name=village_name
                 )
                 app = self.create_new_application(application_type=CitizenshipProcessEnum.NATURALIZATION.value)
                 self.create_address(app=app, faker=self.faker, village=village)
+                self.create_personal_details(app.application, faker)
+                self.perform_verification(app.application)
+                app.application.refresh_from_db()
+                self.perform_vetting(app.application)
 
     def create_apps_villages(self):
         kweneng_villages = ["Metsibotlhoko", "Maratshwane", "Botlhapatlou", "Medie", "Molepolole", "Gakutlo",
@@ -180,10 +239,12 @@ class BaseSetup(APITestCase):
     def location_to_json(self, location):
         if location:
             serializer = LocationSerializer(location)
-            return serializer.data
+            data = serializer.data
+            data['parent_location'] = str(data['parent_location'])
+            return data
 
     def setUp(self) -> None:
-
+        self.application_decision_type()
         self.create_district()
         self.create_village()
         self.create_application_statuses()
@@ -194,7 +255,7 @@ class BaseSetup(APITestCase):
         self.document_number = app.application_document.document_number
         faker = Faker()
         self.create_personal_details(app, faker)
-        self.create_address(app, faker)
+        # self.create_address(app, faker)
 
         ApplicationContact.objects.create(
             application_version=None,
