@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 
 from django.http import FileResponse, HttpResponse
@@ -12,7 +14,10 @@ class DownloadGazettePDFView(View):
 
     def get(self, request, batch_id):
 
-        word_file_name = "gazette.docx"
+        now = datetime.now()
+        formatted_date = now.strftime("%Y-%m-%d")
+
+        word_file_name = f"gazette-{formatted_date}.docx"
         pdf_file_name = "gazette.pdf"
         word_file_path = os.path.join(settings.MEDIA_ROOT, word_file_name)
         pdf_file_path = os.path.join(settings.MEDIA_ROOT, pdf_file_name)
@@ -31,7 +36,7 @@ class DownloadGazettePDFView(View):
         service = GenerateGazettePDFService(data, word_file_path, pdf_file_path)
 
         # Generate the PDF document
-        service.generate_pdf()
+        service.create_word_document()
 
         # Check if the file was created successfully
         if os.path.exists(pdf_file_path):

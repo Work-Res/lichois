@@ -28,7 +28,7 @@ class TestGenerateGazettePDFService(BaseSetup):
         self.create_apps_villages()
 
         batch = Batch.objects.get(
-            status="IN_PROGRESS"
+            status="OPEN"
         )
         batch_apps = BatchApplication.objects.filter(
             batch=batch

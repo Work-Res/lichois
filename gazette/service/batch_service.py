@@ -26,11 +26,9 @@ class BatchService:
             # Attempt to create or get the batch
             batch, created = Batch.objects.get_or_create_by_status(
                 status="OPEN",
-                defaults={
-                    "title": batch_title,
-                    "description": batch_description,
-                    "identifier": self.batch_identifier()
-                },
+                title=batch_title,
+                description=batch_description,
+                identifier=self.batch_identifier()
             )
 
             if created:
