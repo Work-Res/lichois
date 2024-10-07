@@ -126,7 +126,7 @@
           "code": "FINAL_DECISION",
           "name": "Production Task",
           "description": "Permit Production Task",
-          "sequence": 4,
+          "sequence": 9,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",

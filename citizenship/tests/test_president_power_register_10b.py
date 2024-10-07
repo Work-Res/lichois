@@ -4,7 +4,8 @@ from app.models import Application, ApplicationDecision
 from app.service import VerificationService
 from app.utils import ApplicationStatusEnum
 
-from faker import Faker
+from ..utils.citizenship_stages_enum import CitizenshipStagesEnum
+
 
 from app_checklist.models import Classifier, ClassifierItem, SystemParameter
 
@@ -60,36 +61,107 @@ class TestPresidentPowerToRegister10bWorkflow(BaseSetup):
         self.assertEqual(activites[4].name, "RECOMMENDATION")
         self.assertEqual(activites[5].name, "PS_RECOMMENDATION")
         self.assertEqual(activites[6].name, "PRES_PS_RECOMMENDATION")
-        self.assertEqual(activites[7].name, "PRES_PS_RECOMMENDATION")
-        self.assertEqual(activites[8].name, "PRES_PS_RECOMMENDATION")
+        self.assertEqual(activites[7].name, "PRESIDENT_DECISION")
+        self.assertEqual(activites[8].name, "FINAL_DECISION")
 
-    def test_submit_officer_verification_and_move_production(self):
-        """Test if application can submit for verification, and then  """
-
-        SystemParameter.objects.create(
-            application_type=CitizenshipProcessEnum.PRESIDENT_POWER_10A.value,
-            duration_type="years",
-            duration=2
-        )
-
-        faker = Faker()
-
-        verification_request = ApplicationVerificationRequestDTO(
-            document_number=self.document_number,
-            user="test",
-            status="ACCEPTED",
-        )
-        service = VerificationService(verification_request=verification_request)
-        service.create_verification()
+    def test_workflow_after_verification(self):
         app = Application.objects.get(
-            application_document__document_number=self.document_number)
+            application_document__document_number=self.document_number
+        )
+
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10B.value)
+        self.assertEqual(
+            app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value
+        )
+
+        self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
-        self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10A.value)
+        self.assertEqual(app.verification, "ACCEPTED")
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.VETTING.value.upper())
 
-        self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+    def test_workflow_after_vetting(self):
+        app = Application.objects.get(
+            application_document__document_number=self.document_number
+        )
 
-        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
-        self.assertTrue(application_decision.exists())
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10B.value)
+        self.assertEqual(
+            app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value
+        )
 
-        permit = Permit.objects.filter(document_number=self.document_number)
-        self.assertTrue(permit.exists())
+        self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_vetting())
+        app.refresh_from_db()
+        self.assertEqual(app.security_clearance, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_assessment())
+        app.refresh_from_db()
+        self.assertEqual(app.assessment, "ACCEPTED")
+
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.REVIEW.value.upper())
+
+    def test_workflow_after_review(self):
+        app = Application.objects.get(
+            application_document__document_number=self.document_number
+        )
+
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10B.value)
+        self.assertEqual(
+            app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value
+        )
+
+        self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_vetting())
+        app.refresh_from_db()
+        self.assertEqual(app.security_clearance, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_assessment())
+        app.refresh_from_db()
+        self.assertEqual(app.assessment, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_review())
+        app.refresh_from_db()
+        self.assertEqual(app.review, "ACCEPTED")
+
+
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
+
+
+    def test_workflow_after_recommendation(self):
+        app = Application.objects.get(
+            application_document__document_number=self.document_number
+        )
+
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10B.value)
+        self.assertEqual(
+            app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value
+        )
+
+        self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_vetting())
+        app.refresh_from_db()
+        self.assertEqual(app.security_clearance, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_assessment())
+        app.refresh_from_db()
+        self.assertEqual(app.assessment, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_review())
+        app.refresh_from_db()
+        self.assertEqual(app.review, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_recommendation())
+        app.refresh_from_db()
+        self.assertEqual(app.recommendation, "ACCEPTED")
+
+
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
