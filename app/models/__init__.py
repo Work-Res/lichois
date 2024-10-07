@@ -13,3 +13,4 @@ from .commissioner_decision import CommissionerDecision
 from .minister_decision import MinisterDecision
 from .application_decision_type import ApplicationDecisionType
 from .application_decision import ApplicationDecision
+from .pres_recommendation_decision import PresRecommendationDecision
