@@ -27,15 +27,17 @@ class InterviewResponseFilter(django_filters.FilterSet):
         # Extract request from kwargs
         self.request = kwargs.pop('request', None)
         logger.info(f"Empty empty:  {self.request.user }")
-        super().__init__(*args, **kwargs)
 
-        # If there is a request and no explicit member filter is set, filter by request.user
         if self.request:
             logger.info(f"Applying filter for user: {self.request.user}")
             # Modify the queryset to filter by the request.user
             self.filters['member'].extra.update(
                 {'method': self.filter_by_request_user}
             )
+
+        super().__init__(*args, **kwargs)
+
+        # If there is a request and no explicit member filter is set, filter by request.user
 
     def filter_by_request_user(self, queryset, name, value):
         """
