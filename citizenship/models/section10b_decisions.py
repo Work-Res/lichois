@@ -1,8 +1,8 @@
 
 from base_module.model_mixins import BaseUuidModel
 from django.db import models
-from app.models import Application  # Adjust the import based on your project structure
-from app.utils import ApplicationDecisionEnum  # Adjust the import based on your project structure
+from app.models import Application
+from app.utils import ApplicationDecisionEnum
 
 class Section10bApplicationDecisions(BaseUuidModel):
 

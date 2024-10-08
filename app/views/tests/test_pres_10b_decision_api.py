@@ -4,11 +4,13 @@ Test President Decision for 10B api
 from datetime import datetime
 from django.test import TestCase
 from django.urls import reverse
-from app.api.dto.new_application_dto import NewApplicationDTO
+from app.api import NewApplicationDTO
+from app.utils import ApplicationStatusEnum
+
+from app.classes import ApplicationService
 from app.api.serializers.pres_recommendation_decision_serializer import PresRecommendationDecisionSerializer
-from app.classes.application_service import ApplicationService
-from app.models.application import Application
-from app.utils.system_enums import ApplicationStatusEnum
+
+from app.models import Application
 from citizenship.utils.citizenship_process_enum import CitizenshipProcessEnum
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -51,7 +53,7 @@ class PublicPresDecision10BTests(TestCase):
 class PrivatePresDecision10BTests(TestCase):
     """Tests for authenticated users"""
     def setUp(self) -> None:
-        super().setUp()
+
         self.client = APIClient()
 
         self.user = get_user_model().objects.create_user(
