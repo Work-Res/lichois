@@ -39,15 +39,17 @@ class InterviewResponseFilter(django_filters.FilterSet):
                 {'method': self.filter_by_request_user}
             )
 
-
-
-        # If there is a request and no explicit member filter is set, filter by request.user
-
-    def filter_by_request_user(self, queryset, name, value):
+    def filter_by_member(self, queryset, name, value):
         """
-        Custom filter method to filter by request.user if no member is specified
+        Custom filter method for member field.
+        If member is not provided, use request.user.
         """
-        return queryset.filter(Q(member__user=self.user))
+        if value:
+            return queryset.filter(member__user=value)
+        if self.request:
+            logger.info(f"Filtering by request user: {self.user}")
+            return queryset.filter(member__user=self.user)
+        return queryset
 
     class Meta:
         model = InterviewResponse
