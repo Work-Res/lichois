@@ -33,7 +33,7 @@ class InterviewResponseFilter(django_filters.FilterSet):
         logger.info(f"Empty empty after:  { self.user }")
 
         if self.user:
-            logger.info(f"Applying filter for user: {self.user")
+            logger.info(f"Applying filter for user: {self.user}")
             # Modify the queryset to filter by the request.user
             self.filters['member'].extra.update(
                 {'method': self.filter_by_request_user}
