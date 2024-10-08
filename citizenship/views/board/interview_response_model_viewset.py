@@ -22,6 +22,11 @@ class InterviewResponseViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = InterviewResponseFilter
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filterset = InterviewResponseFilter(self.request.GET, queryset=queryset, request=self.request)
+        return filterset.qs
+
     def update(self, request, *args, **kwargs):
         response_id = kwargs.get('pk')
         data = request.data
