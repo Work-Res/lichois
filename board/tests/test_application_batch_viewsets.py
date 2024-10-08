@@ -43,7 +43,7 @@ class BoardMeetingViewSetTestCase(CommonSetupTestCase):
         url = reverse('board:application-batches-list')
 
         response = self.client.get(url)
-        breakpoint()
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     @tag('apb2')
