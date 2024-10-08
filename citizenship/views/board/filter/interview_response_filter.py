@@ -1,6 +1,7 @@
 import logging
 
 import django_filters
+from django.db.models import Q
 
 from citizenship.models import InterviewResponse
 
@@ -23,14 +24,24 @@ class InterviewResponseFilter(django_filters.FilterSet):
     meeting_title = django_filters.CharFilter(field_name='interview__meeting__title', lookup_expr='icontains')
 
     def __init__(self, *args, **kwargs):
+        # Extract request from kwargs
         self.request = kwargs.pop('request', None)
+        logger.info(f"Empty empty:  {self.request }")
         super().__init__(*args, **kwargs)
-        for key in kwargs.items():
-            logger.info(f"wer above {key}")
 
-        if self.request:
-            logger.info("here here here", self.request.user)
-            self.queryset = self.queryset.filter(member=self.request.user)
+        # If there is a request and no explicit member filter is set, filter by request.user
+        if self.request and not self.request.GET.get('member'):
+            logger.info(f"Applying filter for user: {self.request.user}")
+            # Modify the queryset to filter by the request.user
+            self.filters['member'].extra.update(
+                {'method': self.filter_by_request_user}
+            )
+
+    def filter_by_request_user(self, queryset, name, value):
+        """
+        Custom filter method to filter by request.user if no member is specified
+        """
+        return queryset.filter(Q(member__user=self.request.user))
 
     class Meta:
         model = InterviewResponse
