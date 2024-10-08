@@ -1,9 +1,7 @@
 import logging
-
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-
 from django_filters.rest_framework import DjangoFilterBackend
 from django.core.exceptions import ValidationError
 from app.api.common.pagination import StandardResultsSetPagination
@@ -23,10 +21,20 @@ class InterviewResponseViewSet(viewsets.ModelViewSet):
     filterset_class = InterviewResponseFilter
 
     def get_queryset(self):
+        """
+        Override the default get_queryset to apply filtering based on the request.
+        """
         queryset = super().get_queryset()
-        logger.info(f">>>>> adding user filter..{self.request.user}")
-        filterset = InterviewResponseFilter(self.request.GET, queryset=queryset, request=self.request)
-        return filterset.qs
+
+        # Initialize filterset with the request data and current queryset
+        filterset = self.filterset_class(self.request.GET, queryset=queryset, request=self.request)
+
+        # If the filterset is valid, return the filtered queryset
+        if filterset.is_valid():
+            return filterset.qs
+
+        # Fallback to returning the full queryset if no filtering is applied
+        return queryset
 
     def update(self, request, *args, **kwargs):
         response_id = kwargs.get('pk')
