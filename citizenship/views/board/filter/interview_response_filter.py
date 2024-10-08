@@ -32,8 +32,8 @@ class InterviewResponseFilter(django_filters.FilterSet):
         super().__init__(*args, **kwargs)
         logger.info(f"Empty empty after:  { self.user }")
 
-        if self.request:
-            logger.info(f"Applying filter for user: {self.request.user}")
+        if self.user:
+            logger.info(f"Applying filter for user: {self.user")
             # Modify the queryset to filter by the request.user
             self.filters['member'].extra.update(
                 {'method': self.filter_by_request_user}
@@ -47,7 +47,7 @@ class InterviewResponseFilter(django_filters.FilterSet):
         """
         Custom filter method to filter by request.user if no member is specified
         """
-        return queryset.filter(Q(member__user=self.request.user))
+        return queryset.filter(Q(member__user=self.user))
 
     class Meta:
         model = InterviewResponse
