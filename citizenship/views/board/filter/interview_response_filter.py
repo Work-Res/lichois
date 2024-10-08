@@ -25,10 +25,7 @@ class InterviewResponseFilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
-        logger.info("wer above")
-        if self.request and not self.data.get('member'):
-            logger.info("here here here", self.request.user)
-            self.queryset = self.queryset.filter(member=self.request.user)
+        self.queryset = self.queryset.filter(member=self.request.user)
 
     class Meta:
         model = InterviewResponse
