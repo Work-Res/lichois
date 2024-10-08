@@ -30,7 +30,7 @@ class InterviewResponseFilter(django_filters.FilterSet):
         super().__init__(*args, **kwargs)
 
         # If there is a request and no explicit member filter is set, filter by request.user
-        if self.request and not self.request.GET.get('member'):
+        if self.request:
             logger.info(f"Applying filter for user: {self.request.user}")
             # Modify the queryset to filter by the request.user
             self.filters['member'].extra.update(
