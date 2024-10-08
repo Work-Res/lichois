@@ -54,6 +54,41 @@ class InterviewResponseViewSet(viewsets.ModelViewSet):
                 f"An unexpected error occurred while updating InterviewResponse with id: {response_id} - {str(e)}")
             return Response({'detail': 'An unexpected error occurred.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @action(detail=False, methods=['get'], url_path='by-interview')
+    def get_responses_by_interview(self, request, *args, **kwargs):
+        """
+        Custom action to retrieve InterviewResponse objects filtered by the interview ID.
+        The interview ID should be passed as a query parameter.
+        Example: /interviewresponses/by-interview/?interview=<interview_id>
+        """
+        interview_id = request.query_params.get('interview')
+        if not interview_id:
+            return Response({'detail': 'Interview ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Filter InterviewResponse by the interview ID
+            responses = InterviewResponse.objects.filter(interview__id=interview_id, member__user=request.user)
+
+            if not responses.exists():
+                return Response({'detail': 'No responses found for the provided interview ID.'},
+                                status=status.HTTP_404_NOT_FOUND)
+
+            # Paginate and serialize the filtered responses
+            page = self.paginate_queryset(responses)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
+
+            serializer = self.get_serializer(responses, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except ValidationError as e:
+            logger.warning(f"Validation error when fetching responses for interview ID {interview_id} - {str(e)}")
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.exception(f"An error occurred while fetching responses for interview ID {interview_id} - {str(e)}")
+            return Response({'detail': 'An unexpected error occurred.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @action(detail=False, methods=['put'], url_path='bulk-update')
     def bulk_update(self, request, *args, **kwargs):
         data = request.data
