@@ -26,10 +26,11 @@ class InterviewResponseFilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
         # Extract request from kwargs
         self.request = kwargs.pop('request', None)
+        self.user = self.request.user
         logger.info(f"Empty empty:  {self.request.user }")
 
         super().__init__(*args, **kwargs)
-        logger.info(f"Empty empty after:  {self.request.user }")
+        logger.info(f"Empty empty after:  { self.user }")
 
         if self.request:
             logger.info(f"Applying filter for user: {self.request.user}")
