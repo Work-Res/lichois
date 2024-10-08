@@ -26,7 +26,7 @@ class InterviewResponseFilter(django_filters.FilterSet):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
         for key in kwargs.items():
-            logger.info(f"wer above {kwargs.items()}")
+            logger.info(f"wer above {key}")
 
         if self.request:
             logger.info("here here here", self.request.user)
