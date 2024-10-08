@@ -1,11 +1,15 @@
+import logging
+
 import django_filters
 
 from citizenship.models import InterviewResponse
 
+logger = logging.getLogger(__name__)
+
 
 class InterviewResponseFilter(django_filters.FilterSet):
     interview = django_filters.UUIDFilter(field_name='interview__id', lookup_expr='exact')
-    member = django_filters.UUIDFilter(field_name='member', lookup_expr='exact')
+    member = django_filters.UUIDFilter(field_name='member__user', lookup_expr='exact')
     score = django_filters.NumberFilter(field_name='score', lookup_expr='exact')
     score_min = django_filters.NumberFilter(field_name='score', lookup_expr='gte')
     score_max = django_filters.NumberFilter(field_name='score', lookup_expr='lte')
@@ -23,6 +27,7 @@ class InterviewResponseFilter(django_filters.FilterSet):
         super().__init__(*args, **kwargs)
 
         if self.request and not self.data.get('member'):
+            logger.info("here here here", self.request.user)
             self.queryset = self.queryset.filter(member=self.request.user)
 
     class Meta:

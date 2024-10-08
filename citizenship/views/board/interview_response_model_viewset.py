@@ -24,6 +24,7 @@ class InterviewResponseViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        logger.info(f">>>>> adding user filter..{self.request.user}")
         filterset = InterviewResponseFilter(self.request.GET, queryset=queryset, request=self.request)
         return filterset.qs
 
