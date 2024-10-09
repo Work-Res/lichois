@@ -35,12 +35,7 @@ def create_pres_decision(document_number, **params):
     decision = PresRecommendationDecision.objects.create(document_number=document_number, **defaults)
     return decision
 
-def details_url(document_id):
-    """Returns the details url"""
-    return reverse('pres-recommendation-decision-detail', args=[document_id])
-
-
-class PublicPresDecision10BTests(TestCase):
+class PublicPresDecision10BTests(BaseSetup):
     """Tests fot unauthenticated users"""
 
     def setUp(self):
@@ -52,7 +47,7 @@ class PublicPresDecision10BTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
-class PrivatePresDecision10BTests(TestCase):
+class PrivatePresDecision10BTests(BaseSetup):
     """Tests for authenticated users"""
     def setUp(self) -> None:
         super().setUp()
@@ -64,41 +59,30 @@ class PrivatePresDecision10BTests(TestCase):
 
         self.client.force_authenticate(self.user)
 
-        ApplicationStatus.objects.all().delete()
-        for status in statuses:
-            ApplicationStatus.objects.create(
-                **status
-            )
-
-        self.base_setup = BaseSetup()
-
+    def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
-                process_name=CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
-                applicant_identifier='317918515',
-                status=ApplicationStatusEnum.VERIFICATION.value,
-                dob="06101990",
-                work_place="01",
-                application_type=CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
-                full_name="Test test",
-                applicant_type="student"
-            )
+            process_name=CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
+            applicant_identifier='317918515',
+            status=ApplicationStatusEnum.VERIFICATION.value,
+            dob="06101990",
+            work_place="01",
+            application_type=CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
+            full_name="Test test",
+            applicant_type="student"
+        )
 
         self.application_service = ApplicationService(
-                new_application_dto=self.new_application_dto)
-        self.application_service.create_application()
+            new_application_dto=self.new_application_dto)
+        return self.application_service.create_application()
 
 
     def test_retrieve_decision(self):
         """Test retrieve Pres Recommendation Decision"""
-         # Create an instance of BaseSetup
-        self.base_setup.application_decision_type()  #
-        document_number = self.application_service.application_document.document_number
 
         app = Application.objects.get(
-            application_document__document_number=document_number)
+            application_document__document_number=self.document_number)
 
         create_pres_decision(role="PRESIDENT", document_number=app.application_document.document_number)
-
 
         res = self.client.get(PRES_DECISION_URL)
 
