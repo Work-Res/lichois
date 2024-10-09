@@ -3,6 +3,8 @@ import logging
 from rest_framework import generics, status
 from rest_framework.response import Response
 from django.core.exceptions import ValidationError
+
+from app.views.application_list_view import StandardResultsSetPagination
 from citizenship.api.serializers.board import InterviewResponseSerializer
 from citizenship.models import InterviewResponse
 
@@ -13,7 +15,10 @@ class InterviewResponseByInterviewAPIView(generics.ListAPIView):
     """
     API to retrieve InterviewResponse objects filtered by interview ID.
     """
+
     serializer_class = InterviewResponseSerializer
+    queryset = InterviewResponse.objects.all()
+    pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
         interview_id = self.request.query_params.get('interview')
