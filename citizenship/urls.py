@@ -16,7 +16,7 @@ from .views.board import (
     AttendeeViewSet,
     BoardMemberViewSet,
     BatchApplicationViewSet,
-    BoardRecommendationViewSet
+    BoardRecommendationViewSet, InterviewResponseByInterviewAPIView
 )
 
 from .views.board.interview_viewset import InterviewViewSet
@@ -167,4 +167,6 @@ urlpatterns = [
          name='download_by_number'),
     path('renunciation-attachments/<str:document_number>/download/',
          DownloadRenunciationAttachmentView.as_view(), name='download_attachment'),
+    path('interviewresponses/by-interview-and-member/', InterviewResponseByInterviewAPIView.as_view(),
+         name='interview-responses-by-interview'),
 ]
