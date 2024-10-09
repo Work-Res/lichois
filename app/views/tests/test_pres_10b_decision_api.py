@@ -19,7 +19,7 @@ from app.models import PresRecommendationDecision, ApplicationDecisionType
 from app.tests.data import statuses
 from citizenship.tests.base_setup import BaseSetup
 
-PRES_DECISION_URL = reverse('pres-recommendation-decision-create')
+PRES_DECISION_URL = reverse('pres-recommendation-decision-list')
 
 def create_pres_decision(document_number, **params):
 
@@ -38,7 +38,7 @@ def create_pres_decision(document_number, **params):
 
 def detail_url(decision_id):
     """Create and return a  detail URL."""
-    return reverse('pres-recommendation-decision-create', args=[decision_id])
+    return reverse('pres-recommendation-decision-detail', args=[decision_id])
 
 
 class PublicPresDecision10BTests(BaseSetup):
@@ -92,10 +92,10 @@ class PrivatePresDecision10BTests(BaseSetup):
         res = self.client.get(PRES_DECISION_URL)
 
         decisions = PresRecommendationDecision.objects.all().order_by('-id')
-        # serializer = PresRecommendationDecisionSerializer(decisions, many=True)
+        serializer = PresRecommendationDecisionSerializer(decisions, many=True)
 
-        # self.assertEqual(res.status_code, status.HTTP_200_OK)
-        # self.assertEqual(res.data, serializer.data)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, serializer.data)
         self.assertEqual(decisions.count(), 1)
 
     def test_retrieve_decision_without_document_number(self):
@@ -107,36 +107,36 @@ class PrivatePresDecision10BTests(BaseSetup):
 
 
 
-    # def test_create_pres_decision(self):
-    #     """Test creating a Pres Recommendation Decision"""
+    def test_create_pres_decision(self):
+        """Test creating a Pres Recommendation Decision"""
 
-    #     app = Application.objects.get(
-    #         application_document__document_number=self.document_number)
+        app = Application.objects.get(
+            application_document__document_number=self.document_number)
 
-    #     payload = {
-    #         'document_number': app.application_document.document_number,
-    #         'status': ApplicationDecisionEnum.ACCEPTED.value,
-    #         'approved_by': 'TEST_USER',
-    #         'role': 'PRESIDENT'
-    #     }
-    #     res = self.client.post(PRES_DECISION_URL, payload, format='json')
-    #     # self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        payload = {
+            'document_number': app.application_document.document_number,
+            'status': ApplicationDecisionEnum.ACCEPTED.value,
+            'approved_by': 'TEST_USER',
+            'role': 'PRESIDENT'
+        }
+        res = self.client.post(PRES_DECISION_URL, payload, format='json')
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 
-    #     decision = PresRecommendationDecision.objects.get(document_number=app.application_document.document_number)
-    #     # serializer = PresRecommendationDecisionSerializer(decisions, many=True)
+        decision = PresRecommendationDecision.objects.get(document_number=app.application_document.document_number)
+        serializer = PresRecommendationDecisionSerializer(decision, many=True)
 
-    # #     # self.assertEqual(res.status_code, status.HTTP_200_OK)
-    # #     # self.assertEqual(res.data, serializer.data)
-    #     self.assertEqual(decision.count(), 1)
-    #     self.assertEqual(decision.status, ApplicationDecisionEnum.ACCEPTED.value)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, serializer.data)
+        self.assertEqual(decision.count(), 1)
+        self.assertEqual(decision.status, ApplicationDecisionEnum.ACCEPTED.value)
 
-    # def test_create_pres_decision_invalid_data(self):
-    #     """Test creating a Pres Recommendation Decision with invalid data"""
-    #     payload = {
-    #         'document_number': '',  # Invalid document number
-    #         'status': ApplicationDecisionEnum.ACCEPTED.value,
-    #         'approved_by': 'TEST_USER',
-    #         'role': 'PRESIDENT'
-    #     }
-    #     res = self.client.post(PRES_DECISION_URL, payload)
-    #     self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+    def test_create_pres_decision_invalid_data(self):
+        """Test creating a Pres Recommendation Decision with invalid data"""
+        payload = {
+            'document_number': '',  # Invalid document number
+            'status': ApplicationDecisionEnum.ACCEPTED.value,
+            'approved_by': 'TEST_USER',
+            'role': 'PRESIDENT'
+        }
+        res = self.client.post(PRES_DECISION_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
