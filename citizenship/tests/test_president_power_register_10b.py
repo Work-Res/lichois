@@ -209,19 +209,28 @@ class TestPresidentPowerToRegister10bWorkflow(BaseSetup):
         section10a = Section10bApplicationDecisions.objects.filter(application=app)
         self.assertGreater(section10a.count(), 0)
         app.refresh_from_db()
+        section10a_first = section10a.first()
+        self.assertEqual(section10a_first.permanent_secretary, "ACCEPTED")
+
         self.assertEqual(app.application_status.code.upper(),
                          CitizenshipStagesEnum.PRES_PS_RECOMMENDATION.value.upper())
 
         self.assertIsNotNone(self.perform_pres_recommendation(role="PRES_PERMANENT_SECRETARY"))
         app.refresh_from_db()
+        section10a_first.refresh_from_db()
+
+        self.assertEqual(section10a_first.pres_permanent_secretary, "ACCEPTED")
+
         self.assertEqual(app.application_status.code.upper(),
                          CitizenshipStagesEnum.PRESIDENT_DECISION.value.upper())
-
 
         self.assertIsNotNone(self.perform_president_decision())
 
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())
+
+        section10a_first.refresh_from_db()
+        self.assertEqual(section10a_first.president_decision, "ACCEPTED")
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())

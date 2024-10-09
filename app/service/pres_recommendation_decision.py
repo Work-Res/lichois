@@ -3,6 +3,7 @@ from django.db import transaction
 from datetime import datetime
 
 from app.utils.system_enums import ApplicationStatusEnum
+from citizenship.classes.mixins.update_section10b_mixin import UpdateSection10bMixin
 
 from ..api.common.web import APIMessage
 
@@ -14,7 +15,7 @@ from ..service import BaseDecisionService
 from ..workflow import PresRecommendationDecisionTransactionData
 
 
-class PresRecommendationDecisionService(BaseDecisionService):
+class PresRecommendationDecisionService(BaseDecisionService, UpdateSection10bMixin):
     def __init__(self, decision_request: PresRecommendationRequestDTO):
         workflow = PresRecommendationDecisionTransactionData(
             recommendation_decision=decision_request.status.upper(),
@@ -82,6 +83,13 @@ class PresRecommendationDecisionService(BaseDecisionService):
             self._create_comment()
             # self._deactivate_current_task()
             self._activate_next_task()
+            field_name = self.request.role.lower()
+
+            self.logger.info(f"Section 10b fieldKey: {field_name} - value: {self.request.status.upper()}")
+
+            self.update_field(
+                self.request.document_number, field_key=field_name, field_value=self.request.status.upper())
+
             print("self.response.result(): ", self.response.result())
         return self.response.result()
 

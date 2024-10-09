@@ -20,21 +20,21 @@ class Section10bApplicationDecisions(BaseUuidModel):
         default=ApplicationDecisionEnum.PENDING.value,
     )
 
-    deputy_permanent_secretary_decision = models.CharField(
+    deputy_permanent_secretary = models.CharField(
         null=True,
         blank=True,
         max_length=200,
         default=ApplicationDecisionEnum.PENDING.value,
     )
 
-    ps_decision = models.CharField(
+    permanent_secretary = models.CharField(
         null=True,
         blank=True,
         max_length=200,
         default=ApplicationDecisionEnum.PENDING.value,
     )
 
-    president_ps_decision = models.CharField(
+    pres_permanent_secretary = models.CharField(
         null=True,
         blank=True,
         max_length=200,

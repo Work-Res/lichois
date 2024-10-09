@@ -8,9 +8,12 @@ from citizenship.api.dto.citizenship_minister_decision_request_dto import (
 from citizenship.api.dto.request_dto import CitizenshipMinisterRequestDTO
 from citizenship.models import CitizenshipMinisterDecision, CitizenshipPresidentDecision
 
+from citizenship.classes.mixins.update_section10b_mixin import UpdateSection10bMixin
 
-class CitizenshipPresidentDecisionService(BaseDecisionService):
+
+class CitizenshipPresidentDecisionService(BaseDecisionService, UpdateSection10bMixin):
     def __init__(self, decision_request: CitizenshipMinisterRequestDTO):
+        self.decision_request = decision_request
         president_decision = (
             decision_request.status.upper() if decision_request.status else ""
         )
@@ -23,9 +26,14 @@ class CitizenshipPresidentDecisionService(BaseDecisionService):
         )
 
     def create_president_decision(self):
-        return self.create_decision(
+        decision = self.create_decision(
             CitizenshipPresidentDecision, CitizenshipPresidentDecisionSerializer
         )
+        self.update_field(self.decision_request.document_number,
+                          field_key="president_decision", field_value=self.decision_request.status.upper())
+
+        return decision
+
 
     def retrieve_president_decision(self):
         return self.retrieve_decision(
