@@ -21,13 +21,13 @@ from citizenship.tests.base_setup import BaseSetup
 
 PRES_DECISION_URL = reverse('pres-recommendation-decision-list')
 
-def create_pres_decision(document_number, **params):
 
-    defaults= {
+def create_pres_decision(document_number, **params):
+    defaults = {
         'date_approved': datetime.now(),
-        'status': ApplicationDecisionType.objects.get(name='Accepted') ,
+        'status': ApplicationDecisionType.objects.get(name='Accepted'),
         'approved_by': 'TEST',
-        'role':'TEST'
+        'role': 'TEST'
     }
 
     defaults.update(**params)
@@ -53,7 +53,9 @@ class PublicPresDecision10BTests(BaseSetup):
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
+
 class PrivatePresDecision10BTests(BaseSetup):
+
     """Tests for authenticated users"""
     def setUp(self) -> None:
         super().setUp()

@@ -1,15 +1,14 @@
 from django.test import tag
-from app.api.dto import ApplicationVerificationRequestDTO
 from app.models import Application, ApplicationDecision
-from app.service import VerificationService
 from app.utils import ApplicationStatusEnum
+from app_personal_details.models import Permit
+from ..models import Section10bApplicationDecisions
 
 from ..utils.citizenship_stages_enum import CitizenshipStagesEnum
 
 
 from app_checklist.models import Classifier, ClassifierItem, SystemParameter
 
-from app_personal_details.models import Permit
 from workflow.models import Activity
 from .base_setup import BaseSetup
 from app.api import NewApplicationDTO
@@ -132,7 +131,6 @@ class TestPresidentPowerToRegister10bWorkflow(BaseSetup):
 
         self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
 
-
     def test_workflow_after_recommendation(self):
         app = Application.objects.get(
             application_document__document_number=self.document_number
@@ -163,5 +161,67 @@ class TestPresidentPowerToRegister10bWorkflow(BaseSetup):
         app.refresh_from_db()
         self.assertEqual(app.recommendation, "ACCEPTED")
 
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
+
+    def test_workflow_after_pres_recommendation(self):
+
+        SystemParameter.objects.create(
+            application_type=CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
+            duration_type="years",
+            duration=100
+        )
+
+        app = Application.objects.get(
+            application_document__document_number=self.document_number
+        )
+
+        self.assertEqual(app.process_name, CitizenshipProcessEnum.PRESIDENT_POWER_10B.value)
+        self.assertEqual(
+            app.application_status.code, CitizenshipStagesEnum.VERIFICATION.value
+        )
+
+        self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_vetting())
+        app.refresh_from_db()
+        self.assertEqual(app.security_clearance, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_assessment())
+        app.refresh_from_db()
+        self.assertEqual(app.assessment, "ACCEPTED")
+
+        self.assertIsNotNone(self.perform_review())
+        app.refresh_from_db()
+        self.assertEqual(app.review, "ACCEPTED")
 
         self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
+
+        self.assertIsNotNone(self.perform_recommendation())
+        app.refresh_from_db()
+        self.assertEqual(app.recommendation, "ACCEPTED")
+
+        self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.PS_RECOMMENDATION.value.upper())
+
+        self.assertIsNotNone(self.perform_pres_recommendation(role="PERMANENT_SECRETARY"))
+
+        section10a = Section10bApplicationDecisions.objects.filter(application=app)
+        self.assertGreater(section10a.count(), 0)
+        app.refresh_from_db()
+        self.assertEqual(app.application_status.code.upper(),
+                         CitizenshipStagesEnum.PRES_PS_RECOMMENDATION.value.upper())
+
+        self.assertIsNotNone(self.perform_pres_recommendation(role="PRES_PERMANENT_SECRETARY"))
+        app.refresh_from_db()
+        self.assertEqual(app.application_status.code.upper(),
+                         CitizenshipStagesEnum.PRESIDENT_DECISION.value.upper())
+
+
+        self.assertIsNotNone(self.perform_president_decision())
+
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())

@@ -2,10 +2,10 @@ from django.db import models
 
 from base_module.model_mixins import BaseUuidModel
 
-from .application_decision_type import ApplicationDecisionType
+from app.models import ApplicationDecisionType
 
 
-class PresRecommendationDecision(BaseUuidModel):
+class CitizenshipPresidentDecision(BaseUuidModel):
 
     document_number = models.CharField(max_length=100, null=True, blank=True)
 
@@ -25,7 +25,5 @@ class PresRecommendationDecision(BaseUuidModel):
         blank=True,
     )
 
-    role = models.CharField(max_length=100, null=True, blank=True)  # role =
-
     class Meta:
-        verbose_name = "Pres Recommendation Decision"
+        verbose_name = "Citizenship President Decision"

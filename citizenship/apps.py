@@ -13,3 +13,6 @@ class CitizenshipConfig(AppConfig):
         from .handlers import production_decision_post_save_handler
         from .handlers import production_decision_minister_decision_handler
         from .handlers import create_production_decision_when_recommendation_completed_handler
+        from .handlers import pres_recommendation_decision_post_save_handler
+        from .handlers import production_decision_president_decision_handler
+

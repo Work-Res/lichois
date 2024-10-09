@@ -4,6 +4,7 @@ from django.db import models
 from app.models import Application
 from app.utils import ApplicationDecisionEnum
 
+
 class Section10bApplicationDecisions(BaseUuidModel):
 
     application = models.OneToOneField(
@@ -19,7 +20,7 @@ class Section10bApplicationDecisions(BaseUuidModel):
         default=ApplicationDecisionEnum.PENDING.value,
     )
 
-    deputy_ps_decision = models.CharField(
+    deputy_permanent_secretary_decision = models.CharField(
         null=True,
         blank=True,
         max_length=200,

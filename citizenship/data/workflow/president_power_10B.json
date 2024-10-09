@@ -85,11 +85,10 @@
           "sequence": 6,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "PRESIDENT_PS_RECOMMENDATION",
+          "next_activity_name": "PRES_PS_RECOMMENDATION",
           "create_task_rules": {
             "recommendation_decision": "ACCEPTED",
-            "current_status": "RECOMMENDATION",
-            "role": "DEPUTY_PERMANENT_SECRETARY"
+            "current_status": "RECOMMENDATION"
           }
         },
         {
@@ -132,8 +131,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "president_decision": "ACCEPTED",
-            "current_status": "PRESIDENT_DECISION"
+            "current_status": "PRESIDENT_DECISION",
+            "or": {"president_decision": "ACCEPTED|REJECTED"}
           }
         }
       ]

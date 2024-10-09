@@ -34,3 +34,12 @@ class RecommendationDecisionProcessWhenCompletedIsRequiredForProduction:
         return [
             CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
         ]
+
+
+class PresidentProcessWhenCompletedIsRequiredForProduction:
+
+    @staticmethod
+    def configured_process():
+        return [
+            CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
+        ]
