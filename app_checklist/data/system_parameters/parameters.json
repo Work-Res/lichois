@@ -76,6 +76,13 @@
       "application_type": "PRESIDENT_POWER_REGISTER_CITIZENS_10B",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "DUAL_CITIZENSHIP_RENUNCIATION",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
     }
   ]
 }
