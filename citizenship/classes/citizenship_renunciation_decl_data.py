@@ -1,5 +1,4 @@
 from django.apps import apps
-from ..api import CitizenshipRenunciationDeclApplication
 from app_personal_details.models import Person
 from app_address.models import ApplicationAddress
 from app_attachments.models import ApplicationAttachment
@@ -11,7 +10,7 @@ class CitizenshipRenunciationDeclData(object):
 
 	def __init__(self, document_number):
 		self.document_number = document_number
-		self.citizenship_renunciation_decl_application = CitizenshipRenunciationDeclApplication()
+		self.citizenship_renunciation_decl_application = None
 
 	def data(self):
 		return self.prepare()

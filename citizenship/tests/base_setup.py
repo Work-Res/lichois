@@ -5,16 +5,18 @@ from datetime import date
 
 from faker import Faker
 
-from app.api.dto import ApplicationVerificationRequestDTO, RecommendationRequestDTO, SecurityClearanceRequestDTO
+from app.api.dto import ApplicationVerificationRequestDTO, RecommendationRequestDTO, SecurityClearanceRequestDTO, \
+    PresRecommendationRequestDTO
 from app.api.serializers import (
     ApplicationVerificationRequestSerializer,
-    RecommendationRequestDTOSerializer, SecurityClearanceRequestDTOSerializer,
+    RecommendationRequestDTOSerializer, SecurityClearanceRequestDTOSerializer, PresRecommendationDecisionSerializer,
 )
-from app.models import ApplicationStatus, ApplicationDecisionType
+from app.models import ApplicationStatus, ApplicationDecisionType, PresRecommendationDecision
 from app.classes import ApplicationService
 
 from app.api import NewApplicationDTO
 from app.service import VerificationService, SecurityClearanceService
+from app.service.pres_recommendation_decision import PresRecommendationDecisionService
 from app.service.recommendation_service import RecommendationServiceOverideVetting
 from app.validators import OfficerVerificationValidator, SecurityClearanceValidator
 from app_assessment.api.dto import AssessmentCaseDecisionDTO
@@ -54,7 +56,7 @@ from citizenship.api.dto import RecommendationDecisionRequestDTO
 from citizenship.api.dto.citizenship_minister_decision_request_dto import \
     CitizenshipMinisterDecisionRequestDTOSerializer
 from citizenship.api.dto.request_dto import CitizenshipMinisterRequestDTO
-from citizenship.service.recommendation import RecommendationDecisionService
+from citizenship.service.recommendation import RecommendationDecisionService, CitizenshipPresidentDecisionService
 from citizenship.service.recommendation.citizenship_minister_decision_service import CitizenshipMinisterDecisionService
 from citizenship.utils import CitizenshipProcessEnum
 
@@ -201,8 +203,22 @@ class BaseSetup(TestCase):
         service = RecommendationDecisionService(decision_request=request_dto)
         return service.create_recommendation()
 
-    def perform_minister_decision(self):
+    def perform_pres_recommendation(self, role):
         data = {"status": "ACCEPTED"}
+        serializer = PresRecommendationDecisionSerializer(data=data)
+        serializer.is_valid()
+        request_dto = PresRecommendationRequestDTO(
+            document_number=self.document_number,
+            user=None,
+            status="ACCEPTED",
+            role=role,
+        )
+        service = PresRecommendationDecisionService(decision_request=request_dto)
+        return service.create_decision(PresRecommendationDecision, PresRecommendationDecisionSerializer)
+
+    def perform_minister_decision(self):
+        data = {"status": "ACCEPTED",
+                'document_number': self.document_number}
         serializer = CitizenshipMinisterDecisionRequestDTOSerializer(data=data)
         serializer.is_valid()
         request = CitizenshipMinisterRequestDTO(document_number=self.document_number,
@@ -210,6 +226,16 @@ class BaseSetup(TestCase):
                                                     **serializer.validated_data)
         service = CitizenshipMinisterDecisionService(decision_request=request)
         return service.create_minister_decision()
+
+    def perform_president_decision(self):
+        data = {"status": "ACCEPTED"}
+        serializer = CitizenshipMinisterDecisionRequestDTOSerializer(data=data)
+        serializer.is_valid()
+        request = CitizenshipMinisterRequestDTO(document_number=self.document_number,
+                                                    status="ACCEPTED",
+                                                    **serializer.validated_data)
+        service = CitizenshipPresidentDecisionService(decision_request=request)
+        return service.create_president_decision()
 
     def perform_minister_decision_reject(self):
         data = {"status": "REJECTED"}

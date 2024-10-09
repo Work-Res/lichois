@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from citizenship.models import CitizenshipMinisterDecision
+from citizenship.models import CitizenshipMinisterDecision, CitizenshipPresidentDecision
 
 
 class CitizenshipMinisterDecisionRequestDTOSerializer(serializers.Serializer):
@@ -20,3 +20,15 @@ class CitizenshipMinisterDecisionSerializer(serializers.Serializer):
             "status",
             "summary",
         )
+
+
+class CitizenshipPresidentDecisionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CitizenshipPresidentDecision
+        fields = [
+            'document_number',
+            'date_requested',
+            'date_approved',
+            'status',
+            'approved_by'
+        ]

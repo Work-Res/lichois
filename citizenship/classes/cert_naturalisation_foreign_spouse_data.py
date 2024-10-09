@@ -39,12 +39,6 @@ class CertNaturalisationForeignSpouseData(object):
     def spouse_info(self):
         return self.get_model_class(SpouseInfo._meta.app_label.lower())
 
-	def parent_details(self):
-		"""
-		"""  # TODO: define the relationship for onetomany, foreignkey?
-		# parent_details = ParentDetails.objects.filter(
-		# 	work_resident_permit__document_number=self.document_number)
-		return  # parent_details
 
     def naturalisation_fs_application(self):
         return self.get_model_class(CertNaturalisationByForeignSpouse._meta.app_label.lower())

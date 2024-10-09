@@ -194,3 +194,13 @@ class PresRecommendationDecisionTransactionData(BaseTransactionData):
         super().__init__(next_activity_name, application_status)
         self.recommendation_decision = recommendation_decision
         self.role = role
+
+
+class PresidentDecisionTransactionData(BaseTransactionData):
+    def __init__(
+        self, next_activity_name=None, application_status=None, president_decision=None
+    ):
+        super().__init__(
+            next_activity_name, application_status, status=president_decision
+        )
+        self.president_decision = president_decision
