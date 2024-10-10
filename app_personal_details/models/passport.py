@@ -23,5 +23,11 @@ class Passport(ApplicationBaseModel):
 
     photo = models.URLField()
 
+    previous_passport_number = models.CharField(
+        max_length=190,
+        blank=True,
+        null=True,
+    )
+
     class Meta:
         verbose_name = "Passport"

@@ -78,6 +78,8 @@ class CustomBaseCommand(BaseCommand):
             qualification=self.faker.random_element(
                 elements=("diploma", "degree", "masters", "phd")
             ),
+            previous_nationality=self.faker.country(),
+            previous_botswana_id_no=self.faker.random_number(digits=9, fix_len=True),
         )
 
     def create_application_address(self, app, version):
@@ -122,8 +124,8 @@ class CustomBaseCommand(BaseCommand):
             contact_type=selected_contact_type,
             contact_value=contact_value[selected_contact_type],
             preferred_method_comm=self.faker.boolean(chance_of_getting_true=50),
-            status=self.faker.random_element(elements=("active", "inactive")),
-            description=self.faker.text(),
+            email=self.faker.email(),
+            cell=self.faker.phone_number(),
         )
 
     def create_passport(self, app, version):
@@ -136,6 +138,7 @@ class CustomBaseCommand(BaseCommand):
             place_issued=self.faker.city(),
             nationality=self.faker.country(),
             photo=self.faker.image_url(),
+            previous_passport_number=self.faker.passport_number(),
         )
 
     def create_education(self, app, version):
@@ -195,3 +198,34 @@ class CustomBaseCommand(BaseCommand):
             start_date=self.faker.date_this_century(),
             end_date=self.faker.date_this_century(),
         )
+
+    def create_parental_details(self, person):
+        # Create father's details
+        father, created = Person.objects.get_or_create(
+            first_name=self.faker.first_name_male(),
+            last_name=self.faker.last_name(),
+            dob=self.faker.date_of_birth(minimum_age=40),
+            gender='male',
+            defaults={
+                'occupation': self.faker.job(),
+                'nationality': self.faker.country(),
+                'person_type': 'parent',
+                'deceased': False,
+            }
+        )
+        
+        # Create mother's details
+        mother, created = Person.objects.get_or_create(
+            first_name=self.faker.first_name_female(),
+            last_name=self.faker.last_name(),
+            dob=self.faker.date_of_birth(minimum_age=40),
+            gender='female',
+            defaults={
+                'occupation': self.faker.job(),
+                'nationality': self.faker.country(),
+                'person_type': 'parent',
+                'deceased': False,
+            }
+        )
+
+
