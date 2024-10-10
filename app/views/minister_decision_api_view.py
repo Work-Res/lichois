@@ -19,7 +19,7 @@ class MinisterDecisionAPIView(APIView):
                 request = MinisterRequestDTO(**serializer.data)
                 service = MinisterDecisionService(request)
                 service.create_minister_decision()
-                service.response.result()
+
                 return JsonResponse(service.response.result())
             else:
                 return JsonResponse(

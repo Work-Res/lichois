@@ -90,3 +90,6 @@ class PermitProductionService:
         if not isinstance(date_input, str):
             raise ValueError("fromisoformat: argument must be str")
         return datetime.fromisoformat(date_input)
+
+    def get_context_data(self):
+        pass

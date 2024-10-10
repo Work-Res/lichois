@@ -67,11 +67,7 @@ class Application(BaseUuidModel):
         default=ApplicationDecisionEnum.PENDING.value,
     )
 
-    gazette = models.CharField(
-        null=True,
-        blank=True,
-        max_length=200
-    )
+    gazette = models.CharField(null=True, blank=True, max_length=200)
 
     board = models.CharField(
         null=True,
@@ -106,4 +102,4 @@ class Application(BaseUuidModel):
 
     class Meta:
         verbose_name_plural = "Applications"
-        ordering = ["-created"]
+        ordering = ["created"]
