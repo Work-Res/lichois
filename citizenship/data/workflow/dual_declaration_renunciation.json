@@ -70,7 +70,7 @@
           "sequence": 5,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "FOREIGN_RENUNCIATION",
+          "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
             "recommendation_decision": "ACCEPTED",
             "current_status": "RECOMMENDATION"
@@ -86,8 +86,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "END",
           "create_task_rules": {
-            "recommendation_decision": "ACCEPTED",
-            "current_status": "FOREIGN_RENUNCIATION"
+            "or": {"minister_decision": "ACCEPTED|REJECTED"},
+            "current_status": "MINISTER_DECISION"
           }
         }
       ]

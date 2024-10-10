@@ -112,6 +112,8 @@ class TestDualDeclarationRenunciationWorkflow(BaseSetup):
         self.assertIsNotNone(self.perform_minister_decision())
         app.refresh_from_db()
 
+        self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())
 
