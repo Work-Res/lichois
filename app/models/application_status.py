@@ -14,9 +14,10 @@ class ApplicationStatus(BaseUuidModel):
         valid_from (date): The start date for application Status
         valid_to (date): The end date for application Status
     """
+
     code = models.CharField(max_length=50, null=False, blank=False)
     name = models.CharField(max_length=250, null=False, blank=False)
-    processes = models.CharField(max_length=250, null=True, blank=True)
+    processes = models.TextField(null=True, blank=True)
     valid_from = models.DateField(null=False, blank=False)
     valid_to = models.DateField(null=True, blank=True)
 
