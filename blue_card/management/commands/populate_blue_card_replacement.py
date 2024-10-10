@@ -8,7 +8,7 @@ from ...enums import BlueCardApplicationTypeEnum
 
 class Command(CustomBaseCommand):
     help = "Populate data for Populate data for Blue Card Replacement service"
-    process_name = ApplicationProcesses.BLUE_CARD_PERMIT.value
+    process_name = ApplicationProcesses.BLUE_CARD_REPLACEMENT.value
     application_type = BlueCardApplicationTypeEnum.BLUE_CARD_REPLACEMENT.value
 
     def handle(self, *args, **options):
