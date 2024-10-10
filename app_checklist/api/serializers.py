@@ -1,30 +1,30 @@
 from rest_framework import serializers
 
 
-from app_checklist.models import Classifier, ClassifierItem, ChecklistClassifierItem, ChecklistClassifier
-
-from app_checklist.models import (
+from ..models import (
     Classifier,
     ClassifierItem,
     ChecklistClassifierItem,
     ChecklistClassifier,
     OfficeLocationClassifierItem,
-    OfficeLocationClassifier
+    OfficeLocationClassifier,
+    Location,
+    Region,
+    SystemParameter,
 )
-from app_checklist.models.location import Location
-from app_checklist.models.region import Region
 
 
 class ClassifierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Classifier
         fields = (
-            'code',
-            'name',
-            'description',
-            'valid_from',
-            'valid_to',
+            "code",
+            "name",
+            "description",
+            "valid_from",
+            "valid_to",
         )
+
 
 class ClassifierItemSerializer(serializers.ModelSerializer):
     classifier = ClassifierSerializer()
@@ -32,29 +32,31 @@ class ClassifierItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassifierItem
         fields = (
-            'code',
-            'name',
-            'process',
-            'description',
-            'mandatory',
-            'classifier',
-            'sequence',
-            'create_task_rules',
-            'valid_from',
-            'valid_to'
+            "code",
+            "name",
+            "process",
+            "description",
+            "mandatory",
+            "classifier",
+            "sequence",
+            "create_task_rules",
+            "valid_from",
+            "valid_to",
         )
+
 
 class ChecklistClassifierSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChecklistClassifier
         fields = (
-            'code',
-            'name',
-            'process_name',
-            'description',
-            'valid_from',
-            'valid_to'
+            "code",
+            "name",
+            "process_name",
+            "description",
+            "valid_from",
+            "valid_to",
         )
+
 
 class ChecklistClassifierItemSerializer(serializers.ModelSerializer):
     checklist_classifier = ChecklistClassifierSerializer()
@@ -62,28 +64,22 @@ class ChecklistClassifierItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChecklistClassifierItem
         fields = (
-            'code',
-            'name',
-            'application_type',
-            'description',
-            'mandatory',
-            'checklist_classifier',
-            'sequence',
-            'valid_from',
-            'valid_to'
+            "code",
+            "name",
+            "application_type",
+            "description",
+            "mandatory",
+            "checklist_classifier",
+            "sequence",
+            "valid_from",
+            "valid_to",
         )
 
 
 class OfficeLocationClassifierSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfficeLocationClassifier
-        fields = (
-            'code',
-            'name',
-            'description',
-            'valid_from',
-            'valid_to'
-        )
+        fields = ("code", "name", "description", "valid_from", "valid_to")
 
 
 class OfficeLocationClassifierItemSerializer(serializers.ModelSerializer):
@@ -92,22 +88,36 @@ class OfficeLocationClassifierItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfficeLocationClassifierItem
         fields = (
-            'code',
-            'name',
-            'description',
-            'office_location_classifier',
-            'valid_from',
-            'valid_to'
+            "code",
+            "name",
+            "description",
+            "office_location_classifier",
+            "valid_from",
+            "valid_to",
         )
 
 
 class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region
-        fields = ['id', 'name', 'code', 'description', 'valid_from', 'valid_to', 'active']
+        fields = [
+            "id",
+            "name",
+            "code",
+            "description",
+            "valid_from",
+            "valid_to",
+            "active",
+        ]
 
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = '__all__'
+        fields = "__all__"
+
+
+class SystemParameterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SystemParameter
+        fields = "__all__"
