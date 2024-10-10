@@ -51,3 +51,5 @@ from .board.conflict_of_interest_duration import ConflictOfInterestDuration
 from .citizenship_summary import CitizenshipSummary
 from .recommendation_decision import RecommendationDecision
 from .citizenship_minister_decision import CitizenshipMinisterDecision
+from .section10b_decisions import Section10bApplicationDecisions
+from .citizenship_president_decision import CitizenshipPresidentDecision

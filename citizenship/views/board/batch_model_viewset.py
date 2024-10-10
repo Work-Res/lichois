@@ -112,3 +112,6 @@ class BatchModelViewSet(viewsets.ModelViewSet):
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+#ERROR:citizenship.service.board.interview_response_import_service:File not found: citizenship/service/board/configurations/interviews/investor_questions.csv

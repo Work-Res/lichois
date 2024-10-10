@@ -78,9 +78,8 @@ class CustomBaseCommand(BaseCommand):
             qualification=self.faker.random_element(
                 elements=("diploma", "degree", "masters", "phd")
             ),
-            previous_nationality=self.faker.nationality(),
+            previous_nationality=self.faker.country(),
             previous_botswana_id_no=self.faker.random_number(digits=9, fix_len=True),
-            previous_passport_number=self.faker.passport_number(),
         )
 
     def create_application_address(self, app, version):
@@ -139,6 +138,7 @@ class CustomBaseCommand(BaseCommand):
             place_issued=self.faker.city(),
             nationality=self.faker.country(),
             photo=self.faker.image_url(),
+            previous_passport_number=self.faker.passport_number(),
         )
 
     def create_education(self, app, version):

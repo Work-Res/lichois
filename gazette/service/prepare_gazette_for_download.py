@@ -18,14 +18,14 @@ class PrepareGazetteForDownload:
     def get_application_address(self, application):
         try:
             return ApplicationAddress.objects.get(
-                application_version__application=application,
+                document_number=application.application_document.document_number,
                 address_type=self.address_type
             )
         except MultipleObjectsReturned:
             logger.warning(f"Multiple addresses found for application {application.id} with "
                            f"address type {self.address_type}. Returning the first one.")
             return ApplicationAddress.objects.filter(
-                application_version__application=application,
+                document_number=application.application_document.document_number,
                 address_type=self.address_type
             ).first()
         except ApplicationAddress.DoesNotExist:
@@ -35,13 +35,13 @@ class PrepareGazetteForDownload:
     def get_personal_details(self, application):
         try:
             return Person.objects.get(
-                application_version__application=application
+                document_number=application.application_document.document_number
             )
         except Person.DoesNotExist:
-            logger.error(f"No personal details found for application {application.id}.")
+            logger.error(f"No personal details found for application {application.application_document.document_number}.")
             return None
         except MultipleObjectsReturned:
-            logger.warning(f"Multiple personal details found for application {application.id}. Returning the first one.")
+            logger.warning(f"Multiple personal details found for application {application.application_document.document_number}. Returning the first one.")
             return Person.objects.filter(
                 application_version__application=application
             ).first()
@@ -50,20 +50,20 @@ class PrepareGazetteForDownload:
         header_row = ["ID", "Fullname", "Location", "Document Number"]
         self.data.append(header_row)
 
-        for index, application in enumerate(self.batch_applications):
+        for index, batch_application in enumerate(self.batch_applications):
             try:
-                address = self.get_application_address(application)
-                person_details = self.get_personal_details(application)
+                address = self.get_application_address(batch_application.application)
+                person_details = self.get_personal_details(batch_application.application)
 
                 if not address or not person_details:
-                    logger.error(f"Missing data for application {application.id}. Skipping...")
+                    logger.error(f"Missing data for application {batch_application.application.id}. Skipping...")
                     continue
 
                 row_content = [
                     index,
                     person_details.full_name(),
-                    address.city,
-                    application.application_document.document_number
+                    self.applicant_address(batch_application.application),
+                    batch_application.application.application_document.document_number
                 ]
                 self.data.append(row_content)
             except AttributeError as e:
@@ -74,3 +74,28 @@ class PrepareGazetteForDownload:
                 logger.error(f"Unexpected error: {e} for application {index}.")
 
         return self.data
+
+    def applicant_address(self, application):
+        try:
+            # Use select_related to optimize the query by fetching related objects in one go
+            application_address = ApplicationAddress.objects.select_related('country').get(
+                document_number=application.application_document.document_number
+            )
+
+            # Format the address components
+            address_parts = [
+                application_address.private_bag or '',
+                application_address.po_box or '',
+                # application_address.street_address or '',
+                application_address.district.get("code") if application_address.district else '',
+                application_address.village.get("code") if application_address.village else ''
+                # application_address.country.code if application_address.country else ''
+            ]
+
+            # Join the non-empty parts with proper spacing
+            full_address = ' '.join(part for part in address_parts if part)
+
+            return full_address or 'Address not available'
+        except ApplicationAddress.DoesNotExist:
+            # Handle case where the address is not found
+            return 'Address not available'

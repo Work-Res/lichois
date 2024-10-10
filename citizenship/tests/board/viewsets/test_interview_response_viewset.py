@@ -74,7 +74,7 @@ class InterviewResponseViewSetTestCase(BaseSetup):
         self.assertEqual(Interview.objects.all().count(), 2)
         # Declare conflict of interest..
         start_time = timezone.now() - timedelta(hours=1)
-        end_time = timezone.now() + timedelta(hours=1)
+        end_time = timezone.now() + timedelta(hours=20)
         duration = ConflictOfInterestDuration.objects.create(
             meeting_session=self.meeting_session,
             start_time=start_time,

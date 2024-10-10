@@ -72,6 +72,6 @@ class Command(CustomBaseCommand):
 
                 self.stdout.write(
                     self.style.SUCCESS(
-                        "Successfully populated Settlement data"
+                        "Successfully populated Certificate in case of doubt data"
                     )
                 )

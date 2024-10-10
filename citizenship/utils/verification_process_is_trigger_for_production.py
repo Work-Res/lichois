@@ -22,7 +22,8 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
             CitizenshipProcessEnum.CITIZENSHIP_RESUMPTION.value,
             CitizenshipProcessEnum.SETTLEMENT.value,
             CitizenshipProcessEnum.NATURALIZATION.value,
-            CitizenshipProcessEnum.FOREIGN_SPOUSE_NATURALIZATION.value
+            CitizenshipProcessEnum.FOREIGN_SPOUSE_NATURALIZATION.value,
+            CitizenshipProcessEnum.DUAL_RENUNCIATION.value
         ]
 
 
@@ -32,4 +33,13 @@ class RecommendationDecisionProcessWhenCompletedIsRequiredForProduction:
     def configured_process():
         return [
             CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
+        ]
+
+
+class PresidentProcessWhenCompletedIsRequiredForProduction:
+
+    @staticmethod
+    def configured_process():
+        return [
+            CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
         ]

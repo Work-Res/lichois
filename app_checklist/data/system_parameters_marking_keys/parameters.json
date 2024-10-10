@@ -1,0 +1,74 @@
+{
+  "system_parameters": [
+    {
+      "code": "investor_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "student_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "director_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "employer_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "employee_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "religious_leader_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "shareholder_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "spouse_of_citizen_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "employee_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "code": "dependent_marking_key",
+      "pass_mark_in_percent": "70",
+      "total_marks": "100",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    }
+  ]
+}

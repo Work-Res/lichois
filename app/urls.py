@@ -13,6 +13,7 @@ from app.views import (
     CommissionerDecisionAPIView,
     MinisterDecisionAPIView,
     RecommendationCaseDecisionAPIView,
+    PresRecommendationDecisionAPIView
 )
 
 router = DefaultRouter()
@@ -53,5 +54,10 @@ urlpatterns = [
         "minister-decision/",
         MinisterDecisionAPIView.as_view(),
         name="minister-decision-create",
+    ),
+    path(
+        "pres-recommendation-decision/",
+        PresRecommendationDecisionAPIView.as_view(),
+        name="pres-recommendation-decision-create",
     ),
 ]

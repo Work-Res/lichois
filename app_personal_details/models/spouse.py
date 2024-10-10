@@ -1,5 +1,6 @@
 from django.db import models
 from app.models import ApplicationBaseModel
+from .passport import Passport
 
 
 class Spouse(ApplicationBaseModel):
@@ -10,6 +11,12 @@ class Spouse(ApplicationBaseModel):
     country = models.CharField(max_length=190)
     place_birth = models.CharField(max_length=190)
     dob = models.DateField()
+    passport = models.ForeignKey(
+        Passport,
+        on_delete=models.CASCADE,
+        related_name="spouse_passport",
+        null=True,
+    )
 
     class Meta:
         verbose_name = "Spouse"

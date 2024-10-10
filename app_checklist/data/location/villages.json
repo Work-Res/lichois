@@ -1,0 +1,803 @@
+[
+  {
+    "code": "01_01",
+    "name": "Gaborone",
+    "location_parent_code": "01",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "02_01",
+    "name": "Francistown",
+    "location_parent_code": "02",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "03_01",
+    "name": "Lobatse",
+    "location_parent_code": "03",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "04_01",
+    "name": "Selibe Phikwe",
+    "location_parent_code": "04",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "05_01",
+    "name": "Orapa",
+    "location_parent_code": "05",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "06_01",
+    "name": "Jwaneng",
+    "location_parent_code": "06",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "07_01",
+    "name": "Sowa Town",
+    "location_parent_code": "07",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_01",
+    "name": "Kanye",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_02",
+    "name": "Ranaka",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_03",
+    "name": "Lotlhakane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_04",
+    "name": "Pitshane Molopo",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_05",
+    "name": "Gasita",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "12_06",
+    "name": "Khakhea",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_06",
+    "name": "Lorolwana",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_07",
+    "name": "Lehoko",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_08",
+    "name": "Tsonyane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_09",
+    "name": "Kgomokasitwa",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_10",
+    "name": "Pitseng",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_11",
+    "name": "Mokhomma",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_12",
+    "name": "Lekgolobotho",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_13",
+    "name": "Seherelela",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_14",
+    "name": "Lotlhakane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_16",
+    "name": "Sese",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_17",
+    "name": "Sesung",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_18",
+    "name": "Magotlhwane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_19",
+    "name": "Segwagwa",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_20",
+    "name": "Manyana",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_21",
+    "name": "Maokane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_22",
+    "name": "Dipotsana",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_23",
+    "name": "Diabo",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_26",
+    "name": "Molapowabojang",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_27",
+    "name": "Ralekgetho",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_28",
+    "name": "Moshaneng",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_29",
+    "name": "Moshupa",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_30",
+    "name": "Ntlhantlhe",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_31",
+    "name": "Tshwaane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_32",
+    "name": "Semane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_34",
+    "name": "Tlhankane",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_35",
+    "name": "Selokolela",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_38",
+    "name": "Mogonye",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "10_39",
+    "name": "Betesankwe",
+    "location_parent_code": "10",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_01",
+    "name": "Pitsane Siding",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_02",
+    "name": "Tlhareseleele",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_03",
+    "name": "Pitsana-Potokwe",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_04",
+    "name": "Rakhuna",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_05",
+    "name": "Malokaganyane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_06",
+    "name": "Bethel",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_07",
+    "name": "Dinatshana",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_08",
+    "name": "Ngwatsau",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_09",
+    "name": "Ramatlabama",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_10",
+    "name": "Good Hope",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_11",
+    "name": "Mokatako",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_12",
+    "name": "Tswanyaneng",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_13",
+    "name": "Metlojane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_14",
+    "name": "Borobadilepe",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_15",
+    "name": "Hebron",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_16",
+    "name": "Logagane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_17",
+    "name": "Tswagare/Lotlhaje",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_18",
+    "name": "Makokwe",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_19",
+    "name": "Marojane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_20",
+    "name": "Papatlo",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_21",
+    "name": "Phihitshwane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_22",
+    "name": "Molete",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_23",
+    "name": "Ditlharapa",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_24",
+    "name": "Madingwana",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_25",
+    "name": "Kgoro",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_26",
+    "name": "Sheep Farm",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_27",
+    "name": "Motsentshe",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_28",
+    "name": "Mogwalele",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_29",
+    "name": "Gathwane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_30",
+    "name": "Digawana",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_31",
+    "name": "Magoriapitse",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_32",
+    "name": "Lejwana",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_33",
+    "name": "Mogojogojo",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_34",
+    "name": "Mmathethe",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_35",
+    "name": "Mokgomane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_36",
+    "name": "Phitshane Molopo",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_37",
+    "name": "Sedibeng",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_38",
+    "name": "Musi",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_39",
+    "name": "Tswaaneng",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_40",
+    "name": "Gamajaalela",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_41",
+    "name": "Dikhukhung",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_42",
+    "name": "Leporung",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_43",
+    "name": "Mmakgori",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_44",
+    "name": "Mabule",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_45",
+    "name": "Tshidilamolomo",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_47",
+    "name": "Metlobo",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_48",
+    "name": "Lorwana",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_51",
+    "name": "Kangwe",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "11_52",
+    "name": "Sekhutlane",
+    "location_parent_code": "11",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "12_01",
+    "name": "Mabutsane",
+    "location_parent_code": "12",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "12_02",
+    "name": "Morwamosu",
+    "location_parent_code": "12",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "12_03",
+    "name": "Sekoma",
+    "location_parent_code": "12",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+  {
+    "code": "12_04",
+    "name": "Khonkhwa",
+    "location_parent_code": "12",
+    "location_type": "TOWN",
+    "is_administrative_location": 0,
+    "valid_from": "2024-10-01T00:00:00"
+  },
+{
+        "code": "12_05",
+        "name": "Keng",
+        "location_parent_code": "12",
+        "location_type": "TOWN",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "12_07",
+        "name": "Kokong",
+        "location_parent_code": "12",
+        "location_type": "TOWN",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "12_08",
+        "name": "Kanaku",
+        "location_parent_code": "12",
+        "location_type": "TOWN",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "12_09",
+        "name": "Mahotshwane",
+        "location_parent_code": "12",
+        "location_type": "TOWN",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "12_10",
+        "name": "Itholoke",
+        "location_parent_code": "12",
+        "location_type": "TOWN",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "12_11",
+        "name": "Kutuku",
+        "location_parent_code": "12",
+        "location_type": "TOWN",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    }
+]
+

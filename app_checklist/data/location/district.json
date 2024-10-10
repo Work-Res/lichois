@@ -1,0 +1,218 @@
+[
+    {
+        "code": "40",
+        "name": "Kgatleng",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "71",
+        "name": "Ngamiland West",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "80",
+        "name": "Ghanzi",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "10",
+        "name": "Ngwaketse South",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "11",
+        "name": "Borolong",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "12",
+        "name": "Ngwaketsi West",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "30",
+        "name": "Kweneng East",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "52",
+        "name": "Central Bobonong",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "70",
+        "name": "Ngamiland East",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "90",
+        "name": "Kgalagadi South",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "51",
+        "name": "Central Mahalapye",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "54",
+        "name": "Central Tutume",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "60",
+        "name": "North East",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "31",
+        "name": "Kweneng West",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "73",
+        "name": "Ngamiland Delta",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "50",
+        "name": "Central Serowe/Palapye",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "02",
+        "name": "Francistown",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "01",
+        "name": "Gaborone",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "91",
+        "name": "Kgalagadi North",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "06",
+        "name": "Jwaneng",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "72",
+        "name": "Chobe",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "53",
+        "name": "Central Boteti",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "03",
+        "name": "Lobatse",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "20",
+        "name": "South East",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "05",
+        "name": "Orapa",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "04",
+        "name": "Selibe Phikwe",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    },
+    {
+        "code": "07",
+        "name": "Sowa Town",
+        "location_parent_code": null,
+        "location_type": "DISTRICT",
+        "is_administrative_location": 0,
+        "valid_from": "2024-10-01T00:00:00"
+    }
+]

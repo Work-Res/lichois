@@ -16,12 +16,7 @@ class ApplicationContact(ApplicationBaseModel):
     contact_value = models.CharField(max_length=255, blank=False, null=False)
     preferred_method_comm = models.BooleanField(default=False)
     email = models.EmailField()
-    cell = models.IntegerField(
-    validators=[
-        MinValueValidator(10000000),  
-        MaxValueValidator(99999999)   
-    ]
-)
+    cell = models.CharField(max_length=20)
 
     def __str__(self):
         return f" {self.contact_type} - {self.contact_value}"
