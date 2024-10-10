@@ -23,6 +23,7 @@ class BoardRecommendationService:
                 reason=reason
             )
             logger.info(f'BoardRecommendation created: {board_recommendation}')
+            BoardRecommendationService.update_application(score_sheet.interview.application, recommendation)
             return board_recommendation
         except ScoreSheet.DoesNotExist:
             logger.error(f'ScoreSheet does not exist: {document_number}')
@@ -30,3 +31,17 @@ class BoardRecommendationService:
         except Exception as e:
             logger.error(f'Error creating board recommendation: {e}')
             raise ValidationError(f"Error creating board recommendation. {e}")
+
+    @staticmethod
+    @transaction.atomic
+    def update_application(application, board_decision):
+        decision = ''
+        if board_decision == 'Granted':
+            decision = 'ACCEPTED'
+        else:
+            decision = 'REJECTED'
+
+        application.board = decision
+        application.save()
+
+
