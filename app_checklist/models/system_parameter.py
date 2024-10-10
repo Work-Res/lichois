@@ -1,8 +1,7 @@
-from datetime import timedelta
-from django.db import models
-from datetime import date
+from datetime import date, timedelta
 
-from base_module.model_mixins import BaseUuidModel  # type: ignore
+from base_module.model_mixins import BaseUuidModel
+from django.db import models
 
 
 class SystemParameter(BaseUuidModel):
@@ -23,6 +22,7 @@ class SystemParameter(BaseUuidModel):
     application_type = models.CharField(max_length=255)
     valid_from = models.DateField(auto_now=True)
     valid_to = models.DateField(null=True, blank=True, auto_now_add=True)
+    document_number = models.CharField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.valid_to:
