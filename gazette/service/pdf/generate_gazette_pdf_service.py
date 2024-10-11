@@ -19,9 +19,8 @@ class GenerateGazettePDFService:
 
             doc = docx.Document()
 
-
             citizenship_act_heading = doc.add_heading('CITIZENSHIP ACT', level=1)
-            citizenship_act_heading.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER  # Center the heading
+            citizenship_act_heading.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
             cap_paragraph = doc.add_paragraph('(Cap. 01:01)')
             cap_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
