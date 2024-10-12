@@ -4,13 +4,12 @@ from .citizen_sponsor_certificate import CitizenSponsorCertificate
 from .citizenship_by_settlement import CitizenshipBySettlement
 from .citizenship_renunciation_declaration import CitizenshipRenunciationDeclaration
 from .citizenship_resumption import CitizenshipResumption
-from .DC_certificate import DCCertificate
+from citizenship.models.settlement.DC_certificate import DCCertificate
 from .declaration_naturalisation_by_foreign_spouse import (
     DeclarationNaturalisationByForeignSpouse,
 )
 from .doubt_citizenship_certificate import DoubtCitizenshipCertificate
-from .kgosi_certificate import KgosiCertificate
-from .kgosana_certificate import KgosanaCertificate
+from citizenship.models.settlement.kgosi_certificate import KgosiCertificate
 from .late_citizenship_renunciation import LateCitizenshipRenunciation
 from .maturity_period_waiver import MaturityPeriodWaiver
 from .nationality_declaration import NationalityDeclaration

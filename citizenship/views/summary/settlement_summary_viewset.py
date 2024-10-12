@@ -10,14 +10,7 @@ from citizenship.models import CitizenshipSummary
 def get_app_labels():
     return [
         # kgosi_cert,
-        "citizenship.KgosiCertificate"
-        # kgosana_cert,
-        "citizenship.KgosanaCertificate"
-        # oath,
-        "citizenship.OathOfAllegiance"
-        
-        # dcccertificate
-        "citizenship.DCCertificate"
+        "citizenship.form_a"
     ]
 
 
