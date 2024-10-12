@@ -81,6 +81,8 @@ class Command(CustomBaseCommand):
 
                 # Declarant Citizenship details
                 baker.make(DeclarationNaturalisationByForeignSpouse,
+                        application_version=version,
+                        document_number=app.application_document.document_number,
                         birth_citizenship=self.faker.city,
                         present_citizenship=self.faker.country(),
                         other_prev_citizenship=self.faker.text(),
