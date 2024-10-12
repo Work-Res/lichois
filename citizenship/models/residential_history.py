@@ -1,17 +1,17 @@
 from django.db import models
 from app.models import ApplicationBaseModel
 from base_module.model_mixins import BaseUuidModel
+from django.core.exceptions import ValidationError
 
 
 class ResidentialHistory(ApplicationBaseModel):
-
-    country = models.CharField(max_length=190)
-
-    residency_from = models.DateField(#validation=DateNotFuture
-    )
-
-    residency_to = models.DateField(# validation=DateNotFuture
-    )
+    country = models.CharField(max_length=255, null=True, blank=True)
+    residence_from_date = models.DateField(auto_now=True)
+    residence_to_date = models.DateField(auto_now=True)
 
     class Meta:
         app_label = 'citizenship'
+
+    def clean(self):
+        if self.residence_to_date < self.residence_from_date:
+            raise ValidationError("Residence to date must be after residence from date.")

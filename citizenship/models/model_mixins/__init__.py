@@ -1,4 +1,4 @@
 from .personal_details_model_mixin import PersonalDetailsModelMixin
 from .recommendation_update_mixin import RecommendationUpdateMixin
 from .residential_history_model_mixin import ResidentialHistoryModelMixin
-from .nationality_model_mixin import NationalityDetails
+from .nationality_model_mixin import NationalityDetailsModelMixin

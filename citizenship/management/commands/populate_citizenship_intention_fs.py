@@ -1,4 +1,6 @@
 from django.db.transaction import atomic
+from app_address.models.application_address import ApplicationAddress
+from app_contact.models.application_contact import ApplicationContact
 from model_bakery import baker
 
 
@@ -18,7 +20,7 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(50):
+        for _ in range(10):
 
             with atomic():
                 fname = self.faker.unique.first_name()
@@ -27,10 +29,10 @@ class Command(CustomBaseCommand):
                 # new_application
                 app, version = self.create_new_application(fname, lname)
 
-                self.create_basic_data()
+                # self.create_basic_data()
 
                 # Residential History
-                baker.make(
+                residence_history = baker.make(
                     ResidentialHistory,
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -46,18 +48,47 @@ class Command(CustomBaseCommand):
                 )
 
                 # declarant_personal_info
-                baker.make(
+                person = baker.make(
                     Person,
                     application_version=version,
                     document_number=app.application_document.document_number,
                     person_type="declarant",
                 )
 
-                # Declarant Citizenship details
-                baker.make(DeclarationNaturalisationByForeignSpouse)
+                contact_type = ["cell", "email", "fax", "landline"]
+                contact_value = {
+                    "cell": self.faker.phone_number(),
+                    "email": self.faker.email(),
+                    "fax": self.faker.phone_number(),
+                    "landline": self.faker.phone_number(),
+                }
 
-                # declarant preferred contact
-                self.create_application_contact(app, version)
+                selected_contact_type = self.faker.random_element(elements=contact_type)
+
+                contact = baker.make(ApplicationContact,
+                                    application_version=version,
+                                    document_number=app.application_document.document_number,
+                                    contact_type=selected_contact_type,
+                                    contact_value=contact_value[selected_contact_type],
+                                    preferred_method_comm=self.faker.boolean(chance_of_getting_true=50),
+                                    status=self.faker.random_element(elements=("active", "inactive")),
+                                    description=self.faker.text())
+
+                address = baker.make(ApplicationAddress,
+                                    application_version=version,
+                                    document_number=app.application_document.document_number,
+                                    po_box=self.faker.address())
+
+                # Declarant Citizenship details
+                baker.make(DeclarationNaturalisationByForeignSpouse,
+                        birth_citizenship=self.faker.city,
+                        present_citizenship=self.faker.country(),
+                        other_prev_citizenship=self.faker.text(),
+                        application_person=person,
+                        application_contact=contact,
+                        application_address=address,
+                        application_residential_history=residence_history)
+
 
                 self.stdout.write(
                     self.style.SUCCESS(
