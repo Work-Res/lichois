@@ -1,19 +1,19 @@
 from django.db import models
 from app.models import ApplicationBaseModel
 from base_module.model_mixins import CommissionerOathModelMixin
+from citizenship.models.model_mixins.residential_history_model_mixin import ResidentialHistoryModelMixin
 
 
-class DeclarationNaturalisationByForeignSpouse(CommissionerOathModelMixin, ApplicationBaseModel):
+class DeclarationNaturalisationByForeignSpouse(ApplicationBaseModel,
+                                               CommissionerOathModelMixin,
+                                               ResidentialHistoryModelMixin, ):
 
     # Personal Information
     # Address
     #ContactInfo
-
     #ResidentialHistory
+    # Nationality Details
 
-    birth_citizenship = models.CharField(max_length=190)
-    present_citizenship = models.CharField(max_length=190)
-    other_prev_citizenship = models.TextField(max_length=300)
     personal_qualifications = models.TextField(max_length=500)
 
     #Oath
