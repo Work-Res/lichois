@@ -22,9 +22,13 @@ class Command(CustomBaseCommand):
             with atomic():
                 # new_application
                 app, version = self.create_basic_data()
-
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
                 guardian = baker.make(Person, application_version=version,
                                       document_number=app.application_document.document_number,
+                                      first_name=fname,
+                                      last_name=lname,
+                                      city=self.faker.city(),
                                       person_type="guardian")
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
@@ -35,16 +39,29 @@ class Command(CustomBaseCommand):
 
                 adoptive_parent = baker.make(Person, application_version=version,
                                              document_number=app.application_document.document_number,
-                                             person_type="adoptive_parent")
+                                             person_type="adoptive_parent",
+                                             first_name=self.faker.unique.first_name(),
+                                             last_name=self.faker.unique.last_name(),
+                                             city=self.faker.city(),
+                                             )
                 sponsor = baker.make(Person, application_version=version,
                                      document_number=app.application_document.document_number,
-                                     person_type="sponsor")
+                                     person_type="sponsor",
+                                     first_name=self.faker.unique.first_name(),
+                                     last_name=self.faker.unique.last_name(),
+                                     city=self.faker.city(),
+                                     )
                 witness = baker.make(Person, application_version=version,
                                      document_number=app.application_document.document_number,
-                                     person_type="witness")
+                                     person_type="witness",
+                                     first_name=self.faker.unique.first_name(),
+                                     last_name=self.faker.unique.last_name(),
+                                     city=self.faker.city()
+                                     )
 
                 baker.make(FormC,
                            guardian=guardian,
+
                            guardian_address=guardian_address,
                            location=location,
                            designation=self.faker.job(),
