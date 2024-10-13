@@ -286,8 +286,6 @@ class BaseSetup(TestCase):
             ),
             contact_value=faker.phone_number(),
             preferred_method_comm=faker.boolean(chance_of_getting_true=50),
-            status=faker.random_element(elements=("active", "inactive")),
-            description=faker.text(),
         )
 
         Passport.objects.create(

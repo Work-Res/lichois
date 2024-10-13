@@ -63,8 +63,8 @@ class TestDeclarationOfIntentionByForeignWorkflow(BaseSetup):
             user="test",
             status="ACCEPTED",
         )
-        service = VerificationService(verification_request=verification_request)
-        data = service.create_verification()
+
+        self.assertIsNotNone(self.perform_verification())
 
         app = Application.objects.get(
             application_document__document_number=self.document_number
@@ -87,3 +87,4 @@ class TestDeclarationOfIntentionByForeignWorkflow(BaseSetup):
             document_number=self.document_number
         )
         self.assertTrue(generated_document.exists())
+        self.assertIsNotNone(generated_document.first().pdf_document)

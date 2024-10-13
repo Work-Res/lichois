@@ -6,12 +6,12 @@ from citizenship.utils import CitizenshipProcessEnum
 from .document_context_generator import DocumentContextGenerator
 
 
-class MaturityLetterContextGenerator(DocumentContextGenerator):
+class IntentionFSContextGenerator(DocumentContextGenerator):
     def generate(self, application):
         document_number = application.application_document.document_number
         years = datetime.now() + relativedelta(months=30)
         context = {
-            'document_type': 'maturity_letter',
+            'document_type': 'intention_by_foreign_spouse',
             'document_number': document_number,
             'reference_number': document_number,
             'today_date': date.today().strftime("%Y-%m-%d"),
