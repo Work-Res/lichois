@@ -68,7 +68,6 @@ class Command(CustomBaseCommand):
                     ApplicationContact,
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    status=self.faker.random_element(elements=("active", "inactive")),
                 )
 
                 # Applicant Oath
