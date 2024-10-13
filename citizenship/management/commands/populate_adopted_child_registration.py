@@ -49,6 +49,13 @@ class Command(CustomBaseCommand):
                                      first_name=self.faker.unique.first_name(),
                                      last_name=self.faker.unique.last_name()
                                      )
+
+                sponsor_address = baker.make(ApplicationAddress, application_version=version,
+                                document_number=app.application_document.document_number,
+                                po_box=self.faker.address(),
+                                person_type="sponsor",
+                                city=self.faker.city())
+
                 witness = baker.make(Person, application_version=version,
                                      document_number=app.application_document.document_number,
                                      person_type="witness",
@@ -71,7 +78,7 @@ class Command(CustomBaseCommand):
                            adoptive_parent=adoptive_parent,
                            adoptive_parent_address=baker.make(ApplicationAddress),
                            sponsor=sponsor,
-                           sponsor_address=baker.make(ApplicationAddress),
+                           sponsor_address=sponsor_address,
                            is_sponsor_signed=self.faker.boolean(),
                            sponsor_date_of_signature=self.faker.date(),
                            witness=witness,
