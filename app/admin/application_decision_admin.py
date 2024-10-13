@@ -14,3 +14,6 @@ class ApplicationDecisionAdmin(admin.ModelAdmin):
     list_filter = ('final_decision_type', 'proposed_decision_type', 'created_at', 'updated_at')
     raw_id_fields = ('final_decision_type', 'proposed_decision_type')
     
+app_admin.register(ApplicationDecision, ApplicationDecisionAdmin)
+app_admin.register(ApplicationDecisionType, ApplicationDecisionTypeAdmin)
+
