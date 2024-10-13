@@ -205,27 +205,27 @@ class CustomBaseCommand(BaseCommand):
             first_name=self.faker.first_name_male(),
             last_name=self.faker.last_name(),
             dob=self.faker.date_of_birth(minimum_age=40),
-            gender='male',
+            gender="male",
+            person_type="father",
             defaults={
-                'occupation': self.faker.job(),
-                'nationality': self.faker.country(),
-                'person_type': 'parent',
-                'deceased': False,
-            }
+                "occupation": self.faker.job(),
+                "nationality": self.faker.country(),
+                "person_type": "parent",
+                "deceased": False,
+            },
         )
-        
+
         # Create mother's details
         mother, created = Person.objects.get_or_create(
             first_name=self.faker.first_name_female(),
             last_name=self.faker.last_name(),
             dob=self.faker.date_of_birth(minimum_age=40),
-            gender='female',
+            person_type="mother",
+            gender="female",
             defaults={
-                'occupation': self.faker.job(),
-                'nationality': self.faker.country(),
-                'person_type': 'parent',
-                'deceased': False,
-            }
+                "occupation": self.faker.job(),
+                "nationality": self.faker.country(),
+                "person_type": "parent",
+                "deceased": False,
+            },
         )
-
-
