@@ -1,0 +1,41 @@
+{
+    "classifiers": {
+      "blue_card_workflow": {
+        "code": "BLUE_CARD_RETURNS",
+        "name": "Blue Card Returns",
+        "description": "Blue Card Returns Workflow",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "VERIFICATION",
+            "name": "Blue Card Returns Verification",
+            "description": "Verification Task",
+            "mandatory": false,
+            "sequence": 1,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01",
+            "next_activity_name": "FINAL_DECISION",
+            "create_task_rules": {
+              "current_status": "NEW",
+              "system_verification": "validated"
+            }
+          },
+          {
+            "code": "FINAL_DECISION",
+            "name": "Blue Card Returns Production Decision",
+            "description": "Permit Production Task",
+            "sequence": 3,
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01",
+            "next_activity_name": "END",
+            "create_task_rules": {
+              "verification_decision": "ACCEPTED"
+            }
+          }
+        ]
+      }
+    }
+  }
+  

@@ -1,2 +1,3 @@
 from .application_admin import ApplicationAdmin
 from .application_status_admin import ApplicationStatusAdmin
+from .application_decision_admin import ApplicationDecisionAdmin, ApplicationDecisionTypeAdmin

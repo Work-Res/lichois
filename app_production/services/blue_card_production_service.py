@@ -33,7 +33,7 @@ class BlueCardProductionService(PermitProductionService):
             )
         except SystemParameter.DoesNotExist:
             self.logger.info(
-                f"System parameter not found for {self.visa_type}, creating a new one."
+                f"System parameter not found for {self.request.application_type}, creating a new one."
             )
             self._systems_parameter = SystemParameter.objects.create(
                 application_type=self.request.permit_type,

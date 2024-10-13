@@ -6,7 +6,7 @@ from app.models import ApplicationBaseModel
 from base_module.model_mixins import NationalityModelMixin
 
 
-class Person(ApplicationBaseModel, NationalityModelMixin):
+class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
 
     first_name = models.CharField(max_length=190)
 

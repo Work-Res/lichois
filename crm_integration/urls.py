@@ -1,11 +1,11 @@
 from django.urls import path
 
-from crm_integration.api.views import CrmIncomingFormApplicationRequest
+from crm_integration.api.views import WorkResidenceAPIView
 
 urlpatterns = [
     path(
-        "external/crm/forms/receive",
-        CrmIncomingFormApplicationRequest.as_view(),
-        name="crm_form_submit",
+        "work-residence-application/receive",
+        WorkResidenceAPIView.as_view(),
+        name="work_residence_form_submit",
     ),
 ]

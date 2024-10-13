@@ -1,8 +1,6 @@
 from django.test import TestCase
 
-from django.test import TestCase
-
-from crm_integration.classes import CrmRequestHandler
+from .classes import CrmRequestHandler
 
 
 class GroupAndTrimKeysTests(TestCase):
@@ -26,7 +24,7 @@ class GroupAndTrimKeysTests(TestCase):
             "workresidentpermit_Spouse"
         ]
         self.crm_request = CrmRequestHandler(
-            crm_request=self.main_dict, crm_request_substring_configuration=self.substrings)
+            crm_request=self.main_dict)
 
     def test_group_and_trim_keys(self):
 
