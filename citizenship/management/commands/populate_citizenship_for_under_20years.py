@@ -33,7 +33,8 @@ class Command(CustomBaseCommand):
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
                                               po_box=self.faker.address(),
-                                              person_type="guardian")
+                                              person_type="guardian",
+                                              city=self.faker.city())
 
                 parent = baker.make(Person, application_version=version,
                                     document_number=app.application_document.document_number,
@@ -52,21 +53,20 @@ class Command(CustomBaseCommand):
                                      document_number=app.application_document.document_number,
                                      person_type="sponsor",
                                      first_name=self.faker.unique.first_name(),
-                                     last_name=self.faker.unique.last_name(),
-                                     city=self.faker.city())
+                                     last_name=self.faker.unique.last_name())
 
                 witness = baker.make(Person, application_version=version,
                                      document_number=app.application_document.document_number,
                                      person_type="witness",
                                      first_name=self.faker.unique.first_name(),
-                                     last_name=self.faker.unique.last_name(),
-                                     city=self.faker.city()
+                                     last_name=self.faker.unique.last_name()
                                      )
 
                 waitness_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
                                               po_box=self.faker.address(),
-                                              person_type="witness")
+                                              person_type="witness",
+                                              city=self.faker.city())
 
                 baker.make(FormE,
                            document_number=app.application_document.document_number,
