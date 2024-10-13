@@ -28,7 +28,6 @@ class Command(CustomBaseCommand):
                                       document_number=app.application_document.document_number,
                                       first_name=fname,
                                       last_name=lname,
-                                      city=self.faker.city(),
                                       person_type="guardian")
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
@@ -60,7 +59,6 @@ class Command(CustomBaseCommand):
                 baker.make(FormC,
                            document_number=app.application_document.document_number,
                            guardian=guardian,
-
                            guardian_address=guardian_address,
                            location=location,
                            designation=self.faker.job(),

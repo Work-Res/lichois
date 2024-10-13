@@ -27,7 +27,6 @@ class Command(CustomBaseCommand):
                     person_type='guardian',
                     first_name=self.faker.unique.first_name(),
                     last_name=self.faker.unique.last_name(),
-                    city=self.faker.city()
                 )
 
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
@@ -41,12 +40,12 @@ class Command(CustomBaseCommand):
                                     person_type="father",
                                     first_name=self.faker.unique.first_name(),
                                     last_name=self.faker.unique.last_name(),
-                                    city=self.faker.city()
                                     )
 
                 parent_address = baker.make(ApplicationAddress, application_version=version,
                                             document_number=app.application_document.document_number,
                                             po_box=self.faker.address(),
+                                            city=self.faker.city(),
                                             person_type="father")
 
                 sponsor = baker.make(Person, application_version=version,
@@ -72,7 +71,6 @@ class Command(CustomBaseCommand):
                            document_number=app.application_document.document_number,
                            guardian=guardian,
                            guardian_address=guardian_address,
-                           designation=self.faker.job(),
                            citizenship_at_birth=self.faker.country(),
                            present_citizenship=self.faker.country(),
                            present_citizenship_not_available=self.faker.random_element(elements=['Yes', 'No']),
@@ -86,8 +84,8 @@ class Command(CustomBaseCommand):
                            witness=witness,
                            witness_address=waitness_address)
 
-                self.stdout.write(
-                    self.style.SUCCESS(
-                        "Successfully populated Citizenship for under 20 data"
-                    )
-                )
+        self.stdout.write(
+            self.style.SUCCESS(
+                "Successfully populated Citizenship for under 20 - formE data"
+            )
+        )
