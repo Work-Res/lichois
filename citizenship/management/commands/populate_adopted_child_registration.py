@@ -59,6 +59,8 @@ class Command(CustomBaseCommand):
                 baker.make(FormC,
                            document_number=app.application_document.document_number,
                            guardian=guardian,
+                           declaration_fname=self.faker.unique.first_name(),
+                           declaration_lname=self.faker.unique.last_name(),
                            guardian_address=guardian_address,
                            location=location,
                            designation=self.faker.job(),

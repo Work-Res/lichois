@@ -2,11 +2,11 @@ from django.db.transaction import atomic
 from model_bakery import baker
 
 from app_address.models import ApplicationAddress
-from app_contact.models import ApplicationContact
+
 from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
-from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import OathOfAllegiance, FormE
+from ...utils import CitizenshipProcessEnum
+from ...models import FormE
 
 
 class Command(CustomBaseCommand):
@@ -68,6 +68,8 @@ class Command(CustomBaseCommand):
                                               city=self.faker.city())
 
                 baker.make(FormE,
+                           declaration_fname=self.faker.unique.first_name(),
+                           declaration_lname=self.faker.unique.last_name(),
                            document_number=app.application_document.document_number,
                            guardian=guardian,
                            guardian_address=guardian_address,
