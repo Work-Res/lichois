@@ -12,7 +12,6 @@ from .doubt_citizenship_certificate import DoubtCitizenshipCertificate
 from citizenship.models.settlement.kgosi_certificate import KgosiCertificate
 from citizenship.models.settlement.kgosana_certificate import KgosanaCertificate
 from .late_citizenship_renunciation import LateCitizenshipRenunciation
-from .maturity_period_waiver import MaturityPeriodWaiver
 from .nationality_declaration import NationalityDeclaration
 from .naturalisation import Naturalisation
 from .oath_of_allegiance import OathOfAllegiance

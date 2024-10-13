@@ -11,12 +11,12 @@ class FormE(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     guardian = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="child_relations"
+        related_name="form_e_child_relations"
     )
 
     guardian_address = models.ForeignKey(
         ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="guardian_address_of"
+        related_name="form_e_guardian_address_of"
     )
 
     citizenship_at_birth = models.CharField(
@@ -41,17 +41,17 @@ class FormE(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     parent = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="father_of"
+        related_name="form_e_father_of"
     )
 
     parent_address = models.ForeignKey(
         ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="father_address_of"
+        related_name="form_e_father_address_of"
     )
 
     sponsor = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="sponsoring_forms"
+        related_name="form_e_sponsoring_forms"
     )
 
     sponsor_address = models.ForeignKey(
@@ -69,7 +69,7 @@ class FormE(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     witness = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="witnessing_persons"
+        related_name="form_e_witnessing_persons"
     )
 
     witness_address = models.ForeignKey(

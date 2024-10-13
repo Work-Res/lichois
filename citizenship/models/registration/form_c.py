@@ -12,12 +12,12 @@ class FormC(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     guardian = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="child_relations"
+        related_name="form_c_child_relations"
     )
     
     guardian_address = models.ForeignKey(
         ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="guardian_address_of"
+        related_name="form_c_guardian_address_of"
     )
 
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True,
@@ -57,12 +57,12 @@ class FormC(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     sponsor = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="sponsoring_forms"
+        related_name="form_c_sponsoring_forms"
     )
 
     sponsor_address = models.ForeignKey(
         ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="sponsor_address_of"
+        related_name="form_c_sponsor_address_of"
     )
 
     is_sponsor_signed = models.BooleanField(
@@ -75,12 +75,12 @@ class FormC(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     witness = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="witnessing_persons"
+        related_name="form_c_witnessing_persons"
     )
 
     witness_address = models.ForeignKey(
         ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="witness_address_of"
+        related_name="form_c_witness_address_of"
     )
 
     class Meta:
