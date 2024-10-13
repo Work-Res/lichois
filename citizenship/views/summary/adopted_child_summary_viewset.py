@@ -8,7 +8,7 @@ from citizenship.models import CitizenshipSummary
 
 
 def get_app_labels():
-    return []
+    return ["citizenship.FormC"]
 
 
 class AdoptedChildSummaryViewSet(viewsets.ModelViewSet):
