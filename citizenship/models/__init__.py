@@ -54,3 +54,8 @@ from .citizenship_minister_decision import CitizenshipMinisterDecision
 from .section10b_decisions import Section10bApplicationDecisions
 from .citizenship_president_decision import CitizenshipPresidentDecision
 from .registration.form_e import FormE
+from .registration.form_c import FormC
+from .maturity_period_waiver.maturity_period_waiver import MaturityPeriodWaiver
+from .declaration_of_intention.declaration_naturalisation_by_foreign_spouse import (
+    DeclarationNaturalisationByForeignSpouse
+)

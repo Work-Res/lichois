@@ -14,7 +14,6 @@ class Command(CustomBaseCommand):
     process_name = CitizenshipProcessEnum.PRESIDENT_POWER_10A.value
     application_type = CitizenshipProcessEnum.PRESIDENT_POWER_10A.value
 
-
     def create_basic_data(self):
         fname = self.faker.unique.first_name()
         lname = self.faker.unique.last_name()
@@ -35,8 +34,6 @@ class Command(CustomBaseCommand):
         for _ in range(50):
 
             with atomic():
-                fname = self.faker.unique.first_name()
-                lname = self.faker.unique.last_name()
 
                 # new_application
                 self.create_basic_data()

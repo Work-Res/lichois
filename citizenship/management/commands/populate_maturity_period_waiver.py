@@ -1,14 +1,11 @@
 from django.db.transaction import atomic
 from model_bakery import baker
-from datetime import date
 
-from app_address.models import ApplicationAddress
-from app_contact.models import ApplicationContact
-from app_personal_details.models import Person, Spouse
+from app.models import Application
+
 from lichois.management.base_command import CustomBaseCommand
+from ...models.maturity_period_waiver.maturity_period_waiver import MaturityPeriodWaiver
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import DCCertificate, OathOfAllegiance, ResidentialHistory
-from ...models import DeclarationNaturalisationByForeignSpouse
 
 
 class Command(CustomBaseCommand):
@@ -16,68 +13,51 @@ class Command(CustomBaseCommand):
     process_name = CitizenshipProcessEnum.MATURITY_PERIOD_WAIVER.value
     application_type = CitizenshipApplicationTypeEnum.MATURITY_PERIOD_WAIVER_ONLY.value
 
+    def create_basic_data(self):
+        fname = self.faker.unique.first_name()
+        lname = self.faker.unique.last_name()
+
+        app, version = self.create_new_application(fname, lname)
+
+        self.create_personal_details(app, version, lname, fname)
+
+        self.create_application_address(app, version)
+
+        self.create_application_contact(app, version)
+
+        return app, version
+
+    def get_intention_document_number(self):
+        excluded_document_numbers = MaturityPeriodWaiver.objects.values_list(
+            'document_number_for_intention', flat=True
+        )
+
+        app = Application.objects.filter(
+            application_type=CitizenshipApplicationTypeEnum.INTENTION_FOREIGN_SPOUSE_ONLY.value,
+            application_status__code="ACCEPTED"
+        ).exclude(
+            application__application_document__document_number__in=excluded_document_numbers
+        ).first()
+
+        return app.application.application_document.document_number if app else ''
+
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
         for _ in range(50):
-
             with atomic():
-                fname = self.faker.unique.first_name()
-                lname = self.faker.unique.last_name()
-
                 # new_application
-                app, version = self.create_new_application(fname, lname)
+                app_service, version = self.create_basic_data()
+                document_number = version.application.application_document.document_number
 
-                # person
-                # Applicant Personal Details
                 baker.make(
-                    Person,
-                    first_name=fname,
-                    last_name=lname,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="applicant",
+                    MaturityPeriodWaiver,
+                    document_number=document_number,
+                    document_number_for_intention=self.get_intention_document_number(),
+                    application_version=version
                 )
-
-                # Applicant Residential Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                )
-
-                # Spouse
-                baker.make(
-                    Spouse,
-                    last_name=self.faker.unique.last_name(),
-                    first_name=self.faker.unique.first_name(),
-                    middle_name="",
-                    maiden_name="",
-                    dob=date(1990, 10, 6),
-                    place_birth="BW"
-                )
-
-                # Applicant Postal Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
-
                 self.stdout.write(
                     self.style.SUCCESS(
-                        "Successfully populated Maturity Period Waiver data"
+                        f"Successfully populated {self.application_type}"
                     )
                 )

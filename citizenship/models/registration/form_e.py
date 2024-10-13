@@ -14,8 +14,13 @@ class FormE(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
         related_name="child_relations"
     )
 
+    guardian_address = models.ForeignKey(
+        ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
+        related_name="guardian_address_of"
+    )
+
     citizenship_at_birth = models.CharField(
-        max_length=10, choices=YES_NO, blank=True, null=True,
+        max_length=150, blank=True, null=True,
         verbose_name="Citizenship at birth"
     )
 

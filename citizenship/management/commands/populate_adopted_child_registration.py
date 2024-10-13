@@ -2,11 +2,11 @@ from django.db.transaction import atomic
 from model_bakery import baker
 
 from app_address.models import ApplicationAddress
-from app_contact.models import ApplicationContact
+from app_checklist.models import Location
 from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import DCCertificate, OathOfAllegiance
+from ...models import FormC
 
 
 class Command(CustomBaseCommand):
@@ -20,238 +20,49 @@ class Command(CustomBaseCommand):
         for _ in range(50):
 
             with atomic():
-                fname = self.faker.unique.first_name()
-                lname = self.faker.unique.last_name()
-
                 # new_application
-                app, version = self.create_new_application(fname, lname)
+                app, version = self.create_basic_data()
 
-                # person
-                # Applicant Personal Details
-                baker.make(
-                    Person,
-                    first_name=fname,
-                    last_name=lname,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="applicant",
-                )
+                guardian = baker.make(Person, application_version=version,
+                                      document_number=app.application_document.document_number,
+                                      person_type="guardian")
+                guardian_address = baker.make(ApplicationAddress, application_version=version,
+                                              document_number=app.application_document.document_number,
+                                              po_box=self.faker.address(),
+                                              person_type="guardian")
 
-                # Applicant Residential Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    # person_type="applicant",
-                )
+                location = baker.make(Location)
 
-                # Applicant Postal Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
+                adoptive_parent = baker.make(Person, application_version=version,
+                                             document_number=app.application_document.document_number,
+                                             person_type="adoptive_parent")
+                sponsor = baker.make(Person, application_version=version,
+                                     document_number=app.application_document.document_number,
+                                     person_type="sponsor")
+                witness = baker.make(Person, application_version=version,
+                                     document_number=app.application_document.document_number,
+                                     person_type="witness")
 
-                # Applicant Contact Details
-                baker.make(
-                    ApplicationContact,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    status=self.faker.random_element(elements=("active", "inactive")),
-                )
-
-                # Applicant Oath
-                baker.make(OathOfAllegiance)
-
-                # child_personal_info
-                baker.make(
-                    Person,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="child",
-                )
-
-                # Child Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
-
-                # Parent Personal Details
-                baker.make(
-                    Person,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="mother",
-                )
-
-                # Parent Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
-
-                # Sponsor’s Personal Details
-                baker.make(
-                    Person,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="sponsor",
-                )
-
-                # Sponsor’s Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
-
-                # Witness Personal Details
-                baker.make(
-                    Person,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="witness",
-                )
-
-                # Witness Address
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
-
-                # Additional Sponsor
-                baker.make(
-                    Person,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="sponsor",
-                )
-
-                # Additional Sponsor’s Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
-
-                # Additional Witness Personal Details
-                baker.make(
-                    Person,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="witness",
-                )
-
-                # Additional Witness Address
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
-
-                # applicant declaration
-                baker.make(DCCertificate)
-
-                # Oath
-                baker.make(OathOfAllegiance)
-
-                # NOT_USED
-                # country
-                # app_address
-                # app_contact
-                # passport
-                # education
+                baker.make(FormC,
+                           guardian=guardian,
+                           guardian_address=guardian_address,
+                           location=location,
+                           designation=self.faker.job(),
+                           citizenship_at_birth=self.faker.random_element(elements=['Yes', 'No']),
+                           present_citizenship=self.faker.country(),
+                           present_citizenship_not_available=self.faker.random_element(elements=['Yes', 'No']),
+                           provide_circumstances=self.faker.text(max_nb_chars=300),
+                           adoptive_parent=adoptive_parent,
+                           adoptive_parent_address=baker.make(ApplicationAddress),
+                           sponsor=sponsor,
+                           sponsor_address=baker.make(ApplicationAddress),
+                           is_sponsor_signed=self.faker.boolean(),
+                           sponsor_date_of_signature=self.faker.date(),
+                           witness=witness,
+                           witness_address=baker.make(ApplicationAddress))
 
                 self.stdout.write(
                     self.style.SUCCESS(
-                        "Successfully populated adopted child registration data"
+                        "Successfully populated citizenship data for form-C"
                     )
                 )
