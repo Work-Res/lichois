@@ -1,10 +1,11 @@
+from datetime import date, timedelta
+import random
+
 from django.db.transaction import atomic
-from app_address.models.application_address import ApplicationAddress
-from app_contact.models.application_contact import ApplicationContact
 from model_bakery import baker
+from faker import Faker
 
 
-from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
 from ...models import DeclarationNaturalisationByForeignSpouse, ResidentialHistory, OathOfAllegiance
@@ -17,8 +18,22 @@ class Command(CustomBaseCommand):
         CitizenshipApplicationTypeEnum.INTENTION_FOREIGN_SPOUSE_ONLY.value
     )
 
+    def generate_random_date_range(self):
+        """Generate random 'from' and 'to' dates within a reasonable range."""
+        today = date.today()
+        days_ago_start = random.randint(1, 365 * 5)  # Random date up to 5 years ago
+        days_ago_end = random.randint(1, 365 * 2)  # Random date up to 2 years ago
+
+        # Ensure the 'from' date is earlier than the 'to' date
+        residence_from_date = today - timedelta(days=days_ago_start)
+        residence_to_date = residence_from_date + timedelta(days=random.randint(30, 365))
+
+        return residence_from_date, residence_to_date
+
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
+        fake = Faker()
+        today = date.today()
 
         for _ in range(10):
 
@@ -27,72 +42,36 @@ class Command(CustomBaseCommand):
                 lname = self.faker.unique.last_name()
 
                 # new_application
-                app, version = self.create_new_application(fname, lname)
+                app, version = self.create_basic_data()
 
-                # self.create_basic_data()
+                document_number = version.application.application_document.document_number
 
-                # Residential History
-                residence_history = baker.make(
+                from_date, to_date = self.generate_random_date_range()
+
+                self.residence_history = baker.make(
                     ResidentialHistory,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
+                    country="Botswana",
+                    residence_from_date=from_date,
+                    residence_to_date=to_date
                 )
 
-                # TODO: PersonalDeclaration
-
-                # Applicant Oath
-                baker.make(
-                    OathOfAllegiance,
+                # Create a DeclarationNaturalisationByForeignSpouse instance using baker
+                self.declaration = baker.make(
+                    DeclarationNaturalisationByForeignSpouse,
+                    application_residential_history=self.residential_history,
+                    declaration_fname=fake.first_name(),
+                    declaration_lname=fake.last_name(),
+                    declaration_date=today,
+                    signature=f"{fake.first_name()} {fake.last_name()}",
+                    declaration_place=fake.city(),
+                    oath_datetime=fake.date_time_this_decade(),
+                    commissioner_name=f"{fake.first_name()} {fake.last_name()}",
+                    commissioner_designation="Judge",
+                    telephone_number=fake.phone_number(),
+                    commissioner_signature="Signed by Commissioner",
                     application_version=version,
-                    document_number=app.application_document.document_number,
+                    document_number=document_number
                 )
-
-                # declarant_personal_info
-                person = baker.make(
-                    Person,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="declarant",
-                )
-
-                contact_type = ["cell", "email", "fax", "landline"]
-                contact_value = {
-                    "cell": self.faker.phone_number(),
-                    "email": self.faker.email(),
-                    "fax": self.faker.phone_number(),
-                    "landline": self.faker.phone_number(),
-                }
-
-                selected_contact_type = self.faker.random_element(elements=contact_type)
-
-                contact = baker.make(ApplicationContact,
-                                    application_version=version,
-                                    document_number=app.application_document.document_number,
-                                    contact_type=selected_contact_type,
-                                    contact_value=contact_value[selected_contact_type],
-                                    preferred_method_comm=self.faker.boolean(chance_of_getting_true=50),
-                                    status=self.faker.random_element(elements=("active", "inactive")),
-                                    description=self.faker.text(),
-                                    )
-
-                address = baker.make(ApplicationAddress,
-                                    application_version=version,
-                                    document_number=app.application_document.document_number,
-                                    po_box=self.faker.address(),
-                                    person_type="applicant")
-
-                # Declarant Citizenship details
-                baker.make(DeclarationNaturalisationByForeignSpouse,
-                        application_version=version,
-                        document_number=app.application_document.document_number,
-                        birth_citizenship=self.faker.city,
-                        present_citizenship=self.faker.country(),
-                        other_prev_citizenship=self.faker.text(),
-                        application_person=person,
-                        application_contact=contact,
-                        application_address=address,
-                        application_residential_history=residence_history)
-
 
                 self.stdout.write(
                     self.style.SUCCESS(
