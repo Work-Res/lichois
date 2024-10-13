@@ -34,24 +34,14 @@ class FormE(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
         verbose_name="If no present citizenship, circumstances under which it was lost"
     )
 
-    father = models.ForeignKey(
+    parent = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
         related_name="father_of"
     )
 
-    father_address = models.ForeignKey(
+    parent_address = models.ForeignKey(
         ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
         related_name="father_address_of"
-    )
-
-    mother = models.ForeignKey(
-        Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="mother_of"
-    )
-
-    mother_address = models.ForeignKey(
-        ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="mother_address_of"
     )
 
     sponsor = models.ForeignKey(
