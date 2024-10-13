@@ -55,6 +55,7 @@ class Command(CustomBaseCommand):
                                               person_type="witness")
 
                 baker.make(FormE,
+                           document_number=app.application_document.document_number,
                            guardian=guardian,
                            guardian_address=guardian_address,
                            designation=self.faker.job(),

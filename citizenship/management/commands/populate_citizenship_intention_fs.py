@@ -35,7 +35,7 @@ class Command(CustomBaseCommand):
         fake = Faker()
         today = date.today()
 
-        for _ in range(10):
+        for _ in range(3):
 
             with atomic():
                 fname = self.faker.unique.first_name()
@@ -48,7 +48,7 @@ class Command(CustomBaseCommand):
 
                 from_date, to_date = self.generate_random_date_range()
 
-                self.residence_history = baker.make(
+                residence_history = baker.make(
                     ResidentialHistory,
                     country="Botswana",
                     residence_from_date=from_date,
@@ -58,7 +58,7 @@ class Command(CustomBaseCommand):
                 # Create a DeclarationNaturalisationByForeignSpouse instance using baker
                 self.declaration = baker.make(
                     DeclarationNaturalisationByForeignSpouse,
-                    application_residential_history=self.residential_history,
+                    application_residential_history=residence_history,
                     declaration_fname=fake.first_name(),
                     declaration_lname=fake.last_name(),
                     declaration_date=today,
@@ -67,7 +67,6 @@ class Command(CustomBaseCommand):
                     oath_datetime=fake.date_time_this_decade(),
                     commissioner_name=f"{fake.first_name()} {fake.last_name()}",
                     commissioner_designation="Judge",
-                    telephone_number=fake.phone_number(),
                     commissioner_signature="Signed by Commissioner",
                     application_version=version,
                     document_number=document_number

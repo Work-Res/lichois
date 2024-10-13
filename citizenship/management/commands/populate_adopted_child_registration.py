@@ -17,7 +17,7 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(50):
+        for _ in range(5):
 
             with atomic():
                 # new_application
@@ -44,11 +44,12 @@ class Command(CustomBaseCommand):
                                      person_type="witness")
 
                 baker.make(FormC,
+                           document_number=app.application_document.document_number,
                            guardian=guardian,
                            guardian_address=guardian_address,
                            location=location,
                            designation=self.faker.job(),
-                           citizenship_at_birth=self.faker.random_element(elements=['Yes', 'No']),
+                           citizenship_at_birth=self.faker.country(),
                            present_citizenship=self.faker.country(),
                            present_citizenship_not_available=self.faker.random_element(elements=['Yes', 'No']),
                            provide_circumstances=self.faker.text(max_nb_chars=300),
@@ -61,8 +62,8 @@ class Command(CustomBaseCommand):
                            witness=witness,
                            witness_address=baker.make(ApplicationAddress))
 
-                self.stdout.write(
-                    self.style.SUCCESS(
-                        "Successfully populated citizenship data for form-C"
-                    )
-                )
+        self.stdout.write(
+            self.style.SUCCESS(
+                "Successfully populated citizenship data for form-C"
+            )
+        )
