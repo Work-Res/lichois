@@ -14,6 +14,7 @@ class DeclarationNaturalisationByForeignSpouse(ApplicationBaseModel,
     application_address = models.OneToOneField(ApplicationAddress, on_delete=models.CASCADE,  null=True, blank=True)
     application_contact = models.OneToOneField(ApplicationContact, on_delete=models.CASCADE,  null=True, blank=True)
     application_residential_history = models.OneToOneField(ResidentialHistory, on_delete=models.CASCADE,  null=True, blank=True)
+
     class Meta:
         verbose_name = ('Declaration On Intention To Make An Application For A Certificate'
                         ' Of Naturalisation By A Foreign Spouse(FormK)')

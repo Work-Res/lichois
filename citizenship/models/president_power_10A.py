@@ -7,3 +7,5 @@ class PresidentPower10A(BaseUuidModel):
 
     class Meta:
         app_label = 'citizenship'
+
+# form Q and F
