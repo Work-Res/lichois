@@ -31,5 +31,6 @@ PERSON_TYPE = (
     ('guardian', 'Guardian'),
     ('sponsor', 'Sponsor'),
     ('witness', 'Witness'),
-    ('declarant', 'Declarant')
+    ('declarant', 'Declarant'),
+    ('adoptive_parent', 'Adoptive Parent')
 )

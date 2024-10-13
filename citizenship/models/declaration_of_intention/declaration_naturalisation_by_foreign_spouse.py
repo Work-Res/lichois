@@ -19,3 +19,7 @@ class DeclarationNaturalisationByForeignSpouse(ApplicationBaseModel,
         verbose_name = ('Declaration On Intention To Make An Application For A Certificate'
                         ' Of Naturalisation By A Foreign Spouse(FormK)')
         app_label = 'citizenship'
+        db_table = 'citizenship_decl_intention'
+
+    def __str__(self):
+        return f"Declaration of Intention by Foreign Spouse - {self.id}"

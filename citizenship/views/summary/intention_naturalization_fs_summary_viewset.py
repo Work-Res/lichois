@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from app.classes.application_summary import ApplicationSummary
 from citizenship.api.serializers import CitizenshipSummarySerializer
 from citizenship.models import CitizenshipSummary
-
+from django.http import JsonResponse
 
 def get_app_labels():
     return [
@@ -31,4 +31,4 @@ class IntentionNaturalizationFSSummaryViewSet(viewsets.ModelViewSet):
     )
     def summary(self, request, document_number):
         app_summary = ApplicationSummary(document_number, get_app_labels())
-        return Response(data=app_summary.data())
+        return JsonResponse(data=app_summary.data())

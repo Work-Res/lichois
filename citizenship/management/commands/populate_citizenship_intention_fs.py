@@ -11,7 +11,7 @@ from ...models import DeclarationNaturalisationByForeignSpouse, ResidentialHisto
 
 
 class Command(CustomBaseCommand):
-    help = "Populate data for registration of adopted child over 3 years old service"
+    help = "Populate data for declaration of intention by foreign spouse"
     process_name = CitizenshipProcessEnum.INTENTION_FOREIGN_SPOUSE.value
     application_type = (
         CitizenshipApplicationTypeEnum.INTENTION_FOREIGN_SPOUSE_ONLY.value
@@ -72,12 +72,14 @@ class Command(CustomBaseCommand):
                                     contact_value=contact_value[selected_contact_type],
                                     preferred_method_comm=self.faker.boolean(chance_of_getting_true=50),
                                     status=self.faker.random_element(elements=("active", "inactive")),
-                                    description=self.faker.text())
+                                    description=self.faker.text(),
+                                    )
 
                 address = baker.make(ApplicationAddress,
                                     application_version=version,
                                     document_number=app.application_document.document_number,
-                                    po_box=self.faker.address())
+                                    po_box=self.faker.address(),
+                                    person_type="applicant")
 
                 # Declarant Citizenship details
                 baker.make(DeclarationNaturalisationByForeignSpouse,
