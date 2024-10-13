@@ -7,13 +7,9 @@ from citizenship.api.serializers import CitizenshipSummarySerializer
 from citizenship.models import CitizenshipSummary
 from django.http import JsonResponse
 
+
 def get_app_labels():
     return [
-        # residential_history,
-        "citizenship.ResidentialHistory"
-        # oath
-        "citizenship.OathOfAllegiance"
-        # model
         "citizenship.DeclarationNaturalisationByForeignSpouse",
     ]
 

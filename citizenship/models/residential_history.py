@@ -1,10 +1,9 @@
 from django.db import models
-from app.models import ApplicationBaseModel
 from base_module.model_mixins import BaseUuidModel
 from django.core.exceptions import ValidationError
 
 
-class ResidentialHistory(ApplicationBaseModel):
+class ResidentialHistory(BaseUuidModel):
     country = models.CharField(max_length=255, null=True, blank=True)
     residence_from_date = models.DateField(auto_now=True)
     residence_to_date = models.DateField(auto_now=True)
