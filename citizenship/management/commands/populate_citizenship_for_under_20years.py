@@ -24,7 +24,10 @@ class Command(CustomBaseCommand):
 
                 guardian = baker.make(
                     Person, application_version=version, document_number=app.application_document.document_number,
-                    person_type='guardian'
+                    person_type='guardian',
+                    first_name=self.faker.unique.first_name(),
+                    last_name=self.faker.unique.last_name(),
+                    city=self.faker.city()
                 )
 
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
@@ -34,7 +37,11 @@ class Command(CustomBaseCommand):
 
                 parent = baker.make(Person, application_version=version,
                                     document_number=app.application_document.document_number,
-                                    person_type="father")
+                                    person_type="father",
+                                    first_name=self.faker.unique.first_name(),
+                                    last_name=self.faker.unique.last_name(),
+                                    city=self.faker.city()
+                                    )
 
                 parent_address = baker.make(ApplicationAddress, application_version=version,
                                             document_number=app.application_document.document_number,
@@ -43,11 +50,18 @@ class Command(CustomBaseCommand):
 
                 sponsor = baker.make(Person, application_version=version,
                                      document_number=app.application_document.document_number,
-                                     person_type="sponsor")
+                                     person_type="sponsor",
+                                     first_name=self.faker.unique.first_name(),
+                                     last_name=self.faker.unique.last_name(),
+                                     city=self.faker.city())
 
                 witness = baker.make(Person, application_version=version,
                                      document_number=app.application_document.document_number,
-                                     person_type="witness")
+                                     person_type="witness",
+                                     first_name=self.faker.unique.first_name(),
+                                     last_name=self.faker.unique.last_name(),
+                                     city=self.faker.city()
+                                     )
 
                 waitness_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
