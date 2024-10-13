@@ -31,15 +31,15 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(50):
+        for _ in range(5):
 
             with atomic():
 
                 # new_application
                 self.create_basic_data()
 
-                self.stdout.write(
-                    self.style.SUCCESS(
-                        f"Successfully populated {self.application_type}"
-                    )
-                )
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Successfully populated {self.application_type}"
+            )
+        )
