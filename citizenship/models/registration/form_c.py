@@ -85,7 +85,7 @@ class FormC(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     class Meta:
         app_label = 'citizenship'
-        db_table = 'citizenship_form_e'
+        db_table = 'citizenship_form_c'
 
     def __str__(self):
         return f"Form  - {self.id}"
