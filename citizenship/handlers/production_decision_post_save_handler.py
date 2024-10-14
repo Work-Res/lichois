@@ -61,15 +61,12 @@ def production_decision_post_save_handler(sender, instance, created, **kwargs):
                     [CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value.lower(),
                      CitizenshipProcessEnum.UNDER_20_CITIZENSHIP.value.lower()
                      ]:
-                    logger.info("we are here. <<<<<<<<<<")
                     handler = UploadDocumentProductionHandler()
                     context_generator = RegistrationContextGenerator()
                     process = RegistrationLetterProductionProcess(handler, context_generator)
 
                     # Handle the production process for the decision
                     process.handle(application, instance)
-
-
             else:
                 logger.info(f"Document generation not required for {process_name}")
         except Exception as e:
