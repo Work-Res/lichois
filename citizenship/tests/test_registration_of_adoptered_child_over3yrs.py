@@ -4,6 +4,7 @@ from app.models import Application, ApplicationDecision
 from app.utils import ApplicationStatusEnum
 from app_checklist.models import Classifier, ClassifierItem, SystemParameter
 from app_personal_details.models import Permit
+from app_production.models import ProductionAttachmentDocument
 from workflow.models import Activity
 from .base_setup import BaseSetup
 from app.api import NewApplicationDTO
@@ -102,8 +103,17 @@ class TestRegistrationOfAdoptedChildOver3yrsWorkflow(BaseSetup):
         self.assertIsNotNone(self.perform_minister_decision())
         app.refresh_from_db()
 
+        self.assertEqual(app.application_status.code.upper(), "ACCEPTED")
+
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
+
+        generated_document = ProductionAttachmentDocument.objects.filter(
+            document_number=self.document_number
+        )
+
+        self.assertTrue(generated_document.exists())
+        self.assertIsNotNone(generated_document.first().pdf_document)

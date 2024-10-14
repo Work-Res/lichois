@@ -16,7 +16,7 @@ def create_production_decision_when_recommendation_completed_handler(sender, ins
             document_number=instance.document_number,
             decision_value="ACCEPTED",
         )
-        production_service.create_application_decision()
+        # production_service.create_application_decision()
 
         logger.info(
             f"ApplicationDecision created for verification on completion ID {instance.id}"
