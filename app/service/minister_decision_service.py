@@ -1,12 +1,5 @@
-from django.db import transaction
-
-import app
 from app.utils.system_enums import ApplicationStatusEnum
-from app.workflow.transaction_data import (
-    MinisterDecisionTransactionData,
-    ProductionTransactionData,
-    RecommendationTransitionData,
-)
+from app.workflow.transaction_data import ProductionTransactionData
 
 from ..api.dto import MinisterRequestDTO
 from ..api.serializers import MinisterDecisionSerializer
@@ -17,7 +10,8 @@ from ..service import BaseDecisionService
 class MinisterDecisionService(BaseDecisionService):
     def __init__(self, decision_request: MinisterRequestDTO):
         workflow = ProductionTransactionData(
-            recommendation_decision=decision_request.status.upper()
+            recommendation_decision=decision_request.status.upper(),
+            status=decision_request.status.upper(),
         )
         super().__init__(
             request=decision_request,
