@@ -13,7 +13,7 @@ from citizenship.models.settlement.kgosi_certificate import KgosiCertificate
 from citizenship.models.settlement.kgosana_certificate import KgosanaCertificate
 from .late_citizenship_renunciation import LateCitizenshipRenunciation
 from .nationality_declaration import NationalityDeclaration
-from .naturalisation import Naturalisation
+from citizenship.models.naturalization.naturalisation import Naturalisation
 from .oath_of_allegiance import OathOfAllegiance
 from citizenship.models.renunciation.renunciation_of_citizenship import (
     RenunciationOfCitizenship,
@@ -58,3 +58,4 @@ from .maturity_period_waiver.maturity_period_waiver import MaturityPeriodWaiver
 from .declaration_of_intention.declaration_naturalisation_by_foreign_spouse import (
     DeclarationNaturalisationByForeignSpouse
 )
+from .settlement.form_a import FormA

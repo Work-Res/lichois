@@ -8,17 +8,7 @@ from citizenship.models import CitizenshipSummary
 
 
 def get_app_labels():
-    return [
-
-        # personal_info,
-        # address_info,
-        # contact_info,
-        # spouse_info,
-        # parental_details,
-        # parental_details_father,
-        # parental_details_mother
-
-    ]
+    return ["citizenship.naturalization"]
 
 
 class NaturalizationSummaryViewSet(viewsets.ModelViewSet):

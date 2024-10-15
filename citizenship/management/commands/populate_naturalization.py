@@ -1,10 +1,14 @@
-from django.db.transaction import atomic
+from faker import Faker
 from model_bakery import baker
+from django.db.transaction import atomic
 
-from app_address.models import ApplicationAddress
-from app_personal_details.models import Person
+from datetime import date, timedelta
+
 from lichois.management.base_command import CustomBaseCommand
+from ...models import Naturalisation
 from ...utils import CitizenshipProcessEnum
+
+fake = Faker()
 
 
 class Command(CustomBaseCommand):
@@ -18,49 +22,24 @@ class Command(CustomBaseCommand):
         for _ in range(50):
 
             with atomic():
-                fname = self.faker.unique.first_name()
-                lname = self.faker.unique.last_name()
-
                 # new_application
-                app, version = self.create_new_application(fname, lname)
+                app_service, version = self.create_basic_data()
+                document_number = version.application.application_document.document_number
 
-                # person
-                # Applicant Personal Details
-                baker.make(
-                    Person,
-                    first_name=fname,
-                    last_name=lname,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="applicant",
-                )
-
-                # Applicant Residential Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    # person_type='applicant'
-                )
-
-                # Applicant Postal Address Details
+                prev_application_date = date.today() - timedelta(days=fake.random_int(min=30, max=365 * 5))
 
                 baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
+                    Naturalisation,
+                    document_number=document_number,
+                    birth_citizenship=fake.country(),
+                    present_citizenship=fake.country(),
+                    investment_level=f"${fake.random_int(min=10000, max=500000)}",
+                    prev_application_date=prev_application_date,
+                    name_change_particulars=fake.sentence(nb_words=10),
+                    citizenship_change_particulars=fake.sentence(nb_words=15),
+                    lost_citizenship_circumstances=fake.sentence(nb_words=20),
+                    previous_convictions=fake.sentence(nb_words=12),
+                    botswana_relations=fake.sentence(nb_words=8),
                 )
 
                 self.stdout.write(

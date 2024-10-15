@@ -9,6 +9,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
     application_status = ApplicationStatusSerializer()
     application_document = ApplicationDocumentSerializer()
 
+
     class Meta:
         model = Application
         fields = "__all__"

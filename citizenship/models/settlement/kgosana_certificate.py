@@ -17,3 +17,4 @@ class KgosanaCertificate(BaseUuidModel):
 
     class Meta:
         app_label = 'citizenship'
+        db_table = 'citizenship_kgosana_certificates'

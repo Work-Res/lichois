@@ -23,3 +23,4 @@ class KgosiCertificate(BaseUuidModel):
 
     class Meta:
         app_label = 'citizenship'
+        db_table = 'citizenship_kgosi_certificates'

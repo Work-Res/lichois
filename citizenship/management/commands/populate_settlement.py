@@ -1,12 +1,16 @@
 from django.db.transaction import atomic
 from model_bakery import baker
 
-from app_address.models import ApplicationAddress
+from faker import Faker
+from datetime import date, timedelta, datetime
+
 from app_checklist.models import ChecklistClassifier
-from app_contact.models import ApplicationContact
-from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
+from ...models import KgosiCertificate, KgosanaCertificate, FormA, DCCertificate
 from ...utils import CitizenshipProcessEnum
+
+
+fake = Faker()
 
 
 class Command(CustomBaseCommand):
@@ -14,64 +18,79 @@ class Command(CustomBaseCommand):
     process_name = CitizenshipProcessEnum.SETTLEMENT.value
     application_type = CitizenshipProcessEnum.SETTLEMENT.value
 
-    def create_attachments(self):
-        attachments = ChecklistClassifier.objects.get(
-            code="PRESIDENT_POWER_REGISTER_CITIZENS_10A_ATTACHMENT_DOCUMENTS"
-        )
-
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
         for _ in range(50):
 
             with atomic():
-                fname = self.faker.unique.first_name()
-                lname = self.faker.unique.last_name()
+                app_service, version = self.create_basic_data()
+                known_year = date.today() - timedelta(days=fake.random_int(min=365 * 10, max=365 * 80))
+                document_number = version.application.application_document.document_number
 
-                # new_application
-                app, version = self.create_new_application(fname, lname)
+                settlement_year = date.today() - timedelta(days=fake.random_int(min=365 * 10, max=365 * 50))
+                certificate_datetime = datetime.now() - timedelta(days=fake.random_int(min=1, max=365))
 
-                # person
-                # Applicant Personal Details
-                baker.make(
-                    Person,
-                    first_name=fname,
-                    last_name=lname,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    person_type="applicant",
+                kgosi_certificate = baker.make(
+                    KgosiCertificate,
+                    document_number=document_number,
+                    kgosi_surname=fake.last_name(),
+                    kgosi_firstname=fake.first_name(),
+                    village=fake.city(),
+                    tribe=fake.word(),
+                    known_year=known_year,
+                    community=fake.word(),
+                    living_circumstance=fake.sentence(nb_words=15)
                 )
 
-                # Applicant Residential Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    # person_type='applicant'
+                kgosana_certificate = baker.make(
+                    KgosanaCertificate,
+                    document_number=document_number,
+                    kgosana_surname=fake.last_name(),
+                    kgosana_firstname=fake.first_name(),
+                    id_elder_firstname=fake.first_name(),
+                    id_elder_lastname=fake.last_name(),
+                    community=fake.city(),
+                    settlement_year=settlement_year,
+                    certificate_place=fake.address(),
+                    certificate_datetime=certificate_datetime,
+                    kgosana_sign=fake.name()
                 )
 
-                # Applicant Postal Address Details
+                settlement_year = date.today() - timedelta(days=fake.random_int(min=365 * 10, max=365 * 50))
+                declaration_datetime = datetime.now() - timedelta(days=fake.random_int(min=1, max=365))
+
+                dc_certificate = baker.make(
+                    DCCertificate,
+                    dc_surname=fake.last_name(),
+                    dc_firstname=fake.first_name(),
+                    settlement_year=settlement_year,
+                    origin_country=fake.country(),
+                    community=fake.city(),
+                    declaration_place=fake.address(),
+                    declaration_datetime=declaration_datetime,
+                    dc_sign=fake.name()
+                )
+
+                # Generate a random communication method from COMMUNICATION_CHOICES
+                preferred_comm_method = fake.random_element(elements=[
+                    'E-mail', 'SMS', 'POST', 'Telephone', 'Cellphone'
+                ])
 
                 baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
+                    FormA,
+                    kgosi_certificate=kgosi_certificate,
+                    kgosana_certificate=kgosana_certificate,
+                    dc_certificate=dc_certificate,
+                    preferred_method_of_comm=preferred_comm_method,
+                    tribe_ordinarily_community_kgosi=fake.word(),
+                    tribe_customarily_community_kgosi=fake.word(),
+                    tribe_ordinarily_community_kgosana=fake.word(),
+                    tribe_customarily_community_kgosana=fake.word()
                 )
 
                 self.stdout.write(
                     self.style.SUCCESS(
-                        "Successfully populated Settlement data"
+                        f"Successfully populated Settlement data - {document_number}"
                     )
                 )
