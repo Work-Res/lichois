@@ -249,6 +249,9 @@ class BatchService:
     @staticmethod
     @transaction.atomic
     def change_batch_status(batch_id, new_status):
+        """
+        TODO: Add validations to indicate that batch empty..OPEN
+        """
         try:
             batch = Batch.objects.get(id=batch_id)
             if new_status == BatchStatus.CLOSED.name:
@@ -256,21 +259,25 @@ class BatchService:
                     raise ValidationError("Batch is already closed.")
                 new_applications = BatchApplication.objects.filter(
                     batch=batch).order_by('created')
-                logger.info(f"Applications found: {new_applications} to be interviewed. ")
-                for batch_application in new_applications:
-                    Interview.objects.get_or_create(
-                        application=batch_application.application,
-                        defaults={
-                            'application': batch_application.application,
-                            'meeting_session': batch_application.meeting_session,
-                            'scheduled_time': batch_application.meeting_session.date,
-                            'variation_type': batch_application.application.application_document.applicant_type
-                        }
-                    )
-                logger.info(f'Batch {batch_id} closed and interviews created for new applications.')
-            batch.status = new_status
-            batch.save()
-            return batch
+                if new_applications.exists():
+                    logger.info(f"Applications found: {new_applications} to be interviewed. ")
+                    for batch_application in new_applications:
+                        Interview.objects.get_or_create(
+                            application=batch_application.application,
+                            defaults={
+                                'application': batch_application.application,
+                                'meeting_session': batch_application.meeting_session,
+                                'scheduled_time': batch_application.meeting_session.date,
+                                'variation_type': batch_application.application.application_document.applicant_type
+                            }
+                        )
+                    logger.info(f'Batch {batch_id} closed and interviews created for new applications.')
+                    batch.status = new_status
+                    batch.save()
+                    return batch
+                else:
+                    logger.info(f'Batch {batch_id} not closed, no applications found.')
+                    return None
         except Batch.DoesNotExist:
             logger.error(f'Batch does not exist: {batch_id}')
             raise ValidationError("Batch does not exist.")

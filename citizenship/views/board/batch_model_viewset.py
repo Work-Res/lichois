@@ -83,7 +83,10 @@ class BatchModelViewSet(viewsets.ModelViewSet):
         new_status = request.data.get('new_status')
         try:
             updated_batch = BatchService.change_batch_status(batch_id=batch.id, new_status=new_status)
-            return Response(BatchSerializer(updated_batch).data, status=status.HTTP_200_OK)
+            if updated_batch:
+                return Response(BatchSerializer(updated_batch).data, status=status.HTTP_200_OK)
+            else:
+                return Response({"message": "Batch is not closed, no application found."})
         except ValidationError as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
