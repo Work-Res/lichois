@@ -42,7 +42,7 @@ class TaskActivation:
             self.logger.info(
                 f"Processing current_status {self.source.current_status} for "
             )
-            self.logger.info(f"Source model: { self.source.__dict__}")
+            self.logger.info(f"Source model: {self.source.__dict__}")
             print("Source model: ", self.source.__dict__)
             self.logger.info(
                 f"activity.create_task_rules: {activity.create_task_rules}"

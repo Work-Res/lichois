@@ -35,7 +35,7 @@ class Command(CustomBaseCommand):
         fake = Faker()
         today = date.today()
 
-        for _ in range(3):
+        for _ in range(100):
 
             with atomic():
                 fname = self.faker.unique.first_name()

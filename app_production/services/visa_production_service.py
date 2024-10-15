@@ -5,7 +5,6 @@ from dateutil.relativedelta import relativedelta
 from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
 from app_production.services.permit_production_service import PermitProductionService
-from visa.enums import VisaApplicationTypeEnum
 from visa.models.visa_application import VisaApplication
 
 from ..api.dto.permit_request_dto import PermitRequestDTO

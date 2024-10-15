@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
-import ldap
+
+# import ldap
 import sys
-from django_auth_ldap.config import LDAPSearch, GroupOfNamesType, PosixGroupType
+
+# from django_auth_ldap.config import LDAPSearch, GroupOfNamesType, PosixGroupType
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -186,13 +188,13 @@ AUTH_LDAP_CACHE_TIMEOUT = 3600
 AUTH_LDAP_SERVER_URI = "ldap://138.68.175.109:389"
 AUTH_LDAP_BIND_DN = "cn=admin,dc=africort,dc=com"
 AUTH_LDAP_BIND_PASSWORD = "africort@321"
-AUTH_LDAP_USER_SEARCH = LDAPSearch(
-    "dc=africort,dc=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
-)
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    "dc=africort,dc=com", ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
-)
-AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
+# AUTH_LDAP_USER_SEARCH = LDAPSearch(
+#     "dc=africort,dc=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
+# )
+# AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+#     "dc=africort,dc=com", ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
+# )
+# AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
 AUTH_LDAP_MIRROR_GROUPS = True
 # AUTH_LDAP_START_TLS = True
 
@@ -268,7 +270,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-        
     ),
 }
 

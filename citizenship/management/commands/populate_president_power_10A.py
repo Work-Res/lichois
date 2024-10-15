@@ -31,7 +31,7 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(5):
+        for _ in range(100):
 
             with atomic():
 
