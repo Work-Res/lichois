@@ -28,6 +28,7 @@ from .views.download_renunciation_attachment_view import DownloadRenunciationAtt
 from .views.oath_of_allegiance_viewset import OathOfAllegianceViewSet
 from .views.recommendation_decision_api_view import RecommendationDecisionAPIView
 from .views.review_decision_api_view import ReviewDecisionAPIView
+from .views.section_10b_application_decision_viewset import Section10bApplicationDecisionsViewSet
 from .views.summary import (
     RenunciationSummaryViewSet,
     AdoptedChildSummaryViewSet,
@@ -133,6 +134,8 @@ router.register(
 )
 
 router.register(r'citizenship-minister-decisions', CitizenshipMinisterDecisionViewSet)
+
+router.register(r'citizenship-section-10b', Section10bApplicationDecisionsViewSet)
 
 router.register(
     r"citizenship-board-recommandation",
