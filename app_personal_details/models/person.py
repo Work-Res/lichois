@@ -54,6 +54,23 @@ class Person(ApplicationBaseModel, NationalityModelMixin):
         default="applicant",
     )
 
+    place_of_birth = models.CharField(
+        max_length=150,
+        null=True,
+        blank=True
+    )
+
+    country_of_birth = models.CharField(
+        max_length=150,
+        null=True,
+        blank=True
+    )
+
+    country_of_origin = models.CharField(
+        max_length=150,
+        null=True,
+        blank=True
+    )
     deceased = models.BooleanField(default=False)
 
     def full_name(self):
