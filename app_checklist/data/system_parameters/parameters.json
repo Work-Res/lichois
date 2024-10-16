@@ -24,6 +24,13 @@
     {
       "duration_type": "years",
       "duration": 100,
+      "application_type": "MATURITY_PERIOD_WAIVER",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
       "application_type": "CITIZENSHIP_FOR_UNDER_20",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01"
