@@ -16,6 +16,9 @@ class Batch(BaseUuidModel):
     )
     submission_date = models.DateField(null=True, blank=True)
     date_of_publish = models.DateField(null=True, blank=True)
+
+    gazette_completion_date = models.DateField(null=True, blank=True)
+
     objects = BatchManager()
 
     def __str__(self):

@@ -49,6 +49,8 @@ class BaseDecisionService(UpdateApplicationMixin):
         self.task_to_deactivate = task_to_deactivate
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
+        self.security_clearance = None
+        self.gazette_batch_application = None
 
     def get_application_decision_type(self):
         """
@@ -239,8 +241,9 @@ class BaseDecisionService(UpdateApplicationMixin):
         return hasattr(self.workflow, "security_clearance")
 
     def set_security_clearance(self):
-        if self._has_security_clearance():
-            self.workflow.security_clearance = self._security_clearance().status.code
+        self.security_clearance = self._security_clearance()
+        if self.security_clearance:
+            self.workflow.security_clearance = self.security_clearance.status.code
             self.logger.info(
                 f"Security clearance set in workflow {self.workflow.current_status} for {self.request.document_number}"
             )

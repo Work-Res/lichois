@@ -59,3 +59,8 @@ from .declaration_of_intention.declaration_naturalisation_by_foreign_spouse impo
     DeclarationNaturalisationByForeignSpouse,
 )
 from .settlement.form_a import FormA
+from .residency_period import ResidencyPeriod
+from .local_language_knowledge import LocalLanguageKnowledge
+from .president10b.citizenship_change import CitizenshipChange
+from .president10b.criminal_offense import CriminalOffense
+from .president10b.country_of_residence import CountryOfResidence

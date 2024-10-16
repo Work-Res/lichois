@@ -10,6 +10,7 @@ class CitizenshipMinisterRequestDTO(RequestDTO):
         summary=None,
         user=None,
         comment_type=None,
+        gazette_completed=None,
         **kwargs,
     ):
         super().__init__(
@@ -20,3 +21,4 @@ class CitizenshipMinisterRequestDTO(RequestDTO):
             comment_type=comment_type,
             **kwargs,
         )
+        self.gazette_completed = gazette_completed

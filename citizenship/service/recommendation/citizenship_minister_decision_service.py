@@ -32,5 +32,3 @@ class CitizenshipMinisterDecisionService(BaseDecisionService):
             CitizenshipMinisterDecision, CitizenshipMinisterDecisionSerializer
         )
 
-    def _security_clearance(self):
-        return None

@@ -172,6 +172,17 @@ class MinisterDecisionTransactionData(BaseTransactionData):
         self.minister_decision = minister_decision
 
 
+class GazetteTransactionData(BaseTransactionData):
+    def __init__(
+        self, next_activity_name=None, application_status=None, gazette_completed=None, vetting_obj_exists=None
+    ):
+        super().__init__(
+            next_activity_name, application_status
+        )
+        self.gazette_completed = gazette_completed
+        self.vetting_obj_exists = vetting_obj_exists
+
+
 class RecommendationDecisionTransactionData(BaseTransactionData):
     def __init__(
         self,
