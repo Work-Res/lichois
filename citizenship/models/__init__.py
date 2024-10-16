@@ -56,6 +56,6 @@ from .registration.form_e import FormE
 from .registration.form_c import FormC
 from .maturity_period_waiver.maturity_period_waiver import MaturityPeriodWaiver
 from .declaration_of_intention.declaration_naturalisation_by_foreign_spouse import (
-    DeclarationNaturalisationByForeignSpouse
+    DeclarationNaturalisationByForeignSpouse,
 )
 from .settlement.form_a import FormA
