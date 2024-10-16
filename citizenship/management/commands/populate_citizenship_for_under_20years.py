@@ -23,7 +23,7 @@ class Command(CustomBaseCommand):
                 app, version = self.create_basic_data()
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                guardian = self.create_personal_details(version.application, version, fname, lname,
+                guardian, created = self.create_personal_details(version.application, version, fname, lname,
                                                         person_type='guardian')
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
@@ -33,7 +33,7 @@ class Command(CustomBaseCommand):
 
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                parent = self.create_personal_details(version.application, version, fname, lname, person_type='father')
+                parent, created = self.create_personal_details(version.application, version, fname, lname, person_type='father')
                 parent_address = baker.make(ApplicationAddress, application_version=version,
                                             document_number=app.application_document.document_number,
                                             po_box=self.faker.address(),
@@ -42,7 +42,7 @@ class Command(CustomBaseCommand):
 
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                sponsor = self.create_personal_details(version.application, version, fname, lname,
+                sponsor, created = self.create_personal_details(version.application, version, fname, lname,
                                                        person_type='sponsor')
                 sponsor_address = baker.make(ApplicationAddress, application_version=version,
                                              document_number=app.application_document.document_number,
@@ -52,7 +52,7 @@ class Command(CustomBaseCommand):
 
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                witness = self.create_personal_details(version.application, version, fname, lname,
+                witness, created = self.create_personal_details(version.application, version, fname, lname,
                                                        person_type='witness')
                 witness_address = baker.make(ApplicationAddress, application_version=version,
                                              document_number=app.application_document.document_number,

@@ -34,7 +34,7 @@ class Command(CustomBaseCommand):
 
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                adoptive_parent = self.create_personal_details(
+                adoptive_parent, created = self.create_personal_details(
                     version.application, version, fname, lname,
                                                         person_type='adoptive_parent')
 
@@ -46,7 +46,7 @@ class Command(CustomBaseCommand):
 
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                sponsor = self.create_personal_details(
+                sponsor, created = self.create_personal_details(
                     version.application, version, fname, lname,
                     person_type='sponsor')
 
@@ -58,7 +58,7 @@ class Command(CustomBaseCommand):
 
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                witness = self.create_personal_details(
+                witness, created = self.create_personal_details(
                     version.application, version, fname, lname,
                     person_type='witness')
 
