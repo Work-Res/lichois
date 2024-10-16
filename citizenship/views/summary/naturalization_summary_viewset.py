@@ -8,7 +8,7 @@ from citizenship.models import CitizenshipSummary
 
 
 def get_app_labels():
-    return ["citizenship.naturalization"]
+    return ["citizenship.Naturalisation"]
 
 
 class NaturalizationSummaryViewSet(viewsets.ModelViewSet):
