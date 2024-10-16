@@ -14,6 +14,13 @@ logger = logging.getLogger(__name__)
 class GazetteCompletionAPIView(APIView):
     """
     API View to activate the next task for all applications in the given batch.
+
+    Payload
+    {
+      batch_id: uuid,
+      gazette_completion_date: "2024-10-17"
+    }
+
     """
 
     def post(self, request, *args, **kwargs):
