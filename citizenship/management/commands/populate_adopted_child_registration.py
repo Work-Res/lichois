@@ -3,7 +3,6 @@ from model_bakery import baker
 
 from app_address.models import ApplicationAddress
 from app_checklist.models import Location
-from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
 from ...models import FormC
@@ -24,11 +23,7 @@ class Command(CustomBaseCommand):
                 app, version = self.create_basic_data()
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                guardian = baker.make(Person, application_version=version,
-                                      document_number=app.application_document.document_number,
-                                      first_name=fname,
-                                      last_name=lname,
-                                      person_type="guardian")
+                guardian = self.create_personal_details(version.application, version, fname, lname, person_type='guardian')
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
                                               po_box=self.faker.address(),
@@ -37,18 +32,23 @@ class Command(CustomBaseCommand):
 
                 location = baker.make(Location)
 
-                adoptive_parent = baker.make(Person, application_version=version,
-                                             document_number=app.application_document.document_number,
-                                             person_type="adoptive_parent",
-                                             first_name=self.faker.unique.first_name(),
-                                             last_name=self.faker.unique.last_name()
-                                             )
-                sponsor = baker.make(Person, application_version=version,
-                                     document_number=app.application_document.document_number,
-                                     person_type="sponsor",
-                                     first_name=self.faker.unique.first_name(),
-                                     last_name=self.faker.unique.last_name()
-                                     )
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
+                adoptive_parent = self.create_personal_details(
+                    version.application, version, fname, lname,
+                                                        person_type='adoptive_parent')
+
+                adoptive_parent_address = baker.make(ApplicationAddress, application_version=version,
+                                              document_number=app.application_document.document_number,
+                                              po_box=self.faker.address(),
+                                              person_type="adoptive_parent",
+                                              city=self.faker.city())
+
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
+                sponsor = self.create_personal_details(
+                    version.application, version, fname, lname,
+                    person_type='sponsor')
 
                 sponsor_address = baker.make(ApplicationAddress, application_version=version,
                                 document_number=app.application_document.document_number,
@@ -56,12 +56,17 @@ class Command(CustomBaseCommand):
                                 person_type="sponsor",
                                 city=self.faker.city())
 
-                witness = baker.make(Person, application_version=version,
-                                     document_number=app.application_document.document_number,
-                                     person_type="witness",
-                                     first_name=self.faker.unique.first_name(),
-                                     last_name=self.faker.unique.last_name()
-                                     )
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
+                witness = self.create_personal_details(
+                    version.application, version, fname, lname,
+                    person_type='witness')
+
+                witness_address = baker.make(ApplicationAddress, application_version=version,
+                                document_number=app.application_document.document_number,
+                                po_box=self.faker.address(),
+                                person_type="witness",
+                                city=self.faker.city())
 
                 baker.make(FormC,
                            document_number=app.application_document.document_number,
@@ -76,13 +81,13 @@ class Command(CustomBaseCommand):
                            present_citizenship_not_available=self.faker.random_element(elements=['Yes', 'No']),
                            provide_circumstances=self.faker.text(max_nb_chars=300),
                            adoptive_parent=adoptive_parent,
-                           adoptive_parent_address=baker.make(ApplicationAddress),
+                           adoptive_parent_address=adoptive_parent_address,
                            sponsor=sponsor,
                            sponsor_address=sponsor_address,
                            is_sponsor_signed=self.faker.boolean(),
                            sponsor_date_of_signature=self.faker.date(),
                            witness=witness,
-                           witness_address=baker.make(ApplicationAddress))
+                           witness_address=witness_address)
 
         self.stdout.write(
             self.style.SUCCESS(

@@ -17,61 +17,48 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
-        for _ in range(50):
+        for _ in range(100):
             with atomic():
                 # new_application
                 app, version = self.create_basic_data()
-
-                guardian = baker.make(
-                    Person, application_version=version, document_number=app.application_document.document_number,
-                    person_type='guardian',
-                    first_name=self.faker.unique.first_name(),
-                    last_name=self.faker.unique.last_name(),
-                )
-
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
+                guardian = self.create_personal_details(version.application, version, fname, lname,
+                                                        person_type='guardian')
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
                                               po_box=self.faker.address(),
                                               person_type="guardian",
                                               city=self.faker.city())
 
-                parent = baker.make(Person, application_version=version,
-                                    document_number=app.application_document.document_number,
-                                    person_type="father",
-                                    first_name=self.faker.unique.first_name(),
-                                    last_name=self.faker.unique.last_name(),
-                                    )
-
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
+                parent = self.create_personal_details(version.application, version, fname, lname, person_type='father')
                 parent_address = baker.make(ApplicationAddress, application_version=version,
                                             document_number=app.application_document.document_number,
                                             po_box=self.faker.address(),
-                                            city=self.faker.city(),
-                                            person_type="father")
+                                            person_type="father",
+                                            city=self.faker.city())
 
-                sponsor = baker.make(Person, application_version=version,
-                                     document_number=app.application_document.document_number,
-                                     person_type="sponsor",
-                                     first_name=self.faker.unique.first_name(),
-                                     last_name=self.faker.unique.last_name())
-
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
+                sponsor = self.create_personal_details(version.application, version, fname, lname,
+                                                       person_type='sponsor')
                 sponsor_address = baker.make(ApplicationAddress, application_version=version,
-                                document_number=app.application_document.document_number,
-                                po_box=self.faker.address(),
-                                person_type="sponsor",
-                                city=self.faker.city())
+                                             document_number=app.application_document.document_number,
+                                             po_box=self.faker.address(),
+                                             person_type="sponsor",
+                                             city=self.faker.city())
 
-                witness = baker.make(Person, application_version=version,
-                                     document_number=app.application_document.document_number,
-                                     person_type="witness",
-                                     first_name=self.faker.unique.first_name(),
-                                     last_name=self.faker.unique.last_name()
-                                     )
-
-                waitness_address = baker.make(ApplicationAddress, application_version=version,
-                                              document_number=app.application_document.document_number,
-                                              po_box=self.faker.address(),
-                                              person_type="witness",
-                                              city=self.faker.city())
+                fname = self.faker.unique.first_name()
+                lname = self.faker.unique.last_name()
+                witness = self.create_personal_details(version.application, version, fname, lname,
+                                                       person_type='witness')
+                witness_address = baker.make(ApplicationAddress, application_version=version,
+                                             document_number=app.application_document.document_number,
+                                             po_box=self.faker.address(),
+                                             person_type="witness",
+                                             city=self.faker.city())
 
                 baker.make(FormE,
                            declaration_fname=self.faker.unique.first_name(),
@@ -90,7 +77,7 @@ class Command(CustomBaseCommand):
                            is_sponsor_signed=self.faker.boolean(),
                            sponsor_date_of_signature=self.faker.date(),
                            witness=witness,
-                           witness_address=waitness_address)
+                           witness_address=witness_address)
 
         self.stdout.write(
             self.style.SUCCESS(
