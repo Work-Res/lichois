@@ -10,7 +10,7 @@ from citizenship.models import CitizenshipSummary
 def get_app_labels():
     return [
         # kgosi_cert,
-        "citizenship.form_a"
+        "citizenship.FormA"
     ]
 
 

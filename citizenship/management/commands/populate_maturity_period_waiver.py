@@ -29,17 +29,21 @@ class Command(CustomBaseCommand):
 
     def get_intention_document_number(self):
         excluded_document_numbers = MaturityPeriodWaiver.objects.values_list(
-            'document_number_for_intention', flat=True
+            "document_number_for_intention", flat=True
         )
 
-        app = Application.objects.filter(
-            application_type=CitizenshipApplicationTypeEnum.INTENTION_FOREIGN_SPOUSE_ONLY.value,
-            application_status__code="ACCEPTED"
-        ).exclude(
-            application__application_document__document_number__in=excluded_document_numbers
-        ).first()
+        app = (
+            Application.objects.filter(
+                application_type=CitizenshipApplicationTypeEnum.INTENTION_FOREIGN_SPOUSE_ONLY.value,
+                application_status__code="ACCEPTED",
+            )
+            .exclude(
+                application_document__document_number__in=excluded_document_numbers
+            )
+            .first()
+        )
 
-        return app.application.application_document.document_number if app else ''
+        return app.application_document.document_number if app else ""
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
@@ -48,13 +52,15 @@ class Command(CustomBaseCommand):
             with atomic():
                 # new_application
                 app_service, version = self.create_basic_data()
-                document_number = version.application.application_document.document_number
+                document_number = (
+                    version.application.application_document.document_number
+                )
 
                 baker.make(
                     MaturityPeriodWaiver,
                     document_number=document_number,
                     document_number_for_intention=self.get_intention_document_number(),
-                    application_version=version
+                    application_version=version,
                 )
                 self.stdout.write(
                     self.style.SUCCESS(

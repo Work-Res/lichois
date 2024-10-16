@@ -60,8 +60,8 @@ class CustomBaseCommand(BaseCommand):
 
         return app, version
 
-    def create_personal_details(self, app, version, fname, lname):
-        Person.objects.get_or_create(
+    def create_personal_details(self, app, version, fname, lname, person_type='applicant'):
+        return Person.objects.get_or_create(
             application_version=version,
             first_name=fname,
             last_name=lname,
@@ -80,9 +80,10 @@ class CustomBaseCommand(BaseCommand):
             ),
             previous_nationality=self.faker.country(),
             previous_botswana_id_no=self.faker.random_number(digits=9, fix_len=True),
+            person_type=person_type
         )
 
-    def create_application_address(self, app, version):
+    def create_application_address(self, app, version, person_type='applicant'):
         country = Country.objects.create(name=self.faker.country())
 
         ApplicationAddress.objects.get_or_create(
@@ -105,6 +106,7 @@ class CustomBaseCommand(BaseCommand):
             city=self.faker.city(),
             street_address=self.faker.street_name(),
             private_bag=self.faker.building_number(),
+            person_type=person_type
         )
 
     def create_application_contact(self, app, version):
