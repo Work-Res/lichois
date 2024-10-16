@@ -10,6 +10,7 @@ class Spouse(ApplicationBaseModel):
     maiden_name = models.CharField(max_length=190, blank=True, null=True)
     country = models.CharField(max_length=190)
     place_birth = models.CharField(max_length=190)
+    
     dob = models.DateField()
     passport = models.ForeignKey(
         Passport,

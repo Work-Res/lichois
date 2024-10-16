@@ -11,6 +11,8 @@ class ResidencePermit(ApplicationBaseModel):
     previous_nationality = models.CharField(max_length=190)
     current_nationality = models.CharField(max_length=190)
     state_period_required = models.DateField()
+    place_of_residence = models.CharField(max_length=100)
+    intention_of_support = models.CharField(max_length=100)
     propose_work_employment = models.CharField(
         max_length=4,
         choices=YES_NO,
