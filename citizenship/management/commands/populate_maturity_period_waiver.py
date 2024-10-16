@@ -43,7 +43,7 @@ class Command(CustomBaseCommand):
             .first()
         )
 
-        return app.application.application_document.document_number if app else ""
+        return app.application_document.document_number if app else ""
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
