@@ -23,7 +23,7 @@ class Command(CustomBaseCommand):
                 app, version = self.create_basic_data()
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
-                guardian = self.create_personal_details(version.application, version, fname, lname, person_type='guardian')
+                guardian,created = self.create_personal_details(version.application, version, fname, lname, person_type='guardian')
                 guardian_address = baker.make(ApplicationAddress, application_version=version,
                                               document_number=app.application_document.document_number,
                                               po_box=self.faker.address(),
