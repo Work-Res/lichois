@@ -4,4 +4,7 @@ from .serializers import (
     ChildSerializer,
     SpouseSerializer,
     PermitSerializer,
+    DeceasedSpouseInfoSerializer,
+    MarriageDissolutionInfoSerializer,
+    NameChangeSerializer
 )

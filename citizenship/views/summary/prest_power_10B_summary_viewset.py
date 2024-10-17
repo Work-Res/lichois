@@ -9,9 +9,7 @@ from citizenship.models import CitizenshipSummary
 
 def get_app_labels():
     return [
-        # "citizenship.CertificateOfOrigin",
-        # "citizenship.RenunciationOfCitizenship",
-        # "citizenship.OathOfAllegiance"
+        "citizenship.FormL"
     ]
 
 

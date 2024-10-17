@@ -128,7 +128,6 @@ class TestPresidentPowerToRegister10bWorkflow(BaseSetup):
         app.refresh_from_db()
         self.assertEqual(app.review, "ACCEPTED")
 
-
         self.assertEqual(app.application_status.code.upper(), CitizenshipStagesEnum.RECOMMENDATION.value.upper())
 
     def test_workflow_after_recommendation(self):

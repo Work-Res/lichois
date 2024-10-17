@@ -6,8 +6,9 @@ from app_personal_details.models import (
     Passport,
     Education,
     Child,
-    Spouse,
+    Spouse, DeceasedSpouseInfo, MarriageDissolutionInfo,
 )
+from app_personal_details.models.name_change import NameChange
 
 
 class PersonSerializer(serializers.ModelSerializer):
@@ -111,3 +112,21 @@ class SpouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Spouse
         fields = "__all__"
+
+
+class DeceasedSpouseInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeceasedSpouseInfo
+        fields = ['id', 'country_of_death', 'place_of_death', 'date_of_death']
+
+
+class MarriageDissolutionInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MarriageDissolutionInfo
+        fields = ['id', 'country_of_dissolution', 'place_of_dissolution', 'date_of_dissolution']
+
+
+class NameChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NameChange
+        fields = ['id', 'previous_name', 'new_name', 'date_of_change']

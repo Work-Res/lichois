@@ -1,0 +1,6 @@
+from .citizenship_change_serializer import CitizenshipChangeSerializer
+from .criminal_offense_serializer import CriminalOffenseSerializer
+from .country_of_residence_serializer import CountryOfResidenceSerializer
+from .residency_period_serializer import ResidencyPeriodSerializer
+from .local_language_knowledge_serializer import LocalLanguageKnowledgeSerializer
+from .form_l_serializer import FormLSerializer

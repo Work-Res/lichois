@@ -1,13 +1,15 @@
+import factory
+from faker import Faker
+
 from django.db.transaction import atomic
+
 from model_bakery import baker
 
 from app_address.models import ApplicationAddress
-from app_contact.models import ApplicationContact
-from app_personal_details.models import Person
 from lichois.management.base_command import CustomBaseCommand
+from ..factory.president_10b import FormLFactory, NameChangeFactory, ResidencyPeriodFactory, \
+    LocalLanguageKnowledgeFactory
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import DCCertificate, OathOfAllegiance, ResidentialHistory
-from ...models import DeclarationNaturalisationByForeignSpouse
 
 
 class Command(CustomBaseCommand):
@@ -18,55 +20,75 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
 
+        fake = Faker()
+
         for _ in range(150):
 
             with atomic():
+                app_service, application_version = self.create_basic_data()
+                app = application_version.application
                 fname = self.faker.unique.first_name()
                 lname = self.faker.unique.last_name()
 
-                # new_application
-                app, version = self.create_new_application(fname, lname)
+                father, created = self.create_personal_details(
+                    application_version.application, application_version, fname, lname,
+                                                               person_type='father')
 
-                # person
-                # Applicant Personal Details
-                baker.make(
-                    Person,
-                    first_name=fname,
-                    last_name=lname,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    # person_type="applicant",
+                father_address = baker.make(ApplicationAddress, application_version=application_version,
+                                            document_number=app.application_document.document_number,
+                                            po_box=self.faker.address(),
+                                            person_type="father",
+                                            city=self.faker.city())
+
+                mother, created = self.create_personal_details(
+                    application_version.application, application_version, fname, lname,
+                                                               person_type='mother')
+
+                mother_address = baker.make(ApplicationAddress, application_version=application_version,
+                                            document_number=app.application_document.document_number,
+                                            po_box=self.faker.address(),
+                                            person_type="mother",
+                                            city=self.faker.city())
+
+                sponsor, created = self.create_personal_details(
+                    application_version.application, application_version, fname, lname,
+                                                               person_type='sponsor')
+
+                sponsor_address = baker.make(ApplicationAddress, application_version=application_version,
+                                            document_number=app.application_document.document_number,
+                                            po_box=self.faker.address(),
+                                            person_type="sponsor",
+                                            city=self.faker.city())
+
+                witness, created = self.create_personal_details(
+                    application_version.application, application_version, fname, lname,
+                                                               person_type='witness')
+
+                witness_address = baker.make(ApplicationAddress, application_version=application_version,
+                                            document_number=app.application_document.document_number,
+                                            po_box=self.faker.address(),
+                                            person_type="witness",
+                                            city=self.faker.city())
+
+                form_l_instance = FormLFactory(
+                    father=father,
+                    father_address=father_address,
+                    mother=mother,
+                    mother_address=mother_address,
+                    sponsor=sponsor,
+                    sponsor_address=sponsor_address,
+                    witness=witness,
+                    witness_address=witness_address,
+                    name_change=NameChangeFactory(),
+                    previous_application_date=fake.date(),
+                    relation_description=fake.paragraph()
                 )
 
-                # Applicant Residential Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    # person_type="applicant",
-                )
-
-                # Applicant Postal Address Details
-                baker.make(
-                    ApplicationAddress,
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    po_box=self.faker.address(),
-                    address_type=self.faker.random_element(
-                        elements=(
-                            "residential",
-                            "postal",
-                            "business",
-                            "private",
-                            "other",
-                        )
-                    ),
-                    private_bag=self.faker.building_number(),
-                    city=self.faker.city(),
-                )
+                form_l_instance.residency_periods.set([ResidencyPeriodFactory(), ResidencyPeriodFactory()])
+                form_l_instance.languages.set([LocalLanguageKnowledgeFactory()])
 
                 self.stdout.write(
                     self.style.SUCCESS(
-                        "Successfully populated Maturity Period Waiver data"
+                        f"Successfully populated {self.process_name} data"
                     )
                 )
