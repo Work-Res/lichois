@@ -11,9 +11,9 @@ from ..service.recommendation_service import RecommendationService
 logger = logging.getLogger(__name__)
 
 
-class CommissionerDecisionAPIView(APIView):
+class DirectorDecisionAPIView(APIView):
     """
-    Responsible for creating and retrieving a commissioner decision record.
+    Responsible for creating and retrieving a director decision record.
     """
 
     def post(self, request, *args, **kwargs):
@@ -27,7 +27,7 @@ class CommissionerDecisionAPIView(APIView):
                 )
                 service = RecommendationService(request_dto)
                 return Response(
-                    service.create_commissioner_recommendation(), status=status.HTTP_201_CREATED
+                    service.create_director_recommendation(), status=status.HTTP_201_CREATED
                 )
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
@@ -42,7 +42,7 @@ class CommissionerDecisionAPIView(APIView):
         if document_number:
             request_dto = RecommendationRequestDTO(document_number=document_number)
             service = RecommendationService(request_dto)
-            return service.retrieve_commissioner_recommendation()
+            return service.retrieve_director_recommendation()
         return Response(
             {"detail": "Document number is required"},
             status=status.HTTP_400_BAD_REQUEST,

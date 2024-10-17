@@ -14,3 +14,4 @@ from .minister_decision import MinisterDecision
 from .application_decision_type import ApplicationDecisionType
 from .application_decision import ApplicationDecision
 from .pres_recommendation_decision import PresRecommendationDecision
+from .director_decision import DirectorDecision

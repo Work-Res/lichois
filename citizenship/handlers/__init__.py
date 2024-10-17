@@ -1,7 +1,11 @@
-from .create_application_on_oath_of_allegiance_handler import production_decision_oathOfAllegiance_post_save_handler
-from .production_decision_post_save_application_verification_handler import \
-    production_decision_post_save_on_verfication_handler
+from .create_application_on_oath_of_allegiance_handler import (
+    production_decision_oathOfAllegiance_post_save_handler,
+)
 from .production_decision_post_save_handler import production_decision_post_save_handler
-from .production_decision_minister_decision_handler import production_decision_minister_decision_handler
+from .production_decision_minister_decision_handler import (
+    production_decision_minister_decision_handler,
+)
 from .create_section10b_postsave import pres_recommendation_decision_post_save_handler
-from .production_decision_president_decision_handler import production_decision_president_decision_handler
+from .production_decision_president_decision_handler import (
+    production_decision_president_decision_handler,
+)

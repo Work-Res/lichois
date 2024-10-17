@@ -1,7 +1,7 @@
 from app.models.security_clearance import SecurityClearance
 from ..api.dto import RecommendationRequestDTO
-from ..api.serializers import CommissionerDecisionSerializer
-from ..models import CommissionerDecision
+from ..api.serializers import CommissionerDecisionSerializer, DirectorDecisionSerializer
+from ..models import CommissionerDecision, DirectorDecision
 from ..service import BaseDecisionService
 from ..utils.system_enums import ApplicationStatusEnum
 from ..workflow.transaction_data import RecommendationTransitionData
@@ -21,15 +21,27 @@ class RecommendationService(BaseDecisionService):
             task_to_deactivate=ApplicationStatusEnum.RECOMMENDATION.value,
         )
 
-    def create_recommendation(self):
+    def create_commissioner_recommendation(self):
         return self.create_decision(
             CommissionerDecision, CommissionerDecisionSerializer
         )
 
-    def retrieve_recommendation(self):
+    def retrieve_commissioner_recommendation(self):
         return self.retrieve_decision(
             CommissionerDecision, CommissionerDecisionSerializer
         )
+    
+    def create_director_recommendation(self):
+        return self.create_decision(
+            DirectorDecision, DirectorDecisionSerializer
+        )
+
+    def retrieve_director_recommendation(self):
+        return self.retrieve_decision(
+            DirectorDecision, DirectorDecisionSerializer
+        )
+
+
 
 
 class RecommendationServiceOverideVetting(RecommendationService):
