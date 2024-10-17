@@ -4,7 +4,7 @@ from app.models import ApplicationVerification
 from app.utils import ApplicationDecisionEnum
 
 
-class CommissionerDecisionValidator:
+class DecisionValidator:
     """
     Responsible for validating all mandatory for commissioner's decision.
     """
