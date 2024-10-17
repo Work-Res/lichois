@@ -14,6 +14,13 @@ class LateCitizenshipRenunciation(CommissionerOathModelMixin, BaseUuidModel):
     tribal_authority_surname = models.CharField(max_length=250)
     tribal_authority_address = models.TextField(max_length=400)
     ward_name = models.CharField(max_length=190)
+    nationality = models.CharField(max_length=100)
+    present_address = models.CharField(max_length=100)
+    date_of_signature = models.DateField()
+    signature_of_applicant = models.CharField(max_length=100)
+    commissioner_of_oath_signature = models.CharField(max_length=100)
+    place_of_declaration = models.CharField(max_length=100)
+    date_of_declaration = models.CharField(max_length=100)
 
     #TODO: school_testimonial_attachment
     school_testimonial = models.FileField(upload_to=None, max_length=254)
