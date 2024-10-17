@@ -215,3 +215,13 @@ class PresidentDecisionTransactionData(BaseTransactionData):
             next_activity_name, application_status, status=president_decision
         )
         self.president_decision = president_decision
+
+
+class ForeignRenunciationDecisionTransactionData(BaseTransactionData):
+    def __init__(
+        self, next_activity_name=None, application_status=None, renunciation_decision=None
+    ):
+        super().__init__(
+            next_activity_name, application_status, status=renunciation_decision
+        )
+        self.renunciation_decision = renunciation_decision

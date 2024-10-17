@@ -16,3 +16,4 @@ class CitizenshipConfig(AppConfig):
         )
         from .handlers import pres_recommendation_decision_post_save_handler
         from .handlers import production_decision_president_decision_handler
+        from .handlers import production_foreign_renunciation_decision_handler

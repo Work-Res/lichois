@@ -21,6 +21,7 @@ from .views.board import (
 
 from .views.board.interview_viewset import InterviewViewSet
 from .views.board.scoresheet_attachment_document_viewset import ScoresheetAttachmentDocumentView
+from .views.citizenship_foreign_renunciation_api_view import CitizenshipForeignRenunciationDecisionAPIView
 from .views.citizenship_minister_decision_api_view import CitizenshipMinisterDecisionAPIView
 from .views.citizenship_minister_decision_viewset import CitizenshipMinisterDecisionViewSet
 from .views.citizenship_president_decision_api_view import CitizenshipPresidentDecisionAPIView
@@ -178,4 +179,9 @@ urlpatterns = [
          DownloadRenunciationAttachmentView.as_view(), name='download_attachment'),
     path('interviewresponses/by-interview-and-member/', InterviewResponseByInterviewAPIView.as_view(),
          name='interview-responses-by-interview'),
+    path(
+        "citizenship-foreign-decision/",
+        CitizenshipForeignRenunciationDecisionAPIView.as_view(),
+        name="foreign-renunciation-decision-create",
+    ),
 ]

@@ -50,3 +50,13 @@ class PresidentProcessWhenCompletedIsRequiredForProduction:
         return [
             CitizenshipProcessEnum.PRESIDENT_POWER_10B.value,
         ]
+
+
+class ForeignRenunciationProcessWhenCompletedIsRequiredForProduction:
+
+    @staticmethod
+    def configured_process():
+        return [
+            CitizenshipProcessEnum.RENUNCIATION.value,
+        ]
+

@@ -52,10 +52,12 @@ from app.utils import ApplicationStatusEnum, ApplicationDecisionEnum
 from app.utils import statuses
 from django.test import TestCase
 
-from citizenship.api.dto import RecommendationDecisionRequestDTO
+from citizenship.api.dto import RecommendationDecisionRequestDTO, ForeignRenunciationRequestDTO
 from citizenship.api.dto.citizenship_minister_decision_request_dto import \
-    CitizenshipMinisterDecisionRequestDTOSerializer
+    CitizenshipMinisterDecisionRequestDTOSerializer, ForeignRenunciationDecisionSerializer
 from citizenship.api.dto.request_dto import CitizenshipMinisterRequestDTO
+from citizenship.service.foreign_renunciation.foreign_renunciation_decision_service import \
+    ForeignRenunciationDecisionService
 from citizenship.service.recommendation import RecommendationDecisionService, CitizenshipPresidentDecisionService
 from citizenship.service.recommendation.citizenship_minister_decision_service import CitizenshipMinisterDecisionService
 from citizenship.utils import CitizenshipProcessEnum
@@ -264,6 +266,16 @@ class BaseSetup(TestCase):
                     security_clearance_request=security_clearance_request
                 )
                 return service.create_clearance()
+
+    def perform_foreign_renunciation_decision(self):
+        data = {"status": "ACCEPTED"}
+        serializer = ForeignRenunciationDecisionSerializer(data=data)
+        serializer.is_valid()
+        request = ForeignRenunciationRequestDTO(document_number=self.document_number,
+                                                    status="ACCEPTED",
+                                                    **serializer.validated_data)
+        service = ForeignRenunciationDecisionService(decision_request=request)
+        return service.create_foreign_renunciation_decision()
 
     def setUp(self) -> None:
 

@@ -1,5 +1,8 @@
-from app.models import Application
+from app.models import Application, ApplicationDecision
 from django.test import tag
+
+from app_checklist.models import SystemParameter
+from app_personal_details.models import Permit
 from workflow.models import Activity
 from .base_setup import BaseSetup
 
@@ -117,6 +120,13 @@ class TestRenunciationWorkflow(BaseSetup):
 
     @tag("renunc6")
     def test_workflow_transaction_after_when_performing_recommandation(self):
+
+        SystemParameter.objects.create(
+            application_type=CitizenshipProcessEnum.RENUNCIATION.value,
+            duration_type="years",
+            duration=100
+        )
+
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
@@ -161,3 +171,11 @@ class TestRenunciationWorkflow(BaseSetup):
             app.application_status.code,
             CitizenshipStagesEnum.FOREIGN_RENUNCIATION.value.lower(),
         )
+
+        self.assertIsNotNone(self.perform_foreign_renunciation_decision())
+
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())

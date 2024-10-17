@@ -2,3 +2,4 @@ from .recommendation_production_decision_service import (
     RecommendationProductionDecisionService,
 )
 from .president_production_decision_service import PresidentProductionDecisionService
+from .foreign_renunciation_production_decision_service import ForeignSpouseProductionDecisionService

@@ -32,3 +32,15 @@ class CitizenshipPresidentDecisionSerializer(serializers.ModelSerializer):
             'status',
             'approved_by'
         ]
+
+
+class ForeignRenunciationDecisionSerializer(serializers.Serializer):
+    class Meta:
+        model = CitizenshipMinisterDecision
+        fields = (
+            "document_number",
+            "date_requested",
+            "date_approved",
+            "status",
+            "summary",
+        )

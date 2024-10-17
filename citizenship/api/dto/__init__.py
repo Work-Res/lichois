@@ -1,1 +1,2 @@
 from .recommendation_decision_request_dto import RecommendationDecisionRequestDTO
+from .foreign_renunciation_request_dto import ForeignRenunciationRequestDTO
