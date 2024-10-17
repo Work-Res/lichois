@@ -1,5 +1,5 @@
 from .citizenship_process_enum import CitizenshipProcessEnum
 from .citizenship_application_type_enum import CitizenshipApplicationTypeEnum
-from .document_generation_is_required_for_production import CitizenshipDocumentGenerationIsRequiredForProduction
-from .verification_process_is_trigger_for_production import VerificationProcessWhenCompletedIsRequiredForProduction
-
+from .document_generation_is_required_for_production import (
+    CitizenshipDocumentGenerationIsRequiredForProduction,
+)

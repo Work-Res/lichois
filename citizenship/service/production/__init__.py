@@ -1,3 +1,4 @@
-from .verification_production_decision_service import VerificationProductionDecisionService
-from .recommendation_production_decision_service import RecommendationProductionDecisionService
+from .recommendation_production_decision_service import (
+    RecommendationProductionDecisionService,
+)
 from .president_production_decision_service import PresidentProductionDecisionService

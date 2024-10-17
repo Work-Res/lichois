@@ -14,3 +14,4 @@ from .recomendation_case_decision_api_view import RecommendationCaseDecisionAPIV
 from .application_decision_type_view import ApplicationDecisionTypeViewSet
 from .application_decision_view import ApplicationDecisionViewSet
 from .pres_recommendation_decision_api_view import PresRecommendationDecisionAPIView
+from .director_decision_api_view import DirectorDecisionAPIView

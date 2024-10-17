@@ -1,7 +1,7 @@
 from app.models import Application
 from app.service import ApplicationDecisionService
 from app_comments.models import Comment
-from citizenship.utils.verification_process_is_trigger_for_production import (
+from app.utils.verification_process_is_trigger_for_production import (
     MinisterProcessWhenCompletedIsRequiredForProduction,
 )
 
