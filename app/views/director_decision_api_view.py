@@ -27,7 +27,7 @@ class DirectorDecisionAPIView(APIView):
                 )
                 service = RecommendationService(request_dto)
                 return Response(
-                    service.create_recommendation(), status=status.HTTP_201_CREATED
+                    service.create_director_recommendation(), status=status.HTTP_201_CREATED
                 )
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
@@ -42,7 +42,7 @@ class DirectorDecisionAPIView(APIView):
         if document_number:
             request_dto = RecommendationRequestDTO(document_number=document_number)
             service = RecommendationService(request_dto)
-            return service.retrieve_recommendation()
+            return service.retrieve_director_recommendation()
         return Response(
             {"detail": "Document number is required"},
             status=status.HTTP_400_BAD_REQUEST,
