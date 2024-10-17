@@ -2,11 +2,13 @@ from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.models import Application, ApplicationDecision
 from django.test import tag
+from datetime import datetime, timedelta
 
-from app.utils import ApplicationStatusEnum
+from app.utils import ApplicationStatusEnum, ApplicationDecisionEnum
 from app_checklist.models import SystemParameter
 from app_personal_details.models import Permit
 from gazette.models import Batch, BatchApplication
+from gazette.service import GazetteCompletionService
 from workflow.models import Activity
 from .base_setup import BaseSetup
 
@@ -61,10 +63,11 @@ class TestNaturalizationForeignSpouse(BaseSetup):
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
+
         self.assertEqual(activites[0].name, "VERIFICATION")
         self.assertEqual(activites[1].name, "VETTING")
-        self.assertEqual(activites[2].name, "ASSESSMENT")
-        self.assertEqual(activites[3].name, "RECOMMENDATION")
+        self.assertEqual(activites[2].name, "GAZETTE")
+        self.assertEqual(activites[3].name, "ASSESSMENT")
         self.assertEqual(activites[4].name, "MINISTER_DECISION")
         self.assertEqual(activites[5].name, "FINAL_DECISION")
 
@@ -77,6 +80,7 @@ class TestNaturalizationForeignSpouse(BaseSetup):
 
     @tag("renunc4")
     def test_workflow_transaction_after_when_performing_vetting(self):
+
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
@@ -96,11 +100,11 @@ class TestNaturalizationForeignSpouse(BaseSetup):
         app.refresh_from_db()
         self.assertEqual(app.security_clearance, "ACCEPTED")
         self.assertEqual(
-            app.application_status.code, CitizenshipStagesEnum.ASSESSMENT.value.lower()
+            app.application_status.code, CitizenshipStagesEnum.GAZETTE.value
         )
 
-    @tag("renunc5")
-    def test_workflow_transaction_after_when_performing_assessment_until_production(self):
+    @tag("renunc4")
+    def test_workflow_transaction_after_when_performing_gazette(self):
 
         SystemParameter.objects.create(
             application_type=CitizenshipProcessEnum.FOREIGN_SPOUSE_NATURALIZATION.value,
@@ -127,22 +131,23 @@ class TestNaturalizationForeignSpouse(BaseSetup):
         app.refresh_from_db()
         self.assertEqual(app.security_clearance, "ACCEPTED")
         self.assertEqual(
-            app.application_status.code, CitizenshipStagesEnum.ASSESSMENT.value.lower()
+            app.application_status.code, CitizenshipStagesEnum.GAZETTE.value
         )
 
-        self.assertGreater(Batch.objects.count(), 0)
-        self.assertGreater(BatchApplication.objects.count(), 0)
+        batch = self.complete_gazette()
+
+        batch_applications = BatchApplication.objects.filter(batch=batch)
+
+        for batch_application in batch_applications:
+            app = batch_application.application
+            self.assertEqual(
+                app.application_status.code, CitizenshipStagesEnum.ASSESSMENT.value.lower()
+            )
 
         self.assertIsNotNone(self.perform_assessment())
         app.refresh_from_db()
         self.assertEqual(app.assessment, "ACCEPTED")
-        self.assertEqual(
-            app.application_status.code, CitizenshipStagesEnum.RECOMMENDATION.value.lower()
-        )
 
-        self.assertIsNotNone(self.perform_recommendation())
-        app.refresh_from_db()
-        self.assertEqual(app.recommendation, "ACCEPTED")
         self.assertEqual(
             app.application_status.code,
             CitizenshipStagesEnum.MINISTER_DECISION.value.lower(),
@@ -153,6 +158,18 @@ class TestNaturalizationForeignSpouse(BaseSetup):
 
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())
-
+        app.refresh_from_db()
         permit = Permit.objects.filter(document_number=self.document_number)
+
         self.assertTrue(permit.exists())
+        self.assertEqual(app.gazette, ApplicationDecisionEnum.DONE.value)
+
+    def complete_gazette(self):
+        batch = Batch.objects.get(status='OPEN')
+        one_day_before = datetime.today().date() - timedelta(days=1)
+        batch.gazette_completion_date = one_day_before
+        batch.status = "FINALIZED"
+        batch.save()
+        gazette_completion = GazetteCompletionService(batch_id=batch.id)
+        gazette_completion.activate_next_task_for_all()
+        return batch

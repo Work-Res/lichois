@@ -4,6 +4,7 @@ from datetime import date
 
 from app.models import SecurityClearance, Application
 from app.service import BaseDecisionService
+from app.utils import ApplicationDecisionEnum
 
 from app.workflow import GazetteTransactionData
 from citizenship.utils import CitizenshipProcessEnum
@@ -84,6 +85,9 @@ class GazetteCompletionService(BaseDecisionService):
             source=self.workflow,
             application=self.application,
         )
+
+        self.application.gazette = ApplicationDecisionEnum.DONE.value
+        self.application.save()
         logger.info(f"Next task activated for document {self.document_number}")
 
     def activate_next_task_for_all(self):
