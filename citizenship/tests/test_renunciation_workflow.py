@@ -154,3 +154,10 @@ class TestRenunciationWorkflow(BaseSetup):
             app.application_status.code,
             CitizenshipStagesEnum.MINISTER_DECISION.value.lower(),
         )
+
+        self.assertIsNotNone(self.perform_minister_decision())
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code,
+            CitizenshipStagesEnum.FOREIGN_RENUNCIATION.value.lower(),
+        )

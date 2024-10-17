@@ -44,7 +44,7 @@ class RenunciationDocumentGenerationService:
 
         try:
             # Generate the context for the renunciation document
-            context = self.context_generator.generate(application)
+            context = self.data_generator_class().generate(application)
             today_str = date.today().strftime("%Y-%m-%d")
 
             with tempfile.TemporaryDirectory() as temp_dir:

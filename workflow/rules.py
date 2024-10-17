@@ -27,6 +27,7 @@ workflow.add_rule("MINISTER_DECISION", can_create_or_update_task)
 workflow.add_rule("PS_RECOMMENDATION", can_create_or_update_task)
 workflow.add_rule("PRES_PS_RECOMMENDATION", can_create_or_update_task)
 workflow.add_rule("PRESIDENT_DECISION", can_create_or_update_task)
+workflow.add_rule("FOREIGN_RENUNCIATION", can_create_or_update_task)
 
 workflow_close = rules.RuleSet()
 workflow_close.add_rule("FIRST_VERIFICATION", update_task)

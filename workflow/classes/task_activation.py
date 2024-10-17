@@ -34,20 +34,18 @@ class TaskActivation:
         for activity in activities:
             self.source.next_activity_name = activity.next_activity_name
             self.logger.info(
-                f"Processing next_activity_name {activity.next_activity_name} for "
+                f"{activity.sequence}. Processing next_activity_name {activity.next_activity_name} for "
             )
             self.source.current_status = (
                 self.application.application_status.code.upper()
             )
             self.logger.info(
-                f"Processing current_status {self.source.current_status} for "
+                f"{activity.sequence}. Processing current_status {self.source.current_status} for "
             )
-            self.logger.info(f"Source model: {self.source.__dict__}")
-            print("Source model: ", self.source.__dict__)
+            self.logger.info(f"{activity.sequence}. Source model: {self.source.__dict__}")
             self.logger.info(
-                f"activity.create_task_rules: {activity.create_task_rules}"
+                f"{activity.sequence}. activity.create_task_rules: {activity.create_task_rules}"
             )
-            print("activity.create_task_rules: ", activity.create_task_rules)
             if workflow.test_rule(
                 activity.name.upper(), self.source, activity.create_task_rules
             ):
@@ -59,19 +57,18 @@ class TaskActivation:
                     application_status_code=application_status_code,
                 )
                 self.logger.info(
-                    f"Attempting to create a new task for "
+                    f"{activity.sequence}. Attempting to create a new task for "
                     f"{activity.name} - {self.application.application_document.document_number}."
                 )
                 self.task(activity)
             else:
                 self.logger.debug(f"Failed to create task for {activity.name}")
-                # print("Failed to create task for ", activity.name)
 
     def task(self, activity):
         try:
             Task.objects.get(activity=activity)
             self.logger.info(
-                f"Task already created for {self.application.application_document.document_number}."
+                f"{activity.sequence}. Task already created for {self.application.application_document.document_number}."
             )
         except Task.DoesNotExist:
             Task.objects.create(
@@ -81,6 +78,6 @@ class TaskActivation:
                 details=activity.description,
             )
             self.logger.info(
-                f"New task has been created for "
+                f"{activity.sequence}. New task has been created for "
                 f"{activity.name} - {self.application.application_document.document_number}."
             )
