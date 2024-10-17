@@ -11,9 +11,7 @@ class DirectorDecisionSerializer(serializers.ModelSerializer):
     status = ApplicationDecisionTypeSerializer()
 
     def validate(self, data):
-        validator = DecisionValidator(
-            document_number=data.get("document_number")
-        )
+        validator = DecisionValidator(document_number=data.get("document_number"))
         if not validator.is_valid():
             raise serializers.ValidationError(validator.response.messages)
 

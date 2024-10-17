@@ -1,3 +1,7 @@
+from workresidentpermit.utils.work_resident_permit_application_type_enum import (
+    WorkResidentPermitApplicationTypeEnum,
+)
+from .system_enums import ApplicationProcesses
 from citizenship.utils import CitizenshipProcessEnum
 
 
@@ -7,7 +11,9 @@ class VerificationProcessWhenCompletedIsRequiredForProduction:
     def configured_process():
         return [
             CitizenshipProcessEnum.INTENTION_FOREIGN_SPOUSE.value,
-            CitizenshipProcessEnum.PRESIDENT_POWER_10A.value
+            CitizenshipProcessEnum.PRESIDENT_POWER_10A.value,
+            ApplicationProcesses.BLUE_CARD_RETURNS.value,
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value,
         ]
 
 
@@ -24,7 +30,7 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
             CitizenshipProcessEnum.NATURALIZATION.value,
             CitizenshipProcessEnum.FOREIGN_SPOUSE_NATURALIZATION.value,
             CitizenshipProcessEnum.DUAL_RENUNCIATION.value,
-            CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value
+            CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
         ]
 
 
