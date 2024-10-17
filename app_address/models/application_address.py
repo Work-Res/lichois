@@ -14,6 +14,7 @@ class ApplicationAddress(ApplicationBaseModel):
     )
 
     city = models.CharField(max_length=100)
+   
 
     district = models.JSONField(
         null=True, blank=True, db_column='district')

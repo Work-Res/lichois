@@ -16,6 +16,8 @@ class Person(ApplicationBaseModel, NationalityModelMixin):
 
     maiden_name = models.CharField(max_length=190, blank=True, null=True)
 
+    age = models.CharField(max_length=190, blank=True, null=True)
+
     marital_status = models.CharField(
         max_length=50,
         blank=True,
