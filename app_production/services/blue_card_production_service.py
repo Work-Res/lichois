@@ -26,10 +26,12 @@ class BlueCardProductionService(PermitProductionService):
     def systems_parameter(self):
         try:
             self._systems_parameter = SystemParameter.objects.get(
-                application_type__icontains=self.request.permit_type
+                application_type__icontains=self.request.permit_type,
+                document_number=self.request.document_number,
             )
             self.logger.info(
-                f"System parameter found for {self.request.application_type}, returning existing one."
+                f"System parameter found for {self.request.application_type} "
+                f"and {self.request.document_number}, returning existing one."
             )
         except SystemParameter.DoesNotExist:
             self.logger.info(
