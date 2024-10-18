@@ -2,7 +2,12 @@ import factory
 from faker import Faker
 from app_personal_details.models import DeceasedSpouseInfo, MarriageDissolutionInfo
 from app_personal_details.models.name_change import NameChange
-from citizenship.models import LocalLanguageKnowledge, ResidencyPeriod, CriminalOffense, CountryOfResidence
+from citizenship.models import (
+    LocalLanguageKnowledge,
+    ResidencyPeriod,
+    CriminalOffense,
+    CountryOfResidence,
+)
 
 fake = Faker()
 
@@ -11,74 +16,76 @@ class DeceasedSpouseInfoFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = DeceasedSpouseInfo
 
-    country_of_death = factory.Faker('country')
-    place_of_death = factory.Faker('city')
-    date_of_death = factory.Faker('date')
+    country_of_death = factory.Faker("country")
+    place_of_death = factory.Faker("city")
+    date_of_death = factory.Faker("date")
 
 
 class MarriageDissolutionInfoFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = MarriageDissolutionInfo
 
-    country_of_dissolution = factory.Faker('country')
-    place_of_dissolution = factory.Faker('city')
-    date_of_dissolution = factory.Faker('date')
+    country_of_dissolution = factory.Faker("country")
+    place_of_dissolution = factory.Faker("city")
+    date_of_dissolution = factory.Faker("date")
 
 
 class NameChangeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = NameChange
 
-    previous_name = factory.Faker('name')
-    new_name = factory.Faker('name')
-    date_of_change = factory.Faker('date')
+    previous_name = factory.Faker("name")
+    new_name = factory.Faker("name")
+    date_of_change = factory.Faker("date")
 
 
 class LocalLanguageKnowledgeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = LocalLanguageKnowledge
 
-    language_name = factory.Faker('word')
-    proficiency_level = factory.Faker('random_element', elements=['Basic', 'Fluent', 'Native'])
+    language_name = factory.Faker("word")
+    proficiency_level = factory.Faker(
+        "random_element", elements=["Basic", "Fluent", "Native"]
+    )
 
 
 class ResidencyPeriodFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ResidencyPeriod
 
-    period_from = factory.Faker('date')
-    period_until = factory.Faker('date')
-    country = factory.Faker('country')
+    period_from = factory.Faker("date")
+    period_until = factory.Faker("date")
+    country = factory.Faker("country")
 
 
 class CriminalOffenseFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = CriminalOffense
 
-    offense_description = factory.Faker('sentence')
-    date_of_conviction = factory.Faker('date')
-    country_of_offense = factory.Faker('country')
-    penalty_given = factory.Faker('sentence')
+    offense_description = factory.Faker("sentence")
+    date_of_conviction = factory.Faker("date")
+    country_of_offense = factory.Faker("country")
+    penalty_given = factory.Faker("sentence")
 
 
 class CountryOfResidenceFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = CountryOfResidence
 
-    country = factory.Faker('country')
-    period_from = factory.Faker('date')
-    period_until = factory.Faker('date')
+    country = factory.Faker("country")
+    period_from = factory.Faker("date")
+    period_until = factory.Faker("date")
 
 
 class FormLFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = 'citizenship.FormL'  # You can use the app_label.model_name format
+        model = "citizenship.FormL"  # You can use the app_label.model_name format
 
     deceased_spouse_info = factory.SubFactory(DeceasedSpouseInfoFactory)
     marriage_dissolution_info = factory.SubFactory(MarriageDissolutionInfoFactory)
     name_change = factory.SubFactory(NameChangeFactory)
-    previous_application_date = factory.Faker('date')
-    relation_description = factory.Faker('paragraph')
+    previous_application_date = factory.Faker("date")
+    relation_description = factory.Faker("paragraph")
 
     @factory.post_generation
     def residency_periods(self, create, extracted, **kwargs):
