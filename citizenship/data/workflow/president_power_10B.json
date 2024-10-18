@@ -114,7 +114,7 @@
           "sequence": 8,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "END",
+          "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
             "current_status": "PRES_PS_RECOMMENDATION",
             "recommendation_decision": "ACCEPTED",
