@@ -65,4 +65,3 @@ from .president10b.citizenship_change import CitizenshipChange
 from .president10b.criminal_offense import CriminalOffense
 from .president10b.country_of_residence import CountryOfResidence
 from .president10b.form_l import FormL
-

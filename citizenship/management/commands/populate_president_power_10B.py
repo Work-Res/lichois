@@ -103,6 +103,7 @@ class Command(CustomBaseCommand):
                 )
 
                 form_l_instance = FormLFactory(
+                    document_number=app.application_document.document_number,
                     father=father,
                     father_address=father_address,
                     mother=mother,
