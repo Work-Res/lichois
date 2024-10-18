@@ -30,7 +30,7 @@ class ApplicationAddress(ApplicationBaseModel):
     status = models.CharField(max_length=100, choices=ADDRESS_STATUS, default="active")
     private_bag = models.CharField(max_length=100, blank=True, null=True)
     po_box = models.CharField(max_length=100, blank=True, null=True)
-    post_locaton = models.CharField(max_length=100, blank=True, null=True)
+    post_office_location = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f"{self.apartment_number}, {self.plot_number}, {self.street_address}, {self.city}, {self.country}"
