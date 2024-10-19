@@ -17,6 +17,7 @@ def update_task(source, conditions):
 
 workflow = rules.RuleSet()
 workflow.add_rule("VERIFICATION", can_create_or_update_task)
+workflow.add_rule("FEEDBACK", can_create_or_update_task)
 workflow.add_rule("VETTING", can_create_or_update_task)
 workflow.add_rule("RECOMMENDATION", can_create_or_update_task)
 workflow.add_rule("ASSESSMENT", can_create_or_update_task)

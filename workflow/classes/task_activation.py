@@ -34,7 +34,7 @@ class TaskActivation:
         for activity in activities:
             self.source.next_activity_name = activity.next_activity_name
             self.logger.info(
-                f"{activity.sequence}. Processing next_activity_name {activity.next_activity_name} for "
+                f"{activity.sequence}. Processing activity {activity.name}"
             )
             self.source.current_status = (
                 self.application.application_status.code.upper()
@@ -42,7 +42,9 @@ class TaskActivation:
             self.logger.info(
                 f"{activity.sequence}. Processing current_status {self.source.current_status} for "
             )
-            self.logger.info(f"{activity.sequence}. Source model: {self.source.__dict__}")
+            self.logger.info(
+                f"{activity.sequence}. Source model: {self.source.__dict__}"
+            )
             self.logger.info(
                 f"{activity.sequence}. activity.create_task_rules: {activity.create_task_rules}"
             )
