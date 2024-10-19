@@ -1,4 +1,5 @@
 from django.db import models
+
 from .application_base_model import ApplicationBaseModel
 
 from .application_decision_type import ApplicationDecisionType
@@ -9,6 +10,8 @@ class ApplicationVerification(ApplicationBaseModel):
     status = models.ForeignKey(
         ApplicationDecisionType, on_delete=models.SET_NULL, null=True
     )
+
+    summary = models.TextField(null=True, blank=True)
 
     date_approved = models.DateTimeField(null=True, blank=True)
 
