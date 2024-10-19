@@ -78,12 +78,12 @@ class FormL(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
 
     witness = models.ForeignKey(
         Person, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="form_l_witnessing_persons"  # Changed to avoid conflict with FormE
+        related_name="form_l_witnessing_persons"
     )
 
     witness_address = models.ForeignKey(
         ApplicationAddress, on_delete=models.CASCADE, null=True, blank=True,
-        related_name="form_l_witness_address_of"  # Changed to avoid conflict with FormE
+        related_name="form_l_witness_address_of"
     )
 
     class Meta:
