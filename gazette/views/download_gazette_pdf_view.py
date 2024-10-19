@@ -1,19 +1,18 @@
 from datetime import datetime
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from django.conf import settings
-
-from django.http import FileResponse, HttpResponse
-from django.views import View
+from django.http import FileResponse
 import os
 
 from gazette.models import BatchApplication
 from gazette.service import GenerateGazettePDFService, PrepareGazetteForDownload
 
 
-class DownloadGazettePDFView(View):
+class DownloadGazettePDFAPIView(APIView):
 
     def get(self, request, batch_id):
-
         now = datetime.now()
         formatted_date = now.strftime("%Y-%m-%d")
 
@@ -26,7 +25,7 @@ class DownloadGazettePDFView(View):
         batch_applications = BatchApplication.objects.filter(batch__id=batch_id)
 
         if not batch_applications.exists():
-            return HttpResponse("No batch applications found.", status=404)
+            return Response({"detail": "No batch applications found."}, status=status.HTTP_404_NOT_FOUND)
 
         # Prepare the data
         prepare_download_data = PrepareGazetteForDownload(batch_applications=batch_applications)
@@ -41,8 +40,8 @@ class DownloadGazettePDFView(View):
         # Check if the file was created successfully
         if os.path.exists(pdf_file_path):
             # Serve the PDF file for download
-            response = FileResponse(open(pdf_file_path, 'rb'), as_attachment=True, filename="gazette.pdf")
-            response['Content-Disposition'] = f'attachment; filename="gazette_{batch_id}.pdf"'
+            response = FileResponse(open(pdf_file_path, 'rb'), as_attachment=True, filename="gazette.docx")
+            response['Content-Disposition'] = f'attachment; filename="gazette_{batch_id}.docx"'
             return response
         else:
-            return HttpResponse("File not found", status=404)
+            return Response({"detail": "File not found."}, status=status.HTTP_404_NOT_FOUND)

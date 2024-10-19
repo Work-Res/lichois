@@ -67,7 +67,7 @@ urlpatterns = [
     path(
         "download-gazette/<uuid:batch_id>/",
         DownloadGazettePDFView.as_view(),
-        name='download_gazette_pdf'
+        name='download-gazette'
     ),
     path('gazette-completion/',
          GazetteCompletionAPIView.as_view(),
