@@ -6,7 +6,7 @@ from .views import (
     LegalAssessmentViewSet,
     BatchSubmissionViewSet,
     BatchApplicationViewSet,
-    DownloadGazettePDFView, GazetteCompletionAPIView,
+    GazetteCompletionAPIView, DownloadGazetteCSVView, DownloadGazettePDFAPIView,
 )
 
 router = DefaultRouter()
@@ -66,7 +66,12 @@ urlpatterns = [
     ),
     path(
         "download-gazette/<uuid:batch_id>/",
-        DownloadGazettePDFView.as_view(),
+        DownloadGazettePDFAPIView.as_view(),
+        name='download-gazette'
+    ),
+    path(
+        "download-gazette-csv/<uuid:batch_id>/",
+        DownloadGazetteCSVView.as_view(),
         name='download-gazette'
     ),
     path('gazette-completion/',

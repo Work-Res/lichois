@@ -3,13 +3,14 @@ import csv
 from datetime import datetime
 
 from django.http import HttpResponse
-from django.views import View
+from rest_framework.views import APIView
+
 
 from gazette.models import BatchApplication
 from gazette.service import PrepareGazetteForDownload
 
 
-class DownloadGazetteCSVView(View):
+class DownloadGazetteCSVView(APIView):
 
     def get(self, request, batch_id):
         # Generate the filename with the current date
