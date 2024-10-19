@@ -11,8 +11,6 @@ class ApplicationVerification(ApplicationBaseModel):
         ApplicationDecisionType, on_delete=models.SET_NULL, null=True
     )
 
-    summary = models.TextField(null=True, blank=True)
-
     date_approved = models.DateTimeField(null=True, blank=True)
 
     approved_by = models.CharField(
