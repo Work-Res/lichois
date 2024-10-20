@@ -27,7 +27,7 @@ class Command(CustomBaseCommand):
 
         fake = Faker()
 
-        for _ in range(1):
+        for _ in range(150):
 
             with atomic():
                 app_service, application_version = self.create_basic_data()

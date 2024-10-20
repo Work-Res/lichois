@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_address.api.serializers import ApplicationAddressSerializer, CountrySerializer
+from app_address.api.serializers import ApplicationAddressSerializer
 from app_personal_details.api import PersonSerializer, DeceasedSpouseInfoSerializer, MarriageDissolutionInfoSerializer, \
     NameChangeSerializer
 from citizenship.api.serializers.president10b import ResidencyPeriodSerializer, LocalLanguageKnowledgeSerializer, \
