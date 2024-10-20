@@ -86,6 +86,8 @@ class FormLFactory(factory.django.DjangoModelFactory):
     name_change = factory.SubFactory(NameChangeFactory)
     previous_application_date = factory.Faker("date")
     relation_description = factory.Faker("paragraph")
+    citizenship_loss_circumstances = factory.Faker("paragraph")
+
 
     @factory.post_generation
     def residency_periods(self, create, extracted, **kwargs):

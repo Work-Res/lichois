@@ -3,6 +3,7 @@ from faker import Faker
 
 from django.db.transaction import atomic
 
+from django.core.exceptions import ValidationError
 from model_bakery import baker
 
 from app_address.models import ApplicationAddress
@@ -26,7 +27,7 @@ class Command(CustomBaseCommand):
 
         fake = Faker()
 
-        for _ in range(150):
+        for _ in range(1):
 
             with atomic():
                 app_service, application_version = self.create_basic_data()
@@ -115,6 +116,7 @@ class Command(CustomBaseCommand):
                     name_change=NameChangeFactory(),
                     previous_application_date=fake.date(),
                     relation_description=fake.paragraph(),
+                    citizenship_loss_circumstances=fake.paragraph()
                 )
 
                 form_l_instance.residency_periods.set(

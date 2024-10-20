@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_address.api.serializers import ApplicationAddressSerializer
+from app_address.api.serializers import ApplicationAddressSerializer, CountrySerializer
 from app_personal_details.api import PersonSerializer, DeceasedSpouseInfoSerializer, MarriageDissolutionInfoSerializer, \
     NameChangeSerializer
 from citizenship.api.serializers.president10b import ResidencyPeriodSerializer, LocalLanguageKnowledgeSerializer, \
@@ -25,11 +25,13 @@ class FormLSerializer(serializers.ModelSerializer):
     criminal_offences = CriminalOffenseSerializer(many=True, read_only=True)
     countries_of_residence = CountryOfResidenceSerializer(many=True, read_only=True)
 
+
+
     class Meta:
         model = FormL
         fields = [
             'id', 'residency_periods', 'languages', 'deceased_spouse_info', 'marriage_dissolution_info',
             'father', 'father_address', 'mother', 'mother_address', 'previous_application_date',
             'name_change', 'criminal_offences', 'countries_of_residence', 'relation_description',
-            'sponsor', 'sponsor_address', 'witness', 'witness_address'
+            'sponsor', 'sponsor_address', 'witness', 'witness_address', 'citizenship_loss_circumstances'
         ]

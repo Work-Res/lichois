@@ -1,3 +1,4 @@
+from app_address.models.country import Country
 from base_module.model_mixins import DeclarationModelMixin, CommissionerOathModelMixin
 from django.db import models
 
@@ -6,6 +7,7 @@ from app_address.models import ApplicationAddress
 from app_personal_details.models import Person, DeceasedSpouseInfo, MarriageDissolutionInfo
 from app_personal_details.models.name_change import NameChange
 from citizenship.models import LocalLanguageKnowledge, ResidencyPeriod, CriminalOffense, CountryOfResidence
+from citizenship.models.president10b.validators import validate_citizenship_loss_circumstances
 
 
 class FormL(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMixin):
@@ -86,9 +88,21 @@ class FormL(ApplicationBaseModel, DeclarationModelMixin, CommissionerOathModelMi
         related_name="form_l_witness_address_of"
     )
 
+    citizenship_loss_circumstances = models.TextField(
+        blank=True, null=True,
+        verbose_name="Circumstance in which Citizenship was lost." )
+
+
     class Meta:
         app_label = 'citizenship'
         db_table = 'citizenship_form_l'
 
     def __str__(self):
         return f"FormL - {self.id}"
+
+    def clean(self):
+
+        validate_citizenship_loss_circumstances(
+            self.present_nationality,
+            self.citizenship_loss_circumstances
+        )
