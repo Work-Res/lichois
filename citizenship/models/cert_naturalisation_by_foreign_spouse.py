@@ -26,6 +26,24 @@ class CertNaturalisationByForeignSpouse(BaseUuidModel):
     citizenship = models.CharField(max_length=150, blank=True, null=True)
     continued_residence_from = models.DateField()
     continued_residence_to = models.DateField(blank=True, null=True)
+    spouse_citizenship_acquired_by = models.CharField(max_length=150, blank=True, null=True)
+    marriage_substiting = models.CharField(max_length=150, blank=True, null=True)
+    photo_upload = models.URLField()
+    known_the_applicant_for = models.IntegerField()
+    date_of_declaration= models.DateField()
+    signature= models.CharField(max_length=150, blank=True, null=True)
+    signature_of_witness = models.CharField(max_length=150, blank=True, null=True)
+    witness_last_name = models.CharField(max_length=150, blank=True, null=True)
+    witness_first_name = models.CharField(max_length=150, blank=True, null=True)
+    date_stamp = models.CharField(max_length=150, blank=True, null=True)
+    signature_of_additional_sponsor = models.CharField(max_length=150, blank=True, null=True)
+    designation_of_sponsor = models.CharField(max_length=150, blank=True,null=True)
+    Signature_of_witness_to_additional_sponsor_signature = models.CharField(max_length=150, blank=True, null=True)
+    place_of_declaration = models.CharField(max_length=150, blank=True, null=True)
+    date_time_of_declaration = models.DateTimeField()
+    commissioner_of_oaths_name = models.CharField(max_length=150, blank=True, null=True)
+    designation_of_commissioner_of_oaths = models.CharField(max_length=150, blank=True, null=True)
+
 
     #parental_details_father
     #parental_details_mother

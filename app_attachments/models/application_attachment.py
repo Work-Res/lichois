@@ -8,6 +8,8 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     filename = models.CharField(max_length=200)
 
+    filenumber = models.IntegerField()
+
     storage_object_key = models.CharField(max_length=300)
 
     description = models.CharField(max_length=400)
