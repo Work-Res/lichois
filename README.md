@@ -1,45 +1,40 @@
-# Project Documentation
+# Django Project
 
-## Project Overview
-### The scope of the project is to address needs and functionalities of a comprehensive system for managing work and residence permits, facilitating investigations, citizenship and all occupational health and safety related services.
+This is a Django project. Follow the instructions below to set up and run the project on your local machine.
 
-## Project Objectives
-- To create robust api endpoints for the LICHOIS system.
-- To document browsable api's using swagger.
+## Prerequisites
 
-## Repository Overview
-| Repository Name | Repository Description |
-| ----------- | ----------- |
-| LICHOIS | Labour, Immigration, Citizenship and Occupational Health Integrated Service |
+- Python 3.x
+- pip (Python package installer)
+- virtualenv (optional but recommended)
 
-## Technologies
-- Python
-- Django ( admin site, ORM, url mappings)
-- Django Rest
-- Django Auth LDAP
-- JWT (Java web tokens)
-- Microsoft Graph API
-- haystack
-- Swagger
+## Setup
 
-## File Structure Methodology
-
-The project structure follows a **modular** or **feature-based** file organization methodology. Each directory within the main application directory represents a specific feature or module of the application.
-
-### Benefits
-
-1. **Separation of Concerns**: Each module or feature is isolated, making the codebase easier to understand and maintain. This structure promotes encapsulation and modularity.
-2. **Scalability**: Adding new features or modules is simple which does not affect much the existing structure.
-3. **Team Collaboration**: Different teams or team members can work on different modules independently, reducing the chances of merge conflicts and making version control more manageable.
-4. **Testing**: Unit tests can be organized within each module, making it easier to test and troubleshoot individual features.
-
-### Disadvantages
-
-1. **Duplication**: Common functionality might be duplicated across modules. For example, utility functions or shared components might be re-implemented in multiple places.
-2. **Inter-module Communication**: If modules are not well-defined, communication between modules can become complex, leading to tightly coupled components.
-3. **Codebase Understanding**: For new developers, navigating through multiple directories to understand the codebase can be daunting.
+1. **Clone the repository**:
+   ```bash
+   git clone git@github.com:Work-Res/lichois.git
+   cd lichois
 
 
-## Directory Structure
+2. Create a virtual environment (optional but recommended):
+    python3 -m venv ~/.venvs/lichois
+    source ~/.venvs/lichois/bin/activate  # On Windows use `\.venvs\lichois\Scripts\activate`
 
-- The repository or application follows a modular or feature-based file organization methodology.
+3. Install the dependencies:
+    pip install -r requirements.txt
+
+4. Set up the database:
+    python manage.py makemigrations_all
+
+6 . populate data for apps
+    python3 manage.py run_app_commands citizenship
+    python3 manage.py run_app_commands workresidentpermit
+
+
+5. Create a superuser (optional, for accessing the Django admin interface):
+    python manage.py createsuperuser
+
+6. Run the development server:
+    python manage.py runserver
+
+
