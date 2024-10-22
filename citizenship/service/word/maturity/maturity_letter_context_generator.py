@@ -5,14 +5,26 @@ from app_address.models import ApplicationAddress
 from citizenship.utils import CitizenshipProcessEnum
 from .document_context_generator import DocumentContextGenerator
 
-
 class MaturityLetterContextGenerator(DocumentContextGenerator):
+
+    def format_date_with_suffix(self, date):
+
+        day = date.day
+
+        if 10 <= day &  100 <= 20:
+            suffix = 'th'
+        else:
+            suffix ={1: 'st', 2: 'nd', 3:'rd'}.get(day%10, 'th')
+        return date.strftime(f"%d{suffix} %B %Y")
+
     def generate(self, application):
         document_number = application.application_document.document_number
+        document_date = self.format_date_with_suffix(application.application_document.document_date)
         years = datetime.now() + relativedelta(months=30)
         context = {
             'document_type': 'maturity_letter',
             'document_number': document_number,
+            'document_date': document_date,
             'reference_number': document_number,
             'today_date': date.today().strftime("%Y-%m-%d"),
             'applicant_fullname': application.full_name(),
