@@ -1,4 +1,5 @@
 import logging
+from venv import logger
 from django.apps import AppConfig
 
 
@@ -6,6 +7,8 @@ class AppChecklistConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "app_checklist"
     verbose_name = "Application Checklist Module"
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
 
     def ready(self):
         super().ready()
@@ -23,12 +26,12 @@ class AppChecklistConfig(AppConfig):
             format="%(asctime)s - %(levelname)s - %(message)s",
             handlers=[logging.StreamHandler()],
         )
-        logging.info("Logging is configured.")
+        self.logger.info("Logging is configured.")
 
     def run_initial_configuration(self):
         from app_checklist.classes import ChecklistSearcherAndUpdater
 
-        logging.info("Running initial workflow configuration...")
+        self.logger.info("Running initial workflow configuration...")
         try:
             workflow_configs = ChecklistSearcherAndUpdater(
                 target_directory_name="workflow"
@@ -38,10 +41,10 @@ class AppChecklistConfig(AppConfig):
         except Exception as e:
             logging.error(f"Error during workflow configuration: {e}")
 
-        logging.info("Running initial checklist configuration...")
+        self.logger.info("Running initial checklist configuration...")
         try:
             searcher = ChecklistSearcherAndUpdater(target_directory_name="checklist")
             searcher.update_checklist()
-            logging.info("Checklist configuration updated successfully.")
+            logger.info("Checklist configuration updated successfully.")
         except Exception as e:
-            logging.error(f"Error during checklist configuration: {e}")
+            logger.error(f"Error during checklist configuration: {e}")
