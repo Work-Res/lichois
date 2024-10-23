@@ -19,7 +19,6 @@ class ServiceRegistry:
         :param service_class: Class of the service
         """
         self._registry[service_name] = service_class
-        self.logger.warn(f"Registered service: {service_name} - {service_class}")
 
     def get_service(self, service_name):
         """
