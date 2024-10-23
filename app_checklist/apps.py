@@ -15,6 +15,7 @@ class AppChecklistConfig(AppConfig):
         try:
             self.setup_logging()
             self.run_initial_configuration()
+            self.logger.info("App initialization complete.")
         except Exception as e:
             logging.error(f"Error during app initialization: {e}")
             raise e
@@ -37,7 +38,7 @@ class AppChecklistConfig(AppConfig):
                 target_directory_name="workflow"
             )
             workflow_configs.update_workflow()
-            logging.info("Workflow configuration updated successfully.")
+            self.logger.info("Workflow configuration updated successfully.")
         except Exception as e:
             logging.error(f"Error during workflow configuration: {e}")
 
