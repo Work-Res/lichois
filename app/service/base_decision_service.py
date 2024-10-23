@@ -126,7 +126,6 @@ class BaseDecisionService(UpdateApplicationMixin):
             self._create_comment()
             # self._deactivate_current_task()
             self._activate_next_task()
-            print("self.response.result(): ", self.response.result())
         return self.response.result()
 
     def retrieve_decision(self, decision_model, serializer_class):
@@ -151,7 +150,6 @@ class BaseDecisionService(UpdateApplicationMixin):
             )
             self.response.status = "success"
             self.response.data = serializer_class(self.decision).data
-            print("self.response.data: ", self.response.data)
             self.response.messages.append(api_message.to_dict())
         except decision_model.DoesNotExist:
             api_message = APIMessage(
