@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 from ..choices import MARITAL_STATUS, GENDER, PERSON_TYPE
 
 from app.models import ApplicationBaseModel
@@ -16,7 +16,7 @@ class Person(ApplicationBaseModel, NationalityModelMixin):
 
     maiden_name = models.CharField(max_length=190, blank=True, null=True)
 
-    age = models.PositiveIntegerField(blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(16),MaxValueValidator(110)])
 
     marital_status = models.CharField(
         max_length=50,

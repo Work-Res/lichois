@@ -1,10 +1,10 @@
 from django.db import models
 
 from app.models.application_base_model import ApplicationBaseModel
-from visa.models.visa_reference import VisaReference
+from visa.models import VisaReference, CurrencyAmount
 
 from ..choices import ENTRY_FREQ, VISA_TYPES
-
+from django.utils.translation import gettext_lazy as _
 
 class VisaApplication(ApplicationBaseModel):
     visa_type = models.CharField(choices=VISA_TYPES, max_length=50)
@@ -30,6 +30,19 @@ class VisaApplication(ApplicationBaseModel):
         blank=True,
         null=True,
     )
+
+    currency_amounts = models.ManyToManyField(
+        CurrencyAmount,
+        related_name='currency_amounts',
+        blank=True,null=True
+    )
+
+    currency_code_other = models.CharField(
+        verbose_name = _("If OTHER currency, specify ..."),
+        blank=True,null=True
+    )
+
+    amount_other = models.DecimalField(max_digits=10, decimal_places=2, blank=True,null=True)
 
     class Meta:
         app_label = "visa"

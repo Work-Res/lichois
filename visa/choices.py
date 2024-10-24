@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 
 COMM_METHODS = (
     ('email', 'E-mail'),
@@ -28,4 +29,19 @@ VISA_TYPES = (
     ('study', 'Study'),
     ('transit', 'Transit'),
     ('emergency', 'Emergency')
+)
+
+CURRENCY_CHOICES = (
+    ('USD', _('United States Dollar')),
+    ('EUR', _('Euro')),
+    ('ZAR', _('South African Rand')),
+    ('GBP', _('British Pound')),
+    ('JPY', _('Japanese Yen')),
+    ('AUD', _('Australian Dollar')),
+    ('CAD', _('Canadian Dollar')),
+    ('CHF', _('Swiss Franc')),
+    ('CNY', _('Chinese Yuan')),
+    ('INR', _('Indian Rupee')),
+    ('OTHER', _('Other, specify ...')),
+
 )
