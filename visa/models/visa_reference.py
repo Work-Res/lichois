@@ -9,6 +9,12 @@ class VisaReference(BaseUuidModel):
 
     ref_tel_no = models.CharField(max_length=8)
 
+    ref_physical_address = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+    )
+
     ref_res_permit_no = models.PositiveIntegerField()
 
     ref_id_no = models.PositiveIntegerField()
