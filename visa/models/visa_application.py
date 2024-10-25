@@ -1,6 +1,7 @@
 from django.db import models
 
 from app.models.application_base_model import ApplicationBaseModel
+from app_personal_details.models.passport import Passport
 from visa.models import VisaReference, CurrencyAmount
 
 from ..choices import ENTRY_FREQ, VISA_TYPES
@@ -42,7 +43,18 @@ class VisaApplication(ApplicationBaseModel):
         blank=True,null=True
     )
 
+    passport = models.ForeignKey(
+        Passport,
+        on_delete=models.CASCADE,
+        related_name="applicant_passport",
+        null=True,
+    )
+
     amount_other = models.DecimalField(max_digits=10, decimal_places=2, blank=True,null=True)
+
+    return_visa_to = models.CharField(max_length=200, blank=True, null=True)
+
+    valid_until = models.DateField()
 
     class Meta:
         app_label = "visa"
