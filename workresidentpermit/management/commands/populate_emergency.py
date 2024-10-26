@@ -33,7 +33,7 @@ class Command(CustomBaseCommand):
                     nature_emergency=self.faker.random_element(
                         elements=("fire", "flood", "earthquake", "tsunami")
                     ),
-                    emergency_period=self.faker.random_choices(
+                    emergency_period=self.faker.random_element(
                         elements=("1 - 14 days", "15 - 90 days", "6 months")
                     ),
                     job_requirements=self.faker.job(),
