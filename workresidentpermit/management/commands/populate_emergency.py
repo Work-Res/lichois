@@ -25,7 +25,13 @@ class Command(CustomBaseCommand):
         for _ in range(150):
 
             with atomic():
+                permit_period = self.faker.random_element(
+                        elements=("1 - 14 days", "15 - 90 days", "6 months")
+                    )
                 app, version = self.create_basic_data()
+                
+                app.permit_period = permit_period
+                app.save()
 
                 EmergencyPermit.objects.get_or_create(
                     document_number=app.application_document.document_number,
@@ -33,9 +39,7 @@ class Command(CustomBaseCommand):
                     nature_emergency=self.faker.random_element(
                         elements=("fire", "flood", "earthquake", "tsunami")
                     ),
-                    emergency_period=self.faker.random_element(
-                        elements=("1 - 14 days", "15 - 90 days", "6 months")
-                    ),
+                    emergency_period=permit_period,
                     job_requirements=self.faker.job(),
                     services_provided=self.faker.text(),
                     chief_authorization=self.faker.name(),
