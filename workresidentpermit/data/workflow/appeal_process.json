@@ -15,12 +15,25 @@
             "sequence": 1,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01",
-            "next_activity_name": "RECOMMENDATION",
+            "next_activity_name": "ASSESSMENT",
             "create_task_rules": {
                 "system_verification": "validated",
                 "current_status":  "DRAFT"
                 }
             },
+            {
+                "code": "ASSESSMENT",
+                "name": "Work Resident Assessment",
+                "description": "Application Assessment Task.",
+                "mandatory": false,
+                "sequence": 2,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01",
+                "next_activity_name": "RECOMMENDATION",
+                "create_task_rules": {
+                  "current_status": "VERIFICATION"
+                }
+              },
             {
                 "code":  "RECOMMENDATION",
                 "name":  "Work Resident Appeal Recommendation",

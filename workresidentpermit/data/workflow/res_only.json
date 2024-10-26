@@ -3,13 +3,41 @@
     "residentpermit_workflow": {
       "code": "RESIDENT_PERMIT",
       "name": "Resident Permit Process",
-      "description": "Work Resident Permit Process Flow",
+      "description": "Resident Permit Process Flow",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01",
       "classifier_items": [
         {
           "code": "VERIFICATION",
-          "name": "Res Verification",
+          "name": "Residence Permit Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "FEEDBACK",
+          "create_task_rules": {
+            "current_status": "DRAFT",
+            "system_verification": "validated"
+          }
+        },
+        {
+          "code": "FEEDBACK",
+          "name": "Residence Permit Verification",
+          "description": "Application On Feedback Task.",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VERIFICATION",
+          "create_task_rules": {
+            "current_status": "VERIFICATION",
+            "verification_decision": "REJECTED"
+          }
+        },
+        {
+          "code": "VERIFICATION",
+          "name": "Residence Verification",
           "description": "Verification Task",
           "mandatory": false,
           "sequence": 1,
@@ -17,14 +45,28 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "VETTING",
           "create_task_rules": {
-            "current_status": "NEW",
+            "current_status": "DRAFT",
             "system_verification": "validated"
           }
         },
         {
           "code": "VETTING",
-          "name": "Res Security Clearance",
+          "name": "Residence Permit Security Clearance",
           "description": "Security Vetting Task.",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "ASSESSMENT",
+          "create_task_rules": {
+            "current_status": "CLEARED",
+            "verification_decision": "ACCEPTED"
+          }
+        },
+        {
+          "code": "ASSESSMENT",
+          "name": "Residence Assessment",
+          "description": "Application Assessment Task.",
           "mandatory": false,
           "sequence": 2,
           "valid_from": "2024-01-01",
@@ -32,24 +74,36 @@
           "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
             "current_status": "VERIFICATION",
-            "verification_decision": "ACCEPTED"
+            "vetting_obj_exists":  true
           }
         },
         {
           "code": "FINAL_DECISION",
-          "name": "Res Production Decision",
-          "description": "Permit Production Task",
+          "name": "Residence Production Decision",
+          "description": "Work Permit Production Task",
           "sequence": 3,
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
           "next_activity_name": "PERMIT_CANCELLATION",
           "create_task_rules": {
-            "or": {"board_decision": "ACCEPTED|REJECTED"},
-            "current_status": "VETTING"
+            "current_status": "VETTING",
+            "or": {"board_decision": "ACCEPTED|REJECTED"}
           }
-        }
-      ]
+        },
+        {
+          "code": "DEFFERED",
+          "name": "Deffered Decision",
+          "description": "Deffered Task",
+          "sequence": 4,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VERIFICATION",
+          "create_task_rules": {
+            "current_status": "DEFFERED"
+          }
+        }      ]
     }
   }
 }
