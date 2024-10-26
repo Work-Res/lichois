@@ -29,10 +29,10 @@ class TravelCertificate(ApplicationBaseModel):
     father_full_name  = models.CharField(max_length=200, null=True, blank=True)
     mother_full_name = models.CharField(max_length=200, null=True, blank=True)
     mother_full_address = models.CharField(max_length=200, null=True, blank=True)
-    names_of_other_relatives = models.CharField(max_length=200, null=True, blank=True)
-    full_address_of_relative = models.CharField(max_length=200, null=True, blank=True)
+    names_of_other_relatives = models.TextField(max_length=200, null=True, blank=True)
+    full_address_of_relative = models.TextField(max_length=200, null=True, blank=True)
     original_home_address = models.CharField(max_length=200, null=True, blank=True)
-    Signature = models.CharField(max_length=200, null=True, blank=True)
+    signature = models.CharField(max_length=250, blank=True, null=True)
     present_nationality = models.CharField(max_length=200, null=True, blank=True)
     date_of_signature = models.DateField()
     issuing_authority = models.CharField(
