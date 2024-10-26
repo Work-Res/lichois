@@ -11,6 +11,7 @@ SCHEDULED = "scheduled"
 ON_GOING = "on_going"
 COMPLETED = "completed"
 DEFERRED = "deferred"
+DRAFT = "draft"
 
 ATTENDANCE_STATUS = (
     (ABSENT, "Absent"),
@@ -34,6 +35,7 @@ BOARD_MEETING_STATUS = (
     (CANCELLED, "Cancelled"),
     (ON_GOING, "Ongoing"),
     (COMPLETED, "Completed"),
+    (DRAFT, "Draft"),
 )
 
 BOARD_MEETING_TYPES = (
