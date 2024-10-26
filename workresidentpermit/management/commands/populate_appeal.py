@@ -1,5 +1,4 @@
-from random import randint
-
+from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from lichois.management.base_command import CustomBaseCommand
 from faker import Faker
@@ -26,7 +25,7 @@ class Command(CustomBaseCommand):
                         WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_APPEAL.value,
                     )
                 )
-                
+
                 app, version = self.create_basic_data()
                 PermitAppeal.objects.get_or_create(
                     application_version=version,
