@@ -50,7 +50,7 @@ class ApplicationService:
         serializer = ApplicationVersionSerializer(application_version)
         self.response.data = serializer.data
 
-        return application_version
+        return application, application_version
 
     def _is_existing_application(self):
         """
