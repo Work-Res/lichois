@@ -17,7 +17,6 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "FEEDBACK",
           "create_task_rules": {
-            "next_activity_name": "FEEDBACK",
             "current_status": "DRAFT",
             "system_verification": "validated"
           }
@@ -32,9 +31,8 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "VERIFICATION",
           "create_task_rules": {
-            "next_activity_name": "VERIFICATION",
             "current_status": "VERIFICATION",
-            "verification_decision": "FEEDBACK"
+            "verification_decision": "REJECTED"
           }
         },
         {
@@ -47,7 +45,6 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "VETTING",
           "create_task_rules": {
-            "next_activity_name": "VETTING",
             "current_status": "DRAFT",
             "system_verification": "validated"
           }
@@ -62,7 +59,6 @@
           "valid_to": "2030-01-01",
           "next_activity_name": "ASSESSMENT",
           "create_task_rules": {
-            "next_activity_name": "ASSESSMENT",
             "current_status": "CLEARED",
             "verification_decision": "ACCEPTED"
           }
@@ -75,24 +71,9 @@
           "sequence": 2,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "RECOMMENDATION",
-          "create_task_rules": {
-            "next_activity_name": "RECOMMENDATION",
-            "current_status": "VERIFICATION",
-            "vetting_obj_exists":  true
-          }
-        },
-        {
-          "code":  "RECOMMENDATION",
-          "name":  "Work Permit Recommendation",
-          "description": " Authorization completed by commissioners/authorized officer.",
-          "mandatory": false,
-          "sequence": 1,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01",
           "next_activity_name": "FINAL_DECISION",
           "create_task_rules": {
-            "current_status":  "VETTING",
+            "current_status": "VERIFICATION",
             "vetting_obj_exists":  true
           }
         },

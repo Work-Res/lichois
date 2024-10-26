@@ -31,7 +31,6 @@
                 "valid_to": "2030-01-01",
                 "next_activity_name": "RECOMMENDATION",
                 "create_task_rules": {
-                  "next_activity_name": "RECOMMENDATION",
                   "current_status": "VERIFICATION"
                 }
               },
