@@ -15,9 +15,39 @@
           "sequence": 1,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01",
-          "next_activity_name": "VETTING",
+          "next_activity_name": "FEEDBACK",
           "create_task_rules": {
             "current_status": "NEW",
+            "system_verification": "validated"
+          }
+        },
+        {
+          "code": "FEEDBACK",
+          "name": "Exemption Certificate Verification",
+          "description": "Application On Feedback Task.",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VERIFICATION",
+          "create_task_rules": {
+            "next_activity_name": "VERIFICATION",
+            "current_status": "VERIFICATION",
+            "verification_decision": "FEEDBACK"
+          }
+        },
+        {
+          "code": "VERIFICATION",
+          "name": "Exemption Certificate Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VETTING",
+          "create_task_rules": {
+            "next_activity_name": "VETTING",
+            "current_status": "DRAFT",
             "system_verification": "validated"
           }
         },
