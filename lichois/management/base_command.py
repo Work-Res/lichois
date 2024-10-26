@@ -55,8 +55,8 @@ class CustomBaseCommand(BaseCommand):
             work_place=randint(1000, 9999),
             full_name=f"{fname} {lname}",
         )
-        app = ApplicationService(new_application_dto=new_app)
-        version = app.create_application()
+        app_service = ApplicationService(new_application_dto=new_app)
+        app, version = app_service.create_application()
 
         return app, version
 
