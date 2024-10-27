@@ -1,6 +1,7 @@
 import logging
 
 from app.api.common.web import APIMessage, APIResponse
+from app.classes.decorator import decorate_replacement_identifier, decorate_renewal_identifier
 from app.exceptions.identifier_config_not_found import IdentifierConfigNotFound
 from app.utils import ApplicationProcesses
 
@@ -36,7 +37,6 @@ class ApplicationDocumentGenerator:
         """
         Get the identifier for standard processes based on the process name.
         """
-        print("self.application.application_type: ", self.application.application_type)
         identifier_class = registrar.get_registered_class(process_name)
         if not identifier_class:
             raise IdentifierConfigNotFound(
@@ -67,6 +67,8 @@ class ApplicationDocumentGenerator:
             )
         return self.create_identifier(handler_class) if handler_class else None
 
+    @decorate_renewal_identifier
+    @decorate_replacement_identifier
     def create_identifier(self, identifier_class):
         """
         Create an instance of the identifier class with the required parameters.

@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from app.api import RenewalApplicationDTO
-from app.classes import RenewalApplicationService
+from app.classes.renewal_application_service import RenewalApplicationService
 from app.api.serializers import ApplicationRenewalDTOSerializer
 
 from ..exceptions import ApplicationRenewalException

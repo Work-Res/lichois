@@ -1,12 +1,16 @@
 import logging
 from datetime import date
 
+from django.db import transaction
+
 from app.api.common.web import APIResponse, APIMessage
-from app.api import NewApplicationDTO
+from app.api import NewApplicationDTO, RenewalApplicationDTO
+from app.api.dto import ReplacementApplicationDTO
 from app.api.serializers import ApplicationVersionSerializer
 from app.classes.application_document_generator import (
     ApplicationDocumentGeneratorFactory,
 )
+
 from app.models import (
     ApplicationDocument,
     ApplicationStatus,
@@ -30,7 +34,10 @@ class ApplicationService:
         self.response = APIResponse()
         self.application_document = ApplicationDocument()
 
+    @transaction.atomic
     def create_application(self):
+        from app.classes.replacement_application_service import ReplacementApplicationService
+        from app.classes.renewal_application_service import RenewalApplicationService
         """
         Create new application records.
         """
@@ -49,6 +56,26 @@ class ApplicationService:
 
         serializer = ApplicationVersionSerializer(application_version)
         self.response.data = serializer.data
+
+        if self.new_application_dto.application_permit_type == "renewal":
+            renewal_application = RenewalApplicationDTO(
+                process_name=self.new_application_dto.application_type,
+                application_type=self.new_application_dto.application_type,
+                applicant_identifier=self.new_application_dto.applicant_identifier,
+                document_number=self.new_application_dto.document_number,
+                work_place=self.new_application_dto.work_place
+            )
+            RenewalApplicationService(renewal_application=renewal_application).create_all(
+                new_application_version=application_version)
+        elif self.new_application_dto.application_permit_type == "replacement":
+            replacement_application_dto = ReplacementApplicationDTO(
+                process_name=self.new_application_dto.application_type,
+                applicant_identifier=self.new_application_dto.applicant_identifier,
+                document_number=self.new_application_dto.document_number,
+                work_place=self.new_application_dto.work_place
+            )
+            ReplacementApplicationService(replacement_application_dto=replacement_application_dto).create_all(
+                new_application_version=application_version)
 
         return application_version
 

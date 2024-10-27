@@ -1,1 +1,2 @@
 from .application_batch_request_dto import ApplicationBatchRequestDTO
+from .board_decision_request_dto import BoardDecisionRequestDTO

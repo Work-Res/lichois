@@ -9,3 +9,4 @@ from .office_location_classifier_item import OfficeLocationClassifierItem
 from .region import Region
 from .system_parameter import SystemParameter
 from .system_parameter_marking_key import SystemParameterMarkingKey
+from .system_parameter_permit_renewal_period import SystemParameterPermitRenewalPeriod

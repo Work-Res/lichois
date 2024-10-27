@@ -124,6 +124,7 @@ class ProductionTransactionData(BaseTransactionData):
         next_activity_name=None,
         recommendation_decision=None,
         minister_decision=None,
+        status=None
     ):
         super().__init__(
             next_activity_name, current_status, status=recommendation_decision
@@ -132,6 +133,7 @@ class ProductionTransactionData(BaseTransactionData):
         self.security_clearance = security_clearance
         self.recommendation_decision = recommendation_decision
         self.minister_decision = minister_decision
+        self.status = status
 
 
 class AssessmentCaseDecisionTransactionData(BaseTransactionData):

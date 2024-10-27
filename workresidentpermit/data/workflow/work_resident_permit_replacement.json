@@ -1,0 +1,42 @@
+{
+  "classifiers": {
+    "workresidentpermit_workflow": {
+      "code": "WORK_RESIDENT_PERMIT_REPLACEMENT",
+      "name": "Work Resident Permit Process",
+      "description": "Work Resident Permit Process Flow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Work Res Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VETTING",
+          "create_task_rules": {
+            "next_activity_name": "VETTING",
+            "current_status": "DRAFT",
+            "system_verification": "validated"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Work & Res Production Decision",
+          "description": "Work & Res Permit Production Task",
+          "sequence": 3,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "PERMIT_CANCELLATION",
+          "create_task_rules": {
+            "or": {"verification_decision": "ACCEPTED|REJECTED"},
+            "current_status": "VERIFICATION"
+          }
+        }
+      ]
+    }
+  }
+}

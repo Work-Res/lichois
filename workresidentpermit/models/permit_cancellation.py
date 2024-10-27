@@ -1,7 +1,6 @@
 from django.db import models
 
 from app.models import ApplicationBaseModel
-from app_attachments.models import ApplicationAttachment
 from ..choices import SUBMITTER_TYPE
 
 

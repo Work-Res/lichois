@@ -15,3 +15,4 @@ from .application_decision_type import ApplicationDecisionType
 from .application_decision import ApplicationDecision
 from .pres_recommendation_decision import PresRecommendationDecision
 from .director_decision import DirectorDecision
+from .application_replacement import ApplicationReplacement

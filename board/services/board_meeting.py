@@ -1,4 +1,5 @@
-from ..models import Application, Board
+from app.models import Application
+from board.models import Board
 
 
 class BoardMeetingService:

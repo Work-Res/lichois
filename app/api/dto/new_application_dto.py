@@ -23,6 +23,8 @@ class NewApplicationDTO(object):
         application_type=None,
         applicant_type=None,
         permit_period=None,
+        application_permit_type=None,
+        document_number=None
     ):
         self.proces_name = process_name
         self.full_name = full_name
@@ -33,3 +35,5 @@ class NewApplicationDTO(object):
         self.application_type = application_type or process_name
         self.applicant_type = applicant_type
         self.permit_period = permit_period
+        self.application_permit_type = application_permit_type
+        self.document_number = document_number

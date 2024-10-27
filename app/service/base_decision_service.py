@@ -25,7 +25,7 @@ class BaseDecisionService(UpdateApplicationMixin):
 
     def __init__(
         self,
-        request: RequestDTO,
+        request: RequestDTO=None,
         application_field_key=None,
         task_to_deactivate=None,
         workflow: BaseTransactionData = None,
@@ -51,6 +51,7 @@ class BaseDecisionService(UpdateApplicationMixin):
         self.logger.setLevel(logging.DEBUG)
         self.security_clearance = None
         self.gazette_batch_application = None
+
 
     def get_application_decision_type(self):
         """
@@ -201,15 +202,34 @@ class BaseDecisionService(UpdateApplicationMixin):
         """
         Activate the next task in the workflow if a workflow and decision are specified.
         """
+        try:
+            if self.workflow and self.decision:
+                self.logger.info(
+                    f"Starting task activation for request with document_number: {self.request.document_number}")
 
-        if self.workflow and self.decision:
-            self.logger.info(f"Activating next task for {self.request.document_number}")
-            self.set_security_clearance()
-            create_or_update_task_signal.send_robust(
-                sender=self.application,
-                source=self.workflow,
-                application=self.application,
-            )
+                # Log the decision and workflow details
+                self.logger.info(f"Workflow: {self.workflow}, Decision: {self.decision}")
+
+                # Log the start of the security clearance process
+                self.logger.info("Setting security clearance.")
+                self.set_security_clearance()
+                self.logger.info("Security clearance set successfully.")
+
+                # Log the task signal creation
+                self.logger.info(f"Creating or updating task for application: {self.application}")
+                create_or_update_task_signal.send_robust(
+                    sender=self.application,
+                    source=self.workflow,
+                    application=self.application,
+                )
+                self.logger.info("Task signal sent successfully.")
+            else:
+                self.logger.warning(
+                    f"Cannot activate next task. Workflow({self.workflow}) or decision{self.decision} is missing.")
+
+        except Exception as e:
+            self.logger.error(f"Error occurred while activating next task: {str(e)}")
+            raise
 
     def _create_comment(self):
         """

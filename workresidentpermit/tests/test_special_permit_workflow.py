@@ -6,15 +6,13 @@ from random import randint
 from datetime import date
 from django.test import TestCase
 
-from app_decision.models import ApplicationDecisionType
-
 from faker import Faker
 
-from app.models import Application, ApplicationStatus
+from app.models import Application, ApplicationStatus, ApplicationDecisionType
 from app.classes import ApplicationService
 from app_checklist.classes import CreateChecklistService
 
-from app.api import NewApplicationDTO, ApplicationVerificationRequest
+from app.api import NewApplicationDTO
 from app.utils import ApplicationProcesses
 
 from app_personal_details.models import Person, Passport

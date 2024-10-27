@@ -16,50 +16,73 @@ from board.models import (
 from workresidentpermit.classes.service import WorkResidentPermitDecisionService
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
 
 
 @receiver(post_save, sender=BoardDecision)
 def create_application_decision(sender, instance, created, **kwargs):
     try:
         if created:
+            logger.info(f"Creating application decision for document_number: {instance.document_number}")
             work_resident_permit_decision_service = WorkResidentPermitDecisionService(
                 document_number=instance.document_number,
                 board_decision=instance,
             )
             work_resident_permit_decision_service.create_application_decision()
             work_resident_permit_decision_service.update_application()
+            logger.info(f"Successfully created and updated application decision for document_number: {instance.document_number}")
+        else:
+            logger.info(
+                f"BoardDecision: No action required for document_number: {instance.document_number}")
     except SystemError as e:
         logger.error(
-            "SystemError: An error occurred while creating new application decision, Got ",
-            e,
+            f"SystemError: An error occurred while creating new application decision for document_number: {instance.document_number}",
+            exc_info=True
         )
     except Exception as ex:
         logger.error(
-            f"An error occurred while trying to create application decision after saving board decision. "
-            f"Got {ex} "
+            f"An unexpected error occurred while trying to create application decision for document_number: {instance.document_number}",
+            exc_info=True  # Logs the full stack trace for any other exception
         )
 
 
 @receiver(post_save, sender=VotingProcess)
 def create_board_decision(sender, instance, created, **kwargs):
-    logger.info("instance status", instance.status)
-    try:
-        if instance.status == ENDED:
-            service = VotingDecisionManager(
-                document_number=instance.document_number,
-                board_meeting=instance.board_meeting,
+    logger.info(f"VotingProcess created ? {created}")
+    if created:
+        logger.info(
+            f"Received post_save signal for VotingProcess with document_number: {instance.document_number}, status: "
+            f"{instance.status}")
+
+        try:
+            if instance.status.lower() == ENDED.lower():
+                logger.info(
+                    f"VotingProcess with document_number {instance.document_number} has ended. Initiating board "
+                    f"decision creation.")
+
+                service = VotingDecisionManager(
+                    document_number=instance.document_number,
+                    board_meeting=instance.board_meeting,
+                )
+                service.create_board_decision()
+            else:
+                logger.info(
+                    f"No action required for VotingProcess not ended. {instance.document_number}. {instance.status.lower()}")
+
+        except SystemError as e:
+            logger.error(
+                f"SystemError: An error occurred while creating the board decision for document_number "
+                f"{instance.document_number}. Error: {str(e)}"
             )
-            service.create_board_decision()
-    except SystemError as e:
-        logger.error(
-            "SystemError: An error occurred while creating new board decision, Got ", e
-        )
-    except Exception as ex:
-        logger.error(
-            f"An error occurred while trying to create board decision after saving voting process. "
-            f"Got {ex} "
-        )
+        except Exception as ex:
+            logger.error(
+                f"An unexpected error occurred while trying to create board decision for document_number "
+                f"{instance.document_number}. Error: {str(ex)}",
+                exc_info=True  # This will include the full stack trace in the log
+            )
+    else:
+        logger.info(
+            f"No action VotingProcess {instance.document_number}. {instance.status.lower()} vs {ENDED.lower()}")
 
 
 @receiver(post_save, sender=BoardMeeting)

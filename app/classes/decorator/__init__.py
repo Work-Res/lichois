@@ -1,0 +1,2 @@
+from .replacement_decorator import decorate_replacement_identifier
+from .renewal_decorator import decorate_renewal_identifier

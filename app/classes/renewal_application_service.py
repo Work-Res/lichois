@@ -2,12 +2,13 @@ import os
 import logging
 
 from django.db.utils import IntegrityError
-from django.db import models, transaction
+from django.db import transaction
 
 from pathlib import Path
 
 from app.api.common.web import APIResponse, APIMessage
-from app.utils import ApplicationStatusEnum, ApplicationProcesses
+from app.utils import ApplicationStatusEnum
+from app_personal_details.models import Permit
 from workresidentpermit.classes import WorkResidentPermitRenewalHistoryService
 from .pre_pupolation_service import PrePopulationService
 from .application_service import ApplicationService
@@ -18,6 +19,7 @@ from app.api import RenewalApplicationDTO, NewApplicationDTO
 
 from app.models import (ApplicationDocument, Application, ApplicationRenewal, ApplicationVersion)
 from app_comments.models import Comment
+from ..validators import ApplicationRenewalValidator
 
 """
 TODO: NO TESTS, and more tests are required.
@@ -35,10 +37,34 @@ class RenewalApplicationService(object):
     def __init__(self, renewal_application: RenewalApplicationDTO):
         self.logger = logging.getLogger(__name__)
         self.response = APIResponse()
-        self.renewal_application = renewal_application
+        self.renewal_application_dto = renewal_application
         self.previous_application = self.get_previous_application()
         self.new_application_version = None
+        self._permit = None
+        self.load_permit()
         self.application_document = ApplicationDocument()
+        self.validator = ApplicationRenewalValidator(permit=self._permit,
+                                                     application_type=self.previous_application.application_type)
+
+    def load_permit(self):
+        try:
+            self.logger.info(
+                f"Attempting to load permit with document number: {self.renewal_application_dto.document_number}")
+            self._permit = Permit.objects.get(
+                document_number=self.renewal_application_dto.document_number
+            )
+            self.logger.info(f"Permit found for document number: {self.renewal_application_dto.document_number}")
+        except Permit.DoesNotExist:
+            self.logger.warning(f"Permit not found for document number: {self.renewal_application_dto.document_number}")
+            self._permit = None
+        except Exception as e:
+            self.logger.error(
+                f"Error occurred while loading permit for document number:"
+                f" {self.renewal_application_dto.document_number}, Error: {str(e)}",
+                exc_info=True)
+            raise
+
+        return self._permit
 
     def get_previous_application(self) -> None:
         """
@@ -46,18 +72,18 @@ class RenewalApplicationService(object):
         """
         try:
             previous_application = Application.objects.get(
-                application_document__document_number=self.renewal_application.document_number,
+                application_document__document_number=self.renewal_application_dto.document_number,
                 application_status__code__iexact=ApplicationStatusEnum.ACCEPTED.value
             )
         except Application.DoesNotExist:
             error_message = (
                 f"An application with status '{ApplicationStatusEnum.ACCEPTED.value}' does not exist for creating renewal: "
-                f"{self.renewal_application.document_number}."
+                f"{self.renewal_application_dto.document_number}."
             )
             api_message = APIMessage(
                 code=400,
                 message="Bad request",
-                details=f"Previous application not found, renewal creation aborted - {self.renewal_application.document_number}."
+                details=f"Previous application not found, renewal creation aborted - {self.renewal_application_dto.document_number}."
             )
             self.response.messages.append(api_message.to_dict())
             self.logger.error(error_message)
@@ -77,7 +103,8 @@ class RenewalApplicationService(object):
             api_message = APIMessage(
                 code=400,
                 message="Failed to create new renewal application",
-                details=f"New application version is required to create a renewal for {self.renewal_application.document_number}"
+                details=f"New application version is required to create a renewal for"
+                        f" {self.renewal_application_dto.document_number}"
             )
             self.response.messages.append(api_message.to_dict())
             return
@@ -91,7 +118,7 @@ class RenewalApplicationService(object):
             )
         except IntegrityError as e:
             self.logger.error("An integrity error occurred while creating the application renewal.")
-            details = f"Failed to create new renewal application for {self.renewal_application.document_number}. Got exception: {str(e)}"
+            details = f"Failed to create new renewal application for {self.renewal_application_dto.document_number}. Got exception: {str(e)}"
             api_message = APIMessage(
                 code=400,
                 message="Failed to create new renewal application",
@@ -101,7 +128,7 @@ class RenewalApplicationService(object):
             raise ApplicationRenewalException(detail=details)
         except Exception as e:
             self.logger.error(f"An unexpected error occurred: {str(e)}")
-            details = f"Failed to create new renewal application for {self.renewal_application.document_number}. Got exception: {str(e)}"
+            details = f"Failed to create new renewal application for {self.renewal_application_dto.document_number}. Got exception: {str(e)}"
             api_message = APIMessage(
                 code=400,
                 message="Failed to create new renewal application",
@@ -110,19 +137,48 @@ class RenewalApplicationService(object):
             self.response.messages.append(api_message.to_dict())
             raise ApplicationRenewalException(detail=details)
 
+    def create_all(self, new_application_version: ApplicationVersion = None):
+
+        self.logger.info("Starting create_all method with new_application_version: %s",
+                         new_application_version.application.application_document.document_number)
+
+        if self.validator.is_renewal_allowed():
+            try:
+                self.logger.info("Creating application renewal.")
+                self.renewal_application = self.create_application_renewal(
+                    new_application_version=new_application_version
+                )
+                self.logger.info("Successfully created renewal application with document_number: %s",
+                                 self.renewal_application_dto.document_number)
+
+                self.logger.info("Creating renewal application history.")
+                WorkResidentPermitRenewalHistoryService(
+                    document_number=self.renewal_application_dto.document_number,
+                    application_type=self.renewal_application_dto.application_type,
+                    application_user=self.previous_application.application_document.applicant,
+                    process_name=self.previous_application.process_name
+                ).create_application_renewal_history()
+                self.logger.info("Successfully created renewal application history.")
+
+            except Exception as e:
+                self.logger.error("Error occurred during create_all method: %s", str(e))
+                raise
+        else:
+            self.logger.warning("Permit has not reached allowable renewable period.")
+
     def prepare_new_application_dto(self) -> NewApplicationDTO:
         """
         Prepare the DTO for the new application based on the previous application data.
         """
         new_application_dto = NewApplicationDTO(
-            process_name=self.renewal_application.proces_name,
-            applicant_identifier=self.renewal_application.applicant_identifier,
+            process_name=self.renewal_application_dto.proces_name,
+            applicant_identifier=self.renewal_application_dto.applicant_identifier,
             status=ApplicationStatusEnum.NEW.value
         )
         new_application_dto.dob = self.previous_application.application_document.applicant.dob
         new_application_dto.full_name = self.previous_application.application_document.applicant.full_name
         new_application_dto.application_type = self.previous_application.application_type
-        new_application_dto.work_place = self.renewal_application.work_place
+        new_application_dto.work_place = self.renewal_application_dto.work_place
         return new_application_dto
 
     @transaction.atomic()
@@ -141,7 +197,7 @@ class RenewalApplicationService(object):
             # self.run_prepopulation() disable prepopulation
 
             WorkResidentPermitRenewalHistoryService(
-                document_number=self.renewal_application.document_number,
+                document_number=self.renewal_application_dto.document_number,
                 application_type=new_application_dto.application_type,
                 application_user=self.previous_application.application_document.applicant,
                 process_name=self.previous_application.process_name
@@ -163,7 +219,7 @@ class RenewalApplicationService(object):
             return
         try:
             data = {
-                "document_number": self.renewal_application.document_number
+                "document_number": self.renewal_application_dto.document_number
             }
             service = PrePopulationService(
                 new_application_version=self.new_application_version, configuration_location=configuration_location,
