@@ -13,7 +13,7 @@ class WorkResidentPermitIdentifier(Identifier):
         return ApplicationProcesses.WORK_RESIDENT_PERMIT.value
 
 
-class WorkResidentPermitIdentifier(Identifier):
+class WorkResidentPermitReplacementIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"  # e.g. work_permit_identifier, visa_identifier, etc
     identifier_type = "WR"
@@ -30,17 +30,17 @@ class WorkPermitIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return ApplicationProcesses.RESIDENT_PERMIT.value
+        return ApplicationProcesses.WORK_PERMIT.value
 
 
-class WorkPermitIdentifier(Identifier):
+class WorkPermitReplacementIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"  # e.g. work_permit_identifier, visa_identifier, etc
     identifier_type = "R"
 
     @staticmethod
     def process_name():
-        return ApplicationProcesses.RESIDENT_PERMIT_REPLACEMENT.value
+        return ApplicationProcesses.WORK_PERMIT_REPLACEMENT.value
 
 
 class ResidentPermitIdentifier(Identifier):
@@ -50,7 +50,7 @@ class ResidentPermitIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return ApplicationProcesses.WORK_PERMIT.value
+        return ApplicationProcesses.RESIDENT_PERMIT.value
 
 
 class ResidentPermitReplacementIdentifier(Identifier):
@@ -60,4 +60,4 @@ class ResidentPermitReplacementIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return ApplicationProcesses.WORK_PERMIT_REPLACEMENT.value
+        return ApplicationProcesses.RESIDENT_PERMIT_REPLACEMENT.value

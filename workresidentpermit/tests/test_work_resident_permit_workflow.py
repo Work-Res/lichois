@@ -11,19 +11,19 @@ from workflow.models import Activity
 from .base_test_setup import BaseTestSetup
 
 
-class TestWorkonlyWorkflow(BaseTestSetup):
+class TestWorkResidentPermitWorkflow(BaseTestSetup):
 
     def setUp(self) -> None:
         super().setUp()
 
     def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
-            process_name=ApplicationProcesses.WORK_PERMIT.value,
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             applicant_identifier='317918515',
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=ApplicationProcesses.WORK_PERMIT.value,
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             full_name="Test test",
             applicant_type="investor"
         )
@@ -35,7 +35,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_PERMIT.value)
+        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         )
@@ -46,7 +46,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
     def test_workflow_transaction_after_when_performing_board_decision(self):
         SystemParameter.objects.create(
-            application_type=ApplicationProcesses.WORK_PERMIT.value,
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             duration_type="years",
             duration=100
         )
@@ -54,7 +54,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_PERMIT.value)
+        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         self.assertEqual(
             app.application_status.code, WorkflowEnum.VERIFICATION.value
         )
@@ -67,6 +67,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         self.assertEqual(activites[3].name, "ASSESSMENT")
         self.assertEqual(activites[4].name, "FINAL_DECISION")
         self.assertEqual(activites[5].name, "DEFFERED")
+
         self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
         self.assertEqual(app.verification, "ACCEPTED")
@@ -111,7 +112,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_PERMIT.value)
+        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         self.assertEqual(
             app.application_status.code, WorkflowEnum.VERIFICATION.value
         )
@@ -126,7 +127,6 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         self.assertEqual(activites[5].name, "DEFFERED")
         self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
-
         self.assertEqual(app.verification, "ACCEPTED")
         self.assertEqual(
             app.application_status.code, WorkflowEnum.VETTING.value.lower()
@@ -154,12 +154,12 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         self.assertTrue(permit.exists())
 
         self.new_application_dto = NewApplicationDTO(
-            process_name=ApplicationProcesses.WORK_PERMIT.value,
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             applicant_identifier='317918515',
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=ApplicationProcesses.WORK_PERMIT.value,
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             full_name="Test test",
             applicant_type="student",
             application_permit_type="renewal",
@@ -167,7 +167,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         )
 
         SystemParameterPermitRenewalPeriod.objects.create(
-            application_type=ApplicationProcesses.WORK_PERMIT.value,
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             percent=0.25
         )
 
@@ -185,7 +185,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
     def test_workflow_transaction_after_when_performing_board_decision_replacement(self):
         SystemParameter.objects.create(
-            application_type=ApplicationProcesses.WORK_PERMIT.value,
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             duration_type="years",
             duration=100
         )
@@ -193,7 +193,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_PERMIT.value)
+        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         self.assertEqual(
             app.application_status.code, WorkflowEnum.VERIFICATION.value
         )
@@ -214,6 +214,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         )
 
         self.assertIsNotNone(self.perform_vetting())
+
         app.refresh_from_db()
         self.assertEqual(
             app.application_status.code, ApplicationStatusEnum.ASSESSMENT.value.lower()
