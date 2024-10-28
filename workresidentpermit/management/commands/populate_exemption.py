@@ -25,6 +25,7 @@ class Command(CustomBaseCommand):
                         WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_RENEWAL.value,
                         WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_REPLACEMENT.value,
                         WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_CANCELLATION.value,
+                        WorkResidentPermitApplicationTypeEnum.EXEMPTION_CERTIFICATE_VARIATION.value,
                     )
                 )
 
