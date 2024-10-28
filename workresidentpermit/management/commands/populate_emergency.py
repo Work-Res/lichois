@@ -1,9 +1,8 @@
 from lichois.management.base_command import CustomBaseCommand
 from django.db.transaction import atomic
 from app.utils import ApplicationProcesses
-from random import randint
 
-from workresidentpermit.models import EmergencyPermit, ExemptionCertificate
+from workresidentpermit.models import EmergencyPermit
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 
@@ -28,10 +27,10 @@ class Command(CustomBaseCommand):
 
             with atomic():
                 permit_period = self.faker.random_element(
-                        elements=("1 - 14 days", "15 - 90 days", "6 months")
-                    )
+                    elements=("1 - 14 days", "15 - 90 days", "6 months")
+                )
                 app, version = self.create_basic_data()
-                
+
                 app.permit_period = permit_period
                 app.save()
 
