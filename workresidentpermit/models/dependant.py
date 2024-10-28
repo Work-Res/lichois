@@ -1,6 +1,6 @@
 from django.db import models
 from app.models import ApplicationBaseModel
-from ..choices import GENDER
+from ..choices import GENDER, YES_NO
 
 
 class Dependant(ApplicationBaseModel):
@@ -9,3 +9,5 @@ class Dependant(ApplicationBaseModel):
     age = models.PositiveIntegerField()
 
     gender = models.CharField(max_length=6, choices=GENDER)
+
+    applying_for_residence = models.CharField(max_length=4, choices=YES_NO)
