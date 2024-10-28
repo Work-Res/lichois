@@ -10,7 +10,9 @@ from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 class Command(CustomBaseCommand):
     help = "Populate data for Populate data for Emergency & Exemption model"
     process_name = ApplicationProcesses.SPECIAL_PERMIT.value
-    application_type = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.value
+    application_type = (
+        WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_EMERGENCY.value
+    )
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(f"Process name {self.process_name}"))
