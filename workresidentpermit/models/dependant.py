@@ -10,4 +10,4 @@ class Dependant(ApplicationBaseModel):
 
     gender = models.CharField(max_length=6, choices=GENDER)
 
-    applying_for_residence = models.CharField(max_length=4, choices=YES_NO)
+    applying_for_residence = models.CharField(max_length=3, choices=YES_NO)

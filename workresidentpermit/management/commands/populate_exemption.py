@@ -48,6 +48,9 @@ class Command(CustomBaseCommand):
                         gender=faker.random_element(
                             elements=("male", "female", "other")
                         ),
+                        applying_for_residence=faker.random_element(
+                            elements=("yes", "no")
+                        ),
                     )
 
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))
