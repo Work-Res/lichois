@@ -22,6 +22,20 @@
           }
         },
         {
+          "code": "FEEDBACK",
+          "name": "President Power 10A Feedback",
+          "description": "Provision of citizenship certificate.",
+          "sequence": 2,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VERIFICATION",
+          "create_task_rules": {
+            "current_status": "VERIFICATION",
+            "verification_decision": "REJECTED"
+          }
+        },
+        {
           "code": "FINAL_DECISION",
           "name": "President Power 10A Certificate Production",
           "description": "Produce citizenship certificate for client",

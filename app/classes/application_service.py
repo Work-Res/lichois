@@ -34,13 +34,12 @@ class ApplicationService:
         self.response = APIResponse()
         self.application_document = ApplicationDocument()
 
-    @transaction.atomic
     def create_application(self):
-        from app.classes.replacement_application_service import ReplacementApplicationService
-        from app.classes.renewal_application_service import RenewalApplicationService
         """
         Create new application records.
         """
+        from app.classes.renewal_application_service import RenewalApplicationService
+        from app.classes.replacement_application_service import ReplacementApplicationService
         if self._is_existing_application():
             return None
 
@@ -78,6 +77,7 @@ class ApplicationService:
                 new_application_version=application_version)
 
         return application_version
+        return application, application_version
 
     def _is_existing_application(self):
         """

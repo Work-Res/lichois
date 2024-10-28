@@ -8,6 +8,10 @@ from app.api.dto import ApplicationVerificationRequestDTO, SecurityClearanceRequ
 from app.api.serializers import ApplicationVerificationRequestSerializer, SecurityClearanceRequestDTOSerializer
 from app.service import VerificationService, SecurityClearanceService
 from app.validators import OfficerVerificationValidator, SecurityClearanceValidator
+from app_assessment.api.dto import AssessmentCaseDecisionDTO
+from app_assessment.api.serializers import AssessmentRequestSerializer
+from app_assessment.service.assessment_case_decision_service import AssessmentCaseDecisionService
+from app_assessment.validators import AssessmentCaseDecisionValidator
 from app_checklist.apps import AppChecklistConfig
 
 from app.models import ApplicationStatus, ApplicationDecisionType
@@ -178,6 +182,23 @@ class BaseTestSetup(TestCase):
             board_meeting=self.board_meeting,
             vetting_outcome="ACCEPTED",
         )
+
+    def perform_assessment(self):
+        data = {"status": "ACCEPTED"}
+        serializer = AssessmentRequestSerializer(data=data)
+        serializer.is_valid()
+        assessment_case_decision = AssessmentCaseDecisionDTO(
+            document_number=self.document_number, decision="ACCEPTED", status="ACCEPTED"
+        )
+        validator = AssessmentCaseDecisionValidator(
+            assessment_case_decision=assessment_case_decision,
+        )
+
+        if validator.is_valid():
+            service = AssessmentCaseDecisionService(
+                assessment_case_decision_dto=assessment_case_decision
+            )
+            return service.create_assessment()
 
     def application_decision_type(self):
         for value in [ApplicationDecisionEnum.ACCEPTED.value,

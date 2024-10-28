@@ -263,8 +263,8 @@ class BaseSetup(APITestCase):
             contact_type=faker.random_element(elements=('cell', 'email', 'fax', 'landline')),
             contact_value=faker.phone_number(),
             preferred_method_comm=faker.boolean(chance_of_getting_true=50),
-            status=faker.random_element(elements=('active', 'inactive')),
-            description=faker.text(),
+            # status=faker.random_element(elements=('active', 'inactive')),
+            # description=faker.text(),
         )
 
         Passport.objects.create(

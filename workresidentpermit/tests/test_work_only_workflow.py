@@ -25,7 +25,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
             work_place="01",
             application_type=ApplicationProcesses.WORK_PERMIT.value,
             full_name="Test test",
-            applicant_type="student"
+            applicant_type="investor"
         )
 
         self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
@@ -39,7 +39,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         )
-        self.assertEqual(3, activites.count())
+        self.assertEqual(6, activites.count())
         self.assertEqual(
             app.application_status.code, WorkflowEnum.VERIFICATION.value
         )
@@ -62,16 +62,31 @@ class TestWorkonlyWorkflow(BaseTestSetup):
             process__document_number=self.document_number
         ).order_by("sequence")
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "VETTING")
-        self.assertEqual(activites[2].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "VETTING")
+        self.assertEqual(activites[3].name, "ASSESSMENT")
+        self.assertEqual(activites[4].name, "FINAL_DECISION")
+        self.assertEqual(activites[5].name, "DEFFERED")
         self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
         self.assertEqual(app.verification, "ACCEPTED")
+
         self.assertEqual(
             app.application_status.code, WorkflowEnum.VETTING.value.lower()
         )
 
         self.assertIsNotNone(self.perform_vetting())
+
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code, ApplicationStatusEnum.ASSESSMENT.value.lower()
+        )
+
+        self.assertIsNotNone(self.perform_assessment())
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code, ApplicationStatusEnum.ASSESSMENT.value.lower()
+        )
 
         voting_process = self.voting_process()
         self.assertIsNotNone(voting_process)
@@ -104,10 +119,14 @@ class TestWorkonlyWorkflow(BaseTestSetup):
             process__document_number=self.document_number
         ).order_by("sequence")
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "VETTING")
-        self.assertEqual(activites[2].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "VETTING")
+        self.assertEqual(activites[3].name, "ASSESSMENT")
+        self.assertEqual(activites[4].name, "FINAL_DECISION")
+        self.assertEqual(activites[5].name, "DEFFERED")
         self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
+
         self.assertEqual(app.verification, "ACCEPTED")
         self.assertEqual(
             app.application_status.code, WorkflowEnum.VETTING.value.lower()

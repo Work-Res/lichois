@@ -22,6 +22,20 @@
           }
         },
         {
+          "code": "FEEDBACK",
+          "name": "Registration Of Adopted Child Feedback",
+          "description": "Provision of citizenship certificate.",
+          "sequence": 2,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VERIFICATION",
+          "create_task_rules": {
+            "current_status": "VERIFICATION",
+            "verification_decision": "REJECTED"
+          }
+        },
+        {
           "code": "ASSESSMENT",
           "name": "Settlement assessment by officer",
           "description": "The assessment is performed by Officer, creating assessment case summary.",

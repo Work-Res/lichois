@@ -124,7 +124,8 @@ class ProductionTransactionData(BaseTransactionData):
         next_activity_name=None,
         recommendation_decision=None,
         minister_decision=None,
-        status=None
+        status=None,
+        assessment_obj_exists=None
     ):
         super().__init__(
             next_activity_name, current_status, status=recommendation_decision
@@ -134,6 +135,7 @@ class ProductionTransactionData(BaseTransactionData):
         self.recommendation_decision = recommendation_decision
         self.minister_decision = minister_decision
         self.status = status
+        self.assessment_obj_exists = assessment_obj_exists
 
 
 class AssessmentCaseDecisionTransactionData(BaseTransactionData):

@@ -97,11 +97,13 @@ class ChecklistSearcherAndUpdater:
                     )
                     workflow_service.create(file_location=new_file)
                 except Exception as e:
-                    logging.error(f"An error occurred while creating a workflow file, {str(e)} {new_file}")
+                    logging.error(
+                        f"An error occurred while creating a workflow file, {str(e)} {new_file}"
+                    )
+        self.display_results()
 
     def display_results(self):
         if self.results:
-            print("Found directories:")
             for app_name, directory in self.results.items():
                 print(f"{app_name}: {directory}")
         else:

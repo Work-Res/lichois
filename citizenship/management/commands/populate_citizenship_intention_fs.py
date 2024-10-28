@@ -8,7 +8,11 @@ from faker import Faker
 
 from lichois.management.base_command import CustomBaseCommand
 from ...utils import CitizenshipProcessEnum, CitizenshipApplicationTypeEnum
-from ...models import DeclarationNaturalisationByForeignSpouse, ResidentialHistory, OathOfAllegiance
+from ...models import (
+    DeclarationNaturalisationByForeignSpouse,
+    ResidentialHistory,
+    OathOfAllegiance,
+)
 
 
 class Command(CustomBaseCommand):
@@ -26,7 +30,9 @@ class Command(CustomBaseCommand):
 
         # Ensure the 'from' date is earlier than the 'to' date
         residence_from_date = today - timedelta(days=days_ago_start)
-        residence_to_date = residence_from_date + timedelta(days=random.randint(30, 365))
+        residence_to_date = residence_from_date + timedelta(
+            days=random.randint(30, 365)
+        )
 
         return residence_from_date, residence_to_date
 
@@ -44,7 +50,9 @@ class Command(CustomBaseCommand):
                 # new_application
                 app, version = self.create_basic_data()
 
-                document_number = version.application.application_document.document_number
+                document_number = (
+                    version.application.application_document.document_number
+                )
 
                 from_date, to_date = self.generate_random_date_range()
 
@@ -52,7 +60,7 @@ class Command(CustomBaseCommand):
                     ResidentialHistory,
                     country="Botswana",
                     residence_from_date=from_date,
-                    residence_to_date=to_date
+                    residence_to_date=to_date,
                 )
 
                 # Create a DeclarationNaturalisationByForeignSpouse instance using baker
@@ -69,7 +77,7 @@ class Command(CustomBaseCommand):
                     commissioner_designation="Judge",
                     commissioner_signature="Signed by Commissioner",
                     application_version=version,
-                    document_number=document_number
+                    document_number=document_number,
                 )
 
                 self.stdout.write(

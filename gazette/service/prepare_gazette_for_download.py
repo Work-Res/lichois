@@ -47,7 +47,8 @@ class PrepareGazetteForDownload:
             ).first()
 
     def prepared_data(self):
-        header_row = ["ID", "Fullname", "Location", "Document Number"]
+        # header_row = ["ID", "Fullname", "Location", "Document Number"]
+        header_row = ["ID", "Fullname", "Location"]
         self.data.append(header_row)
 
         for index, batch_application in enumerate(self.batch_applications):
@@ -63,7 +64,7 @@ class PrepareGazetteForDownload:
                     index,
                     person_details.full_name(),
                     self.applicant_address(batch_application.application),
-                    batch_application.application.application_document.document_number
+                    # batch_application.application.application_document.document_number
                 ]
                 self.data.append(row_content)
             except AttributeError as e:

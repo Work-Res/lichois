@@ -1,11 +1,8 @@
 import logging
 
-from app.api.dto.request_dto import RequestDTO
-from app.models import Application
-from workflow.classes.task_deactivation import TaskDeActivation
-from workflow.signals import create_or_update_task_signal
+from app_assessment.models import AssessmentCaseDecision
+
 from app.models import SecurityClearance
-from django.db.models import Count
 
 from app.service import BaseDecisionService
 from app.utils import ApplicationStatusEnum
@@ -69,6 +66,17 @@ class VotingDecisionManager(BaseDecisionService):
                     self.logger.info(
                         f"Security clearance is pending for {self.request.document_number}"
                     )
+
+                try:
+                    AssessmentCaseDecision.objects.get(
+                        document_number=self.document_number
+                    )
+                    self.workflow.assessment_obj_exists = True
+                except AssessmentCaseDecision.DoesNotExist:
+                    self.logger.info(
+                        f"Assessment Case Decision is pending for {self.request.document_number}"
+                    )
+
                 self._board_decision = BoardDecision.objects.create(
                     document_number=self.document_number,
                     decision_outcome=voting_decision_outcome,
