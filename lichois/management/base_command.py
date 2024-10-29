@@ -206,45 +206,46 @@ class CustomBaseCommand(BaseCommand):
         )
 
     def create_parental_details(self, app, person):
+        pass
 
-        Spouse.objects.get_or_create(
-            document_number=app.application_document.document_number,
-            first_name=faker.first_name(),
-            last_name=faker.last_name(),
-            middle_name=faker.first_name(),
-            maiden_name=faker.last_name(),
-            country=faker.country(),
-            dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
-            place_birth=faker.city(),
-        )
+        # Spouse.objects.get_or_create(
+        #     document_number=app.application_document.document_number,
+        #     first_name=faker.first_name(),
+        #     last_name=faker.last_name(),
+        #     middle_name=faker.first_name(),
+        #     maiden_name=faker.last_name(),
+        #     country=faker.country(),
+        #     dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
+        #     place_birth=faker.city(),
+        # )
 
-        # Create father's details
-        father, created = Person.objects.get_or_create(
-            first_name=self.faker.first_name_male(),
-            last_name=self.faker.last_name(),
-            dob=self.faker.date_of_birth(minimum_age=40),
-            gender="male",
-            person_type="father",
-            document_number=app.application_document.document_number,
-        )
+        # # Create father's details
+        # father, created = Person.objects.get_or_create(
+        #     first_name=self.faker.first_name_male(),
+        #     last_name=self.faker.last_name(),
+        #     dob=self.faker.date_of_birth(minimum_age=40),
+        #     gender="male",
+        #     person_type="father",
+        #     document_number=app.application_document.document_number,
+        # )
 
-        # Create mother's details
-        mother, created = Person.objects.get_or_create(
-            first_name=self.faker.first_name_female(),
-            last_name=self.faker.last_name(),
-            dob=self.faker.date_of_birth(minimum_age=40),
-            document_number=app.application_document.document_number,
-            person_type="mother",
-            gender="female",
-        )
+        # # Create mother's details
+        # mother, created = Person.objects.get_or_create(
+        #     first_name=self.faker.first_name_female(),
+        #     last_name=self.faker.last_name(),
+        #     dob=self.faker.date_of_birth(minimum_age=40),
+        #     document_number=app.application_document.document_number,
+        #     person_type="mother",
+        #     gender="female",
+        # )
 
-        for _ in range(3):
-            # Create child's details
-            Child.objects.get_or_create(
-                document_number=app.application_document.document_number,
-                first_name=self.faker.first_name(),
-                last_name=self.faker.last_name(),
-                age=randint(1, 18),
-                gender=self.faker.random_element(elements=("male", "female")),
-                is_applying_residence=self.faker.random_element(elements=("yes", "no")),
-            )
+        # for _ in range(3):
+        #     # Create child's details
+        #     Child.objects.get_or_create(
+        #         document_number=app.application_document.document_number,
+        #         first_name=self.faker.first_name(),
+        #         last_name=self.faker.last_name(),
+        #         age=randint(1, 18),
+        #         gender=self.faker.random_element(elements=("male", "female")),
+        #         is_applying_residence=self.faker.random_element(elements=("yes", "no")),
+        #     )
