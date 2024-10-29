@@ -26,7 +26,7 @@ class WorkResidentPermitReplacementIdentifier(Identifier):
 class WorkPermitIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"  # e.g. work_permit_identifier, visa_identifier, etc
-    identifier_type = "R"
+    identifier_type = "W"
 
     @staticmethod
     def process_name():
@@ -36,7 +36,7 @@ class WorkPermitIdentifier(Identifier):
 class WorkPermitReplacementIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"  # e.g. work_permit_identifier, visa_identifier, etc
-    identifier_type = "R"
+    identifier_type = "W"
 
     @staticmethod
     def process_name():
@@ -46,7 +46,7 @@ class WorkPermitReplacementIdentifier(Identifier):
 class ResidentPermitIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"  # e.g. work_permit_identifier, visa_identifier, etc
-    identifier_type = "W"
+    identifier_type = "R"
 
     @staticmethod
     def process_name():
@@ -56,7 +56,7 @@ class ResidentPermitIdentifier(Identifier):
 class ResidentPermitReplacementIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "workresidentpermit"  # e.g. work_permit_identifier, visa_identifier, etc
-    identifier_type = "W"
+    identifier_type = "R"
 
     @staticmethod
     def process_name():
