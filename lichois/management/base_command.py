@@ -8,7 +8,6 @@ from app.utils.system_enums import ApplicationStatusEnum
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 from app_personal_details.models import Passport, Person
-from ...app_personal_details.models.child import Child
 from app_personal_details.models.education import Education
 
 

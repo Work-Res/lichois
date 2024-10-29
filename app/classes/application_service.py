@@ -39,7 +39,10 @@ class ApplicationService:
         Create new application records.
         """
         from app.classes.renewal_application_service import RenewalApplicationService
-        from app.classes.replacement_application_service import ReplacementApplicationService
+        from app.classes.replacement_application_service import (
+            ReplacementApplicationService,
+        )
+
         if self._is_existing_application():
             return None
 
@@ -62,21 +65,22 @@ class ApplicationService:
                 application_type=self.new_application_dto.application_type,
                 applicant_identifier=self.new_application_dto.applicant_identifier,
                 document_number=self.new_application_dto.document_number,
-                work_place=self.new_application_dto.work_place
+                work_place=self.new_application_dto.work_place,
             )
-            RenewalApplicationService(renewal_application=renewal_application).create_all(
-                new_application_version=application_version)
+            RenewalApplicationService(
+                renewal_application=renewal_application
+            ).create_all(new_application_version=application_version)
         elif self.new_application_dto.application_permit_type == "replacement":
             replacement_application_dto = ReplacementApplicationDTO(
                 process_name=self.new_application_dto.application_type,
                 applicant_identifier=self.new_application_dto.applicant_identifier,
                 document_number=self.new_application_dto.document_number,
-                work_place=self.new_application_dto.work_place
+                work_place=self.new_application_dto.work_place,
             )
-            ReplacementApplicationService(replacement_application_dto=replacement_application_dto).create_all(
-                new_application_version=application_version)
+            ReplacementApplicationService(
+                replacement_application_dto=replacement_application_dto
+            ).create_all(new_application_version=application_version)
 
-        return application_version
         return application, application_version
 
     def _is_existing_application(self):
