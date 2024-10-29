@@ -8,8 +8,6 @@ def get_app_labels():
     return [
         "workresidentpermit.WorkPermit",
         "workresidentpermit.ResidencePermit",
-        "app_personal_details.Child",
-        "app_personal_details.Spouse",
         "board.BoardDecision",
     ]
 

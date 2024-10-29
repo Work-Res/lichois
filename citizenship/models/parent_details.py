@@ -6,18 +6,15 @@ from ..choices import PARENT_TYPE
 
 class ParentDetails(PersonalDetailsModelMixin, BaseUuidModel):
 
-    parent_type = models.CharField(
-        max_length=15, choices=PARENT_TYPE
-    )
+    parent_type = models.CharField(max_length=15, choices=PARENT_TYPE)
 
     death_citizenship = models.CharField(max_length=190, blank=True, null=True)
 
-    #postal_address
+    # postal_address
 
-    #residential_address
+    # residential_address
 
     nationality = models.CharField(max_length=190, blank=True, null=True)
 
     class Meta:
-        app_label = 'citizenship'
-
+        app_label = "citizenship"
