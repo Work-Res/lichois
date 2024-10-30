@@ -1,0 +1,68 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "EXEMPTION_CERTIFICATE_CANCELLATION_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
+            "description": "An application letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TAX_CLEARANCE_CERTIFICATE",
+            "name": "TAX CLEARANCE CERTIFICATE",
+            "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
+            "description": "A tax clearance certificate",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_EXEMPTION_CERTIFICATE",
+            "name": "ORIGINAL EXEMPTION CERTIFICATE",
+            "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
+            "description": "Current exemption certificate",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

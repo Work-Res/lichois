@@ -1,0 +1,41 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "WORK_RESIDENT_PERMIT_APPEAL_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "WORK_RESIDENT_PERMIT_APPEAL",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "WORK_RESIDENT_PERMIT_APPEAL",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "LETTER_OF_APPEAL",
+            "name": "LETTER OF APPEAL",
+            "application_type": "WORK_RESIDENT_PERMIT_APPEAL",
+            "description": "A letter of appeal",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

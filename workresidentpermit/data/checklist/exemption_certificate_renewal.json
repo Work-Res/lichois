@@ -1,0 +1,104 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "EXEMPTION_CERTIFICATE_RENEWAL_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COPY_OF_EMPLOYMENT_CONTRACT",
+            "name": "COPY OF EMPLOYMENT CONTRACT",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "A copy of employment contract",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_RESIDENCE_PERMIT",
+            "name": "ORIGINAL RESIDENCE PERMIT",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "Original residence permit",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_EXEMPTION_CERTIFICATE",
+            "name": "ORIGINAL EXEMPTION CERTIFICATE",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "Original residence permit",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "COVER_LETTER_FROM_EMPLOYER",
+            "name": "COVER LETTER FROM EMPLOYER",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "Cover letter from the employer",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "QUALIFICATION",
+            "name": "QUALIFICATION",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "Certified copies of academic documents",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "An application letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MEDICAL_REPORT",
+            "name": "MEDICAL REPORT",
+            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
+            "description": "Medical report",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

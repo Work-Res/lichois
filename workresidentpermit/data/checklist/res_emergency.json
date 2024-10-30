@@ -1,0 +1,95 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "RESIDENT_PERMIT_EMERGENCY_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "An application letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MEDICAL_REPORT",
+            "name": "MEDICAL REPORT",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "Medical report",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYER_LETTER",
+            "name": "EMPLOYER LETTER",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "Letter from employer",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SPONSOR_LETTER",
+            "name": "SPONSOR LETTER",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "Letter from sponsor",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PROOF_OF_RELATIONSHIP",
+            "name": "PROOF OF RELATIONSHIP",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "If the emergency involves family members, provide documentation",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PROOF_OF_RESIDENCE",
+            "name": "PROOF OF RESIDENCE",
+            "application_type": "RESIDENT_PERMIT_EMERGENCY",
+            "description": "Documentation proving the applicants current residence in Botswana",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

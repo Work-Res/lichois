@@ -1,0 +1,197 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "WORK_PERMIT_RENEWAL_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CONFIRMATION_LETTER",
+            "name": "CONFIRMATION LETTER",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Confirmation Letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MARRIAGE CERTIFICATE",
+            "name": "MARRIAGE_CERTIFICATE",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Certified copy of Marriage Certificate",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "OFFER_LETTER",
+            "name": "OFFER LETTER",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Offer letter if changing employment",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "COPY_OF_EMPLOYMENT_CONTRACT",
+            "name": "COPY OF EMPLOYMENT CONTRACT",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "A copy of employment contract",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "QUALIFICATION",
+            "name": "QUALIFICATION",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Certified copies of academic documents",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CV",
+            "name": "CV",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "A copy of applicant cv",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COPY_OF_ADVERT",
+            "name": "COPY OF ADVERT",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "A copy of advert",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "An application letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CLEARANCE",
+            "name": "CLEARANCE",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Clearance from relevant professional regulatory bodies",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "LETTER_FROM_DOCTOR",
+            "name": "LETTER FROM DOCTOR",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Letter from the doctor",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SUPPORTING_LETTER",
+            "name": "SUPPORTING LETTER",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Supporting letter from relevant Ministries for Government projects",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SHARE_CERTIFICATE",
+            "name": "SHARE CERTIFICATE",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Applicant's share certificate",
+            "mandatory": false,
+            "applicant_type": "Self-employed, Investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "INVESTMENT_PROOF",
+            "name": "INVESTMENT PROOF",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Applicant's proof of investments",
+            "mandatory": false,
+            "applicant_type": "Self-employed, Investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CERTIFIED_COMPANY_INCORPORATION_CERTIFICATE_COPY",
+            "name": "CERTIFIED COMPANY INCORPORATION CERTIFICATE COPY",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Certified copies of the company certificate of incorporation",
+            "mandatory": false,
+            "applicant_type": "Self-employed, Investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "REFERENCE",
+            "name": "REFERENCE",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Applicant's reference or testimonial",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EFFORT_RECRUIT_CITIZEN_PROOF",
+            "name": "EFFORT RECRUIT CITIZEN PROOF",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Employer's effort to recruit citizens",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_RESIDENCE_PERMIT",
+            "name": "ORIGINAL RESIDENCE PERMIT",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Original residence permit",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  
