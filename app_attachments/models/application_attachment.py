@@ -12,9 +12,23 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     storage_object_key = models.CharField(max_length=300)
 
-    certified_passport_copy = models.URLField()
+    certified_passport = models.URLField(blank=True, null=True)
 
-    cv_copy = models.URLField()
+    educational_certificates = models.URLField(blank=True, null=True)
+
+    advertisement_proof = models.URLField(blank=True, null=True)
+
+    curriculum_vitae = models.URLField(blank=True, null=True)
+
+    supporting_documents_url = models.URLField(blank=True, null=True)
+
+    contract_letter = models.URLField(blank=True, null=True)
+
+    work_application_letter = models.URLField(blank=True, null=True)
+
+    employeer_justification = models.URLField(blank=True, null=True)
+
+    relevant_experience = models.URLField(blank=True, null=True)
 
     description = models.CharField(max_length=400)
 
