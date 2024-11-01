@@ -30,6 +30,10 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     relevant_experience = models.URLField(blank=True, null=True)
 
+    passport_photo_1 = models.URLField(blank=True, null=True)
+
+    passport_photo_2 = models.URLField(blank=True, null=True)
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
