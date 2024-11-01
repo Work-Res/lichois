@@ -28,7 +28,7 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     employer_justification = models.URLField(blank=True, null=True)
 
-    relevant_experience = models.URLField(blank=True, null=True)
+    reference_proof = models.URLField(blank=True, null=True)
 
     passport_photo_1 = models.URLField(blank=True, null=True)
 
