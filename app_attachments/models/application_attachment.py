@@ -12,6 +12,8 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     storage_object_key = models.CharField(max_length=300)
 
+    certified_passport_copy = models.URLField()
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
