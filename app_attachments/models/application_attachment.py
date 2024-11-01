@@ -26,7 +26,7 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     work_application_letter = models.URLField(blank=True, null=True)
 
-    employeer_justification = models.URLField(blank=True, null=True)
+    employer_justification = models.URLField(blank=True, null=True)
 
     relevant_experience = models.URLField(blank=True, null=True)
 
