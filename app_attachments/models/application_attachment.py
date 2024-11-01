@@ -14,6 +14,10 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     certified_passport_copy = models.URLField()
 
+    passport_photo_1 = models.URLField()
+
+    passport_photo_2 = models.URLField()
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
