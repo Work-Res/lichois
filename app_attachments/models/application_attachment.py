@@ -20,7 +20,7 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     curriculum_vitae = models.URLField(blank=True, null=True)
 
-    supporting_documents_url = models.URLField(blank=True, null=True)
+    supporting_documents = models.URLField(blank=True, null=True)
 
     contract_letter = models.URLField(blank=True, null=True)
 
