@@ -1,0 +1,86 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "WORK_RESIDENT_PERMIT_RENEWAL_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COPY_OF_EMPLOYMENT_CONTRACT",
+            "name": "COPY OF EMPLOYMENT CONTRACT",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "description": "A copy of employment contract",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "QUALIFICATION",
+            "name": "QUALIFICATION",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "description": "Certified copies of academic documents",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CV",
+            "name": "CV",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "description": "A copy of applicant cv",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MEDICAL_REPORT",
+            "name": "MEDICAL REPORT",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "description": "Medical report",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYER_LETTER",
+            "name": "EMPLOYER LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "description": "Letter from employer",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TAX_CLEARANCE_CERTIFICATE",
+            "name": "TAX CLEARANCE CERTIFICATE",
+            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+            "description": "A tax clearance certificate",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

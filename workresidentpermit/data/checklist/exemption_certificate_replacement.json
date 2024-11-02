@@ -1,0 +1,68 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "EXEMPTION_CERTIFICATE_REPLACEMENT_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "POLICE_REPORT",
+            "name": "POLICE REPORT",
+            "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
+            "description": "Botswana Police report if permit was stolen",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "AFFIDAVIT",
+            "name": "AFFIDAVIT",
+            "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
+            "description": "Affidavit from Botswana Police",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICANT_COVER_LETTER",
+            "name": "APPLICANTCOVER LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
+            "description": "Cover letter from the applicant",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

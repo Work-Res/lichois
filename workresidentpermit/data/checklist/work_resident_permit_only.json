@@ -1,0 +1,125 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "WORK_RESIDENT_PERMIT_ONLY_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COPY_OF_EMPLOYMENT_CONTRACT",
+            "name": "COPY OF EMPLOYMENT CONTRACT",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "A copy of employment contract",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "QUALIFICATION",
+            "name": "QUALIFICATION",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Certified copies of academic documents",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CV",
+            "name": "CV",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "A copy of applicant cv",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MEDICAL_REPORT",
+            "name": "MEDICAL REPORT",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Medical report",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYER_LETTER",
+            "name": "EMPLOYER LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Letter from employer",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TAX_CLEARANCE_CERTIFICATE",
+            "name": "TAX CLEARANCE CERTIFICATE",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "A tax clearance certificate",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SHARE_CERTIFICATE",
+            "name": "SHARE CERTIFICATE",
+            "application_type": "WORK_PERMIT_ONLY",
+            "description": "Applicant's share certificate",
+            "mandatory": false,
+            "applicant_type": "Self-employed, Investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "INVESTMENT_PROOF",
+            "name": "INVESTMENT PROOF",
+            "application_type": "WORK_PERMIT_ONLY",
+            "description": "Applicant's proof of investments",
+            "mandatory": false,
+            "applicant_type": "Self-employed, Investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CERTIFIED_COMPANY_INCORPORATION_CERTIFICATE_COPY",
+            "name": "CERTIFIED COMPANY INCORPORATION CERTIFICATE COPY",
+            "application_type": "WORK_PERMIT_ONLY",
+            "description": "Certified copies of the company certificate of incorporation",
+            "mandatory": false,
+            "applicant_type": "Self-employed, Investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

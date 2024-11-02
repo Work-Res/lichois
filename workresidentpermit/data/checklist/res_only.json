@@ -1,0 +1,114 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "RESIDENT_PERMIT_ONLY_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MARRIAGE CERTIFICATE",
+            "name": "MARRIAGE_CERTIFICATE",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "Certified copy of Marriage Certificate",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "QUALIFICATION",
+            "name": "QUALIFICATION",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "Certified copies of academic documents",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          
+          {
+            "code": "MANUAL_CERTIFICATE",
+            "name": "MANUAL CERTIFICATE",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "A manual certificate",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MEDICAL_REPORT",
+            "name": "MEDICAL REPORT",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "Medical report",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COPY_OF_BIRTH_CERTIFICATE",
+            "name": "COPY OF BIRTH CERTIFICATE",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "A certified copy of birth certificate",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "LACK_OF_BIRTH_CERTIFICATE",
+            "name": "LACK OF BIRTH CERTIFICATE",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "Statement setting out the reasons for failure to attach copy of birth certificate",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "REFERENCE",
+            "name": "REFERENCE",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "Applicant's reference or testimonial",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MARRIAGE CERTIFICATE",
+            "name": "MARRIAGE_CERTIFICATE",
+            "application_type": "RESIDENT_PERMIT_ONLY",
+            "description": "Certified copy of Marriage Certificate",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

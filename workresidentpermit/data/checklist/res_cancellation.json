@@ -1,0 +1,86 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "RESIDENT_PERMIT_CANCELLATION_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_RESIDENCE_PERMIT",
+            "name": "ORIGINAL RESIDENCE PERMIT",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "description": "Original residence permit",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "description": "An application letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYER_LETTER",
+            "name": "EMPLOYER LETTER",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "description": "Letter from employer",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SPONSOR_LETTER",
+            "name": "SPONSOR LETTER",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "description": "Letter from sponsor",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PROOF_OF_DEPARTURE",
+            "name": "PROOF OF DEPARTURE",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "description": "Proof of departure",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TAX_CLEARANCE_CERTIFICATE",
+            "name": "TAX CLEARANCE CERTIFICATE",
+            "application_type": "RESIDENT_PERMIT_CANCELLATION",
+            "description": "A tax clearance certificate",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  
