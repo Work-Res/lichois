@@ -42,6 +42,8 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     bank_statement_3 = models.URLField(blank=True, null=True)
 
+    investment_proof = models.URLField(blank=True, null=True)
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
