@@ -34,6 +34,8 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     passport_photo_2 = models.URLField(blank=True, null=True)
 
+    certificate_of_incorporation = models.URLField(blank=True, null=True)
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
