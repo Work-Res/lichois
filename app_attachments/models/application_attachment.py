@@ -44,6 +44,18 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     investment_proof = models.URLField(blank=True, null=True)
 
+    justification_letter = models.URLField(blank=True, null=True)
+
+    company_profile = models.URLField(blank=True, null=True)
+
+    trading_license = models.URLField(blank=True, null=True)
+
+    lease_agreement = models.URLField(blank=True, null=True)
+
+    permanent_residence = models.URLField(blank=True, null=True)
+
+    work_permit = models.URLField(blank=True, null=True)
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
