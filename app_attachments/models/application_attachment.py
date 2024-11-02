@@ -36,6 +36,12 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     certificate_of_incorporation = models.URLField(blank=True, null=True)
 
+    bank_statement_1 = models.URLField(blank=True, null=True)
+
+    bank_statement_2 = models.URLField(blank=True, null=True)
+
+    bank_statement_3 = models.URLField(blank=True, null=True)
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
