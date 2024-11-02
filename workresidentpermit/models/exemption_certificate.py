@@ -9,8 +9,9 @@ class ExemptionCertificate(ApplicationBaseModel):
     proposed_period = models.CharField(max_length=150)
     relevant_experience = models.TextField(max_length=500, blank=True, null=True)
     applicant_type = models.CharField(
-        max_length=4,
+        max_length=9,
         choices=APPLICANT_TYPE,
+        default="employee"
     )
 
     class Meta:
