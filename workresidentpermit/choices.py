@@ -111,3 +111,8 @@ PERSON_TYPE = (
     ('child', 'Child'),
     ('guardian', 'Guardian')
 )
+
+APPLICANT_TYPE = (
+    ('employee', 'Employee'),
+    ('investor', 'Investor')
+)
