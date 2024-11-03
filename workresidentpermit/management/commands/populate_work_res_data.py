@@ -111,25 +111,4 @@ class Command(CustomBaseCommand):
                     names_of_trainees=faker.first_name(),
                 )
 
-                Child.objects.get_or_create(
-                    application_version=version,
-                    document_number=app.application_document.document_number,
-                    first_name=faker.first_name(),
-                    last_name=faker.last_name(),
-                    age=randint(1, 18),
-                    gender=faker.random_element(elements=("male", "female")),
-                    is_applying_residence=faker.random_element(elements=("yes", "no")),
-                )
-
-                Spouse.objects.get_or_create(
-                    document_number=app.application_document.document_number,
-                    first_name=faker.first_name(),
-                    last_name=faker.last_name(),
-                    middle_name=faker.first_name(),
-                    maiden_name=faker.last_name(),
-                    country=faker.country(),
-                    dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
-                    place_birth=faker.city(),
-                )
-
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))

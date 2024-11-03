@@ -1,0 +1,113 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "EXEMPTION_CERTIFICATE_ONLY_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "OFFER_LETTER",
+            "name": "OFFER LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Offer letter if changing employment",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "COVER_LETTER_FROM_EMPLOYER",
+            "name": "COVER LETTER FROM EMPLOYER",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Cover letter from the employer",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COPY_OF_EMPLOYMENT_CONTRACT",
+            "name": "COPY OF EMPLOYMENT CONTRACT",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "A copy of employment contract",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "QUALIFICATION",
+            "name": "QUALIFICATION",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Certified copies of academic documents",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CV",
+            "name": "CV",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "A copy of applicant cv",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COPY_OF_ADVERT",
+            "name": "COPY OF ADVERT",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "A copy of advert",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "An application letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MEDICAL_REPORT",
+            "name": "MEDICAL REPORT",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Medical report",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

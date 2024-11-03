@@ -1,0 +1,140 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "WORK_RESIDENT_PERMIT_CANCELLATION_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICANT_COVER_LETTER",
+            "name": "APPLICANTCOVER LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Cover letter from the applicant",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_WORK_PERMIT",
+            "name": "ORIGINAL WORK PERMIT",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Original work permit",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_RESIDENCE_PERMIT",
+            "name": "ORIGINAL RESIDENCE PERMIT",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Original residence permit",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "OFFER_LETTER",
+            "name": "OFFER LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Offer letter if changing employment",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "RELEASE_LETTER",
+            "name": "RELEASE LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Release letter",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "RESIGNATION_LETTER",
+            "name": "RESIGNATION LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Resignation letter",
+            "mandatory":true,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "An application letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYER_LETTER",
+            "name": "EMPLOYER LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Letter from employer",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PROOF_OF_RESIDENCE",
+            "name": "PROOF OF RESIDENCE",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Documentation proving the applicants current residence in Botswana",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PROOF_OF_DEPARTURE",
+            "name": "PROOF OF DEPARTURE",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "Proof of departure",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TAX_CLEARANCE_CERTIFICATE",
+            "name": "TAX CLEARANCE CERTIFICATE",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "A tax clearance certificate",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ORIGINAL_WORK_RES_PERMIT",
+            "name": "ORIGINAL WORK RES PERMIT",
+            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
+            "description": "A work res permit",
+            "mandatory":true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  
