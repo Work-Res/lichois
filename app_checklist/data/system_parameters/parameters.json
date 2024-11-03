@@ -90,6 +90,34 @@
       "application_type": "DUAL_CITIZENSHIP_RENUNCIATION",
       "valid_from": "2024-01-01",
       "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "PERMANENT_RESIDENCE_REPLACEMENT",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "RESIDENT_PERMIT_REPLACEMENT",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "WORK_PERMIT_REPLACEMENT",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
+    },
+    {
+      "duration_type": "years",
+      "duration": 100,
+      "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01"
     }
   ]
 }
