@@ -14,3 +14,5 @@ from .meeting_attendee import MeetingAttendee
 from .meeting_invitation import MeetingInvitation
 from .signals import board_meeting_on_post_save, board_meeting_invitation_on_post_save
 from .voting_process import VotingProcess
+from .permissions.board_base_permission_model import BoardBasePermissionModel
+

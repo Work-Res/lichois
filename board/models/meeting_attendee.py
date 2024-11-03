@@ -1,11 +1,13 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
+
+from .permissions import BoardBasePermissionModel
 from .board_member import BoardMember
 from .board_meeting import BoardMeeting
 from ..choices import ATTENDANCE_STATUS
 
 
-class MeetingAttendee(BaseUuidModel):
+class MeetingAttendee(BaseUuidModel, BoardBasePermissionModel):
 
     meeting = models.ForeignKey(BoardMeeting, on_delete=models.CASCADE)
 

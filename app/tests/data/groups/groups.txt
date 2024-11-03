@@ -1,0 +1,14 @@
+Group One:
+    can_update_app_initial
+    can_delete_app_initial
+    can_view_app_initial
+
+Group Two:
+    can_update_app_verification
+    can_delete_app_verification
+    can_view_app_production
+
+Group Three:
+    can_view_app_production
+    can_delete_app_initial
+    can_update_app_minister_decision

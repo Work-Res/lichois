@@ -1,0 +1,14 @@
+Task Managers:
+    can_assign_task
+    can_complete_task
+    can_view_task
+
+Project Managers:
+    can_create_project
+    can_manage_project
+    can_view_project
+
+Team Leaders:
+    can_assign_team_task
+    can_review_team_performance
+    can_view_team_tasks

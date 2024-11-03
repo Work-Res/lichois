@@ -57,6 +57,7 @@ class ApplicationDecisionService:
         # if not self.workflow:
         #     raise WorkflowRequiredDecisionException()
         if self.decision_predicate():
+            print(f"whithin the predicate: {self.document_number}")
             decision, _ = ApplicationDecision.objects.get_or_create(
                 document_number=self.document_number,
                 defaults={
@@ -68,3 +69,5 @@ class ApplicationDecisionService:
             self.logger.info(
                 f"Application decision created successfully for {self.document_number}"
             )
+        else:
+            print(f"Not within the predicate: {self.document_number}")

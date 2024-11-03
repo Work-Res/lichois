@@ -1,5 +1,6 @@
 from authentication.models import User
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 from base_module.model_mixins import BaseUuidModel
 
@@ -32,6 +33,7 @@ class Task(BaseUuidModel):
     status = models.CharField(max_length=20, choices=TASK_CHOICES)
     office_location = models.ForeignKey(ClassifierItem, on_delete=models.CASCADE, blank=True, null=True)
     comment = models.CharField(max_length=250, null=True, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return f"Task {self.id} - {self.details}"
@@ -39,3 +41,8 @@ class Task(BaseUuidModel):
     class Meta:
         verbose_name_plural = "Tasks"
         ordering = ['-created']
+        permissions = [
+            ("can_assign_task", "Can assign task"),
+            ("can_complete_task", "Can complete task"),
+            ("can_view_task", "Can view task"),
+        ]

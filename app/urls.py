@@ -8,6 +8,7 @@ from app.views import (
     ApplicationStatusViewSet,
     ApplicationRenewalView,
     ApplicationRenewalHistoryView,
+    ApplicationReplacementHistoryView,
     ApplicationVerificationAPIView,
     SecurityClearanceCreateAPIView,
     CommissionerDecisionAPIView,
@@ -22,6 +23,7 @@ router = DefaultRouter()
 router.register(r"applications", ApplicationListView)
 router.register(r"application_statuses", ApplicationStatusViewSet)
 router.register(r"application_renewal_history", ApplicationRenewalHistoryView)
+router.register(r"application_replacement_history", ApplicationReplacementHistoryView)
 
 urlpatterns = [
     path("applications", ApplicationCreateView.as_view(), name="application-new"),

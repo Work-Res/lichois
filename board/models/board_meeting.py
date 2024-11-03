@@ -1,11 +1,12 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
 
+from .permissions import BoardBasePermissionModel
 from ..choices import BOARD_MEETING_TYPES, BOARD_MEETING_STATUS
 from .board import Board
 
 
-class BoardMeeting(BaseUuidModel):
+class BoardMeeting(BaseUuidModel, BoardBasePermissionModel):
     title = models.CharField(max_length=200, blank=True, null=True)
     meeting_date = models.DateField(blank=True, null=True)
     meeting_start_time = models.TimeField(blank=True, null=True)

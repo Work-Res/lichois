@@ -1,13 +1,15 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
 
+from .permissions import BoardBasePermissionModel
 from . import BoardMeeting
+
 from .board_member import BoardMember
 from .meeting_attendee import MeetingAttendee
 from ..choices import BOARD_RESOLUTION, INTEREST_LEVEL
 
 
-class InterestDeclaration(BaseUuidModel):
+class InterestDeclaration(BaseUuidModel, BoardBasePermissionModel):
 
     meeting = models.ForeignKey(
         BoardMeeting,

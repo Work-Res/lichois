@@ -1,9 +1,11 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
+
+from .permissions import BoardBasePermissionModel
 from .region import Region
 
 
-class Board(BaseUuidModel):
+class Board(BaseUuidModel, BoardBasePermissionModel):
     name = models.CharField(max_length=250)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 

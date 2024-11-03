@@ -1,5 +1,6 @@
 from django.db import models
 
+from .permissions import AppBasePermissionModel
 from .application_document import ApplicationDocument
 from .application_status import ApplicationStatus
 
@@ -8,7 +9,7 @@ from base_module.model_mixins import BaseUuidModel
 from ..utils import ApplicationDecisionEnum
 
 
-class Application(BaseUuidModel):
+class Application(BaseUuidModel, AppBasePermissionModel):
     """
     Model representing a work permit application.
 

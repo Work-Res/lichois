@@ -1,10 +1,12 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
+
+from .permissions import BoardBasePermissionModel
 from ..choices import VOTE_STATUS
 from .meeting_attendee import MeetingAttendee
 
 
-class BoardMeetingVote(BaseUuidModel):
+class BoardMeetingVote(BaseUuidModel, BoardBasePermissionModel):
     meeting_attendee = models.ForeignKey(MeetingAttendee, on_delete=models.CASCADE)
     document_number = models.CharField(max_length=150)
     status = models.CharField(max_length=150, choices=VOTE_STATUS)

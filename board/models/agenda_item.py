@@ -1,9 +1,11 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
+
+from .permissions import BoardBasePermissionModel
 from .agenda import Agenda
 
 
-class AgendaItem(BaseUuidModel):
+class AgendaItem(BaseUuidModel, BoardBasePermissionModel):
 	item_name = models.CharField(max_length=250)
 	item_description = models.TextField()
 	item_duration = models.PositiveIntegerField()

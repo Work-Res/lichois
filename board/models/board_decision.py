@@ -1,12 +1,12 @@
 from django.db import models
-from base_module.model_mixins import BaseUuidModel
-from app.models import Application
+
 from app.models.application_base_model import ApplicationBaseModel
+from .permissions import BoardBasePermissionModel
 from .board_meeting import BoardMeeting
 from ..choices import DECISION_OUTCOME
 
 
-class BoardDecision(ApplicationBaseModel):
+class BoardDecision(ApplicationBaseModel, BoardBasePermissionModel):
 
     board_meeting = models.ForeignKey(BoardMeeting, on_delete=models.CASCADE)
     vetting_outcome = models.TextField(null=True, blank=True)

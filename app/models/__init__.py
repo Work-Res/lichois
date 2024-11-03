@@ -16,3 +16,5 @@ from .application_decision import ApplicationDecision
 from .pres_recommendation_decision import PresRecommendationDecision
 from .director_decision import DirectorDecision
 from .application_replacement import ApplicationReplacement
+from .permissions.app_base_permission_model import AppBasePermissionModel
+from .application_replacement_history import ApplicationReplacementHistory

@@ -1,0 +1,1 @@
+from .board_base_permission_model import BoardBasePermissionModel

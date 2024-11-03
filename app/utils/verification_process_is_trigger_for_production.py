@@ -14,6 +14,10 @@ class VerificationProcessWhenCompletedIsRequiredForProduction:
             CitizenshipProcessEnum.PRESIDENT_POWER_10A.value,
             ApplicationProcesses.BLUE_CARD_RETURNS.value,
             WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value,
+            ApplicationProcesses.RESIDENT_PERMIT_REPLACEMENT.value,
+            ApplicationProcesses.WORK_PERMIT_REPLACEMENT.value,
+            ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            ApplicationProcesses.PERMANENT_RESIDENCE_REPLACEMENT.value
         ]
 
 
@@ -30,7 +34,7 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
             CitizenshipProcessEnum.NATURALIZATION.value,
             CitizenshipProcessEnum.FOREIGN_SPOUSE_NATURALIZATION.value,
             CitizenshipProcessEnum.DUAL_RENUNCIATION.value,
-            CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
+            CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value
         ]
 
 

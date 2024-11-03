@@ -3,12 +3,13 @@ import uuid
 
 from base_module.model_mixins import BaseUuidModel
 
+from .permissions import BoardBasePermissionModel
 from .board_meeting import BoardMeeting
 from .board_member import BoardMember
 from ..choices import MEETING_INVITATION_STATUS
 
 
-class MeetingInvitation(BaseUuidModel):
+class MeetingInvitation(BaseUuidModel, BoardBasePermissionModel):
     board_meeting = models.ForeignKey(BoardMeeting, on_delete=models.CASCADE)
     invited_user = models.ForeignKey(
         BoardMember,

@@ -6,6 +6,9 @@ from app.api.serializers import ApplicationSerializer
 from app.views.filters.application_filter import ApplicationModelFilter
 from rest_framework.exceptions import ValidationError
 
+from workflow.views.mixins.custom_permission_required import CustomPermissionRequired
+from workflow.views.mixins.task_assignee_required_mixin import TaskAssigneePermission
+
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
@@ -17,11 +20,11 @@ class ApplicationListView(viewsets.ModelViewSet):
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
     pagination_class = StandardResultsSetPagination
+    #permission_classes = [TaskAssigneePermission, CustomPermissionRequired]
+    #required_permissions = ['app.can_view_app_initial', 'app.can_view_app_replacement', 'app.can_view_app_renewal']
 
     def get_queryset(self):
         queryset = self.queryset
-
-
         sort_by = self.request.query_params.get('sort_by', 'created')
         order_by = self.request.query_params.get('order', 'asc')
 

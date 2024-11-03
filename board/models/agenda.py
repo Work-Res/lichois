@@ -1,11 +1,13 @@
 from django.db import models
 from base_module.model_mixins import BaseUuidModel
+
+from .permissions import BoardBasePermissionModel
 from ..choices import AGENDA_STATUS
 from .board_meeting import BoardMeeting
 from .application_batch import ApplicationBatch
 
 
-class Agenda(BaseUuidModel):
+class Agenda(BaseUuidModel, BoardBasePermissionModel):
     meeting = models.ForeignKey(BoardMeeting, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
     duration = models.PositiveIntegerField(blank=True, null=True)

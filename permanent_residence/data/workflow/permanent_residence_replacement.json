@@ -1,0 +1,41 @@
+{
+  "classifiers": {
+    "visa_permit_workflow": {
+      "code": "PERMANENT_RESIDENCE_REPLACEMENT",
+      "name": "PERMANENT RESIDENCE PERMIT",
+      "description": "Permanent Residence Workflow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Permanent Residence Verification",
+          "description": "Verification Task",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VETTING",
+          "create_task_rules": {
+            "current_status": "NEW",
+            "system_verification": "validated"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Permanent Residence Production Decision",
+          "description": "Permit Production Task",
+          "sequence": 2,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "or": {"verification_decision": "ACCEPTED|REJECTED"},
+            "current_status": "VERIFICATION"
+          }
+        }
+      ]
+    }
+  }
+}
