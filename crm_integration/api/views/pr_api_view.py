@@ -4,7 +4,7 @@ from .base_crm_api_view import BaseCrmAPIView
 
 
 
-class WorkResidenceAPIView(BaseCrmAPIView, APIView):
+class PrCrmAPIView(BaseCrmAPIView, APIView):
 
     def create_application(self):
         """
