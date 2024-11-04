@@ -72,7 +72,7 @@ class Command(BaseCommand):
                 continue
 
             classifier = ChecklistClassifier.objects.filter(
-                code=application_type
+                code=f"{application_type}_ATTACHMENT_DOCUMENTS"
             ).first()
 
             if not classifier:
