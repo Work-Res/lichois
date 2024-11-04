@@ -8,23 +8,6 @@ class TravelCertificate(ApplicationBaseModel):
     chief_name = models.CharField(max_length=200)
     clan_name = models.CharField(max_length=200)
     date_issued = models.DateField(auto_now=True)
-    father = models.ForeignKey(
-        Person,
-        on_delete=models.CASCADE,
-        related_name="father",
-        null=True,
-        blank=True,
-    )
-
-    father_full_address = models.CharField(max_length=200, null=True, blank=True)
-
-    mother = models.ForeignKey(
-        Person,
-        on_delete=models.CASCADE,
-        related_name="mother",
-        null=True,
-        blank=True,
-    )
     mother_full_address = models.CharField(max_length=200, null=True, blank=True)
     names_of_other_relatives = models.CharField(max_length=200, null=True, blank=True)
     full_address_of_relative = models.CharField(max_length=200, null=True, blank=True)

@@ -7,7 +7,7 @@ from app.classes import ApplicationService
 from app.utils.system_enums import ApplicationStatusEnum
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
-from app_personal_details.models import Passport, Person
+from app_personal_details.models import Passport, Person, ParentalDetails, Children
 from app_personal_details.models.education import Education
 
 
@@ -205,47 +205,87 @@ class CustomBaseCommand(BaseCommand):
             end_date=self.faker.date_this_century(),
         )
 
-    def create_parental_details(self, app, person):
-        pass
+    def create_parental_details(self, app, version):
+        # Create father's details
+        father, created = Person.objects.get_or_create(
+            first_name=self.faker.first_name_male(),
+            last_name=self.faker.last_name(),
+            dob=self.faker.date_of_birth(minimum_age=40),
+            gender="male",
+            person_type="father",
+            document_number=app.application_document.document_number,
+        )
 
-        # Spouse.objects.get_or_create(
-        #     document_number=app.application_document.document_number,
-        #     first_name=faker.first_name(),
-        #     last_name=faker.last_name(),
-        #     middle_name=faker.first_name(),
-        #     maiden_name=faker.last_name(),
-        #     country=faker.country(),
-        #     dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
-        #     place_birth=faker.city(),
-        # )
+        # Create mother's details
+        mother, created = Person.objects.get_or_create(
+            first_name=self.faker.first_name_female(),
+            last_name=self.faker.last_name(),
+            dob=self.faker.date_of_birth(minimum_age=40),
+            document_number=app.application_document.document_number,
+            person_type="mother",
+            gender="female",
+        )
 
-        # # Create father's details
-        # father, created = Person.objects.get_or_create(
-        #     first_name=self.faker.first_name_male(),
-        #     last_name=self.faker.last_name(),
-        #     dob=self.faker.date_of_birth(minimum_age=40),
-        #     gender="male",
-        #     person_type="father",
-        #     document_number=app.application_document.document_number,
-        # )
+        father_address, _ = ApplicationAddress.objects.get_or_create(
+            document_number=app.application_document.document_number,
+            po_box=self.faker.address(),
+            apartment_number=self.faker.building_number(),
+            plot_number=self.faker.building_number(),
+            address_type=self.faker.random_element(
+                elements=(
+                    "residential",
+                    "postal",
+                    "business",
+                    "private",
+                    "other",
+                )
+            ),
+            country__id=Country.objects.create(name=self.faker.country()).id,
+            status=self.faker.random_element(elements=("active", "inactive")),
+            city=self.faker.city(),
+            street_address=self.faker.street_name(),
+            private_bag=self.faker.building_number(),
+            person_type="father",
+        )
 
-        # # Create mother's details
-        # mother, created = Person.objects.get_or_create(
-        #     first_name=self.faker.first_name_female(),
-        #     last_name=self.faker.last_name(),
-        #     dob=self.faker.date_of_birth(minimum_age=40),
-        #     document_number=app.application_document.document_number,
-        #     person_type="mother",
-        #     gender="female",
-        # )
+        mother_address, _ = ApplicationAddress.objects.get_or_create(
+            document_number=app.application_document.document_number,
+            po_box=self.faker.address(),
+            apartment_number=self.faker.building_number(),
+            plot_number=self.faker.building_number(),
+            address_type=self.faker.random_element(
+                elements=(
+                    "residential",
+                    "postal",
+                    "business",
+                    "private",
+                    "other",
+                )
+            ),
+            country__id=Country.objects.create(name=self.faker.country()).id,
+            status=self.faker.random_element(elements=("active", "inactive")),
+            city=self.faker.city(),
+            street_address=self.faker.street_name(),
+            private_bag=self.faker.building_number(),
+            person_type="mother",
+        )
 
-        # for _ in range(3):
-        #     # Create child's details
-        #     Child.objects.get_or_create(
-        #         document_number=app.application_document.document_number,
-        #         first_name=self.faker.first_name(),
-        #         last_name=self.faker.last_name(),
-        #         age=randint(1, 18),
-        #         gender=self.faker.random_element(elements=("male", "female")),
-        #         is_applying_residence=self.faker.random_element(elements=("yes", "no")),
-        #     )
+        parental_details, _ = ParentalDetails.objects.get_or_create(
+            father=father,
+            mother=mother,
+            father_address=father_address,
+            mother_address=mother_address,
+            document_number=app.application_document.document_number,
+        )
+
+        random_children = randint(0, 5)
+        for _ in range(random_children):
+            # Create child's details
+            Children.objects.get_or_create(
+                document_number=app.application_document.document_number,
+                first_name=self.faker.first_name(),
+                last_name=self.faker.last_name(),
+                age=randint(1, 18),
+                gender=self.faker.random_element(elements=("male", "female")),
+                is_applying_residence=self.faker.random_element(elements=("yes", "no")),
+            )

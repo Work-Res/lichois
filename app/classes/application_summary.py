@@ -20,15 +20,17 @@ class ApplicationSummary:
 
     def get_additional_filter(self, app_label):
         return {
-            "app_personal_details.Person": {'person_type': 'applicant'},
-            "app_address.ApplicationAddress": {'person_type': 'applicant'}
+            "app_personal_details.Person": {"person_type": "applicant"},
+            "app_address.ApplicationAddress": {"person_type": "applicant"},
         }.get(app_label, None)
 
     def data(self):
         """Generate a summary of the application data."""
         summary = {}
         for app_label in self.get_app_labels():
-            model_instance = self.get_model_instance(app_label, additional_filters=self.get_additional_filter(app_label))
+            model_instance = self.get_model_instance(
+                app_label, additional_filters=self.get_additional_filter(app_label)
+            )
             if model_instance:
                 model_name = apps.get_model(app_label).__name__
                 snake_case_model_name = self.to_snake_case(model_name)
@@ -60,7 +62,9 @@ class ApplicationSummary:
             model_cls = apps.get_model(app_label)
             if model_cls:
                 logger.info(f"Model found: {model_cls}")
-                return self._get_model_instance_recursive(model_cls, additional_filters=additional_filters)
+                return self._get_model_instance_recursive(
+                    model_cls, additional_filters=additional_filters
+                )
             else:
                 logger.warning(f"Model could not be found for app_label: {app_label}")
                 return None
@@ -72,7 +76,9 @@ class ApplicationSummary:
         """Validate the app label format."""
         return len(app_label.split(".")) == 2
 
-    def _get_model_instance_recursive(self, model_cls, traversed_models=None, additional_filters=None):
+    def _get_model_instance_recursive(
+        self, model_cls, traversed_models=None, additional_filters=None
+    ):
         """Recursively get the model instance based on the document number."""
         if traversed_models is None:
             traversed_models = set()
@@ -81,7 +87,9 @@ class ApplicationSummary:
             # Attempt to filter using document_number directly
             if hasattr(model_cls, "document_number"):
                 if additional_filters:
-                    return model_cls.objects.get(document_number=self.document_number, **additional_filters)
+                    return model_cls.objects.get(
+                        document_number=self.document_number, **additional_filters
+                    )
                 else:
                     return model_cls.objects.get(document_number=self.document_number)
             logger.warning(
@@ -126,7 +134,7 @@ class ApplicationSummary:
             return []
 
     def _prepare_model_field_name_value(
-            self, serialized_data, field, field_name, model_instance
+        self, serialized_data, field, field_name, model_instance
     ):
         try:
             if isinstance(field, ForeignKey):
@@ -221,6 +229,7 @@ class ApplicationSummary:
             "app.SecurityClearance",
             "app_personal_details.Education",
             "app_personal_details.Spouse",
-            "app_personal_details.Child",
+            "app_personal_details.Children",
+            "app_personal_details.ParentalDetails",
         ]
         return generic_labels + self.app_labels
