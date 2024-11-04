@@ -91,7 +91,7 @@
           {
             "code": "SHARE_CERTIFICATE",
             "name": "SHARE CERTIFICATE",
-            "application_type": "WORK_PERMIT_ONLY",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Applicant's share certificate",
             "mandatory": false,
             "applicant_type": "Self-employed, Investor",
@@ -101,7 +101,7 @@
           {
             "code": "INVESTMENT_PROOF",
             "name": "INVESTMENT PROOF",
-            "application_type": "WORK_PERMIT_ONLY",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Applicant's proof of investments",
             "mandatory": false,
             "applicant_type": "Self-employed, Investor",
@@ -111,7 +111,7 @@
           {
             "code": "CERTIFIED_COMPANY_INCORPORATION_CERTIFICATE_COPY",
             "name": "CERTIFIED COMPANY INCORPORATION CERTIFICATE COPY",
-            "application_type": "WORK_PERMIT_ONLY",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Certified copies of the company certificate of incorporation",
             "mandatory": false,
             "applicant_type": "Self-employed, Investor",

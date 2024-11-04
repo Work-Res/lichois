@@ -19,7 +19,6 @@ class Command(CustomBaseCommand):
             self.application_type = faker.random_element(
                 elements=(
                     PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_ONLY.value,
-                    PermanentResidenceApplicationTypeEnum.PERMANENT_RESIDENCE_10_YEARS.value,
                 )
             )
             with atomic():

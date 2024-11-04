@@ -34,7 +34,7 @@ APPLICATION_TYPES = [
     "EXEMPTION_CERTIFICATE_APPEAL",
     "EXEMPTION_CERTIFICATE_CANCELLATION",
     "EXEMPTION_CERTIFICATE_REPLACEMENT",
-    "EXEMPTION_CERTIFICATE_RENEWAL"
+    "EXEMPTION_CERTIFICATE_RENEWAL",
 ]
 
 
@@ -74,7 +74,7 @@ class Command(BaseCommand):
             classifier = ChecklistClassifier.objects.filter(
                 code=application_type
             ).first()
-            
+
             if not classifier:
                 self.stdout.write(
                     self.style.ERROR(
@@ -86,7 +86,7 @@ class Command(BaseCommand):
             items = ChecklistClassifierItem.objects.filter(
                 checklist_classifier=classifier
             )
-            
+
             if not items.exists():
                 self.stdout.write(
                     self.style.WARNING(
@@ -98,15 +98,17 @@ class Command(BaseCommand):
             for app in applications:
                 if not is_pending_verification(app):
                     for item in items:
-                        document_type, created = AttachmentDocumentType.objects.get_or_create(
-                            code=item.code,
-                            defaults={
-                                "name": item.name,
-                                "valid_to": faker.date_this_decade(),
-                                "valid_from": faker.date_this_decade()
-                            },
+                        document_type, created = (
+                            AttachmentDocumentType.objects.get_or_create(
+                                code=item.code,
+                                defaults={
+                                    "name": item.name,
+                                    "valid_to": faker.date_this_decade(),
+                                    "valid_from": faker.date_this_decade(),
+                                },
+                            )
                         )
-                        
+
                         if created:
                             self.stdout.write(
                                 self.style.SUCCESS(
