@@ -5,7 +5,7 @@ from app_personal_details.models import (
     Person,
     Passport,
     Education,
-    Children,
+    Child,
     Spouse,
     DeceasedSpouseInfo,
     MarriageDissolutionInfo,
@@ -105,7 +105,7 @@ class PermitSerializer(serializers.ModelSerializer):
 class ChildSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Children
+        model = Child
         fields = "__all__"
 
 

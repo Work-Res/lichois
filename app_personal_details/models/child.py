@@ -5,7 +5,7 @@ from ..choices import GENDER
 from base_module.choices import YES_NO
 
 
-class Children(ApplicationBaseModel):
+class Child(ApplicationBaseModel):
 
     first_name = models.CharField(max_length=150)
 

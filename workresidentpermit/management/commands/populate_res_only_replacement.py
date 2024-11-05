@@ -3,7 +3,7 @@ from random import randint
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.utils import ApplicationStatusEnum
-from app_personal_details.models import Children, Spouse
+from app_personal_details.models import Child, Spouse
 from django.db.transaction import atomic
 from faker import Faker
 
@@ -89,7 +89,7 @@ class Command(CustomBaseCommand):
                 arrival_date=faker.date_this_century(),
             )
 
-            Children.objects.get_or_create(
+            Child.objects.get_or_create(
                 application_version=version,
                 document_number=app.application_document.document_number,
                 first_name=faker.first_name(),

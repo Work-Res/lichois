@@ -7,7 +7,7 @@ from app.classes import ApplicationService
 from app.utils.system_enums import ApplicationStatusEnum
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
-from app_personal_details.models import Passport, Person, ParentalDetails, Children
+from app_personal_details.models import Passport, Person, ParentalDetails, Child
 from app_personal_details.models.education import Education
 
 
@@ -281,7 +281,7 @@ class CustomBaseCommand(BaseCommand):
         random_children = randint(0, 5)
         for _ in range(random_children):
             # Create child's details
-            Children.objects.get_or_create(
+            Child.objects.get_or_create(
                 document_number=app.application_document.document_number,
                 first_name=self.faker.first_name(),
                 last_name=self.faker.last_name(),

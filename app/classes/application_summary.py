@@ -229,7 +229,7 @@ class ApplicationSummary:
             "app.SecurityClearance",
             "app_personal_details.Education",
             "app_personal_details.Spouse",
-            "app_personal_details.Children",
+            "app_personal_details.Child",
             "app_personal_details.ParentalDetails",
         ]
         return generic_labels + self.app_labels
