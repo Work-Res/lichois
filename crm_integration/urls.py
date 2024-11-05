@@ -5,7 +5,7 @@ from .api.views import (
     EmergencyPermitCrmAPIView, ExemptionCrmAPIView, PrCrmAPIView,
     PrTenYearsCrmAPIView, PermitReplacementCrmAPIView, ResidencePermitCrmAPIView,
     TracelCertificateCrmAPIView, PermitVariationCrmAPIView, VisaCrmAPIView,
-    WorkPermitCrmAPIView)
+    WorkPermitCrmAPIView, BlueCardCrmAPIView)
 
 
 
@@ -21,7 +21,7 @@ urlpatterns = [
         name="work_form_submit",
     ),
     path(
-        "recidence-application/receive",
+        "residence-application/receive",
         ResidencePermitCrmAPIView.as_view(),
         name="residence_form_submit",
     ),
@@ -74,5 +74,10 @@ urlpatterns = [
         "visa/receive",
         VisaCrmAPIView.as_view(),
         name="visa_form_submit",
+    ),
+    path(
+        "blue_card/receive",
+        BlueCardCrmAPIView.as_view(),
+        name="blue_card_form_submit",
     ),
 ]

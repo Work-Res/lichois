@@ -11,3 +11,4 @@ from .varriation_api_view import PermitVariationCrmAPIView
 from .visa_api_view import VisaCrmAPIView
 from .work_permit_api_view import WorkPermitCrmAPIView
 from .work_residence_permit_api_view import WorkResidenceAPIView
+from .blue_card_api_view import BlueCardCrmAPIView
