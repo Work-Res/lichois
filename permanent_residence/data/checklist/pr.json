@@ -1,0 +1,220 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "PERMANENT_RESIDENCE_ONLY_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MANUAL_CERTIFICATE_COPY",
+            "name": "MANUAL CERTIFICATE COPY",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Manual certificate copy",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SUPPORT_LETTER",
+            "name": "SUPPORT LETTER",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Letter of support from mission/spouse/supporter",
+            "mandatory": true,
+            "applicant_type":"immigrants,dependents,missionaries",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MISSION_REGISTRATION_PROOF",
+            "name": "MISSION REGISTRATION PROOF",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Proof of mission registration with Registrar of Societies",
+            "mandatory": true,
+            "applicant_type":"missionaries",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SUPPORT_MEANS_PROOF",
+            "name": "SUPPORT MEANS PROOF",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Proof of means of support",
+            "mandatory": true,
+            "applicant_type":"immigrants",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "BANK_STATEMENT",
+            "name": "BANK STATEMENT",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Bank statement",
+            "mandatory": false,
+            "applicant_type":"immigrants",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYMENT_CONFIRMATION",
+            "name": "EMPLOYMENT CONFIRMATION",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Confirmation of employment by the employer/reference letter",
+            "mandatory": true,
+            "applicant_type":"immigrants,dependents,missionaries",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TITLE_DEED_OR_LEASE_AGREEMENT_COPY",
+            "name": "TITLE DEED OR LEASE AGREEMENT COPY",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Valid and certified copies of title deed/lease agreement",
+            "mandatory": true,
+            "applicant_type":"immigrants,dependents,missionaries, investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TAX_RETURNS",
+            "name": "TAX RETURNS",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Tax Return (BURS) through the employer",
+            "mandatory": true,
+            "applicant_type":"immigrants,dependents,missionaries",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SHARE_VALUATION",
+            "name": "SHARE VALUATION",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Valuation of shares",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SHARE_CERTIFICATE",
+            "name": "SHARE CERTIFICATE",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Share certificate",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }, 
+          {
+            "code": "INCORPORATION_CERTIFICATE",
+            "name": "INCORPORATION CERTIFICATE",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Certificate of Incorporation",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "DIRECTOR_LIST",
+            "name": "DIRECTOR LIST",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "List of directors",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ANNUAL_RETURNS",
+            "name": "ANNUAL RETURNS",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Annual returns",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FINANCIAL_STATEMENT",
+            "name": "FINANCIAL STATEMENT",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Financial statement",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TRADING_LICENSE",
+            "name": "TRADING LICENSE",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Trading license",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ASSETS_LIST_VALUATION",
+            "name": "ASSETS LIST VALUATION",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "List of assets and valuation",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COMPANY_PROFILE",
+            "name": "COMPANY PROFILE",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Company profile",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TAX_CLEARANCE",
+            "name": "TAX CLEARANCE",
+            "application_type": "PERMANENT_RESIDENCE_ONLY",
+            "description": "Tax clearance",
+            "mandatory": true,
+            "applicant_type":"investor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

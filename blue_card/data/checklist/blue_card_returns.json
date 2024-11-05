@@ -1,0 +1,59 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "BLUE_CARD_RETURNS_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "BLUE_CARD_RETURNS",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "BLUE_CARD_RETURNS",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "BLUE_CARD_RETURNS",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CITIZENSHIP_DOCUMENT_COPY",
+            "name": "CITIZENSHIP DOCUMENT COPY",
+            "application_type": "BLUE_CARD_RETURNS",
+            "description": "Certified copy of documents evidencing acquired citizenship",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "BOTSWANA_IDENTIFICATION_DOCUMENT_COPY",
+            "name": "CITIZENSHIP DOCUMENT COPY",
+            "application_type": "BLUE_CARD_RETURNS",
+            "description": "Certified copy or copies of documents evidencing prior Botswana Citizenship e.g expired Omang or passport",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  
