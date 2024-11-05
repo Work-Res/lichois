@@ -76,7 +76,7 @@ urlpatterns = [
         name="visa_form_submit",
     ),
     path(
-        "blue_card/receive",
+        "blue-card/receive",
         BlueCardCrmAPIView.as_view(),
         name="blue_card_form_submit",
     ),

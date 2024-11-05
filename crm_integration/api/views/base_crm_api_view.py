@@ -10,11 +10,15 @@ from ...classes import CrmRequestHandler
 class BaseCrmAPIView(APIView):
 
     permission_classes = [AllowAny]
+    
+
+    def get(self, request):
+        return Response({'processed_data': "processed_data get method called here"}, status=status.HTTP_200_OK)
 
     def post(self, request):
         # Retrieve the data from the request
         data = self.build_master_dict(request)
-        
+        print(data)
         # Process the data (You can add your custom logic here)
         self.process_data(build_master_dict=data)
         
