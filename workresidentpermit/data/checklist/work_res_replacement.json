@@ -26,15 +26,6 @@
           "valid_to": "2030-01-01"
         },
         {
-          "code": "PASSPORT_PHOTO",
-          "name": "PASSPORT PHOTO",
-          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "Passport photo",
-          "mandatory": true,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01"
-        },
-        {
           "code": "AFFIDAVIT",
           "name": "AFFIDAVIT",
           "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
@@ -85,6 +76,15 @@
           "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
           "description": "Letter from employer",
           "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "MARRIAGE_CERTIFICATE",
+          "name": "MARRIAGE CERTIFICATE",
+          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
+          "description": "Marriage certificate",
+          "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
         }
