@@ -21,7 +21,7 @@ urlpatterns = [
         name="work_form_submit",
     ),
     path(
-        "residence-application/receive",
+        "recidence-application/receive",
         ResidencePermitCrmAPIView.as_view(),
         name="residence_form_submit",
     ),
