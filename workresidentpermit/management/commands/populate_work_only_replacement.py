@@ -1,6 +1,6 @@
 from random import randint
 
-from app_personal_details.models import Child, Spouse
+from app_personal_details.models import Children, Spouse
 from django.db.transaction import atomic
 from faker import Faker
 
@@ -17,14 +17,14 @@ class Command(CustomBaseCommand):
     def add_arguments(self, parser):
         # Adding an optional document_number argument
         parser.add_argument(
-            '--document_number',
+            "--document_number",
             type=str,
             help="Specify a document number for the application",
         )
 
     def handle(self, *args, **options):
 
-        document_number = options.get('document_number')
+        document_number = options.get("document_number")
         faker = Faker()
         with atomic():
             fname = faker.first_name()
@@ -68,7 +68,7 @@ class Command(CustomBaseCommand):
                 names_of_trainees=faker.first_name(),
             )
 
-            Child.objects.get_or_create(
+            Children.objects.get_or_create(
                 application_version=version,
                 document_number=app.application_document.document_number,
                 first_name=faker.first_name(),

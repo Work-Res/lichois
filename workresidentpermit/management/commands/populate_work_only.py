@@ -1,6 +1,6 @@
 from random import randint
 
-from app_personal_details.models import Child, Spouse
+from app_personal_details.models import Children, Spouse
 from django.db.transaction import atomic
 from faker import Faker
 
@@ -76,7 +76,7 @@ class Command(CustomBaseCommand):
                     names_of_trainees=faker.first_name(),
                 )
 
-                Child.objects.get_or_create(
+                Children.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
                     first_name=faker.first_name(),

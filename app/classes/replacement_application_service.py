@@ -6,12 +6,19 @@ from django.db import transaction
 from app.api.common.web import APIResponse, APIMessage
 from app.utils import ApplicationStatusEnum
 
-from workresidentpermit.classes.service import WorkResidentPermitReplacementHistoryService
+from workresidentpermit.classes.service import (
+    WorkResidentPermitReplacementHistoryService,
+)
 
 from ..api import NewApplicationDTO
 from ..api.dto import ReplacementApplicationDTO
 
-from app.models import (ApplicationDocument, Application, ApplicationVersion, ApplicationReplacement)
+from app.models import (
+    ApplicationDocument,
+    Application,
+    ApplicationVersion,
+    ApplicationReplacement,
+)
 from app_comments.models import Comment
 from ..exceptions.application_renewal_exception import ApplicationReplacementException
 
@@ -19,8 +26,8 @@ from ..exceptions.application_renewal_exception import ApplicationReplacementExc
 class ReplacementApplicationService(object):
     """Responsible for creation of an application renewal,  records based on given process name.
 
-        Attributes:
-            replacement_application_dto: ReplacementApplicationDTO
+    Attributes:
+        replacement_application_dto: ReplacementApplicationDTO
     """
 
     def __init__(self, replacement_application_dto: ReplacementApplicationDTO):
@@ -39,7 +46,7 @@ class ReplacementApplicationService(object):
         try:
             previous_application = Application.objects.get(
                 application_document__document_number=self.replacement_application_dto.document_number,
-                application_status__code__iexact=ApplicationStatusEnum.ACCEPTED.value
+                application_status__code__iexact=ApplicationStatusEnum.ACCEPTED.value,
             )
             return previous_application
         except Application.DoesNotExist:
@@ -51,28 +58,34 @@ class ReplacementApplicationService(object):
                 code=400,
                 message="Bad request",
                 details=f"Previous application not found, replacement creation aborted - "
-                        f"{self.replacement_application_dto.document_number}."
+                f"{self.replacement_application_dto.document_number}.",
             )
             self.response.messages.append(api_message.to_dict())
             self.logger.error(error_message)
         except Exception as e:
-            self.logger.error(f"An unexpected error occurred during renewal creation: {str(e)}")
+            self.logger.error(
+                f"An unexpected error occurred during renewal creation: {str(e)}"
+            )
         else:
             return previous_application
 
     @transaction.atomic()
-    def create_application_replacement(self,
-                                       new_application_version: ApplicationVersion = None,
-                                       comment: Comment = None,
-                                       submitted_by=None):
+    def create_application_replacement(
+        self,
+        new_application_version: ApplicationVersion = None,
+        comment: Comment = None,
+        submitted_by=None,
+    ):
 
         if not new_application_version:
-            self.logger.error("New application version is required to create a replacement.")
+            self.logger.error(
+                "New application version is required to create a replacement."
+            )
             api_message = APIMessage(
                 code=400,
                 message="Failed to create new renewal application",
                 details=f"New application version is required to create a renewal for "
-                        f"{self.self.replacement_application_dto.document_number}"
+                f"{self.self.replacement_application_dto.document_number}",
             )
             self.response.messages.append(api_message.to_dict())
             return
@@ -82,15 +95,17 @@ class ReplacementApplicationService(object):
                 previous_application=self.previous_application,
                 replacement_application=new_application_version.application,
                 comment=comment,
-                submitted_by=submitted_by
+                submitted_by=submitted_by,
             )
         except IntegrityError as e:
-            self.logger.error("An integrity error occurred while creating the application renewal.")
+            self.logger.error(
+                "An integrity error occurred while creating the application renewal."
+            )
             details = f"Failed to create new renewal application for {self.replacement_application_dto.document_number}. Got exception: {str(e)}"
             api_message = APIMessage(
                 code=400,
                 message="Failed to create new renewal application",
-                details=details
+                details=details,
             )
             self.response.messages.append(api_message.to_dict())
             raise ApplicationReplacementException(detail=details)
@@ -100,30 +115,34 @@ class ReplacementApplicationService(object):
             api_message = APIMessage(
                 code=400,
                 message="Failed to create new renewal application",
-                details=details
+                details=details,
             )
             self.response.messages.append(api_message.to_dict())
             raise ApplicationReplacementException(detail=details)
 
     def create_all(self, new_application_version: ApplicationVersion = None):
 
-        self.logger.info("Starting create_all method with new_application_version: %s",
-                         new_application_version.application.application_document.document_number)
+        self.logger.info(
+            "Starting create_all method with new_application_version: %s",
+            new_application_version.application.application_document.document_number,
+        )
 
         try:
             self.logger.info("Creating application renewal.")
             self.create_application_replacement(
                 new_application_version=new_application_version
             )
-            self.logger.info("Successfully created replacement application with document_number: %s",
-                             self.replacement_application_dto.document_number)
+            self.logger.info(
+                "Successfully created replacement application with document_number: %s",
+                self.replacement_application_dto.document_number,
+            )
 
             self.logger.info("Creating replacement application history.")
             WorkResidentPermitReplacementHistoryService(
                 document_number=self.replacement_application_dto.document_number,
                 application_type=self.replacement_application_dto.proces_name,
                 application_user=self.previous_application.application_document.applicant,
-                process_name=self.previous_application.process_name
+                process_name=self.previous_application.process_name,
             ).create_application_replacement_history()
             self.logger.info("Successfully created replacement application history.")
 
@@ -138,10 +157,16 @@ class ReplacementApplicationService(object):
         new_application_dto = NewApplicationDTO(
             process_name=self.replacement_application_dto.proces_name,
             applicant_identifier=self.replacement_application_dto.applicant_identifier,
-            status=ApplicationStatusEnum.NEW.value
+            status=ApplicationStatusEnum.NEW.value,
         )
-        new_application_dto.dob = self.previous_application.application_document.applicant.dob
-        new_application_dto.full_name = self.previous_application.application_document.applicant.full_name
-        new_application_dto.application_type = self.previous_application.application_type
+        new_application_dto.dob = (
+            self.previous_application.application_document.applicant.dob
+        )
+        new_application_dto.full_name = (
+            self.previous_application.application_document.applicant.full_name
+        )
+        new_application_dto.application_type = (
+            self.previous_application.application_type
+        )
         new_application_dto.work_place = self.replacement_application_dto.work_place
         return new_application_dto
