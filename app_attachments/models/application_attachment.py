@@ -56,6 +56,10 @@ class ApplicationAttachment(ApplicationBaseModel):
 
     work_permit = models.URLField(blank=True, null=True)
 
+    copy_of_renunciation = models.URLField(blank=True, null=True)
+
+    copy_of_acquired_citizenship = models.URLField(blank=True, null=True)
+
     description = models.CharField(max_length=400)
 
     document_url = models.CharField(max_length=150)
