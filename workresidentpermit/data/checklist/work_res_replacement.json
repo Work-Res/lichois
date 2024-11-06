@@ -17,17 +17,8 @@
           "valid_to": "2030-01-01"
         },
         {
-          "code": "PASSPORT_PHOTO",
-          "name": "PASSPORT PHOTO",
-          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "Passport photo",
-          "mandatory": true,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01"
-        },
-        {
-          "code": "AFFIDAVIT",
-          "name": "AFFIDAVIT",
+          "code": "AFFIDAVIT_OR_POLICE_REPORT",
+          "name": "AFFIDAVIT OR POLICE REPORT",
           "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
           "description": "Affidavit from Botswana Police",
           "mandatory": true,
@@ -35,55 +26,10 @@
           "valid_to": "2030-01-01"
         },
         {
-          "code": "POLICE_REPORT",
-          "name": "POLICE REPORT",
+          "code": "COPY_OF_ORIGINAL_PERMIT",
+          "name": "COPY OF ORIGINAL PERMIT",
           "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "Botswana Police report if permit was stolen",
-          "mandatory": false,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01"
-        },
-        {
-          "code": "FEE_PAYMENT",
-          "name": "FEE PAYMENT",
-          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "A fee payment",
-          "mandatory": false,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01"
-        },
-        {
-          "code": "COPY_OF_WORK_RES_PERMIT",
-          "name": "COPY OF WORK RES PERMIT",
-          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "A copy of work permit",
-          "mandatory": true,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01"
-        },
-        {
-          "code": "COPY_OF_EMPLOYMENT_CONTRACT",
-          "name": "COPY OF EMPLOYMENT CONTRACT",
-          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "A copy of employment contract",
-          "mandatory": true,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01"
-        },
-        {
-          "code": "EMPLOYER_LETTER",
-          "name": "EMPLOYER LETTER",
-          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "Letter from employer",
-          "mandatory":false,
-          "valid_from": "2024-01-01",
-          "valid_to": "2030-01-01"
-        },
-        {
-          "code": "MARRIAGE_CERTIFICATE",
-          "name": "MARRIAGE CERTIFICATE",
-          "application_type": "WORK_RESIDENT_PERMIT_REPLACEMENT",
-          "description": "Marriage certificate",
+          "description": "A copy of original permit",
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"

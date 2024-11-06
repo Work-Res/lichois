@@ -1,113 +1,233 @@
 {
-    "classifiers": {
-      "attachment_documents": {
-        "code": "WORK_RESIDENT_PERMIT_RENEWAL_ATTACHMENT_DOCUMENTS",
-        "name": "ATTACHMENT DOCUMENTS",
-        "description": "A list of document to attach",
-        "valid_from": "2024-01-01",
-        "valid_to": "2030-01-01",
-        "classifier_items": [
-          {
-            "code": "PASSPORT_COPY",
-            "name": "PASSPORT COPY",
-            "description": "Scanned passport page 1 copy.",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "COPY_OF_EMPLOYMENT_CONTRACT",
-            "name": "COPY OF EMPLOYMENT CONTRACT",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "A copy of employment contract",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "QUALIFICATION",
-            "name": "QUALIFICATION",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "Certified copies of academic documents",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "CV",
-            "name": "CV",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "A copy of applicant cv",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "MEDICAL_REPORT",
-            "name": "MEDICAL REPORT",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "Medical report",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "EMPLOYER_LETTER",
-            "name": "EMPLOYER LETTER",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "Letter from employer",
-            "mandatory":false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "TAX_CLEARANCE_CERTIFICATE",
-            "name": "TAX CLEARANCE CERTIFICATE",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "A tax clearance certificate",
-            "mandatory":true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "COPY_OF_BIRTH_CERTIFICATE",
-            "name": "COPY OF BIRTH CERTIFICATE",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "A certified copy of birth certificate",
-            "mandatory":false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "LACK_OF_BIRTH_CERTIFICATE",
-            "name": "LACK OF BIRTH CERTIFICATE",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "Statement setting out the reasons for failure to attach copy of birth certificate",
-            "mandatory":false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "MARRIAGE_CERTIFICATE",
-            "name": "MARRIAGE CERTIFICATE",
-            "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
-            "description": "Marriage certificate",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          }
-        ]
-      }
+  "classifiers": {
+    "attachment_documents": {
+      "code": "WORK_RESIDENT_PERMIT_RENEWAL_ATTACHMENT_DOCUMENTS",
+      "name": "ATTACHMENT DOCUMENTS",
+      "description": "A list of document to attach",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "PASSPORT_COPY",
+          "name": "PASSPORT COPY",
+          "description": "Scanned passport page 1 copy.",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PASSPORT_PHOTO",
+          "name": "PASSPORT PHOTO",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Passport photo",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_PASSPORT_PHOTO",
+          "name": "CERTIFIED PASSPORT PHOTO",
+          "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+          "description": "Passport photo certified on the reverse side",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "PAYMENT_PROOF",
+          "name": "PAYMENT PROOF",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Proof of payment for long term permit",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "EMPLOYMENT_CONTRACT",
+          "name": "EMPLOYMENT CONTRACT",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "A copy of employment contract",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "QUALIFICATION",
+          "name": "QUALIFICATION",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Certified copies of academic documents",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CV",
+          "name": "CV",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "A copy of applicant cv",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "MEDICAL_REPORT",
+          "name": "MEDICAL REPORT",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Medical report",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "EMPLOYER_LETTER",
+          "name": "EMPLOYER LETTER",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Letter from employer",
+          "mandatory":true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COVERING_LETTER",
+          "name": "COVERING LETTER",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Covering letter from employer",
+          "mandatory":true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "SHARE_CERTIFICATE",
+          "name": "SHARE CERTIFICATE",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Applicant's share certificate",
+          "mandatory": false,
+          "applicant_type": "Self-employed, Investor",
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "INVESTMENT_PROOF",
+          "name": "INVESTMENT PROOF",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Applicant's proof of investments",
+          "mandatory": false,
+          "applicant_type": "Self-employed, Investor",
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "CERTIFIED_COMPANY_INCORPORATION_CERTIFICATE_COPY",
+          "name": "CERTIFIED COMPANY INCORPORATION CERTIFICATE COPY",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Certified copies of the company certificate of incorporation",
+          "mandatory": true,
+          "applicant_type": "Self-employed, Investor",
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "MARRIAGE_CERTIFICATE",
+          "name": "MARRIAGE CERTIFICATE",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Marriage certificate",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "COPY_OF_BIRTH_CERTIFICATE",
+          "name": "COPY OF BIRTH CERTIFICATE",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "A certified copy of birth certificate",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "LACK_OF_BIRTH_CERTIFICATE",
+          "name": "LACK OF BIRTH CERTIFICATE",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Statement setting out the reasons for failure to attach copy of birth certificate",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "DIVORCE_PAPERS",
+          "name": "DIVORCE PAPERS",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Divorce papers",
+          "mandatory":false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "APPLICATION_LETTER",
+          "name": "APPLICATION LETTER",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "Application letter from applicant",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "DEPENDANT_SUPPORTING_PROOF",
+          "name": "DEPENDANT SUPPORTING PROOF",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "How applicant intends to support dependants",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "REFERENCES",
+          "name": "REFERENCES",
+          "application_type": "WORK_RESIDENT_PERMIT_RENEWAL",
+          "description": "References or testimonals",
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "ADVERT_COPY",
+          "name": "ADVERT COPY",
+          "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+          "description": "Explict advert copy",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "EMPLOYEE_OATH",
+          "name": "EMPLOYEE OATH",
+          "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+          "description": "Employee oath",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "EMPLOYER_OATH",
+          "name": "EMPLOYER OATH",
+          "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+          "description": "Employee oath",
+          "mandatory": true,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        },
+        {
+          "code": "INVESTOR_OATH",
+          "name": "INVESTOR OATH",
+          "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+          "description": "Investor oath",
+          "mandatory": true,
+          "applicant_type": "investor",
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01"
+        }
+      ]
     }
   }
-  
+}

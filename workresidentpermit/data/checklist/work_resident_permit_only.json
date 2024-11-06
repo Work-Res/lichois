@@ -26,17 +26,26 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
+            "code": "CERTIFIED_PASSPORT_PHOTO",
+            "name": "CERTIFIED PASSPORT PHOTO",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
-            "description": "A fee payment",
+            "description": "Passport photo certified on the reverse side",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PAYMENT_PROOF",
+            "name": "PAYMENT PROOF",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Proof of payment for long term permit",
             "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
-            "code": "COPY_OF_EMPLOYMENT_CONTRACT",
-            "name": "COPY OF EMPLOYMENT CONTRACT",
+            "code": "EMPLOYMENT_CONTRACT",
+            "name": "EMPLOYMENT CONTRACT",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "A copy of employment contract",
             "mandatory": true,
@@ -48,7 +57,7 @@
             "name": "QUALIFICATION",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Certified copies of academic documents",
-            "mandatory": true,
+            "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -57,7 +66,7 @@
             "name": "CV",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "A copy of applicant cv",
-            "mandatory": false,
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -75,15 +84,15 @@
             "name": "EMPLOYER LETTER",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Letter from employer",
-            "mandatory":false,
+            "mandatory":true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
-            "code": "TAX_CLEARANCE_CERTIFICATE",
-            "name": "TAX CLEARANCE CERTIFICATE",
+            "code": "COVERING_LETTER",
+            "name": "COVERING LETTER",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
-            "description": "A tax clearance certificate",
+            "description": "Covering letter from employer",
             "mandatory":true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
@@ -93,7 +102,7 @@
             "name": "SHARE CERTIFICATE",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Applicant's share certificate",
-            "mandatory": false,
+            "mandatory": true,
             "applicant_type": "Self-employed, Investor",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
@@ -103,7 +112,7 @@
             "name": "INVESTMENT PROOF",
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Applicant's proof of investments",
-            "mandatory": false,
+            "mandatory": true,
             "applicant_type": "Self-employed, Investor",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
@@ -142,6 +151,79 @@
             "application_type": "WORK_RESIDENT_PERMIT_ONLY",
             "description": "Statement setting out the reasons for failure to attach copy of birth certificate",
             "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "DIVORCE_PAPERS",
+            "name": "DIVORCE PAPERS",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Divorce papers",
+            "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Application letter from applicant",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "DEPENDANT_SUPPORTING_PROOF",
+            "name": "DEPENDANT SUPPORTING PROOF",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "How applicant intends to support dependants",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "REFERENCES",
+            "name": "REFERENCES",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "References or testimonals",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ADVERT_COPY",
+            "name": "ADVERT COPY",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Explict advert copy",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYEE_OATH",
+            "name": "EMPLOYEE OATH",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Employee oath",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "EMPLOYER_OATH",
+            "name": "EMPLOYER OATH",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Employee oath",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "INVESTOR_OATH",
+            "name": "INVESTOR OATH",
+            "application_type": "WORK_RESIDENT_PERMIT_ONLY",
+            "description": "Investor oath",
+            "mandatory": true,
+            "applicant_type": "investor",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           }
