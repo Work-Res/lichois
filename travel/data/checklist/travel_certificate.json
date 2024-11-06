@@ -1,26 +1,26 @@
 {
     "classifiers": {
       "attachment_documents": {
-        "code": "WORK_RESIDENT_PERMIT_APPEAL_ATTACHMENT_DOCUMENTS",
+        "code": "TRAVEL_CERTIFICATE_ATTACHMENT_DOCUMENTS",
         "name": "ATTACHMENT DOCUMENTS",
         "description": "A list of document to attach",
         "valid_from": "2024-01-01",
         "valid_to": "2030-01-01",
         "classifier_items": [
           {
-            "code": "PASSPORT_COPY",
-            "name": "PASSPORT COPY",
-            "description": "Scanned passport page 1 copy.",
-            "application_type": "WORK_RESIDENT_PERMIT_APPEAL",
-            "mandatory": true,
+            "code": "POLICE_REPORT",
+            "name": "POLICE REPORT",
+            "application_type": "TRAVEL_CERTIFICATE",
+            "description": "Botswana Police report if permit was stolen",
+            "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
-            "code": "LETTER_OF_APPEAL",
-            "name": "LETTER OF APPEAL",
-            "application_type": "WORK_RESIDENT_PERMIT_APPEAL",
-            "description": "A letter of appeal",
+            "code": "AFFIDAVIT",
+            "name": "AFFIDAVIT",
+            "application_type": "TRAVEL_CERTIFICATE",
+            "description": "Affidavit from Botswana Police",
             "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"

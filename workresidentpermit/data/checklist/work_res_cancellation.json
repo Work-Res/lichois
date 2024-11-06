@@ -17,15 +17,6 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "APPLICANT_COVER_LETTER",
             "name": "APPLICANTCOVER LETTER",
             "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
@@ -35,28 +26,10 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "ORIGINAL_WORK_PERMIT",
-            "name": "ORIGINAL WORK PERMIT",
+            "code": "ORIGINAL_PERMIT",
+            "name": "ORIGINAL PERMIT",
             "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-            "description": "Original work permit",
-            "mandatory":true,
-            "valid_from" :"2024-01-01",
-            "valid_to":"2030-01-01"
-          },
-          {
-            "code": "ORIGINAL_RESIDENCE_PERMIT",
-            "name": "ORIGINAL RESIDENCE PERMIT",
-            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-            "description": "Original residence permit",
-            "mandatory":true,
-            "valid_from" :"2024-01-01",
-            "valid_to":"2030-01-01"
-          },
-          {
-            "code": "OFFER_LETTER",
-            "name": "OFFER LETTER",
-            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-            "description": "Offer letter if changing employment",
+            "description": "Original permit",
             "mandatory":true,
             "valid_from" :"2024-01-01",
             "valid_to":"2030-01-01"
@@ -80,10 +53,10 @@
             "valid_to":"2030-01-01"
           },
           {
-            "code": "APPLICATION_LETTER",
-            "name": "APPLICATION LETTER",
+            "code": "TERMINATION_LETTER",
+            "name": "TERMINATION LETTER",
             "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-            "description": "An application letter",
+            "description": "Termination letter",
             "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
@@ -120,15 +93,6 @@
             "name": "TAX CLEARANCE CERTIFICATE",
             "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
             "description": "A tax clearance certificate",
-            "mandatory":true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "ORIGINAL_WORK_RES_PERMIT",
-            "name": "ORIGINAL WORK RES PERMIT",
-            "application_type": "WORK_RESIDENT_PERMIT_CANCELLATION",
-            "description": "A work res permit",
             "mandatory":true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"

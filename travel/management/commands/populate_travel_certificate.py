@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS("Populating appeal data..."))
                 app = ApplicationService(new_application_dto=new_app)
                 self.stdout.write(self.style.SUCCESS(new_app.__dict__))
-                version = app.create_application()
+                app, version = app.create_application()
                 Person.objects.get_or_create(
                     application_version=version,
                     first_name=fname,
@@ -85,14 +85,6 @@ class Command(BaseCommand):
                     private_bag=faker.building_number(),
                 )
 
-                father, _ = Person.objects.get_or_create(
-                    first_name=faker.first_name(),
-                    last_name=faker.last_name(),
-                )
-                mother, _ = Person.objects.get_or_create(
-                    first_name=faker.first_name(),
-                    last_name=faker.last_name(),
-                )
                 TravelCertificate.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
@@ -102,10 +94,6 @@ class Command(BaseCommand):
                     issuing_authority=faker.name(),
                     names_of_other_relatives=faker.name(),
                     date_issued=faker.date_this_century(),
-                    mother=mother,
-                    father=father,
-                    mother_full_address=faker.address(),
-                    father_full_address=faker.address(),
                     full_address_of_relative=faker.address(),
                     original_home_address=faker.address(),
                 )

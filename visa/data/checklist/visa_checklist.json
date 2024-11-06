@@ -1,0 +1,167 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "VISA_PERMIT_ONLY_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "VISA_PERMIT_ONLY",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COVER_LETTER",
+            "name": "COVER LETTER",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Cover letter from host",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PREVIOUS_VISA_APPLICATION",
+            "name": "PREVIOUS VISA APPLICATION",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "If previously applied for visa please attach the copy of the outcome",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TRAVEL_PRATICULARS",
+            "name": "TRAVEL PRATICULARS",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Travel schedule/ flight itinerary/bookings",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "AFFIDAVIT",
+            "name": "AFFIDAVIT",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Affidavit",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MARRIAGE_CERTIFICATE",
+            "name": "MARRIAGE CERTIFICATE",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Marriage certificate",
+            "mandatory": false,
+            "applicant_type":"visitor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "BIRTH_CERTIFICATE",
+            "name": "BIRTH CERTIFICATE",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Dependant birth certificate",
+            "mandatory": false,
+            "applicant_type":"visitor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "RETURN_VISA",
+            "name": "RETURN_VISA",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Return visa or residence permit from country of residence",
+            "mandatory": true,
+            "applicant_type":"visitor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ORDINATION_CERTIFICATE_COPY",
+            "name": "ORDINATION CERTIFICATE COPY",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Certified copies of ordination certificates from religious leaders",
+            "mandatory": true,
+            "applicant_type":"visitor",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "MEETING_SCHEDULE",
+            "name": "MEETING SCHEDULE",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Meeting schedule",
+            "mandatory": true,
+            "applicant_type":"business applicant",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SHARE_CERTIFICATE",
+            "name": "SHARE CERTIFICATE",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Share certificate of host if operating a business",
+            "mandatory": true,
+            "applicant_type":"business applicant",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }, 
+          {
+            "code": "INCORPORATION_CERTIFICATE",
+            "name": "INCORPORATION CERTIFICATE",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Certificate of Incorporation of host if operating a business",
+            "mandatory": true,
+            "applicant_type":"business applicant",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TRADING_LICENSE",
+            "name": "TRADING LICENSE",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Trading license of host if operating a business",
+            "mandatory": true,
+            "applicant_type":"business applicant",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COMPANY_PROFILE",
+            "name": "COMPANY PROFILE",
+            "application_type": "VISA_PERMIT_ONLY",
+            "description": "Business profile/letter of invitation from host organisation (with official stamp)",
+            "mandatory": true,
+            "applicant_type":"business applicant",
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

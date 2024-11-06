@@ -1,0 +1,32 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "PERMANENT_RESIDENCE_10_YEARS_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+            {
+                "code": "ORIGINAL_PR_CARD",
+                "name": "ORIGINAL PR CARD",
+                "application_type": "PERMANENT_RESIDENCE_10_YEARS",
+                "description": "Original permanent residence card",
+                "mandatory": false,
+                "valid_from": "2024-01-01",
+                "valid_to": "2030-01-01"
+            },
+            {
+            "code": "FEE_PAYMENT",
+            "name": "FEE PAYMENT",
+            "application_type": "PERMANENT_RESIDENCE_10_YEARS",
+            "description": "A fee payment",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  
