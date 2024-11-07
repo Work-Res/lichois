@@ -26,11 +26,11 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
+            "code": "CERTIFIED_PASSPORT_PHOTO",
+            "name": "CERTIFIED PASSPORT PHOTO",
             "application_type": "EXEMPTION_CERTIFICATE_ONLY",
-            "description": "A fee payment",
-            "mandatory": false,
+            "description": "Passport photo certified on the reverse side",
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -44,11 +44,47 @@
             "valid_to":"2030-01-01"
           },
           {
-            "code": "COVER_LETTER_FROM_EMPLOYER",
-            "name": "COVER LETTER FROM EMPLOYER",
+            "code": "EMPLOYER_COVERING_LETTER",
+            "name": "EMPLOYER COVERING LETTER",
             "application_type": "EXEMPTION_CERTIFICATE_ONLY",
             "description": "Cover letter from the employer",
             "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SUPPORTER_COVERING_LETTER",
+            "name": "SUPPORTER COVERING LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Covering letter from the supporter/principal applicant for each dependants",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "DEPENDENT_PASSPORT_COPY",
+            "name": "DEPENDENT PASSPORT COPY",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Certified copy of valid passport for each dependants",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "DEPENDENT_PASSPORT_PHOTO",
+            "name": "DEPENDENT PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Passport photo for each dependants",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "DEPENDENT_CERTIFIED_PASSPORT_PHOTO",
+            "name": "DEPENDENT CERTIFIED PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Certified on reverse passport photo for each dependants",
+            "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -129,6 +165,24 @@
             "name": "MARRIAGE CERTIFICATE",
             "application_type": "EXEMPTION_CERTIFICATE_ONLY",
             "description": "Marriage certificate",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "SCHOOL_ADMISSION_LETTER",
+            "name": "SCHOOL ADMISSION LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "School admission letters for children",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ENTRY_STAMPS_PASSPORT_PAGE_COPY",
+            "name": "ENTRY STAMPS PASSPORT PAGE COPY",
+            "application_type": "EXEMPTION_CERTIFICATE_ONLY",
+            "description": "Copies of passport pages showing recent entry stamps (fresh applications)",
             "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"

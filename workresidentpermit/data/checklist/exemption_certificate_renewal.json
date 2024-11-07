@@ -26,11 +26,11 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
+            "code": "CERTIFIED_PASSPORT_PHOTO",
+            "name": "CERTIFIED PASSPORT PHOTO",
             "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "A fee payment",
-            "mandatory": false,
+            "description": "Passport photo certified on the reverse side",
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -44,15 +44,6 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "ORIGINAL_RESIDENCE_PERMIT",
-            "name": "ORIGINAL RESIDENCE PERMIT",
-            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "Original residence permit",
-            "mandatory":true,
-            "valid_from" :"2024-01-01",
-            "valid_to":"2030-01-01"
-          },
-          {
             "code": "ORIGINAL_EXEMPTION_CERTIFICATE",
             "name": "ORIGINAL EXEMPTION CERTIFICATE",
             "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
@@ -62,67 +53,13 @@
             "valid_to":"2030-01-01"
           },
           {
-            "code": "COVER_LETTER_FROM_EMPLOYER",
-            "name": "COVER LETTER FROM EMPLOYER",
+            "code": "REGISTRATION_COPY",
+            "name": "REGISTRATION COPY",
             "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "Cover letter from the employer",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "QUALIFICATION",
-            "name": "QUALIFICATION",
-            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "Certified copies of academic documents",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "APPLICATION_LETTER",
-            "name": "APPLICATION LETTER",
-            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "An application letter",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "MEDICAL_REPORT",
-            "name": "MEDICAL REPORT",
-            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "Medical report",
-            "mandatory": true,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "COPY_OF_BIRTH_CERTIFICATE",
-            "name": "COPY OF BIRTH CERTIFICATE",
-            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "A certified copy of birth certificate",
+            "description": "Copies of registration with medical council - (Blue card for Health Professionals)",
             "mandatory":false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "LACK_OF_BIRTH_CERTIFICATE",
-            "name": "LACK OF BIRTH CERTIFICATE",
-            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "Statement setting out the reasons for failure to attach copy of birth certificate",
-            "mandatory":false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "MARRIAGE_CERTIFICATE",
-            "name": "MARRIAGE CERTIFICATE",
-            "application_type": "EXEMPTION_CERTIFICATE_RENEWAL",
-            "description": "Marriage certificate",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
           }
         ]
       }

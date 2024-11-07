@@ -17,20 +17,11 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "RESIDENT_PERMIT_CANCELLATION",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "ORIGINAL_RESIDENCE_PERMIT",
             "name": "ORIGINAL RESIDENCE PERMIT",
             "application_type": "RESIDENT_PERMIT_CANCELLATION",
             "description": "Original residence permit",
-            "mandatory":true,
+            "mandatory":false,
             "valid_from" :"2024-01-01",
             "valid_to":"2030-01-01"
           },

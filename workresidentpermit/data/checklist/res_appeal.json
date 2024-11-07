@@ -17,15 +17,6 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "RESIDENT_PERMIT_APPEAL",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "LETTER_OF_APPEAL",
             "name": "LETTER OF APPEAL",
             "application_type": "RESIDENT_PERMIT_APPEAL",

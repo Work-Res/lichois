@@ -22,6 +22,20 @@
             }
           },
           {
+            "code": "FEEDBACK",
+            "name": "Blue Card Return Verification",
+            "description": "Application On Feedback Task.",
+            "mandatory": false,
+            "sequence": 2,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01",
+            "next_activity_name": "VERIFICATION",
+            "create_task_rules": {
+              "current_status": "VERIFICATION",
+              "verification_decision": "REJECTED"
+            }
+          },
+          {
             "code": "FINAL_DECISION",
             "name": "Blue Card Returns Production Decision",
             "description": "Permit Production Task",

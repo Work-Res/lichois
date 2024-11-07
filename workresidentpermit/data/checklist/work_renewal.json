@@ -26,11 +26,11 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
+            "code": "CERTIFIED_PASSPORT_PHOTO",
+            "name": "CERTIFIED PASSPORT PHOTO",
             "application_type": "WORK_PERMIT_RENEWAL",
-            "description": "A fee payment",
-            "mandatory": false,
+            "description": "Passport photo certified on the reverse side",
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -44,8 +44,8 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "MARRIAGE CERTIFICATE",
-            "name": "MARRIAGE_CERTIFICATE",
+            "code": "MARRIAGE_CERTIFICATE",
+            "name": "MARRIAGE CERTIFICATE",
             "application_type": "WORK_PERMIT_RENEWAL",
             "description": "Certified copy of Marriage Certificate",
             "mandatory": false,
@@ -56,7 +56,7 @@
             "code": "OFFER_LETTER",
             "name": "OFFER LETTER",
             "application_type": "WORK_PERMIT_RENEWAL",
-            "description": "Offer letter if changing employment",
+            "description": "Offer letter",
             "mandatory":true,
             "valid_from" :"2024-01-01",
             "valid_to":"2030-01-01"
@@ -84,7 +84,7 @@
             "name": "CV",
             "application_type": "WORK_PERMIT_RENEWAL",
             "description": "A copy of applicant cv",
-            "mandatory": false,
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -92,7 +92,7 @@
             "code": "COPY_OF_ADVERT",
             "name": "COPY OF ADVERT",
             "application_type": "WORK_PERMIT_RENEWAL",
-            "description": "A copy of advert",
+            "description": "A copy of advert for all applications beyond 30 days",
             "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
@@ -111,7 +111,8 @@
             "name": "CLEARANCE",
             "application_type": "WORK_PERMIT_RENEWAL",
             "description": "Clearance from relevant professional regulatory bodies",
-            "mandatory": true,
+            "mandatory": false,
+            "applicant_type":"",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -205,6 +206,24 @@
             "application_type": "WORK_PERMIT_RENEWAL",
             "description": "Statement setting out the reasons for failure to attach copy of birth certificate",
             "mandatory":false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "COVERING_LETTER",
+            "name": "COVERING LETTER",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Cover letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PAYMENT_PROOF",
+            "name": "PAYMENT PROOF",
+            "application_type": "WORK_PERMIT_RENEWAL",
+            "description": "Proof of payment for long term permit",
+            "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           }

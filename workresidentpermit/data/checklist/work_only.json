@@ -192,15 +192,6 @@
             "valid_to":"2030-01-01"
           },
           {
-            "code": "MARRIAGE CERTIFICATE",
-            "name": "MARRIAGE_CERTIFICATE",
-            "application_type": "WORK_PERMIT_ONLY",
-            "description": "Certified copy of Marriage Certificate",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "COPY_OF_BIRTH_CERTIFICATE",
             "name": "COPY OF BIRTH CERTIFICATE",
             "application_type": "WORK_PERMIT_ONLY",

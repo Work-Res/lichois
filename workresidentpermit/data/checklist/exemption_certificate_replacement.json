@@ -26,15 +26,6 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "POLICE_REPORT",
             "name": "POLICE REPORT",
             "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
@@ -53,11 +44,11 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "APPLICANT_COVER_LETTER",
-            "name": "APPLICANTCOVER LETTER",
+            "code": "ORIGINAL_CERTIFICATE_COPY",
+            "name": "ORIGINAL CERTIFICATE COPY",
             "application_type": "EXEMPTION_CERTIFICATE_REPLACEMENT",
-            "description": "Cover letter from the applicant",
-            "mandatory": true,
+            "description": "Copy of the original certificate",
+            "mandatory": false,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           }

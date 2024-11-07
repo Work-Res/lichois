@@ -23,6 +23,20 @@
           }
         },
         {
+          "code": "FEEDBACK",
+          "name": "Work Res Verification",
+          "description": "Application On Feedback Task.",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "VERIFICATION",
+          "create_task_rules": {
+            "current_status": "VERIFICATION",
+            "verification_decision": "FEEDBACK"
+          }
+        },
+        {
           "code": "FINAL_DECISION",
           "name": "Work & Res Production Decision",
           "description": "Work & Res Permit Production Task",
