@@ -1,14 +1,16 @@
 from datetime import date
-from random import randint
-from django.db import transaction
 
+from django.db import transaction
 from model_bakery.recipe import Recipe
 from model_mommy import mommy
-from authentication.models import User
+from django.core.management import call_command
+
 
 from app.api.dto.application_verification_request_dto import (
     ApplicationVerificationRequestDTO,
 )
+from app.models.application import Application
+from app.classes.application_service import ApplicationService
 from app.api.dto.new_application_dto import NewApplicationDTO
 from app.api.dto.security_clearance_request_dto import SecurityClearanceRequestDTO
 from app.api.serializers.application_verification_request_serializer import (
@@ -17,7 +19,6 @@ from app.api.serializers.application_verification_request_serializer import (
 from app.api.serializers.security_clearance_request_serializer import (
     SecurityClearanceRequestDTOSerializer,
 )
-from app.classes.application_service import ApplicationService
 from app.models.application_decision_type import ApplicationDecisionType
 from app.service.security_clearance_service import SecurityClearanceService
 from app.service.verification_service import VerificationService
@@ -40,57 +41,52 @@ from app_assessment.service.assessment_case_decision_service import (
 from app_assessment.validators.assessment_case_decision_validator import (
     AssessmentCaseDecisionValidator,
 )
+from app_checklist.models.system_parameter_permit_renewal_period import (
+    SystemParameterPermitRenewalPeriod,
+)
+from authentication.models import User
 from board.models import (
     BoardDecision,
+    BoardMeeting,
     BoardMeetingVote,
+    BoardMember,
     MeetingAttendee,
     VotingProcess,
-    BoardMember,
 )
 from lichois.management.base_command import CustomBaseCommand
 
-from board.models import BoardMeeting
+from ...utils.work_resident_permit_application_type_enum import (
+    WorkResidentPermitApplicationTypeEnum,
+)
 
 
 class Command(CustomBaseCommand):
+    process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
 
     def handle(self, *args, **options):
         with transaction.atomic():
-            app, _ = self.create_new_application()
-            document_number = app.application_document.document_number
+            call_command("populate_work_res_data")
 
-            self.perform_verification(document_number)
+            for app in Application.objects.filter(
+                process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+                application_status__code__iexact=ApplicationStatusEnum.VERIFICATION.value,
+            ):
+                document_number = app.application_document.document_number
 
-            self.perform_vetting(document_number)
+                self.perform_verification(document_number)
 
-            self.perform_assessment(document_number)
+                self.perform_vetting(document_number)
 
-            board_meeting, board = self.create_board_meeting()
+                self.perform_assessment(document_number)
 
-            self.voting_process(board, board_meeting, document_number)
+                board_meeting, board = self.create_board_meeting()
 
-            self.perform_board_decision(document_number, board_meeting)
+                self.voting_process(board, board_meeting, document_number)
 
-    def create_new_application(self):
-        # Use provided document_number or generate a new one if not provided
-        applicant_identifier = (
-            f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
-            f"{randint(1000, 9999)}-{randint(1000, 9999)}"
-        )
+                self.perform_board_decision(document_number, board_meeting)
 
-        new_application_dto = NewApplicationDTO(
-            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            applicant_identifier=applicant_identifier,
-            status=ApplicationStatusEnum.VERIFICATION.value,
-            dob="06101990",
-            work_place="01",
-            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            full_name="Test test",
-            applicant_type="student",
-        )
-        app_service = ApplicationService(new_application_dto=new_application_dto)
-        app, version = app_service.create_application()
-        return app, version
+                # self.create_replacement_applications(document_number)
+                self.create_renewal_permit(document_number)
 
     def perform_verification(self, document_number):
         data = {"status": "ACCEPTED"}
@@ -211,9 +207,13 @@ class Command(CustomBaseCommand):
 
         board_members = []
         for user_info in user_data:
-            user = self.create_user(**user_info)
-            board_member = self.create_board_member(board, user)
-            board_members.append(board_member)
+            try:
+                user = User.objects.get(username=user_info["username"])
+            except User.DoesNotExist:
+                user = self.create_user(**user_info)
+            else:
+                board_member = self.create_board_member(board, user)
+                board_members.append(board_member)
 
         # Create meeting attendees
         meeting_attendees = [
@@ -223,20 +223,7 @@ class Command(CustomBaseCommand):
 
         # Create board meeting votes
         for attendee in meeting_attendees:
-            self.create_board_meeting_vote(attendee, self.document_number)
-
-        for _ in range(3):
-            meeting_attendee = self.create_meeting_attendee(
-                board_meeting,
-            )
-            vote = Recipe(
-                BoardMeetingVote,
-                meeting_attendee=meeting_attendee,
-                document_number=document_number,
-                status="ACCEPTED",
-                tie_breaker="ACCEPTED",
-            )
-            vote.make()
+            self.create_board_meeting_vote(attendee, document_number)
 
         voting_process_recipe = Recipe(
             VotingProcess,
@@ -272,3 +259,60 @@ class Command(CustomBaseCommand):
         return Recipe(
             BoardMember, board=board, user=user, board_join_date="2024-10-25"
         ).make()
+
+    def create_board_meeting_vote(
+        self, meeting_attendee, document_number, status="APPROVED"
+    ):
+        return Recipe(
+            BoardMeetingVote,
+            meeting_attendee=meeting_attendee,
+            document_number=document_number,
+            status=status,
+            comments="This is a sample comment",
+            tie_breaker=None,
+        ).make()
+
+    def create_replacement_applications(self, document_number):
+        new_application_dto = NewApplicationDTO(
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+            applicant_identifier="317918515",
+            status=ApplicationStatusEnum.VERIFICATION.value,
+            dob="06101990",
+            work_place="01",
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            full_name="Test test",
+            applicant_type="student",
+            application_permit_type="replacement",
+            document_number=document_number,
+        )
+        application_service = ApplicationService(
+            new_application_dto=new_application_dto
+        )
+
+        app, version = application_service.create_application()
+
+    def create_renewal_permit(self, document_number):
+
+        SystemParameterPermitRenewalPeriod.objects.get_or_create(
+            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value,
+            percent=0.25,
+        )
+
+        new_application_dto = NewApplicationDTO(
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+            applicant_identifier="317918515",
+            status=ApplicationStatusEnum.VERIFICATION.value,
+            dob="06101990",
+            work_place="01",
+            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            full_name="Test test",
+            applicant_type="student",
+            application_permit_type="renewal",
+            document_number=document_number,
+        )
+        application_service = ApplicationService(
+            new_application_dto=new_application_dto
+        )
+
+        application_service.create_application()
+        # return app, version
