@@ -57,7 +57,7 @@ class ApplicationBatchValidator:
             != ApplicationStatusEnum.ASSESSMENT.value.lower()
         ):
             self.add_error_message(
-                "Only applications at the Assessment stage can be added to a batch",
+                "Only applications at the A stage can be added to a batch",
                 application.application_document.document_number,
             )
             error = True
