@@ -17,15 +17,6 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "WORK_PERMIT_CANCELLATION",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "COPY_OF_WORK_PERMIT",
             "name": "COPY OF WORK PERMIT",
             "application_type": "WORK_PERMIT_CANCELLATION",

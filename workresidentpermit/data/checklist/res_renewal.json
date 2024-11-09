@@ -26,11 +26,11 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
+            "code": "CERTIFIED_PASSPORT_PHOTO",
+            "name": "CERTIFIED PASSPORT PHOTO",
             "application_type": "RESIDENT_PERMIT_RENEWAL",
-            "description": "A fee payment",
-            "mandatory": false,
+            "description": "Passport photo certified on the reverse side",
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },

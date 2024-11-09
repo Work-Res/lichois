@@ -26,20 +26,11 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
+            "code": "CERTIFIED_PASSPORT_PHOTO",
+            "name": "CERTIFIED PASSPORT PHOTO",
             "application_type": "RESIDENT_PERMIT_ONLY",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
-            "code": "MARRIAGE CERTIFICATE",
-            "name": "MARRIAGE_CERTIFICATE",
-            "application_type": "RESIDENT_PERMIT_ONLY",
-            "description": "Certified copy of Marriage Certificate",
-            "mandatory": false,
+            "description": "Passport photo certified on the reverse side",
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -52,7 +43,6 @@
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
-          
           {
             "code": "MANUAL_CERTIFICATE",
             "name": "MANUAL CERTIFICATE",

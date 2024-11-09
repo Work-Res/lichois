@@ -26,15 +26,6 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "APPLICATION_LETTER",
             "name": "APPLICATION LETTER",
             "application_type": "EXEMPTION_CERTIFICATE_CANCELLATION",
