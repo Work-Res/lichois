@@ -1,9 +1,9 @@
-import re
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from app.api.common.web import APIMessage
+from app.models import Application
 from ..choices import PRESENT, ABSENT
 from ..models import BoardMember, InterestDeclaration, MeetingAttendee
 from ..serializers import InterestDeclarationSerializer
@@ -120,13 +120,21 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
         if not batch:
             return Response(APIMessage(message="Batch is required", code=400).to_dict())
 
-        for document in batch:
+        for pk in batch:
+            application = Application.objects.filter(pk=pk).first()
+            if not application:
+                return Response(
+                    APIMessage(
+                        message=f"Application with id {pk} not found", code=404
+                    ).to_dict(),
+                    status=404,
+                )
             interest_declaration = InterestDeclaration.objects.filter(
-                document_number=document
+                document_number=application.application_document.document_number,
             ).first()
             if not interest_declaration:
                 data = {
-                    "document_number": document,
+                    "document_number": application.application_document.document_number,
                     "meeting": meeting,
                     "decision": "vote",
                     "attendee_signature": True,
