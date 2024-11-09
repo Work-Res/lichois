@@ -6,7 +6,8 @@ def decorate_renewal_identifier(func):
     def wrapper(self, *args, **kwargs):
         result = func(self, *args, **kwargs)
 
-        if self.application.application_permit_type == 'renewal' and result is not None:
-            return f"RW/{result}"
+        if self.application.application_permit_type == "renewal" and result is not None:
+            return f"RW-{result}"
         return result
+
     return wrapper

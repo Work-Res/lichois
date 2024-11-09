@@ -139,9 +139,23 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
                     "decision": "vote",
                     "attendee_signature": True,
                 }
+                print(f"************************{data}************************")
                 serializer = self.get_serializer(data=data)
                 if serializer.is_valid(raise_exception=True):
                     self.perform_create(serializer)
+                else:
+                    return Response(
+                        APIMessage(message=serializer.errors, code=400).to_dict(),
+                        status=400,
+                    )
+            else:
+                return Response(
+                    APIMessage(
+                        message=f"Interest declaration for application {pk} already exists",
+                        code=400,
+                    ).to_dict(),
+                    status=400,
+                )
 
         return Response(
             APIMessage(

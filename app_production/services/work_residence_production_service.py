@@ -37,8 +37,8 @@ class WorkResidenceProductionService(PermitProductionService):
             self._systems_parameter = SystemParameter.objects.create(
                 application_type=self.request.application_type,
                 valid_from=date.today(),
-                valid_to=date.today() + relativedelta(years=3),
+                valid_to=date.today(),
                 duration_type="years",
-                duration=100,
+                duration=5,
             )
         return self._systems_parameter

@@ -23,7 +23,7 @@ class Command(CustomBaseCommand):
         )
         with atomic():
 
-            for _ in range(50):
+            for _ in range(10):
                 self.application_type = faker.random_element(
                     elements=(
                         work_res_permit,

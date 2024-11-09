@@ -30,7 +30,7 @@ class ApplicationService:
 
     def __init__(self, new_application_dto: NewApplicationDTO):
         self.logger = logging.getLogger(__name__)
-        logging.basicConfig(level=logging.INFO)
+        self.logger.setLevel(logging.DEBUG)
         self.new_application_dto = new_application_dto
         self.response = APIResponse()
         self.application_document = ApplicationDocument()
