@@ -1,7 +1,12 @@
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
-from app.models import Application, ApplicationDecision, ApplicationRenewal, ApplicationRenewalHistory, \
-    ApplicationReplacement
+from app.models import (
+    Application,
+    ApplicationDecision,
+    ApplicationRenewal,
+    ApplicationRenewalHistory,
+    ApplicationReplacement,
+)
 from app.models.application_replacement_history import ApplicationReplacementHistory
 
 from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum
@@ -19,45 +24,47 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
     def create_new_application(self):
         self.new_application_dto = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            applicant_identifier='317918515',
+            applicant_identifier="317918515",
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
             application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             full_name="Test test",
-            applicant_type="investor"
+            applicant_type="investor",
         )
 
-        self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
+        self.application_service = ApplicationService(
+            new_application_dto=self.new_application_dto
+        )
         return self.application_service.create_application()
 
     def test_create_new_application_workflow_records(self):
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
+        self.assertEqual(
+            app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+        )
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         )
         self.assertEqual(6, activites.count())
-        self.assertEqual(
-            app.application_status.code, WorkflowEnum.VERIFICATION.value
-        )
+        self.assertEqual(app.application_status.code, WorkflowEnum.VERIFICATION.value)
 
     def test_workflow_transaction_after_when_performing_board_decision(self):
         SystemParameter.objects.create(
             application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             duration_type="years",
-            duration=100
+            duration=100,
         )
 
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         self.assertEqual(
-            app.application_status.code, WorkflowEnum.VERIFICATION.value
+            app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value
         )
+        self.assertEqual(app.application_status.code, WorkflowEnum.VERIFICATION.value)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
@@ -92,7 +99,9 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         voting_process = self.voting_process()
         self.assertIsNotNone(voting_process)
 
-        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        application_decision = ApplicationDecision.objects.filter(
+            document_number=self.document_number
+        )
         self.assertTrue(application_decision.exists())
         app.refresh_from_db()
         self.assertEqual(
@@ -106,16 +115,16 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         SystemParameter.objects.create(
             application_type=ApplicationProcesses.WORK_PERMIT.value,
             duration_type="years",
-            duration=100
+            duration=100,
         )
 
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         self.assertEqual(
-            app.application_status.code, WorkflowEnum.VERIFICATION.value
+            app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value
         )
+        self.assertEqual(app.application_status.code, WorkflowEnum.VERIFICATION.value)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
@@ -143,7 +152,9 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         voting_process = self.voting_process()
         self.assertIsNotNone(voting_process)
 
-        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        application_decision = ApplicationDecision.objects.filter(
+            document_number=self.document_number
+        )
         self.assertTrue(application_decision.exists())
         app.refresh_from_db()
         self.assertEqual(
@@ -155,7 +166,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
 
         self.new_application_dto = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            applicant_identifier='317918515',
+            applicant_identifier="317918515",
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
@@ -163,15 +174,17 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
             full_name="Test test",
             applicant_type="student",
             application_permit_type="renewal",
-            document_number=self.document_number
+            document_number=self.document_number,
         )
 
         SystemParameterPermitRenewalPeriod.objects.create(
             application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            percent=0.25
+            percent=0.25,
         )
 
-        self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
+        self.application_service = ApplicationService(
+            new_application_dto=self.new_application_dto
+        )
         version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
@@ -183,20 +196,22 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         history = ApplicationRenewalHistory.objects.all()
         self.assertTrue(history.exists())
 
-    def test_workflow_transaction_after_when_performing_board_decision_replacement(self):
+    def test_workflow_transaction_after_when_performing_board_decision_replacement(
+        self,
+    ):
         SystemParameter.objects.create(
             application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             duration_type="years",
-            duration=100
+            duration=100,
         )
 
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         self.assertEqual(
-            app.application_status.code, WorkflowEnum.VERIFICATION.value
+            app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value
         )
+        self.assertEqual(app.application_status.code, WorkflowEnum.VERIFICATION.value)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
@@ -225,7 +240,9 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         voting_process = self.voting_process()
         self.assertIsNotNone(voting_process)
 
-        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        application_decision = ApplicationDecision.objects.filter(
+            document_number=self.document_number
+        )
         self.assertTrue(application_decision.exists())
         app.refresh_from_db()
         self.assertEqual(
@@ -237,7 +254,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
 
         self.new_application_dto = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_PERMIT_REPLACEMENT.value,
-            applicant_identifier='317918515',
+            applicant_identifier="317918515",
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
@@ -245,10 +262,12 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
             full_name="Test test",
             applicant_type="student",
             application_permit_type="replacement",
-            document_number=self.document_number
+            document_number=self.document_number,
         )
 
-        self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
+        self.application_service = ApplicationService(
+            new_application_dto=self.new_application_dto
+        )
         version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
@@ -268,20 +287,22 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.assertEqual(activites[0].name, "VERIFICATION")
         self.assertEqual(activites[1].name, "FINAL_DECISION")
 
-    def test_workflow_transaction_after_when_performing_board_decision_replacement_production(self):
+    def test_workflow_transaction_after_when_performing_board_decision_replacement_production(
+        self,
+    ):
         SystemParameter.objects.create(
             application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             duration_type="years",
-            duration=100
+            duration=100,
         )
 
         app = Application.objects.get(
             application_document__document_number=self.document_number
         )
-        self.assertEqual(app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
         self.assertEqual(
-            app.application_status.code, WorkflowEnum.VERIFICATION.value
+            app.process_name, ApplicationProcesses.WORK_RESIDENT_PERMIT.value
         )
+        self.assertEqual(app.application_status.code, WorkflowEnum.VERIFICATION.value)
         activites = Activity.objects.filter(
             process__document_number=self.document_number
         ).order_by("sequence")
@@ -310,7 +331,9 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         voting_process = self.voting_process()
         self.assertIsNotNone(voting_process)
 
-        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        application_decision = ApplicationDecision.objects.filter(
+            document_number=self.document_number
+        )
         self.assertTrue(application_decision.exists())
         app.refresh_from_db()
         self.assertEqual(
@@ -322,7 +345,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
 
         self.new_application_dto = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
-            applicant_identifier='317918515',
+            applicant_identifier="317918515",
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
@@ -330,10 +353,12 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
             full_name="Test test",
             applicant_type="student",
             application_permit_type="replacement",
-            document_number=self.document_number
+            document_number=self.document_number,
         )
 
-        self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
+        self.application_service = ApplicationService(
+            new_application_dto=self.new_application_dto
+        )
         version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
@@ -362,14 +387,16 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         SystemParameter.objects.create(
             application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
             duration_type="years",
-            duration=100
+            duration=100,
         )
 
         self.assertIsNotNone(self.perform_verification())
         app.refresh_from_db()
         self.assertEqual(app.verification, "ACCEPTED")
 
-        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        application_decision = ApplicationDecision.objects.filter(
+            document_number=self.document_number
+        )
         self.assertTrue(application_decision.exists())
         app.refresh_from_db()
         self.assertEqual(

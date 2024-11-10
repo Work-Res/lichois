@@ -12,7 +12,7 @@ class WorkflowEvent(object):
         self.application = application
         self.bussiness_process = None
         self.logger = logging.getLogger("workflow")
-        self.logger.setLevel(logging.DEBUG)
+        # self.logger.setLevel(logging.DEBUG)
 
     def create_workflow_process(self):
         """

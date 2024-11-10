@@ -2,11 +2,14 @@ from app_checklist.utils import ReadJSON
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
+from app_personal_details.models.person import Person
+
 
 class FetchRequiredDataForProduction:
     """
     Responsible for pulling required data for production based on configuration.
     """
+
     def __init__(self, configuration_file_name: str, document_number: str):
         self.configuration_file_name = configuration_file_name
         self.document_number = document_number
@@ -26,9 +29,13 @@ class FetchRequiredDataForProduction:
             model_configuration = read_json.json_data()
             return model_configuration
         except FileNotFoundError as e:
-            raise FileNotFoundError(f"Configuration file not found: {self.configuration_file_name}") from e
+            raise FileNotFoundError(
+                f"Configuration file not found: {self.configuration_file_name}"
+            ) from e
         except ValueError as e:
-            raise ValueError(f"Invalid JSON format in configuration file: {self.configuration_file_name}") from e
+            raise ValueError(
+                f"Invalid JSON format in configuration file: {self.configuration_file_name}"
+            ) from e
 
     def fetch_required_data(self):
         """
@@ -43,17 +50,27 @@ class FetchRequiredDataForProduction:
                 app_label, model_name = app_label_model_name.split(".")
                 model = self.get_model(app_label=app_label, model_name=model_name)
                 try:
-                    model_object = model.objects.get(document_number=self.document_number)
+                    model_object = model.objects.get(
+                        document_number=self.document_number
+                    )
                 except ObjectDoesNotExist:
                     raise ObjectDoesNotExist(
-                        f"Object with document number {self.document_number} not found in {model_name}")
+                        f"Object with document number {self.document_number} not found in {model_name}"
+                    )
                 except MultipleObjectsReturned:
-                    raise MultipleObjectsReturned(
-                        f"Multiple objects found for document number {self.document_number} in {model_name}")
+                    if model == Person:
+                        model_object = model.objects.get(
+                            document_number=self.document_number,
+                            person_type="applicant",
+                        )
+                    else:
+                        raise MultipleObjectsReturned(
+                            f"Multiple objects found for document number {self.document_number} in {model}"
+                        )
 
                 required_data_result = {
                     "model_obj": model_object,
-                    'fields': required_fields
+                    "fields": required_fields,
                 }
                 self.data.append(required_data_result)
         except KeyError as e:
@@ -71,10 +88,14 @@ class FetchRequiredDataForProduction:
             ContentType.DoesNotExist: If the ContentType does not exist.
         """
         try:
-            content_type = ContentType.objects.get(app_label=app_label, model=model_name.lower())
+            content_type = ContentType.objects.get(
+                app_label=app_label, model=model_name.lower()
+            )
             return content_type.model_class()
         except ContentType.DoesNotExist as e:
-            raise ContentType.DoesNotExist(f"Model {model_name} in app {app_label} not found") from e
+            raise ContentType.DoesNotExist(
+                f"Model {model_name} in app {app_label} not found"
+            ) from e
 
     def get_data(self):
         """

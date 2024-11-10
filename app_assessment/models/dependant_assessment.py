@@ -8,7 +8,7 @@ class DependantAssessment(ApplicationBaseModel, AssessmentUpdateMixin):
     observation = models.TextField()
     recommendation = models.TextField()
     name_of_dependent = models.CharField(max_length=255)
-    dependent_dob = models.DateField()
+    dependent_dob = models.DateField(null=True, blank=True)
     reason_for_application = models.TextField()
     name_of_supporter = models.CharField(max_length=255)
     residential_status_of_supporter = models.CharField(max_length=255)

@@ -21,7 +21,7 @@ class TaskActivation:
         self.application = application
         self.model = model
         self.logger = logging.getLogger("workflow")
-        self.logger.setLevel(logging.DEBUG)
+        # self.logger.setLevel(logging.DEBUG)
 
     def create_task(self):
         """

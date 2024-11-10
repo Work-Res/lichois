@@ -14,19 +14,22 @@ class ApplicationBatchValidator:
 
     def add_error_message(self, detail, document_number):
         api_message = APIMessage(
-            code=400,
-            message="Bad request",
-            details=f"{detail}, {document_number}."
+            code=400, message="Bad request", details=f"{detail}, {document_number}."
         )
         self.response.messages.append(api_message.to_dict())
 
     def is_invalid_application(self, application):
-        return self.check_application_status(application) or self.check_application_in_batch(application)
+        return self.check_application_status(
+            application
+        ) or self.check_application_in_batch(application)
 
     def validate_batches(self):
-        applications = Application.objects.filter(id__in=self.application_batch_request.applications)
+        applications = Application.objects.filter(
+            id__in=self.application_batch_request.applications
+        )
         eligible_applications = [
-            application for application in applications
+            application
+            for application in applications
             if not self.is_invalid_application(application)
         ]
 
@@ -35,7 +38,7 @@ class ApplicationBatchValidator:
             for application in applications:
                 self.add_error_message(
                     "The system cannot create an empty application batch.",
-                    application.application_document.document_number
+                    application.application_document.document_number,
                 )
 
     def is_valid(self):
@@ -49,10 +52,13 @@ class ApplicationBatchValidator:
 
     def check_application_status(self, application: Application):
         error = False
-        if application.application_status.code.lower() != ApplicationStatusEnum.VETTING.value.lower():
+        if (
+            application.application_status.code.lower()
+            != ApplicationStatusEnum.ASSESSMENT.value.lower()
+        ):
             self.add_error_message(
-                "Only applications at the vetting stage can be added to a batch",
-                application.application_document.document_number
+                "Only applications at the Assessment stage can be added to a batch",
+                application.application_document.document_number,
             )
             error = True
         return error
@@ -62,7 +68,7 @@ class ApplicationBatchValidator:
         if ApplicationBatch.objects.filter(applications__id=application.id).exists():
             self.add_error_message(
                 "Application already added in another batch",
-                application.application_document.document_number
+                application.application_document.document_number,
             )
             error = True
         return error

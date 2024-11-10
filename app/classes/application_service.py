@@ -30,6 +30,7 @@ class ApplicationService:
 
     def __init__(self, new_application_dto: NewApplicationDTO):
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
         self.new_application_dto = new_application_dto
         self.response = APIResponse()
         self.application_document = ApplicationDocument()
@@ -58,7 +59,6 @@ class ApplicationService:
 
         serializer = ApplicationVersionSerializer(application_version)
         self.response.data = serializer.data
-
         if self.new_application_dto.application_permit_type == "renewal":
             renewal_application = RenewalApplicationDTO(
                 process_name=self.new_application_dto.application_type,
