@@ -17,25 +17,25 @@ This is a Django project. Follow the instructions below to set up and run the pr
 
 
 2. Create a virtual environment (optional but recommended):
-    python3 -m venv ~/.venvs/lichois
-    source ~/.venvs/lichois/bin/activate  # On Windows use `\.venvs\lichois\Scripts\activate`
+    - python3 -m venv ~/.venvs/lichois
+    - source ~/.venvs/lichois/bin/activate  # On Windows use `\.venvs\lichois\Scripts\activate`
 
 3. Install the dependencies:
-    pip install -r requirements.txt
+    - pip install -r requirements.txt
 
 4. Set up the database:
-    python manage.py makemigrations_all
+    - python manage.py makemigrations_all
 
-6 . populate data for apps
-    python3 manage.py update_application_status
-    python3 manage.py run_app_commands citizenship
-    python3 manage.py run_app_commands workresidentpermit
+5. populate data for apps
+    - python3 manage.py update_application_status
+    - python3 manage.py run_app_commands citizenship
+    - python3 manage.py run_app_commands workresidentpermit
 
 
-5. Create a superuser (optional, for accessing the Django admin interface):
-    python manage.py createsuperuser
+6. Create a superuser (optional, for accessing the Django admin interface):
+    - python manage.py createsuperuser
 
-6. Run the development server:
-    python manage.py runserver
+7. Run the development server:
+    - python manage.py runserver
 
 
