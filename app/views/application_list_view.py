@@ -20,8 +20,8 @@ class ApplicationListView(viewsets.ModelViewSet):
     serializer_class = ApplicationSerializer
     filterset_class = ApplicationModelFilter
     pagination_class = StandardResultsSetPagination
-    permission_classes = [TaskAssigneePermission, CustomPermissionRequired]
-    required_permissions = ['app.can_view_app_initial', 'app.can_view_app_replacement', 'app.can_view_app_renewal']
+    #permission_classes = [TaskAssigneePermission, CustomPermissionRequired]
+    #required_permissions = ['app.can_view_app_initial', 'app.can_view_app_replacement', 'app.can_view_app_renewal']
 
     def get_queryset(self):
         queryset = self.queryset
