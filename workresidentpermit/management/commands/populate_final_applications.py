@@ -96,12 +96,15 @@ class Command(CustomBaseCommand):
                 permit.date_expiry = date.today()
                 permit.save()
 
+                # if app.application_status.code == ApplicationStatusEnum.ACCEPTED.value:
                 self.create_replacement_applications(document_number)
                 self.create_renewal_permit(document_number)
             call_command("populate_work_res_attachment")
 
     def perform_verification(self, document_number):
-        data = {"status": "ACCEPTED"}
+        data = {
+            "status": "ACCEPTED",
+        }
         serializer = ApplicationVerificationRequestSerializer(data=data)
         serializer.is_valid()
         validator = OfficerVerificationValidator(document_number=document_number)

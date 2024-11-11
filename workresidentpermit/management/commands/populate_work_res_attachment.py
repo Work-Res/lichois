@@ -61,10 +61,15 @@ class Command(BaseCommand):
         verifier = User.objects.filter(username="tverification1").first()
 
         if not verifier:
-            self.stdout.write(
-                self.style.ERROR("Verifier user 'tverification1' not found.")
+            verifier = User.objects.create_user(
+                username="tverification1",
+                email="tverification1@gmail.com",
+                password="tverification1",
+                first_name="Tverification",
+                last_name="Tverification",
+                is_staff=True,
+                is_superuser=False,
             )
-            return
 
         for application_type in APPLICATION_TYPES:
             applications = Application.objects.filter(application_type=application_type)

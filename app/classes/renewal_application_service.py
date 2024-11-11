@@ -50,7 +50,7 @@ class RenewalApplicationService(object):
         self.application_document = ApplicationDocument()
         self.validator = ApplicationRenewalValidator(
             permit=self._permit,
-            application_type=self.previous_application.application_type,
+            application_type=self.renewal_application_dto.application_type,
         )
 
     def load_permit(self):
