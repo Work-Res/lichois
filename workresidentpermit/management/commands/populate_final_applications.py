@@ -1,5 +1,4 @@
 from datetime import date
-from operator import call
 from random import randint
 from faker import Faker
 
@@ -97,7 +96,7 @@ class Command(CustomBaseCommand):
                 permit.date_expiry = date.today()
                 permit.save()
 
-                # self.create_replacement_applications(document_number)
+                self.create_replacement_applications(document_number)
                 self.create_renewal_permit(document_number)
             call_command("populate_work_res_attachment")
 
@@ -293,7 +292,10 @@ class Command(CustomBaseCommand):
         )
         new_application_dto = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            applicant_identifier="317918515",
+            applicant_identifier=(
+                f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
+                f"{randint(1000, 9999)}-{randint(1000, 9999)}"
+            ),
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
