@@ -95,8 +95,6 @@ class Command(CustomBaseCommand):
                 permit.date_issued = date.today()
                 permit.date_expiry = date.today()
                 permit.save()
-
-                # if app.application_status.code == ApplicationStatusEnum.ACCEPTED.value:
                 self.create_replacement_applications(document_number)
                 self.create_renewal_permit(document_number)
             call_command("populate_work_res_attachment")
