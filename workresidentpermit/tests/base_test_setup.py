@@ -253,9 +253,8 @@ class BaseTestSetup(TestCase):
     def setUp(self) -> None:
 
         self.create_application_statuses()
-        application_version = self.create_new_application()
-        app = application_version.application
-        self.application = application_version.application
+        app, application_version = self.create_new_application()
+        self.application = app
         self.document_number = app.application_document.document_number
 
         # Create board
