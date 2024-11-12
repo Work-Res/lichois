@@ -95,13 +95,14 @@ class Command(CustomBaseCommand):
                 permit.date_issued = date.today()
                 permit.date_expiry = date.today()
                 permit.save()
-
                 self.create_replacement_applications(document_number)
                 self.create_renewal_permit(document_number)
             call_command("populate_work_res_attachment")
 
     def perform_verification(self, document_number):
-        data = {"status": "ACCEPTED"}
+        data = {
+            "status": "ACCEPTED",
+        }
         serializer = ApplicationVerificationRequestSerializer(data=data)
         serializer.is_valid()
         validator = OfficerVerificationValidator(document_number=document_number)
@@ -272,14 +273,12 @@ class Command(CustomBaseCommand):
             BoardMember, board=board, user=user, board_join_date="2024-10-25"
         ).make()
 
-    def create_board_meeting_vote(
-        self, meeting_attendee, document_number, status="APPROVED"
-    ):
+    def create_board_meeting_vote(self, meeting_attendee, document_number):
         return Recipe(
             BoardMeetingVote,
             meeting_attendee=meeting_attendee,
             document_number=document_number,
-            status=status,
+            status="APPROVED",
             comments="This is a sample comment",
             tie_breaker=None,
         ).make()
