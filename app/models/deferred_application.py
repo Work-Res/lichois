@@ -9,9 +9,7 @@ class DeferredApplication(BaseUuidModel):
     previous_application_status = models.ForeignKey(
         ApplicationStatus,
         on_delete=models.CASCADE,
-        related_name="deferred_applications_previous",
-        null=True,
-        blank=True
+        related_name="deferred_applications_previous"
     )
     application = models.ForeignKey(
         Application,
