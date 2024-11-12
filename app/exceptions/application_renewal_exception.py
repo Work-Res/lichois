@@ -9,6 +9,10 @@ class ApplicationReplacementException(APIException):
     status_code = 400
 
 
+class ApplicationAppealException(APIException):
+    status_code = 400
+
+
 class RenewalPeriodNotReached(Exception):
     """
     Exception raised when the permit has not reached the allowable renewal period.

@@ -18,3 +18,4 @@ from .director_decision import DirectorDecision
 from .application_replacement import ApplicationReplacement
 from .permissions.app_base_permission_model import AppBasePermissionModel
 from .application_replacement_history import ApplicationReplacementHistory
+from .application_appeal import ApplicationAppeal

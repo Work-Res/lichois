@@ -1,7 +1,8 @@
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.models import Application, ApplicationDecision, ApplicationRenewal, ApplicationRenewalHistory, \
-    ApplicationReplacement
+    ApplicationReplacement, ApplicationAppeal
+from app.models.application_appeal_history import ApplicationAppealHistory
 from app.models.application_replacement_history import ApplicationReplacementHistory
 
 from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum
@@ -404,7 +405,6 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
 
-
     def test_workflow_transaction_after_when_performing_board_deferment(self):
         SystemParameter.objects.create(
             application_type=ApplicationProcesses.WORK_PERMIT.value,
@@ -506,3 +506,129 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         #
         # permit = Permit.objects.filter(document_number=self.document_number)
         # self.assertTrue(permit.exists())
+
+    def test_workflow_transaction_after_when_performing_board_decision_appeal_production(self):
+        SystemParameter.objects.create(
+            application_type=ApplicationProcesses.WORK_PERMIT.value,
+            duration_type="years",
+            duration=100
+        )
+
+        app = Application.objects.get(
+            application_document__document_number=self.document_number
+        )
+        self.assertEqual(app.process_name, ApplicationProcesses.WORK_PERMIT.value)
+        self.assertEqual(
+            app.application_status.code, WorkflowEnum.VERIFICATION.value
+        )
+        activites = Activity.objects.filter(
+            process__document_number=self.document_number
+        ).order_by("sequence")
+        self.assertEqual(activites[0].name, "VERIFICATION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "VETTING")
+        self.assertEqual(activites[3].name, "ASSESSMENT")
+        self.assertEqual(activites[4].name, "FINAL_DECISION")
+        self.assertEqual(activites[5].name, "DEFFERED")
+        self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+        self.assertEqual(
+            app.application_status.code, WorkflowEnum.VETTING.value.lower()
+        )
+
+        self.assertIsNotNone(self.perform_vetting())
+
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code, ApplicationStatusEnum.ASSESSMENT.value.lower()
+        )
+
+        self.assertIsNotNone(self.perform_assessment())
+
+        voting_process = self.voting_process()
+        self.assertIsNotNone(voting_process)
+
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code, ApplicationStatusEnum.ACCEPTED.value.lower()
+        )
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())
+
+        self.new_application_dto = NewApplicationDTO(
+            process_name=ApplicationProcesses.APPEAL_PERMIT.value,
+            applicant_identifier='317918515',
+            status=ApplicationStatusEnum.VERIFICATION.value,
+            dob="06101990",
+            work_place="01",
+            application_type=ApplicationProcesses.APPEAL_PERMIT.value,
+            full_name="Test test",
+            applicant_type="student",
+            application_permit_type="appeal",
+            document_number=self.document_number
+        )
+
+        self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
+        app, version = self.application_service.create_application()
+        self.assertIsNotNone(version)
+
+        application_appeal = ApplicationAppeal.objects.filter(
+            previous_application__application_document__document_number=self.document_number
+        )
+        self.assertTrue(application_appeal.exists())
+
+        history = ApplicationAppealHistory.objects.all()
+        self.assertTrue(history.exists())
+
+        activites = Activity.objects.filter(
+            process__document_number=version.application.application_document.document_number
+        ).order_by("sequence")
+
+        self.assertEqual(activites[0].name, "VERIFICATION")
+        self.assertEqual(activites[1].name, "ASSESSMENT")
+        self.assertEqual(activites[2].name, "MINISTER_DECISION")
+        self.assertEqual(activites[3].name, "FINAL_DECISION")
+
+        apps = Application.objects.filter(
+            application_document__document_number=version.application.application_document.document_number
+        )
+        self.assertTrue(apps.exists())
+        self.document_number = version.application.application_document.document_number
+
+        self.assertIsNotNone(self.perform_verification())
+        app.refresh_from_db()
+        self.assertEqual(app.verification, "ACCEPTED")
+
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code, ApplicationStatusEnum.ASSESSMENT.value.lower()
+        )
+
+        self.assertIsNotNone(self.perform_assessment())
+
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code, ApplicationStatusEnum.MINISTER_DECISION.value.lower()
+        )
+
+        SystemParameter.objects.create(
+            application_type=ApplicationProcesses.APPEAL_PERMIT.value,
+            duration_type="years",
+            duration=100
+        )
+
+        self.assertIsNotNone(self.perform_minister_decision())
+
+        application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
+        self.assertTrue(application_decision.exists())
+        app.refresh_from_db()
+        self.assertEqual(
+            app.application_status.code, ApplicationStatusEnum.ACCEPTED.value.lower()
+        )
+
+        permit = Permit.objects.filter(document_number=self.document_number)
+        self.assertTrue(permit.exists())
