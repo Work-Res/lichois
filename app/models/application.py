@@ -19,7 +19,7 @@ class Application(BaseUuidModel, AppBasePermissionModel):
         application_status (Foreign): The status for the application.
     """
     application_permit_type = models.CharField(max_length=50, choices=[('initial', 'Initial'), ('renewal', 'Renewal'),
-                                                                       ('replacement', 'Replacement')])
+                                                                       ('replacement', 'Replacement'), ('appeal', 'Appeal')])
     last_application_version_id = models.IntegerField()
     application_document = models.ForeignKey(
         ApplicationDocument, on_delete=models.CASCADE
