@@ -48,6 +48,7 @@ from app_checklist.models.system_parameter_permit_renewal_period import (
 )
 from app_personal_details.models import Permit, Spouse
 from authentication.models import User
+from board.choices import VOTE_STATUS
 from board.models import (
     BoardDecision,
     BoardMeeting,
@@ -236,7 +237,9 @@ class Command(CustomBaseCommand):
 
         # Create board meeting votes
         for attendee in meeting_attendees:
-            self.create_board_meeting_vote(attendee, document_number)
+            vote = self.create_board_meeting_vote(attendee, document_number)
+            print(vote)
+            self.stdout.write(self.style.SUCCESS("Successfully voted"))
 
         voting_process = Recipe(
             VotingProcess,
@@ -272,13 +275,15 @@ class Command(CustomBaseCommand):
         ).make()
 
     def create_board_meeting_vote(self, meeting_attendee, document_number):
-        return Recipe(
+        voting = Recipe(
             BoardMeetingVote,
             meeting_attendee=meeting_attendee,
             document_number=document_number,
-            status="Approved",
+            status="APPROVED",
             comments="This is a sample comment",
         ).make()
+
+        return voting
 
     def create_replacement_applications(self, document_number):
 

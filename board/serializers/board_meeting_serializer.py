@@ -4,6 +4,11 @@ from rest_framework.exceptions import PermissionDenied
 from app.api.common.web import APIMessage
 from ..models import BoardMeeting, BoardMember
 
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 
 class BoardMeetingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,10 +32,11 @@ class BoardMeetingSerializer(serializers.ModelSerializer):
         auth_user = request.user
         board_member = BoardMember.objects.filter(user=auth_user).first()
         if not board_member:
+            logger.error(f"User is not a member of any board {auth_user}")
             api_message = APIMessage(
                 code=400,
                 message="Bad request",
-                details="User is not a member of any board",
+                details=f"User {auth_user} is not a member of any board",
             )
             raise PermissionDenied(api_message.to_dict())
         # if data is dict, it is immutable, so we need to make a mutable copy
