@@ -376,7 +376,8 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         ).order_by("sequence")
 
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "FINAL_DECISION")
 
         apps = Application.objects.filter(
             application_document__document_number=version.application.application_document.document_number

@@ -267,4 +267,5 @@ class TestResidentPermitWorkflow(BaseTestSetup):
 
         print(activites)
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "FINAL_DECISION")
