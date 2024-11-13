@@ -238,16 +238,14 @@ class Command(CustomBaseCommand):
         for attendee in meeting_attendees:
             self.create_board_meeting_vote(attendee, document_number)
 
-        voting_process_recipe = Recipe(
+        voting_process, _ = VotingProcess.get_or_create(
             VotingProcess,
             board=board,
             status="ENDED",
             document_number=document_number,
             board_meeting=board_meeting,
         )
-        voting_process_instance = voting_process_recipe.make()
-        voting_process_instance.save()
-        return voting_process_instance
+        return voting_process
 
     def create_meeting_attendee(self, board_meeting, board_member, status="Present"):
         return Recipe(
