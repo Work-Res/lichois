@@ -11,6 +11,7 @@ from app.models import (
     SecurityClearance,
 )
 from app.utils import ApplicationProcesses, ApplicationStatusEnum
+from citizenship.service.production.minister_production_decision_service import MinisterProductionDecisionService
 
 from .classes import WorkPermitApplicationPDFGenerator
 from .classes.config.configuration_loader import JSONConfigLoader
@@ -95,8 +96,17 @@ def create_application_final_decision_by_security_clearance(
         )
 
 
+def handle_minister_production_decision(instance, created):
+    if created:
+        production_service = MinisterProductionDecisionService(
+            document_number=instance.document_number,
+            decision_value=instance.status.code.upper(),
+        )
+        production_service.create_application_decision()
+
+
 def handle_application_final_decision(instance, created):
-    print("here here here here >>>> start")
+
     json_file_name = "minister_approval_process.json"
     json_file_path = os.path.join(os.path.dirname(__file__), "data", json_file_name)
 
@@ -104,7 +114,6 @@ def handle_application_final_decision(instance, created):
         file_path=json_file_path, key="MINISTER_APPROVAL_PROCESSES"
     )
     if created:
-        print("here here here here >>>> processing")
         try:
             special_permit_decision_service = SpecialPermitDecisionService(
                 document_number=instance.document_number,
@@ -112,7 +121,6 @@ def handle_application_final_decision(instance, created):
             )
             special_permit_decision_service.create_application_decision()
             logger.info("Minister Application decision created successfully")
-            print("here here here here >>>> end")
         except SystemError as e:
             logger.error(
                 "SystemError: An error occurred while creating new application decision for "
@@ -137,3 +145,5 @@ def create_application_final_decision_by_minister_decision(
     sender, instance, created, **kwargs
 ):
     handle_application_final_decision(instance, created)
+    handle_minister_production_decision(instance, created)
+
