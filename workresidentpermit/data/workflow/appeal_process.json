@@ -60,7 +60,7 @@
           "next_activity_name": "END",
           "create_task_rules": {
             "or": {
-              "minister_decision": "ACCEPTED|REJECTED"
+              "recommendation_decision": "ACCEPTED|REJECTED"
             },
             "current_status": "MINISTER_DECISION"
           }

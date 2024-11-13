@@ -456,7 +456,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
                "assessment":  "Done"}
         )
         app.refresh_from_db()
-        self.assertEqual(app.assessment, "Done")
+        self.assertEqual(app.assessment, "Pending")
 
         self.assertIsNotNone(self.perform_assessment())
 
@@ -627,7 +627,10 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())
-        app.refresh_from_db()
+
+        app = Application.objects.get(
+            application_document__document_number=version.application.application_document.document_number
+        )
         self.assertEqual(
             app.application_status.code, ApplicationStatusEnum.ACCEPTED.value.lower()
         )

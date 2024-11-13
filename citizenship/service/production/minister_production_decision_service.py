@@ -30,6 +30,6 @@ class MinisterProductionDecisionService(ApplicationDecisionService):
             return True
         return False
 
-    def next_flow_activity(self):
-        """Determine the next flow activity not based on any decision made."""
-        pass
+    # def next_flow_activity(self):
+    #     """Determine the next flow activity not based on any decision made."""
+    #     pass
