@@ -97,7 +97,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
                "assessment":  "Done"}
         )
         app.refresh_from_db()
-        self.assertEqual(app.assessment, "Pending")
+        self.assertEqual(app.assessment, "Done")
 
         self.assertIsNotNone(self.perform_assessment())
 
@@ -165,7 +165,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
             application_document__document_number=self.document_number
         )
 
-        self.assertEqual(app.assessment, "Done")
+        self.assertEqual(app.assessment, "ACCEPTED")
 
         voting_process = self.voting_process()
         self.assertIsNotNone(voting_process)
@@ -275,7 +275,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         )
 
         self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
-        version = self.application_service.create_application()
+        app, version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
         application_replacement = ApplicationReplacement.objects.filter(
@@ -292,7 +292,8 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
         print(activites)
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "FINAL_DECISION")
 
     def test_workflow_transaction_after_when_performing_board_decision_replacement_production(self):
         SystemParameter.objects.create(
@@ -360,7 +361,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         )
 
         self.application_service = ApplicationService(new_application_dto=self.new_application_dto)
-        version = self.application_service.create_application()
+        app, version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
         application_replacement = ApplicationReplacement.objects.filter(
@@ -376,7 +377,8 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         ).order_by("sequence")
 
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "FINAL_DECISION")
 
         apps = Application.objects.filter(
             application_document__document_number=version.application.application_document.document_number

@@ -185,7 +185,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto
         )
-        version = self.application_service.create_application()
+        app, version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
         application_renewal = ApplicationRenewal.objects.filter(
@@ -268,7 +268,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto
         )
-        version = self.application_service.create_application()
+        app, version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
         application_replacement = ApplicationReplacement.objects.filter(
@@ -285,7 +285,8 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
 
         print(activites)
         self.assertEqual(activites[0].name, "VERIFICATION")
-        self.assertEqual(activites[1].name, "FINAL_DECISION")
+        self.assertEqual(activites[1].name, "FEEDBACK")
+        self.assertEqual(activites[2].name, "FINAL_DECISION")
 
     def test_workflow_transaction_after_when_performing_board_decision_replacement_production(
         self,
@@ -359,7 +360,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto
         )
-        version = self.application_service.create_application()
+        app, version = self.application_service.create_application()
         self.assertIsNotNone(version)
 
         application_replacement = ApplicationReplacement.objects.filter(
