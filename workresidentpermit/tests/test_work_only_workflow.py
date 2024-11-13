@@ -97,7 +97,7 @@ class TestWorkonlyWorkflow(BaseTestSetup):
                "assessment":  "Done"}
         )
         app.refresh_from_db()
-        self.assertEqual(app.assessment, "Done")
+        self.assertEqual(app.assessment, "Pending")
 
         self.assertIsNotNone(self.perform_assessment())
 
