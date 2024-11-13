@@ -2,10 +2,9 @@ from django.db import models
 
 from app.models.application_base_model import ApplicationBaseModel
 from app.utils import ApplicationDecisionEnum
-from .assessment_update_mixin import AssessmentUpdateMixin
 
 
-class DependantAssessment(ApplicationBaseModel, AssessmentUpdateMixin):
+class DependantAssessment(ApplicationBaseModel):
     observation = models.TextField()
     recommendation = models.TextField()
     name_of_dependent = models.CharField(max_length=255)

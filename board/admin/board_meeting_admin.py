@@ -8,3 +8,4 @@ from ..forms import BoardMeetingForm
 class BoardMeetingAdmin(admin.ModelAdmin):
 
     form = BoardMeetingForm
+    search_fields = ["title", "meeting_date"]

@@ -59,7 +59,7 @@ def create_application_decision(sender, instance, created, **kwargs):
 @receiver(post_save, sender=VotingProcess)
 def create_board_decision(sender, instance, created, **kwargs):
     logger.info(f"VotingProcess created ? {created}")
-    if created:
+    if not created:
         logger.info(
             f"Received post_save signal for VotingProcess with document_number: {instance.document_number}, status: "
             f"{instance.status}"

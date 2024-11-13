@@ -4,7 +4,7 @@ from .assessment_update_mixin import AssessmentUpdateMixin
 from .base_assessment_investor import BaseAssessmentInvestor
 
 
-class NewAssessmentInvestor(BaseAssessmentInvestor, AssessmentUpdateMixin):
+class NewAssessmentInvestor(BaseAssessmentInvestor):
     business_activity = models.IntegerField(default=0)
     # business_activity_comment = models.TextField(null=True, blank=False)
     qualification = models.IntegerField(default=0)
