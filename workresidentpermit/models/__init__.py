@@ -10,3 +10,5 @@ from .employer_record import EmploymentRecord
 from .replacement_permit import PermitReplacement
 from .dependant import Dependant
 from .permit_cancellation_reason import PermitCancellationReason
+from .employee_contract_details import EmployeeContractDetails
+from .company_assets import CompanyAssets

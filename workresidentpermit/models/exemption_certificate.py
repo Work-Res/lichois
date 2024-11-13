@@ -1,6 +1,8 @@
 from django.db import models
 from app.models import ApplicationBaseModel
 from ..choices import APPLICANT_TYPE
+from .employee_contract_details import EmployeeContractDetails
+from .company_assets import CompanyAssets
 
 class ExemptionCertificate(ApplicationBaseModel):
 
@@ -12,6 +14,15 @@ class ExemptionCertificate(ApplicationBaseModel):
         max_length=9,
         choices=APPLICANT_TYPE,
         default="employee"
+    )
+
+    employees_contracts = models.ManyToManyField(
+        EmployeeContractDetails,
+        related_name='contracts'
+    )
+    assets = models.ManyToManyField(
+        CompanyAssets,
+        related_name='asserts'
     )
 
     class Meta:
