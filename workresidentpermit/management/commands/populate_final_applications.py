@@ -276,9 +276,8 @@ class Command(CustomBaseCommand):
             BoardMeetingVote,
             meeting_attendee=meeting_attendee,
             document_number=document_number,
-            status="APPROVED",
+            status="Approved",
             comments="This is a sample comment",
-            tie_breaker=None,
         ).make()
 
     def create_replacement_applications(self, document_number):
