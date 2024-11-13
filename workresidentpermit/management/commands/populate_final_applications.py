@@ -229,11 +229,10 @@ class Command(CustomBaseCommand):
                 board_member = self.create_board_member(board, user)
                 board_members.append(board_member)
 
-        # Create meeting attendees
-        meeting_attendees = [
-            self.create_meeting_attendee(board_meeting, board_member)
-            for board_member in board_members
-        ]
+        meeting_attendees = []
+        for board_member in board_members:
+            attendee = self.create_meeting_attendee(board_meeting, board_member)
+            meeting_attendees.append(attendee)
 
         voting_process = Recipe(
             VotingProcess,
@@ -253,12 +252,11 @@ class Command(CustomBaseCommand):
         return voting_process
 
     def create_meeting_attendee(self, board_meeting, board_member, status="Present"):
-        return Recipe(
-            MeetingAttendee,
+        return MeetingAttendee.objects.create(
             meeting=board_meeting,
             board_member=board_member,
             attendance_status=status,
-        ).make()
+        )
 
     def create_user(self, username, first_name, last_name, email):
         return Recipe(
