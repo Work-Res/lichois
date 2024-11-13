@@ -116,3 +116,8 @@ APPLICANT_TYPE = (
     ('employee', 'Employee'),
     ('investor', 'Investor')
 )
+
+CITIZEN_CHOICES = [
+        ('citizen', 'Citizen'),
+        ('noncitizen', 'Non-Citizen')
+    ]
