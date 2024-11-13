@@ -18,9 +18,9 @@ class Command(CustomBaseCommand):
         work_res_permit = (
             WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
         )
-        variation_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_VARIATION.value
-        )
+        # variation_permit = (
+        #     WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_VARIATION.value
+        # )
         with atomic():
 
             for _ in range(2):

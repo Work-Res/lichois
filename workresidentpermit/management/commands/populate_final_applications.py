@@ -235,19 +235,21 @@ class Command(CustomBaseCommand):
             for board_member in board_members
         ]
 
-        # Create board meeting votes
-        for attendee in meeting_attendees:
-            vote = self.create_board_meeting_vote(attendee, document_number)
-            print(vote)
-            self.stdout.write(self.style.SUCCESS("Successfully voted"))
-
         voting_process = Recipe(
             VotingProcess,
             board=board,
-            status="ENDED",
+            status="STARTED",
             document_number=document_number,
             board_meeting=board_meeting,
         ).make()
+        # Create board meeting votes
+        for attendee in meeting_attendees:
+            self.create_board_meeting_vote(attendee, document_number)
+            self.stdout.write(self.style.SUCCESS("Successfully voted"))
+
+        voting = VotingProcess.objects.get(document_number=document_number)
+        voting.status = "ENDED"
+        voting.save()
         return voting_process
 
     def create_meeting_attendee(self, board_meeting, board_member, status="Present"):
