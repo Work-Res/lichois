@@ -105,7 +105,7 @@ class VotingDecisionManager(BaseDecisionService):
                     f"Voting decision outcome is None for document_number: {self.document_number}. "
                     f"No BoardDecision created."
                 )
-        except Exception as e:
+        except Exception:
             self.logger.error(
                 f"An error occurred while creating or retrieving BoardDecision for document_number: {self.document_number}",
                 exc_info=True,
