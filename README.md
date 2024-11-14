@@ -26,11 +26,19 @@ This is a Django project. Follow the instructions below to set up and run the pr
 4. Set up the database:
     - python manage.py makemigrations_all
 
+<<<<<<< HEAD
 6 . populate data for apps
     python3 manage.py update_application_status
     python3 manage.py run_app_commands citizenship
     python3 manage.py run_app_commands workresidentpermit
+=======
+>>>>>>> 91f1da009e81f0aa5d1dd34c400f34b810daa59b
 
+5. Management Commands
+- python3 manage.py update_application_status
+- python3 manage.py run_app_commands citizenship
+- python3 manage.py run_app_commands workresidentpermit  
+- python3 manage.py populate_final_applications
 
 6. Create a superuser (optional, for accessing the Django admin interface):
     - python manage.py createsuperuser
