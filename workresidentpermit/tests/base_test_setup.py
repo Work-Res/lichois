@@ -4,9 +4,10 @@ from faker import Faker
 
 from django.apps import apps
 
-from app.api.dto import ApplicationVerificationRequestDTO, SecurityClearanceRequestDTO
-from app.api.serializers import ApplicationVerificationRequestSerializer, SecurityClearanceRequestDTOSerializer
-from app.service import VerificationService, SecurityClearanceService
+from app.api.dto import ApplicationVerificationRequestDTO, SecurityClearanceRequestDTO, MinisterRequestDTO
+from app.api.serializers import ApplicationVerificationRequestSerializer, SecurityClearanceRequestDTOSerializer, \
+    MinisterDecisionRequestDTOSerializer
+from app.service import VerificationService, SecurityClearanceService, MinisterDecisionService
 from app.validators import OfficerVerificationValidator, SecurityClearanceValidator
 from app_assessment.api.dto import AssessmentCaseDecisionDTO
 from app_assessment.api.serializers import AssessmentRequestSerializer
@@ -183,6 +184,14 @@ class BaseTestSetup(TestCase):
             vetting_outcome="ACCEPTED",
         )
 
+    def perform_minister_decision(self):
+        data = {"status": "ACCEPTED"}
+        serializer = MinisterDecisionRequestDTOSerializer(data=data)
+        serializer.is_valid()
+        request = MinisterRequestDTO(document_number=self.document_number, **serializer.data)
+        service = MinisterDecisionService(request)
+        return service.create_minister_decision()
+
     def perform_assessment(self):
         data = {"status": "ACCEPTED"}
         serializer = AssessmentRequestSerializer(data=data)
@@ -253,9 +262,8 @@ class BaseTestSetup(TestCase):
     def setUp(self) -> None:
 
         self.create_application_statuses()
-        application_version = self.create_new_application()
-        app = application_version.application
-        self.application = application_version.application
+        app, application_version = self.create_new_application()
+        self.application = app
         self.document_number = app.application_document.document_number
 
         # Create board

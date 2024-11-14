@@ -16,6 +16,7 @@ from .views import (
     WorkPermitApplicationAPIView,
     WorkPermitViewSet,
     WorkResidentPermitApplicationDetailView,
+    VariationPermitViewSet,
 )
 
 router = DefaultRouter()
@@ -36,6 +37,8 @@ router.register(
 )
 router.register(r"permit-appeal", PermitAppealViewSet, basename="permit-appeal")
 router.register(r"permit-cancellation-reasons", PermitCancellationReasonViewSet)
+router.register(r"variation-permit", VariationPermitViewSet)
+
 
 urlpatterns = [
     path(

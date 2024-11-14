@@ -11,7 +11,7 @@ from board.models import BoardDecision
 
 from ..api import WorkResidentPermitApplication
 from ..models import ResidencePermit, WorkPermit
-from app_personal_details.models import Children, Spouse
+from app_personal_details.models import Child, Spouse
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +81,7 @@ class WorkResidentPermitData(object):
             pass
 
     def child(self):
-        child = Children.objects.filter(document_number=self.document_number)
+        child = Child.objects.filter(document_number=self.document_number)
         return child
 
     def spouse(self):

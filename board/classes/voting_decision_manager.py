@@ -22,15 +22,18 @@ class VotingDecisionManager(BaseDecisionService):
         self.board_meeting = board_meeting
         self.logger = logging.getLogger(__name__)
         self.voting_outcome_service = VotingOutcomeService(document_number)
-        self.board_decision_result_outcome = self.voting_outcome_service.determine_voting_outcome()
+        self.board_decision_result_outcome = (
+            self.voting_outcome_service.determine_voting_outcome()
+        )
 
-        self.workflow = ProductionTransactionData(board_decision=self.board_decision_result_outcome.upper(),
-                                                  status=self.board_decision_result_outcome.upper()
-                                                  )
+        self.workflow = ProductionTransactionData(
+            board_decision=self.board_decision_result_outcome.upper(),
+            status=self.board_decision_result_outcome.upper(),
+        )
         decision_request = BoardDecisionRequestDTO(
             document_number=self.document_number,
             status=self.board_decision_result_outcome,
-            board_decision=self.board_decision_result_outcome
+            board_decision=self.board_decision_result_outcome,
         )
         super().__init__(
             request=request or decision_request,
@@ -45,19 +48,27 @@ class VotingDecisionManager(BaseDecisionService):
         """
         try:
             self.logger.info(
-                f"Attempting to retrieve existing BoardDecision for document_number: {self.document_number}")
-            self._board_decision = BoardDecision.objects.get(document_number=self.document_number)
-            self.logger.info(f"BoardDecision retrieved successfully for document_number: {self.document_number}")
+                f"Attempting to retrieve existing BoardDecision for document_number: {self.document_number}"
+            )
+            self._board_decision = BoardDecision.objects.get(
+                document_number=self.document_number
+            )
+            self.logger.info(
+                f"BoardDecision retrieved successfully for document_number: {self.document_number}"
+            )
 
         except BoardDecision.DoesNotExist:
             self.logger.info(
-                f"No existing BoardDecision found for document_number: {self.document_number}, creating new one.")
+                f"No existing BoardDecision found for document_number: {self.document_number}, creating new one."
+            )
 
             voting_decision_outcome = self.board_decision_result_outcome
             self.logger.info(f"Voting decision outcome: {voting_decision_outcome}")
 
             if voting_decision_outcome:
-                self.logger.info(f"Creating new BoardDecision for document_number: {self.document_number}")
+                self.logger.info(
+                    f"Creating new BoardDecision for document_number: {self.document_number}"
+                )
                 try:
                     security_object = SecurityClearance.objects.get(
                         document_number=self.document_number
@@ -81,18 +92,23 @@ class VotingDecisionManager(BaseDecisionService):
                     document_number=self.document_number,
                     decision_outcome=voting_decision_outcome,
                     board_meeting=self.board_meeting,
-                    vetting_outcome=security_object.status.code.lower() if security_object else 'NA',
+                    vetting_outcome=(
+                        security_object.status.code.lower() if security_object else "NA"
+                    ),
                 )
-                workflow_manager = WorkflowManager(application=self.application, workflow=self.workflow)
+                workflow_manager = WorkflowManager(
+                    application=self.application, workflow=self.workflow
+                )
                 workflow_manager.activate_next_task()
             else:
                 self.logger.warning(
                     f"Voting decision outcome is None for document_number: {self.document_number}. "
-                    f"No BoardDecision created.")
+                    f"No BoardDecision created."
+                )
         except Exception as e:
             self.logger.error(
                 f"An error occurred while creating or retrieving BoardDecision for document_number: {self.document_number}",
-                exc_info=True
+                exc_info=True,
             )
         finally:
             return self._board_decision
@@ -122,4 +138,3 @@ class VotingDecisionManager(BaseDecisionService):
     #     except Exception as e:
     #         self.logger.error(f"Error occurred while activating next task: {str(e)}")
     #         raise
-

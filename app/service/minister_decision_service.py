@@ -10,7 +10,8 @@ from ..service import BaseDecisionService
 class MinisterDecisionService(BaseDecisionService):
     def __init__(self, decision_request: MinisterRequestDTO):
         workflow = ProductionTransactionData(
-            recommendation_decision=decision_request.status.upper()
+            recommendation_decision=decision_request.status.upper(),
+            status=decision_request.status.upper(),
         )
         super().__init__(
             request=decision_request,

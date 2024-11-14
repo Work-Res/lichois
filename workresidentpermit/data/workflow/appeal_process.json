@@ -1,68 +1,71 @@
 {
   "classifiers": {
     "appeal_permit_workflow": {
-        "code": "APPEAL_PERMIT",
-        "name": "Work Resident APPEAL Permit Process",
-        "description": "Work Resident Permit Process Flow",
-        "valid_from": "2024-01-01",
-        "valid_to": "2030-01-01",
-        "classifier_items": [
-            {
-            "code":  "VERIFICATION",
-            "name":  "Work Resident Appeal Verification",
-            "description": " Verification completed by officers.",
-            "mandatory": false,
-            "sequence": 1,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01",
-            "next_activity_name": "ASSESSMENT",
-            "create_task_rules": {
-                "system_verification": "validated",
-                "current_status":  "DRAFT"
-                }
+      "code": "APPEAL_PERMIT",
+      "name": "Work Resident APPEAL Permit Process",
+      "description": "Work Resident Permit Process Flow",
+      "valid_from": "2024-01-01",
+      "valid_to": "2030-01-01",
+      "classifier_items": [
+        {
+          "code": "VERIFICATION",
+          "name": "Work Resident Appeal Verification",
+          "description": " Verification completed by officers.",
+          "mandatory": false,
+          "sequence": 1,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "ASSESSMENT",
+          "create_task_rules": {
+            "system_verification": "validated",
+            "current_status": "DRAFT"
+          }
+        },
+        {
+          "code": "ASSESSMENT",
+          "name": "Work Assessment",
+          "description": "Application Assessment Task.",
+          "mandatory": false,
+          "sequence": 2,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "MINISTER_DECISION",
+          "create_task_rules": {
+            "verification_decision": "ACCEPTED",
+            "current_status": "VERIFICATION"
+          }
+        },
+        {
+          "code": "MINISTER_DECISION",
+          "name": "Online decision making by the Minister.",
+          "description": "Online decision making by the Minister",
+          "mandatory": false,
+          "sequence": 3,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "FINAL_DECISION",
+          "create_task_rules": {
+            "assessment_decision": "ACCEPTED",
+            "current_status": "ASSESSMENT"
+          }
+        },
+        {
+          "code": "FINAL_DECISION",
+          "name": "Work Resident Appeal Production decision",
+          "description": "Final decision for work resident permit",
+          "sequence": 4,
+          "mandatory": false,
+          "valid_from": "2024-01-01",
+          "valid_to": "2030-01-01",
+          "next_activity_name": "END",
+          "create_task_rules": {
+            "or": {
+              "recommendation_decision": "ACCEPTED|REJECTED"
             },
-            {
-                "code": "ASSESSMENT",
-                "name": "Work Resident Assessment",
-                "description": "Application Assessment Task.",
-                "mandatory": false,
-                "sequence": 2,
-                "valid_from": "2024-01-01",
-                "valid_to": "2030-01-01",
-                "next_activity_name": "RECOMMENDATION",
-                "create_task_rules": {
-                  "current_status": "VERIFICATION"
-                }
-              },
-            {
-                "code":  "RECOMMENDATION",
-                "name":  "Work Resident Appeal Recommendation",
-                "description": " Authorization completed by commissioners/authorized officer.",
-                "mandatory": false,
-                "sequence": 3,
-                "valid_from": "2024-01-01",
-                "valid_to": "2030-01-01",
-                "next_activity_name": "FINAL_DECISION",
-                "create_task_rules": {
-                    "verification_decision": "ACCEPTED",
-                    "current_status":  "VERIFICATION"
-                }
-            },
-            {
-                "code":  "FINAL_DECISION",
-                "name":  "Work Resident Appeal Production decision",
-                "description": "Final decision for work resident permit",
-                "sequence": 4,
-                "mandatory": false,
-                "valid_from": "2024-01-01",
-                "valid_to": "2030-01-01",
-                "next_activity_name": "END",
-                "create_task_rules": {
-                   "recommendation_decision": "ACCEPTED",
-                    "current_status":  "RECOMMENDATION"
-                }
-            }
-        ]
+            "current_status": "MINISTER_DECISION"
+          }
+        }
+      ]
     }
   }
 }

@@ -21,7 +21,7 @@ class Command(CustomBaseCommand):
     def add_arguments(self, parser):
         # Adding an optional document_number argument
         parser.add_argument(
-            '--document_number',
+            "--document_number",
             type=str,
             help="Specify a document number for the application",
         )
@@ -43,7 +43,7 @@ class Command(CustomBaseCommand):
             work_place=randint(1000, 9999),
             full_name=f"{fname} {lname}",
             application_permit_type="replacement",
-            document_number=document_number
+            document_number=document_number,
         )
         app_service = ApplicationService(new_application_dto=new_app)
         app, version = app_service.create_application()
@@ -51,7 +51,7 @@ class Command(CustomBaseCommand):
 
     def handle(self, *args, **options):
 
-        document_number = options.get('document_number')
+        document_number = options.get("document_number")
 
         faker = Faker()
         with atomic():
@@ -68,9 +68,7 @@ class Command(CustomBaseCommand):
                 previous_nationality=faker.country(),
                 current_nationality=faker.country(),
                 state_period_required=faker.date_this_century(),
-                propose_work_employment=faker.random_element(
-                    elements=("yes", "no")
-                ),
+                propose_work_employment=faker.random_element(elements=("yes", "no")),
                 reason_applying_permit=faker.random_element(
                     elements=(
                         "dependent",

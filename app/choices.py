@@ -20,3 +20,8 @@ PERMIT_PERIOD = (
     ("15 - 90 days", "15 - 90 days"),
     ("6 months", "6 months"),
 )
+
+APPLICATION_PERMIT_TYPE = (('initial', 'Initial'),
+                           ('renewal', 'Renewal'),
+                           ('replacement', 'Replacement'),
+                           ('appeal', 'Appeal'))

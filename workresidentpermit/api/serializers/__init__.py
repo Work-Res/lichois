@@ -15,3 +15,4 @@ from .permit_replacement_serializer import PermitReplacementSerializer
 
 from .request_deferred_application_dto import RequestDeferredApplicationDTOSerializer
 from .permit_cancellation_reason_serializer import PermitCancellationReasonSerializer
+from .variation_permit_serializer import VariationPermitSerializer

@@ -2,6 +2,7 @@ from django.db.transaction import atomic
 from faker import Faker
 
 from app.utils.system_enums import ApplicationProcesses
+from app_personal_details.models.spouse import Spouse
 from lichois.management.base_command import CustomBaseCommand
 from workresidentpermit.models import ResidencePermit, WorkPermit
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
@@ -17,25 +18,16 @@ class Command(CustomBaseCommand):
         work_res_permit = (
             WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
         )
-        renewal_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
-        )
-        replacement_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
-        )
-
-        variation_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_VARIATION.value
-        )
+        # variation_permit = (
+        #     WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_VARIATION.value
+        # )
         with atomic():
 
-            for _ in range(50):
+            for _ in range(2):
                 self.application_type = faker.random_element(
                     elements=(
                         work_res_permit,
-                        renewal_permit,
-                        replacement_permit,
-                        variation_permit,
+                        # variation_permit,
                     )
                 )
                 app, version = self.create_basic_data()
@@ -105,6 +97,18 @@ class Command(CustomBaseCommand):
                     occupation=faker.job(),
                     duration=faker.random_int(min=1, max=10),
                     names_of_trainees=faker.first_name(),
+                )
+
+                Spouse.objects.get_or_create(
+                    application_version=version,
+                    document_number=app.application_document.document_number,
+                    first_name=faker.first_name(),
+                    last_name=faker.last_name(),
+                    middle_name=faker.first_name(),
+                    maiden_name=faker.last_name(),
+                    country=faker.country(),
+                    dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
+                    place_birth=faker.city(),
                 )
 
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))

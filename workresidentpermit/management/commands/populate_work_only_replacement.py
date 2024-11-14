@@ -17,14 +17,14 @@ class Command(CustomBaseCommand):
     def add_arguments(self, parser):
         # Adding an optional document_number argument
         parser.add_argument(
-            '--document_number',
+            "--document_number",
             type=str,
             help="Specify a document number for the application",
         )
 
     def handle(self, *args, **options):
 
-        document_number = options.get('document_number')
+        document_number = options.get("document_number")
         faker = Faker()
         with atomic():
             fname = faker.first_name()

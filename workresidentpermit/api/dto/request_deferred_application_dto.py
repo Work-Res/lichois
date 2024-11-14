@@ -3,7 +3,7 @@ from app_comments.models import Comment
 
 class RequestDeferredApplicationDTO:
 
-    def __init__(self, document_number: str, comment: Comment, deferred_from: str, batch_id: str,
+    def __init__(self, document_number: str, comment: Comment, deferred_from: str, batch_id: str = None,
                  expected_action: str = None, task_details_config_file=None):
         self.document_number = document_number
         self.comment = comment

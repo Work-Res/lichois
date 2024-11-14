@@ -11,11 +11,12 @@ class VotingOutcomeService:
     def __init__(self, document_number):
         self.document_number = document_number
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
 
     def determine_voting_outcome(self):
         vote_counts = self.get_vote_counts()
-        total_approved = vote_counts['APPROVED']
-        total_rejected = vote_counts['REJECTED']
+        total_approved = vote_counts["APPROVED"]
+        total_rejected = vote_counts["REJECTED"]
 
         if total_approved == 0 and total_rejected == 0:
             self.logger.error(f"No votes have been cast for {self.document_number}")
@@ -31,14 +32,16 @@ class VotingOutcomeService:
     def get_vote_counts(self):
         vote_counts = (
             BoardMeetingVote.objects.filter(document_number=self.document_number)
-            .values('status')
-            .annotate(count=Count('status'))
+            .values("status")
+            .annotate(count=Count("status"))
         )
+        self.logger.info(f"Vote counts: {vote_counts}")
 
-        result = {'APPROVED': 0, 'REJECTED': 0}
+        result = {"APPROVED": 0, "REJECTED": 0}
         for vote_count in vote_counts:
-            if vote_count['status'] == APPROVED.upper():
-                result['APPROVED'] = vote_count['count']
-            elif vote_count['status'] == REJECTED.upper():
-                result['REJECTED'] = vote_count['count']
+            if vote_count["status"].upper() == APPROVED.upper():
+                self.logger.info(f"Vote status: {vote_count['status']}")
+                result["APPROVED"] = vote_count["count"]
+            elif vote_count["status"].upper() == REJECTED.upper():
+                result["REJECTED"] = vote_count["count"]
         return result

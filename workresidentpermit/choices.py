@@ -111,3 +111,8 @@ PERSON_TYPE = (
     ('child', 'Child'),
     ('guardian', 'Guardian')
 )
+
+CAPITAL_SOURCE = (
+    ('local', 'Local'),
+    ('international financial institution', 'International Financial Institution ')
+)

@@ -11,6 +11,7 @@ from app.models import (
     SecurityClearance,
 )
 from app.utils import ApplicationProcesses, ApplicationStatusEnum
+from citizenship.service.production.minister_production_decision_service import MinisterProductionDecisionService
 
 from .classes import WorkPermitApplicationPDFGenerator
 from .classes.config.configuration_loader import JSONConfigLoader
@@ -95,6 +96,15 @@ def create_application_final_decision_by_security_clearance(
         )
 
 
+def handle_minister_production_decision(instance, created):
+    if created:
+        production_service = MinisterProductionDecisionService(
+            document_number=instance.document_number,
+            decision_value=instance.status.code.upper(),
+        )
+        production_service.create_application_decision()
+
+
 def handle_application_final_decision(instance, created):
 
     json_file_name = "minister_approval_process.json"
@@ -110,7 +120,7 @@ def handle_application_final_decision(instance, created):
                 config_loader=config_loader,
             )
             special_permit_decision_service.create_application_decision()
-            logger.info("Application decision created successfully")
+            logger.info("Minister Application decision created successfully")
         except SystemError as e:
             logger.error(
                 "SystemError: An error occurred while creating new application decision for "
@@ -135,3 +145,5 @@ def create_application_final_decision_by_minister_decision(
     sender, instance, created, **kwargs
 ):
     handle_application_final_decision(instance, created)
+    handle_minister_production_decision(instance, created)
+

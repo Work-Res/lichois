@@ -34,7 +34,8 @@ class MinisterProcessWhenCompletedIsRequiredForProduction:
             CitizenshipProcessEnum.NATURALIZATION.value,
             CitizenshipProcessEnum.FOREIGN_SPOUSE_NATURALIZATION.value,
             CitizenshipProcessEnum.DUAL_RENUNCIATION.value,
-            CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value
+            CitizenshipProcessEnum.ADOPTED_CHILD_REGISTRATION.value,
+            ApplicationProcesses.APPEAL_PERMIT.value
         ]
 
 

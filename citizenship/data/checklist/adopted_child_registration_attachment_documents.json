@@ -47,7 +47,7 @@
           "code": "POLICE_REPORT",
           "name": "POLICE REPORT",
           "application_type": "REGISTRATION_OF_ADOPTED_CHILD_OVER_3YEARS",
-          "description": "Police report forms for children over sixteen(16) years old",
+          "description": "Police report forms for Child over sixteen(16) years old",
           "mandatory": false,
           "valid_from": "2024-01-01",
           "valid_to": "2030-01-01"
