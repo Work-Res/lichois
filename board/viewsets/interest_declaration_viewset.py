@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from app.api.common.web import APIMessage
 from app.models import Application
-from ..choices import PRESENT, ABSENT
+from ..choices import PRESENT
 from ..models import BoardMember, InterestDeclaration, MeetingAttendee
 from ..serializers import InterestDeclarationSerializer
 
@@ -68,11 +68,15 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
             decision="refrain", document_number=document_number, meeting__id=meeting
         )
         if interest_declarations:
-            return Response(
-                data=InterestDeclarationSerializer(
-                    interest_declarations, many=True
-                ).data
-            )
+            data = InterestDeclarationSerializer(interest_declarations, many=True).data
+            items = []
+            for item in data:
+                meeting_attendee = MeetingAttendee.objects.filter(
+                    id=item["meeting_attendee"]
+                ).first()
+                item["meeting_attendee"] = meeting_attendee.board_member.user.username
+                items.append(item)
+            return Response(data=items)
         return Response(
             APIMessage(message="Interest declaration not found", code=404).to_dict(),
             status=404,
@@ -97,11 +101,15 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
             decision="vote", document_number=document_number, meeting__id=meeting
         )
         if interest_declarations:
-            return Response(
-                data=InterestDeclarationSerializer(
-                    interest_declarations, many=True
-                ).data
-            )
+            data = InterestDeclarationSerializer(interest_declarations, many=True).data
+            items = []
+            for item in data:
+                meeting_attendee = MeetingAttendee.objects.filter(
+                    id=item["meeting_attendee"]
+                ).first()
+                item["meeting_attendee"] = meeting_attendee.board_member.user.username
+                items.append(item)
+            return Response(data=items)
         return Response(
             APIMessage(message="Interest declaration not found", code=404).to_dict(),
             status=404,
@@ -139,7 +147,6 @@ class InterestDeclarationViewSet(viewsets.ModelViewSet):
                     "decision": "vote",
                     "attendee_signature": True,
                 }
-                print(f"************************{data}************************")
                 serializer = self.get_serializer(data=data)
                 if serializer.is_valid(raise_exception=True):
                     self.perform_create(serializer)

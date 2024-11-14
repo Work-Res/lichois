@@ -21,4 +21,3 @@ class DependantAssessment(ApplicationBaseModel):
         max_length=200,
         default=ApplicationDecisionEnum.PENDING.value,
     )
-

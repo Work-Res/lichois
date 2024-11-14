@@ -35,8 +35,14 @@ def create_production_permit_record(sender, instance, created, **kwargs):
 
                 service_registry = get_service_registry()
                 service_cls = service_registry.get_service(application.process_name)
-                print("service_cls ", service_cls)
                 service_cls(request).create_new_permit()
+                logger.info(
+                    f"Successfully created permit for production {instance.document_number}"
+                )
+            else:
+                logger.info(
+                    f"No action required for application decision {instance.document_number}"
+                )
 
         except SystemError as e:
             logger.error(

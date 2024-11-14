@@ -13,9 +13,10 @@ class AssessmentCaseDecision(ApplicationBaseModel, AssessmentUpdateMixin):
         blank=True,
         editable=False,
         help_text="Parent ID primary key.",
+        null=True,
     )
 
-    parent_object_type = models.CharField(max_length=200, null=False, blank=True)
+    parent_object_type = models.CharField(max_length=200, null=True, blank=True)
 
     author = models.CharField(max_length=200, null=True, blank=True)
 
@@ -24,7 +25,7 @@ class AssessmentCaseDecision(ApplicationBaseModel, AssessmentUpdateMixin):
     is_active = models.BooleanField(default=True)
 
     decision = models.CharField(
-        max_length=200, choices=DECISION_TYPE, null=False, blank=True
+        max_length=200, choices=DECISION_TYPE, null=True, blank=True
     )
 
     status = models.ForeignKey(
