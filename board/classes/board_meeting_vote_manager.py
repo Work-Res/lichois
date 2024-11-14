@@ -41,23 +41,23 @@ class BoardMeetingVoteManager:
         ).values_list("meeting_attendee__board_member__id", flat=True)
         # Get the board members who have not voted
 
-        not_voting_members = InterestDeclaration.objects.filter(
-            Q(document_number=self.document_number) & Q(decision="refrain")
+        voting_members = InterestDeclaration.objects.filter(
+            Q(document_number=self.document_number) & Q(decision="vote")
         ).values_list("meeting_attendee__board_member__id", flat=True)
 
-        excluded_members = list(voted) + list(not_voting_members)
+        # excluded_members = list(voted) + list(not_voting_members)
 
-        not_voted_members = (
-            BoardMeetingVote.objects.filter(meeting_attendee__isnull=False)
-            .exclude(meeting_attendee__board_member__id__in=excluded_members)
-            .values_list("meeting_attendee__board_member__user__username", flat=True)
+        not_voted_members = list(set(voting_members) - set(voted))
+
+        members = BoardMember.objects.filter(id__in=not_voted_members).values_list(
+            "user__username", flat=True
         )
 
         # Return the voted approved members, voted rejected members, and not voted members
         return {
             "voted_approved_members": list(voted_approved_members),
             "voted_rejected_members": list(voted_rejected_members),
-            "not_voted_members": list(not_voted_members),
+            "not_voted_members": members,
         }
 
     def create_tie_breaker(self, tie_breaker):
