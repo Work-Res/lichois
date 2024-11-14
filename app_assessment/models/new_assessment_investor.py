@@ -24,10 +24,6 @@ class NewAssessmentInvestor(BaseAssessmentInvestor):
     residence = models.IntegerField(default=0)
     # residence_comment = models.TextField(null=True, blank=False)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.save_assessment()
-
     class Meta:
 
         verbose_name = "New Assessment Investors"
