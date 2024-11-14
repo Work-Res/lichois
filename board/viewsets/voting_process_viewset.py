@@ -24,6 +24,17 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
                 details="Only the chairperson can create a voting process.",
             )
             raise PermissionDenied(api_message.to_dict())
+
+        voting_process = VotingProcess.objects.filter(
+            document_number=request.data.get("document_number")
+        ).first()
+        if voting_process:
+            api_message = APIMessage(
+                code=400,
+                message="Bad request",
+                details="Voting process already exists.",
+            )
+            raise PermissionDenied(api_message.to_dict())
         return super().create(request, *args, **kwargs)
 
     @action(detail=False, methods=["post"], url_path="batch-create")
@@ -74,7 +85,7 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
 
         return Response(
             APIResponse(
-                messages=f"Successfully created voting process for batch { application_batch}",
+                messages=f"Successfully created voting process for batch {application_batch}",
                 data=created_processes,
                 status=201,
             ).result(),
