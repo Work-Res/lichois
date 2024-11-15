@@ -35,6 +35,9 @@ class DependantAssessmentViewSet(viewsets.ModelViewSet):
         url_name="is_done",
     )
     def is_assessment_done(self, request, document_number):
+
+        if not DependantAssessment.objects.filter(document_number=document_number).exists():
+            return Response(data={"is_done": True}, status=status.HTTP_200_OK)
         # Check if any DependantAssessment has assessment == "Pending" for the given document number
         if DependantAssessment.objects.filter(
                 document_number=document_number, assessment="Pending"
