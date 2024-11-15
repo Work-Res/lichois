@@ -85,11 +85,7 @@ class ReplacementApplicationService(object):
                 code=400,
                 message="Failed to create new renewal application",
                 details=f"New application version is required to create a renewal for "
-<<<<<<< HEAD
-                f"{self.self.appeal_application_dto.document_number}",
-=======
                 f"{self.self.replacement_application_dto.document_number}",
->>>>>>> 91f1da009e81f0aa5d1dd34c400f34b810daa59b
             )
             self.response.messages.append(api_message.to_dict())
             return

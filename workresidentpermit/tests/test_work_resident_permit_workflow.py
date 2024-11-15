@@ -185,11 +185,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto
         )
-<<<<<<< HEAD
         app, version = self.application_service.create_application()
-=======
-        version = self.application_service.create_application()
->>>>>>> 91f1da009e81f0aa5d1dd34c400f34b810daa59b
         self.assertIsNotNone(version)
 
         application_renewal = ApplicationRenewal.objects.filter(
@@ -272,11 +268,8 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto
         )
-<<<<<<< HEAD
+
         app, version = self.application_service.create_application()
-=======
-        version = self.application_service.create_application()
->>>>>>> 91f1da009e81f0aa5d1dd34c400f34b810daa59b
         self.assertIsNotNone(version)
 
         application_replacement = ApplicationReplacement.objects.filter(
@@ -368,11 +361,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto
         )
-<<<<<<< HEAD
         app, version = self.application_service.create_application()
-=======
-        version = self.application_service.create_application()
->>>>>>> 91f1da009e81f0aa5d1dd34c400f34b810daa59b
         self.assertIsNotNone(version)
 
         application_replacement = ApplicationReplacement.objects.filter(
