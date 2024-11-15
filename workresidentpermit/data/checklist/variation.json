@@ -1,0 +1,32 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "WORK_PERMIT_VARIATION_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "WORK_PERMIT_VARIATION, WORK_RESIDENT_PERMIT_VARIATION",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CERTIFIED_COMPANY_INCORPORATION_CERTIFICATE_COPY",
+            "name": "CERTIFIED COMPANY INCORPORATION CERTIFICATE COPY",
+            "application_type": "WORK_PERMIT_VARIATION, WORK_RESIDENT_PERMIT_VARIATION",
+            "description": "Certified copies of the company certificate of incorporation",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

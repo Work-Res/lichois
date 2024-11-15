@@ -268,6 +268,7 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
         self.application_service = ApplicationService(
             new_application_dto=self.new_application_dto
         )
+
         app, version = self.application_service.create_application()
         self.assertIsNotNone(version)
 

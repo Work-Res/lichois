@@ -18,12 +18,28 @@ class Command(CustomBaseCommand):
         work_res_permit = (
             WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value
         )
+<<<<<<< HEAD
+        renewal_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value
+        )
+        replacement_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value
+        )
+
+        variation_permit = (
+            WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_VARIATION.value
+        )
+        with atomic():
+
+            for _ in range(50):
+=======
         # variation_permit = (
         #     WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_VARIATION.value
         # )
         with atomic():
 
             for _ in range(2):
+>>>>>>> develop
                 self.application_type = faker.random_element(
                     elements=(
                         work_res_permit,

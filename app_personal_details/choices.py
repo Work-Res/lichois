@@ -32,5 +32,6 @@ PERSON_TYPE = (
     ('sponsor', 'Sponsor'),
     ('witness', 'Witness'),
     ('declarant', 'Declarant'),
-    ('adoptive_parent', 'Adoptive Parent')
+    ('adoptive_parent', 'Adoptive Parent'),
+    ('subscriber', 'Subscriber'),
 )
