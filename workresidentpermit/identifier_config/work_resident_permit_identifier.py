@@ -61,3 +61,12 @@ class ResidentPermitReplacementIdentifier(Identifier):
     @staticmethod
     def process_name():
         return ApplicationProcesses.RESIDENT_PERMIT_REPLACEMENT.value
+    
+class VariationPermitIdentifier(Identifier):
+    template = "{identifier_type}{address_code}{dob}{sequence}"
+    label = "variationpermit"  # e.g. work_permit_identifier, visa_identifier, etc
+    identifier_type = "VP"
+
+    @staticmethod
+    def process_name():
+        return ApplicationProcesses.VARIATION_PERMIT.value

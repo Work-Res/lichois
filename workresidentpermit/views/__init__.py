@@ -20,3 +20,4 @@ from .deferred_application_view import (
     CompleteDeferredApplicationView,
 )
 from .permit_cancellation_reason_viewset import PermitCancellationReasonViewSet
+from .variation_permit_view import VariationPermitViewSet
