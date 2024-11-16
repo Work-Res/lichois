@@ -9,12 +9,12 @@ class DeferredApplication(BaseUuidModel):
     previous_application_status = models.ForeignKey(
         ApplicationStatus,
         on_delete=models.CASCADE,
-        related_name="deferred_applications_previous"
+        null=True,
+        blank=True,
+        related_name="deferred_applications_previous",
     )
     application = models.ForeignKey(
-        Application,
-        on_delete=models.CASCADE,
-        related_name="deferred_applications"
+        Application, on_delete=models.CASCADE, related_name="deferred_applications"
     )
     comment = models.TextField(blank=True, null=True)
     deferred_from = models.CharField(max_length=100)
@@ -22,7 +22,7 @@ class DeferredApplication(BaseUuidModel):
     deferred_status = models.ForeignKey(
         ApplicationStatus,
         on_delete=models.CASCADE,
-        related_name="deferred_applications_status"
+        related_name="deferred_applications_status",
     )
 
     class Meta:
