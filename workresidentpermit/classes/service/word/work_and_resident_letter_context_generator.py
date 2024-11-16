@@ -5,7 +5,8 @@ from app_address.models import ApplicationAddress
 from citizenship.utils import CitizenshipProcessEnum
 from .document_context_generator import DocumentContextGenerator
 
-class MaturityLetterContextGenerator(DocumentContextGenerator):
+
+class WorkAndResidentLetterContextGenerator(DocumentContextGenerator):
 
     def format_date_with_suffix(self, date):
 

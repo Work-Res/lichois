@@ -13,7 +13,7 @@ class ProductionProcess:
         raise NotImplementedError("Subclasses must implement 'handle' method")
 
 
-class MaturityLetterProductionProcess(ProductionProcess):
+class WorkAndResidentLetterProductionProcess(ProductionProcess):
     def __init__(self, handler: UploadDocumentProductionHandler, context_generator: MaturityLetterContextGenerator):
         self.handler = handler
         self.logger = logging.getLogger(__name__)
@@ -23,9 +23,9 @@ class MaturityLetterProductionProcess(ProductionProcess):
         status = decision.proposed_decision_type.code.lower()
         date_string = date.today().strftime("%Y-%m-%d")
         template_path = os.path.join(
-            "citizenship", "data", "production", "templates", f"maturity_letter_{status}_template.docx")
+            "workresidentpermit", "data", "production", "templates", f"work_and_resident_letter_{status}_template.docx")
         document_output_path = os.path.join(
-            settings.MEDIA_ROOT, f'maturity_letter_{application.application_document.document_number}_{date_string}_{status}.docx')
+            settings.MEDIA_ROOT, f'work_and_resident_letter_{application.application_document.document_number}_{date_string}_{status}.docx')
 
         config = ProductionConfig(
             template_path=template_path,
