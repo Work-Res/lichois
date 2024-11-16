@@ -145,7 +145,7 @@ def board_meeting_on_post_save(sender, instance, raw, created, **kwargs):
                     board_meeting=instance,
                     invited_user=board_member,
                 )
-    if instance.status == CANCELLED:
+    elif instance.status == CANCELLED:
         try:
             logger.info(f"Updating meeting votes for {instance.title}")
             # Get the agenda of the meeting
