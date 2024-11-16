@@ -24,7 +24,7 @@
         },
         {
           "code": "FEEDBACK",
-          "name": "Work Res Verification",
+          "name": "Work Res FEEDBACK",
           "description": "Application On Feedback Task.",
           "mandatory": false,
           "sequence": 2,
