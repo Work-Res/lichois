@@ -1,10 +1,11 @@
 import logging
-
+from django.db import transaction
 from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
 
 from board.choices import CANCELLED, ENDED
 from board.classes.voting_decision_manager import VotingDecisionManager
+from citizenship.models.board import meeting
 from .models import (
     Agenda,
     ApplicationBatch,
@@ -127,7 +128,7 @@ def update_application_batch(sender, instance, created, **kwargs):
 )
 def board_meeting_on_post_save(sender, instance, raw, created, **kwargs):
     """Create board meeting invitations for all board members when a new board meeting is created."""
-    if created and instance.status == "scheduled":
+    if instance.status == "scheduled":
         board_id = instance.board_id
         board_members = None
 
@@ -137,23 +138,28 @@ def board_meeting_on_post_save(sender, instance, raw, created, **kwargs):
             return None
         else:
             board_members = attending_board.boardmember_set.all()
+            MeetingInvitation.objects.filter(board_meeting=instance).delete()
             for board_member in board_members:
                 # Create a meeting invitation for each board member
                 MeetingInvitation.objects.create(
                     board_meeting=instance,
                     invited_user=board_member,
                 )
+    if instance.status == CANCELLED:
         try:
             logger.info(f"Updating meeting votes for {instance.title}")
-            if instance.status == CANCELLED:
-                # Get the agenda of the meeting
-                logger.info(f"Updating meeting status for {instance.status}")
-                agenda = Agenda.objects.get(meeting=instance)
-                if agenda:
-                    app_batch = agenda.application_batch
-                    app_batch.delete()
-            # Update the votes of the meeting
-
+            # Get the agenda of the meeting
+            logger.info(f"Updating meeting status for {instance.status}")
+            agenda = Agenda.objects.get(meeting=instance)
+            with transaction.atomic():
+                app_batch = agenda.application_batch
+                app_batch.delete()
+                agenda.delete()
+                meeting_invitations = MeetingInvitation.objects.filter(
+                    board_meeting=instance
+                )
+                meeting_invitations.delete()
+        # Update the votes of the meeting
         except Agenda.DoesNotExist:
             logger.warning("No agenda found for the canceled meeting.")
 
