@@ -6,11 +6,12 @@ from dateutil.relativedelta import relativedelta
 from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
 from app_production.services.permit_production_service import PermitProductionService
+from .word_generator_service_mixin import WordGeneratorServiceMixin
 
 from ..api.dto.permit_request_dto import PermitRequestDTO
 
 
-class WorkOnlyProductionService(PermitProductionService):
+class WorkOnlyProductionService(PermitProductionService, WordGeneratorServiceMixin):
 
     process_name = ApplicationProcesses.WORK_PERMIT.value
 

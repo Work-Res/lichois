@@ -7,8 +7,11 @@ from django.db import transaction
 from app.api.common.web import APIMessage, APIResponse
 from app_checklist.models import SystemParameter
 from app_personal_details.models import Permit
+from workresidentpermit.classes.service.word import WorkAndResidentLetterContextGenerator, \
+    WorkAndResidentLetterProductionProcess
 
 from ..api.dto import PermitRequestDTO
+from ..handlers.postsave.upload_document_production_handler import UploadDocumentProductionHandler
 
 
 class PermitProductionService:
@@ -81,6 +84,7 @@ class PermitProductionService:
             self.logger.info(
                 f"Permit created successfully for {self.request.document_number}"
             )
+            #self.create_document()
         return permit
 
     def invalidate_existing_permit(self):
@@ -93,3 +97,10 @@ class PermitProductionService:
 
     def get_context_data(self):
         pass
+
+    def create_document(self):
+
+        handler = UploadDocumentProductionHandler()
+        context_generator = WorkAndResidentLetterContextGenerator()
+        process = WorkAndResidentLetterProductionProcess(handler, context_generator)
+        process.handle(application=None, decision=None)
