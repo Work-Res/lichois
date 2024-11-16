@@ -29,6 +29,7 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
         )
         self.workflow = ProductionTransactionData()
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
 
     def update_application(self):
         application = Application.objects.get(

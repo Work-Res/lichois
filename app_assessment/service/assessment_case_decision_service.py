@@ -46,9 +46,9 @@ class AssessmentCaseDecisionService(BaseDecisionService):
         try:
             with transaction.atomic():
 
-                case_case_decision = AssessmentCaseDecision.objects.get(
+                case_case_decision = AssessmentCaseDecision.objects.filter(
                     document_number=self.assessment_case_decision_dto.document_number
-                )
+                ).first()
                 if case_case_decision:
                     self.logger.error(
                         f"Assessment case decision with document number  "
