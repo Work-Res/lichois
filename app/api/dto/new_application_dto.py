@@ -24,7 +24,7 @@ class NewApplicationDTO(object):
         applicant_type=None,
         permit_period=None,
         application_permit_type=None,
-        document_number=None
+        document_number=None,
     ):
         self.proces_name = process_name
         self.full_name = full_name

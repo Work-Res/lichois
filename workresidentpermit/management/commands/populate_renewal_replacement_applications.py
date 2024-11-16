@@ -1,5 +1,3 @@
-from random import randint
-from django.core.management.base import BaseCommand
 from faker import Faker
 from django.core.management import call_command
 
@@ -9,6 +7,7 @@ from app.api.dto.new_application_dto import NewApplicationDTO
 from app.models import Application
 from app.utils.system_enums import ApplicationProcesses, ApplicationStatusEnum
 from lichois.management.base_command import CustomBaseCommand
+from ...classes.work_res_application_repository import ApplicationRepository
 from ...models import ResidencePermit, WorkPermit
 from app_personal_details.models.spouse import Spouse
 from ...utils.work_resident_permit_application_type_enum import (
@@ -31,23 +30,29 @@ class Command(CustomBaseCommand):
             application_status__code__iexact=ApplicationStatusEnum.ACCEPTED.value,
         ):
             document_number = app.application_document.document_number
-
-            self.create_replacement_applications(document_number)
-            self.create_renewal_permit(document_number)
+            try:
+                applicant = (
+                    ApplicationRepository.get_application_user_by_document_number(
+                        document_number
+                    )
+                )
+            except Application.DoesNotExist:
+                pass
+            else:
+                applicant_identifier = applicant.user_identifier
+                self.create_replacement_applications(
+                    document_number, applicant_identifier
+                )
+                self.create_renewal_permit(document_number, applicant_identifier)
         call_command("populate_work_res_attachment")
 
-    def create_renewal_permit(self, document_number):
+    def create_renewal_permit(self, document_number, applicant_identifier):
         SystemParameterPermitRenewalPeriod.objects.get_or_create(
             application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value,
             percent=0.25,
         )
-
         new_application_dto = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
-            applicant_identifier=(
-                f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
-                f"{randint(1000, 9999)}-{randint(1000, 9999)}"
-            ),
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
@@ -56,6 +61,7 @@ class Command(CustomBaseCommand):
             applicant_type="student",
             application_permit_type="renewal",
             document_number=document_number,
+            applicant_identifier=applicant_identifier,
         )
         application_service = ApplicationService(
             new_application_dto=new_application_dto
@@ -64,17 +70,14 @@ class Command(CustomBaseCommand):
         app, version = application_service.create_application()
         self.create_other_details(app, version)
 
-    def create_replacement_applications(self, document_number):
+    def create_replacement_applications(self, document_number, applicant_identifier):
+
         SystemParameterPermitRenewalPeriod.objects.get_or_create(
             application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
             percent=0.25,
         )
         new_application_dto = NewApplicationDTO(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
-            applicant_identifier=(
-                f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
-                f"{randint(1000, 9999)}-{randint(1000, 9999)}"
-            ),
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
@@ -83,6 +86,7 @@ class Command(CustomBaseCommand):
             applicant_type="student",
             application_permit_type="replacement",
             document_number=document_number,
+            applicant_identifier=applicant_identifier,
         )
         application_service = ApplicationService(
             new_application_dto=new_application_dto
