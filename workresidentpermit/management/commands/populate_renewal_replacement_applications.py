@@ -43,7 +43,7 @@ class Command(CustomBaseCommand):
         )
 
         new_application_dto = NewApplicationDTO(
-            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
             applicant_identifier=(
                 f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
                 f"{randint(1000, 9999)}-{randint(1000, 9999)}"
@@ -70,7 +70,7 @@ class Command(CustomBaseCommand):
             percent=0.25,
         )
         new_application_dto = NewApplicationDTO(
-            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
             applicant_identifier=(
                 f"{randint(1000, 9999)}-{randint(1000, 9999)}-"
                 f"{randint(1000, 9999)}-{randint(1000, 9999)}"
