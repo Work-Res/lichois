@@ -45,6 +45,23 @@ class AssessmentCaseDecisionService(BaseDecisionService):
         )
         try:
             with transaction.atomic():
+
+                case_case_decision = AssessmentCaseDecision.objects.get(
+                    document_number=self.assessment_case_decision_dto.document_number
+                )
+                if case_case_decision:
+                    self.logger.error(
+                        f"Assessment case decision with document number  "
+                        f"{self.assessment_case_decision_dto.document_number} already exists."
+                    )
+                    api_message = APIMessage(
+                        code=400,
+                        message="Assessment summary decision already exists.",
+                        details="Assessment summary decision already exists.",
+                    )
+                    self.response.status = False
+                    self.response.messages.append(api_message.to_dict())
+                    return
                 data = AssessmentCaseDecision.objects.create(
                     parent_object_id=self.assessment_case_decision_dto.parent_object_id,
                     parent_object_type=self.assessment_case_decision_dto.parent_object_type,

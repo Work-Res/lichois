@@ -35,16 +35,7 @@ class UpdateApplicationMixin:
             # Save the instance
             application.save()
 
-            self.logger.info(
-                f"Successfully updated application {document_number} field {field_key} to {field_value}."
-            )
-
-            self.logger.info(f"updated application {application.__dict__}")
-
         except Application.DoesNotExist:
-            self.logger.error(
-                f"No application found with document number {document_number}."
-            )
             raise ValidationError(
                 detail=f"No application found with document number {document_number}.",
                 code=404,

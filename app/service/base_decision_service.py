@@ -48,7 +48,7 @@ class BaseDecisionService(UpdateApplicationMixin):
         self.workflow = workflow
         self.task_to_deactivate = task_to_deactivate
         self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.WARNING)
+        self.logger.setLevel(logging.DEBUG)
         self.security_clearance = None
         self.gazette_batch_application = None
 
