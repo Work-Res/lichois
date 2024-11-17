@@ -20,7 +20,7 @@ class Command(CustomBaseCommand):
         faker = Faker()
         work_res_variation_permit = WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_VARIATION.value
         work_variation_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_VARIATION.value
-        
+
         with atomic():
 
             for _ in range(50):
@@ -44,16 +44,17 @@ class Command(CustomBaseCommand):
                 VariationPermit.objects.get_or_create(
                     application_version=version,
                     document_number=app.application_document.document_number,
-                    existing_permit=permit,  
+                    existing_permit=permit,
                     expiry_date=faker.date(),
                     current_company_name=faker.company(),
                     new_company_name=faker.company(),
+                    new_company_location=faker.address(),
                     has_separate_permises=faker.random_element(
                         elements=("yes", "no")
                     ),
                     no_permises_reason=faker.text(),
                     new_company_services_provided=faker.random_element(
-                        elements=("Technology", "Retail", "Healthcare", "Finance", 
+                        elements=("Technology", "Retail", "Healthcare", "Finance",
                                   "Marketing", "Consulting", "Education", "Logistics")
                     ),
                     employment_capacity=faker.job(),
@@ -70,7 +71,11 @@ class Command(CustomBaseCommand):
                     ),
                     financial_institution_name=faker.company(),
                     financial_institution_address=faker.address(),
-                    subscriber=subscriber,  
+                    subscriber=subscriber,
+                    signature=f"{faker.first_name()} {faker.last_name()}",
+                    applicant_type=faker.random_element(
+                        elements=("employee", "investor")
+                    ),
                 )
 
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))
