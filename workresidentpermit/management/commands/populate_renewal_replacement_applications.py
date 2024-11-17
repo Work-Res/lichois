@@ -23,7 +23,7 @@ class Command(CustomBaseCommand):
 
     def handle(self, *args, **options):
 
-        call_command("populate_final_applications")
+        # call_command("populate_final_applications")
 
         for app in Application.objects.filter(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,

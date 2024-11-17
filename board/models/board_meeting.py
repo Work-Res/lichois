@@ -11,7 +11,7 @@ class BoardMeeting(BaseUuidModel, BoardBasePermissionModel):
     meeting_date = models.DateField(blank=True, null=True)
     meeting_start_time = models.TimeField(blank=True, null=True)
     meeting_end_time = models.TimeField(blank=True, null=True)
-    description = models.CharField(max_length=150, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=50, choices=BOARD_MEETING_STATUS)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     minutes = models.TextField(blank=True, null=True)
