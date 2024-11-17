@@ -79,7 +79,14 @@ class WorkResidentPermitRenewalHistoryService:
 
     def json_to_historical_record(self, json_str: str) -> HistoricalRecord:
         if json_str:
-            record_dict = json.loads(json_str)
+            if isinstance(json_str, str):
+                record_dict = json.loads(json_str)
+            elif isinstance(json_str, dict):
+                record_dict = json_str
+            else:
+                raise TypeError(
+                    "The JSON object must be str, bytes, bytearray, or dict"
+                )
             try:
                 permits = [
                     self.dict_to_permit_data(permit) for permit in record_dict["data"]

@@ -1,7 +1,6 @@
 import logging
 from datetime import date
 
-from django.db import transaction
 
 from app.api.common.web import APIResponse, APIMessage
 from app.api import NewApplicationDTO, RenewalApplicationDTO
@@ -60,6 +59,7 @@ class ApplicationService:
 
         serializer = ApplicationVersionSerializer(application_version)
         self.response.data = serializer.data
+
         if self.new_application_dto.application_permit_type == "renewal":
             renewal_application = RenewalApplicationDTO(
                 process_name=self.new_application_dto.application_type,
@@ -101,7 +101,9 @@ class ApplicationService:
         status = [status.value for status in ApplicationStatusEnum]
 
         existing_application = ApplicationRepository.get_existing_application(
-            self.new_application_dto.applicant_identifier, status
+            self.new_application_dto.applicant_identifier,
+            status,
+            self.new_application_dto.proces_name,
         )
 
         if existing_application.exists():
@@ -110,6 +112,7 @@ class ApplicationService:
                 "Bad request",
                 f"An application with (NEW) status exists for "
                 f"applicant: {self.new_application_dto.applicant_identifier}. "
+                f"for process name: {self.new_application_dto.proces_name}."
                 f"Complete the existing application before opening a new one.",
             )
             return True

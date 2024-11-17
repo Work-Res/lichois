@@ -1,6 +1,5 @@
 from django.db import models
 
-from .assessment_update_mixin import AssessmentUpdateMixin
 from .base_assessment_investor import BaseAssessmentInvestor
 
 

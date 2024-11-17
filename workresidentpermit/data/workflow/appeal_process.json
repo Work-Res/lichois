@@ -23,7 +23,7 @@
         },
         {
           "code": "ASSESSMENT",
-          "name": "Work Assessment",
+          "name": "Work Resident APPEAL Assessment",
           "description": "Application Assessment Task.",
           "mandatory": false,
           "sequence": 2,
@@ -37,7 +37,7 @@
         },
         {
           "code": "MINISTER_DECISION",
-          "name": "Online decision making by the Minister.",
+          "name": "Work Resident APPEAL Online decision making by the Minister.",
           "description": "Online decision making by the Minister",
           "mandatory": false,
           "sequence": 3,

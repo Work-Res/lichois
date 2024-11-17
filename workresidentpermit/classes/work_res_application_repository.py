@@ -1,3 +1,4 @@
+from app.models.application_document import ApplicationDocument
 from app.utils import ApplicationStatusEnum
 from app.models import ApplicationUser, ApplicationStatus, Application
 
@@ -8,13 +9,14 @@ class ApplicationRepository:
     """
 
     @staticmethod
-    def get_existing_application(application_identifier, status):
+    def get_existing_application(application_identifier, status, process_name):
         """
         Get existing application with a new status for the applicant.
         """
         return Application.objects.filter(
             application_status__code__in=status,
             application_document__applicant__user_identifier=application_identifier,
+            process_name=process_name,
         )
 
     @staticmethod
@@ -35,6 +37,15 @@ class ApplicationRepository:
         return ApplicationUser.objects.get_or_create(
             user_identifier=user_identifier, defaults=defaults
         )
+
+    @staticmethod
+    def get_application_user_by_document_number(document_number):
+        """
+        Get the application user by document number.
+        """
+        return ApplicationDocument.objects.get(
+            document_number=document_number
+        ).applicant
 
     @staticmethod
     def save_application_document(application_document):
