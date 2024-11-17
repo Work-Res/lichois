@@ -42,3 +42,8 @@ class WorkOnlyProductionService(PermitProductionService):
                 duration=100,
             )
         return self._systems_parameter
+
+    def allowed_to_generate_document(self):
+        self.logger.debug(f"{self.process_name} is configured to generate document for {self.request.document_number}")
+        return True
+

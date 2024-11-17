@@ -12,6 +12,7 @@ from app.models.application_replacement_history import ApplicationReplacementHis
 from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum
 from app_checklist.models import SystemParameter, SystemParameterPermitRenewalPeriod
 from app_personal_details.models import Permit
+from app_production.models import ProductionAttachmentDocument
 from workflow.models import Activity
 from .base_test_setup import BaseTestSetup
 
@@ -110,6 +111,11 @@ class TestWorkResidentPermitWorkflow(BaseTestSetup):
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
+
+        attachments = ProductionAttachmentDocument.objects.filter(
+            document_number=self.document_number
+        )
+        self.assertTrue(attachments.exists())
 
     def test_workflow_transaction_after_when_performing_board_decision_renewal(self):
         SystemParameter.objects.create(

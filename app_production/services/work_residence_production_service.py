@@ -42,3 +42,8 @@ class WorkResidenceProductionService(PermitProductionService):
                 duration=5,
             )
         return self._systems_parameter
+
+    def allowed_to_generate_document(self):
+        print("???????????????????????????????")
+        self.logger.debug(f"{self.process_name} is configured to generate document for {self.request.document_number}")
+        return True

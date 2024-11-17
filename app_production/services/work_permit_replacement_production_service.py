@@ -33,3 +33,8 @@ class WorkPermitReplacementProductionService(PermitProductionService):
                 f"System parameter not found for {self.process_name}, creating a new one."
             )
         return self._systems_parameter
+
+    def allowed_to_generate_document(self):
+        self.logger.debug(f"{self.process_name} is configured to generate document for {self.request.document_number}")
+        return True
+

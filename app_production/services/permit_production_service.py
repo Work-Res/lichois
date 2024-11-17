@@ -5,6 +5,7 @@ from datetime import date, datetime
 from django.db import transaction
 
 from app.api.common.web import APIMessage, APIResponse
+from app.models import Application, ApplicationDecision
 from app_checklist.models import SystemParameter
 from app_personal_details.models import Permit
 from workresidentpermit.classes.service.word import WorkAndResidentLetterContextGenerator, \
@@ -84,8 +85,13 @@ class PermitProductionService:
             self.logger.info(
                 f"Permit created successfully for {self.request.document_number}"
             )
-            #self.create_document()
-        return permit
+
+            try:
+                self.create_document()
+            except Exception as e:
+                print(f"An error occurred. {e}")
+            finally:
+                return permit
 
     def invalidate_existing_permit(self):
         pass
@@ -98,9 +104,32 @@ class PermitProductionService:
     def get_context_data(self):
         pass
 
-    def create_document(self):
+    def allowed_to_generate_document(self):
+        return False
 
-        handler = UploadDocumentProductionHandler()
-        context_generator = WorkAndResidentLetterContextGenerator()
-        process = WorkAndResidentLetterProductionProcess(handler, context_generator)
-        process.handle(application=None, decision=None)
+    def _get_application(self):
+        try:
+            return Application.objects.get(
+                application_document__document_number=self.request.document_number
+            )
+        except Application.DoesNotExist:
+            pass
+
+    def _get_application_decision(self):
+        try:
+            return ApplicationDecision.objects.get(
+                document_number=self.request.document_number
+            )
+        except ApplicationDecision.DoesNotExist:
+            pass
+
+    def create_document(self):
+        if self.allowed_to_generate_document():
+            application = self._get_application()
+            decision = self._get_application_decision()
+            handler = UploadDocumentProductionHandler()
+            context_generator = WorkAndResidentLetterContextGenerator()
+            process = WorkAndResidentLetterProductionProcess(handler, context_generator)
+            process.handle(application=application, decision=decision, document_number=self.request.document_number)
+        else:
+            print("Not configured to generate document")

@@ -19,13 +19,13 @@ class WorkAndResidentLetterProductionProcess(ProductionProcess):
         self.logger = logging.getLogger(__name__)
         self.context_generator = context_generator
 
-    def handle(self, application, decision):
+    def handle(self, application, decision, document_number=None):
         status = decision.proposed_decision_type.code.lower()
         date_string = date.today().strftime("%Y-%m-%d")
         template_path = os.path.join(
             "workresidentpermit", "data", "production", "templates", f"work_and_resident_letter_{status}_template.docx")
         document_output_path = os.path.join(
-            settings.MEDIA_ROOT, f'work_and_resident_letter_{application.application_document.document_number}_{date_string}_{status}.docx')
+            settings.MEDIA_ROOT, f'work_and_resident_letter_{document_number}_{date_string}_{status}.docx')
 
         config = ProductionConfig(
             template_path=template_path,
@@ -36,7 +36,7 @@ class WorkAndResidentLetterProductionProcess(ProductionProcess):
         self.logger.debug(f"Generated template path: {template_path}")
         self.logger.debug(f"Generated document output path: {document_output_path}")
         self.logger.info(
-            f"Starting production process for application {application.id} and decision {decision.id} "
+            f"Starting production process for application {document_number} and decision {decision} "
             f"with status '{status}'"
         )
 
