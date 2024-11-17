@@ -49,6 +49,14 @@ class Command(CustomBaseCommand):
                     expiry_date=faker.date(),
                     current_company_name=faker.company(),
                     new_company_name=faker.company(),
+                    new_company_location=faker.address(),
+                    has_separate_permises=faker.random_element(
+                        elements=("yes", "no")
+                    ),
+                    no_permises_reason=faker.text(),
+                    new_company_services_provided=faker.random_element(
+                        elements=("Technology", "Retail", "Healthcare", "Finance",
+                                  "Marketing", "Consulting", "Education", "Logistics")
                     has_separate_permises=faker.random_element(elements=("yes", "no")),
                     no_permises_reason=faker.text(),
                     new_company_services_provided=faker.random_element(
@@ -82,6 +90,10 @@ class Command(CustomBaseCommand):
                     financial_institution_name=faker.company(),
                     financial_institution_address=faker.address(),
                     subscriber=subscriber,
+                    signature=f"{faker.first_name()} {faker.last_name()}",
+                    applicant_type=faker.random_element(
+                        elements=("employee", "investor")
+                    ),
                 )
 
                 self.stdout.write(self.style.SUCCESS("Successfully populated data"))

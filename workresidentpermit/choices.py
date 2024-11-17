@@ -116,3 +116,8 @@ CAPITAL_SOURCE = (
     ('local', 'Local'),
     ('international financial institution', 'International Financial Institution ')
 )
+
+APPLICANT_TYPE = (
+    ('employee', 'Employee'),
+    ('investor', 'Investor')
+)

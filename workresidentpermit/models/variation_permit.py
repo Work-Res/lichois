@@ -3,7 +3,7 @@ from app.models import ApplicationBaseModel, ApplicationDocument
 from workresidentpermit.choices import YES_NO, CAPITAL_SOURCE
 from app_personal_details.choices import PERSON_TYPE
 from app_personal_details.models import Person,Permit
-
+from ..choices import APPLICANT_TYPE
 class VariationPermit(ApplicationBaseModel):
     existing_permit = models.ForeignKey(
         Permit,
@@ -12,6 +12,7 @@ class VariationPermit(ApplicationBaseModel):
     expiry_date = models.DateField()
     current_company_name = models.CharField(max_length=250)
     new_company_name = models.CharField(max_length=250)
+    new_company_location = models.CharField(max_length=250)
     has_separate_permises = models.CharField(
         max_length=10,
         choices=YES_NO
@@ -40,7 +41,7 @@ class VariationPermit(ApplicationBaseModel):
     )
     financial_institution_name = models.CharField(max_length=250)
     financial_institution_address = models.CharField(max_length=250)
-    
+
     subscriber = models.ForeignKey(
         Person,
         on_delete=models.CASCADE
@@ -49,4 +50,11 @@ class VariationPermit(ApplicationBaseModel):
         max_length=50,
         choices=PERSON_TYPE,
         default="subscriber"
+    )
+
+    signature = models.CharField(max_length=150)
+
+    applicant_type = models.CharField(
+        max_length=4,
+        choices=APPLICANT_TYPE,
     )
