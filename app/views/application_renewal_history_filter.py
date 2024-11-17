@@ -1,8 +1,11 @@
 import django_filters
 from app.models import ApplicationRenewalHistory, ApplicationDocument
+from ..views.filters import ApplicantIdentifierFilter
 
 
-class ApplicationRenewalHistoryFilter(django_filters.FilterSet):
+class ApplicationRenewalHistoryFilter(
+    ApplicantIdentifierFilter, django_filters.FilterSet
+):
     process_name = django_filters.CharFilter(
         field_name="process_name", lookup_expr="icontains"
     )
@@ -11,22 +14,3 @@ class ApplicationRenewalHistoryFilter(django_filters.FilterSet):
     class Meta:
         model = ApplicationRenewalHistory
         exclude = ("historical_record",)
-
-    def filter_by_document_number(self, queryset, name, value):
-        try:
-            # Get the user application identifier based on the document number
-            application_document = ApplicationDocument.objects.get(
-                document_number=value
-            )
-
-            user_application_identifier = application_document.applicant.user_identifier
-
-            print(f"User application identifier: {user_application_identifier}")
-
-            # Filter the queryset using the user application identifier
-            query = queryset.filter(
-                application_user__user_identifier=user_application_identifier
-            )
-            return query
-        except ApplicationDocument.DoesNotExist:
-            return queryset.none()
