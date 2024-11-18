@@ -99,25 +99,19 @@ EMERGENCY_PERIOD = (
 
 SUBMITTER_TYPE = (("applicant", "Applicant"), ("officer", "Officer"))
 
-SUBMITTER_TYPE = (
-    ('applicant', 'Applicant'),
-    ('officer', 'Officer')
-)
+SUBMITTER_TYPE = (("applicant", "Applicant"), ("officer", "Officer"))
 
 PERSON_TYPE = (
-    ('applicant', 'Applicant'),
-    ('mother', 'Mother'),
-    ('father', 'Father'),
-    ('child', 'Child'),
-    ('guardian', 'Guardian')
+    ("applicant", "Applicant"),
+    ("mother", "Mother"),
+    ("father", "Father"),
+    ("child", "Child"),
+    ("guardian", "Guardian"),
 )
 
 CAPITAL_SOURCE = (
-    ('local', 'Local'),
-    ('international financial institution', 'International Financial Institution ')
+    ("local", "Local"),
+    ("international financial institution", "International Financial Institution "),
 )
 
-APPLICANT_TYPE = (
-    ('employee', 'Employee'),
-    ('investor', 'Investor')
-)
+APPLICANT_TYPE = (("employee", "Employee"), ("investor", "Investor"))
