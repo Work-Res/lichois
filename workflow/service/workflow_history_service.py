@@ -7,18 +7,15 @@ from workflow.models.workflow_history import WorkflowHistory
 class WorkflowHistoryService:
 
     @staticmethod
-    def create(application, source, create_rule, result, next_activity_name):
-        if application.application_status.code == next_activity_name:
-            WorkflowHistory.objects.create(
-                source=source.to_json(),
-                create_rules=WorkflowHistoryService.to_json(create_rule),
-                document_number=application.application_document.document_number,
-                result=result
-            )
-        else:
-            pass
-            # print(f"application.application_status.code: {application.application_status.code}")
-            # print(f"next_activity_name: {application.application_status.code}")
+    def create(application, source, create_rule, result, current_status):
+        WorkflowHistory.objects.create(
+            source=source.to_json(),
+            create_rules=WorkflowHistoryService.to_json(create_rule),
+            document_number=application.application_document.document_number,
+            result=result,
+            stage=current_status
+        )
+
 
     @staticmethod
     def to_json(value):
