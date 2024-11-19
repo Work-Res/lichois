@@ -32,7 +32,7 @@ class AssessmentCaseDecisionAPIView(APIView):
                 return self._response_bad_request(validator.response.result())
 
             service = AssessmentCaseDecisionService(assessment_case_decision_dto=assessment_decision_request)
-            service.create()
+            service.create_assessment()
             return Response(service.response.result(), status=status.HTTP_200_OK)
 
         except Exception as e:

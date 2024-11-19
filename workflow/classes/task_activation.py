@@ -2,11 +2,12 @@ import logging
 
 from typing import TypeVar
 
-from app.utils import ApplicationStatusEnum
 from ..rules import workflow
 from ..models import Activity, Task
+from django.db import transaction
 from ..choices import TaskStatus, TaskPriority
 from .workflow_application import WorkflowApplication
+from ..service import WorkflowHistoryService
 
 S = TypeVar("S")
 A = TypeVar("A")
@@ -23,6 +24,7 @@ class TaskActivation:
         self.logger = logging.getLogger("workflow")
         # self.logger.setLevel(logging.DEBUG)
 
+    @transaction.atomic
     def create_task(self):
         """
         Trigger all rules for given process using the application context.
@@ -30,6 +32,7 @@ class TaskActivation:
         activities = Activity.objects.filter(
             process__name=self.application.process_name,
             process__document_number=self.application.application_document.document_number,
+            completed=False
         )
         for activity in activities:
             self.source.next_activity_name = activity.next_activity_name
@@ -48,9 +51,10 @@ class TaskActivation:
             self.logger.info(
                 f"{activity.sequence}. activity.create_task_rules: {activity.create_task_rules}"
             )
-            if workflow.test_rule(
+            result = workflow.test_rule(
                 activity.name.upper(), self.source, activity.create_task_rules
-            ):
+            )
+            if result:
                 application_status_code = activity.name.upper()
                 if activity.name.upper() == "FINAL_DECISION":
                     application_status_code = self.source.status
@@ -63,8 +67,17 @@ class TaskActivation:
                     f"{activity.name} - {self.application.application_document.document_number}."
                 )
                 self.task(activity)
+                activity.completed = True
+                activity.save()
             else:
                 self.logger.debug(f"Failed to create task for {activity.name}")
+            WorkflowHistoryService.create(
+                application=self.application,
+                source=self.source,
+                create_rule=activity.create_task_rules,
+                result=result,
+                next_activity_name=activity.next_activity_name
+            )
 
     def task(self, activity):
         try:

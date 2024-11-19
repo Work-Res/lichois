@@ -1,4 +1,26 @@
-class BaseTransactionData:
+import json
+
+
+class JsonSerializableMixin:
+    """
+    A mixin class to add JSON serialization capabilities to any class.
+    """
+    def to_dict(self):
+        """
+        Convert the object's attributes to a dictionary.
+        Handles both instance attributes and inherited ones.
+        """
+        # Extract attributes, excluding private/internal attributes (e.g., starting with '_')
+        return {key: value for key, value in vars(self).items() if not key.startswith('_')}
+
+    def to_json(self):
+        """
+        Convert the object's attributes to a JSON string.
+        """
+        return json.dumps(self.to_dict())
+
+
+class BaseTransactionData(JsonSerializableMixin):
     """
     Base class for transaction data containing common attributes.
 

@@ -197,7 +197,7 @@ class BaseTestSetup(TestCase):
         serializer = AssessmentRequestSerializer(data=data)
         serializer.is_valid()
         assessment_case_decision = AssessmentCaseDecisionDTO(
-            document_number=self.document_number, decision="ACCEPTED", status="ACCEPTED"
+            document_number=self.document_number, status="ACCEPTED"
         )
         validator = AssessmentCaseDecisionValidator(
             assessment_case_decision=assessment_case_decision,

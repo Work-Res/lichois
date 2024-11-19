@@ -6,10 +6,10 @@ from app.models.application_appeal_history import ApplicationAppealHistory
 from app.models.application_replacement_history import ApplicationReplacementHistory
 
 from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum
-from app_assessment.models import DependantAssessment
+from app_assessment.models import DependantAssessment, SummaryAssessment
 from app_checklist.models import SystemParameter, SystemParameterPermitRenewalPeriod
 from app_personal_details.models import Permit
-from workflow.models import Activity, Task
+from workflow.models import Activity, Task, WorkflowHistory
 from .base_test_setup import BaseTestSetup
 from ..api.dto import RequestDeferredApplicationDTO
 from ..classes.service import DeferredApplicationService
@@ -533,6 +533,11 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         self.assertEqual(activites[4].name, "FINAL_DECISION")
         self.assertEqual(activites[5].name, "DEFFERED")
         self.assertIsNotNone(self.perform_verification())
+        workflow_history = WorkflowHistory.objects.filter(
+            document_number=self.document_number
+        )
+        self.assertTrue(workflow_history.exists())
+
         app.refresh_from_db()
         self.assertEqual(app.verification, "ACCEPTED")
         self.assertEqual(
@@ -608,6 +613,13 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         app.refresh_from_db()
         self.assertEqual(
             app.application_status.code, ApplicationStatusEnum.ASSESSMENT.value.lower()
+        )
+
+        SummaryAssessment.objects.create(
+            **{
+                "summary": "Test summary assessment",
+                "document_number": self.document_number
+            }
         )
 
         self.assertIsNotNone(self.perform_assessment())

@@ -55,6 +55,6 @@ class VariationPermit(ApplicationBaseModel):
     signature = models.CharField(max_length=150)
 
     applicant_type = models.CharField(
-        max_length=4,
+        max_length=20,
         choices=APPLICANT_TYPE,
     )
