@@ -69,4 +69,4 @@ class VariationPermitIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return ApplicationProcesses.VARIATION_PERMIT.value
+        return ApplicationProcesses.WORK_RESIDENT_PERMIT.value

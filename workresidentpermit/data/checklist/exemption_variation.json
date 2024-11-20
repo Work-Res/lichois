@@ -1,0 +1,122 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "EXEMPTION_CERTIFICATE_VARIATION_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "PASSPORT_COPY",
+            "name": "PASSPORT COPY",
+            "description": "Scanned passport page 1 copy.",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "PASSPORT_PHOTO",
+            "name": "PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Passport photo",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CERTIFIED_PASSPORT_PHOTO",
+            "name": "CERTIFIED PASSPORT PHOTO",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Passport photo certified on the reverse side",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CERTIFIED_COMPANY_INCORPORATION_CERTIFICATE_COPY",
+            "name": "CERTIFIED COMPANY INCORPORATION CERTIFICATE COPY",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Certified copies of the company certificate of incorporation",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "QUALIFICATIONS",
+            "name": "ACADEMIC QUALIFICATIONS",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Copies of relevant educational certificates cerified by issuing office and tranlasted to english",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CV",
+            "name": "CV",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Curriculum Vitae",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CLEARANCE",
+            "name": "CLEARANCE",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Copies of supporting documents from professional/regulatory bodies certified by issuing officer",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "ADVERTISEMENT_PROOF",
+            "name": "PROOF OF ADVERTISEMENT",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Proof of advertisement, it should have circulated for 14 days",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "CONTRACT_LETTER",
+            "name": "CONTRACT LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Contract or appointment letter",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "APPLICATION_LETTER",
+            "name": "APPLICATION LETTER",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Application letter for work advertised",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "WORK_PERMIT_COPY",
+            "name": "WORK PERMIT COPY",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Copy for work permit certified by issuing officer",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "TRAINING_LOCALISATION_PROGRAM",
+            "name": "TRAINING LOCALISATION PROGRAM",
+            "application_type": "EXEMPTION_CERTIFICATE_VARIATION",
+            "description": "Manpower, development, training and localisation program",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  
