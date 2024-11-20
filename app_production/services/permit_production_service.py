@@ -10,15 +10,17 @@ from app_checklist.models import SystemParameter
 from app_personal_details.models import Permit
 from workresidentpermit.classes.service.word import WorkAndResidentLetterContextGenerator, \
     WorkAndResidentLetterProductionProcess
+from .create_dependent_permit_service import CreateDependentPermitService
 
 from ..api.dto import PermitRequestDTO
 from ..handlers.postsave.upload_document_production_handler import UploadDocumentProductionHandler
 
 
-class PermitProductionService:
+class PermitProductionService(CreateDependentPermitService):
     """Responsible for creating a new permit when production is accepted."""
 
     def __init__(self, request: PermitRequestDTO):
+        super().__init__(request)
         self.request = request
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
@@ -60,7 +62,7 @@ class PermitProductionService:
         return self.request.permit_no
 
     @transaction.atomic
-    def create_new_permit(self, applicant_type='applicant'):
+    def create_new_permit(self):
         permit = self._get_existing_permit()
         date_expiry = self.systems_parameter().valid_to
         if not permit:
@@ -73,7 +75,7 @@ class PermitProductionService:
                 date_expiry=date_expiry,
                 place_issue=self.request.place_issue,
                 security_number=security_code,
-                applicant_type=applicant_type
+                applicant_type='applicant'
 
             )
             print(f"Permit created successfully for {self.request.document_number}")
@@ -90,6 +92,7 @@ class PermitProductionService:
             )
 
             try:
+                self.create_dependents(document_number=self.request.document_number)
                 self.create_document()
             except Exception as e:
                 print(f"An error occurred. {e}")

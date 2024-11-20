@@ -8,7 +8,7 @@ from app.models.application_replacement_history import ApplicationReplacementHis
 from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum
 from app_assessment.models import DependantAssessment, SummaryAssessment
 from app_checklist.models import SystemParameter, SystemParameterPermitRenewalPeriod
-from app_personal_details.models import Permit
+from app_personal_details.models import Permit, Spouse
 from workflow.models import Activity, Task, WorkflowHistory
 from .base_test_setup import BaseTestSetup
 from ..api.dto import RequestDeferredApplicationDTO
@@ -85,7 +85,6 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         self.assertEqual(
             app.application_status.code, ApplicationStatusEnum.ASSESSMENT.value.lower()
         )
-
         DependantAssessment.objects.create(
             **{"recommendation": self.document_number, "observation": self.document_number,
                "document_number": self.document_number, "dependent_dob": "1963-05-28",
@@ -121,6 +120,9 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
+        spouce = Spouse.objects.filter(document_number=self.document_number)
+        self.assertTrue(spouce.exists())
+        self.assertEqual(permit.count(), 2)
 
     def test_workflow_transaction_after_when_performing_board_decision_renewal(self):
         SystemParameter.objects.create(

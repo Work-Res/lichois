@@ -21,7 +21,7 @@ from app.classes import ApplicationService
 from app.api import NewApplicationDTO
 from app.utils import ApplicationProcesses
 
-from app_personal_details.models import Person, Passport
+from app_personal_details.models import Person, Passport, Spouse
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 
@@ -44,6 +44,45 @@ from model_mommy import mommy
 
 
 class BaseTestSetup(TestCase):
+
+    def create_fake_passport(self):
+        """
+        Creates and returns a fake Passport object.
+        """
+        faker = Faker()
+
+        return Passport.objects.create(
+            application_version=None,
+            document_number=self.document_number,
+            passport_number=faker.passport_number(),
+            date_issued=faker.date_this_century(),
+            expiry_date=faker.date_this_century(),
+            place_issued=faker.city(),
+            nationality=faker.country(),
+            photo=faker.image_url(),
+        )
+
+    def create_fake_spouse(self):
+        """
+        Creates and returns a fake Spouse object with related Passport objects.
+        """
+        # Create related Passport objects
+        passport = self.create_fake_passport()
+
+        faker = Faker()
+
+        # Create the Spouse object
+        return Spouse.objects.create(
+            last_name=faker.last_name(),
+            first_name=faker.first_name(),
+            middle_name=faker.first_name(),
+            maiden_name=faker.last_name(),
+            country=faker.country(),
+            place_birth=faker.city(),
+            dob=faker.date_of_birth(minimum_age=18, maximum_age=70),  # Ensure valid age
+            passport=passport,
+            document_number=self.document_number
+        )
 
     @classmethod
     def setUpClass(cls):
@@ -350,16 +389,7 @@ class BaseTestSetup(TestCase):
             # description=faker.text(),
         )
 
-        Passport.objects.create(
-            application_version=None,
-            document_number=app.application_document.document_number,
-            passport_number=faker.passport_number(),
-            date_issued=faker.date_this_century(),
-            expiry_date=faker.date_this_century(),
-            place_issued=faker.city(),
-            nationality=faker.country(),
-            photo=faker.image_url(),
-        )
+        self.create_fake_spouse()
 
         classifer_attachment_types = ClassifierItem.objects.filter(
             code__in=['PASSPORT_COPY', 'PASSPORT_PHOTO', 'COVER_LETTER']

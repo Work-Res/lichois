@@ -37,3 +37,6 @@ class WorkResidentPermitReplacementProductionService(PermitProductionService):
     def allowed_to_generate_document(self):
         self.logger.debug(f"{self.process_name} is configured to generate document for {self.request.document_number}")
         return True
+
+    def is_allowed_create_dependent_permits(self):
+        return True
