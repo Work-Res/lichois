@@ -1,12 +1,15 @@
 from django.db import models
 
+from app.classes.mixins.update_application_mixin import UpdateApplicationMixin
 from app.models.application_base_model import ApplicationBaseModel
 from .permissions import BoardBasePermissionModel
 from .board_meeting import BoardMeeting
 from ..choices import DECISION_OUTCOME
 
 
-class BoardDecision(ApplicationBaseModel, BoardBasePermissionModel):
+class BoardDecision(
+    ApplicationBaseModel, BoardBasePermissionModel, UpdateApplicationMixin
+):
 
     board_meeting = models.ForeignKey(BoardMeeting, on_delete=models.CASCADE)
     vetting_outcome = models.TextField(null=True, blank=True)
@@ -24,6 +27,12 @@ class BoardDecision(ApplicationBaseModel, BoardBasePermissionModel):
             "decision_outcome": self.decision_outcome,
             "outcome_reason": self.outcome_reason,
         }
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.update_application_field(
+            self.document_number, "board", self.decision_outcome
+        )
 
     class Meta:
         app_label = "board"
