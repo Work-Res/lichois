@@ -8,4 +8,3 @@ class SummaryAssessment(ApplicationBaseModel):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-

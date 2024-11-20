@@ -1,7 +1,7 @@
-from workresidentpermit.classes.production.work_permit_application_pdf_generator import (
+from ..classes.production.work_permit_application_pdf_generator import (
     WorkPermitApplicationPDFGenerator,
 )
-from workresidentpermit.classes.service.work_resident_permit_renewal_history_service import (
+from ..classes.service.work_resident_permit_renewal_history_service import (
     WorkResidentPermitRenewalHistoryService,
 )
 
