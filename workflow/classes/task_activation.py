@@ -73,7 +73,7 @@ class TaskActivation:
                     application=self.application,
                     source=self.source,
                     create_rule=activity.create_task_rules,
-                    result=True,
+                    result=result,
                     current_status=self.source.current_status
                 )
                 break

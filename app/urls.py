@@ -15,7 +15,7 @@ from app.views import (
     MinisterDecisionAPIView,
     RecommendationCaseDecisionAPIView,
     PresRecommendationDecisionAPIView,
-    DirectorDecisionAPIView
+    DirectorDecisionAPIView, ApplicationAppealHistoryView
 )
 
 router = DefaultRouter()
@@ -23,6 +23,7 @@ router = DefaultRouter()
 router.register(r"applications", ApplicationListView)
 router.register(r"application_statuses", ApplicationStatusViewSet)
 router.register(r"application_renewal_history", ApplicationRenewalHistoryView)
+router.register(r"application_appeal_history", ApplicationAppealHistoryView)
 router.register(r"application_replacement_history", ApplicationReplacementHistoryView)
 
 urlpatterns = [
@@ -63,7 +64,7 @@ urlpatterns = [
         PresRecommendationDecisionAPIView.as_view(),
         name="pres-recommendation-decision-create",
     ),
-     path(
+    path(
         "director-decision/",
         DirectorDecisionAPIView.as_view(),
         name="director-decision-create",

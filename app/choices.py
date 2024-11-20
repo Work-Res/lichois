@@ -13,6 +13,8 @@ APPLICANT_TYPE = (
     ("student", "Student"),
     ("immigrant", "Immigrant"),
     ("spouse_of_citizen", "Spouse of Citizen"),
+    ("applicant", "Applicant"),
+    ("dependent", "Dependent")
 )
 
 PERMIT_PERIOD = (
