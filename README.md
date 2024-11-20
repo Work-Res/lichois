@@ -26,7 +26,6 @@ This is a Django project. Follow the instructions below to set up and run the pr
 4. Set up the database:
     - python manage.py makemigrations_all
 
-
 5. Management Commands
 - python3 manage.py update_application_status
 - python3 manage.py run_app_commands citizenship
@@ -39,4 +38,37 @@ This is a Django project. Follow the instructions below to set up and run the pr
 7. Run the development server:
     - python manage.py runserver
 
+8. Data population commands:
+   - populate_appeal_attachments
+   - populate_appeal
+   - populate_cancellation_attachments
+   - populate_cancellation
+   - populate_emergency_attachments
+   - populate_emergency
+   - populate_exemption_attachments
+   - populate_exemption_variation
+   - populate_exemption
+   - populate_res_attachments
+   - populate_res_only_replacement
+   - populate_res_only
+   - populate_variation_attachments
+   - populate_work_attachments
+   - populate_work_only_replacement
+   - populate_work_only
+   - populate_work_variation
+   - populate_work_res_attachments
+   - populate_work_res_data
+   - populate_work_res_variation
+   - populate_visa_permit
+   - populate_visa_attachments
+   - populate_travel_certificate
+   - populate_travel_attachments
+   - populate_permanent_residence_attachments
+   - populate_permanent_residence_replacements
+   - populate_permanent_residence_returns
+   - populate_permanent_residence
+   - populate_blue_card_attachments
+   - populate_blue_card_replacement
+   - populate_blue_card_returns
+   - populate_blue_card
 

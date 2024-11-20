@@ -23,9 +23,9 @@ class Command(CustomBaseCommand):
         replacement_permit = (
             WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_REPLACEMENT.value
         )
-        variation_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_VARIATION.value
-        )
+        # variation_permit = (
+        #     WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_VARIATION.value
+        # )
         with atomic():
 
             for _ in range(50):
@@ -34,7 +34,7 @@ class Command(CustomBaseCommand):
                         work_res_permit,
                         renewal_permit,
                         replacement_permit,
-                        variation_permit,
+                        # variation_permit,
                     )
                 )
                 app, version = self.create_basic_data()
