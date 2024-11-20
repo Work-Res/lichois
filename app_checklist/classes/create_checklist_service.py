@@ -5,7 +5,7 @@ from django.apps import apps
 from typing import List, Dict, Any
 
 
-from app_checklist.utils import ReadJSON
+from app_checklist.utils import ReadJSON, compute_checksum
 from django.core.exceptions import MultipleObjectsReturned
 
 
@@ -39,6 +39,11 @@ class CreateChecklistService:
             self.parent_classifier_name
         ].items():
             _data = copy.copy(classifier_value)
+            checksum = compute_checksum(file_location)
+            print(f"checksum: {checksum}")
+            _data.update({
+                "checksum": checksum
+            })
             created_classifier = self.create_or_update_classifier(_data)
             self.create_classifier_items(
                 classifier_value[self.child_name], created_classifier
@@ -88,18 +93,29 @@ class CreateChecklistService:
     def update_classifier(self, data: dict, model):
         pass
 
+    def is_update_required(self, existing_clasifier, checksum):
+        if not checksum or existing_clasifier.checksum is None:
+            return False
+        if existing_clasifier.checksum == checksum:
+            return False
+        return True
+
     def create_or_update_classifier(self, data):
         # Remove child_name from data dictionary
         data.pop(self.child_name, None)
         app_label, model_name = self.parent_app_label_model_name.split(".")
         model = self.get_model_by_app_label_and_model_name(app_label, model_name)
+        new_checksum = data.get("checksum", None)
 
         self.logger.info(
             f"Creating or updating classifier: {self.parent_app_label_model_name}"
         )
         try:
             obj = model.objects.get(code__iexact=data["code"])
-            self.logger.debug(f"Existing object found: {obj}")
+            yes_or_no = self.is_update_required(obj, new_checksum)
+            if yes_or_no:
+                self.logger.warning(f"The classifier files checksum mismatch, update is required. Update is required: ")
+            self.logger.debug(f"Existing object found: {obj} ")
             try:
                 if data["process_name"] not in obj.process_name:
                     obj.process_name = f"{obj.process_name},{data['process_name']}"

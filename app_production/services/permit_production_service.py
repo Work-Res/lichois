@@ -74,6 +74,7 @@ class PermitProductionService:
                 place_issue=self.request.place_issue,
                 security_number=security_code,
                 applicant_type=applicant_type
+
             )
             print(f"Permit created successfully for {self.request.document_number}")
 
