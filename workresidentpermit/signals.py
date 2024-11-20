@@ -75,6 +75,7 @@ def create_application_final_decision_by_security_clearance(
                         )
                     )
                     work_resident_permit_decision_service.create_application_decision()
+                    work_resident_permit_decision_service.update_application()
                 elif (
                     application.process_name.upper()
                     == ApplicationProcesses.EXEMPTION_CERTIFICATE.value

@@ -31,6 +31,21 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
 
+    def update_application(self):
+
+        try:
+            self.application = Application.objects.get(
+                application_document__document_number=self.document_number
+            )
+        except Application.DoesNotExist:
+            self.logger.error(
+                f"Application not found for security clearance {self.document_number}"
+            )
+            return
+        else:
+            self.application.board = self.decision_value
+            self.application.save()
+
     def decision_predicate(self):
         is_security_clearance_accepted = False
         is_board_decision_taken = False
