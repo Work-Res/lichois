@@ -22,7 +22,7 @@ class TaskActivation:
         self.application = application
         self.model = model
         self.logger = logging.getLogger("workflow")
-        # self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.WARNING)
 
     @transaction.atomic
     def create_task(self):
@@ -32,7 +32,7 @@ class TaskActivation:
         activities = Activity.objects.filter(
             process__name=self.application.process_name,
             process__document_number=self.application.application_document.document_number,
-            completed=False
+            completed=False,
         )
         for activity in activities:
             self.source.next_activity_name = activity.next_activity_name
@@ -74,7 +74,7 @@ class TaskActivation:
                     source=self.source,
                     create_rule=activity.create_task_rules,
                     result=result,
-                    current_status=self.source.current_status
+                    current_status=self.source.current_status,
                 )
                 break
             else:
@@ -85,7 +85,7 @@ class TaskActivation:
                     source=self.source,
                     create_rule=activity.create_task_rules,
                     result=result,
-                    current_status=self.source.current_status
+                    current_status=self.source.current_status,
                 )
 
     def task(self, activity):
