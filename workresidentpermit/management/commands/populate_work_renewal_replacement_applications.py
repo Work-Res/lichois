@@ -19,11 +19,11 @@ from app_checklist.models.system_parameter_permit_renewal_period import (
 
 
 class Command(CustomBaseCommand):
-    help = "Populates the database with renewal applications"
+    help = "Populates the database with renewal and replacement applications"
 
     def handle(self, *args, **options):
 
-        # call_command("populate_final_applications")
+        # call_command("populate_res_final_applications")
 
         for app in Application.objects.filter(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
@@ -46,11 +46,11 @@ class Command(CustomBaseCommand):
                 self.create_renewal_permit(
                     document_number, applicant_identifier
                 )
-        call_command("populate_work_res_attachments")
+        call_command("populate_work_attachments")
 
     def create_renewal_permit(self, document_number, applicant_identifier):
         SystemParameterPermitRenewalPeriod.objects.get_or_create(
-            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            application_type=WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_RENEWAL.value,
             percent=0.25,
         )
         new_application_dto = NewApplicationDTO(
@@ -58,9 +58,9 @@ class Command(CustomBaseCommand):
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            # application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            applicant_type=WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_RENEWAL.value,
             full_name="Test test",
-            applicant_type="student",
             application_permit_type="renewal",
             document_number=document_number,
             applicant_identifier=applicant_identifier,
@@ -75,7 +75,7 @@ class Command(CustomBaseCommand):
     def create_replacement_applications(self, document_number, applicant_identifier):
 
         SystemParameterPermitRenewalPeriod.objects.get_or_create(
-            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            application_type=WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_REPLACEMENT.value,
             percent=0.25,
         )
         new_application_dto = NewApplicationDTO(
@@ -83,9 +83,9 @@ class Command(CustomBaseCommand):
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            # application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            applicant_type=WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_REPLACEMENT.value,
             full_name="Test test",
-            applicant_type="student",
             application_permit_type="replacement",
             document_number=document_number,
             applicant_identifier=applicant_identifier,
@@ -116,33 +116,6 @@ class Command(CustomBaseCommand):
         self.create_education(app, version)
 
         self.create_parental_details(app, version)
-
-        ResidencePermit.objects.get_or_create(
-            application_version=version,
-            document_number=app.application_document.document_number,
-            language=faker.language_code(),
-            permit_reason=faker.text(),
-            previous_nationality=faker.country(),
-            current_nationality=faker.country(),
-            state_period_required=faker.date_this_century(),
-            propose_work_employment=faker.random_element(elements=("yes", "no")),
-            reason_applying_permit=faker.random_element(
-                elements=(
-                    "dependent",
-                    "volunteer",
-                    "student",
-                    "immigrant",
-                    "missionary",
-                )
-            ),
-            documentary_proof=faker.text(),
-            travelled_on_pass=faker.text(),
-            is_spouse_applying_residence=faker.random_element(elements=("yes", "no")),
-            ever_prohibited=faker.text(),
-            sentenced_before=faker.text(),
-            entry_place=faker.city(),
-            arrival_date=faker.date_this_century(),
-        )
 
         WorkPermit.objects.get_or_create(
             application_version=version,

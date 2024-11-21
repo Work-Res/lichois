@@ -16,3 +16,4 @@ from .application_decision_view import ApplicationDecisionViewSet
 from .pres_recommendation_decision_api_view import PresRecommendationDecisionAPIView
 from .director_decision_api_view import DirectorDecisionAPIView
 from .application_replacement_history_view import ApplicationReplacementHistoryView
+from .application_appeal_history_view import ApplicationAppealHistoryView

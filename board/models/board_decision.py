@@ -25,5 +25,8 @@ class BoardDecision(ApplicationBaseModel, BoardBasePermissionModel):
             "outcome_reason": self.outcome_reason,
         }
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     class Meta:
         app_label = "board"

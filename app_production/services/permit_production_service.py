@@ -35,9 +35,10 @@ class PermitProductionService:
             pass
         return self._systems_parameter
 
-    def _get_existing_permit(self):
+    def _get_existing_permit(self, applicant_type='applicant'):
         try:
-            permit = Permit.objects.get(document_number=self.request.document_number)
+            permit = Permit.objects.get(document_number=self.request.document_number,
+                                        applicant_type=applicant_type)
         except Permit.DoesNotExist:
             pass
         else:
@@ -59,7 +60,7 @@ class PermitProductionService:
         return self.request.permit_no
 
     @transaction.atomic
-    def create_new_permit(self):
+    def create_new_permit(self, applicant_type='applicant'):
         permit = self._get_existing_permit()
         date_expiry = self.systems_parameter().valid_to
         if not permit:
@@ -72,6 +73,7 @@ class PermitProductionService:
                 date_expiry=date_expiry,
                 place_issue=self.request.place_issue,
                 security_number=security_code,
+                applicant_type=applicant_type
             )
             print(f"Permit created successfully for {self.request.document_number}")
 

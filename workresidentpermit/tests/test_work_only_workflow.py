@@ -534,9 +534,12 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         self.assertEqual(activites[5].name, "DEFFERED")
         self.assertIsNotNone(self.perform_verification())
         workflow_history = WorkflowHistory.objects.filter(
-            document_number=self.document_number
+            document_number=self.document_number,
+            result=True
         )
         self.assertTrue(workflow_history.exists())
+        print(workflow_history.first().__dict__)
+        self.assertTrue(workflow_history.first().result)
 
         app.refresh_from_db()
         self.assertEqual(app.verification, "ACCEPTED")

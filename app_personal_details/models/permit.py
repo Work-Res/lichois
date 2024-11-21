@@ -3,6 +3,7 @@ from django.db import models
 from dataclasses import dataclass
 from datetime import date
 
+from app.choices import APPLICANT_TYPE
 from app.models import ApplicationBaseModel
 
 
@@ -23,6 +24,11 @@ class Permit(ApplicationBaseModel):
     date_expiry = models.DateField(null=True, blank=True)
     place_issue = models.CharField(max_length=190)
     security_number = models.CharField(max_length=190)
+    applicant_type = models.CharField(
+        max_length=200,
+        choices=APPLICANT_TYPE,
+        default="employee",
+    )
     generated_pdf = models.FileField(upload_to="generated/", null=True, blank=True)
 
     def to_dataclass(self) -> PermitData:

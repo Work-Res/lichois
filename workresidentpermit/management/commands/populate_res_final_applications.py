@@ -1,12 +1,8 @@
 from datetime import date
-from random import randint
-from faker import Faker
-
 from django.db import transaction
 from model_bakery.recipe import Recipe
 from model_mommy import mommy
 from django.core.management import call_command
-
 
 from app.api.dto.application_verification_request_dto import (
     ApplicationVerificationRequestDTO,
@@ -66,13 +62,12 @@ from ...utils.work_resident_permit_application_type_enum import (
 
 
 class Command(CustomBaseCommand):
-    process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+    process_name = ApplicationProcesses.RESIDENT_PERMIT.value
 
     def handle(self, *args, **options):
         with transaction.atomic():
-            call_command("populate_work_res_data")
-            call_command("populate_work_res_variation")
-            call_command("populate_work_res_attachments")
+            call_command("populate_res_only")
+            call_command("populate_res_attachments")
 
             for app in Application.objects.filter(
                 process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
@@ -97,6 +92,7 @@ class Command(CustomBaseCommand):
                 permit.date_issued = date.today()
                 permit.date_expiry = date.today()
                 permit.save()
+
 
     def perform_verification(self, document_number):
         data = {
@@ -171,7 +167,7 @@ class Command(CustomBaseCommand):
             ApplicationDecisionType.objects.get_or_create(
                 code=value,
                 name=value,
-                process_types=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+                process_types=ApplicationProcesses.RESIDENT_PERMIT.value,
                 valid_from=date(2024, 1, 1),
                 valid_to=date(2025, 1, 1),
             )
@@ -282,3 +278,5 @@ class Command(CustomBaseCommand):
         ).make()
 
         return voting
+
+   

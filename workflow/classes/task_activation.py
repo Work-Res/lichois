@@ -69,15 +69,24 @@ class TaskActivation:
                 self.task(activity)
                 activity.completed = True
                 activity.save()
+                WorkflowHistoryService.create(
+                    application=self.application,
+                    source=self.source,
+                    create_rule=activity.create_task_rules,
+                    result=result,
+                    current_status=self.source.current_status
+                )
+                break
             else:
                 self.logger.debug(f"Failed to create task for {activity.name}")
-            WorkflowHistoryService.create(
-                application=self.application,
-                source=self.source,
-                create_rule=activity.create_task_rules,
-                result=result,
-                next_activity_name=activity.next_activity_name
-            )
+
+                WorkflowHistoryService.create(
+                    application=self.application,
+                    source=self.source,
+                    create_rule=activity.create_task_rules,
+                    result=result,
+                    current_status=self.source.current_status
+                )
 
     def task(self, activity):
         try:
