@@ -92,7 +92,9 @@ class Command(CustomBaseCommand):
 
                 self.perform_board_decision(document_number, board_meeting)
 
-                permit = Permit.objects.get(document_number=document_number)
+                permit = Permit.objects.get(
+                    document_number=document_number, applicant_type="applicant"
+                )
 
                 permit.date_issued = date.today()
                 permit.date_expiry = date.today()
