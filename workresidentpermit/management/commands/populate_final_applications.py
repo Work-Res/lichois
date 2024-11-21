@@ -71,7 +71,6 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         with transaction.atomic():
             call_command("populate_work_res_data")
-            call_command("populate_work_res_variation")
             call_command("populate_work_res_attachments")
 
             for app in Application.objects.filter(

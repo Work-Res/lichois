@@ -67,7 +67,6 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         with transaction.atomic():
             call_command("populate_exemption")
-            call_command("populate_exemption_variation")
             call_command("populate_exemption_attachments")
 
             for app in Application.objects.filter(
