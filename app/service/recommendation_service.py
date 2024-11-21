@@ -42,8 +42,6 @@ class RecommendationService(BaseDecisionService):
         )
 
 
-
-
 class RecommendationServiceOverideVetting(RecommendationService):
 
     def _has_security_clearance(self):

@@ -74,7 +74,8 @@ class WorkAndResidentLetterContextGenerator(DocumentContextGenerator):
     def permit_info(self, document_number):
         try:
             permit = Permit.objects.get(
-                document_number=document_number
+                document_number=document_number,
+                applicant_type='applicant'
             )
             return permit.permit_no
         except Permit.DoesNotExist:

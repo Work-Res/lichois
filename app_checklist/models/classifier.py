@@ -10,6 +10,7 @@ class Classifier(BaseUuidModel):
     description = models.TextField()
     valid_from = models.DateField()
     valid_to = models.DateField()
+    checksum = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.name

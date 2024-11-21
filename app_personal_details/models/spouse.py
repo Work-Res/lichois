@@ -17,30 +17,30 @@ class Spouse(ApplicationBaseModel):
         related_name="spouse_passport",
         null=True,
     )
-    place_issued = models.ForeignKey(
-        Passport,
-        on_delete=models.CASCADE,
-        related_name="spouse_place_issued",
-        null=True,
-    )
-    date_issued = models.ForeignKey(
-        Passport,
-        on_delete=models.CASCADE,
-        related_name="spouse_date_issued",
-        null=True,
-    )
-    expiry_date = models.ForeignKey(
-        Passport,
-        on_delete=models.CASCADE,
-        related_name="spouse_expiry_date",
-        null=True,
-    )
-    nationality = models.ForeignKey(
-        Passport,
-        on_delete=models.CASCADE,
-        related_name="spouse_nationality",
-        null=True,
-    )
+    # place_issued = models.ForeignKey(
+    #     Passport,
+    #     on_delete=models.CASCADE,
+    #     related_name="spouse_place_issued",
+    #     null=True,
+    # )
+    # date_issued = models.ForeignKey(
+    #     Passport,
+    #     on_delete=models.CASCADE,
+    #     related_name="spouse_date_issued",
+    #     null=True,
+    # )
+    # expiry_date = models.ForeignKey(
+    #     Passport,
+    #     on_delete=models.CASCADE,
+    #     related_name="spouse_expiry_date",
+    #     null=True,
+    # )
+    # nationality = models.ForeignKey(
+    #     Passport,
+    #     on_delete=models.CASCADE,
+    #     related_name="spouse_nationality",
+    #     null=True,
+    # )
 
     class Meta:
         verbose_name = "Spouse"

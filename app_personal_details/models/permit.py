@@ -18,6 +18,15 @@ class PermitData:
 
 
 class Permit(ApplicationBaseModel):
+
+    parent_object_id = models.UUIDField(
+        null=True,
+        blank=True,
+        editable=False,
+        help_text="Parent ID primary key.",
+    )
+    parent_object_type = models.CharField(max_length=200, null=True, blank=True)
+
     permit_type = models.CharField(max_length=190)
     permit_no = models.CharField(max_length=190)
     date_issued = models.DateField()
