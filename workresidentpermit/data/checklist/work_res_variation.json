@@ -40,69 +40,77 @@
             "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Certified copies of the company certificate of incorporation",
             "mandatory": true,
+            "applicant_type": "self-employed",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
             "code": "CV",
             "name": "CV",
-            "application_type": "WWORK_RESIDENT_PERMIT_VARIATION",
+            "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Curriculum Vitae",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
             "code": "CLEARANCE",
             "name": "CLEARANCE",
-            "application_type": "WWORK_RESIDENT_PERMIT_VARIATION",
+            "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Copies of supporting documents from professional/regulatory bodies certified by issuing officer",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
             "code": "ADVERTISEMENT_PROOF",
             "name": "PROOF OF ADVERTISEMENT",
-            "application_type": "WWORK_RESIDENT_PERMIT_VARIATION",
+            "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Proof of advertisement, it should have circulated for 14 days",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
             "code": "CONTRACT_LETTER",
             "name": "CONTRACT LETTER",
-            "application_type": "WWORK_RESIDENT_PERMIT_VARIATION",
+            "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Contract or appointment letter",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
             "code": "APPLICATION_LETTER",
             "name": "APPLICATION LETTER",
-            "application_type": "WWORK_RESIDENT_PERMIT_VARIATION",
+            "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Application letter for work advertised",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
             "code": "WORK_PERMIT_COPY",
             "name": "WORK PERMIT COPY",
-            "application_type": "WWORK_RESIDENT_PERMIT_VARIATION",
+            "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Copy for work permit certified by issuing officer",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
           {
             "code": "TRAINING_LOCALISATION_PROGRAM",
             "name": "TRAINING LOCALISATION PROGRAM",
-            "application_type": "WWORK_RESIDENT_PERMIT_VARIATION",
+            "application_type": "WORK_RESIDENT_PERMIT_VARIATION",
             "description": "Manpower, development, training and localisation program",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           }

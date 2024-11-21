@@ -71,4 +71,8 @@ This is a Django project. Follow the instructions below to set up and run the pr
    - populate_blue_card_replacement
    - populate_blue_card_returns
    - populate_blue_card
+   - Exemption Renewals and Replacements: populate_exemption_final_applications --> populate_exemption_renewal_replacement_applications
+   - Res Renewals and Replacements: populate_res_final_applications --> populate_res_renewal_replacement_applications
+   - Work only Renewals and Replacements: populate_work_final_applications --> populate_work_renewal_replacement_applications
+   - Work & Res Renewals and Replacements: populate_final_applications --> populate_renewal_replacement_applications
 

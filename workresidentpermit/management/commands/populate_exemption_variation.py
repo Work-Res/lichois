@@ -54,7 +54,10 @@ class Command(CustomBaseCommand):
                 new_company_services_provided=faker.random_element( 
                     elements=("Technology", "Retail", "Healthcare", "Finance",
                                 "Marketing", "Consulting", "Education", "Logistics")),
-                employment_capacity=faker.job(),
+                current_employment_capacity=faker.job(),
+                upcoming_employment_capacity=faker.job(),
+                variation_for_same_employee=faker.random_element(elements=("yes", "no")),
+                understudies_situation=faker.text(),
                 draw_salary=faker.random_element(elements=("yes", "no")),
                 salary_per_annum=faker.pydecimal(
                     left_digits=5, right_digits=2, positive=True
@@ -75,7 +78,7 @@ class Command(CustomBaseCommand):
                 subscriber=subscriber,
                 signature=f"{faker.first_name()} {faker.last_name()}",
                 applicant_type=faker.random_element(
-                    elements=("employee", "investor")
+                    elements=("employee", "investor", "self employed")
                 ),
             )
                 

@@ -15,7 +15,12 @@ class VariationPermit(ApplicationBaseModel):
     has_separate_permises = models.CharField(max_length=10, choices=YES_NO)
     no_permises_reason = models.TextField(blank=True, null=True)
     new_company_services_provided = models.CharField(max_length=250)
-    employment_capacity = models.CharField(max_length=250)
+    
+    current_employment_capacity = models.CharField(max_length=250)
+    upcoming_employment_capacity = models.CharField(max_length=250, null=True, blank=True)
+    variation_for_same_employee = models.CharField(max_length=20, choices=YES_NO)
+    understudies_situation = models.TextField(null=True, blank=True)
+
     draw_salary = models.CharField(max_length=10, choices=YES_NO)
     salary_per_annum = models.DecimalField(max_digits=10, decimal_places=2)
     new_company_employee_count = models.IntegerField()
