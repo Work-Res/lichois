@@ -61,7 +61,8 @@ class ResidentPermitReplacementIdentifier(Identifier):
     @staticmethod
     def process_name():
         return ApplicationProcesses.RESIDENT_PERMIT_REPLACEMENT.value
-    
+
+
 class VariationPermitIdentifier(Identifier):
     template = "{identifier_type}{address_code}{dob}{sequence}"
     label = "variationpermit"  # e.g. work_permit_identifier, visa_identifier, etc
@@ -69,4 +70,4 @@ class VariationPermitIdentifier(Identifier):
 
     @staticmethod
     def process_name():
-        return ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+        return ApplicationProcesses.WORK_RESIDENT_VARIATION
