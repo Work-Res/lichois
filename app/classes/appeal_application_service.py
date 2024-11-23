@@ -7,7 +7,7 @@ from app.api.common.web import APIResponse, APIMessage
 from app.utils import ApplicationStatusEnum
 
 from workresidentpermit.classes.service import (
-     WorkResidentPermitAppealHistoryService,
+    WorkResidentPermitAppealHistoryService,
 )
 
 from ..api import NewApplicationDTO
@@ -17,7 +17,8 @@ from app.models import (
     ApplicationDocument,
     Application,
     ApplicationVersion,
-    ApplicationReplacement, ApplicationAppeal,
+    ApplicationReplacement,
+    ApplicationAppeal,
 )
 from app_comments.models import Comment
 from ..exceptions.application_renewal_exception import ApplicationAppealException
@@ -41,17 +42,17 @@ class AppealApplicationService(object):
 
     def get_previous_application(self) -> None:
         """
-        Retrieve the previous accepted application based on the appeal application's document number.
+        Retrieve the previous rejected application based on the appeal application's document number.
         """
         try:
             previous_application = Application.objects.get(
                 application_document__document_number=self.appeal_application_dto.document_number,
-                application_status__code__iexact=ApplicationStatusEnum.ACCEPTED.value,
+                application_status__code__iexact=ApplicationStatusEnum.REJECTED.value,
             )
             return previous_application
         except Application.DoesNotExist:
             error_message = (
-                f"An application with status '{ApplicationStatusEnum.ACCEPTED.value}' does not exist for creating "
+                f"An application with status '{ApplicationStatusEnum.REJECTED.value}' does not exist for creating "
                 f"appeal: {self.appeal_application_dto.document_number}."
             )
             api_message = APIMessage(

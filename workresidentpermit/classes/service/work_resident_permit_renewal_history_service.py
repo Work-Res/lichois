@@ -30,7 +30,9 @@ class WorkResidentPermitRenewalHistoryService:
 
     def get_previous_permit(self):
         try:
-            permit = Permit.objects.get(document_number=self.document_number)
+            permit = Permit.objects.get(
+                document_number=self.document_number, applicant_type="applicant"
+            )
         except Permit.DoesNotExist:
             pass
         else:

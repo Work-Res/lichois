@@ -36,7 +36,7 @@ class Permit(ApplicationBaseModel):
     applicant_type = models.CharField(
         max_length=200,
         choices=APPLICANT_TYPE,
-        default="employee",
+        default="applicant",
     )
     generated_pdf = models.FileField(upload_to="generated/", null=True, blank=True)
 

@@ -91,14 +91,6 @@ class Command(CustomBaseCommand):
 
                 self.perform_board_decision(document_number, board_meeting)
 
-                permit = Permit.objects.get(
-                    document_number=document_number, applicant_type="applicant"
-                )
-
-                permit.date_issued = date.today()
-                permit.date_expiry = date.today()
-                permit.save()
-
     def perform_verification(self, document_number):
         data = {
             "status": "ACCEPTED",
@@ -278,7 +270,7 @@ class Command(CustomBaseCommand):
             BoardMeetingVote,
             meeting_attendee=meeting_attendee,
             document_number=document_number,
-            status="APPROVED",
+            status="REJECTED",
             comments="This is a sample comment",
         ).make()
 

@@ -59,7 +59,8 @@ class RenewalApplicationService(object):
                 f"Attempting to load permit with document number: {self.renewal_application_dto.document_number}"
             )
             self._permit = Permit.objects.get(
-                document_number=self.renewal_application_dto.document_number
+                document_number=self.renewal_application_dto.document_number,
+                applicant_type="applicant",
             )
             self.logger.info(
                 f"Permit found for document number: {self.renewal_application_dto.document_number}"
