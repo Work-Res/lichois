@@ -79,7 +79,7 @@ class BaseTestSetup(TestCase):
             maiden_name=faker.last_name(),
             country=faker.country(),
             place_birth=faker.city(),
-            dob=faker.date_of_birth(minimum_age=18, maximum_age=70),  # Ensure valid age
+            dob=faker.date_of_birth(minimum_age=0, maximum_age=18),  # Ensure valid age
             passport=passport,
             document_number=self.document_number
         )

@@ -11,9 +11,10 @@ from workresidentpermit.exceptions import (
 )
 
 from ..models import ApplicationDecision, ApplicationDecisionType
+from .create_dependent_application_decision_service import CreateDependentApplicationDecisionService
 
 
-class ApplicationDecisionService:
+class ApplicationDecisionService(CreateDependentApplicationDecisionService):
     """Responsible for create application decision based on security clearance or board decision."""
 
     def __init__(
@@ -69,5 +70,6 @@ class ApplicationDecisionService:
             self.logger.info(
                 f"Application decision created successfully for {self.document_number}"
             )
+            self.create_dependents_application_decision(document_number=self.document_number)
         else:
             print(f"Not within the predicate: {self.document_number}")

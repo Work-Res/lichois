@@ -66,7 +66,7 @@ class CreateDependentPermitService:
             self.create_new_dependent_permit(
                 parent_object_id=parent_object_id,
                 parent_object_type=parent_object_type,
-                applicant_type="dependent",
+                applicant_type="dependent"
             )
         else:
             self.logger.info(f"Permit already exists for {parent_object_type} with ID {parent_object_id}.")

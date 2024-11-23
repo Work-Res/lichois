@@ -110,3 +110,6 @@ class WorkResidentPermitDecisionService(ApplicationDecisionService):
                 )
         else:
             return self._board_decision
+
+    def is_allowed_create_dependent_application_decision(self) -> bool:
+        return True

@@ -1,7 +1,7 @@
 from app.api import NewApplicationDTO
 from app.classes import ApplicationService
 from app.models import Application, ApplicationDecision, ApplicationRenewal, ApplicationRenewalHistory, \
-    ApplicationReplacement, ApplicationAppeal
+    ApplicationReplacement, ApplicationAppeal, DependentApplicationDecision
 from app.models.application_appeal_history import ApplicationAppealHistory
 from app.models.application_replacement_history import ApplicationReplacementHistory
 
@@ -117,6 +117,10 @@ class TestWorkonlyWorkflow(BaseTestSetup):
         self.assertEqual(
             app.application_status.code, ApplicationStatusEnum.ACCEPTED.value.lower()
         )
+
+        dependent_application_decisions = DependentApplicationDecision.objects.filter(
+            document_number=self.document_number)
+        self.assertTrue(dependent_application_decisions.exists())
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
