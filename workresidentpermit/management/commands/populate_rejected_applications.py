@@ -71,7 +71,6 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         with transaction.atomic():
             call_command("populate_work_res_data")
-            call_command("populate_work_res_variation")
             call_command("populate_work_res_attachments")
 
             for app in Application.objects.filter(
@@ -91,14 +90,6 @@ class Command(CustomBaseCommand):
                 self.voting_process(board, board_meeting, document_number)
 
                 self.perform_board_decision(document_number, board_meeting)
-
-                permit = Permit.objects.get(
-                    document_number=document_number, applicant_type="applicant"
-                )
-
-                permit.date_issued = date.today()
-                permit.date_expiry = date.today()
-                permit.save()
 
     def perform_verification(self, document_number):
         data = {
@@ -279,7 +270,7 @@ class Command(CustomBaseCommand):
             BoardMeetingVote,
             meeting_attendee=meeting_attendee,
             document_number=document_number,
-            status="APPROVED",
+            status="REJECTED",
             comments="This is a sample comment",
         ).make()
 

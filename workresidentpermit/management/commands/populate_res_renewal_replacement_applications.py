@@ -19,11 +19,11 @@ from app_checklist.models.system_parameter_permit_renewal_period import (
 
 
 class Command(CustomBaseCommand):
-    help = "Populates the database with renewal applications"
+    help = "Populates the database with renewal and replacement applications"
 
     def handle(self, *args, **options):
 
-        # call_command("populate_final_applications")
+        # call_command("populate_res_final_applications")
 
         for app in Application.objects.filter(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
@@ -46,11 +46,11 @@ class Command(CustomBaseCommand):
                 self.create_renewal_permit(
                     document_number, applicant_identifier
                 )
-        call_command("populate_work_res_attachments")
+        call_command("populate_res_attachments")
 
     def create_renewal_permit(self, document_number, applicant_identifier):
         SystemParameterPermitRenewalPeriod.objects.get_or_create(
-            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            application_type=WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_RENEWAL.value,
             percent=0.25,
         )
         new_application_dto = NewApplicationDTO(
@@ -58,9 +58,9 @@ class Command(CustomBaseCommand):
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            # application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            applicant_type=WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_RENEWAL.value,
             full_name="Test test",
-            applicant_type="student",
             application_permit_type="renewal",
             document_number=document_number,
             applicant_identifier=applicant_identifier,
@@ -75,7 +75,7 @@ class Command(CustomBaseCommand):
     def create_replacement_applications(self, document_number, applicant_identifier):
 
         SystemParameterPermitRenewalPeriod.objects.get_or_create(
-            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            application_type=WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_REPLACEMENT.value,
             percent=0.25,
         )
         new_application_dto = NewApplicationDTO(
@@ -83,9 +83,9 @@ class Command(CustomBaseCommand):
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
-            application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            # application_type=ApplicationProcesses.WORK_RESIDENT_PERMIT_REPLACEMENT.value,
+            applicant_type=WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_REPLACEMENT.value,
             full_name="Test test",
-            applicant_type="student",
             application_permit_type="replacement",
             document_number=document_number,
             applicant_identifier=applicant_identifier,
@@ -142,43 +142,6 @@ class Command(CustomBaseCommand):
             sentenced_before=faker.text(),
             entry_place=faker.city(),
             arrival_date=faker.date_this_century(),
-        )
-
-        WorkPermit.objects.get_or_create(
-            application_version=version,
-            document_number=app.application_document.document_number,
-            permit_status=faker.random_element(elements=("new", "renewal")),
-            job_offer=faker.text(),
-            qualification=faker.random_element(
-                elements=("diploma", "degree", "masters", "phd")
-            ),
-            years_of_study=faker.random_int(min=1, max=10),
-            business_name=faker.company(),
-            type_of_service=faker.text(),
-            job_title=faker.job(),
-            job_description=faker.text(),
-            renumeration=faker.random_int(min=10000, max=100000),
-            period_permit_sought=faker.random_int(min=1, max=10),
-            has_vacancy_advertised=faker.boolean(chance_of_getting_true=50),
-            have_funished=faker.boolean(chance_of_getting_true=50),
-            reasons_funished=faker.text(),
-            time_fully_trained=faker.random_int(min=1, max=10),
-            reasons_renewal_takeover=faker.text(),
-            reasons_recruitment=faker.text(),
-            labour_enquires=faker.text(),
-            no_bots_citizens=faker.random_int(min=1, max=10),
-            name=faker.name(),
-            educational_qualification=faker.random_element(
-                elements=("diploma", "degree", "masters", "phd")
-            ),
-            job_experience=faker.text(),
-            take_over_trainees=faker.first_name(),
-            long_term_trainees=faker.first_name(),
-            date_localization=faker.date_this_century(),
-            employer=faker.company(),
-            occupation=faker.job(),
-            duration=faker.random_int(min=1, max=10),
-            names_of_trainees=faker.first_name(),
         )
 
         Spouse.objects.get_or_create(

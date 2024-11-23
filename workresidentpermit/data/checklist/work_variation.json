@@ -40,6 +40,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Certified copies of the company certificate of incorporation",
             "mandatory": true,
+            "applicant_type": "self-employed",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -49,6 +50,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Copies of relevant educational certificates cerified by issuing office and tranlasted to english",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -57,6 +59,7 @@
             "name": "CV",
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Curriculum Vitae",
+            "applicant_type": "employee",
             "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
@@ -67,6 +70,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Copies of supporting documents from professional/regulatory bodies certified by issuing officer",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -76,6 +80,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Proof of advertisement, it should have circulated for 14 days",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -85,6 +90,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Contract or appointment letter",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -94,6 +100,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Application letter for work advertised",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -103,6 +110,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Copy for work permit certified by issuing officer",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           },
@@ -112,6 +120,7 @@
             "application_type": "WORK_PERMIT_VARIATION",
             "description": "Manpower, development, training and localisation program",
             "mandatory": true,
+            "applicant_type": "employee",
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           }
