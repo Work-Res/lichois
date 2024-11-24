@@ -3,16 +3,18 @@ from django.core.exceptions import PermissionDenied
 
 
 class CustomPermissionRequired(BasePermission):
-
     """
     Custom permission class to check if a user has all the required permissions for the view.
     """
 
-    def has_permission(self, request, view):
-        # The required permissions can be defined as a list on the view class, e.g., view.required_permissions
-        required_permissions = getattr(view, 'required_permissions', None)
+    def __init__(self, permission_codes=None):
+        self.permission_codes = permission_codes or []
 
-        if required_permissions is None:
+    def has_permission(self, request, view):
+        # Use the permissions passed during instantiation or from the view
+        required_permissions = self.permission_codes or getattr(view, 'required_permissions', None)
+
+        if not required_permissions:
             # No specific permissions required for this view
             return True
 
@@ -21,6 +23,6 @@ class CustomPermissionRequired(BasePermission):
 
         missing_permissions = [perm for perm in required_permissions if not request.user.has_perm(perm)]
         if missing_permissions:
-            raise PermissionDenied(f"You do not have the required permissions.")
+            raise PermissionDenied(f"You do not have the required permissions: {', '.join(missing_permissions)}.")
 
         return True

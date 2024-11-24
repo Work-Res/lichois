@@ -1,0 +1,5 @@
+Group Tasks:
+    wfm_can_assign_task
+    wfm_can_claim_task
+    wfm_can_unassigned_task
+    wfm_can_change_task_status
