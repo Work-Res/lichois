@@ -45,8 +45,9 @@ class WorkResidentPermitAppealHistoryService:
         :return:
         """
         permit = self.get_previous_permit()
-        # current permit..
-        newly_permit_json = permit.to_dataclass()
+        if permit:
+            # current permit..
+            newly_permit_json = permit.to_dataclass()
 
         # get existing historical
         application_appeal_history = None
