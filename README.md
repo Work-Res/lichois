@@ -75,4 +75,8 @@ This is a Django project. Follow the instructions below to set up and run the pr
    - Res Renewals and Replacements: populate_res_final_applications --> populate_res_renewal_replacement_applications
    - Work only Renewals and Replacements: populate_work_final_applications --> populate_work_renewal_replacement_applications
    - Work & Res Renewals and Replacements: populate_final_applications --> populate_renewal_replacement_applications
+   - Work & Res Appeal: populate_rejected_applications --> populate_appeal
+   - Res Appeal: populate_res_rejected_applications --> populate_res_appeal
+   - Work Appeal: populate_work_rejected_applications --> populate_work_appeal
+   - Exemption Appeal: populate_exemption_rejected_application --> populate_exemption_appeal
 
