@@ -1,1 +1,2 @@
 from .update_application_mixin import UpdateApplicationMixin
+from .permission_mixin import PermissionMixin
