@@ -2,7 +2,7 @@ from django.db import transaction
 from faker import Faker
 
 from app.utils.system_enums import ApplicationProcesses
-from app_personal_details.models.spouse import Spouse
+from app_personal_details.models import Spouse
 from lichois.management.base_command import CustomBaseCommand
 from workresidentpermit.models import ResidencePermit, WorkPermit
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
