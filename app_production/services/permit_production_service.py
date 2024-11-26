@@ -8,12 +8,16 @@ from app.api.common.web import APIMessage, APIResponse
 from app.models import Application, ApplicationDecision
 from app_checklist.models import SystemParameter
 from app_personal_details.models import Permit
-from workresidentpermit.classes.service.word import WorkAndResidentLetterContextGenerator, \
-    WorkAndResidentLetterProductionProcess
+from workresidentpermit.classes.service.word import (
+    WorkAndResidentLetterContextGenerator,
+    WorkAndResidentLetterProductionProcess,
+)
 from .create_dependent_permit_service import CreateDependentPermitService
 
 from ..api.dto import PermitRequestDTO
-from ..handlers.postsave.upload_document_production_handler import UploadDocumentProductionHandler
+from ..handlers.postsave.upload_document_production_handler import (
+    UploadDocumentProductionHandler,
+)
 
 
 class PermitProductionService(CreateDependentPermitService):
@@ -29,18 +33,20 @@ class PermitProductionService(CreateDependentPermitService):
 
     def systems_parameter(self):
         try:
-            print("self.request.application_type ", self.request.application_type)
             self._systems_parameter = SystemParameter.objects.get(
-                application_type__icontains=self.request.application_type
+                application_type__icontains=self.request.application_type,
+                document_number=self.request.document_number,
             )
         except SystemParameter.DoesNotExist:
             pass
         return self._systems_parameter
 
-    def _get_existing_permit(self, applicant_type='applicant'):
+    def _get_existing_permit(self, applicant_type="applicant"):
         try:
-            permit = Permit.objects.get(document_number=self.request.document_number,
-                                        applicant_type=applicant_type)
+            permit = Permit.objects.get(
+                document_number=self.request.document_number,
+                applicant_type=applicant_type,
+            )
         except Permit.DoesNotExist:
             pass
         else:
@@ -58,27 +64,27 @@ class PermitProductionService(CreateDependentPermitService):
         #     print(f"{e}")
         return self.request.permit_no
 
-    def generate_permint_number(self):
-        return self.request.permit_no
+    def generate_permit_number(self):
+        return str(random.randint(320000000, 3399999999))
 
     @transaction.atomic
     def create_new_permit(self):
         permit = self._get_existing_permit()
         date_expiry = self.systems_parameter().valid_to
+        print(f"Date expiry: {date_expiry}")
         if not permit:
+            print(f"Creating permit for: {self.request.document_number}")
             security_code = self.generate_security_number()
             Permit.objects.create(
                 document_number=self.request.document_number,
                 permit_type=self.request.permit_type,
-                permit_no=self.request.permit_no,
+                permit_no=self.generate_permit_number(),
                 date_issued=self.request.date_issued or date.today(),
                 date_expiry=date_expiry,
                 place_issue=self.request.place_issue,
                 security_number=security_code,
-                applicant_type='applicant'
-
+                applicant_type="applicant",
             )
-            print(f"Permit created successfully for {self.request.document_number}")
 
             api_message = APIMessage(
                 code=200,
@@ -136,6 +142,10 @@ class PermitProductionService(CreateDependentPermitService):
             handler = UploadDocumentProductionHandler()
             context_generator = WorkAndResidentLetterContextGenerator()
             process = WorkAndResidentLetterProductionProcess(handler, context_generator)
-            process.handle(application=application, decision=decision, document_number=self.request.document_number)
+            process.handle(
+                application=application,
+                decision=decision,
+                document_number=self.request.document_number,
+            )
         else:
             print("Not configured to generate document")

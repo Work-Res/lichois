@@ -10,11 +10,14 @@ class AppConfig(AppConfig):
 
     def ready(self):
         from app.classes.permissions import GroupCreator
+
         logger = logging.getLogger(__name__)
+        logger.setLevel(logging.INFO)
 
         # Import signals (log success or failure)
         try:
             import app.signals
+
             logger.info("Signals successfully imported.")
         except ImportError as e:
             logger.error("Failed to import signals: %s", e)
@@ -22,8 +25,11 @@ class AppConfig(AppConfig):
         # Scan and register identifier config classes (log success or failure)
         try:
             from app.identifiers.identifier_scan_register import registrar
+
             registrar.scan_and_register_identifier_config_classes()
-            logger.info("Identifier config classes successfully scanned and registered.")
+            logger.info(
+                "Identifier config classes successfully scanned and registered."
+            )
         except ImportError as e:
             logger.error("Failed to import registrar: %s", e)
         except Exception as e:

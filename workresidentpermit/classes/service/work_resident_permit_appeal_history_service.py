@@ -1,6 +1,7 @@
 import json
 
 from datetime import date, datetime
+from pydoc import doc
 
 from app.models import ApplicationUser, ApplicationRenewalHistory
 from app.models.application_appeal_history import ApplicationAppealHistory
@@ -29,24 +30,21 @@ class WorkResidentPermitAppealHistoryService:
         self.application_user = application_user
         self.process_name = process_name
 
-    def get_previous_permit(self):
-        try:
-            permit = Permit.objects.get(
-                document_number=self.document_number,
-                applicant_type="applicant",
-            )
-        except Permit.DoesNotExist:
-            pass
-        else:
-            return permit
+    # def get_previous_permit(self):
+    #     try:
+    #         permit = Permit.objects.get(
+    #             document_number=self.document_number,
+    #             applicant_type="applicant",
+    #         )
+    #     except Permit.DoesNotExist:
+    #         pass
+    #     else:
+    #         return permit
 
     def prepare_historical_records_to_json(self):
         """
         :return:
         """
-        permit = self.get_previous_permit()
-        # current permit..
-        newly_permit_json = permit.to_dataclass()
 
         # get existing historical
         application_appeal_history = None
@@ -67,8 +65,16 @@ class WorkResidentPermitAppealHistoryService:
         )
 
         existing_historical_data = self.json_to_historical_record(json_str=json_str)
-        if existing_historical_data:
-            existing_historical_data.data.append(newly_permit_json)
+        existing_historical_data.data.append(
+            PermitData(
+                document_number=self.document_number,
+                permit_no="",
+                permit_type="",
+                date_issued=date.today(),
+                date_expiry=date.today(),
+                place_issue="",
+            )
+        )
         return existing_historical_data
 
     def dict_to_permit_data(self, permit_dict: dict) -> PermitData:
