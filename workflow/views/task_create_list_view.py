@@ -27,7 +27,7 @@ class TaskCreateListViewSet(viewsets.ModelViewSet):
         'retrieve': ['app.can_view_app_initial'],
         'claim': ['workflow.wfm_can_assign_task'],
         'unassign': ['workflow.wfm_can_unassigned_task'],
-        'change_status': ['app.can_change_task_status'],  # Added
+        'change_status': ['workflow.wfm_can_change_task_status'],  # Added
         'assign_to_user': ['workflow.wfm_can_assign_task'],  # Added
     }
 
