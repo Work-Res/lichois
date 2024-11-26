@@ -1,7 +1,7 @@
 from datetime import date
 from random import randint
 from faker import Faker
-
+import logging
 from django.db import transaction
 from model_bakery.recipe import Recipe
 from model_mommy import mommy
@@ -69,6 +69,9 @@ class Command(CustomBaseCommand):
     process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
 
     def handle(self, *args, **options):
+
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
         with transaction.atomic():
             call_command("populate_work_res_data")
             call_command("populate_work_res_variation")
@@ -97,6 +100,9 @@ class Command(CustomBaseCommand):
                         document_number=document_number, applicant_type="applicant"
                     )
                 except Permit.DoesNotExist:
+                    self.logger.error(
+                        f"Permit for document number {document_number} does not exist."
+                    )
                     pass
                 else:
                     permit.date_issued = date.today()
