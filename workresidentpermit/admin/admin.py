@@ -2,27 +2,6 @@
 Django Admin
 """
 from django.contrib import admin
-
-from ..models import (
-    EmergencyPermit,
-    ExemptionCertificate,
-    PermitAppeal,
-    PermitCancellation,
-    ResidencePermit,
-    WorkPermit,
-    Declaration,
-    PlaceOfResidence,
-    SpousePlaceOfResidence,
-    EmploymentRecord,
-    PermitReplacement,
-    Dependant,
-    VariationPermit,
-)
-
-"""
-Django Admin
-"""
-from django.contrib import admin
 from ..models import (
     EmergencyPermit,
     ExemptionCertificate,
