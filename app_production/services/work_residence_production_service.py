@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 from app.utils.system_enums import ApplicationProcesses
 from app_checklist.models.system_parameter import SystemParameter
+from app_production.services import document
 from app_production.services.permit_production_service import PermitProductionService
 
 from ..api.dto.permit_request_dto import PermitRequestDTO
@@ -25,7 +26,8 @@ class WorkResidenceProductionService(PermitProductionService):
     def systems_parameter(self):
         try:
             self._systems_parameter = SystemParameter.objects.get(
-                application_type__icontains=self.request.application_type
+                application_type__icontains=self.request.application_type,
+                document_number=self.request.document_number,
             )
             self.logger.info(
                 f"System parameter found for {self.request.application_type}, returning existing one."
@@ -40,12 +42,15 @@ class WorkResidenceProductionService(PermitProductionService):
                 valid_to=date.today(),
                 duration_type="years",
                 duration=5,
+                document_number=self.request.document_number,
             )
         return self._systems_parameter
 
     def allowed_to_generate_document(self):
         print("???????????????????????????????")
-        self.logger.debug(f"{self.process_name} is configured to generate document for {self.request.document_number}")
+        self.logger.debug(
+            f"{self.process_name} is configured to generate document for {self.request.document_number}"
+        )
         return True
 
     def is_allowed_create_dependent_permits(self):

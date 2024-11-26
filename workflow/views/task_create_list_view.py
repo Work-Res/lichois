@@ -21,9 +21,28 @@ class TaskCreateListViewSet(viewsets.ModelViewSet):
         'created',
     )
 
-    required_permissions = ['app.can_view_app_initial', 'app.can_view_app_replacement', 'app.can_view_app_renewal']
+    # method-level permissions
+    method_permissions = {
+        'list': ['app.can_view_app_initial'],
+        'retrieve': ['app.can_view_app_initial'],
+        'claim': ['workflow.wfm_can_assign_task'],
+        'unassign': ['workflow.wfm_can_unassigned_task'],
+        'change_status': ['app.can_change_task_status'],  # Added
+        'assign_to_user': ['workflow.wfm_can_assign_task'],  # Added
+    }
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated, CustomPermissionRequired])
+    def get_permissions(self):
+        """
+        Get the appropriate permissions for the current action.
+        """
+        permissions = [IsAuthenticated()]  # Default permission
+        method_permission_codes = self.method_permissions.get(self.action, [])
+        if method_permission_codes:
+            self.required_permissions = method_permission_codes  # Set required_permissions dynamically
+            permissions.append(CustomPermissionRequired())
+        return permissions
+
+    @action(detail=True, methods=['post'], permission_classes=[])
     def claim(self, request, pk=None):
         """POST /api/tasks/{id}/claim/
         """
@@ -41,7 +60,7 @@ class TaskCreateListViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated, CustomPermissionRequired])
+    @action(detail=True, methods=['post'], permission_classes=[])
     def unassign(self, request, pk=None):
         """POST /api/tasks/{id}/unassign/
         """
@@ -59,7 +78,7 @@ class TaskCreateListViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated, CustomPermissionRequired])
+    @action(detail=True, methods=['post'], permission_classes=[])
     def change_status(self, request, pk=None):
         try:
             task = self.get_object()
@@ -81,7 +100,7 @@ class TaskCreateListViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated, CustomPermissionRequired])
+    @action(detail=True, methods=['post'], permission_classes=[])
     def assign_to_user(self, request, pk=None):
         try:
             task = self.get_object()

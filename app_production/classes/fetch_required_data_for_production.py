@@ -2,6 +2,7 @@ from app_checklist.utils import ReadJSON
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
+from app_personal_details.models.permit import Permit
 from app_personal_details.models.person import Person
 
 
@@ -62,6 +63,11 @@ class FetchRequiredDataForProduction:
                         model_object = model.objects.get(
                             document_number=self.document_number,
                             person_type="applicant",
+                        )
+                    elif model == Permit:
+                        model_object = model.objects.get(
+                            document_number=self.document_number,
+                            applicant_type="applicant",
                         )
                     else:
                         raise MultipleObjectsReturned(
