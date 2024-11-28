@@ -34,7 +34,10 @@ def create_application_decision(sender, instance, created, **kwargs):
                 document_number=instance.document_number,
                 board_decision=instance,
             )
+
+            work_resident_permit_decision_service.update_application()
             work_resident_permit_decision_service.create_application_decision()
+
             logger.info(
                 f"Successfully created and updated application decision for document_number: {instance.document_number}"
             )

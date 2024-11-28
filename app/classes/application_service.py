@@ -104,6 +104,7 @@ class ApplicationService:
             self.new_application_dto.applicant_identifier,
             status,
             self.new_application_dto.proces_name,
+            self.new_application_dto.application_type,
         )
 
         if existing_application.exists():

@@ -43,9 +43,7 @@ class Command(CustomBaseCommand):
                 self.create_replacement_applications(
                     document_number, applicant_identifier
                 )
-                self.create_renewal_permit(
-                    document_number, applicant_identifier
-                )
+                self.create_renewal_permit(document_number, applicant_identifier)
         call_command("populate_work_attachments")
 
     def create_renewal_permit(self, document_number, applicant_identifier):
@@ -167,4 +165,3 @@ class Command(CustomBaseCommand):
         )
 
         self.stdout.write(self.style.SUCCESS("Successfully populated data"))
-
