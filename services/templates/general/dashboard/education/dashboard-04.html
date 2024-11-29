@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+
+{% block css %}
+  
+{% endblock css %}
+
+{% block content %}
+
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+<!-- tap on top starts-->
+<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+<!-- tap on tap ends-->
+
+  <div class="page-body">
+    {% include "general/dashboard/education/components/top.html" %}
+  </div>
+
+  {% endblock %}
+  
+  {% block scriptcontent %}
+  
+    <script src="{% static 'assets/js/chart/apex-chart/apex-chart.js' %}"></script>
+    <script src="{% static 'assets/js/chart/apex-chart/stock-prices.js' %}"></script>
+    <script src="{% static 'assets/js/chart/apex-chart/moment.min.js' %}"></script>
+    <!-- calendar js-->
+    <script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatable/datatables/datatable.custom.js' %}"></script>
+    <script src="{% static 'assets/js/datatable/datatables/datatable.custom1.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/dashboard_4.js' %}"></script>
+    <!-- Plugins JS Ends-->
+    <!-- Plugin used-->
+
+    {% endblock %}

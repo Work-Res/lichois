@@ -1,0 +1,53 @@
+{% load static %}
+{% load sass_tags %}
+
+<style>
+     .horizontal-list {
+         list-style-type: none;
+         padding: 0;
+         display: flex;
+         gap: 20px; /* Adds horizontal space between items */
+     }
+
+     .horizontal-list li {
+         padding: 10px;
+         background-color: #f4f4f4;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+     }
+ </style>
+
+<div class="col-md-12 project-list">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-12">
+       
+        <div class="card">
+          <div class="card-header">
+            <h4>Work & Residence Permit Applications</h4>
+            <span class="position-absolute top-0 end-0"><a class="btn btn-sm btn-pill btn-info style="position: absolute; top: 10px; right: 10px;" href="{% url 'work_permit_dashboard' %}?new_application=True"> <i data-feather="plus-square"> </i>Work & Res New Application</a></span>
+          </div>
+          <div class="card-body">
+            <ul class="nav main-menu horizontal-list">
+	            <li class="nav-item"> <a href="javascript:void(0)"><span class="iconbg badge-light-primary"><i data-feather="file-plus"></i></span><span class="title ms-2">Total Applications</span><span class="badge rounded-pill badge-success">7</span></a></li> 
+	            <li class="nav-item"><a href="javascript:void(0)"><span class="iconbg badge-light-success"><i data-feather="check-circle"></i></span><span class="title ms-2">Completed</span><span class="badge rounded-pill badge-success">3</span></a></li>
+	            <li class="nav-item"><a href="javascript:void(0)"><span class="iconbg badge-light-danger"><i data-feather="cast"></i></span><span class="title ms-2">Pending</span><span class="badge rounded-pill badge-danger">2</span></a></li>
+	            <li class="nav-item"><a href="javascript:void(0)"><span class="iconbg badge-light-info"><i data-feather="activity"></i></span><span class="title ms-2">In Process</span><span class="badge rounded-pill badge-primary">2</span></a></li>
+	          </ul>
+	          
+	          </br>
+	          
+	          <ul class="nav main-menu horizontal-list">
+	            <li class="nav-item"> <a href="javascript:void(0)"><span class="title ms-2">New Application</span><span class="badge rounded-pill badge-warning">7</span></a></li> 
+	            <li class="nav-item"><a href="javascript:void(0)"><span class="title ms-2">Renewals</span><span class="badge rounded-pill badge-warning">3</span></a></li>
+	            <li class="nav-item"><a href="javascript:void(0)"><span class="title ms-2">Replacements</span><span class="badge rounded-pill badge-warning">2</span></a></li>
+	            <li class="nav-item"><a href="javascript:void(0)"><span class="title ms-2">Variations</span><span class="badge rounded-pill badge-primary">2</span></a></li>
+	            <li class="nav-item"><a href="javascript:void(0)"><span class="title ms-2">Cancellations</span><span class="badge rounded-pill badge-primary">2</span></a></li>
+	          </ul>
+          </div>
+        </div>
+          
+        </div>
+      </div>
+    </div>
+</div>

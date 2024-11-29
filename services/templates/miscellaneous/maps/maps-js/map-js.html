@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/leaflet.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+    
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+        <div class="page-body">
+          {% include "miscellaneous/maps/maps-js/components/map.html" %}
+        </div>
+        
+{% endblock %}        
+
+{% block scriptcontent %}
+
+    <script src="{% static 'assets/js/map-js/leaflet.js' %}"></script>
+    <script src="{% static 'assets/js/map-js/custom.js' %}"></script>
+    <script src="{% static 'assets/js/map-js/map-custom2.js' %}"></script>
+
+{% endblock %}    

@@ -89,6 +89,11 @@ INSTALLED_APPS = [
     "permanent_residence.apps.AppConfig",
     "non_citizen_profile.apps.AppConfig",
     "investigation_repatration.apps.AppConfig",
+    
+    # Customer portal
+    'sass_processor',
+    'services',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

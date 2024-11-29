@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+
+{% block css %}{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+
+        <div class="page-body">
+         {% include "general/page-layout/components/hide-on-scroll.html" %}
+        </div>
+
+{% endblock %}
+
+
+{% block scriptcontent %}
+
+    <!-- calendar js-->
+    <script src="{% static 'assets/js/hide-on-scroll.js' %}"></script>
+    <script src="{% static 'assets/js/tooltip-init.js' %}"></script>
+
+{% endblock %}  

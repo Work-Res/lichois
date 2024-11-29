@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+ 
+        <div class="page-body">
+          {% include "forms-table/forms/form-widgets/typeahead/components/typeahead.html" %}
+        </div>
+
+{% endblock %}        
+
+{% block scriptcontent %}
+
+    <script src="{% static 'assets/js/typeahead/handlebars.js' %}"></script>
+    <script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+    <script src="{% static 'assets/js/typeahead/typeahead.custom.js' %}"></script>
+
+{% endblock %}   

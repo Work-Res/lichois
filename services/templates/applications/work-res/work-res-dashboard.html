@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+    
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row project-cards">
+              {% include "applications/work-res/components/work-res-applications-top-bar.html" %}
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="tab-content" id="top-tabContent">
+                      {% if new_application %}
+                      {% include "applications/work-res/components/work-res-application-forms.html" %}
+                      {% else %}
+                      	{% include "applications/work-res/components/exisitng-work-res-applications.html" %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+
+{% endblock %}
+
+
+{% block scriptcontent %}
+  
+    <!-- calendar js-->
+    <script src="{% static 'assets/js/typeahead/handlebars.js' %}"></script>
+    <script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+    <script src="{% static 'assets/js/typeahead/typeahead.custom.js' %}"></script>
+    <script src="{% static 'assets/js/typeahead-search/handlebars.js' %}"></script>
+    <script src="{% static 'assets/js/typeahead-search/typeahead-custom.js' %}"></script>
+    
+    <script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatable/datatables/datatable.custom.js' %}"></script>
+    <!-- Plugins JS Ends-->
+   
+{% endblock %}

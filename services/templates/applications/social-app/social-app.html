@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/photoswipe.css' %}">
+{% endblock css %}
+
+{% block social_content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+   
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+          
+    {% include "applications/social-app/components/social-app.html" %}
+            
+     
+{% endblock %}        
+
+{% block scriptcontent %}
+  
+    <script src="{% static 'assets/js/photoswipe/photoswipe.min.js' %}"></script>
+    <script src="{% static 'assets/js/photoswipe/photoswipe-ui-default.min.js' %}"></script>
+    <script src="{% static 'assets/js/photoswipe/photoswipe.js' %}"></script>
+
+{% endblock %}   

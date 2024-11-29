@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/todo.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+   
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends--> 
+   
+        <div class="page-body">
+          {% include "applications/to-do/components/todo-list.html" %}
+        </div>
+        
+{% endblock %}        
+
+
+{% block scriptcontent %}
+
+  <script src="{% static 'assets/js/todo/todo.js' %}"></script>
+
+{% endblock %}

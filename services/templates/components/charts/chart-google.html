@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+
+{% block css %}
+  
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+  
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Area Chart <span>1</span></h4>
+                  </div>
+                  <div class="card-body p-0 chart-block">
+                    <div class="chart-overflow" id="area-chart1"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Area Chart <span>2</span></h4>
+                  </div>
+                  <div class="card-body p-0 chart-block">
+                    <div class="chart-overflow" id="area-chart2"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Column Chart <span>1 </span></h4>
+                  </div>
+                  <div class="card-body chart-block">
+                    <div class="chart-overflow" id="column-chart1"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Column Chart <span>2</span></h4>
+                  </div>
+                  <div class="card-body chart-block">
+                    <div class="chart-overflow" id="column-chart2"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 box-col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Gantt Chart</h4>
+                  </div>
+                  <div class="card-body chart-block">
+                    <div class="chart-overflow" id="gantt_chart"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 box-col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Line Chart</h4>
+                  </div>
+                  <div class="card-body chart-block">
+                    <div class="chart-overflow" id="line-chart"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 box-col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Combo Chart</h4>
+                  </div>
+                  <div class="card-body chart-block">
+                    <div class="chart-overflow" id="combo-chart"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>bar-chart2</h4>
+                  </div>
+                  <div class="card-body chart-block">
+                    <div id="bar-chart2"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>word tree</h4>
+                  </div>
+                  <div class="card-body chart-block">
+                    <div class="word-tree" id="wordtree_basic"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Pie Chart <span>1</span></h4>
+                  </div>
+                  <div class="card-body p-0 chart-block">
+                    <div class="chart-overflow" id="pie-chart1"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Pie Chart <span>2</span></h4>
+                  </div>
+                  <div class="card-body p-0 chart-block">
+                    <div class="chart-overflow" id="pie-chart3"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Pie Chart <span>3</span></h4>
+                  </div>
+                  <div class="card-body p-0 chart-block">
+                    <div class="chart-overflow" id="pie-chart4"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xl-6 box-col-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Pie Chart <span>4</span></h4>
+                  </div>
+                  <div class="card-body p-0 chart-block">
+                    <div class="chart-overflow" id="pie-chart2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+
+{% endblock %}        
+
+{% block scriptcontent %}
+
+    <script src="{% static 'assets/js/chart/google/google-chart-loader.js' %}"></script>
+    <script src="{% static 'assets/js/chart/google/google-chart.js' %}"></script>
+
+{% endblock %}   

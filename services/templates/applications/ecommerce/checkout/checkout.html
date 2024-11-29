@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+
+{% block css %}
+{% endblock %}
+
+  
+  {% block content %}
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+        <div class="page-body checkout">
+          {% include "applications/ecommerce/checkout/components/billing-details.html" %}
+        </div>
+
+  {% endblock %}

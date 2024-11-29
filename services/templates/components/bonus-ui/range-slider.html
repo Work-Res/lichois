@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/range-slider.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+   
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Default Range Slider</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <form class="theme-form form-label-align-right range-slider">
+                      <div class="form-group row py-1">
+                        <div class="col-md-10">
+                          <input id="u-range-01" type="text">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Min Max Value</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-02" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Prefix</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-03" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Negative Value</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-04" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Steps Range Slider</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-05" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Custom Values</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-06" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Prettify Numbers</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-07" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Disabled</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-08" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Manipulating UI</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-09" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Core UI Text</h4>
+                    <p class="f-m-light mt-1">
+                       Use the <code>.range-slider </code> class. and Mofi used Ion range slider.<code>[http://ionden.com/a/plugins/ion.rangeSlider]</code></p>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row py-1">
+                      <div class="col-md-10">
+                        <input id="u-range-10" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+      
+{% endblock %}        
+
+{% block scriptcontent %}
+
+    <script src="{% static 'assets/js/range-slider/ion.rangeSlider.min.js' %}"></script>
+    <script src="{% static 'assets/js/range-slider/rangeslider-script.js' %}"></script>
+    
+{% endblock %}   

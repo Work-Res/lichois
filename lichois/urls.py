@@ -38,6 +38,11 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    
+    # Customer portal
+    path('', include('services.urls')),
+    
+    
     path("admin/", admin.site.urls),
     path("board/", board_admin.urls),
     path("app/", app_admin.urls),

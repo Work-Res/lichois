@@ -1,0 +1,62 @@
+{% load static %}
+{% load sass_tags %}
+
+<!-- State saving Starts-->
+<div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <h4>Existing Work & Residence Permits</h4><span>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive theme-scrollbar">
+          <table class="display" id="basic-9">
+            <thead class="table-dark">
+                <tr>
+                    <th>Permit Number</th>
+                    <th>Applicant Name</th>
+                    <th>Permit Type</th>
+                    <th>Start Date</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>WP001</td>
+                    <td>John Doe</td>
+                    <td>Work Permit</td>
+                    <td>2024-01-15</td>
+                    <td>2026-01-14</td>
+                    <td><span class="badge rounded-pill badge-light-primary">Active</span></td>
+                </tr>
+                <tr>
+                    <td>RP002</td>
+                    <td>Jane Smith</td>
+                    <td>Residence Permit</td>
+                    <td>2023-05-20</td>
+                    <td>2025-05-19</td>
+                    <td><span class="badge rounded-pill badge-light-danger">Expired</span></td>
+                </tr>
+                <tr>
+                    <td>WP003</td>
+                    <td>David Johnson</td>
+                    <td>Work Permit</td>
+                    <td>2024-03-01</td>
+                    <td>2025-03-01</td>
+                    <td><span class="badge rounded-pill badge-light-warning">Pending</span></td>
+                </tr>
+            </tbody>
+            <tfoot>
+              <th>Permit ID</th>
+                  <th>Applicant Name</th>
+                  <th>Permit Type</th>
+                  <th>Start Date</th>
+                  <th>Expiry Date</th>
+                  <th>Status</th>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- State saving Ends-->
