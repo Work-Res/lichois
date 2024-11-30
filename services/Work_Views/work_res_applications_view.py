@@ -7,51 +7,29 @@ from app_personal_details.models import (
     NextOfKin, Spouse, Child)
 from workresidentpermit.models import ResidencePermit, WorkPermit
 
+from .service_application_view_mixin import ServiceApplicationViewMixin
 
-from ..classes import WorkResApplicationForms
 
-
-class WorkPermitDashboardView(TemplateView):
+class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
     
-        
+        model_cls_list = [
+            Person, ApplicationAddress,
+            ApplicationContact, Passport, Education,
+            ParentalDetails, Spouse,
+            Child] # This could come from a config file
     
         context.update(
             application_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
-            application_forms= self.application_forms
+            application_forms= self.application_forms(model_cls_list=model_cls_list)
             )
 
         return context
-
-    @property
-    def application_forms(self):
-        """Returns application forms and urls.
-        """
-        model_cls_list = [
-            Person, ApplicationAddress, Country,
-            ApplicationContact, Passport, Education,
-            NextOfKin, ParentalDetails, Spouse,
-            Child, WorkPermit, ResidencePermit] # This could come from a config file
-    
-        forms_urls = WorkResApplicationForms(
-            application_number=self.application_number(),
-            application_models_cls=model_cls_list).application_urls()
-        print(forms_urls, '###############')
-        return forms_urls
-
-    def application_number(self):
-        """Returns an application number.
-        """
-        application_number = '12345' #self.request.GET.get('application_number', '')
-        
-        #Impliment this method to get a permit application number for a permit being applied for.
-        
-        return application_number
 
 
     def permits(self):
