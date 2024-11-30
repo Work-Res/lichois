@@ -19,10 +19,10 @@ class Command(CustomBaseCommand):
     def handle(self, *args, **options):
         faker = Faker()
         work_res_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_ONLY.value
-        renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_RENEWAL.value
-        replacement_permit = (
-            WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_REPLACEMENT.value
-        )
+        # renewal_permit = WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_RENEWAL.value
+        # replacement_permit = (
+        #     WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_REPLACEMENT.value
+        # )
         # variation_permit = (
         #     WorkResidentPermitApplicationTypeEnum.WORK_PERMIT_VARIATION.value
         # )
@@ -32,8 +32,8 @@ class Command(CustomBaseCommand):
                 self.application_type = faker.random_element(
                     elements=(
                         work_res_permit,
-                        renewal_permit,
-                        replacement_permit,
+                        # renewal_permit,
+                        # replacement_permit,
                         # variation_permit,
                     )
                 )

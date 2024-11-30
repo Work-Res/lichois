@@ -14,7 +14,6 @@ class ApplicationContact(ApplicationBaseModel):
     contact_type = models.CharField(
         choices=CONTACT_TYPES, max_length=100, blank=False, null=False
     )
-    sub_type = models.CharField(max_length=255, blank=True, null=True)
     contact_value = models.CharField(max_length=255, blank=False, null=False)
     preferred_method_comm = models.BooleanField(default=False)
     email = models.EmailField(null=True, blank=True, max_length=255)

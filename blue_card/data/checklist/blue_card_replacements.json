@@ -1,0 +1,41 @@
+{
+    "classifiers": {
+      "attachment_documents": {
+        "code": "BLUE_CARD_REPLACEMENT_ATTACHMENT_DOCUMENTS",
+        "name": "ATTACHMENT DOCUMENTS",
+        "description": "A list of document to attach",
+        "valid_from": "2024-01-01",
+        "valid_to": "2030-01-01",
+        "classifier_items": [
+          {
+            "code": "ORIGINAL_BLUE_CARD",
+            "name": "ORIGINAL BLUE CARD",
+            "application_type": "BLUE_CARD_REPLACEMENT",
+            "description": "Original blue card",
+            "mandatory":false,
+            "valid_from" :"2024-01-01",
+            "valid_to":"2030-01-01"
+          },
+          {
+            "code": "POLICE_REPORT",
+            "name": "POLICE REPORT",
+            "application_type": "BLUE_CARD_REPLACEMENT",
+            "description": "Botswana Police report if permit was stolen",
+            "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "AFFIDAVIT",
+            "name": "AFFIDAVIT",
+            "application_type": "BLUE_CARD_REPLACEMENT",
+            "description": "Affidavit from Botswana Police",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          }
+        ]
+      }
+    }
+  }
+  

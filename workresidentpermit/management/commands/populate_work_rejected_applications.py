@@ -1,7 +1,7 @@
 from datetime import date
 from random import randint
 from faker import Faker
-import logging
+
 from django.db import transaction
 from model_bakery.recipe import Recipe
 from model_mommy import mommy
@@ -58,7 +58,7 @@ from board.models import (
     VotingProcess,
 )
 from lichois.management.base_command import CustomBaseCommand
-from ...models import ResidencePermit, WorkPermit
+from ...models import WorkPermit
 
 from ...utils.work_resident_permit_application_type_enum import (
     WorkResidentPermitApplicationTypeEnum,
@@ -66,18 +66,15 @@ from ...utils.work_resident_permit_application_type_enum import (
 
 
 class Command(CustomBaseCommand):
-    process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+    process_name = ApplicationProcesses.WORK_PERMIT.value
 
     def handle(self, *args, **options):
-
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
         with transaction.atomic():
-            call_command("populate_work_res_data")
-            call_command("populate_work_res_attachments")
+            call_command("populate_work_only")
+            call_command("populate_work_attachments")
 
             for app in Application.objects.filter(
-                process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+                process_name=ApplicationProcesses.WORK_PERMIT.value,
                 application_status__code__iexact=ApplicationStatusEnum.VERIFICATION.value,
             ):
                 document_number = app.application_document.document_number
@@ -93,20 +90,6 @@ class Command(CustomBaseCommand):
                 self.voting_process(board, board_meeting, document_number)
 
                 self.perform_board_decision(document_number, board_meeting)
-
-                try:
-                    permit = Permit.objects.get(
-                        document_number=document_number, applicant_type="applicant"
-                    )
-                except Permit.DoesNotExist:
-                    self.logger.error(
-                        f"Permit for document number {document_number} does not exist."
-                    )
-                    pass
-                else:
-                    permit.date_issued = date.today()
-                    permit.date_expiry = date.today()
-                    permit.save()
 
     def perform_verification(self, document_number):
         data = {
@@ -181,7 +164,7 @@ class Command(CustomBaseCommand):
             ApplicationDecisionType.objects.get_or_create(
                 code=value,
                 name=value,
-                process_types=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+                process_types=ApplicationProcesses.WORK_PERMIT.value,
                 valid_from=date(2024, 1, 1),
                 valid_to=date(2025, 1, 1),
             )
@@ -287,7 +270,7 @@ class Command(CustomBaseCommand):
             BoardMeetingVote,
             meeting_attendee=meeting_attendee,
             document_number=document_number,
-            status="APPROVED",
+            status="REJECTED",
             comments="This is a sample comment",
         ).make()
 

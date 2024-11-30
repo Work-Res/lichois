@@ -26,15 +26,6 @@
             "valid_to": "2030-01-01"
           },
           {
-            "code": "FEE_PAYMENT",
-            "name": "FEE PAYMENT",
-            "application_type": "BLUE_CARD_ONLY",
-            "description": "A fee payment",
-            "mandatory": false,
-            "valid_from": "2024-01-01",
-            "valid_to": "2030-01-01"
-          },
-          {
             "code": "CITIZENSHIP_DOCUMENT_COPY",
             "name": "CITIZENSHIP DOCUMENT COPY",
             "application_type": "BLUE_CARD_ONLY",
@@ -45,10 +36,37 @@
           },
           {
             "code": "BOTSWANA_IDENTIFICATION_DOCUMENT_COPY",
-            "name": "CITIZENSHIP DOCUMENT COPY",
+            "name": "BOTSWANA IDENTIFICATION DOCUMENT COPY",
             "application_type": "BLUE_CARD_ONLY",
             "description": "Certified copy or copies of documents evidencing prior Botswana Citizenship e.g expired Omang or passport",
             "mandatory": false,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FORM_23",
+            "name": "FORM 23",
+            "application_type": "BLUE_CARD_ONLY",
+            "description": "Form 23",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "RENUNCIATION_CERTIFICATE",
+            "name": "RENUNCIATION CERTIFICATE",
+            "application_type": "BLUE_CARD_ONLY",
+            "description": "Renunciation certificate",
+            "mandatory": true,
+            "valid_from": "2024-01-01",
+            "valid_to": "2030-01-01"
+          },
+          {
+            "code": "FOREIGN_PASSPORT_COPY",
+            "name": "FOREIGN PASSPORT COPY",
+            "application_type": "BLUE_CARD_ONLY",
+            "description": "Foreign passport copy",
+            "mandatory": true,
             "valid_from": "2024-01-01",
             "valid_to": "2030-01-01"
           }

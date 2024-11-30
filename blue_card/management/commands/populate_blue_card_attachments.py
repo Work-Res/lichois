@@ -21,7 +21,7 @@ class Command(BaseAttachmentCommand):
         application_checklist_mapping = {
             BlueCardApplicationTypeEnum.BLUE_CARD_ONLY.value: "BLUE_CARD_ONLY_ATTACHMENT_DOCUMENTS",
             BlueCardApplicationTypeEnum.BLUE_CARD_RETURNS.value: "BLUE_CARD_RETURNS_ATTACHMENT_DOCUMENTS",
-            # BlueCardApplicationTypeEnum.BLUE_CARD_REPLACEMENT.value: "BLUE_CARD_REPLACEMENT_ATTACHMENT_DOCUMENTS",
+            BlueCardApplicationTypeEnum.BLUE_CARD_REPLACEMENT.value: "BLUE_CARD_REPLACEMENT_ATTACHMENT_DOCUMENTS",
         }
 
         with atomic():

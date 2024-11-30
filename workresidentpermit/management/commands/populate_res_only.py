@@ -20,17 +20,21 @@ class Command(CustomBaseCommand):
         work_res_permit = (
             WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_ONLY.value
         )
-        renewal_permit = (
-            WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_RENEWAL.value
-        )
-        replacement_permit = (
-            WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_REPLACEMENT.value
-        )
+        # renewal_permit = (
+        #     WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_RENEWAL.value
+        # )
+        # replacement_permit = (
+        #     WorkResidentPermitApplicationTypeEnum.RESIDENT_PERMIT_REPLACEMENT.value
+        # )
         with atomic():
 
             for _ in range(50):
                 self.application_type = faker.random_element(
-                    elements=(work_res_permit, renewal_permit, replacement_permit)
+                    elements=(
+                        work_res_permit, 
+                        # renewal_permit, 
+                        # replacement_permit
+                        )
                 )
                 app, version = self.create_basic_data()
                 ResidencePermit.objects.get_or_create(

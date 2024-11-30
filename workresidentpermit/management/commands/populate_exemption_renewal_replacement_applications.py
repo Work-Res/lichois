@@ -8,7 +8,7 @@ from app.models import Application
 from app.utils.system_enums import ApplicationProcesses, ApplicationStatusEnum
 from lichois.management.base_command import CustomBaseCommand
 from ...classes.work_res_application_repository import ApplicationRepository
-from ...models import ResidencePermit, WorkPermit
+from ...models import ExemptionCertificate
 from app_personal_details.models.spouse import Spouse
 from ...utils.work_resident_permit_application_type_enum import (
     WorkResidentPermitApplicationTypeEnum,
@@ -117,44 +117,15 @@ class Command(CustomBaseCommand):
 
         self.create_parental_details(app, version)
 
-        ResidencePermit.objects.get_or_create(
-            application_version=version,
-            document_number=app.application_document.document_number,
-            language=faker.language_code(),
-            permit_reason=faker.text(),
-            previous_nationality=faker.country(),
-            current_nationality=faker.country(),
-            state_period_required=faker.date_this_century(),
-            propose_work_employment=faker.random_element(elements=("yes", "no")),
-            reason_applying_permit=faker.random_element(
-                elements=(
-                    "dependent",
-                    "volunteer",
-                    "student",
-                    "immigrant",
-                    "missionary",
+        ExemptionCertificate.objects.get_or_create(
+                    document_number=app.application_document.document_number,
+                    application_version=version,
+                    business_name=faker.company(),
+                    employment_capacity=faker.job(),
+                    proposed_period=faker.random_element(
+                        elements=("1 year", "2 years", "3 years", "4 years", "5 years")
+                    ),
                 )
-            ),
-            documentary_proof=faker.text(),
-            travelled_on_pass=faker.text(),
-            is_spouse_applying_residence=faker.random_element(elements=("yes", "no")),
-            ever_prohibited=faker.text(),
-            sentenced_before=faker.text(),
-            entry_place=faker.city(),
-            arrival_date=faker.date_this_century(),
-        )
-
-        Spouse.objects.get_or_create(
-            application_version=version,
-            document_number=app.application_document.document_number,
-            first_name=faker.first_name(),
-            last_name=faker.last_name(),
-            middle_name=faker.first_name(),
-            maiden_name=faker.last_name(),
-            country=faker.country(),
-            dob=faker.date_of_birth(minimum_age=18, maximum_age=65),
-            place_birth=faker.city(),
-        )
 
         self.stdout.write(self.style.SUCCESS("Successfully populated data"))
 

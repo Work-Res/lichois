@@ -12,6 +12,7 @@ class Education(ApplicationBaseModel):
     institution = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
+    years_attended_full_time = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.level} in {self.field_of_study} from {self.institution}"
