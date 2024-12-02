@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 
-from app_address.models import ApplicationAddress, Country
+from app_address.models import ApplicationAddress
 from app_contact.models import ApplicationContact
 from app_personal_details.models import (
     Person, Passport, Education, ParentalDetails,
