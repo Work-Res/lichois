@@ -17,12 +17,12 @@
     
         <div class="page-body">
           <!-- Container-fluid starts-->
-          <div class="container-fluid">
-            <div class="row project-cards">
+          <div class="card container-fluid">
+            <div class="card-body row project-cards">
               {% include "applications/work-res/components/work-res-applications-top-bar.html" %}
               <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-body">
+                <div>
+                  <div>
                     <div class="tab-content" id="top-tabContent">
                       {% if new_application %}
                       {% include "applications/work-res/components/work-res-application-forms.html" %}
