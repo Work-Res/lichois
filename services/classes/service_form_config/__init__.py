@@ -1,1 +1,0 @@
-from ..service_form_config.work_residence_permit import WorkResApplicationForms

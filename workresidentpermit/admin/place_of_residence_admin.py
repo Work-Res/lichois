@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from ..models import PlaceOfResidence
 
-class PlaceOfResidenceAdmin(admin.Model):
+class PlaceOfResidenceAdmin(admin.ModelAdmin):
     list_display = (
         'country',
         'place_of_residence',
