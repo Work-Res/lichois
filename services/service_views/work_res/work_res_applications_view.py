@@ -5,9 +5,8 @@ from app_contact.models import ApplicationContact
 from app_personal_details.models import (
     Person, Passport, Education, ParentalDetails,
     NextOfKin, Spouse, Child)
-from workresidentpermit.models import ResidencePermit, WorkPermit
 
-from .service_application_view_mixin import ServiceApplicationViewMixin
+from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
 class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
@@ -19,7 +18,7 @@ class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
         model_cls_list = [
             Person, ApplicationAddress,
             ApplicationContact, Passport, Education,
-            ParentalDetails, Spouse,
+            ParentalDetails, Spouse, NextOfKin,
             Child] # This could come from a config file
     
         context.update(
