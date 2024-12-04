@@ -23,11 +23,13 @@
         <div class="col-md-12">       
         <div>
           <div style="margin-bottom: 10px;">
-            <h4>Work & Residence Permit Applications</h4>
+            <h4>{{ permit_name }} Applications</h4>
             <span class="position-absolute top-0 end-0">
+              {% if not new_application %}
               <a class="btn btn-sm btn-pill btn-info" 
                  style="position: absolute; right: 10px; white-space: nowrap;" 
-                  href="{% url 'work_permit_dashboard' %}?new_application=True"> <i data-feather="plus-square"> </i>Work & Res New Application</a></span>          
+                  href="{% url 'work_permit_dashboard' %}?new_application=True"> <i data-feather="plus-square"> </i>New Application</a></span>          
+              {% endif %}
           </div>
           <div>
            <!--  <ul class="nav main-menu horizontal-list"> -->
