@@ -1,9 +1,16 @@
 from django.contrib import admin
 
+from typing import Tuple
+
+from workresidentpermit.forms.workres_variation_permit_form import WorkResVariationPermitForm
+
 from ..models import VariationPermit
 
 class VariationPermitAdmin(admin.ModelAdmin):
-    list_display = (
+
+    form = WorkResVariationPermitForm
+
+    list_display: Tuple[str,...] = (
         'existing_permit',
         'expiry_date',
         'current_company_name',
@@ -15,16 +22,22 @@ class VariationPermitAdmin(admin.ModelAdmin):
         'new_company_employee_count',
         'financial_institution_name',
     )
-    search_fields = (
+    search_fields: Tuple[str,...] = (
         'existing_permit__document_number',
         'current_company_name',
         'new_company_name',
     )
-    list_filter = (
+    list_filter: Tuple[str,...] = (
         'has_separate_permises',
         'draw_salary',
         'person_type',
         'applicant_type',
     )
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('existing_permit',)
+        return self.readonly_fields
+
 
 admin.site.register(VariationPermit, VariationPermitAdmin)
