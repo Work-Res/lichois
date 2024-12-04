@@ -8,7 +8,13 @@ class BaseView(TemplateView, ServiceApplicationViewMixin, ABC):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_specific_context())
+        context.update(
+            self.get_specific_context(),
+            application_number=self.application_number(),
+            new_application=self.new_application,
+            create_new_application=self.create_new_application,
+            application_forms=self.application_forms(self.get_models_cls_list())
+        )
         return context
 
     @abstractmethod
@@ -16,4 +22,7 @@ class BaseView(TemplateView, ServiceApplicationViewMixin, ABC):
         """Sub-classes should implement this to provide view specific data"""
         pass
 
-
+    @abstractmethod
+    def get_models_cls_list(self):
+        """Sub-classes should pass this to provide view specific forms"""
+        pass
