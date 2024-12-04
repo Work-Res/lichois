@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 
 from .import views
-from .Work_Views import WorkPermitDashboardView
+from services.service_views import WorkPermitDashboardView
 
 
 urlpatterns = [

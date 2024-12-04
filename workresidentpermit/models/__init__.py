@@ -11,3 +11,4 @@ from .replacement_permit import PermitReplacement
 from .dependant import Dependant
 from .permit_cancellation_reason import PermitCancellationReason
 from .variation_permit import VariationPermit
+from .place_of_residence import PlaceOfResidence
