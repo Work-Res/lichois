@@ -3,9 +3,9 @@ from django.db import models
 
 class EmployerModelMixin(models.Model):
     business_name = models.CharField(max_length=255)
-    # address = models.TextField()
-    # tel = models.CharField(max_length=20)
-    # fax = models.CharField(max_length=20)
+    address = models.TextField(blank=True, null=True)
+    tel = models.CharField(max_length=200, blank=True, null=True)
+    fax = models.CharField(max_length=200, blank=True, null=True)
     type_of_service = models.CharField(max_length=255)
     job_title = models.CharField(max_length=255)
     job_description = models.TextField()
@@ -21,5 +21,5 @@ class EmployerModelMixin(models.Model):
     no_bots_citizens = models.IntegerField()
 
     class Meta:
-        app_label = "work_residence_permit"
+        app_label = "workresidentpermit"
         abstract = True

@@ -10,5 +10,5 @@ class TraineeModelMixin(models.Model):
     date_localization = models.DateField(null=True, blank=True)
 
     class Meta:
-        app_label = "work_residence_permit"
+        app_label = "workresidentpermit"
         abstract = True
