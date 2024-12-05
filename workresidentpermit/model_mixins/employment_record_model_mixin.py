@@ -8,5 +8,5 @@ class EmploymentRecordModelMixin(models.Model):
     names_of_trainees = models.TextField(null=True, blank=True)
 
     class Meta:
-        app_label = "work_residence_permit"
+        app_label = "workresidentpermit"
         abstract = True
