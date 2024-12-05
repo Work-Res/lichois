@@ -144,13 +144,14 @@ class Command(CustomBaseCommand):
                 return service.create_clearance()
 
     def perform_board_decision(self, document_number, board_meeting):
-
         board_decision = BoardDecision.objects.create(
             document_number=document_number,
             decision_outcome="ACCEPTED",
             board_meeting=board_meeting,
             vetting_outcome="ACCEPTED",
         )
+
+        board_decision.refresh_from_db()
 
         return board_decision
 
