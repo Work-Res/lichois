@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "citizenship",
     "app_oath",
     "app_information_requests",
+    "app_payments.apps.AppPaymentsConfig",
     # "haystack",
     "rules.apps.AutodiscoverRulesConfig",
     "rest_framework",
