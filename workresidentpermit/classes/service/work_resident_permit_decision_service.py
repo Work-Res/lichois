@@ -38,9 +38,6 @@ class WorkResidentPermitDecisionService(
             field_key="board",
             field_value=self.board_decision.decision_outcome.upper(),
         )
-        print(
-            f"*******************************{self.board_decision.decision_outcome.upper()}"
-        )
 
     def decision_predicate(self):
         is_security_clearance_accepted = False
