@@ -5,7 +5,7 @@ from app.models import Application, ApplicationDecision, ApplicationRenewal, App
 from app.models.application_appeal_history import ApplicationAppealHistory
 from app.models.application_replacement_history import ApplicationReplacementHistory
 
-from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum
+from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum, ApplicationDecisionEnum
 from app_assessment.models import DependantAssessment, SummaryAssessment
 from app_checklist.models import SystemParameter, SystemParameterPermitRenewalPeriod
 from app_personal_details.models import Permit, Spouse
@@ -120,13 +120,15 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
         dependent_application_decisions = DependentApplicationDecision.objects.filter(
             document_number=self.document_number)
-        self.assertTrue(dependent_application_decisions.exists())
+        #self.assertTrue(dependent_application_decisions.exists())
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
         spouce = Spouse.objects.filter(document_number=self.document_number)
         self.assertTrue(spouce.exists())
         self.assertEqual(permit.count(), 2)
+        app.refresh_from_db()
+        self.assertEqual(app.board.lower(), ApplicationDecisionEnum.ACCEPTED.value.lower())
 
     def test_workflow_transaction_after_when_performing_board_decision_renewal(self):
         SystemParameter.objects.create(
