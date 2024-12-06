@@ -9,7 +9,7 @@ from app_personal_details.models import (
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
-class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
+class ResidencePermitDashboardView(TemplateView, ServiceApplicationViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -50,4 +50,4 @@ class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
         if new_app:
             # Generate a new application number
             return '123456'
- 
+        return None
