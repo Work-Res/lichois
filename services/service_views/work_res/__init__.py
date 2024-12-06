@@ -1,1 +1,5 @@
 from .work_res_applications_view import WorkPermitDashboardView
+from .renewals_view import WorkResidentPermitRenewalView
+from .variation_views import WorkResidentPermitVariationView
+from .cancellation_views import WorkResidentPermitCancellationView
+from .replacement_views import WorkResidentPermitReplacementView
