@@ -30,6 +30,7 @@ class TaskCreateListViewSet(viewsets.ModelViewSet):
         'change_status': ['workflow.wfm_can_change_task_status'],  # Added
         'assign_to_user': ['workflow.wfm_can_assign_task'],  # Added
     }
+    method_permissions = {}
 
     def get_permissions(self):
         """
