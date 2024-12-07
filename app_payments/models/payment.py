@@ -19,7 +19,7 @@ class Payment(ApplicationBaseModel):
         (STATUS_PENDING, 'Pending'),
     ]
 
-    tenant_id = models.BigIntegerField(null=True, blank=True, default="Cybersource")
+    tenant_id = models.CharField(max_length=255, null=True, blank=True, default="Cybersource")
 
     transaction_id = models.CharField(max_length=255, null=True, blank=True)
 
@@ -38,6 +38,7 @@ class Payment(ApplicationBaseModel):
     payment_narration = models.TextField(null=True, blank=True)
 
     cancellation_reason = models.TextField(null=True, blank=True)
+
     address = models.TextField(null=True, blank=True)
 
     class Meta:

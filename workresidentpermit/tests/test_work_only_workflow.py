@@ -7,17 +7,24 @@ from app.models.application_replacement_history import ApplicationReplacementHis
 
 from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum, ApplicationDecisionEnum
 from app_assessment.models import DependantAssessment, SummaryAssessment
-from app_checklist.models import SystemParameter, SystemParameterPermitRenewalPeriod
+from app_checklist.models import SystemParameter, SystemParameterPermitRenewalPeriod, SystemParameterPayment
+from app_payments.models import Payment
 from app_personal_details.models import Permit, Spouse
 from workflow.models import Activity, Task, WorkflowHistory
 from .base_test_setup import BaseTestSetup
 from ..api.dto import RequestDeferredApplicationDTO
 from ..classes.service import DeferredApplicationService
+from datetime import date
 
 
 class TestWorkonlyWorkflow(BaseTestSetup):
 
     def setUp(self) -> None:
+        SystemParameterPayment.objects.create(
+            application_type=ApplicationProcesses.WORK_PERMIT.value,
+            amount=1000.00,
+            valid_from=date(2024, 1, 1)
+        )
         super().setUp()
 
     def create_new_application(self):
@@ -660,3 +667,11 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
         permit = Permit.objects.filter(document_number=self.document_number)
         self.assertTrue(permit.exists())
+
+    def test_new_application_create_payment(self):
+
+        # Check if payment exists
+        payments = Payment.objects.filter(
+            document_number=self.document_number
+        )
+        self.assertTrue(payments.exists())

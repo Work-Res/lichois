@@ -13,6 +13,7 @@ class PaymentService:
     """
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
 
     def get_payment_by_document_number(self, document_number):
         """
@@ -36,6 +37,7 @@ class PaymentService:
         Additional fields can be provided via kwargs.
         """
         try:
+            print("hhhhhhhhhhh")
             validator = PaymentValidator(document_number=document_number)
             if not validator.has_payment_fee():
                 self.logger.warning(f"No payment fee required for document number: {document_number}")
@@ -55,6 +57,7 @@ class PaymentService:
 
             payment, created = Payment.objects.get_or_create(
                 reference_number=reference_number,
+                document_number=document_number,
                 amount=amount,
                 defaults=defaults,
             )
@@ -105,6 +108,7 @@ class PaymentService:
                 reference_number=reference_number,
                 **kwargs
             )
+            print("*****************************")
             if created:
                 self.logger.info(f"Payment successfully created for document number: {document_number}")
             else:

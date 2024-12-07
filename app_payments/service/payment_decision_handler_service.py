@@ -1,6 +1,8 @@
 from app_payments.models import Payment
 from django.core.exceptions import ValidationError
 
+from app_payments.utils import PaymentStatusEnum
+
 
 class PaymentDecisionHandlerService:
     """
@@ -14,11 +16,11 @@ class PaymentDecisionHandlerService:
         """
         Handles the payment decision and updates the payment status.
         """
-        if decision == 'ACCEPT':
+        if decision == PaymentStatusEnum.ACCEPT.value:
             self._update_status(Payment.STATUS_PAID, transaction_id)
-        elif decision == 'DECLINE':
+        elif decision == PaymentStatusEnum.DECLINE.value:
             self._update_status(Payment.STATUS_FAILED, transaction_id, reason=f"Declined (Reason Code: {reason_code})")
-        elif decision == 'CANCEL':
+        elif decision == PaymentStatusEnum.CANCEL.value:
             self._update_status(Payment.STATUS_CANCELLED, transaction_id)
         else:
             raise ValidationError(f"Unexpected decision: {decision}")
