@@ -33,6 +33,7 @@ def create_production_permit_record(sender, instance, created, **kwargs):
                 request.permit_type = application.application_type
 
                 service_registry = get_service_registry()
+                print(f"*************** application process name *************** {application.process_name} ---------------")
                 service_cls = service_registry.get_service(application.process_name)
                 service_cls(request).create_new_permit()
                 print(
