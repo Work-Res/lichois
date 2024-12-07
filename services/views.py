@@ -5,6 +5,7 @@ from django.http.response import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from authentication.models import User
+from django.contrib.auth.models import Group
 from django.contrib.auth import login,logout,authenticate
 from django.conf import settings
 # Create your views here.
@@ -1133,6 +1134,11 @@ def signup_home(request):
         else:
             new_user = User.objects.create_user(username=username,email=email, password=password)
             new_user.save()
+
+            # Check if the "customer" group exists, if not, create it
+            customer_group, created = Group.objects.get_or_create(name='customer')
+            new_user.groups.add(customer_group)
+
         return redirect('index')
     
     
