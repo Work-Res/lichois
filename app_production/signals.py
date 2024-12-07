@@ -9,21 +9,18 @@ from app.utils import ApplicationDecisionEnum
 from .api.dto.permit_request_dto import PermitRequestDTO
 from .utils import get_service_registry
 
-logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
 
 
 @receiver(post_save, sender=ApplicationDecision)
 def create_production_permit_record(sender, instance, created, **kwargs):
-    print("************************************ entering aplication decision ****************************")
     if created:
         try:
             if (
                 instance.proposed_decision_type.code.upper()
                 == ApplicationDecisionEnum.ACCEPTED.value.upper()
             ):
-                print("************************************ application decision is accepted ****************************")
                 request = PermitRequestDTO()
                 application = Application.objects.get(
                     application_document__document_number=instance.document_number
