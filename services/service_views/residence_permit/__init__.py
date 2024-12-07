@@ -1,0 +1,1 @@
+from .work_res_applications_view import WorkPermitDashboardView

@@ -5,7 +5,7 @@
 <div class="col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h4>Existing Work & Residence Permits</h4><span>
+          <h4>Existing {{permit_name}}s</h4><span>
       </div>
       <div class="card-body">
         <div class="table-responsive theme-scrollbar">
@@ -21,39 +21,45 @@
                 </tr>
             </thead>
             <tbody>
+                {% for permit in permits %}
                 <tr>
-                    <td>WP001</td>
-                    <td>John Doe</td>
-                    <td>Work Permit</td>
-                    <td>2024-01-15</td>
-                    <td>2026-01-14</td>
-                    <td><span class="badge rounded-pill badge-light-primary">Active</span></td>
+                    <td>{{permit.permit_number}}</td>
+                    <td>{{permit.applicant_name}}</td>
+                    <td>{{permit.permit_type}}</td>
+                    <td>{{permit.start_date}}</td>
+                    <td>{{permit.expiry_date}}</td>
+                    <td>
+                        {% if permit.status == 'active' %}
+                        <span class="badge rounded-pill badge-light-primary">Active</span>
+                        {% elif permit.status == 'pending' %}
+                        <span class="badge rounded-pill badge-light-warning">Pending</span>
+                        {% elif permit.status == 'expired' %}
+                        <span class="badge rounded-pill badge-light-danger">Expired</span>
+                        {% endif %}
+                    </td>
                 </tr>
+                {% empty %}
                 <tr>
-                    <td>RP002</td>
-                    <td>Jane Smith</td>
-                    <td>Residence Permit</td>
-                    <td>2023-05-20</td>
-                    <td>2025-05-19</td>
-                    <td><span class="badge rounded-pill badge-light-danger">Expired</span></td>
+                    <td colspan="6">No permits available.</td>
                 </tr>
-                <tr>
-                    <td>WP003</td>
-                    <td>David Johnson</td>
-                    <td>Work Permit</td>
-                    <td>2024-03-01</td>
-                    <td>2025-03-01</td>
-                    <td><span class="badge rounded-pill badge-light-warning">Pending</span></td>
-                </tr>
+                {% endfor %}
+                <!-- <tr> -->
+                <!--     <td>RP002</td> -->
+                <!--     <td>Jane Smith</td> -->
+                <!--     <td>Residence Permit</td> -->
+                <!--     <td>2023-05-20</td> -->
+                <!--     <td>2025-05-19</td> -->
+                <!--     <td><span class="badge rounded-pill badge-light-danger">Expired</span></td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!--     <td>WP003</td> -->
+                <!--     <td>David Johnson</td> -->
+                <!--     <td>Work Permit</td> -->
+                <!--     <td>2024-03-01</td> -->
+                <!--     <td>2025-03-01</td> -->
+                <!--     <td><span class="badge rounded-pill badge-light-warning">Pending</span></td> -->
+                <!-- </tr> -->
             </tbody>
-            <tfoot>
-              <th>Permit ID</th>
-                  <th>Applicant Name</th>
-                  <th>Permit Type</th>
-                  <th>Start Date</th>
-                  <th>Expiry Date</th>
-                  <th>Status</th>
-            </tfoot>
           </table>
         </div>
       </div>
