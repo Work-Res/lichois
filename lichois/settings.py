@@ -77,7 +77,6 @@ INSTALLED_APPS = [
     "lichois",
     "django_roles_access",
     "authentication.apps.AppConfig",
-    "django_otp",
     "drf_yasg",
     "django_q",
     "app_notification.apps.AppConfig",
@@ -94,6 +93,14 @@ INSTALLED_APPS = [
     'sass_processor',
     'services',
     'widget_tweaks',
+
+    # 2factor authentication
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_email',  # <- if you want email capability.
+    'two_factor',
+    'two_factor.plugins.email',
 ]
 
 MIDDLEWARE = [
@@ -104,6 +111,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    'django_otp.middleware.OTPMiddleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -418,3 +426,21 @@ MS_CLIENT_ID = "173d20ad-b66c-49f4-abf4-e18fafe84417"
 MS_CLIENT_SECRET = "5dm8Q~MJoDfJEAJIcIbWIbCA1akmtDVFyeSiGauM"
 MS_TENANT_ID = "cad42c6a-07cb-4b36-88b3-aa1995b4e3ca"
 MS_EMAIL = "objections_citizenship@outlook.com"
+
+
+
+LOGIN_URL = 'two_factor:login'
+
+# this one is optional
+LOGIN_REDIRECT_URL = 'two_factor:profile'
+
+LOGOUT_REDIRECT_URL = 'two_factor:login'
+
+OTP_EMAIL_SENDER = 'admin@africortinvestments.com'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "pixel5softwares@gmail.com"
+EMAIL_HOST_PASSWORD = "cjdjaumrhwoxxtae"

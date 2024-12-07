@@ -46,3 +46,5 @@ pika==1.3.2
 pika-stubs==0.1.3
 django-sass-processor
 django-widget-tweaks
+django-two-factor-auth
+phonenumbers

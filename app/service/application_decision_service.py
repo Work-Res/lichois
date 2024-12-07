@@ -63,8 +63,8 @@ class ApplicationDecisionService(CreateDependentApplicationDecisionService):
             self.logger.info(
                 f"Application decision created successfully for {self.document_number}"
             )
-            # self.create_dependents_application_decision(
-            #     document_number=self.document_number
-            # )
+            self.create_dependents_application_decision(
+                document_number=self.document_number
+            )
         else:
             print(f"Not within the predicate: {self.document_number}")

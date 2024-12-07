@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h1>{% block title %}{% trans "Disable Two-factor Authentication" %}{% endblock %}</h1>
+                  </div>
+                  <div class="card-body">
+                    <p>{% blocktrans trimmed %}You are about to disable two-factor authentication. This
+                    weakens your account security, are you sure?{% endblocktrans %}</p>
+                    <form method="post">
+                    {% csrf_token %}
+                    <table>{{ form.as_table }}</table>
+                    <button class="btn btn-danger"
+                            type="submit">{% trans "Disable" %}</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+       
+{% endblock %}        
