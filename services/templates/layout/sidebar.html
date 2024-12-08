@@ -102,11 +102,11 @@
                   <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-project"></use>
                 </svg><span>Residence Permits</span></a>
               <ul class="sidebar-submenu">
-                <li><a href="/projects">New Application</a></li>
-                <li><a href="/projectcreate">Renewal</a></li>
-                <li><a href="/projectcreate">Replacement</a></li>
-                <li><a href="/projectcreate">Cancellation</a></li>
-                <li><a href="/projectcreate">Variation</a></li>
+                <li><a href="{% url 'res_permit_dashboard' %}">New Application</a></li>
+                <li><a href="{% url 'res_permit_renewal_dashboard' %}">Renewal</a></li>
+                <li><a href="{% url 'res_permit_replacement_dashboard' %}">Replacement</a></li>
+                <li><a href="{% url 'res_permit_cancellation_dashboard' %}">Cancellation</a></li>
+                <li><a href="{% url 'res_permit_variation_dashboard'%}">Variation</a></li>
               </ul>
             </li>
             
@@ -118,11 +118,11 @@
                   <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-project"></use>
                 </svg><span>Work Permits</span></a>
               <ul class="sidebar-submenu">
-                <li><a href="/projects">New Application</a></li>
-                <li><a href="/projectcreate">Renewal</a></li>
-                <li><a href="/projectcreate">Replacement</a></li>
-                <li><a href="/projectcreate">Cancellation</a></li>
-                <li><a href="/projectcreate">Variation</a></li>
+                <li><a href="{% url 'work_permit_dashboard' %}">New Application</a></li>
+                <li><a href="{% url 'work_permit_renewal_dashboard' %}">Renewal</a></li>
+                <li><a href="{% url 'work_permit_replacement_dashboard' %}">Replacement</a></li>
+                <li><a href="{% url 'work_permit_cancellation_dashboard' %}">Cancellation</a></li>
+                <li><a href="{% url 'work_permit_variation_dashboard'%}">Variation</a></li>
               </ul>
             </li>
             

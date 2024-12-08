@@ -9,7 +9,7 @@ from app_personal_details.models import (
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
-class ResidentPermitReplacementView(TemplateView, ServiceApplicationViewMixin):
+class ResidencePermitReplacementView(TemplateView, ServiceApplicationViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):

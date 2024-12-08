@@ -7,16 +7,16 @@ from .service_views.work_res.renewals_view import WorkResidentPermitRenewalView
 from .service_views.work_res.replacement_views import WorkResidentPermitReplacementView
 from .service_views.work_res.cancellation_views import WorkResidentPermitCancellationView
 from .service_views.work_res.variation_views import WorkResidentPermitVariationView
-from services.service_views.work_permit import WorkPermitDashboardView
+from services.service_views import WorkPermitDashboardView
 from services.service_views.work_permit import WorkPermitRenewalView 
 from services.service_views.work_permit import WorkPermitReplacementView
 from services.service_views.work_permit import WorkPermitCancellationView 
 from services.service_views.work_permit import WorkPermitVariationView 
-from services.service_views.residence_permit import ResidencePermitDashboardView
+from services.service_views import ResidencePermitDashboardView
 from services.service_views.residence_permit import ResidencePermitRenewalView 
 from services.service_views.residence_permit import ResidencePermitReplacementView
 from services.service_views.residence_permit import ResidencePermitCancellationView 
-from services.service_views.redidence_permit import ResidencePermitVariationView
+from services.service_views.residence_permit import ResidencePermitVariationView
 
 urlpatterns = [
 
