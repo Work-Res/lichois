@@ -96,7 +96,7 @@ urlpatterns = [
 
     # ---------------------------------user
     path('user_profile', views.user_profile, name="user_profile"),
-    path('edit_profile', views.edit_profile, name="edit_profile"),
+#     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('user_cards', views.user_cards, name="user_cards"),
 
 
