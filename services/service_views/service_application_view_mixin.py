@@ -1,7 +1,6 @@
 from ..classes import ServicesApplicationFormsUrls
 
 from app_personal_details.models import Person
-from pickle import NONE
 
 
 class ServiceApplicationViewMixin:
@@ -13,6 +12,7 @@ class ServiceApplicationViewMixin:
     
         forms_urls = ServicesApplicationFormsUrls(
             application_number=self.application_number(),
+            non_citizen_identifier=self.non_citizen_identifier(),
             application_models_cls=model_cls_list).application_urls()
         return forms_urls
 
@@ -24,6 +24,11 @@ class ServiceApplicationViewMixin:
         #Impliment this method to get a permit application number for a permit being applied for.
         
         return application_number
+
+    def non_citizen_identifier(self):
+        """Returns the applicant's non_citizen_identifier.
+        """
+        return 'NC123412'
 
     def personal_details(self):
         """Returns personal details.
