@@ -1,1 +1,1 @@
-from .work_res import WorkPermitDashboardView
+from .work_res import WorkResidentPermitDashboardView
