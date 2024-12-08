@@ -29,6 +29,7 @@ class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
                 model_cls_list=model_cls_list)
         )
 
+        print(dir(self.request.user), '##############$$$$$$$$$$$@@@@@@@@@@@')
         return context
 
     def permits(self):
