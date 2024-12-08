@@ -6,7 +6,7 @@ from ..forms.travel_certificate_form import TravelCertificateForm
 
 class TravelCertificateAdmin(admin.ModelAdmin):
 
-    form = TravelCertificate
+    form = TravelCertificateForm
 
     list_display: Tuple[str, ...] = (
             'kraal_head_name',
