@@ -17,6 +17,7 @@ from services.service_views.residence_permit import ResidencePermitRenewalView
 from services.service_views.residence_permit import ResidencePermitReplacementView
 from services.service_views.residence_permit import ResidencePermitCancellationView 
 from services.service_views.residence_permit import ResidencePermitVariationView
+from services.service_views import ProfileView
 
 urlpatterns = [
 
@@ -141,8 +142,7 @@ urlpatterns = [
 
 
     # ---------------------------------user
-    path('user_profile', views.user_profile, name="user_profile"),
-#     path('edit_profile', views.edit_profile, name="edit_profile"),
+    path('user_profile', ProfileView.as_view(), name="user_profile"),
     path('user_cards', views.user_cards, name="user_cards"),
 
 

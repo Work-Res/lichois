@@ -92,11 +92,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for key, value in application_forms %}
+                        {% for key, value in application_forms.items %}
                           <tr>
                             <td>{{ key }}</td>
                             <td>
-                              <a class="btn {% if value.1 %} btn-success {% else %} btn-warning {% endif %}" href="{{ value.0 }}" role="button">{% if value.1 %}edit{% else %} add {% endif %}</a>
+                              <a class="btn {% if value.1 %} btn-success {% else %} btn-warning {% endif %}" href="{{ value.0 }}?{{ }}" role="button">{% if value.1 %}edit{% else %} add {% endif %}</a>
                             </td>
                             <td>{% if value.1 %} value.1.created {% else %} -- {% endif %}</td>
                             <td><label class="badge {% if value.1 %} badge-success {% else %} badge-warning {% endif %}">{% if value.1 %} completed {% else %} pending {% endif %}</label></td>
