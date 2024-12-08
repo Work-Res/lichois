@@ -73,6 +73,58 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+            <div class="row">
+              <div class="col-xxl-8 col-lg-8 col-md-6">
+                <div class="card">
+              <h5 class="card-header bg-primary">Complete Profile Forms Below</h5>
+              <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Form Name</th>
+                          <th>Buttons</th>
+                          <th>Created On</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for key, value in application_forms %}
+                          <tr>
+                            <td>{{ key }}</td>
+                            <td>
+                              <a class="btn {% if value.1 %} btn-success {% else %} btn-warning {% endif %}" href="{{ value.0 }}" role="button">{% if value.1 %}edit{% else %} add {% endif %}</a>
+                            </td>
+                            <td>{% if value.1 %} value.1.created {% else %} -- {% endif %}</td>
+                            <td><label class="badge {% if value.1 %} badge-success {% else %} badge-warning {% endif %}">{% if value.1 %} completed {% else %} pending {% endif %}</label></td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table> 
+              </div>
+            </div>
+              </div>
+            </div>
+            
+            <div class="col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                  <h5 class="card-header bg-primary">Account Details</h5>
+                  <div class="card-body">
+                    <ul class="list-group">
+                          <li class="list-group-item">Username: {{ request.user.username}}</li>
+                          <li class="list-group-item">Email: {{ request.user.email }}</li>
+                          <li class="list-group-item">Date of Birth: {{ request.user.dob }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
     </div>
     <!-- Container-fluid Ends-->
   </div>
