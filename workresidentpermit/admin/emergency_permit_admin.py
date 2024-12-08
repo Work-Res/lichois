@@ -1,9 +1,12 @@
 from django.contrib import admin
 
 from ..models import EmergencyPermit
-
+from typing import Tuple
+from ..forms.emergency_permit_form import EmergencyPermitForm
 class EmergencyPermitAdmin(admin.ModelAdmin):
-    list_display = (
+
+    form = EmergencyPermitForm
+    list_display: Tuple[str, ...] = (
         'nature_emergency',
         'job_requirements',
         'services_provided',
@@ -11,7 +14,7 @@ class EmergencyPermitAdmin(admin.ModelAdmin):
         'capacity',
         'emergency_period',
     )
-    search_fields = ('nature_emergency', 'job_requirements', 'services_provided')
-    list_filter = ('emergency_period',)
+    search_fields: Tuple[str, ...] = ('nature_emergency', 'job_requirements', 'services_provided')
+    list_filter:Tuple[str, ...]= ('emergency_period',)
 
 admin.site.register(EmergencyPermit, EmergencyPermitAdmin)
