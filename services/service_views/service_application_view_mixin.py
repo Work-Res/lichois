@@ -1,7 +1,6 @@
 from ..classes import ServicesApplicationFormsUrls
 
 from app_personal_details.models import Person
-from pickle import NONE
 
 
 class ServiceApplicationViewMixin:
