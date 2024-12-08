@@ -1,5 +1,8 @@
 from ..classes import ServicesApplicationFormsUrls
 
+from app_personal_details.models import Person
+from pickle import NONE
+
 
 class ServiceApplicationViewMixin:
     
@@ -21,3 +24,23 @@ class ServiceApplicationViewMixin:
         #Impliment this method to get a permit application number for a permit being applied for.
         
         return application_number
+
+    def personal_details(self):
+        """Returns personal details.
+        """
+        
+        personal_details = {
+            'first_name': self.request.user.firstname,
+            'last_name': self.request.user.lastname,
+            'email': self.request.user.email,
+            'dob': self.request.user.dod}
+
+    def person(self):
+        """Returns the person obj.
+        """
+        try:
+            person = Person.objects.get()
+        except Person.DoesNotExist:
+            return None
+        else:
+            return person
