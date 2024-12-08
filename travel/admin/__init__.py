@@ -1,0 +1,2 @@
+from .applicant_relative_admin import ApplicationRelativeAdmin
+from .travel_certificate_admin import TravelCertificateAdmin
