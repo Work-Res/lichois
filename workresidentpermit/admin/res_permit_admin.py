@@ -1,8 +1,8 @@
 from django.contrib import admin
 from ..models import ResidencePermit
-
+from typing import Tuple
 class ResidencePermitAdmin(admin.ModelAdmin):
-    list_display = (
+    list_display: Tuple[str, ...] = (
         'document_number',
         'language',
         'permit_reason',
@@ -21,6 +21,11 @@ class ResidencePermitAdmin(admin.ModelAdmin):
         'preferred_method_comm',
         'preferred_method_comm_value'
     )
-    search_fields = ('document_number',)
+    search_fields: Tuple[str, ...] = ('document_number',)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('document_number',)
+        return self.readonly_fields
 
 admin.site.register(ResidencePermit, ResidencePermitAdmin)
