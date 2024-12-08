@@ -1153,6 +1153,7 @@ def signup_home(request):
                 raise Exception('Customer role does not exist')
             else:
                 new_user = User.objects.create_user(username=username,email=email, password=password, dob=dob)
+                new_user.is_staff = True
                 new_user.save()
                 new_user.groups.add(customer_group)
 
