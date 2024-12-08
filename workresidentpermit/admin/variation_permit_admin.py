@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from typing import Tuple
 
-from workresidentpermit.forms.workres_variation_permit_form import WorkResVariationPermitForm
+from ..forms.workres_variation_permit_form import WorkResVariationPermitForm
 
 from ..models import VariationPermit
 

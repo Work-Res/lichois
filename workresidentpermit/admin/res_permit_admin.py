@@ -1,7 +1,9 @@
 from django.contrib import admin
 from ..models import ResidencePermit
+from ..forms.residence_only_permit_form import ResidencePermitForm
 from typing import Tuple
 class ResidencePermitAdmin(admin.ModelAdmin):
+    form = ResidencePermitForm
     list_display: Tuple[str, ...] = (
         'document_number',
         'language',

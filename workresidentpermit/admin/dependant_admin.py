@@ -1,9 +1,12 @@
 from django.contrib import admin
 from typing import Tuple
 from ..models import Dependant
+from ..forms.dependant_form import DependantForm
 
 
 class DependantAdmin(admin.ModelAdmin):
+
+    form = DependantForm
     list_display: Tuple[str, ...] = (
         'name',
         'age',
