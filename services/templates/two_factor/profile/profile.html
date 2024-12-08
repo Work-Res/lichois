@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% load two_factor_tags %}
+
+  {% block content %}
+  {% include 'general/dashboard/default/components/loader.html' %}
+
+  <div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+                {% block title %}{% trans "Account Security" %}{% endblock %}
+            </div>
+            <div class="card-body">
+                {% if default_device %}
+                <p>{% blocktrans with primary=default_device|as_action %}Primary method: {{ primary }}{% endblocktrans %}</p>
+            
+                {% if available_phone_methods %}
+                  <h2>{% trans "Backup Phone Numbers" %}</h2>
+                  <p>{% blocktrans trimmed %}If your primary method is not available, we are able to
+                    send backup tokens to the phone numbers listed below.{% endblocktrans %}</p>
+                  {% if backup_phones %}
+                    <ul>
+                      {% for phone in backup_phones %}
+                        <li>
+                          {{ phone|as_action }}
+                          <form method="post" action="{% url 'two_factor:phone_delete' phone.id %}"
+                              onsubmit="return confirm({% trans 'Are you sure?' %})">
+                            {% csrf_token %}
+                            <button class="btn btn-sm btn-warning"
+                                  type="submit">{% trans "Unregister" %}</button>
+                          </form>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                  <p><a href="{% url 'two_factor:phone_create' %}"
+                    class="btn btn-info">{% trans "Add Phone Number" %}</a></p>
+                {% endif %}
+            
+                <h2>{% trans "Backup Tokens" %}</h2>
+                <p>
+                  {% blocktrans trimmed %}If you don't have any device with you, you can access
+                    your account using backup tokens.{% endblocktrans %}
+                  {% blocktrans trimmed count counter=backup_tokens %}
+                    You have only one backup token remaining.
+                  {% plural %}
+                    You have {{ counter }} backup tokens remaining.
+                  {% endblocktrans %}
+                </p>
+                <p><a href="{% url 'two_factor:backup_tokens' %}"
+                      class="btn btn-info">{% trans "Show Codes" %}</a></p>
+            
+                <h3>{% trans "Disable Two-Factor Authentication" %}</h3>
+                <p>{% blocktrans trimmed %}However we strongly discourage you to do so, you can
+                  also disable two-factor authentication for your account.{% endblocktrans %}</p>
+                <p><a class="btn btn-secondary" href="{% url 'two_factor:disable' %}">
+                  {% trans "Disable Two-Factor Authentication" %}</a></p>
+              {% else %}
+                <p>{% blocktrans trimmed %}Two-factor authentication is not enabled for your
+                  account. Enable two-factor authentication for enhanced account
+                  security.{% endblocktrans %}</p>
+                <p><a href="{% url 'two_factor:setup' %}" class="btn btn-primary">
+                  {% trans "Enable Two-Factor Authentication" %}</a>
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+            <div class="row">
+              <div class="col-xxl-8 col-lg-8 col-md-6">
+                <div class="card">
+              <h5 class="card-header bg-primary">Complete Profile Forms Below</h5>
+              <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Form Name</th>
+                          <th>Buttons</th>
+                          <th>Created On</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for key, value in application_forms.items %}
+                          <tr>
+                            <td>{{ key }}</td>
+                            <td>
+                              <a class="btn {% if value.1 %} btn-success {% else %} btn-warning {% endif %}" href="{{ value.0 }}" role="button">{% if value.1 %}edit{% else %} add {% endif %}</a>
+                            </td>
+                            <td>{% if value.1 %} value.1.created {% else %} -- {% endif %}</td>
+                            <td><label class="badge {% if value.1 %} badge-success {% else %} badge-warning {% endif %}">{% if value.1 %} completed {% else %} pending {% endif %}</label></td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table> 
+              </div>
+            </div>
+              </div>
+            </div>
+            
+            <div class="col-xxl-4 col-lg-4 col-md-6">
+                <div class="card">
+                  <h5 class="card-header bg-primary">Account Details</h5>
+                  <div class="card-body">
+                    <ul class="list-group">
+                          <li class="list-group-item">Username: {{ request.user.username}}</li>
+                          <li class="list-group-item">Email: {{ request.user.email }}</li>
+                          <li class="list-group-item">Date of Birth: {{ request.user.dob }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <!-- Container-fluid Ends-->
+  </div>
+  {% endblock %}

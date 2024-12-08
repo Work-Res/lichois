@@ -17,5 +17,5 @@ class InvestorModelMixin(models.Model):
     reasons_capacity_employed = models.TextField(null=True, blank=True)
 
     class Meta:
-        app_label = "work_residence_permit"
+        app_label = "workresidentpermit"
         abstract = True

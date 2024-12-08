@@ -1,6 +1,4 @@
 from datetime import date
-from random import randint
-from faker import Faker
 import logging
 from django.db import transaction
 from model_bakery.recipe import Recipe
@@ -12,8 +10,6 @@ from app.api.dto.application_verification_request_dto import (
     ApplicationVerificationRequestDTO,
 )
 from app.models.application import Application
-from app.classes.application_service import ApplicationService
-from app.api.dto.new_application_dto import NewApplicationDTO
 from app.api.dto.security_clearance_request_dto import SecurityClearanceRequestDTO
 from app.api.serializers.application_verification_request_serializer import (
     ApplicationVerificationRequestSerializer,
@@ -43,12 +39,8 @@ from app_assessment.service.assessment_case_decision_service import (
 from app_assessment.validators.assessment_case_decision_validator import (
     AssessmentCaseDecisionValidator,
 )
-from app_checklist.models.system_parameter_permit_renewal_period import (
-    SystemParameterPermitRenewalPeriod,
-)
-from app_personal_details.models import Permit, Spouse
+from app_personal_details.models import Permit
 from authentication.models import User
-from board.choices import VOTE_STATUS
 from board.models import (
     BoardDecision,
     BoardMeeting,
@@ -58,11 +50,7 @@ from board.models import (
     VotingProcess,
 )
 from lichois.management.base_command import CustomBaseCommand
-from ...models import ResidencePermit, WorkPermit
 
-from ...utils.work_resident_permit_application_type_enum import (
-    WorkResidentPermitApplicationTypeEnum,
-)
 
 
 class Command(CustomBaseCommand):
@@ -144,14 +132,15 @@ class Command(CustomBaseCommand):
                 return service.create_clearance()
 
     def perform_board_decision(self, document_number, board_meeting):
-
-        board_decision = BoardDecision.objects.create(
-            document_number=document_number,
-            decision_outcome="ACCEPTED",
-            board_meeting=board_meeting,
-            vetting_outcome="ACCEPTED",
+        try:
+            board_decision = BoardDecision.objects.get(document_number=document_number)
+        except BoardDecision.DoesNotExist:
+            board_decision = BoardDecision.objects.create(
+                document_number=document_number,
+                decision_outcome="accepted",
+                board_meeting=board_meeting,
+                vetting_outcome="accepted",
         )
-
         return board_decision
 
     def perform_assessment(self, document_number):

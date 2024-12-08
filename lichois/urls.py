@@ -27,6 +27,7 @@ from django.urls import path, include
 
 from app.admin_site import app_admin
 from board.admin_site import board_admin
+from two_factor.urls import urlpatterns as tf_urls
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -81,6 +82,7 @@ urlpatterns = [
     path("lichois/api/v1/", include("gazette.urls")),
     path("lichois/api/v1/", include("non_citizen_profile.urls")),
     path("lichois/api/v1/", include("investigation_repatration.urls")),
+    path('', include(tf_urls)),
 ]
 
 if settings.DEBUG:

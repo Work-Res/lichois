@@ -2,62 +2,124 @@ from django.contrib import admin
 from django.urls import path
 
 from .import views
+from services.service_views import WorkResidentPermitDashboardView
+from .service_views.work_res.renewals_view import WorkResidentPermitRenewalView
+from .service_views.work_res.replacement_views import WorkResidentPermitReplacementView
+from .service_views.work_res.cancellation_views import WorkResidentPermitCancellationView
+from .service_views.work_res.variation_views import WorkResidentPermitVariationView
 from services.service_views import WorkPermitDashboardView
-
+from services.service_views.work_permit import WorkPermitRenewalView 
+from services.service_views.work_permit import WorkPermitReplacementView
+from services.service_views.work_permit import WorkPermitCancellationView 
+from services.service_views.work_permit import WorkPermitVariationView 
+from services.service_views import ResidencePermitDashboardView
+from services.service_views.residence_permit import ResidencePermitRenewalView 
+from services.service_views.residence_permit import ResidencePermitReplacementView
+from services.service_views.residence_permit import ResidencePermitCancellationView 
+from services.service_views.residence_permit import ResidencePermitVariationView
+from services.service_views import ProfileView
 
 urlpatterns = [
-    
-    #-------------------------General(Dashboards,Widgets & Layout)---------------------------------------
+
+    # -------------------------General(Dashboards,Widgets & Layout)---------------------------------------
 
     # Admin urls
-    
+
     path('admin/', admin.site.urls),
-    
+
     # #-----------------------Dashboards
-    
+
     path('', views.index, name="index"),
     path('index', views.index, name="index"),
     path('dashboard_02', views.dashboard_02, name="dashboard_02"),
     path('dashboard_03', views.dashboard_03, name="dashboard_03"),
     path('dashboard_04', views.dashboard_04, name="dashboard_04"),
-    
+
     # #-----------------------Widgets
     path('general_widget', views.general_widget, name="general_widget"),
     path('chart_widget', views.chart_widget, name="chart_widget"),
-    
-    
+
+
     # #------------------------Layout
     path('box_layout', views.box_layout, name="box_layout"),
     path('layout_rtl', views.layout_rtl, name="layout_rtl"),
     path('layout_dark', views.layout_dark, name="layout_dark"),
     path('hide_on_scroll', views.hide_on_scroll, name="hide_on_scroll"),
-    
-    
-    
-    #--------------------------------Applications---------------------------------
-    
-    # Work & Residence Permit Applications
-    
-    path('workresdashboard/', WorkPermitDashboardView.as_view(), name='work_permit_dashboard'),
-    
 
-    #---------------------Project 
+
+
+    # --------------------------------Applications---------------------------------
+
+    # Work & Residence Permit Applications
+
+    path('workresdashboard/', WorkResidentPermitDashboardView.as_view(),
+         name='work_res_permit_dashboard'),
+
+    path('workresidentpermit/renewal/',
+         WorkResidentPermitRenewalView.as_view(), name="work_res_permit_renewal_dashboard"),
+
+    path('workresidentpermit/variation/', WorkResidentPermitVariationView.as_view(),
+         name="work_res_permit_variation_dashboard"),
+
+    path('workresidentpermit/cancellation/', WorkResidentPermitCancellationView.as_view(),
+         name="work_res_permit_cancellation_dashboard"),
+
+    path('workresidentpermit/replacement/', WorkResidentPermitReplacementView.as_view(),
+         name="work_res_permit_replacement_dashboard"),
+
+    # Work Permit Applications
+
+    path('workdashboard/', WorkPermitDashboardView.as_view(),
+         name='work_permit_dashboard'),
+
+    path('workpermit/renewal/',
+         WorkPermitRenewalView.as_view(), name="work_permit_renewal_dashboard"),
+
+    path('workpermit/variation/', WorkPermitVariationView.as_view(),
+         name="work_permit_variation_dashboard"),
+
+    path('workpermit/cancellation/', WorkPermitCancellationView.as_view(),
+         name="work_permit_cancellation_dashboard"),
+
+    path('workpermit/replacement/', WorkPermitReplacementView.as_view(),
+         name="work_permit_replacement_dashboard"),
+
+
+    # Residence Permit Applications
+
+    path('residencedashboard/', ResidencePermitDashboardView.as_view(),
+         name='res_permit_dashboard'),
+
+    path('res_permit/renewal/',
+         ResidencePermitRenewalView.as_view(), name="res_permit_renewal_dashboard"),
+
+    path('res_permit/variation/', ResidencePermitVariationView.as_view(),
+         name="res_permit_variation_dashboard"),
+
+    path('res_permit/cancellation/', ResidencePermitCancellationView.as_view(),
+         name="res_permit_cancellation_dashboard"),
+
+    path('res_permit/replacement/', ResidencePermitReplacementView.as_view(),
+         name="res_permit_replacement_dashboard"),
+
+        
+    # ---------------------Project
 
     path('projects', views.projects, name="projects"),
-    path('projectcreate', views.projectcreate, name="projectcreate"), 
+    path('projectcreate', views.projectcreate, name="projectcreate"),
 
-    #-------------------File Manager
+    # -------------------File Manager
     path('file_manager', views.file_manager, name="file_manager"),
 
-    #------------------Kanban Board
+    # ------------------Kanban Board
     path('kanban', views.kanban, name="kanban"),
 
-    
 
-    #--------------------ecommerce
-    path('add_products',views.add_products, name="add_products"),    
-    path('product_cards',views.product_cards, name="product_cards"),    
-    path('product_page',views.product_page, name="product_page"),    
+
+    # --------------------ecommerce
+    path('add_products', views.add_products, name="add_products"),
+    path('product_cards', views.product_cards, name="product_cards"),
+    path('product_page', views.product_page, name="product_page"),
     path('list_products', views.list_products, name="list_products"),
     path('payment_details', views.payment_details, name="payment_details"),
     path('order_history', views.order_history, name="order_history"),
@@ -72,97 +134,99 @@ urlpatterns = [
     path('checkout', views.checkout, name="checkout"),
     path('pricing', views.pricing, name="pricing"),
     path('letter_box', views.letter_box, name="letter_box"),
-    
-        
-    #----------------------Chat
+
+
+    # ----------------------Chat
     path('private_chat', views.private_chat, name="private_chat"),
     path('group_chat', views.group_chat, name="group_chat"),
-    
-    
-    #---------------------------------user
-    path('user_profile', views.user_profile, name="user_profile"),
-    path('edit_profile', views.edit_profile, name="edit_profile"),
+
+
+    # ---------------------------------user
+    path('user_profile', ProfileView.as_view(), name="user_profile"),
     path('user_cards', views.user_cards, name="user_cards"),
-    
-    
-    #------------------------bookmark
+
+
+    # ------------------------bookmark
     path('bookmark', views.bookmark, name="bookmark"),
-    
-    
-    #------------------------contacts
+
+
+    # ------------------------contacts
     path('contacts', views.contacts, name="contacts"),
 
-    #------------------------task
+    # ------------------------task
     path('task', views.task, name="task"),
 
-    #------------------------calendar
+    # ------------------------calendar
     path('calendar_basic', views.calendar_basic, name="calendar_basic"),
 
-    #------------------------social-app
+    # ------------------------social-app
     path('social_app', views.social_app, name="social_app"),
-    
-    #------------------------to-do
+
+    # ------------------------to-do
     path('to_do', views.to_do, name="to_do"),
-    
-    
-    #------------------------search
+
+
+    # ------------------------search
     path('search', views.search, name="search"),
-    
-    
-    
-#--------------------------------Forms & Table-----------------------------------------------
 
-    #--------------------------------Forms------------------------------------
 
-    #------------------------form-controls
+
+    # --------------------------------Forms & Table-----------------------------------------------
+
+    # --------------------------------Forms------------------------------------
+
+    # ------------------------form-controls
     path('form_validation', views.form_validation, name="form_validation"),
     path('base_input', views.base_input, name="base_input"),
-    path('radio_checkbox_control', views.radio_checkbox_control, name="radio_checkbox_control"),
+    path('radio_checkbox_control', views.radio_checkbox_control,
+         name="radio_checkbox_control"),
     path('input_group', views.input_group, name="input_group"),
     path('input_mask', views.input_mask, name="input_mask"),
     path('megaoptions', views.megaoptions, name="megaoptions"),
-    
-    
-    #---------------------------form widgets
+
+
+    # ---------------------------form widgets
     path('datepicker', views.datepicker, name="datepicker"),
     path('touchspin', views.touchspin, name="touchspin"),
     path('select2', views.select2, name="select2"),
     path('switch', views.switch, name="switch"),
     path('typeahead', views.typeahead, name="typeahead"),
     path('clipboard', views.clipboard, name="clipboard"),
-    
-    
-   #--------------------------------form layout
+
+
+    # --------------------------------form layout
     path('form_wizard_one', views.form_wizard_one, name="form_wizard_one"),
     path('form_wizard_two', views.form_wizard_two, name="form_wizard_two"),
     path('two_factor', views.two_factor, name="two_factor"),
-    
-    
-    
-#--------------------------------------Table--------------------------------------------------
 
-    #------------------------bootstrap table
+
+
+    # --------------------------------------Table--------------------------------------------------
+
+    # ------------------------bootstrap table
     path('basic_table', views.basic_table, name="basic_table"),
     path('table_components', views.table_components, name="table_components"),
-    
-    
-    #-------------------------data table
-    path('datatable_basic_init', views.datatable_basic_init, name="datatable_basic_init"),
+
+
+    # -------------------------data table
+    path('datatable_basic_init', views.datatable_basic_init,
+         name="datatable_basic_init"),
     path('datatable_advance', views.datatable_advance, name="datatable_advance"),
     path('datatable_API', views.datatable_API, name="datatable_API"),
-    path('datatable_data_source', views.datatable_data_source, name="datatable_data_source"),
-    
-    
-    #---------------------------EXdata table
-    path('ext_autofill', views.ext_autofill, name="ext_autofill"),  
-    
-    #-----------------------------jsgrid_table
-    path('jsgrid_table', views.jsgrid_table, name="jsgrid_table"),
-    
-    
-#------------------Components------UI Components-----Elements ----------->
+    path('datatable_data_source', views.datatable_data_source,
+         name="datatable_data_source"),
 
-    #-----------------------------Ui kits
+
+    # ---------------------------EXdata table
+    path('ext_autofill', views.ext_autofill, name="ext_autofill"),
+
+    # -----------------------------jsgrid_table
+    path('jsgrid_table', views.jsgrid_table, name="jsgrid_table"),
+
+
+    # ------------------Components------UI Components-----Elements ----------->
+
+    # -----------------------------Ui kits
     path('typography', views.typography, name="typography"),
     path('avatars', views.avatars, name="avatars"),
     path('helper_classes', views.helper_classes, name="helper_classes"),
@@ -177,9 +241,9 @@ urlpatterns = [
     path('accordion', views.accordion, name="accordion"),
     path('bootstraptab', views.bootstraptab, name="bootstraptab"),
     path('lists', views.lists, name="lists"),
-    
-    
-    #-------------------------------Bonus Ui    
+
+
+    # -------------------------------Bonus Ui
     path('scrollable/', views.scrollable, name="scrollable"),
     path('tree/', views.tree, name="tree"),
     path('toasts/', views.toasts, name="toasts"),
@@ -198,27 +262,27 @@ urlpatterns = [
     path('creativecard/', views.creativecard, name="creativecard"),
     path('draggablecard/', views.draggablecard, name="draggablecard"),
     path('timeline1/', views.timeline1, name="timeline1"),
-    
-    
-    #---------------------------------Animation    
+
+
+    # ---------------------------------Animation
     path('animate/', views.animate, name="animate"),
     path('scrollreval/', views.scrollreval, name="scrollreval"),
     path('AOS/', views.AOS, name="AOS"),
     path('tilt/', views.tilt, name="tilt"),
     path('wow/', views.wow, name="wow"),
-    
-    
-    #--------------------------Icons
+
+
+    # --------------------------Icons
     path('flagicon/', views.flagicon, name="flagicon"),
     path('fontawesome/', views.fontawesome, name="fontawesome"),
     path('icoicon/', views.icoicon, name="icoicon"),
     path('themify/', views.themify, name="themify"),
     path('feather/', views.feather, name="feather"),
     path('whether/', views.whether, name="whether"),
-    
-    
-    
-    #--------------------------------Buttons
+
+
+
+    # --------------------------------Buttons
     path('buttons/', views.buttons, name="buttons"),
     path('flat/', views.flat, name="flat"),
     path('edge/', views.edge, name="edge"),
@@ -226,7 +290,7 @@ urlpatterns = [
     path('group', views.group, name="group"),
 
 
-    #--------------------------------Charts 
+    # --------------------------------Charts
     path('echarts', views.echarts, name="echarts"),
     path('apex', views.apex, name="apex"),
     path('chartjs', views.chartjs, name="chartjs"),
@@ -237,18 +301,19 @@ urlpatterns = [
     path('morris', views.morris, name="morris"),
     path('peity', views.peity, name="peity"),
     path('sparkline', views.sparkline, name="sparkline"),
-    
-    
-#----------------------------------------------------Pages-----------------------------------
 
-    #-----------------sample-page
-    path('sample_page', views.sample_page , name="sample_page"),
 
-    #-----------------internationalization
-    path('internationalization', views.internationalization, name="internationalization"),
+    # ----------------------------------------------------Pages-----------------------------------
 
-    
-    #--------------------Errror pae
+    # -----------------sample-page
+    path('sample_page', views.sample_page, name="sample_page"),
+
+    # -----------------internationalization
+    path('internationalization', views.internationalization,
+         name="internationalization"),
+
+
+    # --------------------Errror pae
     path('error_400', views.error_400, name="error_400"),
     path('error_401', views.error_401, name="error_401"),
     path('error_403', views.error_403, name="error_403"),
@@ -256,30 +321,32 @@ urlpatterns = [
     path('error_500', views.error_500, name="error_500"),
     path('error_503', views.error_503, name="error_503"),
 
-    #---------------------Authentication
+    # ---------------------Authentication
     path('login_simple', views.login_simple, name="login_simple"),
     path('login_one', views.login_one, name="login_one"),
     path('login_two', views.login_two, name="login_two"),
-    path('login_bs_validation', views.login_bs_validation, name="login_bs_validation"),
-    path('login_tt_validation', views.login_tt_validation, name="login_tt_validation"),
+    path('login_bs_validation', views.login_bs_validation,
+         name="login_bs_validation"),
+    path('login_tt_validation', views.login_tt_validation,
+         name="login_tt_validation"),
     path('login_validation', views.login_validation, name="login_validation"),
-    path('sign_up/', views.sign_up, name="sign_up" ),
-    path('sign_one', views.sign_one, name="sign_one" ),
-    path('sign_two', views.sign_two, name="sign_two" ),
+    path('sign_up/', views.sign_up, name="sign_up"),
+    path('sign_one', views.sign_one, name="sign_one"),
+    path('sign_two', views.sign_two, name="sign_two"),
     path('sign_wizard', views.sign_wizard, name="sign_wizard"),
-    path('unlock', views.unlock , name="unlock"),
+    path('unlock', views.unlock, name="unlock"),
     path('forget_password', views.forget_password, name="forget_password"),
     path('reset_password', views.reset_password, name="reset_password"),
     path('maintenance', views.maintenance, name="maintenance"),
-    
-    
-    #---------------------------------------comingsoon
+
+
+    # ---------------------------------------comingsoon
 
     path('comingsoon', views.comingsoon, name="comingsoon"),
     path('comingsoon_video', views.comingsoon_video, name="comingsoon_video"),
     path('comingsoon_img', views.comingsoon_img, name="comingsoon_img"),
 
-    #------------------------------------email template
+    # ------------------------------------email template
 
     path('basic_temp', views.basic_temp, name="basic_temp"),
     path('email_header', views.email_header, name="email_header"),
@@ -287,63 +354,63 @@ urlpatterns = [
     path('template_email_2', views.template_email_2, name="template_email_2"),
     path('ecommerce_temp', views.ecommerce_temp, name="ecommerce_temp"),
     path('email_order', views.email_order, name="email_order"),
-    
-    
-    
-#------------------------------------------Miscellaneous----------------- -------------------------
 
-    #------------------------gallery
+
+
+    # ------------------------------------------Miscellaneous----------------- -------------------------
+
+    # ------------------------gallery
 
     path('gallery_grid', views.gallery_grid, name="gallery_grid"),
-    path('gallery_description', views.gallery_description, name="gallery_description"),
+    path('gallery_description', views.gallery_description,
+         name="gallery_description"),
     path('masonry_gallery', views.masonry_gallery, name="masonry_gallery"),
     path('masonry_disc', views.masonry_disc, name="masonry_disc"),
     path('hover', views.hover, name="hover"),
 
-    #-------------------------Blog
+    # -------------------------Blog
     path('blog_details', views.blog_details, name="blog_details"),
     path('blog_single', views.blog_single, name="blog_single"),
     path('add_post', views.add_post, name="add_post"),
 
-    #-------------------------faq
+    # -------------------------faq
     path('FAQ', views.FAQ, name="FAQ"),
-    
-    #-------------------------job serch
+
+    # -------------------------job serch
 
     path('job_cards', views.job_cards, name="job_cards"),
     path('job_list', views.job_list, name="job_list"),
     path('job_details', views.job_details, name="job_details"),
     path('apply', views.apply, name="apply"),
 
-    #-------------------------Learning
+    # -------------------------Learning
     path('learning_list', views.learning_list, name="learning_list"),
     path('learning_detailed', views.learning_detailed, name="learning_detailed"),
 
-    #-------------------------maps
+    # -------------------------maps
     path('maps_js', views.maps_js, name="maps_js"),
     path('vector_maps', views.vector_maps, name="vector_maps"),
 
 
-    #------------------------------------Editors
+    # ------------------------------------Editors
     path('summernote', views.summernote, name="summernote"),
     path('ckeditor', views.ckeditor, name="ckeditor"),
     path('simple_mde', views.simple_mde, name="simple_mde"),
     path('ace_code', views.ace_code, name="ace_code"),
 
 
-    #-----------------------------knowledgebase
+    # -----------------------------knowledgebase
     path('knowledgebase', views.knowledgebase, name="knowledgebase"),
 
-    #-----------------------------support-ticket
+    # -----------------------------support-ticket
     path('support_ticket', views.support_ticket, name="support_ticket"),
 
-#-----------------------------------------------------------------------------------
+    # -----------------------------------------------------------------------------------
 
-    
+
     path('signup_home', views.signup_home, name="signup_home"),
     path('login_home', views.login_home, name="login_home"),
     path('logout_view', views.logout_view, name="logout_view"),
 
 
 ]
-    

@@ -10,7 +10,7 @@ class BoardDecision(ApplicationBaseModel, BoardBasePermissionModel):
 
     board_meeting = models.ForeignKey(BoardMeeting, on_delete=models.CASCADE)
     vetting_outcome = models.TextField(null=True, blank=True)
-    decision_outcome = models.CharField(choices=DECISION_OUTCOME, max_length=15)
+    decision_outcome = models.CharField(choices=DECISION_OUTCOME, max_length=150)
     outcome_reason = models.TextField(null=True, blank=True)
 
     def __str__(self):

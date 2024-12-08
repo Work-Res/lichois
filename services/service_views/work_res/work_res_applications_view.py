@@ -9,33 +9,34 @@ from app_personal_details.models import (
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
-class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
+class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-    
+
         model_cls_list = [
             Person, ApplicationAddress,
             ApplicationContact, Passport, Education,
-            ParentalDetails, Spouse, NextOfKin,
-            Child] # This could come from a config file
-    
+            ParentalDetails, Spouse, # NextOfKin, # FIX: The next of kin model causes the admin url generator class to throw an error when it tries to generate a link. 
+            Child]  # This could come from a config file
+
         context.update(
             application_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
-            application_forms= self.application_forms(model_cls_list=model_cls_list)
-            )
+            application_forms=self.application_forms(
+                model_cls_list=model_cls_list)
+        )
 
+        print(dir(self.request.user), '##############$$$$$$$$$$$@@@@@@@@@@@')
         return context
-
 
     def permits(self):
         """Returns a list of all work and res permits.
         """
         return None
-    
+
     @property
     def new_application(self):
         """Return true if a new application is in progress.

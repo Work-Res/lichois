@@ -90,7 +90,7 @@ class VotingDecisionManager(BaseDecisionService):
 
                 self._board_decision = BoardDecision.objects.create(
                     document_number=self.document_number,
-                    decision_outcome=voting_decision_outcome,
+                    decision_outcome=voting_decision_outcome.lower(),
                     board_meeting=self.board_meeting,
                     vetting_outcome=(
                         security_object.status.code.lower() if security_object else "NA"

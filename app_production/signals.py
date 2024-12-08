@@ -9,7 +9,6 @@ from app.utils import ApplicationDecisionEnum
 from .api.dto.permit_request_dto import PermitRequestDTO
 from .utils import get_service_registry
 
-logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
 
@@ -34,22 +33,23 @@ def create_production_permit_record(sender, instance, created, **kwargs):
                 request.permit_type = application.application_type
 
                 service_registry = get_service_registry()
+                print(f"*************** application process name *************** {application.process_name} ---------------")
                 service_cls = service_registry.get_service(application.process_name)
                 service_cls(request).create_new_permit()
-                logger.info(
+                print(
                     f"Successfully created permit for production {instance.document_number}"
                 )
             else:
-                logger.info(
+                print(
                     f"No action required for application decision {instance.document_number}"
                 )
 
         except SystemError as e:
-            logger.error(
+            print(
                 "SystemError: An error occurred while creating permit for production "
                 + f"{instance.document_number}, Got {e}"
             )
         except Exception as ex:
-            logger.error(
+            print(
                 f"An error occurred while trying to create permit for production {instance.document_number}. Got {ex}"
             )
