@@ -1,7 +1,7 @@
 from django.contrib import admin
 from typing import Tuple
 from ..models import TravelCertificate
-from ..forms.travel_certificate_form import TravelCertificate
+from ..forms.travel_certificate_form import TravelCertificateForm
 
 
 class TravelCertificateAdmin(admin.ModelAdmin):
