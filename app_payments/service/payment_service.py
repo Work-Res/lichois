@@ -108,7 +108,6 @@ class PaymentService:
                 reference_number=reference_number,
                 **kwargs
             )
-            print("*****************************")
             if created:
                 self.logger.info(f"Payment successfully created for document number: {document_number}")
             else:
