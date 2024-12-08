@@ -1,9 +1,11 @@
 from django.contrib import admin
-
+from typing import Tuple
 from ..models import EmploymentRecord
-
+from ..forms.employment_record_form import EmploymentRecordForm
 class EmploymentRecordAdmin(admin.ModelAdmin):
-    list_display = (
+
+    form = EmploymentRecordForm
+    list_display: Tuple[str, ...] =  (
         'employer',
         'occupation',
         'duration',
