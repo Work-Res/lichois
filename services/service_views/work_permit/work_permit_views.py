@@ -15,7 +15,7 @@ class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
     
-        model_cls_list = new_application # This could come from a config file
+        model_cls_list = [ WorkPermit ] # This could come from a config file
     
         context.update(
             application_number=self.application_number(),
