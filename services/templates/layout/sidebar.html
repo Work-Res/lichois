@@ -106,14 +106,27 @@
               </svg>
               <svg class="fill-icon">
                 <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
-              </svg><span>Emergency Permits</span></a></li>
+              </svg><span>Emergency Permits</span></a>
+            </li>
+          
+              
             <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="/kanban">
-                <svg class="stroke-icon">
-                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
-                </svg>
-                <svg class="fill-icon">
-                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
-                </svg><span>Excemption</span></a></li>
+              <svg class="stroke-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
+              </svg>
+              <svg class="fill-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
+              </svg><span>Excemption</span></a>
+            </li>
+
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'blue_card_dashboard' %}">
+              <svg class="stroke-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
+              </svg>
+              <svg class="fill-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
+              </svg><span>Blue Card</span></a>
+            </li>
             
             <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="/kanban">
                 <svg class="stroke-icon">
