@@ -12,7 +12,7 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
 
     last_name = models.CharField(max_length=190)
 
-    other_names = models.CharField(max_length=190, blank=True, null=True)
+    other_names = models.CharField(max_length=255, null=True, blank=True)  # Add if missing
 
     maiden_name = models.CharField(max_length=190, blank=True, null=True)
 
