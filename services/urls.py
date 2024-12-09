@@ -17,6 +17,7 @@ from services.service_views.residence_permit import ResidencePermitRenewalView
 from services.service_views.residence_permit import ResidencePermitReplacementView
 from services.service_views.residence_permit import ResidencePermitCancellationView 
 from services.service_views.residence_permit import ResidencePermitVariationView
+from services.service_views.work_res.appeals_view import WorkResidentAppealsDashboardView
 from services.service_views import ProfileView
 
 urlpatterns = [
@@ -66,6 +67,9 @@ urlpatterns = [
 
     path('workresidentpermit/replacement/', WorkResidentPermitReplacementView.as_view(),
          name="work_res_permit_replacement_dashboard"),
+
+    path('workresidentpermit/appeal/', WorkResidentAppealsDashboardView.as_view(),
+         name="work_res_permit_appeal_dashboard"),
 
     # Work Permit Applications
 
