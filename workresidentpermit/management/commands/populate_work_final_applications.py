@@ -8,8 +8,6 @@ from app.api.dto.application_verification_request_dto import (
     ApplicationVerificationRequestDTO,
 )
 from app.models.application import Application
-from app.classes.application_service import ApplicationService
-from app.api.dto.new_application_dto import NewApplicationDTO
 from app.api.dto.security_clearance_request_dto import SecurityClearanceRequestDTO
 from app.api.serializers.application_verification_request_serializer import (
     ApplicationVerificationRequestSerializer,
@@ -39,12 +37,8 @@ from app_assessment.service.assessment_case_decision_service import (
 from app_assessment.validators.assessment_case_decision_validator import (
     AssessmentCaseDecisionValidator,
 )
-from app_checklist.models.system_parameter_permit_renewal_period import (
-    SystemParameterPermitRenewalPeriod,
-)
-from app_personal_details.models import Permit, Spouse
+from app_personal_details.models import Permit
 from authentication.models import User
-from board.choices import VOTE_STATUS
 from board.models import (
     BoardDecision,
     BoardMeeting,
@@ -54,11 +48,7 @@ from board.models import (
     VotingProcess,
 )
 from lichois.management.base_command import CustomBaseCommand
-from ...models import ResidencePermit, WorkPermit
 
-from ...utils.work_resident_permit_application_type_enum import (
-    WorkResidentPermitApplicationTypeEnum,
-)
 
 
 class Command(CustomBaseCommand):
