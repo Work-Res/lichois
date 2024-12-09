@@ -88,7 +88,7 @@ INSTALLED_APPS = [
     "permanent_residence.apps.AppConfig",
     "non_citizen_profile.apps.AppConfig",
     "investigation_repatration.apps.AppConfig",
-    "lichois_form_validators.apps.AppConfig"
+    "lichois_form_validators.apps.AppConfig",
 
     # Customer portal
     'sass_processor',
