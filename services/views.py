@@ -6,8 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from authentication.models import User
 from django.contrib.auth.models import Group
-from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
+from app_personal_details.models import (
+    Person, Passport, Education, ParentalDetails,
+    NextOfKin, Spouse, Child)
 # Create your views here.
 
 #-------------------------General(Dashboards,Widgets & Layout)---------------------------------------
@@ -195,12 +198,22 @@ def group_chat(request):
 @login_required(login_url=settings.LOGIN_URL)
 def user_profile(request):
     context = { "breadcrumb":{"parent":"Users", "child":"User Profile"}}
+    
+    model_cls_list = [
+            Person, Passport, Education,
+            ParentalDetails, Spouse,
+            Child]
+    context.update(
+        application_forms=model_cls_list)
+    # Store context in session
+    request.session['user_profile_context'] = context
+
     return redirect('two_factor:profile')
     
-@login_required(login_url=settings.LOGIN_URL)
-def edit_profile(request):
-    context = { "breadcrumb":{"parent":"Users", "child":"Edit Profile"}}
-    return redirect('two_factor:profile')
+# @login_required(login_url=settings.LOGIN_URL)
+# def edit_profile(request):
+#     context = { "breadcrumb":{"parent":"Users", "child":"Edit Profile"}}
+#     return redirect('two_factor:profile')
        
 @login_required(login_url=settings.LOGIN_URL)
 def user_cards(request):
@@ -1128,16 +1141,21 @@ def signup_home(request):
         email = request.POST['email']
         username = request.POST['username']
         password = request.POST['password']
+        dob = request.POST['dob']
         user = User.objects.filter(email=email).exists()
         if user:
-            raise Exception('Something went wrong')
+            raise Exception('Email already exists')
         else:
-            new_user = User.objects.create_user(username=username,email=email, password=password)
-            new_user.save()
 
-            # Check if the "customer" group exists, if not, create it
-            customer_group, created = Group.objects.get_or_create(name='customer')
-            new_user.groups.add(customer_group)
+            try:
+                customer_group = Group.objects.get(name='customer')
+            except Group.DoesNotExist:
+                raise Exception('Customer role does not exist')
+            else:
+                new_user = User.objects.create_user(username=username,email=email, password=password, dob=dob)
+                new_user.is_staff = True
+                new_user.save()
+                new_user.groups.add(customer_group)
 
         return redirect('index')
     

@@ -2,12 +2,24 @@ from django.contrib import admin
 from django.urls import path
 
 from .import views
+from services.service_views import WorkResidentPermitDashboardView
 from services.service_views import WorkPermitDashboardView
 from .service_views.payments import PaymentsView, PaymentsCancelledView, PaymentsPendingView, PaymentsPaidView
 from .service_views.work_res.renewals_view import WorkResidentPermitRenewalView
 from .service_views.work_res.replacement_views import WorkResidentPermitReplacementView
 from .service_views.work_res.cancellation_views import WorkResidentPermitCancellationView
 from .service_views.work_res.variation_views import WorkResidentPermitVariationView
+from services.service_views import WorkPermitDashboardView
+from services.service_views.work_permit import WorkPermitRenewalView
+from services.service_views.work_permit import WorkPermitReplacementView
+from services.service_views.work_permit import WorkPermitCancellationView
+from services.service_views.work_permit import WorkPermitVariationView
+from services.service_views import ResidencePermitDashboardView
+from services.service_views.residence_permit import ResidencePermitRenewalView
+from services.service_views.residence_permit import ResidencePermitReplacementView
+from services.service_views.residence_permit import ResidencePermitCancellationView
+from services.service_views.residence_permit import ResidencePermitVariationView
+from services.service_views import ProfileView
 
 urlpatterns = [
 
@@ -42,7 +54,7 @@ urlpatterns = [
 
     # Work & Residence Permit Applications
 
-    path('workresdashboard/', WorkPermitDashboardView.as_view(),
+    path('workresdashboard/', WorkResidentPermitDashboardView.as_view(),
          name='work_res_permit_dashboard'),
 
     path('workresidentpermit/renewal/',
@@ -69,6 +81,42 @@ urlpatterns = [
 
     path('payments/cancelled', PaymentsCancelledView.as_view(),
          name="payments_cancelled"),
+
+
+    # Work Permit Applications
+
+    path('workdashboard/', WorkPermitDashboardView.as_view(),
+         name='work_permit_dashboard'),
+
+    path('workpermit/renewal/',
+         WorkPermitRenewalView.as_view(), name="work_permit_renewal_dashboard"),
+
+    path('workpermit/variation/', WorkPermitVariationView.as_view(),
+         name="work_permit_variation_dashboard"),
+
+    path('workpermit/cancellation/', WorkPermitCancellationView.as_view(),
+         name="work_permit_cancellation_dashboard"),
+
+    path('workpermit/replacement/', WorkPermitReplacementView.as_view(),
+         name="work_permit_replacement_dashboard"),
+
+
+    # Residence Permit Applications
+
+    path('residencedashboard/', ResidencePermitDashboardView.as_view(),
+         name='res_permit_dashboard'),
+
+    path('res_permit/renewal/',
+         ResidencePermitRenewalView.as_view(), name="res_permit_renewal_dashboard"),
+
+    path('res_permit/variation/', ResidencePermitVariationView.as_view(),
+         name="res_permit_variation_dashboard"),
+
+    path('res_permit/cancellation/', ResidencePermitCancellationView.as_view(),
+         name="res_permit_cancellation_dashboard"),
+
+    path('res_permit/replacement/', ResidencePermitReplacementView.as_view(),
+         name="res_permit_replacement_dashboard"),
 
 
     # ---------------------Project
@@ -110,8 +158,7 @@ urlpatterns = [
 
 
     # ---------------------------------user
-    path('user_profile', views.user_profile, name="user_profile"),
-    path('edit_profile', views.edit_profile, name="edit_profile"),
+    path('user_profile', ProfileView.as_view(), name="user_profile"),
     path('user_cards', views.user_cards, name="user_cards"),
 
 
