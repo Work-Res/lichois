@@ -52,6 +52,10 @@ work_res_permit = [
     ResidencePermit
 ]
 
+emergency_permit = [
+    EmergencyPermit
+]
+
 variation = [
     VariationPermit
 ]

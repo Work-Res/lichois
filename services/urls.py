@@ -19,6 +19,7 @@ from services.service_views.residence_permit import ResidencePermitCancellationV
 from services.service_views.residence_permit import ResidencePermitVariationView
 from services.service_views.work_res.appeals_view import WorkResidentAppealsDashboardView
 from services.service_views import ProfileView
+from services.service_views.emergency_permit import EmergencyPermitDashboardView
 
 urlpatterns = [
 
@@ -105,6 +106,12 @@ urlpatterns = [
 
     path('res_permit/replacement/', ResidencePermitReplacementView.as_view(),
          name="res_permit_replacement_dashboard"),
+
+    
+    # Emergency permit Applications
+
+    path('emergency_permit_dashboard', EmergencyPermitDashboardView.as_view(),
+         name='emergency_permit_dashboard'),
 
         
     # ---------------------Project
