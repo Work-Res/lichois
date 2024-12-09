@@ -41,13 +41,15 @@ res_permit = [
 ]
 
 work_res_permit = [
-     Person,
+    Person,
     Spouse,
     Child,
     Education,
     Passport,
     ApplicationAddress,
     ApplicationContact,
+    WorkPermit,
+    ResidencePermit
 ]
 
 variation = [
