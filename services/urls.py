@@ -22,6 +22,8 @@ from services.service_views import ProfileView
 from services.service_views.emergency_permit import EmergencyPermitDashboardView
 from services.service_views.blue_card import BlueCardDashboardView
 from services.service_views.travel_certificate import TravelCertificateDashboardView
+from services.service_views.visa import VisaPermitDashboardView
+from services.service_views.excemption import ExemptionCertificateDashboardView
 
 urlpatterns = [
 
@@ -124,6 +126,18 @@ urlpatterns = [
 
     path('travel_certificate_dashboard', TravelCertificateDashboardView.as_view(),
          name='travel_certificate_dashboard'),
+
+     # Visa Permit Applications
+
+    path('visa_permit_dashboard', VisaPermitDashboardView.as_view(),
+         name='visa_permit_dashboard'),
+
+     # Visa Permit Applications
+
+    path('exemption_certificate_dashboard', ExemptionCertificateDashboardView.as_view(),
+         name='exemption_certificate_dashboard'),
+
+     
 
         
     # ---------------------Project
