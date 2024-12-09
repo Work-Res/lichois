@@ -44,7 +44,6 @@ work_res_permit = [
      Person,
     Spouse,
     Child,
-    ParentalDetails,
     Education,
     Passport,
     ApplicationAddress,
