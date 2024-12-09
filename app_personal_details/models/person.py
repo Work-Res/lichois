@@ -24,6 +24,7 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
     )
 
     dob = models.DateField(
+        verbose_name='Date of Birth',
         blank=True,
         null=True,
         # validations=date_not_future TODO: add validation (more than 18 years only )
