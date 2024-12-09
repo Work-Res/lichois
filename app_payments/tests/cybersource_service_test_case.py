@@ -71,4 +71,3 @@ class CyberSourceServiceTestCase(TestCase):
         # Check if the URL is set correctly
         self.assertEqual(signed_context['url'], settings.CYBERSOURCE_URL)
 
-

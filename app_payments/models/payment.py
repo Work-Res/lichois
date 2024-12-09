@@ -27,7 +27,7 @@ class Payment(ApplicationBaseModel):
 
     payment_date = models.DateField(null=True, blank=True, default=now())
 
-    status = models.CharField(max_length=100, null=True, blank=True)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=100, null=True, blank=True)
 
     amount = models.DecimalField(max_digits=20, decimal_places=2)
 

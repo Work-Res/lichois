@@ -3,7 +3,7 @@ from django.urls import path
 
 from .import views
 from services.service_views import WorkPermitDashboardView
-from .service_views.payments import PaymentsView
+from .service_views.payments import PaymentsView, PaymentsCancelledView, PaymentsPendingView, PaymentsPaidView
 from .service_views.work_res.renewals_view import WorkResidentPermitRenewalView
 from .service_views.work_res.replacement_views import WorkResidentPermitReplacementView
 from .service_views.work_res.cancellation_views import WorkResidentPermitCancellationView
@@ -58,9 +58,18 @@ urlpatterns = [
          name="work_res_permit_replacement_dashboard"),
 
     # Payments
-
     path('payments/', PaymentsView.as_view(),
          name="payments"),
+
+    path('payments/pending', PaymentsPendingView.as_view(),
+         name="payment_pending"),
+
+    path('payments/paid', PaymentsPaidView.as_view(),
+         name="payments_paid"),
+
+    path('payments/cancelled', PaymentsCancelledView.as_view(),
+         name="payments_cancelled"),
+
 
     # ---------------------Project
 

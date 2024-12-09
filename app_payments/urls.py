@@ -10,6 +10,6 @@ router.register(r'payments', PaymentViewSet, basename='payment')
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('payment/request/<str:document_number>/', PaymentRequestView.as_view(), name='payment-request'),
+    path('payment/request/', PaymentRequestView.as_view(), name='payment-request'),
     path('payment/response/', CyberSourceResponseView.as_view(), name='payment-response'),
 ]

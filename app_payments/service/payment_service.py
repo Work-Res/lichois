@@ -37,7 +37,7 @@ class PaymentService:
         Additional fields can be provided via kwargs.
         """
         try:
-            print("hhhhhhhhhhh")
+
             validator = PaymentValidator(document_number=document_number)
             if not validator.has_payment_fee():
                 self.logger.warning(f"No payment fee required for document number: {document_number}")

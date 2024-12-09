@@ -115,7 +115,7 @@ class ApplicationService:
             payment_service.create(
                 document_number=application.application_document.document_number,
                 reference_number=application.application_document.document_number,
-                application_type=application.application_type
+                application_type=application.process_name
             )
 
             self.logger.info(

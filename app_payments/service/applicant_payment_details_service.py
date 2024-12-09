@@ -21,7 +21,7 @@ class ApplicantPaymentDetailsService:
         """
         try:
             person = self._get_person()
-            contact = self._get_contact()
+            # contact = self._get_contact()
 
             address = self._get_address()
             address_parts = [
@@ -38,11 +38,11 @@ class ApplicantPaymentDetailsService:
             return {
                 'bill_to_forename': person.first_name,
                 'bill_to_surname': person.last_name,
-                'bill_to_email': contact.contact_value,
+                'bill_to_email': 'tsetsiba@gmail.com',
                 'bill_to_address_line1': full_address,
-                'bill_to_address_city': address.city,
+                'bill_to_address_city': 'Gaborone',  # address.city,
                 'bill_to_address_postal_code': '0000',
-                'bill_to_address_country': address.country.iso_code,
+                'bill_to_address_country': 'BW',
                 'bill_to_address_state': 'Central'  # TODO what to set here?
             }
 
@@ -60,7 +60,7 @@ class ApplicantPaymentDetailsService:
         try:
             person = Person.objects.get(
                 document_number=self.document_number,
-                applicant_type='applicant'
+                person_type='applicant'
             )
             self.logger.debug("Successfully retrieved person details for document number: %s", self.document_number)
             return person
@@ -91,7 +91,8 @@ class ApplicantPaymentDetailsService:
         Retrieves the applicant's address details.
         """
         try:
-            address = ApplicationAddress.objects.get(document_number=self.document_number)
+            address = ApplicationAddress.objects.get(document_number=self.document_number,
+                                                     person_type='applicant')
             self.logger.debug("Successfully retrieved address details for document number: %s", self.document_number)
             return address
         except ApplicationAddress.DoesNotExist:

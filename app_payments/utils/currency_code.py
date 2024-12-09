@@ -24,7 +24,7 @@ class CurrencyCode(Enum):
     BRL = "Brazilian Real"
     BSD = "Bahamian Dollar"
     BTN = "Bhutanese Ngultrum"
-    BWP = "Botswana Pula"
+    BWP = "BWP"
     BYN = "Belarusian Ruble"
     BZD = "Belize Dollar"
     CAD = "Canadian Dollar"

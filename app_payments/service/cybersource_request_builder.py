@@ -17,7 +17,8 @@ class CybersourceRequestBuilder:
         """
         Builds the CyberSource request body.
         """
-        payment = PaymentService.get_payment_by_document_number(self.document_number)
+        payment_service = PaymentService()
+        payment = payment_service.get_payment_by_document_number(document_number=self.document_number)
         applicant_details = ApplicantPaymentDetailsService(self.document_number).get_details()
 
         fields = {

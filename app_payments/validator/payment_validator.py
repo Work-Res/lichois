@@ -48,7 +48,7 @@ class PaymentValidator:
                     f"Cannot determine payment fee, no application found for document number: {self.document_number}")
                 return False
 
-            SystemParameterPayment.objects.get(application_type=application.application_type)
+            SystemParameterPayment.objects.get(application_type=application.process_name)
             self.logger.info(f"Payment fee applicable for application type: {application.application_type}")
             return True
         except SystemParameterPayment.DoesNotExist:
