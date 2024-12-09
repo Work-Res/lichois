@@ -8,6 +8,10 @@ class PersonAdmin(admin.ModelAdmin):
         (None, {
             "fields": (
                 'first_name', 'last_name',
+                'middle_name', 'maiden_name',
+                'marital_status', 'dob', 'gender',
+                'occupation', 'qualification', 'person_type',
+                'deceased'
             ),
         }),
     )
