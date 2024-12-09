@@ -4,6 +4,7 @@
 </head>
 <body onload="window.document.post_to_cybersource.submit();">
 <form name="post_to_cybersource" method="post" action="{{ url }}">
+    {% csrf_token %}
     {% for name, value in fields.items %}
         <input type="hidden" name="{{ name }}" value="{{ value }}" />
     {% endfor %}

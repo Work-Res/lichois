@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Transaction</title>
-</head>
-<body>
-    <h1>Complete Your Transaction</h1>
-    <form method="post">
+   <form method="post" action="{% url 'payment-request' %}" >
         {% csrf_token %}
                 <!-- Render all visible fields -->
         {% for field in form.visible_fields %}
@@ -31,8 +24,7 @@
                 {{ form.non_field_errors }}
             </div>
         {% endif %}
-        
-        <button type="submit">Pay</button>
-    </form>
-</body>
-</html>
+         <input type="hidden" name="reference_number" value="{{ payment.reference_number }}" />
+        <button class="btn btn-primary" type="submit">Pay</button>
+   </form>
+   

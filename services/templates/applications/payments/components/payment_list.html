@@ -30,14 +30,7 @@
                     <td>{{payment.status}}</td>
                     <td>
                         {% if payment.status == 'PENDING' or payment.status == 'CANCELLED' %}
-                            <form action="{% url 'payment-request' %}" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="reference_number" value="{{ payment.reference_number }}" />
-                                <input type="hidden" name="profile_id" id="id_profile_id">
-                                <input type="hidden" name="access_key" id="id_access_key">
-                                <input type="hidden" name="transaction_uuid" id="id_transaction_uuid">
-                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Pay">Pay</button>
-                            </form>
+                            {% include "applications/payments/components/payment_form.html" %}
                         {% endif %}
                     </td>
                 </tr>

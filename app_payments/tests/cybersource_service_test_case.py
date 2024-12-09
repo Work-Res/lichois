@@ -5,6 +5,8 @@ from hashlib import sha256
 import hmac
 from base64 import b64encode
 
+from django.urls import reverse_lazy
+
 from app_payments.service import CyberSourceService
 
 
@@ -70,4 +72,8 @@ class CyberSourceServiceTestCase(TestCase):
 
         # Check if the URL is set correctly
         self.assertEqual(signed_context['url'], settings.CYBERSOURCE_URL)
+
+    def test_url(self):
+        success_url = reverse_lazy("password_reset_done")
+        print(">>>>>>>>>>>>>>", reverse_lazy("payment-response"))
 

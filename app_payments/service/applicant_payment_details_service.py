@@ -39,7 +39,7 @@ class ApplicantPaymentDetailsService:
                 'bill_to_forename': person.first_name,
                 'bill_to_surname': person.last_name,
                 'bill_to_email': 'tsetsiba@gmail.com',
-                'bill_to_address_line1': full_address,
+                'bill_to_address_line1': "PO BOX 100", #full_address,
                 'bill_to_address_city': 'Gaborone',  # address.city,
                 'bill_to_address_postal_code': '0000',
                 'bill_to_address_country': 'BW',

@@ -450,3 +450,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "pixel5softwares@gmail.com"
 EMAIL_HOST_PASSWORD = "cjdjaumrhwoxxtae"
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://testsecureacceptance.cybersource.com',
+    'https://secureacceptance.cybersource.com'
+]
