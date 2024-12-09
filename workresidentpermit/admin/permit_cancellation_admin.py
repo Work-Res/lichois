@@ -1,9 +1,13 @@
 from django.contrib import admin
-from ..models import PermitCancellation
-from ..forms.work_resident_cancellation_permit_form import WorkResPermitCancellationForm
 from typing import Tuple
 
+from ..models import PermitCancellation
+from ..forms.work_resident_cancellation_permit_form import WorkResPermitCancellationForm
+from ..admin_site import workresidencepermit_admin
 
+
+
+@admin.register(PermitCancellation, site=workresidencepermit_admin)
 class PermitCancellationAdmin(admin.ModelAdmin):
     form = WorkResPermitCancellationForm
     list_display: Tuple[str, ...] = (
@@ -15,5 +19,3 @@ class PermitCancellationAdmin(admin.ModelAdmin):
         'submitter_type',
         'submitted_by',
     )
-
-admin.site.register(PermitCancellation, PermitCancellationAdmin)

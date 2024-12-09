@@ -25,6 +25,8 @@ from services.service_views.travel_certificate import TravelCertificateDashboard
 from services.service_views.visa import VisaPermitDashboardView
 from services.service_views.excemption import ExemptionCertificateDashboardView
 
+from .admin_site import services_admin
+
 urlpatterns = [
 
     # -------------------------General(Dashboards,Widgets & Layout)---------------------------------------
@@ -32,6 +34,7 @@ urlpatterns = [
     # Admin urls
 
     path('admin/', admin.site.urls),
+    path('services/', services_admin.urls),
 
     # #-----------------------Dashboards
 

@@ -1,7 +1,12 @@
 from django.contrib import admin
-from ..models import WorkPermit
 from typing import Tuple
+
+from ..admin_site import workresidencepermit_admin
 from ..forms.work_only_permit_form import WorkPermitForm
+from ..models import WorkPermit
+
+
+@admin.register(WorkPermit, site=workresidencepermit_admin)
 class WorkPermitAdmin(admin.ModelAdmin):
 
     form = WorkPermitForm
@@ -12,5 +17,3 @@ class WorkPermitAdmin(admin.ModelAdmin):
         if obj:
             return self.readonly_fields + ('document_number',)
         return self.readonly_fields
-
-admin.site.register(WorkPermit, WorkPermitAdmin)

@@ -2,10 +2,12 @@ from django.contrib import admin
 
 from typing import Tuple
 
+from ..admin_site import workresidencepermit_admin
 from ..forms.workres_variation_permit_form import WorkResVariationPermitForm
-
 from ..models import VariationPermit
 
+
+@admin.register(VariationPermit, site=workresidencepermit_admin)
 class VariationPermitAdmin(admin.ModelAdmin):
 
     form = WorkResVariationPermitForm
@@ -38,6 +40,3 @@ class VariationPermitAdmin(admin.ModelAdmin):
         if obj:
             return self.readonly_fields + ('existing_permit',)
         return self.readonly_fields
-
-
-admin.site.register(VariationPermit, VariationPermitAdmin)

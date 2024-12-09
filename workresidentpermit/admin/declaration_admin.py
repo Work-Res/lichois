@@ -1,7 +1,12 @@
 from django.contrib import admin
 from typing import Tuple
-from ..models import Declaration
+
+from ..admin_site import workresidencepermit_admin
 from ..forms.declaration_form import DeclarationForm
+from ..models import Declaration
+
+
+@admin.register(Declaration, site=workresidencepermit_admin)
 class DeclarationAdmin(admin.ModelAdmin):
 
     form = DeclarationForm
@@ -13,5 +18,3 @@ class DeclarationAdmin(admin.ModelAdmin):
     )
     search_fields: Tuple[str, ...] = ('declaration_fname', 'declaration_lname', 'signature',)
     list_filter: Tuple[str, ...] = ('declaration_date',)
-
-admin.site.register(Declaration, DeclarationAdmin)

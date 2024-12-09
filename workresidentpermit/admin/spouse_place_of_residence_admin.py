@@ -1,7 +1,11 @@
 from django.contrib import admin
 from typing import Tuple
-from ..models import SpousePlaceOfResidence
+
+from ..admin_site import workresidencepermit_admin
 from ..forms.spouse_place_of_residence_form import SpousePlaceOfResidenceForm
+from ..models import SpousePlaceOfResidence
+
+@admin.register(SpousePlaceOfResidence, site=workresidencepermit_admin)
 class SpousePlaceOfResidenceAdmin(admin.ModelAdmin):
     form = SpousePlaceOfResidenceForm
 
@@ -10,5 +14,3 @@ class SpousePlaceOfResidenceAdmin(admin.ModelAdmin):
         'place_of_residence',
     )
     search_fields: Tuple[str, ...] = ('country', 'place_of_residence',)
-
-admin.site.register(SpousePlaceOfResidence, SpousePlaceOfResidenceAdmin)

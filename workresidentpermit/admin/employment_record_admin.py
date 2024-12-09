@@ -1,7 +1,12 @@
 from django.contrib import admin
 from typing import Tuple
-from ..models import EmploymentRecord
+
+from ..admin_site import workresidencepermit_admin
 from ..forms.employment_record_form import EmploymentRecordForm
+from ..models import EmploymentRecord
+
+
+@admin.register(EmploymentRecord, site=workresidencepermit_admin)
 class EmploymentRecordAdmin(admin.ModelAdmin):
 
     form = EmploymentRecordForm
@@ -13,5 +18,3 @@ class EmploymentRecordAdmin(admin.ModelAdmin):
     )
     search_fields = ('employer', 'occupation', 'names_of_trainees',)
     list_filter = ('duration',)
-
-admin.site.register(EmploymentRecord, EmploymentRecordAdmin)

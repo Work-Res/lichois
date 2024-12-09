@@ -1,7 +1,13 @@
 from django.contrib import admin
+from typing import Tuple
+
 from ..models import ResidencePermit
 from ..forms.residence_only_permit_form import ResidencePermitForm
-from typing import Tuple
+from ..admin_site import workresidencepermit_admin
+
+
+
+@admin.register(ResidencePermit, site=workresidencepermit_admin)
 class ResidencePermitAdmin(admin.ModelAdmin):
     form = ResidencePermitForm
     list_display: Tuple[str, ...] = (
@@ -29,5 +35,3 @@ class ResidencePermitAdmin(admin.ModelAdmin):
         if obj:
             return self.readonly_fields + ('document_number',)
         return self.readonly_fields
-
-admin.site.register(ResidencePermit, ResidencePermitAdmin)
