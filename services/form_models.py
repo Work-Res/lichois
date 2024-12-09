@@ -32,6 +32,19 @@ new_application = [
     ApplicationContact,
 ]
 
+work_permit = [
+    WorkPermit
+]
+
+res_permit = [
+    ResidencePermit
+]
+
+work_res_permit = [
+    WorkPermit,
+    ResidencePermit
+]
+
 variation = [
     VariationPermit
 ]
