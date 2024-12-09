@@ -1,5 +1,5 @@
 from .permit_cancellation_reason_admin import PermitCancellationReasonAdmin
-
+from .permit_cancellation_admin import PermitCancellationAdmin
 from .work_permit_admin import WorkPermitAdmin
 from .res_permit_admin import ResidencePermitAdmin
 from .emergency_permit_admin import EmergencyPermitAdmin
