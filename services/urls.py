@@ -21,6 +21,7 @@ from services.service_views.work_res.appeals_view import WorkResidentAppealsDash
 from services.service_views import ProfileView
 from services.service_views.emergency_permit import EmergencyPermitDashboardView
 from services.service_views.blue_card import BlueCardDashboardView
+from services.service_views.travel_certificate import TravelCertificateDashboardView
 
 urlpatterns = [
 
@@ -118,6 +119,11 @@ urlpatterns = [
 
     path('blue_card_dashboard', BlueCardDashboardView.as_view(),
          name='blue_card_dashboard'),
+
+     # Travel Certificate Applications
+
+    path('travel_certificate_dashboard', TravelCertificateDashboardView.as_view(),
+         name='travel_certificate_dashboard'),
 
         
     # ---------------------Project
