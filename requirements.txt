@@ -48,4 +48,3 @@ django-sass-processor
 django-widget-tweaks
 django-two-factor-auth
 phonenumbers
-git+https://github.com/Work-Res/lichois-form-validators.git
