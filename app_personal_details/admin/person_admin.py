@@ -7,7 +7,7 @@ class PersonAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
-                'first_name', 'last_name',
+                'last_name', 'first_name',
                 'middle_name', 'maiden_name',
                 'marital_status', 'dob', 'gender',
                 'occupation', 'qualification', 'person_type',
