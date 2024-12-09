@@ -11,3 +11,4 @@ from .exemption_certificate_form import ExemptionCertificateForm
 from .employment_record_form import EmploymentRecordForm
 from .emergency_permit_form import EmergencyPermitForm
 from .dependant_form import DependantForm
+from .work_resident_cancellation_permit_form import WorkResPermitCancellationForm
