@@ -3,6 +3,8 @@ from .views import PersonCreateListView, PassportCreateListView, EducationViewSe
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
+from .admin_site import personal_details_admin
+
 router = DefaultRouter()
 router.register(r'education', EducationViewSet)
 router.register(r'permits', PermitCreateListView, basename='permits')
@@ -10,6 +12,7 @@ router.register(r'personal_details/person', PersonCreateListView, basename="pers
 
 
 urlpatterns = [
+    path('personal_details/', personal_details_admin.urls),
     path('personal_details/passport/<str:document_number>', PassportCreateListView.as_view(), name='create-passport'),
     # path('personal_details/person/<str:document_number>', PersonCreateListView.as_view(), name='create-person'),
     path('', include(router.urls)),
@@ -17,3 +20,5 @@ urlpatterns = [
     # path('personal_details/<str:created_date>', ApplicationListView.as_view(), name='application-list'),
     # path('personal_details/detail/<str:document_number>/', ApplicationDetailView.as_view(), name='application-detail'),
 ]
+
+

@@ -1,0 +1,1 @@
+from .blue_card_applications_view import BlueCardDashboardView

@@ -68,6 +68,7 @@ CERTIFICATE_STATUS = (
     ("lost", "Lost"),
     ("stolen", "Stolen"),
     ("damaged", "Damaged"),
+    ("soiled", "Soiled"),
 )
 
 APPEAL_TYPE = (

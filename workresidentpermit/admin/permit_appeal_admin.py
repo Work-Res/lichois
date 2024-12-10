@@ -1,9 +1,16 @@
 from django.contrib import admin
 from typing import Tuple
+
+from base_module.admin_mixins import (
+    BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
+
 from ..models import PermitAppeal
 from ..forms.work_resident_permit_appeal_form import WorkResPermitAppealForm
+from ..admin_site import workresidencepermit_admin
 
-class PermitAppealAdmin(admin.ModelAdmin):
+
+@admin.register(PermitAppeal, site=workresidencepermit_admin)
+class PermitAppealAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
 
 
     form = WorkResPermitAppealForm
@@ -14,5 +21,3 @@ class PermitAppealAdmin(admin.ModelAdmin):
     )
     search_fields: Tuple[str, ...] = ('reason_for_appeal', 'appeal_type')
     list_filter: Tuple[str, ...] = ('appeal_type', 'appeal_date')
-
-admin.site.register(PermitAppeal, PermitAppealAdmin)

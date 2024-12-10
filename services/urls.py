@@ -19,7 +19,15 @@ from services.service_views.residence_permit import ResidencePermitRenewalView
 from services.service_views.residence_permit import ResidencePermitReplacementView
 from services.service_views.residence_permit import ResidencePermitCancellationView
 from services.service_views.residence_permit import ResidencePermitVariationView
+from services.service_views.work_res.appeals_view import WorkResidentAppealsDashboardView
 from services.service_views import ProfileView
+from services.service_views.emergency_permit import EmergencyPermitDashboardView
+from services.service_views.blue_card import BlueCardDashboardView
+from services.service_views.travel_certificate import TravelCertificateDashboardView
+from services.service_views.visa import VisaPermitDashboardView
+from services.service_views.excemption import ExemptionCertificateDashboardView
+
+from .admin_site import services_admin
 
 urlpatterns = [
 
@@ -28,6 +36,7 @@ urlpatterns = [
     # Admin urls
 
     path('admin/', admin.site.urls),
+    path('services/', services_admin.urls),
 
     # #-----------------------Dashboards
 
@@ -68,6 +77,9 @@ urlpatterns = [
 
     path('workresidentpermit/replacement/', WorkResidentPermitReplacementView.as_view(),
          name="work_res_permit_replacement_dashboard"),
+
+    path('workresidentpermit/appeal/', WorkResidentAppealsDashboardView.as_view(),
+         name="work_res_permit_appeal_dashboard"),
 
     # Payments
     path('payments/', PaymentsView.as_view(),
@@ -117,6 +129,35 @@ urlpatterns = [
 
     path('res_permit/replacement/', ResidencePermitReplacementView.as_view(),
          name="res_permit_replacement_dashboard"),
+
+
+
+    # Emergency permit Applications
+
+    path('emergency_permit_dashboard', EmergencyPermitDashboardView.as_view(),
+         name='emergency_permit_dashboard'),
+
+    # Blue Card Applications
+
+    path('blue_card_dashboard', BlueCardDashboardView.as_view(),
+         name='blue_card_dashboard'),
+
+     # Travel Certificate Applications
+
+    path('travel_certificate_dashboard', TravelCertificateDashboardView.as_view(),
+         name='travel_certificate_dashboard'),
+
+     # Visa Permit Applications
+
+    path('visa_permit_dashboard', VisaPermitDashboardView.as_view(),
+         name='visa_permit_dashboard'),
+
+     # Visa Permit Applications
+
+    path('exemption_certificate_dashboard', ExemptionCertificateDashboardView.as_view(),
+         name='exemption_certificate_dashboard'),
+
+
 
 
     # ---------------------Project

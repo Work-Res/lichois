@@ -2,6 +2,7 @@ from .workres_variation_permit_form import WorkResVariationPermitForm
 from .work_resident_replacement_permit_form import WorkResReplacementPermitForm
 from .work_resident_permit_appeal_form import WorkResPermitAppealForm
 from .work_resident_cancellation_permit_form import WorkResCancellationPermitForm
+from .cancellation_reason_form import WorkResPermitCancellationReasonForm
 from .work_only_permit_form import WorkPermitForm
 from .residence_only_permit_form import ResidencePermitForm
 from .place_of_residence_form import PlaceOfResidenceForm
@@ -10,3 +11,4 @@ from .exemption_certificate_form import ExemptionCertificateForm
 from .employment_record_form import EmploymentRecordForm
 from .emergency_permit_form import EmergencyPermitForm
 from .dependant_form import DependantForm
+from .work_resident_cancellation_permit_form import WorkResPermitCancellationForm

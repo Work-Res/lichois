@@ -1,11 +1,6 @@
 from django.views.generic import TemplateView
 
-from app_address.models import ApplicationAddress
-from app_contact.models import ApplicationContact
-from app_personal_details.models import (
-    Person, Passport, Education, ParentalDetails,
-    NextOfKin, Spouse, Child)
-
+from services.form_models import cancellation
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
@@ -15,10 +10,10 @@ class ResidencePermitCancellationView(TemplateView, ServiceApplicationViewMixin)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        model_cls_list = [Person]  # This could come from a config file
+        model_cls_list = cancellation  # This could come from a config file
 
         context.update(
-            application_number=self.application_number(),
+            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
             application_forms=self.application_forms(

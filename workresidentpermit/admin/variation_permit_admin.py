@@ -2,11 +2,16 @@ from django.contrib import admin
 
 from typing import Tuple
 
-from ..forms.workres_variation_permit_form import WorkResVariationPermitForm
+from base_module.admin_mixins import (
+    BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
 
+from ..admin_site import workresidencepermit_admin
+from ..forms.workres_variation_permit_form import WorkResVariationPermitForm
 from ..models import VariationPermit
 
-class VariationPermitAdmin(admin.ModelAdmin):
+
+@admin.register(VariationPermit, site=workresidencepermit_admin)
+class VariationPermitAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = WorkResVariationPermitForm
 
@@ -38,6 +43,3 @@ class VariationPermitAdmin(admin.ModelAdmin):
         if obj:
             return self.readonly_fields + ('existing_permit',)
         return self.readonly_fields
-
-
-admin.site.register(VariationPermit, VariationPermitAdmin)

@@ -1,0 +1,1 @@
+from .visa_permit_appliacations_view import VisaPermitDashboardView

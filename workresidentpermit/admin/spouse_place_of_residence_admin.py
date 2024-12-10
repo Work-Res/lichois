@@ -1,8 +1,16 @@
 from django.contrib import admin
 from typing import Tuple
-from ..models import SpousePlaceOfResidence
+
+from base_module.admin_mixins import (
+    BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
+
+from ..admin_site import workresidencepermit_admin
 from ..forms.spouse_place_of_residence_form import SpousePlaceOfResidenceForm
-class SpousePlaceOfResidenceAdmin(admin.ModelAdmin):
+from ..models import SpousePlaceOfResidence
+
+
+@admin.register(SpousePlaceOfResidence, site=workresidencepermit_admin)
+class SpousePlaceOfResidenceAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
     form = SpousePlaceOfResidenceForm
 
     list_display: Tuple[str, ...] = (
@@ -10,5 +18,3 @@ class SpousePlaceOfResidenceAdmin(admin.ModelAdmin):
         'place_of_residence',
     )
     search_fields: Tuple[str, ...] = ('country', 'place_of_residence',)
-
-admin.site.register(SpousePlaceOfResidence, SpousePlaceOfResidenceAdmin)

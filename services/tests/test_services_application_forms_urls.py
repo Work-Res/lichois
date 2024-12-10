@@ -6,7 +6,7 @@ from ..classes import AdminURLGenerator, ServicesApplicationFormsUrls
 
 class ServicesApplicationFormsUrlsTest(TestCase):
     def setUp(self):
-        self.application_number = '12345'
+        self.document_number = '12345'
         self.next_url = 'some-next-url'
         self.mock_model = MagicMock()
         self.mock_model.__name__ = 'MockModel'
@@ -26,7 +26,7 @@ class ServicesApplicationFormsUrlsTest(TestCase):
 
         # Initialize the class
         service_urls = ServicesApplicationFormsUrls(
-            application_number=self.application_number,
+            document_number=self.document_number,
             application_models_cls=[self.mock_model],
             next_url=self.next_url
         )
@@ -35,7 +35,7 @@ class ServicesApplicationFormsUrlsTest(TestCase):
         # Assertions
         self.mock_model.objects.get.assert_called_once_with(document_number=self.application_number)
         self.mock_admin_url_generator.return_value.get_change_url.assert_called_once_with(
-            self.application_number, next_url=reverse(self.next_url)
+            self.document_number, next_url=reverse(self.next_url)
         )
         self.assertEqual(urls['MockModel'], [mock_change_url, mock_instance])
 
@@ -49,7 +49,7 @@ class ServicesApplicationFormsUrlsTest(TestCase):
 
         # Initialize the class
         service_urls = ServicesApplicationFormsUrls(
-            application_number=self.application_number,
+            document_number=self.document_number,
             application_models_cls=[self.mock_model],
             next_url=self.next_url
         )
@@ -65,7 +65,7 @@ class ServicesApplicationFormsUrlsTest(TestCase):
     def test_application_urls_no_models(self):
         # Initialize the class with no models
         service_urls = ServicesApplicationFormsUrls(
-            application_number=self.application_number,
+            document_number=self.document_number,
             application_models_cls=[],
             next_url=self.next_url
         )
@@ -85,7 +85,7 @@ class ServicesApplicationFormsUrlsTest(TestCase):
 
         # Initialize the class without next_url
         service_urls = ServicesApplicationFormsUrls(
-            application_number=self.application_number,
+            document_number=self.document_number,
             application_models_cls=[self.mock_model],
             next_url=None
         )
@@ -94,6 +94,6 @@ class ServicesApplicationFormsUrlsTest(TestCase):
         # Assertions
         self.mock_model.objects.get.assert_called_once_with(document_number=self.application_number)
         self.mock_admin_url_generator.return_value.get_change_url.assert_called_once_with(
-            self.application_number, next_url=None
+            self.document_number, next_url=None
         )
         self.assertEqual(urls['MockModel'], [mock_change_url, mock_instance])

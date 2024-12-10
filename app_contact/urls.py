@@ -19,12 +19,15 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from app_contact.views import ApplicationContactViewSet
+from .admin_site import contact_admin
 
 
 router = DefaultRouter()
 router.register(r'contacts', ApplicationContactViewSet)
 
 urlpatterns = [
+    
+    path("contact/", contact_admin.urls),
     path('', include(router.urls)),
     path('contacts/<int:document_number>/update_contact/<str:pk>/',
          ApplicationContactViewSet.as_view({'put': 'update_contact'}), name='update-contact'), # Fixme Not working, (ERROR not found)

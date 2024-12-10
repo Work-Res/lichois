@@ -19,6 +19,8 @@ from .views import (
     VariationPermitViewSet,
 )
 
+from .admin_site import workresidencepermit_admin
+
 router = DefaultRouter()
 router.register(r"spouse", SpouseCreateListView, basename="spouse")
 router.register(r"child", ChildCreateListView, basename="child")
@@ -41,6 +43,9 @@ router.register(r"variation-permit", VariationPermitViewSet)
 
 
 urlpatterns = [
+    
+    path('workresidencepermit/', workresidencepermit_admin.urls),
+    
     path(
         "spouse/<str:document_number>/<str:pk>",
         SpouseCreateListView.as_view({"get": "list"}),

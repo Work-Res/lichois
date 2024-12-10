@@ -43,7 +43,7 @@ router.register(r"voting-process", VotingProcessViewSet, basename="voting-proces
 
 
 urlpatterns = [
-    path("admin/", board_admin.urls),
+    path("board/", board_admin.urls),
     path(
         "application-batches/create",
         ApplicationBatchCreateView.as_view(),

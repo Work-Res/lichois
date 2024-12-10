@@ -1,9 +1,16 @@
 from django.contrib import admin
-
-from ..models import EmergencyPermit
 from typing import Tuple
+
+from base_module.admin_mixins import (
+    BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
+
+from ..admin_site import workresidencepermit_admin
 from ..forms.emergency_permit_form import EmergencyPermitForm
-class EmergencyPermitAdmin(admin.ModelAdmin):
+from ..models import EmergencyPermit
+
+
+@admin.register(EmergencyPermit, site=workresidencepermit_admin)
+class EmergencyPermitAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = EmergencyPermitForm
     list_display: Tuple[str, ...] = (
@@ -17,4 +24,3 @@ class EmergencyPermitAdmin(admin.ModelAdmin):
     search_fields: Tuple[str, ...] = ('nature_emergency', 'job_requirements', 'services_provided')
     list_filter:Tuple[str, ...]= ('emergency_period',)
 
-admin.site.register(EmergencyPermit, EmergencyPermitAdmin)

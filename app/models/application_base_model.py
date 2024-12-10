@@ -14,7 +14,9 @@ class ApplicationBaseModel(NonUniqueNonCitizenIdentifierFieldMixin, BaseUuidMode
     an INT for the primary key.
     """
 
-    document_number = models.CharField(max_length=100, null=True, blank=True)
+    document_number = models.CharField(
+        verbose_name='Application Number',
+        max_length=100, null=True, blank=True)
     application_version = models.ForeignKey(
         ApplicationVersion, on_delete=models.CASCADE, null=True, blank=True
     )

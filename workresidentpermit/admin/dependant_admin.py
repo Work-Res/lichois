@@ -1,10 +1,16 @@
 from django.contrib import admin
 from typing import Tuple
-from ..models import Dependant
+
+from base_module.admin_mixins import (
+    BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
+
+from ..admin_site import workresidencepermit_admin
 from ..forms.dependant_form import DependantForm
+from ..models import Dependant
 
 
-class DependantAdmin(admin.ModelAdmin):
+@admin.register(Dependant, site=workresidencepermit_admin)
+class DependantAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = DependantForm
     list_display: Tuple[str, ...] = (
@@ -14,5 +20,3 @@ class DependantAdmin(admin.ModelAdmin):
     )
     search_fields: Tuple[str, ...] = ('name', 'gender')
     list_filter: Tuple[str, ...] = ('gender', 'age')
-
-admin.site.register(Dependant, DependantAdmin)
