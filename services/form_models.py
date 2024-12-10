@@ -97,7 +97,6 @@ variation = [
 
 cancellation = [
     [PermitCancellation, workresidencepermit_admin],
-    [PermitCancellationReason, workresidencepermit_admin]
 ]
 
 appeal = [
