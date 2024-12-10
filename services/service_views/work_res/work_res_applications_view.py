@@ -19,7 +19,9 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
             create_new_application=self.create_new_application,
             application_forms=self.application_forms(
                 model_cls_list=model_cls_list,
-                next_url=next_url)
+                next_url=next_url),
+            non_citizen_identifier=self.non_citizen_identifier,
+            personal_details=self.personal_details
         )
         return context
 
