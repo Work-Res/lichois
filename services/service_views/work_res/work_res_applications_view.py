@@ -7,7 +7,7 @@ from app_personal_details.models import (
     NextOfKin, Spouse, Child)
 from services.form_models import work_res_permit
 from ..service_application_view_mixin import ServiceApplicationViewMixin
-
+from app_personal_details.admin_site import personal_details_admin
 
 class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
@@ -24,8 +24,6 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
             application_forms=self.application_forms(
                 model_cls_list=model_cls_list)
         )
-
-        print(dir(self.request.user), '##############$$$$$$$$$$$@@@@@@@@@@@')
         return context
 
     def permits(self):

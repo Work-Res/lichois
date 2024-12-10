@@ -1,9 +1,12 @@
 from django.contrib import admin
 from typing import Tuple
-from ..models import TravelCertificate
+
+from ..admin_site import travel_certificate_admin
 from ..forms.travel_certificate_form import TravelCertificateForm
+from ..models import TravelCertificate
 
 
+@admin.register(TravelCertificate, site=travel_certificate_admin)
 class TravelCertificateAdmin(admin.ModelAdmin):
 
     form = TravelCertificateForm
@@ -23,4 +26,3 @@ class TravelCertificateAdmin(admin.ModelAdmin):
             'issuing_authority',
         )
 
-admin.site.register(TravelCertificate, TravelCertificateAdmin)

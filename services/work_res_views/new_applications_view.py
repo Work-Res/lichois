@@ -5,14 +5,13 @@ from app_personal_details.models import (
 from app_address.models import ApplicationAddress, Country
 from app_contact.models import ApplicationContact
 
+from app_personal_details.admin_site import personal_details_admin
+
 class NewWorkResApplicationsView(BaseView):
 
     def get_specific_context(self):
         model_cls_list = [
-            Person, ApplicationAddress,
-            ApplicationContact, Passport, Education,
-            ParentalDetails, Spouse,
-            Child]  # This could come from a config file
+            [Person, personal_details_admin.name]]  # This could come from a config file
         
         context = {}
         context["permit_name"] = "Work & Residence Permit"

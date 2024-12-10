@@ -5,6 +5,7 @@ from ..admin_site import workresidencepermit_admin
 from ..forms.spouse_place_of_residence_form import SpousePlaceOfResidenceForm
 from ..models import SpousePlaceOfResidence
 
+
 @admin.register(SpousePlaceOfResidence, site=workresidencepermit_admin)
 class SpousePlaceOfResidenceAdmin(admin.ModelAdmin):
     form = SpousePlaceOfResidenceForm

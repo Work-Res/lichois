@@ -25,7 +25,7 @@ router = DefaultRouter()
 router.register(r'comments', CommentViewSet)
 
 urlpatterns = [
-    path('admin/', comment_admin.urls),
+    path('comments/', comment_admin.urls),
     path('', RedirectView.as_view(url='admin/'), name='home_url'),
     path('', include(router.urls)),
 ]

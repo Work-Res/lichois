@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from ..admin_site import visa_admin
 from ..forms import VisaApplicationForm
 from ..models import VisaApplication

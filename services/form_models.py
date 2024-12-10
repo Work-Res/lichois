@@ -24,39 +24,54 @@ from workresidentpermit.models import (
     VariationPermit
 )
 
+from app_address.admin_site import address_admin
+from app_comments.admin_site import comment_admin
+from app_contact.admin_site import contact_admin
+from app_personal_details.admin_site import personal_details_admin
+from authentication.admin_site import authentication_admin
+from blue_card.admin_site import blue_card_admin
+from board.admin_site import board_admin
+from citizenship.admin_site import citizenship_admin
+from non_citizen_profile.admin_site import non_citizen_profile_admin
+from permanent_residence.admin_site import permanent_residence_admin
+from travel.admin_site import travel_certificate_admin
+from visa.admin_site import visa_admin
+from workflow.admin_site import workflow_admin
+from workresidentpermit.admin_site import workresidencepermit_admin
+
 new_application = [
-    Person,
-    Spouse,
-    Child,
-    ParentalDetails,
-    Education,
-    Passport,
-    ApplicationAddress,
-    ApplicationContact,
+    [Person, personal_details_admin],
+    [Spouse, personal_details_admin],
+    [Child, personal_details_admin],
+    [ParentalDetails, personal_details_admin],
+    [Education, personal_details_admin],
+    [Passport, personal_details_admin],
+    [ApplicationAddress, address_admin],
+    [ApplicationContact, contact_admin]
 ]
 
 work_permit = [
-    WorkPermit
+    [WorkPermit, workresidencepermit_admin]
 ]
 
 res_permit = [
-    ResidencePermit
+    [ResidencePermit, workresidencepermit_admin]
 ]
 
 work_res_permit = [
-    Person,
-    Spouse,
-    Child,
-    Education,
-    Passport,
-    ApplicationAddress,
-    ApplicationContact,
-    WorkPermit,
-    ResidencePermit
+    [Person, personal_details_admin],
+    [Spouse, personal_details_admin],
+    [Child, personal_details_admin],
+    [Education, personal_details_admin],
+    [Passport, personal_details_admin],
+    [ApplicationAddress, address_admin],
+    [ApplicationContact, contact_admin],
+    [WorkPermit, workresidencepermit_admin],
+    [ResidencePermit, workresidencepermit_admin]
 ]
 
 emergency_permit = [
-    EmergencyPermit
+    [EmergencyPermit, workresidencepermit_admin]
 ]
 
 travel_certificate = [
@@ -64,33 +79,33 @@ travel_certificate = [
 ]
 
 exemption_certificate = [
-    ExemptionCertificate
+    [ExemptionCertificate, workresidencepermit_admin]
 ]
 
 visa = [
-    VisaApplication,
-    VisaReference
+    [VisaApplication, visa_admin],
+    [VisaReference, visa_admin]
 ]
 
 blue_card = [
-    BlueCard
+    [BlueCard, blue_card_admin]
 ]
 
 variation = [
-    VariationPermit
+    [VariationPermit, workresidencepermit_admin]
 ]
 
 cancellation = [
-    PermitCancellation,
-    PermitCancellationReason
+    [PermitCancellation, workresidencepermit_admin],
+    [PermitCancellationReason, workresidencepermit_admin]
 ]
 
 appeal = [
-    PermitAppeal
+    [PermitAppeal, workresidencepermit_admin]
 ]
 
 replacement = [
-    PermitReplacement
+    [PermitReplacement, workresidencepermit_admin]
 ]
 
 renewal = new_application[:]
