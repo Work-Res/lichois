@@ -49,13 +49,6 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
         null=True,
     )
 
-    person_type = models.CharField(
-        max_length=150,
-        choices=PERSON_TYPE,
-        default="applicant",
-    )
-
-    deceased = models.BooleanField(default=False)
 
     def full_name(self):
         return f"{self.first_name} {self.middle_name} {self.last_name}"

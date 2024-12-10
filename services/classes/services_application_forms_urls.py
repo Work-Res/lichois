@@ -22,7 +22,7 @@ class ServicesApplicationFormsUrls:
         for item in self.application_models_cls:
             model_cls = item[0]
             admin_site_name = item[1].name
-            urls[model_cls.__name__] = self.get_url_for_model(
+            urls[model_cls._meta.verbose_name] = self.get_url_for_model(
                 model_cls=model_cls, admin_site_name=admin_site_name, next_url=next_url_reversed)
         return urls
 

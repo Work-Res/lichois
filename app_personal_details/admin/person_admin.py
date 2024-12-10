@@ -12,16 +12,12 @@ class PersonAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.Mode
     """
     Admin interface for managing Person records in MLHA Services.
     """
-    enable_nav_sidebar = False
-    site_header = "MLHA Services Forms"
-    site_title = "Customer Portal"
-    index_title = "Welcome to MLHA Services"
 
     # Display options
     list_display = [
         'first_name', 'last_name', 'other_names', 'maiden_name',
         'marital_status', 'dob', 'gender', 'occupation',
-        'qualification', 'person_type', 'deceased',
+        'qualification',
     ]
     search_fields = ['first_name', 'last_name']
 
@@ -36,7 +32,7 @@ class PersonAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.Mode
         }),
         ("Professional Details", {
             "fields": (
-                'occupation', 'qualification', 'person_type', 'deceased',
+                'occupation', 'qualification',
             ),
         }),
         audit_fieldset_tuple
