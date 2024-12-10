@@ -30,7 +30,9 @@ class ServicesApplicationFormsUrls:
         """Helper method to get the URL and object for a specific model."""
         try:
             # Attempt to retrieve the object by document_number
-            obj = model_cls.objects.get(document_number=self.document_number)
+            obj = model_cls.objects.get(
+                document_number=self.document_number,
+                non_citizen_identifier=self.non_citizen_identifier)
             # Object exists; generate change URL
             change_url = AdminURLGenerator(
                 model_cls, admin_site_name=admin_site_name).get_change_url(
