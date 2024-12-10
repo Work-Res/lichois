@@ -2,6 +2,8 @@ import logging
 import uuid
 from datetime import date
 from django.db import transaction
+
+from app.models import Application
 from app_checklist.models import SystemParameterPayment
 from app_payments.models import Payment
 from app_payments.validator import PaymentValidator
@@ -43,6 +45,8 @@ class PaymentService:
                 self.logger.warning(f"No payment fee required for document number: {document_number}")
                 return None, False
 
+            application = self._get_application(document_number=document_number)
+
             # Mandatory fields
             mandatory_fields = {
                 'transaction_uuid': kwargs.get('transaction_uuid', uuid.uuid4().hex),
@@ -50,6 +54,8 @@ class PaymentService:
                 'status': kwargs.get('status', Payment.STATUS_PENDING),
                 'description': kwargs.get('description', ''),
                 'address': kwargs.get('address', ''),
+                'full_name': application.full_name,
+                'application_type': application.application_type
             }
 
             # Combine mandatory fields with provided kwargs
@@ -116,3 +122,12 @@ class PaymentService:
         except Exception as e:
             self.logger.error(f"Transaction failed in create method for document number {document_number}: {e}")
             raise
+
+    def _get_application(self, document_number):
+        try:
+            return Application.objects.get(
+                application_document__document_number=document_number
+            )
+        except Application.DoesNotExist:
+            return None
+

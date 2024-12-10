@@ -19,6 +19,10 @@ class Payment(ApplicationBaseModel):
         (STATUS_PENDING, 'Pending'),
     ]
 
+    full_name = models.CharField(max_length=255, null=True, blank=True)
+
+    application_type = models.CharField(max_length=255, null=True, blank=True)
+
     tenant_id = models.CharField(max_length=255, null=True, blank=True, default="Cybersource")
 
     transaction_id = models.CharField(max_length=255, null=True, blank=True)
