@@ -10,7 +10,7 @@ class BaseView(TemplateView, ServiceApplicationViewMixin, ABC):
         context = super().get_context_data(**kwargs)
         context.update(
             self.get_specific_context(),
-            application_number=self.application_number(),
+            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
             application_forms=self.application_forms(self.get_models_cls_list())

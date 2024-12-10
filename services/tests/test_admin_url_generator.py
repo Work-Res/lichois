@@ -11,7 +11,7 @@ class AdminURLGeneratorTests(TestCase):
     def setUpTestData(cls):
         # Create a test object
         cls.test_object = TestModel.objects.create(
-            application_number='APP001',
+            document_number='APP001',
             non_citizen_identifier='NCID001',
         )
         cls.generator_default = AdminURLGenerator(TestModel)  # Default admin site
@@ -23,7 +23,7 @@ class AdminURLGeneratorTests(TestCase):
         self.assertEqual(url, expected_url)
 
     def test_get_change_url_services_admin_with_application_number(self):
-        url = self.generator_custom.get_change_url(application_number='APP001')
+        url = self.generator_custom.get_change_url(document_number='APP001')
         expected_url = reverse('services_admin:services_testmodel_change', args=[self.test_object.pk])
         self.assertEqual(url, expected_url)
 
@@ -34,7 +34,7 @@ class AdminURLGeneratorTests(TestCase):
 
     def test_get_change_url_raises_error_for_invalid_application_number(self):
         with self.assertRaises(Http404):
-            self.generator_default.get_change_url(application_number='INVALID')
+            self.generator_default.get_change_url(document_number='INVALID')
 
     def test_get_change_url_raises_error_for_invalid_non_citizen_identifier(self):
         with self.assertRaises(Http404):

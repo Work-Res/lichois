@@ -1,28 +1,41 @@
 from django.contrib import admin
+
+from base_module.admin_mixins import BaseUrlModelAdminMixin
+
+from ..admin_site import personal_details_admin
 from ..models import Person
 
 
-from ..admin_site import personal_details_admin
-
-
 @admin.register(Person, site=personal_details_admin)
-class PersonAdmin(admin.ModelAdmin):
-    
+class PersonAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
+    """
+    Admin interface for managing Person records in MLHA Services.
+    """
     enable_nav_sidebar = False
     site_header = "MLHA Services Forms"
     site_title = "Customer Portal"
     index_title = "Welcome to MLHA Services"
-    
-    list_display = ['first_name', 'last_name', 'other_names', 'maiden_name', 'marital_status', 'dob', 'gender', 'occupation', 'qualification', 'person_type', 'deceased']
+
+    # Display options
+    list_display = [
+        'first_name', 'last_name', 'other_names', 'maiden_name',
+        'marital_status', 'dob', 'gender', 'occupation',
+        'qualification', 'person_type', 'deceased',
+    ]
     search_fields = ['first_name', 'last_name']
+
+    # Fieldsets for grouping fields in the admin form
     fieldsets = (
-        (None, {
+        ("Personal Details", {
             "fields": (
-                'last_name', 'first_name',
-                'other_names', 'maiden_name',
+                'non_citizen_identifier', 'document_number',
+                'last_name', 'first_name', 'other_names', 'maiden_name',
                 'marital_status', 'dob', 'gender',
-                'occupation', 'qualification', 'person_type',
-                'deceased'
+            ),
+        }),
+        ("Professional Details", {
+            "fields": (
+                'occupation', 'qualification', 'person_type', 'deceased',
             ),
         }),
     )

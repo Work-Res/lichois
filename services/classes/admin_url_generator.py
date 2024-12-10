@@ -24,18 +24,18 @@ class AdminURLGenerator:
             query_params['non_citizen_identifier'] = non_citizen_identifier
         return self.add_query_params(url, query_params)
 
-    def get_change_url(self, application_number=None, non_citizen_identifier=None, **query_params):
+    def get_change_url(self, document_number=None, non_citizen_identifier=None, **query_params):
         """
         Generate the admin URL for changing an existing object.
-        The object can be identified by application_number or non_citizen_identifier.
+        The object can be identified by document_number or non_citizen_identifier.
         """
         try:
-            if application_number:
-                obj = self.model.objects.get(application_number=application_number)
+            if document_number:
+                obj = self.model.objects.get(document_number=document_number)
             elif non_citizen_identifier:
                 obj = self.model.objects.get(non_citizen_identifier=non_citizen_identifier)
             else:
-                raise ValueError("Either application_number or non_citizen_identifier must be provided.")
+                raise ValueError("Either document_number or non_citizen_identifier must be provided.")
         except self.model.DoesNotExist:
             raise Http404(f"No {self.model_name} found with the provided identifier.")
 

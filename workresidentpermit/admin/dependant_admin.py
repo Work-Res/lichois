@@ -1,13 +1,15 @@
 from django.contrib import admin
 from typing import Tuple
 
+from base_module.admin_mixins import BaseUrlModelAdminMixin
+
 from ..admin_site import workresidencepermit_admin
 from ..forms.dependant_form import DependantForm
 from ..models import Dependant
 
 
 @admin.register(Dependant, site=workresidencepermit_admin)
-class DependantAdmin(admin.ModelAdmin):
+class DependantAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = DependantForm
     list_display: Tuple[str, ...] = (

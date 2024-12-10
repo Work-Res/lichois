@@ -1,12 +1,15 @@
 from django.contrib import admin
 from typing import Tuple
+
+from base_module.admin_mixins import BaseUrlModelAdminMixin
+
 from ..models import PermitReplacement
 from ..forms.work_resident_replacement_permit_form import WorkResReplacementPermitForm
 from ..admin_site import workresidencepermit_admin
 
 
 @admin.register(PermitReplacement, site=workresidencepermit_admin)
-class PermitReplacementAdmin(admin.ModelAdmin):
+class PermitReplacementAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = WorkResReplacementPermitForm
     list_display: Tuple[str, ...] = (

@@ -14,7 +14,7 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
 
         next_url = 'work_res_permit_dashboard'
         context.update(
-            application_number=self.application_number(),
+            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
             application_forms=self.application_forms(

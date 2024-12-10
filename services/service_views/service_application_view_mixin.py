@@ -11,7 +11,7 @@ class ServiceApplicationViewMixin:
         """
     
         forms_urls = ServicesApplicationFormsUrls(
-            application_number=self.application_number(),
+            document_number=self.application_number(),
             non_citizen_identifier=self.non_citizen_identifier(),
             application_models_cls=model_cls_list,
             next_url=next_url).application_urls()
@@ -29,7 +29,7 @@ class ServiceApplicationViewMixin:
     def non_citizen_identifier(self):
         """Returns the applicant's non_citizen_identifier.
         """
-        return 'NC123412'
+        return self.request.user.non_citizen_identifier
 
     def personal_details(self):
         """Returns personal details.

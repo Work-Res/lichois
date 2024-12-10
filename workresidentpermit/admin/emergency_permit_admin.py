@@ -1,13 +1,15 @@
 from django.contrib import admin
 from typing import Tuple
 
+from base_module.admin_mixins import BaseUrlModelAdminMixin
+
 from ..admin_site import workresidencepermit_admin
 from ..forms.emergency_permit_form import EmergencyPermitForm
 from ..models import EmergencyPermit
 
 
 @admin.register(EmergencyPermit, site=workresidencepermit_admin)
-class EmergencyPermitAdmin(admin.ModelAdmin):
+class EmergencyPermitAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = EmergencyPermitForm
     list_display: Tuple[str, ...] = (

@@ -1,10 +1,5 @@
 from django.views.generic import TemplateView
 
-from app_address.models import ApplicationAddress
-from app_contact.models import ApplicationContact
-from app_personal_details.models import (
-    Person, Passport, Education, ParentalDetails,
-    NextOfKin, Spouse, Child)
 from services.form_models import blue_card
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
@@ -18,14 +13,12 @@ class BlueCardDashboardView(TemplateView, ServiceApplicationViewMixin):
         model_cls_list = blue_card  # This could come from a config file
 
         context.update(
-            application_number=self.application_number(),
+            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
             application_forms=self.application_forms(
                 model_cls_list=model_cls_list)
         )
-
-        print(dir(self.request.user), '##############$$$$$$$$$$$@@@@@@@@@@@')
         return context
 
     def permits(self):

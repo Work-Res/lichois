@@ -2,13 +2,15 @@ from django.contrib import admin
 
 from typing import Tuple
 
+from base_module.admin_mixins import BaseUrlModelAdminMixin
+
 from ..admin_site import workresidencepermit_admin
 from ..forms.workres_variation_permit_form import WorkResVariationPermitForm
 from ..models import VariationPermit
 
 
 @admin.register(VariationPermit, site=workresidencepermit_admin)
-class VariationPermitAdmin(admin.ModelAdmin):
+class VariationPermitAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = WorkResVariationPermitForm
 

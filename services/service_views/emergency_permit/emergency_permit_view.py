@@ -11,7 +11,7 @@ class EmergencyPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
         model_cls_list = emergency_permit
 
         context.update(
-            application_number=self.application_number(),
+            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
             application_forms= self.application_forms(model_cls_list=model_cls_list)
