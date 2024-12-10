@@ -2,7 +2,7 @@ from ..classes import ServicesApplicationFormsUrls
 
 
 class ServiceApplicationViewMixin:
-    
+
     def application_forms(self, model_cls_list=None, next_url=None):
         """Returns application forms and urls.
         """
