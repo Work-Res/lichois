@@ -6,14 +6,15 @@ from app_personal_details.models import Person
 class ServiceApplicationViewMixin:
     
 
-    def application_forms(self, model_cls_list=None):
+    def application_forms(self, model_cls_list=None, next_url=None):
         """Returns application forms and urls.
         """
     
         forms_urls = ServicesApplicationFormsUrls(
             application_number=self.application_number(),
             non_citizen_identifier=self.non_citizen_identifier(),
-            application_models_cls=model_cls_list).application_urls()
+            application_models_cls=model_cls_list,
+            next_url=next_url).application_urls()
         return forms_urls
 
     def application_number(self):
