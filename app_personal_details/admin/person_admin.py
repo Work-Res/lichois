@@ -1,13 +1,14 @@
 from django.contrib import admin
 
-from base_module.admin_mixins import BaseUrlModelAdminMixin
+from base_module.admin_mixins import (
+    BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
 
 from ..admin_site import personal_details_admin
 from ..models import Person
 
 
 @admin.register(Person, site=personal_details_admin)
-class PersonAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
+class PersonAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
     """
     Admin interface for managing Person records in MLHA Services.
     """
@@ -38,4 +39,5 @@ class PersonAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
                 'occupation', 'qualification', 'person_type', 'deceased',
             ),
         }),
+        audit_fieldset_tuple
     )

@@ -1,7 +1,8 @@
 from django.contrib import admin
 from typing import Tuple
 
-from base_module.admin_mixins import BaseUrlModelAdminMixin
+from base_module.admin_mixins import (
+    BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
 
 from ..models import ResidencePermit
 from ..forms.residence_only_permit_form import ResidencePermitForm
@@ -10,7 +11,7 @@ from ..admin_site import workresidencepermit_admin
 
 
 @admin.register(ResidencePermit, site=workresidencepermit_admin)
-class ResidencePermitAdmin(BaseUrlModelAdminMixin, admin.ModelAdmin):
+class ResidencePermitAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
     form = ResidencePermitForm
     list_display: Tuple[str, ...] = (
         'document_number',
