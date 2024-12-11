@@ -1,0 +1,50 @@
+{% load static %}
+{% load sass_tags %}
+
+<!-- State saving Starts-->
+<div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+          <h4>Existing Permits</h4><span>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive theme-scrollbar">
+          <table class="display" id="basic-9">
+            <thead class="table-dark">
+                <tr>
+                    <th>Permit Number</th>
+                    <th>Applicant Name</th>
+                    <th>Permit Type</th>
+                    <th>Issue Date</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for permit in permits %}
+                <tr>
+                    <td>{{permit.permit_no}}</td>
+                    <td>{{permit.applicant_name}}</td>
+                    <td>{{permit.permit_type}}</td>
+                    <td>{{permit.date_issued}}</td>
+                    <td>{{permit.date_expiry}}</td>
+                    <td>
+                        {% if permit.expired %}
+                        <span class="badge rounded-pill badge-light-danger">Expired</span>
+                        {% elif permit.status == 'expired' %}
+                        <span class="badge rounded-pill badge-light-primary">Active</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No permits available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- State saving Ends-->
