@@ -79,6 +79,8 @@ travel_certificate = [
 ]
 
 exemption_certificate = [
+    [Person, personal_details_admin],
+
     [ExemptionCertificate, workresidencepermit_admin]
 ]
 
