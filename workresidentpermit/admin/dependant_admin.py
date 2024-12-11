@@ -20,3 +20,14 @@ class DependantAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.M
     )
     search_fields: Tuple[str, ...] = ('name', 'gender')
     list_filter: Tuple[str, ...] = ('gender', 'age')
+
+    fieldsets = (
+    ("Personal Information of Dependants", {
+        "fields": (
+            'name', 'age', 'gender',
+        ),
+         'description': 'Details about the Dependants individual',
+    }),
+     audit_fieldset_tuple
+
+)

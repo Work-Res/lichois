@@ -21,3 +21,10 @@ class EmploymentRecordAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, 
     )
     search_fields = ('employer', 'occupation', 'names_of_trainees',)
     list_filter = ('duration',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('employer', 'occupation', 'duration','names_of_trainees',)
+        }),
+        audit_fieldset_tuple
+    )
