@@ -88,7 +88,6 @@ class CustomBaseCommand(BaseCommand):
                 elements=("diploma", "degree", "masters", "phd")
             ),
             previous_nationality=self.faker.country(),
-            previous_botswana_id_no=self.faker.random_number(digits=9, fix_len=True),
             person_type=person_type,
         )
 
