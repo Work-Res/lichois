@@ -18,6 +18,7 @@ class ExemptionCertificateAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMix
         'employment_capacity',
         'proposed_period',
     )
+    fields_to_display = ('business_name', 'employment_capacity', 'proposed_period')
     search_fields: Tuple[str, ...]= ('business_name', 'employment_capacity',)
     list_filter: Tuple[str, ...]= ('proposed_period',)
     fieldsets = (
