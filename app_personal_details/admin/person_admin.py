@@ -5,7 +5,7 @@ from base_module.admin_mixins import (
 
 from ..admin_site import personal_details_admin
 from ..models import Person
-
+from typing import Tuple
 
 @admin.register(Person, site=personal_details_admin)
 class PersonAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
@@ -14,12 +14,12 @@ class PersonAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.Mode
     """
 
     # Display options
-    list_display = [
+    list_display: Tuple[str, ...] = (
         'first_name', 'last_name', 'other_names', 'maiden_name',
         'marital_status', 'dob', 'gender', 'occupation',
         'qualification',
-    ]
-    search_fields = ['first_name', 'last_name']
+    )
+    search_fields: Tuple[str, ...] = ('first_name', 'last_name')
 
     # Fieldsets for grouping fields in the admin form
     fieldsets = (

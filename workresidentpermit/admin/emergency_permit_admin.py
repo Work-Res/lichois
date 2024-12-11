@@ -24,3 +24,9 @@ class EmergencyPermitAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, a
     search_fields: Tuple[str, ...] = ('nature_emergency', 'job_requirements', 'services_provided')
     list_filter:Tuple[str, ...]= ('emergency_period',)
 
+    fieldsets = (
+        ("Emergency Details", {
+            'fields': ('nature_emergency', 'job_requirements', 'services_provided', 'chief_authorization', 'capacity', 'emergency_period')
+        }),
+        audit_fieldset_tuple
+    )
