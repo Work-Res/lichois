@@ -1,6 +1,10 @@
 from django.views.generic import TemplateView
 
-from services.form_models import work_res_permit
+
+from app.models import Application
+from app.utils import ApplicationProcesses
+
+from ...form_models import work_res_permit
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
@@ -22,14 +26,19 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
             
             document_number=self.application_number(),
             non_citizen_identifier=self.non_citizen_identifier,
-            personal_details=self.personal_details
+            personal_details=self.personal_details,
+            
+            permits=self.permits
         )
         return context
 
+    @property
     def permits(self):
         """Returns a list of all work and res permits.
         """
-        return None
+        applications = Application.objects.filter(
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value)
+        return applications
 
     @property
     def new_application(self):
