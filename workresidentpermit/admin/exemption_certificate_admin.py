@@ -20,8 +20,6 @@ class ExemptionCertificateAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMix
     )
     search_fields: Tuple[str, ...]= ('business_name', 'employment_capacity',)
     list_filter: Tuple[str, ...]= ('proposed_period',)
-
-        # Fieldsets for grouping fields in the admin form
     fieldsets = (
         ("Application Form", {
             "fields": (
