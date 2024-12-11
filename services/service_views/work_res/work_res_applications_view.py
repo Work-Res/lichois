@@ -44,10 +44,11 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
     def permits(self):
         """Returns a list of all work and res permits.
         """
-        permits = Permit.objects.filter(
-            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            application_document__applicant__user_identifier=self.non_citizen_identifier)
-        return permits
+        # permits = Permit.objects.filter(
+        #     process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+        #     application_document__applicant__user_identifier=self.non_citizen_identifier)
+        # return permits
+        return None
 
     @property
     def applications(self):

@@ -25,15 +25,15 @@ class ServiceApplicationViewMixin:
         application_dto = NewApplicationDTO(
             process_name,
             self.non_citizen_identifier,
-            "employee",
             status=ApplicationStatusEnum.NEW.value,
+            applicant_type='employee',
             dob=self.request.user.dob,
             work_place='Gaborone',
             full_name=self.request.user)
         application_service = ApplicationService(new_application_dto=application_dto)
-        application = application_service.create_application()
-                
-        return application.application_document.application_number
+        application, _ = application_service.create_application()
+
+        return application.application_document.document_number
 
     @property
     def non_citizen_identifier(self):
