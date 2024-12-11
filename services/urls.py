@@ -9,7 +9,6 @@ from .service_views.work_res.renewals_view import WorkResidentPermitRenewalView
 from .service_views.work_res.replacement_views import WorkResidentPermitReplacementView
 from .service_views.work_res.cancellation_views import WorkResidentPermitCancellationView
 from .service_views.work_res.variation_views import WorkResidentPermitVariationView
-from services.service_views import WorkPermitDashboardView
 from services.service_views.work_permit import WorkPermitRenewalView
 from services.service_views.work_permit import WorkPermitReplacementView
 from services.service_views.work_permit import WorkPermitCancellationView
@@ -23,7 +22,6 @@ from services.service_views.work_res.appeals_view import WorkResidentAppealsDash
 from services.service_views import ProfileView
 from services.service_views.emergency_permit import EmergencyPermitDashboardView
 from services.service_views.blue_card import BlueCardDashboardView
-from services.service_views.travel_certificate import TravelCertificateDashboardView
 from services.service_views.visa import VisaPermitDashboardView
 from services.service_views.excemption import ExemptionCertificateDashboardView
 
@@ -141,11 +139,6 @@ urlpatterns = [
 
     path('blue_card_dashboard', BlueCardDashboardView.as_view(),
          name='blue_card_dashboard'),
-
-     # Travel Certificate Applications
-
-    path('travel_certificate_dashboard', TravelCertificateDashboardView.as_view(),
-         name='travel_certificate_dashboard'),
 
      # Visa Permit Applications
 
