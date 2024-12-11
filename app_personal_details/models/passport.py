@@ -19,7 +19,10 @@ class Passport(ApplicationBaseModel):
         # validation=date_not_past
     )
 
-    nationality = models.CharField(max_length=190)
+    nationality = models.CharField(
+        max_length=190,
+        verbose_name="Nationality(State name of country)"
+    )
 
     photo = models.URLField()
 
