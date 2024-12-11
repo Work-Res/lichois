@@ -13,20 +13,23 @@ class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
         model_cls_list = work_permit # This could come from a config file
     
         context.update(
-            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
-            application_forms= self.application_forms(model_cls_list=model_cls_list)
+            application_forms= self.application_forms(
+                model_cls_list=model_cls_list),
+            
+            document_number=self.application_number(),
+            non_citizen_identifier=self.non_citizen_identifier,
+            personal_details=self.personal_details
             )
 
         return context
-
 
     def permits(self):
         """Returns a list of all work and res permits.
         """
         return None
-    
+
     @property
     def new_application(self):
         """Return true if a new application is in progress.
@@ -41,4 +44,3 @@ class WorkPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
         if new_app:
             # Generate a new application number
             return '123456'
- 

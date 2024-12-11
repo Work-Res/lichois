@@ -1,5 +1,7 @@
 from django.views.generic import TemplateView
 
+from workresidentpermit.models import WorkPermit, ResidencePermit
+
 from services.form_models import replacement
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
@@ -13,19 +15,36 @@ class WorkResidentPermitReplacementView(TemplateView, ServiceApplicationViewMixi
         model_cls_list = replacement  # This could come from a config file
 
         context.update(
-            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
             application_forms=self.application_forms(
-                model_cls_list=model_cls_list)
+                model_cls_list=model_cls_list),
+            
+            document_number=self.application_number(),
+            non_citizen_identifier=self.non_citizen_identifier,
+            personal_details=self.personal_details,
+            
+            work_permits=self.work_permits,
+            residence_permits=self.residence_permits
         )
 
         return context
 
-    def permits(self):
+    @property
+    def work_permits(self):
         """Returns a list of all work and res permits.
         """
-        return None
+        work_permits = WorkPermit.objects.filter(
+            non_citizen_identifier=self.non_citizen_identifier)
+        return work_permits
+
+    @property
+    def residence_permits(self):
+        """Returns a list of all work and res permits.
+        """
+        residence_permits = ResidencePermit.objects.filter(
+            non_citizen_identifier=self.non_citizen_identifier)
+        return residence_permits
 
     @property
     def new_application(self):

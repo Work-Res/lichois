@@ -1,0 +1,30 @@
+   <form method="post" action="{% url 'payment-request' %}" >
+        {% csrf_token %}
+                <!-- Render all visible fields -->
+        {% for field in form.visible_fields %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <span class="errorlist">
+                        {{ field.errors|join:", " }}
+                    </span>
+                {% endif %}
+            </p>
+        {% endfor %}
+        
+                <!-- Render all hidden fields -->
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+        {% endfor %}
+        
+                <!-- Global form errors (excluding hidden fields) -->
+        {% if form.non_field_errors %}
+            <div class="errorlist">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+         <input type="hidden" name="reference_number" value="{{ payment.reference_number }}" />
+        <button class="btn btn-primary" type="submit">Pay</button>
+   </form>
+   
