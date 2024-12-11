@@ -12,7 +12,7 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
 
     last_name = models.CharField(max_length=190)
 
-    middle_name = models.CharField(max_length=190, blank=True, null=True)
+    other_names = models.CharField(max_length=255, null=True, blank=True)  # Add if missing
 
     maiden_name = models.CharField(max_length=190, blank=True, null=True)
 
@@ -24,6 +24,7 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
     )
 
     dob = models.DateField(
+        verbose_name='Date of Birth',
         blank=True,
         null=True,
         # validations=date_not_future TODO: add validation (more than 18 years only )
@@ -48,13 +49,6 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
         null=True,
     )
 
-    person_type = models.CharField(
-        max_length=150,
-        choices=PERSON_TYPE,
-        default="applicant",
-    )
-
-    deceased = models.BooleanField(default=False)
 
     def full_name(self):
         return f"{self.first_name} {self.middle_name} {self.last_name}"

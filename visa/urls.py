@@ -13,6 +13,6 @@ router.register(
 
 
 urlpatterns = [
-    path("admin/", visa_admin.urls),
+    path("visa/", visa_admin.urls),
     path("", include(router.urls)),
 ]

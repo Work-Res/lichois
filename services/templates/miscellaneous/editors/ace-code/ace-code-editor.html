@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+
+        <div class="page-body">
+          {% include "miscellaneous/editors/ace-code/components/ace-code-editor.html" %}
+        </div>
+
+{% endblock %}        
+
+        
+{% block scriptcontent %}
+    
+    <script src="{% static 'assets/js/editor/ace-editor/ace.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/ace-custom.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/mode-css.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/mode-html.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/mode-javascript.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/mode-php.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/theme-monokai.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/worker-css.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/worker-html.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/worker-javascript.js' %}"></script>
+    <script src="{% static 'assets/js/editor/ace-editor/worker-php.js' %}"></script>
+    <script src="{% static 'assets/js/tooltip-init.js' %}"></script>
+
+{% endblock %}    

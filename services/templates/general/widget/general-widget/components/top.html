@@ -1,0 +1,416 @@
+{% load static %}
+<!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card">
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top daily-revenue-card">
+                  <h4>Total Sells</h4>
+                  <div class="dropdown icon-dropdown">
+                    <button class="btn dropdown-toggle" id="userdropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pb-0 total-sells">
+                <div class="d-flex align-items-center gap-3"> 
+                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-3/icon/coin1.png' %}" alt="icon"></div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2"> 
+                      <h2>$ 12,463</h2>
+                      <div class="d-flex total-icon">
+                        <p class="mb-0 up-arrow bg-light-success"><i class="fa fa-arrow-up text-success"></i></p><span class="f-w-500 font-success">+ 20.08% </span>
+                      </div>
+                    </div>
+                    <p class="text-truncate">Compared to Jan 2024</p>
+                  </div>
+                </div>
+                <div id="admissionRatio"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card">
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top daily-revenue-card">
+                  <h4>Orders Value</h4>
+                  <div class="dropdown icon-dropdown">
+                    <button class="btn dropdown-toggle" id="userdropdown2" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown2"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pb-0 total-sells-2">
+                <div class="d-flex align-items-center gap-3"> 
+                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-3/icon/shopping1.png' %}" alt="icon"></div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2"> 
+                      <h2>$ 12,463</h2>
+                      <div class="d-flex total-icon">
+                        <p class="mb-0 up-arrow bg-light-danger"><i class="fa fa-arrow-down text-danger"></i></p><span class="f-w-500 font-danger">- 20.08% </span>
+                      </div>
+                    </div>
+                    <p class="text-truncate">Compared to Jan 2024</p>
+                  </div>
+                </div>
+                <div id="order-value"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card">
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top daily-revenue-card">
+                  <h4>Daily Orders</h4>
+                  <div class="dropdown icon-dropdown">
+                    <button class="btn dropdown-toggle" id="userdropdown3" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown3"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pb-0 total-sells-3">
+                <div class="d-flex align-items-center gap-3"> 
+                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-3/icon/sent1.png' %}" alt="icon"></div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2"> 
+                      <h2>$ 12,463</h2>
+                      <div class="d-flex total-icon">
+                        <p class="mb-0 up-arrow bg-light-success"><i class="fa fa-arrow-up text-success"></i></p><span class="f-w-500 font-success">+ 20.08% </span>
+                      </div>
+                    </div>
+                    <p class="text-truncate">Compared to Jan 2024</p>
+                  </div>
+                </div>
+                <div id="daily-value"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card">
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top daily-revenue-card">
+                  <h4>Daily Revenue</h4>
+                  <div class="dropdown icon-dropdown">
+                    <button class="btn dropdown-toggle" id="userdropdown4" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown4"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pb-0 total-sells-4">
+                <div class="d-flex align-items-center gap-3"> 
+                  <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-3/icon/revenue1.png' %}" alt="icon"></div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2"> 
+                      <h2>$ 12,463</h2>
+                      <div class="d-flex total-icon">
+                        <p class="mb-0 up-arrow bg-light-danger"><i class="fa fa-arrow-down text-danger"></i></p><span class="f-w-500 font-danger">- 20.08% </span>
+                      </div>
+                    </div>
+                    <p class="text-truncate">Compared to Jan 2024</p>
+                  </div>
+                </div>
+                <div id="daily-revenue"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-3 col-xl-4 col-sm-6">
+            <div class="card">
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top">
+                  <h4>Website Design</h4>
+                  <div class="dropdown icon-dropdown">
+                    <button class="btn dropdown-toggle" id="userdropdown20" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown20"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body designer-card">
+                <div>  
+                  <div class="d-flex align-items-center gap-2"> 
+                    <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-2/user/16.png' %}" alt="user"></div>
+                    <div class="flex-grow-1"><a href="/product_page">
+                        <h5>Square Dashboard</h5></a>
+                      <p>karson123@gmail.com</p>
+                    </div>
+                  </div>
+                  <div class="design-button">
+                    <button class="btn bg-light-primary font-primary f-w-500">UX Design</button>
+                    <button class="btn bg-light-secondary font-secondary f-w-500">3D Deisgn</button>
+                  </div>
+                  <div class="ratting-button">  
+                    <div> 
+                      <div class="d-flex align-items-center gap-2 mb-0"> 
+                        <div class="flex-shrink-0">
+                          <p class="f-w-500">12  </p>
+                        </div>
+                        <div class="flex-grow-1"><span class="f-w-500">Issues</span></div>
+                      </div>
+                    </div>
+                    <div> 
+                      <div class="d-flex align-items-center gap-2 mb-0"> 
+                        <div class="flex-shrink-0">
+                          <p class="f-w-500">5 </p>
+                        </div>
+                        <div class="flex-grow-1"><span class="f-w-500">Resolved </span></div>
+                      </div>
+                    </div>
+                    <div> 
+                      <div class="d-flex align-items-center gap-2 mb-0"> 
+                        <div class="flex-shrink-0">
+                          <p class="f-w-500">7  </p>
+                        </div>
+                        <div class="flex-grow-1"><span class="f-w-500">Comment</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <h5 class="f-w-500 pb-2">Task Completed: 6/10</h5>
+                  <div class="progress progress-striped-primary">
+                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-3 col-xl-4 col-sm-6">
+            <div class="card">
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top">
+                  <h4>Opening of leaflets</h4>
+                  <div class="dropdown icon-dropdown">
+                    <button class="btn dropdown-toggle" id="userdropdown17" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown17"><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pb-0 opening-box">
+                <div class="d-flex align-items-center gap-2"> 
+                  <h2>$ 12,463</h2>
+                  <div class="d-flex">
+                    <p class="mb-0 up-arrow"><i class="fa fa-arrow-up"></i></p><span class="f-w-500 font-success">+ 20.08%</span>
+                  </div>
+                </div>
+                <div id="growthchart"> </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-6 col-xl-4 col-md-12">
+            <div class="card visitor-card"> 
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top">
+                  <h5 class="f-w-600 m-0">Visitors<span class="f-14 font-primary f-w-500 ms-1">
+                      <svg class="svg-fill me-1">
+                        <use href="{% static 'assets/svg/icon-sprite.svg'%}#user-visitor"></use>
+                      </svg>(+2.8)</span></h5>
+                  <div class="card-header-right-icon">
+                    <div class="dropdown icon-dropdown">
+                      <button class="btn dropdown-toggle" id="visitorButton" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="visitorButton"><a class="dropdown-item" href="#">Today</a><a class="dropdown-item" href="#">Tomorrow</a><a class="dropdown-item" href="#">Yesterday</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-3">
+                <div class="visitors-container">
+                  <div id="visitor-chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card social-widget">
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="social-icons"><img src="{% static 'assets/images/dashboard/social/1.png' %}" alt="facebook icon"></div><span class="f-w-600">Facebook</span>
+                  </div><span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
+                </div>
+                <div class="social-content">
+                  <div> 
+                    <h5 class="mb-1">12,098</h5><span class="f-light">Followers</span>
+                  </div>
+                  <div class="social-chart">
+                    <div id="radial-facebook"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card social-widget">
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="social-icons"><img src="{% static 'assets/images/dashboard/social/3.png' %}" alt="twitter icon"></div><span class="f-w-600">Twitter</span>
+                  </div><span class="font-success f-12 d-xxl-block d-xl-none">+14.09%</span>
+                </div>
+                <div class="social-content">
+                  <div> 
+                    <h5 class="mb-1">12,564</h5><span class="f-light">Followers</span>
+                  </div>
+                  <div class="social-chart">
+                    <div id="radial-twitter"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card social-widget">
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="social-icons"><img src="{% static 'assets/images/dashboard/social/2.png' %}" alt="instagram icon"></div><span class="f-w-600">Instagram</span>
+                  </div><span class="font-success f-12 d-xxl-block d-xl-none">+27.4%</span>
+                </div>
+                <div class="social-content">
+                  <div> 
+                    <h5 class="mb-1">15,080</h5><span class="f-light">Followers</span>
+                  </div>
+                  <div class="social-chart">
+                    <div id="radial-instagram"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6"> 
+            <div class="card social-widget">
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="social-icons"><img src="{% static 'assets/images/dashboard/social/4.png' %}" alt="you tube icon"></div><span class="f-w-600">Youtube</span>
+                  </div><span class="font-success f-12 d-xxl-block d-xl-none">+22.9%</span>
+                </div>
+                <div class="social-content">
+                  <div> 
+                    <h5 class="mb-1">68,954</h5><span class="f-light">Followers</span>
+                  </div>
+                  <div class="social-chart">
+                    <div id="radial-youtube"> </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-md-12 proorder-md-1">  
+            <div class="row"> 
+              <div class="col-xl-6 col-sm-6"> 
+                <div class="card">
+                  <div class="card-body student">
+                    <div class="d-flex gap-2 align-items-end"> 
+                      <div class="flex-grow-1">
+                        <h2>42,954</h2>
+                        <p class="mb-0 text-truncate"> Total Students</p>
+                        <div class="d-flex student-arrow text-truncate gap-1">
+                          <p class="mb-0 up-arrow bg-light-danger"><i class="icon-arrow-down font-danger"></i></p><span class="f-w-500 font-danger">- 17.06%</span>than last 6 Month
+                        </div>
+                      </div>
+                      <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-4/icon/student.png' %}" alt=""></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-sm-6"> 
+                <div class="card">
+                  <div class="card-body student-2">
+                    <div class="d-flex gap-2 align-items-end"> 
+                      <div class="flex-grow-1">
+                        <h2>659</h2>
+                        <p class="mb-0 text-truncate"> Total Teachers</p>
+                        <div class="d-flex student-arrow text-truncate gap-1">
+                          <p class="mb-0 up-arrow bg-light-success"><i class="icon-arrow-up font-success"></i></p><span class="f-w-500 font-success">+27.02%</span>than last 4 Month
+                        </div>
+                      </div>
+                      <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-4/icon/teacher.png' %}" alt=""></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-sm-6"> 
+                <div class="card">
+                  <div class="card-body student-3">
+                    <div class="d-flex gap-2 align-items-end"> 
+                      <div class="flex-grow-1">
+                        <h2>984</h2>
+                        <p class="mb-0 text-truncate"> Events</p>
+                        <div class="d-flex student-arrow text-truncate gap-1">
+                          <p class="mb-0 up-arrow bg-light-success"><i class="icon-arrow-up font-success"></i></p><span class="f-w-500 font-success">+ 12.01%</span>than last 8 Month
+                        </div>
+                      </div>
+                      <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-4/icon/calendar.png' %}" alt=""></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-sm-6"> 
+                <div class="card">
+                  <div class="card-body student-4">
+                    <div class="d-flex gap-2 align-items-end"> 
+                      <div class="flex-grow-1">
+                        <h2>1,984</h2>
+                        <p class="mb-0 text-truncate"> Invoice Status</p>
+                        <div class="d-flex student-arrow text-truncate gap-1">
+                          <p class="mb-0 up-arrow bg-light-danger"><i class="icon-arrow-down font-danger"></i></p><span class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                        </div>
+                      </div>
+                      <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard-4/icon/invoice.png' %}" alt=""></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-6 col-xl-6 box-col-6 proorder-xl-7 proorder-md-8"> 
+            <div class="card">
+              <div class="card-header card-no-border pb-0">
+                <div class="header-top">
+                  <h4>Upcoming Appointments</h4>
+                </div>
+              </div>
+              <div class="card-body appointments relative">
+                <div class="row"> 
+                  <div class="col-5"> 
+                    <ul class="appointments-user">
+                      <li class="d-flex align-items-center">
+                        <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/05.png' %}" alt=""></div>
+                        <div class="flex-grow-1"><a href="/private_chat">
+                            <h5>John Elliot</h5></a>
+                          <p>21 Oct 2024<span>(15:55 AM)</span></p>
+                        </div>
+                      </li>
+                      <li class="d-flex align-items-center">
+                        <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/06.png' %}" alt=""></div>
+                        <div class="flex-grow-1"><a href="/private_chat">
+                            <h5>Ashley Hart</h5></a>
+                          <p>12 Oct 2024<span>(10:20 AM)</span></p>
+                        </div>
+                      </li>
+                      <li class="d-flex align-items-center">
+                        <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/07.png' %}" alt=""></div>
+                        <div class="flex-grow-1"><a href="/private_chat">
+                            <h5>Anna lverson</h5></a>
+                          <p>05 Oct 2024<span>(14:30 AM)</span></p>
+                        </div>
+                      </li>
+                      <li class="d-flex align-items-center">
+                        <div class="flex-shrink-0"><img src="{% static 'assets/images/dashboard/user/08.png' %}" alt=""></div>
+                        <div class="flex-grow-1"><a href="/private_chat">
+                            <h5>Dana Lemon</h5></a>
+                          <p>01 Oct 2024<span>(18:45 AM)</span></p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-7"> 
+                    <div class="default-datepicker">
+                      <div class="datepicker-here" data-language="en"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+<!-- Container-fluid Ends-->

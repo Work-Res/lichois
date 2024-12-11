@@ -13,6 +13,7 @@ class WorkflowApplication:
         self.transition_application()
 
     def transition_application(self):
+        self.application.refresh_from_db()
         self.logger.info(
             "Workflow:Application, updating it to the next relevant stage."
         )

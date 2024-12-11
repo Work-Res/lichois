@@ -2,8 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
 from ..models import User
+from ..admin_site import authentication_admin
 
 
+@admin.register(User, site=authentication_admin)
 class UserAdmin(DjangoUserAdmin):
 	list_filter = ()
 	list_display = (
@@ -33,6 +35,3 @@ class UserAdmin(DjangoUserAdmin):
 			'fields': ('first_name', 'last_name', 'email'),
 		}),
 	)
-
-
-admin.site.register(User, UserAdmin)

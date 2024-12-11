@@ -33,7 +33,7 @@ class ApplicationDocumentListView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = ApplicationAttachment.objects.all()
-        document_number = self.request.query_params.get('application_number')
+        document_number = self.request.query_params.get('document_number')
 
         # Filter the queryset based on parameters
         if document_number:

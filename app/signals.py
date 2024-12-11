@@ -22,10 +22,10 @@ def create_workflow(sender, instance, created, **kwargs):
     try:
         if created:
             WorkflowEvent(application=instance).create_workflow_process()
-            logger.info(
-                "Created workflow for application: ",
-                instance.application_document.document_number,
-            )
+            # logger.info(
+            #     "Created workflow for application: ",
+            #     instance.application_document.document_number,
+            # )
             return instance
     except SystemError as e:
         logger.debug("An error occurred while creating workflow, Got ", e)
@@ -48,10 +48,22 @@ def production_decision_post_save_on_verfication_handler(
 
 @receiver(post_save, sender=MinisterDecision)
 def handle_minister_appeals(sender, instance, created, **kwargs):
-    if created and instance.status.code.upper() == "ACCEPTED":
-        request = PermitRequestDTO()
-        request.document_number = instance.document_number
-        request.place_issue = "Gaborone"
-        request.security_number = "123456"
-        appeal_production_service = AppealProductionService(request=request)
-        appeal_production_service.create_new_permit()
+    try:
+
+        application = Application.objects.get(application_document__document_number=instance.document_number)
+    except Application.DoesNotExist:
+        logger.debug(
+            f"Application with document number {instance.document_number} does not exist"
+        )
+        return
+    else:
+        is_accepted = instance.status.code.upper() == "ACCEPTED"
+        is_appeal = "APPEAL" in application.application_type and created
+
+        if  is_accepted and is_appeal:
+            request = PermitRequestDTO()
+            request.document_number = instance.document_number
+            request.place_issue = "Gaborone"
+            request.security_number = "123456"
+            appeal_production_service = AppealProductionService(request=request)
+            appeal_production_service.create_new_permit()

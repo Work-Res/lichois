@@ -1,0 +1,10 @@
+App Group:
+    can_update_app_initial
+    can_view_app_initial
+    can_view_app_initial
+    can_view_app_replacement
+    can_update_app_replacement
+    can_delete_app_replacement
+    can_view_app_renewal
+    can_update_app_renewal
+    can_update_app_renewal

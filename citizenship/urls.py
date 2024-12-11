@@ -145,7 +145,7 @@ router.register(
 )
 
 urlpatterns = [
-    path("admin/", citizenship_admin.urls),
+    path("citizenship/", citizenship_admin.urls),
     path("", include(router.urls)),
     path(
         "citizenship-assessment-decision/",

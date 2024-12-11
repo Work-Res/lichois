@@ -1,7 +1,6 @@
 import logging
 from abc import abstractmethod
 
-from django.db import transaction
 from django.shortcuts import get_object_or_404
 
 from app_comments.models import Comment
@@ -11,7 +10,9 @@ from workresidentpermit.exceptions import (
 )
 
 from ..models import ApplicationDecision, ApplicationDecisionType
-from .create_dependent_application_decision_service import CreateDependentApplicationDecisionService
+from .create_dependent_application_decision_service import (
+    CreateDependentApplicationDecisionService,
+)
 
 
 class ApplicationDecisionService(CreateDependentApplicationDecisionService):
@@ -21,13 +22,11 @@ class ApplicationDecisionService(CreateDependentApplicationDecisionService):
         self,
         document_number,
         comment: Comment = None,
-        application=None,
         decision_value=None,
     ):
         self.document_number = document_number
         self.comment = comment
         self.decision_value = decision_value
-        self.application = application
         self.logger = logging.getLogger(__name__)
 
     @abstractmethod
@@ -51,14 +50,8 @@ class ApplicationDecisionService(CreateDependentApplicationDecisionService):
             self.logger.error(error_message)
             raise WorkResidentPermitApplicationDecisionException(error_message)
 
-    @transaction.atomic()
     def create_application_decision(self):
-        if not self.application:
-            raise ApplicationRequiredDecisionException()
-        # if not self.workflow:
-        #     raise WorkflowRequiredDecisionException()
         if self.decision_predicate():
-            print(f"whithin the predicate: {self.document_number}")
             decision, _ = ApplicationDecision.objects.get_or_create(
                 document_number=self.document_number,
                 defaults={
@@ -70,6 +63,8 @@ class ApplicationDecisionService(CreateDependentApplicationDecisionService):
             self.logger.info(
                 f"Application decision created successfully for {self.document_number}"
             )
-            self.create_dependents_application_decision(document_number=self.document_number)
+            self.create_dependents_application_decision(
+                document_number=self.document_number
+            )
         else:
             print(f"Not within the predicate: {self.document_number}")

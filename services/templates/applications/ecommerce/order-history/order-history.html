@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+        <div class="page-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                {% include "applications/ecommerce/order-history/components/new-orders.html" %}
+                {% include "applications/ecommerce/order-history/components/shipped-orders.html" %}
+                {% include "applications/ecommerce/order-history/components/cancelled-orders.html" %}
+              </div>
+              {% include "applications/ecommerce/order-history/components/datatable-order.html" %}
+            </div>
+          </div>
+        </div>
+
+  {% endblock %}
+
+  
+  {% block scriptcontent %}
+  
+    <script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatable/datatables/datatable.custom.js' %}"></script>
+        
+  {% endblock %}

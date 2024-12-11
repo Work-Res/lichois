@@ -23,7 +23,7 @@ from ..api.dto.permit_request_dto import PermitRequestDTO
 
 class AppealProductionService(PermitProductionService):
 
-    process_name = ApplicationProcesses.WORK_RESIDENT_PERMIT.value
+    process_name = ApplicationProcesses.APPEAL_PERMIT.value
 
     def __init__(self, request: PermitRequestDTO):
         self.request = request

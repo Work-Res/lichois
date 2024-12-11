@@ -1,11 +1,9 @@
-from django.db import transaction
 from rest_framework.exceptions import ValidationError
 from app.models import Application
 
 
 class UpdateApplicationMixin:
 
-    @transaction.atomic
     def update_application_field(self, document_number, field_key, field_value):
         """
         Update the assessment field in the Application model based on the document number.

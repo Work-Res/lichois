@@ -3,11 +3,10 @@ from django.db import models
 
 from app.models import ApplicationBaseModel, ApplicationDecisionType
 
-from .assessment_update_mixin import AssessmentUpdateMixin
 from .choices import DECISION_TYPE
 
 
-class AssessmentCaseDecision(ApplicationBaseModel, AssessmentUpdateMixin):
+class AssessmentCaseDecision(ApplicationBaseModel):
 
     parent_object_id = UUIDAutoField(
         blank=True,
@@ -42,7 +41,6 @@ class AssessmentCaseDecision(ApplicationBaseModel, AssessmentUpdateMixin):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.save_assessment()
 
     class Meta:
         db_table = "assessment_case_decisions"

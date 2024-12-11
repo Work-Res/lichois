@@ -5,8 +5,12 @@ from .views import (
     GetNonCitizenProfileView,
     NonCitizenProfilesView,
 )
+from .admin_site import non_citizen_profile_admin
 
 urlpatterns = [
+    
+    path("non_citizen_profile/", non_citizen_profile_admin.urls),
+    
     path(
         "get-profile/<str:non_citizen_identifier>/",
         GetNonCitizenProfileView.as_view(),

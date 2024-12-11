@@ -70,6 +70,8 @@ INTEREST_LEVEL = (
     ("business_position", "Business Position"),
     ("real_property", "Real Property"),
     ("personal_financial_effect", "Personal Financial Effect"),
+    ("personal_family", "Personal/Family"),
+    ("financial_interest", "Financial Interest"),
     ("other", "Other"),
 )
 

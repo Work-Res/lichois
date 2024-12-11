@@ -9,7 +9,9 @@ class ApplicationRepository:
     """
 
     @staticmethod
-    def get_existing_application(application_identifier, status, process_name):
+    def get_existing_application(
+        application_identifier, status, process_name, application_type
+    ):
         """
         Get existing application with a new status for the applicant.
         """
@@ -17,6 +19,7 @@ class ApplicationRepository:
             application_status__code__in=status,
             application_document__applicant__user_identifier=application_identifier,
             process_name=process_name,
+            application_type=application_type,
         )
 
     @staticmethod

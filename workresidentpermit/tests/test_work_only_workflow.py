@@ -9,6 +9,7 @@ from app.utils import ApplicationStatusEnum, ApplicationProcesses, WorkflowEnum
 from app_assessment.models import DependantAssessment, SummaryAssessment
 from app_checklist.models import SystemParameter, SystemParameterPermitRenewalPeriod
 from app_personal_details.models import Permit, Spouse
+from board.models import BoardDecision
 from workflow.models import Activity, Task, WorkflowHistory
 from .base_test_setup import BaseTestSetup
 from ..api.dto import RequestDeferredApplicationDTO
@@ -110,6 +111,12 @@ class TestWorkonlyWorkflow(BaseTestSetup):
 
         voting_process = self.voting_process()
         self.assertIsNotNone(voting_process)
+
+        board_decision = BoardDecision .objects.get(
+            document_number=self.document_number
+        )
+
+        self.assertEqual(board_decision.decision_outcome.upper(), "ACCEPTED")
 
         application_decision = ApplicationDecision.objects.filter(document_number=self.document_number)
         self.assertTrue(application_decision.exists())

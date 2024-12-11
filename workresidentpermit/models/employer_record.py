@@ -10,5 +10,5 @@ class EmploymentRecord(ApplicationBaseModel, models.Model):
     names_of_trainees = models.TextField()
 
     class Meta:
-        app_label = "work_residence_permit"
+        app_label = "workresidentpermit"
         verbose_name = "Employment Record"

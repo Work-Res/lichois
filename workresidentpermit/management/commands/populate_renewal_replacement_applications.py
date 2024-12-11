@@ -43,9 +43,7 @@ class Command(CustomBaseCommand):
                 self.create_replacement_applications(
                     document_number, applicant_identifier
                 )
-                self.create_renewal_permit(
-                    document_number, applicant_identifier
-                )
+                self.create_renewal_permit(document_number, applicant_identifier)
         call_command("populate_work_res_attachments")
 
     def create_renewal_permit(self, document_number, applicant_identifier):
@@ -54,7 +52,7 @@ class Command(CustomBaseCommand):
             percent=0.25,
         )
         new_application_dto = NewApplicationDTO(
-            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT_RENEWAL.value,
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             status=ApplicationStatusEnum.VERIFICATION.value,
             dob="06101990",
             work_place="01",
@@ -194,4 +192,3 @@ class Command(CustomBaseCommand):
         )
 
         self.stdout.write(self.style.SUCCESS("Successfully populated data"))
-

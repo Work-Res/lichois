@@ -22,5 +22,7 @@ from .renunciation_of_foreign_citizenship_admin import RenunciationOfForeignCiti
 from .residential_history_admin import ResidentialHistoryAdmin
 from .spouse_info_admin import SpouseInfoAdmin
 from .travel_cert_non_citizen_admin import TravelCertNonCitizenAdmin
+from .travel_cert_non_citizen_admin import TravelCertNonCitizenForm
+from .travel_cert_non_citizen_admin import TravelCertNonCitizen
 from .under_20_citizenship_admin import Under20CitizenshipAdmin
 from .witness_details_admin import WitnessDetailsAdmin

@@ -1,0 +1,184 @@
+{% load static %}
+{% load sass_tags %}
+
+<!-- Page Sidebar Start-->
+<div class="sidebar-wrapper" data-layout="stroke-svg">
+    <div>
+      <div class="logo-wrapper"><a href="/index"><img class="img-fluid" src="{% static 'assets/images/logo/logo_light.jpeg' %}" width="70" alt=""></a>
+        <div class="back-btn"><i class="fa fa-angle-left"></i></div>
+        <div class="toggle-sidebar">
+          <svg class="stroke-icon sidebar-toggle status_toggle middle">
+            <use href="{% static 'assets/svg/icon-sprite.svg'%}#toggle-icon"></use>
+          </svg>
+          <svg class="fill-icon sidebar-toggle status_toggle middle">
+            <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-toggle-icon"></use>
+          </svg>
+        </div>
+      </div>
+      <div class="logo-icon-wrapper"><a href="/index"><img class="img-fluid" src="{% static 'assets/images/logo/logo-icon.jpeg' %}" height="" alt=""></a></div>
+      <nav class="sidebar-main">
+        <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+        <div id="sidebar-menu">
+          <ul class="sidebar-links" id="simple-bar">
+            <li class="back-btn"><a href="/index"><img class="img-fluid" src="{% static 'assets/images/logo/logo-icon.jpeg' %}" alt=""></a>
+              <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
+            </li>
+            <li class="pin-title sidebar-main-title">
+              <div> 
+                <h6>Pinned</h6>
+              </div>
+            </li>
+            <li class="sidebar-main-title">
+              <div>
+                <h6 class="lan-1">General</h6>
+              </div>
+            </li>
+            <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-home"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-home"></use>
+                </svg><span class="lan-3">Dashboard          </span></a>
+              <ul class="sidebar-submenu">
+                <li><a class="lan-4" href="/index">Statistics & Reports</a></li>
+                <li><a class="lan-5" href="/dashboard_02">Services</a></li>
+                <li><a href="/dashboard_03">Ecommerce</a></li>
+                <li><a href="/dashboard_04">Education</a></li>
+              </ul>
+            </li>
+            <li class="sidebar-main-title">
+              <div>
+                <h6 class="lan-8">Services</h6>
+              </div>
+            </li>
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">    </i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-project"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-project"></use>
+                </svg><span>Work & Residence Permits</span></a>
+              <ul class="sidebar-submenu">
+                <li><a href="{% url 'work_res_permit_dashboard' %}">Applications</a></li>
+                <li><a href="{% url 'work_res_permit_renewal_dashboard' %}">Renewal</a></li>
+                <li><a href="{% url 'work_res_permit_replacement_dashboard' %}">Replacement</a></li>
+                <li><a href="{% url 'work_res_permit_cancellation_dashboard' %}">Cancellation</a></li>
+                <li><a href="{% url 'work_res_permit_variation_dashboard'%}">Variation</a></li>
+                <li><a href="{% url 'work_res_permit_appeal_dashboard'%}">Appeal</a></li>
+
+              </ul>
+            </li>
+            
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">    </i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-project"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-project"></use>
+                </svg><span>Residence Permits</span></a>
+              <ul class="sidebar-submenu">
+                <li><a href="{% url 'res_permit_dashboard' %}">Applications</a></li>
+                <li><a href="{% url 'res_permit_renewal_dashboard' %}">Renewal</a></li>
+                <li><a href="{% url 'res_permit_replacement_dashboard' %}">Replacement</a></li>
+                <li><a href="{% url 'res_permit_cancellation_dashboard' %}">Cancellation</a></li>
+              </ul>
+            </li>
+            
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">    </i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-project"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-project"></use>
+                </svg><span>Work Permits</span></a>
+              <ul class="sidebar-submenu">
+                <li><a href="{% url 'work_permit_dashboard' %}">Applications</a></li>
+                <li><a href="{% url 'work_permit_renewal_dashboard' %}">Renewal</a></li>
+                <li><a href="{% url 'work_permit_replacement_dashboard' %}">Replacement</a></li>
+                <li><a href="{% url 'work_permit_cancellation_dashboard' %}">Cancellation</a></li>
+                <li><a href="{% url 'work_permit_variation_dashboard'%}">Variation</a></li>
+              </ul>
+            </li>
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'emergency_permit_dashboard' %}">
+              <svg class="stroke-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
+              </svg>
+              <svg class="fill-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
+              </svg><span>Emergency Permits</span></a>
+            </li>
+          
+              
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'exemption_certificate_dashboard' %}">
+              <svg class="stroke-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
+              </svg>
+              <svg class="fill-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
+              </svg><span>Excemption</span></a>
+            </li>
+
+            <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'blue_card_dashboard' %}">
+              <svg class="stroke-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
+              </svg>
+              <svg class="fill-icon">
+                <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
+              </svg><span>Blue Card</span></a>
+            </li>
+            
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'travel_certificate_dashboard' %}">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
+                </svg><span>Travel Certificate</span></a></li>
+            <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'visa_permit_dashboard' %}">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
+                </svg><span>Visa</span></a></li>
+            <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-ecommerce"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-ecommerce"></use>
+                </svg><span>Citizenship</span></a>
+              <ul class="sidebar-submenu">
+                <li><a href="/add_products">Naturalization</a></li>
+                <li><a href="/product_cards">Naturalization by Foreign Spouse</a></li>
+                <li><a href="/product_page">Declaration of Intention by Foreign Spouse</a></li>
+                <li><a href="/list_products">Waiver of the Maturity Period</a></li>
+                <li><a href="/payment_details">President’s Power to Register Citizens Section 10 a</a></li>
+                <li><a href="/order_history">President’s Power to Register Citizens: Section 10(B)</a></li>
+                <li><a class="submenu-title" href="javascript:void(0)">Registration of Minor Child of Citizen: Section 9<span class="sub-arrow"><i class="fa fa-angle-right"></i></span></a>
+                  <ul class="nav-sub-childmenu submenu-content">
+                    <li><a href="/invoice_1">Invoice-1</a></li>
+                    <li><a href="/invoice_2">Invoice-2</a></li>
+                    <li><a href="/invoice_3">Invoice-3</a></li>
+                    <li><a href="/invoice_4">Invoice-4</a></li>
+                    <li> <a href="/invoice_5">Invoice-5</a></li>
+                    <li><a href="/invoice_template">Invoice-6</a></li>
+                  </ul>
+                </li>
+                <li><a href="/cart">Registration of Adopted Child Over 3 years old: Section 8</a></li>
+                <li><a href="/list_wish">Dual Citizenship: Section 15</a></li>
+                <li><a href="/checkout">Renunciation of Botswana Citizenship by Reason of Dual Citizenship Section 16</a></li>
+                <li><a href="/pricing">Resumption of Citizenship Section 17</a></li>
+                <li><a href="/pricing">Citizenship by Settlement: Section 6</a></li>
+                <li><a href="/pricing">Certificate of Citizenship in case of Doubt: Section 21</a></li>
+                <li><a href="/pricing">Deprivation of citizenship: Section 18</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
+        </nav>
+    </div>
+</div>
+<!-- Page Sidebar Ends-->

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% include 'general/dashboard/default/components/loader.html' %}
+
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <!-- Custom TouchSpin Spinners start-->
+            <div class="bootstrap-touchspin">
+              <div class="row">
+                {% include "forms-table/forms/form-widgets/touchspin/components/touchspin-1.html" %}
+                {% include "forms-table/forms/form-widgets/touchspin/components/touchspin-2.html" %}
+              </div>
+              <!-- Custom TouchSpin Spinners end-->
+            </div>
+            <!-- Container-fluid Ends-->
+          </div>
+        </div>
+
+{% endblock %}        
+
+
+{% block scriptcontent %}
+
+    <script src="{% static 'assets/js/touchspin_2/custom_touchspin.js' %}"></script>
+
+{% endblock %}    

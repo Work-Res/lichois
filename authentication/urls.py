@@ -20,9 +20,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .views import (LogoutView, UserView, OtpEmailVerificationView, PasswordResetView,
                     ChangePasswordView)
+from .admin_site import authentication_admin
 
 urlpatterns = [
+    
+    path("authentication/", authentication_admin.urls),
 	path('admin/', admin.site.urls),
+    
 	path('logout/', LogoutView.as_view(), name='logout'),
 	path('user/', UserView.as_view(), name='user'),
 	path('otp-email-verification/', OtpEmailVerificationView.as_view(), name='otp_email_verification'),

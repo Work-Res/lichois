@@ -14,7 +14,7 @@ APPLICANT_TYPE = (
     ("immigrant", "Immigrant"),
     ("spouse_of_citizen", "Spouse of Citizen"),
     ("applicant", "Applicant"),
-    ("dependent", "Dependent")
+    ("dependent", "Dependent"),
 )
 
 PERMIT_PERIOD = (
@@ -23,7 +23,9 @@ PERMIT_PERIOD = (
     ("6 months", "6 months"),
 )
 
-APPLICATION_PERMIT_TYPE = (('initial', 'Initial'),
-                           ('renewal', 'Renewal'),
-                           ('replacement', 'Replacement'),
-                           ('appeal', 'Appeal'))
+APPLICATION_PERMIT_TYPE = (
+    ("initial", "Initial"),
+    ("renewal", "Renewal"),
+    ("replacement", "Replacement"),
+    ("appeal", "Appeal"),
+)

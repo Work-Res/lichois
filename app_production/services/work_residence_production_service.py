@@ -17,7 +17,7 @@ class WorkResidenceProductionService(PermitProductionService):
 
     def __init__(self, request: PermitRequestDTO):
         self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.WARNING)
         self.request = request
         self.request.permit_type = request.permit_type or self.process_name
 

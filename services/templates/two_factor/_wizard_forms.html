@@ -1,0 +1,14 @@
+
+<table>
+    {% load widget_tweaks %}
+    {{ wizard.management_form }}
+    {% for field in wizard.form %}
+    <div class="form-group">
+        <label class="col-form-label">{{ field.label }}</label>
+        <!-- <input class="form-control" type="text" name="username" required="" placeholder="Test"> -->
+        {{ field|add_class:"form-control" }}
+        <span class="message">{{ field.errors }}</span>
+    </div>
+{% endfor %}
+</table>
+
