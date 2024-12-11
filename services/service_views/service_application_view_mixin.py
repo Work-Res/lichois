@@ -24,6 +24,7 @@ class ServiceApplicationViewMixin:
         """
         application_dto = NewApplicationDTO(
             process_name,
+            application_type,
             self.non_citizen_identifier,
             status=ApplicationStatusEnum.NEW.value,
             applicant_type='employee',
