@@ -27,7 +27,7 @@ class PersonSerializer(serializers.ModelSerializer):
             "first_name",
             "middle_name",
             "last_name",
-            "maiden_name",
+            "other_names",
             "marital_status",
             "dob",
             # 'place_birth',
