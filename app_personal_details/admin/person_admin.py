@@ -3,6 +3,8 @@ from django.contrib import admin
 from base_module.admin_mixins import (
     BaseUrlModelAdminMixin, ModelAdminAuditFieldsMixin, audit_fieldset_tuple)
 
+# from base_module.model_mixins import (
+#     NationalityModelMixin)
 from ..admin_site import personal_details_admin
 from ..models import Person
 from typing import Tuple
@@ -35,5 +37,12 @@ class PersonAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.Mode
                 'occupation', 'qualification',
             ),
         }),
+        ("Nationality Details", {
+            "fields": (
+                'present_nationality', 'previous_nationality', 'country_birth', 'place_birth',
+            ),
+        }),
         audit_fieldset_tuple
     )
+
+    radio_fields = {"gender": admin.VERTICAL, }

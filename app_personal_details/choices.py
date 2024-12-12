@@ -1,17 +1,17 @@
+from django.utils.translation import gettext as _
+
 EDUCATION_LEVELS = (
-    ('High School', 'High School'),
-    ('Associate Degree', 'Associate Degree'),
-    ("Bachelor's Degree", "Bachelor's Degree"),
-    ("Master's Degree", "Master's Degree"),
-    ('Doctorate', 'Doctorate'),
-    ('Diploma', 'Diploma'),
-    ('Certificate', 'Certificate'),
-    ('Vocational', 'Vocational'),
-    ('Professional Degree', 'Professional Degree'),
-    ('Technical Degree', 'Technical Degree'),
-    ('Postgraduate Certificate', 'Postgraduate Certificate'),
-    ('Other', 'Other'),
+    ("high_school", _("High School")),
+    ("certificate", _("Certificate/Vocational")),
+    ("associate_degree", _("Associate Degree")),
+    ("diploma", _("Diploma/ Technical Degree")),
+    ("professional_degree", _("Degree/Professional Degree")),
+    ("masters_degree", _("Master's Degree")),
+    ("doctorate", _("Doctorate")),
+    ("professor", _("Professor")),
+    ("Other", _("Other: Specify other education")),
 )
+
 
 GENDER = (("male", "Male"), ("female", "Female"), ("other", "OTHER"))
 
