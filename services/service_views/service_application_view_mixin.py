@@ -19,7 +19,7 @@ class ServiceApplicationViewMixin:
             next_url=next_url).application_urls()
         return forms_urls
 
-    def application_number(self, process_name=None, application_type=None):
+    def new_application_number(self, process_name=None, application_type=None):
         """Returns an application number.
         """
         application_dto = NewApplicationDTO(
@@ -29,7 +29,7 @@ class ServiceApplicationViewMixin:
             status=ApplicationStatusEnum.NEW.value,
             applicant_type='employee',
             dob=self.request.user.dob,
-            work_place='Gaborone',
+            work_place='G',
             full_name=self.request.user)
         application_service = ApplicationService(new_application_dto=application_dto)
         application, _ = application_service.create_application()
