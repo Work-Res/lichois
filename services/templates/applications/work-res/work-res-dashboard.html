@@ -24,10 +24,10 @@
                 <div>
                   <div>
                     <div class="tab-content" id="top-tabContent">
+                      {% include "applications/work-res/components/exisitng-work-res-applications.html" %}
+                      {% include "applications/work-res/components/exisitng-work-res-permits.html" %}
                       {% if new_application %}
                       {% include "applications/work-res/components/work-res-application-forms.html" %}
-                      {% else %}
-                      	{% include "applications/work-res/components/exisitng-work-res-applications.html" %}
                       {% endif %}
                     </div>
                   </div>

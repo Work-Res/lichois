@@ -228,7 +228,6 @@ class ApplicationService:
                 f"applicant: {applicant}.",
             )
             return False
-        print("document_number document_number document_number")
 
         self.application_document.document_number = document_number
         self.application_document.applicant = applicant

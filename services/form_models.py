@@ -74,10 +74,6 @@ emergency_permit = [
     [EmergencyPermit, workresidencepermit_admin]
 ]
 
-travel_certificate = [
-    TravelCertNonCitizenForm
-]
-
 exemption_certificate = [
     [ExemptionCertificate, workresidencepermit_admin]
 ]
