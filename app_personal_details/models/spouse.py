@@ -1,6 +1,6 @@
 from django.db import models
 from app.models import ApplicationBaseModel
-from .passport import Passport
+from base_module.choices import YES_NO
 
 
 class Spouse(ApplicationBaseModel):
@@ -11,13 +11,10 @@ class Spouse(ApplicationBaseModel):
     country = models.CharField(max_length=190,verbose_name="Country of Birth of Spouse")
     place_birth = models.CharField(max_length=190,verbose_name="Place of Birth of Spouse")
     dob = models.DateField(verbose_name="Date of Birth of Spouse")
-    passport = models.ForeignKey(
-        Passport,
-        on_delete=models.CASCADE,
-        related_name="spouse_passport",
-        null=True,
-    )
+    is_applying_residence = models.CharField(max_length=3, choices=YES_NO,
+                                             verbose_name="Is your spouse applying for residence in Botswana?", default='No')
+
 
     class Meta:
-        verbose_name = "Spouse Passport"
-        verbose_name_plural = "Spouses Passports"
+        verbose_name = "Spouse Details"
+        verbose_name_plural = "Spouses Details"
