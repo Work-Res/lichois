@@ -1,0 +1,48 @@
+{% load static %}
+{% load sass_tags %}
+
+<div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <h4>Applications</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive theme-scrollbar">
+          <table class="display" id="basic-1">
+            <thead>
+              <tr>
+              
+              	<th>Application Number</th>
+              	<th>Applicant Name</th>
+                <th>Permit Type</th>
+                <th>Submission Date</th>
+                <th>Status</th>
+                <th>Action</th>
+
+              </tr>
+            </thead>
+            <tbody>
+            
+              {% for application in applications %}
+                <tr>
+                    <td>{{application.application_document.document_number}}</td>
+                    <td>{{application.permit_type}}</td>
+                    <td>{{application.application_document.applicant.full_name}}</td>
+                    <td>{{application.submission_date}}</td>
+                    <td>{{application.application_status}}</td>
+                    <td> 
+	                  <ul class="action"> 
+	                    <li class="edit"> <a href="#"><i class="icon-pencil-alt"></i></a></li>
+	                    <li class="delete"><a href="#"><i class="icon-trash"></i></a></li>
+	                  </ul>
+	                </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Zero Configuration  Ends-->
