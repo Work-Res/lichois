@@ -75,6 +75,8 @@ emergency_permit = [
 ]
 
 exemption_certificate = [
+    [Person, personal_details_admin],
+
     [ExemptionCertificate, workresidencepermit_admin]
 ]
 
