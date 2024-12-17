@@ -9,7 +9,7 @@ class EmployerModelMixin(models.Model):
     address = models.TextField(
         blank=True,
         null=True,
-        verbose_name='Full Address',
+        verbose_name='Business Location/Address',
 
     )
     tel = models.CharField(
@@ -36,13 +36,17 @@ class EmployerModelMixin(models.Model):
         verbose_name='Job Description',
     )
     renumeration = models.DecimalField(max_digits=10, decimal_places=2)
+
     period_permit_sought = models.IntegerField(
         verbose_name='Period which permit is sought',
     )
+
     has_vacancy_advertised = models.BooleanField(
         verbose_name='Has the vacancy been advertised? Yes/NO',
     )
+
     have_funished = models.BooleanField()
+
     reasons_funished = models.TextField(
         verbose_name='Have you furnished furnished the Commissioner of Labour with your manpower development, '
                      'training and localization program?'
@@ -59,7 +63,7 @@ class EmployerModelMixin(models.Model):
         verbose_name='What are your main difficulties in securing local recruitment for this post?',
     )
     labour_enquires = models.TextField(
-        verbose_name='Have made enquiries with Labour Department on the availability of a suitable citizen for'
+        verbose_name='Have you made recruitment enquiries with the employment services of Botswana on the availability of a suitable citizen for'
                      'the job you are offering to a non-citizen?',
     )
     no_bots_citizens = models.IntegerField(
