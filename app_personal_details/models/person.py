@@ -33,8 +33,7 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
     gender = models.CharField(
         max_length=6,
         choices=GENDER,
-        blank=True,
-        null=True, verbose_name='Sex',
+        verbose_name='Sex',
     )
 
     occupation = models.CharField(
