@@ -43,7 +43,6 @@ class ApplicationSummary:
                 model_name = apps.get_model(app_label).__name__
                 snake_case_model_name = self.to_snake_case(model_name)
                 temp = self.serialize_model_instance(model_instance)
-                print(temp, "model_instance model_instance model_instance")
                 summary[snake_case_model_name] = temp
 
         application = Application.objects.filter(
@@ -134,12 +133,12 @@ class ApplicationSummary:
             return []
 
     def _prepare_model_field_name_value(
-        self, serialized_data, field, field_name, model_instance
+            self, serialized_data, field, field_name, model_instance
     ):
         try:
             if isinstance(field, ForeignKey):
                 # Handle ForeignKey relationships
-                related_instance = getattr(model_instance, field_name)
+                related_instance = getattr(model_instance, field_name, None)
                 if related_instance:
                     serialized_data[field_name] = self.serialize_related_instance(
                         related_instance
@@ -148,21 +147,27 @@ class ApplicationSummary:
                     serialized_data[field_name] = None
             elif isinstance(field, ManyToManyField):
                 # Handle ManyToManyField relationships
-                related_manager = getattr(model_instance, field_name)
-                serialized_data[field_name] = [
-                    self.serialize_related_instance(instance)
-                    for instance in related_manager.all()
-                ]
-            elif hasattr(getattr(model_instance, field_name), "all"):
+                related_manager = getattr(model_instance, field_name, None)
+                if related_manager:
+                    serialized_data[field_name] = [
+                        self.serialize_related_instance(instance)
+                        for instance in related_manager.all()
+                    ]
+                else:
+                    serialized_data[field_name] = []
+            elif hasattr(getattr(model_instance, field_name, None), "all"):
                 # Handle reverse ForeignKey relationships
-                related_manager = getattr(model_instance, field_name)
-                serialized_data[field_name] = [
-                    self.serialize_related_instance(instance)
-                    for instance in related_manager.all()
-                ]
+                related_manager = getattr(model_instance, field_name, None)
+                if related_manager:
+                    serialized_data[field_name] = [
+                        self.serialize_related_instance(instance)
+                        for instance in related_manager.all()
+                    ]
+                else:
+                    serialized_data[field_name] = []
             else:
                 # Handle other fields normally
-                serialized_data[field_name] = getattr(model_instance, field_name)
+                serialized_data[field_name] = getattr(model_instance, field_name, None)
         except AttributeError as e:
             logger.error(
                 f"Error accessing field '{field_name}' on {model_instance}: {e}"
@@ -173,7 +178,6 @@ class ApplicationSummary:
                 f"Unexpected error processing field '{field_name}' on {model_instance}: {e}"
             )
             serialized_data[field_name] = None
-
     def serialize_model_instance(self, model_instance):
         """Serialize a model instance to a dictionary."""
         serialized_data = {}
@@ -200,10 +204,9 @@ class ApplicationSummary:
         def instance_to_dict(instance):
             """Convert a model instance to a dictionary."""
             if hasattr(instance, "to_dict"):
-                print("Using custom to_dict method")
                 return instance.to_dict()
             return model_to_dict(
-                instance, fields=[field.name for field in instance._meta.fields]
+                instance, fields=[field.name for field in instance._meta.fields if hasattr(instance, field.name)]
             )
 
         if isinstance(related_instance, QuerySet):

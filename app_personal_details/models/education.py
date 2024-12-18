@@ -41,7 +41,7 @@ class Education(ApplicationBaseModel):
         return f"{self.level} in {self.field_of_study} from {self.institution}"
 
     class Meta:
-        app_label = "app"
+        app_label = "app_personal_details"
         verbose_name = "Education Record"
-        verbose_name_plural = "Education Records"
+        verbose_name_plural=  "Education Records"
         ordering = ["-start_date", "institution"]
