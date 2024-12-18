@@ -1,5 +1,7 @@
 from django.views.generic import TemplateView
 
+from app.utils import ApplicationProcesses
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 from workresidentpermit.models import WorkPermit, ResidencePermit
 
 from services.form_models import replacement
@@ -20,7 +22,7 @@ class WorkResidentPermitReplacementView(TemplateView, ServiceApplicationViewMixi
             application_forms=self.application_forms(
                 model_cls_list=model_cls_list),
             
-            document_number=self.application_number(),
+            document_number=self.generate_new_application_number,
             non_citizen_identifier=self.non_citizen_identifier,
             personal_details=self.personal_details,
             
@@ -29,6 +31,15 @@ class WorkResidentPermitReplacementView(TemplateView, ServiceApplicationViewMixi
         )
 
         return context
+    
+    @property
+    def generate_new_application_number(self):
+        """Return a new application number.
+        """
+        application_number = self.new_application_number(
+            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value)
+        return application_number
 
     @property
     def work_permits(self):
