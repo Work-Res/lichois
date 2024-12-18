@@ -24,7 +24,6 @@ class WorkPermit(
     )
     job_offer = models.TextField()
     qualification = models.CharField(max_length=255)
-    years_of_study = models.IntegerField()
 
     class Meta:
         verbose_name = "Work Permits"
