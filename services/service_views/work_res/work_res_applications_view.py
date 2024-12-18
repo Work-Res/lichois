@@ -22,11 +22,11 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
             create_new_application=self.create_new_application,
             application_forms=self.service_application_forms,
             next_url=next_url,
-            
+
             document_number=self.generate_new_application_number,
             non_citizen_identifier=self.non_citizen_identifier,
             personal_details=self.personal_details,
-            
+
             permits=self.permits
         )
         return context
@@ -45,7 +45,7 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
         """Returns services forms with urls.
         """
         model_cls_list = work_res_permit  # This could come from a config file
-        
+
         application_number = self.new_application_number(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             application_type= WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value)
@@ -73,7 +73,7 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             application_document__applicant__user_identifier=self.non_citizen_identifier)
         return applications
-    
+
 
     @property
     def new_application_required(self):
