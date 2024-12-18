@@ -19,10 +19,6 @@ class Child(ApplicationBaseModel):
 
     is_applying_residence = models.CharField(max_length=3, choices=YES_NO, verbose_name="Whether applying For Residence")
 
-    is_adult = models.BooleanField(default=False)
-
-    is_minor = models.BooleanField(default=False)
-
     class Meta:
         verbose_name = "Child"
         verbose_name_plural = "Children"
