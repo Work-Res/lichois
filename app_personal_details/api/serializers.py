@@ -72,7 +72,6 @@ class EducationSerializer(serializers.ModelSerializer):
             "id",
             "level",
             "field_of_study",
-            "institution",
             "start_date",
             "end_date",
         )
