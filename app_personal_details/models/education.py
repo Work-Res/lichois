@@ -15,10 +15,9 @@ class Education(ApplicationBaseModel):
         verbose_name="Field or Area of Study",
         help_text="Specify the field or area of study.",
     )
-    institution = models.CharField(
-        max_length=100,
-        verbose_name="Institution",
-        help_text="Enter the name of the institution where the qualification was obtained.",
+    qualification = models.TextField(
+        verbose_name="Qualification",
+        help_text="Enter the name(s) of your Qualifications.",
     )
     start_date = models.DateField(
         verbose_name="Start Date",
@@ -30,18 +29,19 @@ class Education(ApplicationBaseModel):
         verbose_name="End Date",
         help_text="Specify the end date of the program, if applicable.",
     )
-    years_attended_full_time = models.IntegerField(
+    relevant_experience = models.TextField(
         blank=True,
         null=True,
-        verbose_name="Years Attended Full-Time",
-        help_text="Enter the total number of years spent in formal full-time education, including primary, secondary, and tertiary education.",
+        verbose_name="Relevant Work Experience",
+        help_text="Enter work experience eg \
+            (Hotel X(5years), Primary School(2years))",
     )
 
     def __str__(self):
         return f"{self.level} in {self.field_of_study} from {self.institution}"
 
     class Meta:
-        app_label = "app"
+        app_label = "app_personal_details"
         verbose_name = "Education Record"
-        verbose_name_plural = "Education Records"
+        verbose_name_plural=  "Education Records"
         ordering = ["-start_date", "institution"]

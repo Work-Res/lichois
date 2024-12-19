@@ -31,6 +31,7 @@ class Person(ApplicationBaseModel, NationalityModelMixin, models.Model):
         null=True,
         # validations=date_not_future TODO: add validation (more than 18 years only )
     )
+
     gender = models.CharField(
         max_length=6,
         choices=GENDER,

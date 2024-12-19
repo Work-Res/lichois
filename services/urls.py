@@ -9,6 +9,7 @@ from .service_views.work_res.renewals_view import WorkResidentPermitRenewalView
 from .service_views.work_res.replacement_views import WorkResidentPermitReplacementView
 from .service_views.work_res.cancellation_views import WorkResidentPermitCancellationView
 from .service_views.work_res.variation_views import WorkResidentPermitVariationView
+from .service_views.work_res import NewWorkResidentPermitDashboardView
 from services.service_views.work_permit import WorkPermitRenewalView
 from services.service_views.work_permit import WorkPermitReplacementView
 from services.service_views.work_permit import WorkPermitCancellationView
@@ -24,6 +25,8 @@ from services.service_views.emergency_permit import EmergencyPermitDashboardView
 from services.service_views.blue_card import BlueCardDashboardView
 from services.service_views.visa import VisaPermitDashboardView
 from services.service_views.excemption import ExemptionCertificateDashboardView
+from services.service_views.residence_permit import ResidentAppealsDashboardView
+from services.service_views.work_permit import WorkAppealsDashboardView
 
 from .admin_site import services_admin
 
@@ -110,6 +113,9 @@ urlpatterns = [
     path('workpermit/replacement/', WorkPermitReplacementView.as_view(),
          name="work_permit_replacement_dashboard"),
 
+    path('workpermit/appeal/', WorkAppealsDashboardView.as_view(),
+         name="work_permit_appeal_dashboard"),
+
 
     # Residence Permit Applications
 
@@ -128,6 +134,12 @@ urlpatterns = [
     path('res_permit/replacement/', ResidencePermitReplacementView.as_view(),
          name="res_permit_replacement_dashboard"),
 
+    path('res_permit/appeal/', ResidentAppealsDashboardView.as_view(),
+         name="res_permit_appeal_dashboard"),
+
+    path('new-work-res-permit', NewWorkResidentPermitDashboardView.as_view(),
+         name='new_work_res_permit_dashboard'),
+
 
 
     # Emergency permit Applications
@@ -140,12 +152,12 @@ urlpatterns = [
     path('blue_card_dashboard', BlueCardDashboardView.as_view(),
          name='blue_card_dashboard'),
 
-     # Visa Permit Applications
+    # Visa Permit Applications
 
     path('visa_permit_dashboard', VisaPermitDashboardView.as_view(),
          name='visa_permit_dashboard'),
 
-     # Visa Permit Applications
+    # Visa Permit Applications
 
     path('exemption_certificate_dashboard', ExemptionCertificateDashboardView.as_view(),
          name='exemption_certificate_dashboard'),

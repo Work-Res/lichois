@@ -1,27 +1,31 @@
 {% load static %}
 {% load sass_tags %}
 
-<!-- State saving Starts-->
+
+
+<!-- Complex headers (rowspan and colspan) Starts-->
 <div class="col-sm-12">
     <div class="card">
       <div class="card-header">
-          <h4>Existing Permits</h4><span>
+        <h4>Permits</h4>
       </div>
       <div class="card-body">
         <div class="table-responsive theme-scrollbar">
-          <table class="display">
+          <table class="display" id="basic-6">
             <thead>
-                <tr>
-                    <th>Permit Number</th>
-                    <th>Applicant Name</th>
-                    <th>Permit Type</th>
-                    <th>Issue Date</th>
-                    <th>Expiry Date</th>
-                    <th>Status</th>
-                </tr>
+              <tr>
+              	<th>Permit Number</th>
+	             <th>Applicant Name</th>
+	             <th>Permit Type</th>
+	             <th>Issue Date</th>
+	             <th>Expiry Date</th>
+	             <th>Status</th>
+	             <th>Action</th>
+              </tr>
             </thead>
             <tbody>
-                {% for permit in permits %}
+
+             {% for permit in permits %}
                 <tr>
                     <td>{{permit.permit_no}}</td>
                     <td>{{permit.applicant_name}}</td>
@@ -35,16 +39,20 @@
                         <span class="badge rounded-pill badge-light-primary">Active</span>
                         {% endif %}
                     </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6">No permits available.</td>
+                    <td> 
+	                  <ul class="action"> 
+	                    <li class="edit"> <a href="#"><i class="icon-pencil-alt"></i></a></li>
+	                    <li class="delete"><a href="#"><i class="icon-trash"></i></a></li>
+	                  </ul>
+	                </td>
                 </tr>
                 {% endfor %}
+              
             </tbody>
+            
           </table>
         </div>
       </div>
     </div>
   </div>
-  <!-- State saving Ends-->
+  <!-- Complex headers (rowspan and colspan) Ends-->

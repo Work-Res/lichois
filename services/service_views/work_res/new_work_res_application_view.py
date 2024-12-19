@@ -10,8 +10,8 @@ from ...form_models import work_res_permit
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
-class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
-    template_name = 'applications/work-res/work-res-dashboard.html'
+class NewWorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
+    template_name = 'applications/work-res/new-work-res-application.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -22,7 +22,6 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
             create_new_application=self.create_new_application,
             application_forms=self.service_application_forms,
             next_url=next_url,
-
             document_number=self.generate_new_application_number,
             non_citizen_identifier=self.non_citizen_identifier,
             personal_details=self.personal_details,
@@ -37,7 +36,7 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
         """
         application_number = self.new_application_number(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            application_type= WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value)
+            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value)
         return application_number
 
     @property
@@ -48,12 +47,12 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
 
         application_number = self.new_application_number(
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            application_type= WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value)
+            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value)
 
-        application_forms=self.application_forms(
-                model_cls_list=model_cls_list,
-                document_number=application_number,
-                next_url=next_url)
+        application_forms = self.application_forms(
+            model_cls_list=model_cls_list,
+            document_number=application_number,
+            next_url=next_url)
         return application_forms
 
     @property
@@ -73,7 +72,6 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
             process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
             application_document__applicant__user_identifier=self.non_citizen_identifier)
         return applications
-
 
     @property
     def new_application_required(self):
@@ -95,7 +93,7 @@ class WorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin)
     def active_application(self):
         """Returns True of there is an active application in progress.
         """
-        #Get Moffat to impliment
+        # Get Moffat to impliment
         return False
 
     @property
