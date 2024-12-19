@@ -47,14 +47,14 @@ class Command(CustomBaseCommand):
                     qualification=faker.random_element(
                         elements=("diploma", "degree", "masters", "phd")
                     ),
-                    years_of_study=faker.random_int(min=1, max=10),
                     business_name=faker.company(),
                     type_of_service=faker.text(),
                     job_title=faker.job(),
                     job_description=faker.text(),
                     renumeration=faker.random_int(min=10000, max=100000),
                     period_permit_sought=faker.random_int(min=1, max=10),
-                    has_vacancy_advertised=faker.boolean(chance_of_getting_true=50),
+                    has_vacancy_advertised=faker.random_element(elements=('Yes', 'No')),
+                    reason_no_vacancy_advertised=faker.text(),
                     have_funished=faker.boolean(chance_of_getting_true=50),
                     reasons_funished=faker.text(),
                     time_fully_trained=faker.random_int(min=1, max=10),
@@ -62,6 +62,7 @@ class Command(CustomBaseCommand):
                     reasons_recruitment=faker.text(),
                     labour_enquires=faker.text(),
                     no_bots_citizens=faker.random_int(min=1, max=10),
+                    no_non_citizens=faker.random_int(min=1, max=10),
                     name=faker.name(),
                     educational_qualification=faker.random_element(
                         elements=("diploma", "degree", "masters", "phd")
@@ -69,6 +70,7 @@ class Command(CustomBaseCommand):
                     job_experience=faker.text(),
                     take_over_trainees=faker.first_name(),
                     long_term_trainees=faker.first_name(),
+                    trainee_time=faker.random_int(min=1),
                     date_localization=faker.date_this_century(),
                     employer=faker.company(),
                     occupation=faker.job(),
