@@ -91,9 +91,6 @@ class ApplicationSummary:
                     )
                 else:
                     return model_cls.objects.get(document_number=self.document_number)
-            logger.warning(
-                f"Model: {model_cls._meta.label} does not have attribute document number."
-            )
         except (FieldError, model_cls.DoesNotExist):
             # Add the current model to traversed models to avoid infinite loops
             traversed_models.add(model_cls)
