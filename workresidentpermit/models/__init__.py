@@ -12,3 +12,4 @@ from .dependant import Dependant
 from .permit_cancellation_reason import PermitCancellationReason
 from .variation_permit import VariationPermit
 from .place_of_residence import PlaceOfResidence
+from .seasonal_farm_worker import SeasonalFarmWorker
