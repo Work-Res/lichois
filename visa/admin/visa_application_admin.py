@@ -11,7 +11,6 @@ class VisaApplicationAdmin(admin.ModelAdmin):
     form = VisaApplicationForm
 
     list_filter = ("visa_type", "no_of_entries")
-
     list_display = ("visa_type", "no_of_entries")
 
     fieldsets = (
@@ -47,7 +46,17 @@ class VisaApplicationAdmin(admin.ModelAdmin):
             },
         ),
     )
+
     radio_fields = {
         "visa_type": admin.VERTICAL,
         "no_of_entries": admin.VERTICAL,
     }
+
+    readonly_fields = (
+        "created",
+        "modified",
+        "user_created",
+        "user_modified",
+        "hostname_created",
+        "hostname_modified",
+    )
