@@ -44,4 +44,4 @@ class Education(ApplicationBaseModel):
         app_label = "app_personal_details"
         verbose_name = "Education Record"
         verbose_name_plural=  "Education Records"
-        ordering = ["-start_date", "institution"]
+        ordering = ["-start_date"]
