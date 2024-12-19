@@ -6,7 +6,7 @@ from services.form_models import appeal
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
-class WorkResidentAppealsDashboardView(TemplateView, ServiceApplicationViewMixin):
+class WorkAppealsDashboardView(TemplateView, ServiceApplicationViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):
