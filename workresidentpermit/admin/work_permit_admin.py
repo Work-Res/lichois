@@ -13,7 +13,7 @@ from ..models import WorkPermit
 class WorkPermitAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.ModelAdmin):
 
     form = WorkPermitForm
-    list_display: Tuple[str, ...] = ('document_number', 'permit_status', 'job_offer', 'qualification', 'years_of_study')
+    list_display: Tuple[str, ...] = ('document_number', 'permit_status', 'job_offer', 'qualification',)
     search_fields: Tuple[str, ...] = ('document_number',)
 
     fieldsets = (
@@ -31,18 +31,29 @@ class WorkPermitAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.
                 "renumeration",
                 "period_permit_sought",
                 "has_vacancy_advertised",
+                "reason_no_vacancy_advertised",
                 "labour_enquires",
             ),
         }),
         ("Training Localization Programme", {
             "fields": (
-
+                'have_funished',
+                'reason_no_funished',
+                'name',
+                'educational_qualification',
+                'job_experience',
+                'trainee_time',
+                'take_over_trainees',
+                'date_localization',
+                'reasons_renewal_takeover',
+                'no_bots_citizens',
+                'no_non_citizens',
             ),
         }),
         audit_fieldset_tuple
     )
 
-    # radio_fields = {"has_vacancy_advertised": admin.VERTICAL, }
+    radio_fields = {"has_vacancy_advertised": admin.VERTICAL, "have_funished": admin.HORIZONTAL, }
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
