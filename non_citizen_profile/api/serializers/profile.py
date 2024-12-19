@@ -1,18 +1,19 @@
 from rest_framework import serializers
-from ...models import (
-    Address,
-    Biometrics,
-    ContactDetails,
+from app_personal_details.models import (
     Passport,
-    PersonalDetails,
+    Person,
     Education,
     NextOfKin,
 )
+from ...models import Biometrics
+from app_address.models import ApplicationAddress
+from app_contact.models import ApplicationContact
+
 
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Address
+        model = ApplicationAddress
         fields = "__all__"
 
 
@@ -24,7 +25,7 @@ class BiometricsSerializer(serializers.ModelSerializer):
 
 class ContactDetailsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ContactDetails
+        model = ApplicationContact
         fields = "__all__"
 
 
@@ -36,7 +37,7 @@ class PassportSerializer(serializers.ModelSerializer):
 
 class PersonalDetailsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PersonalDetails
+        model = Person
         fields = "__all__"
 
 
