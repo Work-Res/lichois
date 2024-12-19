@@ -8,7 +8,7 @@ class PermitReplacement(ApplicationBaseModel):
     date_signed = models.DateField()
     signature = models.CharField(max_length=255)
     certificate_status = models.CharField(max_length=255, choices=CERTIFICATE_STATUS)
-    date_issued = models.DateField()
+    date_issued = models.DateField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Replacement Permit"
