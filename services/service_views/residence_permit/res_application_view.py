@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 
-from services.form_models import ResidencePermit
+from services.form_models import res_permit
 from ..service_application_view_mixin import ServiceApplicationViewMixin
 
 
@@ -10,13 +10,17 @@ class ResidencePermitDashboardView(TemplateView, ServiceApplicationViewMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
     
-        model_cls_list = [ ResidencePermit ] # This could come from a config file
+        model_cls_list = res_permit
     
         context.update(
-            document_number=self.application_number(),
             new_application=self.new_application,
             create_new_application=self.create_new_application,
-            application_forms= self.application_forms(model_cls_list=model_cls_list)
+            application_forms= self.application_forms(
+                model_cls_list=model_cls_list),
+            
+            document_number=self.application_number(),
+            non_citizen_identifier=self.non_citizen_identifier,
+            personal_details=self.personal_details
             )
 
         return context

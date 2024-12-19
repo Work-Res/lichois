@@ -10,7 +10,7 @@ class PermitCancellation(ApplicationBaseModel):
 
     submitted_by = models.CharField(max_length=150, blank=True, null=True)
 
-    cancellation_reasons = models.TextField()
+    cancellation_reasons = models.TextField(verbose_name="Give reasons to why you are cancelling your permit")
 
     class Meta:
         verbose_name = "Permit Cancellation"

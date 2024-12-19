@@ -17,6 +17,7 @@ from app.models import (
     ApplicationVersion,
 )
 from app.utils import ApplicationStatusEnum
+from app_payments.service import PaymentService
 from workresidentpermit.classes.work_res_application_repository import (
     ApplicationRepository,
 )
@@ -92,7 +93,40 @@ class ApplicationService:
                 appeal_application_dto=appeal_application_dto
             ).create_all(new_application_version=application_version)
 
+        # Create a payment if the service has payment
+        self.create_payment(application=application)
+
         return application, application_version
+
+    def create_payment(self, application):
+        """
+        Creates a payment for the given application.
+
+        Args:
+            application: The application object containing payment details.
+        """
+        try:
+            self.logger.info(
+                f"Initiating payment creation for application with document_number: "
+                f"{application.application_document.document_number} "
+                f"and application_type: {application.application_type}")
+
+            payment_service = PaymentService()
+            payment_service.create(
+                document_number=application.application_document.document_number,
+                reference_number=application.application_document.document_number,
+                application_type=application.process_name
+            )
+
+            self.logger.info(
+                f"Payment successfully created for application with document_number: "
+                f"{application.application_document.document_number}")
+        except Exception as e:
+            self.logger.error(
+                f"Failed to create payment for application with document_number: "
+                f"{application.application_document.document_number}. "
+                f"Error: {e}", exc_info=True)
+            raise
 
     def _is_existing_application(self):
         """
@@ -194,7 +228,6 @@ class ApplicationService:
                 f"applicant: {applicant}.",
             )
             return False
-        print("document_number document_number document_number")
 
         self.application_document.document_number = document_number
         self.application_document.applicant = applicant

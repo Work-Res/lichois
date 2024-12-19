@@ -7,6 +7,7 @@ from ..choices import APPEAL_TYPE
 class PermitAppeal(ApplicationBaseModel):
     reason_for_appeal = models.TextField()
     appeal_type = models.CharField(
+        verbose_name="",
         max_length=250,
         choices=APPEAL_TYPE,
         default="appeal",

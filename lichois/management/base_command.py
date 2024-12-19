@@ -76,7 +76,6 @@ class CustomBaseCommand(BaseCommand):
             last_name=lname,
             document_number=app.application_document.document_number,
             dob=self.faker.date_of_birth(minimum_age=18, maximum_age=65),
-            middle_name=self.faker.first_name(),
             marital_status=self.faker.random_element(
                 elements=("single", "married", "divorced")
             ),
@@ -88,7 +87,6 @@ class CustomBaseCommand(BaseCommand):
                 elements=("diploma", "degree", "masters", "phd")
             ),
             previous_nationality=self.faker.country(),
-            previous_botswana_id_no=self.faker.random_number(digits=9, fix_len=True),
             person_type=person_type,
         )
 

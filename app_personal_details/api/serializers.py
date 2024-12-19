@@ -25,7 +25,7 @@ class PersonSerializer(serializers.ModelSerializer):
         model = Person
         fields = (
             "first_name",
-            "middle_name",
+            "other_names",
             "last_name",
             "maiden_name",
             "marital_status",

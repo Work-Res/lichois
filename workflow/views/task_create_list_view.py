@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from rest_framework.permissions import IsAuthenticated
 
+from app.api.common.pagination import StandardResultsSetPagination
 from authentication.models import User
 from workflow.models import Task
 from .mixins.custom_permission_required import CustomPermissionRequired
@@ -17,6 +18,7 @@ class TaskCreateListViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     filter_class = TaskFilter
+    pagination_class = StandardResultsSetPagination
     ordering_fields = (
         'created',
     )

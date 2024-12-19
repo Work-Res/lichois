@@ -33,18 +33,14 @@
                 <h6 class="lan-1">General</h6>
               </div>
             </li>
-            <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+            <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="/index">
                 <svg class="stroke-icon">
                   <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-home"></use>
                 </svg>
                 <svg class="fill-icon">
                   <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-home"></use>
                 </svg><span class="lan-3">Dashboard          </span></a>
-              <ul class="sidebar-submenu">
-                <li><a class="lan-4" href="/index">Statistics & Reports</a></li>
-                <li><a class="lan-5" href="/dashboard_02">Services</a></li>
-                <li><a href="/dashboard_03">Ecommerce</a></li>
-                <li><a href="/dashboard_04">Education</a></li>
+                <ul class="sidebar-submenu">
               </ul>
             </li>
             <li class="sidebar-main-title">
@@ -82,6 +78,7 @@
                 <li><a href="{% url 'res_permit_renewal_dashboard' %}">Renewal</a></li>
                 <li><a href="{% url 'res_permit_replacement_dashboard' %}">Replacement</a></li>
                 <li><a href="{% url 'res_permit_cancellation_dashboard' %}">Cancellation</a></li>
+                <li><a href="{% url 'res_permit_appeal_dashboard'%}">Appeal</a></li>
               </ul>
             </li>
             
@@ -98,6 +95,8 @@
                 <li><a href="{% url 'work_permit_replacement_dashboard' %}">Replacement</a></li>
                 <li><a href="{% url 'work_permit_cancellation_dashboard' %}">Cancellation</a></li>
                 <li><a href="{% url 'work_permit_variation_dashboard'%}">Variation</a></li>
+                <li><a href="{% url 'work_permit_appeal_dashboard'%}">Appeal</a></li>
+
               </ul>
             </li>
             <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'emergency_permit_dashboard' %}">
@@ -109,7 +108,7 @@
               </svg><span>Emergency Permits</span></a>
             </li>
           
-              
+            
             <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'exemption_certificate_dashboard' %}">
               <svg class="stroke-icon">
                 <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
@@ -117,8 +116,21 @@
               <svg class="fill-icon">
                 <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
               </svg><span>Excemption</span></a>
+              
+              <li class="sidebar-list"><i class="fa fa-thumb-tack">    </i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                <svg class="stroke-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-project"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-project"></use>
+                </svg><span>Payments</span></a>
+              <ul class="sidebar-submenu">
+                <li><a href="{% url 'payments' %}">All Payments</a></li>
+                <li><a href="{% url 'payment_pending' %}">Pending</a></li>
+                <li><a href="{% url 'payments_paid' %}">PAID</a></li>
+                <li><a href="{% url 'payments_cancelled' %}">CANCELLED</a></li>
+              </ul>
             </li>
-
             <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'blue_card_dashboard' %}">
               <svg class="stroke-icon">
                 <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
@@ -127,14 +139,6 @@
                 <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
               </svg><span>Blue Card</span></a>
             </li>
-            
-            <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'travel_certificate_dashboard' %}">
-                <svg class="stroke-icon">
-                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>
-                </svg>
-                <svg class="fill-icon">
-                  <use href="{% static 'assets/svg/icon-sprite.svg'%}#fill-board"></use>
-                </svg><span>Travel Certificate</span></a></li>
             <li class="sidebar-list"><i class="fa fa-thumb-tack">        </i><a class="sidebar-link sidebar-title link-nav" href="{% url 'visa_permit_dashboard' %}">
                 <svg class="stroke-icon">
                   <use href="{% static 'assets/svg/icon-sprite.svg'%}#stroke-board"></use>

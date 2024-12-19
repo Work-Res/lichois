@@ -1,7 +1,7 @@
 from django.db import models
 
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime
 
 from app.choices import APPLICANT_TYPE
 from app.models import ApplicationBaseModel
@@ -60,6 +60,14 @@ class Permit(ApplicationBaseModel):
             place_issue=data.place_issue,
             document_number=data.document_number,
         )
+
+    @property
+    def expired(self):
+        """Return True if the permit has expired.
+        """ 
+        today = datetime.now().date()  # Get today's date (without time)
+        return self.date_expiry < today
+
 
     class Meta:
         verbose_name = "Permit"

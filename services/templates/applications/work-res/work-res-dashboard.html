@@ -20,14 +20,15 @@
           <div class="card container-fluid">
             <div class="card-body row project-cards">
               {% include "applications/work-res/components/work-res-applications-top-bar.html" %}
+              {% include "applications/work-res/components/personal_details_top.html" %}
               <div class="col-sm-12">
                 <div>
                   <div>
                     <div class="tab-content" id="top-tabContent">
+                      {% include "applications/work-res/components/applications_list.html" %}
+                      {% include "applications/work-res/components/permit_list.html" %}
                       {% if new_application %}
                       {% include "applications/work-res/components/work-res-application-forms.html" %}
-                      {% else %}
-                      	{% include "applications/work-res/components/exisitng-work-res-applications.html" %}
                       {% endif %}
                     </div>
                   </div>

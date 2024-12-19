@@ -10,15 +10,16 @@ from ..api.serializers.profile import (
     PassportSerializer,
     PersonalDetailsSerializer,
 )
-from ..models import (
-    Address,
-    Biometrics,
-    ContactDetails,
+from app_personal_details.models import (
+    Passport,
+    Person,
     Education,
     NextOfKin,
-    Passport,
-    PersonalDetails,
 )
+from ..models import Biometrics
+from app_address.models import ApplicationAddress
+from app_contact.models import ApplicationContact
+
 
 import logging
 
@@ -36,16 +37,16 @@ class NonCitizenProfile:
         self.logger.setLevel(logging.DEBUG)
 
     def get_address(self):
-        return self.get_data(Address, AddressSerializer)
+        return self.get_data(ApplicationAddress, AddressSerializer)
 
     def get_biometrics(self):
         return self.get_data(Biometrics, BiometricsSerializer)
 
     def get_contact_details(self):
-        return self.get_data(ContactDetails, ContactDetailsSerializer)
+        return self.get_data(ApplicationContact, ContactDetailsSerializer)
 
     def get_personal_details(self):
-        return self.get_data(PersonalDetails, PersonalDetailsSerializer)
+        return self.get_data(Person, PersonalDetailsSerializer)
 
     def get_education(self):
         return self.get_data(Education, EducationSerializer)
@@ -73,7 +74,7 @@ class NonCitizenProfile:
 
     def get_all_profiles(self):
         return PersonalDetailsSerializer(
-            PersonalDetails.objects.filter(**self.get_filters()), many=True
+            Person.objects.filter(**self.get_filters()), many=True
         ).data
 
     def get_filters(self):

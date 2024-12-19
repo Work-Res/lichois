@@ -6,6 +6,7 @@ from rest_framework import status
 
 
 class TaskAssignToUserTest(TaskViewSetTestBase):
+
     def test_assign_to_user_success_with_user_id(self):
         # Updated URL name
         url = reverse("workflow:task-assign-to-user", kwargs={"pk": self.task.id})

@@ -9,6 +9,6 @@ router = DefaultRouter()
 router.register(r"blue-cards", BlueCardViewSet, basename="blue-cards")
 
 urlpatterns = [
-    path("admin/", blue_card_admin.urls),
+    path("bluecard/", blue_card_admin.urls),
     path("", include(router.urls)),
 ]
