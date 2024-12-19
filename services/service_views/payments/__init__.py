@@ -1,0 +1,4 @@
+from .payment_views import PaymentsView
+from .payment_paid_views import PaymentsPaidView
+from .payment_pending_views import PaymentsPendingView
+from .payment_cancelled_views import PaymentsCancelledView

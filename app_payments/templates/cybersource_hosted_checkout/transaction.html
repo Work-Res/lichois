@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction</title>
+</head>
+<body>
+    <h1>Complete Your Transaction</h1>
+    <form method="post">
+        {% csrf_token %}
+                <!-- Render all visible fields -->
+        {% for field in form.visible_fields %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <span class="errorlist">
+                        {{ field.errors|join:", " }}
+                    </span>
+                {% endif %}
+            </p>
+        {% endfor %}
+        
+                <!-- Render all hidden fields -->
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+        {% endfor %}
+        
+                <!-- Global form errors (excluding hidden fields) -->
+        {% if form.non_field_errors %}
+            <div class="errorlist">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        
+        <button type="submit">Pay</button>
+    </form>
+</body>
+</html>

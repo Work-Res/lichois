@@ -1,8 +1,8 @@
-from .security_clearance_request_dto import SecurityClearanceRequestDTO
-from .recommendation_request_dto import RecommendationRequestDTO
-from .minister_request_dto import MinisterRequestDTO
-from .application_verification_request_dto import ApplicationVerificationRequestDTO
-from .pre_recommendation_request_dto import PresRecommendationRequestDTO
-from .replacement_application_dto import ReplacementApplicationDTO
 from .appeal_application_dto import AppealApplicationDTO
-
+from .application_verification_request_dto import ApplicationVerificationRequestDTO
+from .minister_request_dto import MinisterRequestDTO
+from .new_application_dto import NewApplicationDTO
+from .pre_recommendation_request_dto import PresRecommendationRequestDTO
+from .recommendation_request_dto import RecommendationRequestDTO
+from .replacement_application_dto import ReplacementApplicationDTO
+from .security_clearance_request_dto import SecurityClearanceRequestDTO

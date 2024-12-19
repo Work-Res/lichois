@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-xxl-8 col-lg-8 col-md-6">
         <div class="card">
-		  <h5 class="card-header bg-primary">Complete Application Forms Below</h5>
+		  <h5 class="card-header bg-primary">Complete All Application Forms Below</h5>
 		  <div class="card-body">
 		      <div class="table-responsive">
                     <table class="table">
@@ -40,26 +40,29 @@
 		  <h5 class="card-header bg-primary">Application Details</h5>
 		  <div class="card-body">
 		  	<ul class="list-group">
-              <li class="list-group-item">Full Names: Coulson Kgathi</li>
-              <li class="list-group-item">Email: ckgathi@gmail.com</li>
-              <li class="list-group-item">Nationality: American</li>
-              <li class="list-group-item">Passport Number: A1231242</li>
-              <li class="list-group-item">Date of Birth: 07-07-1989</li>
-              <li class="list-group-item">Phone Number: +267 71522602</li>
+		  	  {% for key, value in personal_details.items %}
+              <li class="list-group-item"><b>{{key}}</b>: {{value}}</li>
+              {% endfor %}
             </ul>
-		      <div class="project-status mt-4">
-	            <div class="d-flex mb-0">
-	              <p><b>Application Progress 70%</b></p>   
-	            </div>
-	            <div class="progress" style="height: 5px">
-	              <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar" style="width: 70%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-	            </div>
-	            <br>
-	            <ul class="list-group">
-	              <li class="list-group-item">Date of Submission: 24-11-2024</li>
-	              <li class="list-group-item">Status: In Progress</li>
-	            </ul>
-	          </div>
+		     <hr>
+	        <p><b>Application infor</b></p>   
+            <ul class="list-group">
+              <li class="list-group-item">Date of Submission: 24-11-2024</li>
+              <li class="list-group-item">Status: In Progress</li>
+            </ul>
+            
+            
+            <hr>
+	        <p><b>Application Payment</b></p>   
+            <ul class="list-group">
+              <li class="list-group-item"><b>Service</b>: Work & Residence Permit</li>
+              <li class="list-group-item"><b>Payment Fee</b>: BWP 1000</li>
+              <li class="list-group-item">
+              	<a href="" class="btn btn-success btn-lg" target="_blank">
+			      Pay Now
+			    </a>
+              </li>
+            </ul>
 		  </div>
 		</div>
       </div>

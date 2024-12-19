@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "citizenship",
     "app_oath",
     "app_information_requests",
+    "app_payments.apps.AppPaymentsConfig",
     # "haystack",
     "rules.apps.AutodiscoverRulesConfig",
     "rest_framework",
@@ -427,6 +428,11 @@ MS_CLIENT_SECRET = "5dm8Q~MJoDfJEAJIcIbWIbCA1akmtDVFyeSiGauM"
 MS_TENANT_ID = "cad42c6a-07cb-4b36-88b3-aa1995b4e3ca"
 MS_EMAIL = "objections_citizenship@outlook.com"
 
+CYBERSOURCE_URL="https://testsecureacceptance.cybersource.com/pay"
+CYBERSOURCE_PROFILE_ID = 'D3A81146-FE15-4378-A6CD-646AB9D43DC5'
+CYBERSOURCE_ACCESS_KEY = '9eaa567953e73c2da0926fe64f4bc639'
+CYBERSOURCE_SECRET_KEY = 'bf6e63c356c74c1381bef810affa6a9fec70a1aa286348c2a6cfc1b19e5b6382775ccbddd5cd4d0395e3e4a2bb02128be28da5cbdca546bbbb5493540dd07efe19d8a4c658594cc6a28d32fbc973a1208c1f9b352b0647e0a1eac2deeef206d2551729dcca4c44a3a0580f81cb26a0f749c36a7594bb413bb66bdd034b37b06f'
+
 
 
 LOGIN_URL = 'two_factor:login'
@@ -444,3 +450,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "pixel5softwares@gmail.com"
 EMAIL_HOST_PASSWORD = "cjdjaumrhwoxxtae"
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://testsecureacceptance.cybersource.com',
+    'https://secureacceptance.cybersource.com'
+]

@@ -44,6 +44,7 @@ python-docx
 django-mailbox
 pika==1.3.2
 pika-stubs==0.1.3
+django-braces==1.16.0
 django-sass-processor
 django-widget-tweaks
 django-two-factor-auth

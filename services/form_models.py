@@ -34,20 +34,20 @@ from board.admin_site import board_admin
 from citizenship.admin_site import citizenship_admin
 from non_citizen_profile.admin_site import non_citizen_profile_admin
 from permanent_residence.admin_site import permanent_residence_admin
-from travel.admin_site import travel_certificate_admin
 from visa.admin_site import visa_admin
 from workflow.admin_site import workflow_admin
 from workresidentpermit.admin_site import workresidencepermit_admin
 
 new_application = [
-    [Person, personal_details_admin],
-    [Spouse, personal_details_admin],
-    [Child, personal_details_admin],
-    [ParentalDetails, personal_details_admin],
-    [Education, personal_details_admin],
-    [Passport, personal_details_admin],
-    [ApplicationAddress, address_admin],
-    [ApplicationContact, contact_admin]
+        [Person, personal_details_admin],
+        [Passport, personal_details_admin],
+        [Education, personal_details_admin],
+        [ApplicationAddress, address_admin],
+        [ApplicationContact, contact_admin],
+        [Spouse, personal_details_admin],
+        [Child, personal_details_admin],
+        [WorkPermit, workresidencepermit_admin],
+        [ResidencePermit, workresidencepermit_admin]
 ]
 
 work_permit = [
@@ -60,12 +60,12 @@ res_permit = [
 
 work_res_permit = [
     [Person, personal_details_admin],
-    [Spouse, personal_details_admin],
-    [Child, personal_details_admin],
-    [Education, personal_details_admin],
     [Passport, personal_details_admin],
+    [Education, personal_details_admin],
     [ApplicationAddress, address_admin],
     [ApplicationContact, contact_admin],
+    [Spouse, personal_details_admin],
+    [Child, personal_details_admin],
     [WorkPermit, workresidencepermit_admin],
     [ResidencePermit, workresidencepermit_admin]
 ]
@@ -74,11 +74,9 @@ emergency_permit = [
     [EmergencyPermit, workresidencepermit_admin]
 ]
 
-travel_certificate = [
-    TravelCertNonCitizenForm
-]
-
 exemption_certificate = [
+    [Person, personal_details_admin],
+
     [ExemptionCertificate, workresidencepermit_admin]
 ]
 
@@ -97,7 +95,6 @@ variation = [
 
 cancellation = [
     [PermitCancellation, workresidencepermit_admin],
-    [PermitCancellationReason, workresidencepermit_admin]
 ]
 
 appeal = [

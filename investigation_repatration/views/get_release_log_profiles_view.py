@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 
 from non_citizen_profile.api.serializers import PersonalDetailsSerializer
-from non_citizen_profile.models import PersonalDetails
+from app_personal_details.models import Person
 from ..models import PrisonerReleaseLog
 
 
@@ -24,11 +24,11 @@ class GetReleaseLogProfilesView(APIView):
             profiles = []
             for prisoner in prisoners:
                 try:
-                    profile = PersonalDetails.objects.get(
+                    profile = Person.objects.get(
                         non_citizen_identifier=prisoner.non_citizen_identifier
                     )
                     profiles.append(profile)
-                except PersonalDetails.DoesNotExist:
+                except Person.DoesNotExist:
                     continue
             serialized_profiles = PersonalDetailsSerializer(profiles, many=True)
             return Response(serialized_profiles.data)

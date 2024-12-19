@@ -22,3 +22,16 @@ class PermitCancellationAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin
         'submitter_type',
         'submitted_by',
     )
+
+
+    fieldsets = (
+    ("Permit Cancellation", {
+        "fields": (
+            'submitter_type',
+            'submitted_by',
+            'cancellation_reasons',
+        ),
+         'description': 'Permit Cancellation Details',
+    }),
+     audit_fieldset_tuple
+    )
