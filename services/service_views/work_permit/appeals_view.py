@@ -3,10 +3,10 @@ from django.views.generic import TemplateView
 from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 from app.utils import ApplicationProcesses
 from services.form_models import appeal
-from ..service_application_view_mixin import ServiceApplicationViewMixin
+from ..applicant_details_view_mixin import ApplicationDetailsViewMixin
 
 
-class WorkAppealsDashboardView(TemplateView, ServiceApplicationViewMixin):
+class WorkAppealsDashboardView(TemplateView, ApplicationDetailsViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):
