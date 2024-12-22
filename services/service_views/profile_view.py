@@ -6,10 +6,10 @@ from app_personal_details.models import (
     Person, Passport, Education, ParentalDetails,
     NextOfKin, Spouse, Child)
 
-from .service_application_view_mixin import ServiceApplicationViewMixin
+from .applicant_details_view_mixin import ApplicationDetailsViewMixin
 
 
-class ProfileView(TemplateView, ServiceApplicationViewMixin):
+class ProfileView(TemplateView, ApplicationDetailsViewMixin):
     template_name = 'two_factor/profile/profile.html'
 
     def get_context_data(self, **kwargs):

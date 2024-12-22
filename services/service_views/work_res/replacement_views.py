@@ -3,10 +3,10 @@ from django.views.generic import TemplateView
 from workresidentpermit.models import WorkPermit, ResidencePermit
 
 from services.form_models import replacement
-from ..service_application_view_mixin import ServiceApplicationViewMixin
+from ..applicant_details_view_mixin import ApplicationDetailsViewMixin
 
 
-class WorkResidentPermitReplacementView(TemplateView, ServiceApplicationViewMixin):
+class WorkResidentPermitReplacementView(TemplateView, ApplicationDetailsViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):

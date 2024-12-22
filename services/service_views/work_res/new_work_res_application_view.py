@@ -3,41 +3,44 @@ from django.views.generic import TemplateView
 
 from app.models import Application
 from app.utils import ApplicationProcesses
-from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 from app_personal_details.models import Permit
+from workresidentpermit.utils import WorkResidentPermitApplicationTypeEnum
 
 from ...form_models import work_res_permit
-from ..service_application_view_mixin import ServiceApplicationViewMixin
+from ..applicant_details_view_mixin import ApplicationDetailsViewMixin
+from ..application_view_mixin import ApplicationViewMixin
 
 
-class NewWorkResidentPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
-    template_name = 'applications/work-res/new-work-res-application.html'
+class NewApplicationWorkResidentPermitDashboardView(
+        TemplateView, ApplicationViewMixin, ApplicationDetailsViewMixin):
+    template_name = 'applications/work-res/new_app_work_res_application.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        next_url = 'work_res_permit_dashboard'
+        next_url = 'new_app_work_res_permit_dashboard'
+
         context.update(
-            new_application_required=self.new_application_required,
-            create_new_application=self.create_new_application,
             application_forms=self.service_application_forms,
             next_url=next_url,
-            document_number=self.generate_new_application_number,
             non_citizen_identifier=self.non_citizen_identifier,
             personal_details=self.personal_details,
-
-            permits=self.permits
         )
         return context
 
-    @property
-    def generate_new_application_number(self):
-        """Return a new application number.
+
+    def create_or_get_appliation(self):
+        """Returns an application.
         """
-        application_number = self.new_application_number(
-            process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
-            application_type=WorkResidentPermitApplicationTypeEnum.WORK_RESIDENT_PERMIT_ONLY.value)
-        return application_number
+        try:
+            application = Application.objects.get(
+                process_name=ApplicationProcesses.WORK_RESIDENT_PERMIT.value,
+                application_document__applicant__user_identifier=self.non_citizen_identifier).exclude(
+                    application_status__code__in=[
+                        "COMPLETED", "CANCELLED", "REJECTED"])
+        except Application.DoesNotExist:
+            pass
+        return application
 
     @property
     def service_application_forms(self, next_url=None):

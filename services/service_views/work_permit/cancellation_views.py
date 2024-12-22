@@ -1,10 +1,10 @@
 from django.views.generic import TemplateView
 
-from services.form_models import cancellation
-from ..service_application_view_mixin import ServiceApplicationViewMixin
+from ...form_models import cancellation
+from ..applicant_details_view_mixin import ApplicationDetailsViewMixin
 
 
-class WorkPermitCancellationView(TemplateView, ServiceApplicationViewMixin):
+class WorkPermitCancellationView(TemplateView, ApplicationDetailsViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):

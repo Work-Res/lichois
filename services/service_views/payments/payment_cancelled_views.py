@@ -3,10 +3,10 @@ from django.views.generic import TemplateView
 from django.db.models import Count
 
 from app_payments.models import Payment
-from ..service_application_view_mixin import ServiceApplicationViewMixin
+from ..applicant_details_view_mixin import ApplicationDetailsViewMixin
 
 
-class PaymentsCancelledView(TemplateView, ServiceApplicationViewMixin):
+class PaymentsCancelledView(TemplateView, ApplicationDetailsViewMixin):
 
     template_name = 'applications/payments/payment-dashboard.html'
 

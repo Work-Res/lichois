@@ -1,5 +1,6 @@
-from .work_res import WorkResidentPermitDashboardView
-from .work_permit import WorkPermitDashboardView 
-from .residence_permit import ResidencePermitDashboardView
+from .applicant_details_view_mixin import ApplicationDetailsViewMixin
+from .application_view_mixin import ApplicationViewMixin
 from .profile_view import ProfileView
-
+from .residence_permit import ResidencePermitDashboardView
+from .work_permit import WorkPermitDashboardView 
+from .work_res import WorkResidentPermitDashboardView

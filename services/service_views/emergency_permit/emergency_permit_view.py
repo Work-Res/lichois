@@ -1,8 +1,9 @@
 from django.views.generic import TemplateView
-from services.form_models import emergency_permit
-from ..service_application_view_mixin import ServiceApplicationViewMixin
 
-class EmergencyPermitDashboardView(TemplateView, ServiceApplicationViewMixin):
+from ...form_models import emergency_permit
+from ..applicant_details_view_mixin import ApplicationDetailsViewMixin
+
+class EmergencyPermitDashboardView(TemplateView, ApplicationDetailsViewMixin):
     template_name = 'applications/work-res/work-res-dashboard.html'
 
     def get_context_data(self, **kwargs):

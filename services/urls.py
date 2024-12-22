@@ -9,7 +9,7 @@ from .service_views.work_res.renewals_view import WorkResidentPermitRenewalView
 from .service_views.work_res.replacement_views import WorkResidentPermitReplacementView
 from .service_views.work_res.cancellation_views import WorkResidentPermitCancellationView
 from .service_views.work_res.variation_views import WorkResidentPermitVariationView
-from .service_views.work_res import NewWorkResidentPermitDashboardView
+from .service_views.work_res import NewApplicationWorkResidentPermitDashboardView
 from services.service_views.work_permit import WorkPermitRenewalView
 from services.service_views.work_permit import WorkPermitReplacementView
 from services.service_views.work_permit import WorkPermitCancellationView
@@ -137,10 +137,7 @@ urlpatterns = [
     path('res_permit/appeal/', ResidentAppealsDashboardView.as_view(),
          name="res_permit_appeal_dashboard"),
 
-    path('new-work-res-permit', NewWorkResidentPermitDashboardView.as_view(),
-         name='new_work_res_permit_dashboard'),
-
-
+    path('new-work-res-permit', NewApplicationWorkResidentPermitDashboardView.as_view(), name='new_app_work_res_permit_dashboard' ),
 
     # Emergency permit Applications
 
