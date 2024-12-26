@@ -50,10 +50,12 @@ class WorkPermitAdmin(ModelAdminAuditFieldsMixin, BaseUrlModelAdminMixin, admin.
                 'no_non_citizens',
             ),
         }),
+
         audit_fieldset_tuple
     )
 
-    radio_fields = {"has_vacancy_advertised": admin.VERTICAL, "have_funished": admin.HORIZONTAL, }
+    radio_fields = {"has_vacancy_advertised": admin.VERTICAL,
+                    "have_funished": admin.HORIZONTAL, }
 
     def get_readonly_fields(self, request, obj=None):
         if obj:

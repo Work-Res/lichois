@@ -21,7 +21,8 @@ from workresidentpermit.models import (
     PermitReplacement,
     Dependant,
     PermitCancellationReason,
-    VariationPermit
+    VariationPermit,
+    InvestorRecord
 )
 
 from app_address.admin_site import address_admin
@@ -47,7 +48,8 @@ new_application = [
         [Spouse, personal_details_admin],
         [Child, personal_details_admin],
         [WorkPermit, workresidencepermit_admin],
-        [ResidencePermit, workresidencepermit_admin]
+        [ResidencePermit, workresidencepermit_admin],
+        [InvestorRecord, workresidencepermit_admin],
 ]
 
 work_permit = [
@@ -67,7 +69,8 @@ work_res_permit = [
     [Spouse, personal_details_admin],
     [Child, personal_details_admin],
     [WorkPermit, workresidencepermit_admin],
-    [ResidencePermit, workresidencepermit_admin]
+    [ResidencePermit, workresidencepermit_admin],
+    [InvestorRecord, workresidencepermit_admin],
 ]
 
 emergency_permit = [

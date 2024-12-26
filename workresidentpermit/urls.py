@@ -17,6 +17,7 @@ from .views import (
     WorkPermitViewSet,
     WorkResidentPermitApplicationDetailView,
     VariationPermitViewSet,
+    InvestorRecordViewSet,
 )
 
 from .admin_site import workresidencepermit_admin
@@ -40,12 +41,12 @@ router.register(
 router.register(r"permit-appeal", PermitAppealViewSet, basename="permit-appeal")
 router.register(r"permit-cancellation-reasons", PermitCancellationReasonViewSet)
 router.register(r"variation-permit", VariationPermitViewSet)
-
+router.register(r"investor-record", InvestorRecordViewSet, basename="investor-record")
 
 urlpatterns = [
-    
+
     path('workresidencepermit/', workresidencepermit_admin.urls),
-    
+
     path(
         "spouse/<str:document_number>/<str:pk>",
         SpouseCreateListView.as_view({"get": "list"}),

@@ -5,7 +5,6 @@ from app.models import ApplicationBaseModel
 from ..model_mixins import (
     EmployerModelMixin,
     TraineeModelMixin,
-    InvestorModelMixin,
     EmploymentRecordModelMixin,
 )
 
@@ -14,7 +13,6 @@ class WorkPermit(
     ApplicationBaseModel,
     EmployerModelMixin,
     TraineeModelMixin,
-    InvestorModelMixin,
     EmploymentRecordModelMixin,
 ):
     permit_status = models.CharField(

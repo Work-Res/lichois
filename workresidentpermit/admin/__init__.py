@@ -11,3 +11,4 @@ from .spouse_place_of_residence_admin import SpousePlaceOfResidenceAdmin
 from .employment_record_admin import EmploymentRecordAdmin
 from .permit_replacement_admin import PermitReplacementAdmin
 from .variation_permit_admin import VariationPermitAdmin
+from .investor_record_admin import InvestorRecordAdmin

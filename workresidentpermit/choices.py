@@ -116,7 +116,18 @@ CAPITAL_SOURCE = (
 )
 
 APPLICANT_TYPE = (
-    ("employee", "Employee"), 
+    ("employee", "Employee"),
     ("investor", "Investor"),
     ("self_employeed", "Self Employed"),
+)
+
+LANGUAGE_CHOICES = (
+    ('ST', 'Setswana'),
+    ('EN', 'English'),
+    ('FR', 'French'),
+    ('SP', 'Spanish'),
+    ('DE', 'German'),
+    ('CH', 'Chinese'),
+    ('AR', 'Arabic'),
+    ('OTHER', 'Other'),
 )

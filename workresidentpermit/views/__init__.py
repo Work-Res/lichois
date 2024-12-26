@@ -21,3 +21,4 @@ from .deferred_application_view import (
 )
 from .permit_cancellation_reason_viewset import PermitCancellationReasonViewSet
 from .variation_permit_view import VariationPermitViewSet
+from .investor_record_view import InvestorRecordViewSet
