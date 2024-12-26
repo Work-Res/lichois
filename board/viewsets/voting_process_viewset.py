@@ -91,3 +91,29 @@ class VotingProcessViewSet(viewsets.ModelViewSet):
             ).result(),
             status=status.HTTP_201_CREATED,
         )
+
+    @action(detail=False, methods=["get"], url_path="get-batch")
+    def get_batch(self, request, *args, **kwargs):
+        application_batch_id = request.query_params.get('application_batch_id', None)
+
+        if application_batch_id is not None:
+            try:
+                application_batch = ApplicationBatch.objects.get(id=application_batch_id)
+                applications = application_batch.applications.all()  
+                applications_data = [app.id for app in applications]  
+
+                return Response({
+                    "application_batch_id": application_batch.id,
+                    "batch_type": application_batch.batch_type,
+                    "applications": applications_data,  
+                })
+            
+            except ApplicationBatch.DoesNotExist:
+                return Response({
+                    "error": "Application batch not found"
+                }, status=404)
+        else:
+            return Response({
+                "error": "No application_batch_id provided"
+            }, status=400)
+
