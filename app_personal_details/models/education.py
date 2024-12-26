@@ -38,7 +38,7 @@ class Education(ApplicationBaseModel):
     )
 
     def __str__(self):
-        return f"{self.level} in {self.field_of_study} from {self.institution}"
+        return f"{self.level} in {self.field_of_study}"
 
     class Meta:
         app_label = "app_personal_details"
